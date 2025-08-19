@@ -12,6 +12,7 @@ interface CanvasElementProps {
 const CanvasElement: React.FC<CanvasElementProps> = ({ element, isSelected }) => {
   const dispatch = useDispatch();
   const { project } = useSelector((state: RootState) => state.canvas);
+  const { selectedTool } = useSelector((state: RootState) => state.ui);
   const elementRef = useRef<HTMLDivElement>(null);
 
   const handleClick = useCallback((e: React.MouseEvent) => {
@@ -29,12 +30,20 @@ const CanvasElement: React.FC<CanvasElementProps> = ({ element, isSelected }) =>
 
   const renderContent = () => {
     if (element.type === 'text') {
+      const isTextEditable = isSelected && selectedTool === 'text';
+      
       return (
         <div
-          contentEditable
+          contentEditable={isTextEditable}
           suppressContentEditableWarning
           onBlur={handleContentEdit}
-          className="w-full h-full outline-none"
+          onDoubleClick={(e) => {
+            e.stopPropagation();
+            // Make editable on double click
+            e.currentTarget.contentEditable = 'true';
+            e.currentTarget.focus();
+          }}
+          className={`w-full h-full outline-none ${isTextEditable ? 'cursor-text' : 'cursor-pointer'}`}
           style={{ minHeight: '1em' }}
         >
           {element.content || 'Edit this text'}

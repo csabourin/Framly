@@ -120,8 +120,12 @@ export function getElementAtPoint(x: number, y: number, elements: Record<string,
   if (!canvasElement) return null;
   
   const canvasRect = canvasElement.getBoundingClientRect();
-  const pageX = canvasRect.left + x;
-  const pageY = canvasRect.top + y;
+  // Account for zoom scaling in coordinate calculation  
+  const transform = (canvasElement as HTMLElement).style.transform;
+  const zoomMatch = transform.match(/scale\(([^)]+)\)/);
+  const zoomLevel = zoomMatch ? parseFloat(zoomMatch[1]) : 1;
+  const pageX = canvasRect.left + (x * zoomLevel);
+  const pageY = canvasRect.top + (y * zoomLevel);
   
   // Get the element at this point using DOM
   const elementAtPoint = document.elementFromPoint(pageX, pageY);
