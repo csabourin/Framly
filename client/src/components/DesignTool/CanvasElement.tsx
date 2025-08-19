@@ -50,7 +50,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({ element, isSelected }) =>
       );
     }
 
-    if (element.type === 'container' && element.children) {
+    if ((element.type === 'container' || element.type === 'rectangle') && element.children) {
       return (
         <>
           {element.children.map(childId => {

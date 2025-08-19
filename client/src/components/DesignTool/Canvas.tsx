@@ -79,11 +79,21 @@ const Canvas: React.FC = () => {
         bounds: { x: elementX, y: elementY + elementHeight - 2, width: elementWidth, height: 4 }
       };
     } else {
-      return {
-        position: 'inside',
-        elementId: hoveredElement.id,
-        bounds: { x: elementX, y: elementY, width: elementWidth, height: elementHeight }
-      };
+      // Inside element (containers and rectangles can accept children)
+      if (hoveredElement.isContainer || hoveredElement.type === 'container' || hoveredElement.type === 'rectangle') {
+        return {
+          position: 'inside',
+          elementId: hoveredElement.id,
+          bounds: { x: elementX, y: elementY, width: elementWidth, height: elementHeight }
+        };
+      } else {
+        // For non-container elements, default to after
+        return {
+          position: 'after',
+          elementId: hoveredElement.id,
+          bounds: { x: elementX, y: elementY + elementHeight - 2, width: elementWidth, height: 4 }
+        };
+      }
     }
   }, [selectedTool, project.elements, zoomLevel, rootElement, draggedElementId]);
 

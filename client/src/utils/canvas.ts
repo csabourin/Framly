@@ -24,13 +24,20 @@ export function createDefaultElement(type: CanvasElement['type'], x: number = 0,
         ...baseElement,
         width: 0, // Will be set to 100% in styles
         height: 80, // Reasonable default height
+        isContainer: true,
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+        alignItems: 'stretch',
+        children: [],
         styles: {
           backgroundColor: '#f3f4f6',
           border: '1px solid #d1d5db',
           borderRadius: '6px',
           padding: '16px',
           width: '100%',
-          display: 'block',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '8px',
         },
         classes: ['rectangle-element'],
       };
@@ -99,18 +106,30 @@ export function isPointInElement(x: number, y: number, element: CanvasElement): 
 }
 
 export function getElementAtPoint(x: number, y: number, elements: Record<string, CanvasElement>): CanvasElement | null {
-  // Get all elements as array and sort by z-index (if any)
-  const elementsArray = Object.values(elements);
+  // Use DOM-based detection for flexbox layouts
+  const canvasElement = document.querySelector('[data-testid="canvas-container"]');
+  if (!canvasElement) return null;
   
-  // Find the topmost element at the point
-  for (let i = elementsArray.length - 1; i >= 0; i--) {
-    const element = elementsArray[i];
-    if (isPointInElement(x, y, element)) {
-      return element;
+  const canvasRect = canvasElement.getBoundingClientRect();
+  const pageX = canvasRect.left + x;
+  const pageY = canvasRect.top + y;
+  
+  // Get the element at this point using DOM
+  const elementAtPoint = document.elementFromPoint(pageX, pageY);
+  if (!elementAtPoint) return null;
+  
+  // Find the closest element with data-element-id
+  let current: Element | null = elementAtPoint;
+  while (current && current !== canvasElement) {
+    const elementId = current.getAttribute('data-element-id');
+    if (elementId && elements[elementId]) {
+      return elements[elementId];
     }
+    current = current.parentElement;
   }
   
-  return null;
+  // If no specific element found, return root
+  return elements.root || null;
 }
 
 export function calculateSnapPosition(x: number, y: number, snapGrid: number = 10): { x: number; y: number } {
