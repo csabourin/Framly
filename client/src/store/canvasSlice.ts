@@ -24,6 +24,8 @@ const initialProject: Project = {
         flexDirection: 'column',
         backgroundColor: '#ffffff',
         minHeight: '600px',
+        padding: '20px',
+        gap: '16px',
       },
       isContainer: true,
       flexDirection: 'column',
@@ -116,7 +118,8 @@ const canvasSlice = createSlice({
         };
         
         canvasSlice.caseReducers.addElement(state, { 
-          payload: { element: newElement, parentId: element.parent }
+          payload: { element: newElement, parentId: element.parent },
+          type: 'canvas/addElement'
         });
       }
     },

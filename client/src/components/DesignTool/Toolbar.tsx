@@ -44,7 +44,7 @@ const Toolbar: React.FC = () => {
         const needsDivider = index === 4; // Add divider after image tool
         
         return (
-          <React.Fragment key={tool.id}>
+          <div key={tool.id}>
             {needsDivider && (
               <div className="w-6 h-px bg-gray-200 mx-auto my-2" data-testid="toolbar-divider" />
             )}
@@ -68,7 +68,7 @@ const Toolbar: React.FC = () => {
                 {tool.shortcut && <span className="ml-1 text-gray-400">({tool.shortcut})</span>}
               </div>
             </button>
-          </React.Fragment>
+          </div>
         );
       })}
     </aside>

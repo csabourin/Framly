@@ -34,9 +34,20 @@ const Canvas: React.FC = () => {
         dispatch(selectElement('root'));
       }
     } else if (['rectangle', 'text', 'image', 'container'].includes(selectedTool)) {
-      const newElement = createDefaultElement(selectedTool as any, x, y);
-      const parentId = getElementAtPoint(x, y, project.elements)?.id || 'root';
-      dispatch(addElement({ element: newElement, parentId }));
+      const clickedElement = getElementAtPoint(x, y, project.elements);
+      const parentElement = clickedElement || project.elements.root;
+      
+      // For rectangles, create full-width block elements inside the clicked element
+      if (selectedTool === 'rectangle' && parentElement) {
+        const newElement = createDefaultElement('rectangle', 0, 0);
+        // Rectangles should be block elements that take full width of their parent
+        newElement.x = 0;
+        newElement.y = 0;
+        dispatch(addElement({ element: newElement, parentId: parentElement.id }));
+      } else {
+        const newElement = createDefaultElement(selectedTool as any, x, y);
+        dispatch(addElement({ element: newElement, parentId: parentElement?.id || 'root' }));
+      }
     }
   }, [selectedTool, zoomLevel, project.elements, dispatch]);
 

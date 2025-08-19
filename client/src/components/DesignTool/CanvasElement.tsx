@@ -78,7 +78,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({ element, isSelected }) =>
     position: element.styles.position === 'absolute' ? 'absolute' : 'relative',
     left: element.styles.position === 'absolute' ? element.x : undefined,
     top: element.styles.position === 'absolute' ? element.y : undefined,
-    width: element.width,
+    width: element.styles.width || (element.width === 0 ? '100%' : element.width),
     height: element.height,
     ...element.styles,
   };

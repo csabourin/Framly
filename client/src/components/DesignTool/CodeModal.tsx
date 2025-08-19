@@ -64,7 +64,7 @@ const CodeModal: React.FC = () => {
       .replace(/(&lt;\/?[^&gt;]+&gt;)/g, '<span class="text-blue-400">$1</span>')
       .replace(/(class|id|src|href)=/g, '<span class="text-green-400">$1</span>=')
       .replace(/"([^"]*)"/g, '<span class="text-yellow-400">"$1"</span>')
-      .replace(/\/\*(.*?)\*\//gs, '<span class="text-gray-500">/*$1*/</span>')
+      .replace(/\/\*(.*?)\*\//g, '<span class="text-gray-500">/*$1*/</span>')
       .replace(/\/\/(.*?)$/gm, '<span class="text-gray-500">//$1</span>');
   };
 

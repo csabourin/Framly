@@ -22,11 +22,15 @@ export function createDefaultElement(type: CanvasElement['type'], x: number = 0,
     case 'rectangle':
       return {
         ...baseElement,
+        width: 0, // Will be set to 100% in styles
+        height: 80, // Reasonable default height
         styles: {
           backgroundColor: '#f3f4f6',
           border: '1px solid #d1d5db',
           borderRadius: '6px',
           padding: '16px',
+          width: '100%',
+          display: 'block',
         },
         classes: ['rectangle-element'],
       };
