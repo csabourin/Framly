@@ -128,38 +128,36 @@ export function getElementAtPoint(x: number, y: number, elements: Record<string,
   const elementAtPoint = document.elementFromPoint(pageX, pageY);
   if (!elementAtPoint) return null;
   
-  // Find all elements with data-element-id in the hierarchy, prioritizing deepest first
-  let allFoundElements: CanvasElement[] = [];
-  let foundRoot = false;
+  // Find the deepest element by collecting all elements in the hierarchy
+  let foundElements: { element: CanvasElement; depth: number }[] = [];
   let current: Element | null = elementAtPoint;
+  let depth = 0;
   
   while (current && current !== canvasElement) {
-    // Skip insertion indicators and their children
+    // Skip insertion indicators
     if (current.hasAttribute('data-testid') && current.getAttribute('data-testid') === 'insertion-indicator') {
       current = current.parentElement;
+      depth++;
       continue;
     }
     
     const elementId = current.getAttribute('data-element-id');
-    if (elementId && elements[elementId]) {
-      if (elementId !== 'root') {
-        // Found a specific non-root element, add to array (deepest first)
-        allFoundElements.unshift(elements[elementId]);
-      } else {
-        // Mark that we found root
-        foundRoot = true;
-      }
+    if (elementId && elements[elementId] && elementId !== 'root') {
+      foundElements.push({ element: elements[elementId], depth });
     }
+    
     current = current.parentElement;
+    depth++;
   }
   
-  // Return the deepest (most specific) element found
-  if (allFoundElements.length > 0) {
-    return allFoundElements[0]; // First item is the deepest
+  // Return the element with the smallest depth (deepest in DOM)
+  if (foundElements.length > 0) {
+    foundElements.sort((a, b) => a.depth - b.depth);
+    return foundElements[0].element;
   }
-  if (foundRoot) {
-    return elements.root || null;
-  }
+  
+  // Fallback to root if no specific elements found
+  return elements.root || null;
   return elements.root || null;
 }
 
