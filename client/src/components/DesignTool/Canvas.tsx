@@ -184,6 +184,12 @@ const Canvas: React.FC = () => {
       
       if (indicator) {
         console.log('Creating element with indicator:', indicator);
+        console.log('Available elements:', Object.keys(project.elements));
+        console.log('Click coordinates:', x, y);
+        
+        const hoveredElement = getElementAtPoint(x, y, project.elements, zoomLevel);
+        console.log('Hovered element at click:', hoveredElement);
+        
         const newElement = createDefaultElement(selectedTool as any, 0, 0);
         
         if (indicator.position === 'inside') {
