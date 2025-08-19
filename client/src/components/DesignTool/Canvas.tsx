@@ -428,16 +428,16 @@ const Canvas: React.FC = () => {
         {/* Insertion Indicator */}
         {insertionIndicator && (
           <div
-            className={`absolute ${
+            className={`absolute pointer-events-none ${
               isDraggingForReorder 
                 ? insertionIndicator.position === 'inside' 
-                  ? 'border-2 border-green-400 border-dashed bg-green-50 bg-opacity-30 pointer-events-none z-40' 
-                  : 'bg-green-500 pointer-events-auto cursor-pointer z-50'
+                  ? 'border-2 border-green-400 border-dashed bg-green-50 bg-opacity-30 z-40' 
+                  : 'bg-green-500 z-50'
                 : insertionIndicator.position === 'inside' 
                   ? insertionIndicator.elementId === 'root'
-                    ? 'border-2 border-blue-400 border-dashed bg-blue-50 bg-opacity-20 pointer-events-none z-[1]'
-                    : 'border-4 border-purple-500 border-solid bg-purple-100 bg-opacity-90 pointer-events-auto cursor-pointer z-[1000] shadow-lg shadow-purple-300'
-                  : 'bg-blue-500 pointer-events-auto cursor-pointer z-50'
+                    ? 'border-2 border-blue-400 border-dashed bg-blue-50 bg-opacity-20 z-[1]'
+                    : 'border-4 border-purple-500 border-solid bg-purple-100 bg-opacity-90 z-[1000] shadow-lg shadow-purple-300'
+                  : 'bg-blue-500 z-50'
             }`}
             style={{
               left: insertionIndicator.bounds.x,
