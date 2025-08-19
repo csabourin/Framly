@@ -1,0 +1,165 @@
+import { CanvasElement } from '../types/canvas';
+
+export function generateUniqueId(type: string): string {
+  return `${type}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+}
+
+export function createDefaultElement(type: CanvasElement['type'], x: number = 0, y: number = 0): CanvasElement {
+  const id = generateUniqueId(type);
+  
+  const baseElement: CanvasElement = {
+    id,
+    type,
+    x,
+    y,
+    width: 200,
+    height: 100,
+    styles: {},
+    classes: [],
+  };
+  
+  switch (type) {
+    case 'rectangle':
+      return {
+        ...baseElement,
+        styles: {
+          backgroundColor: '#f3f4f6',
+          border: '1px solid #d1d5db',
+          borderRadius: '6px',
+          padding: '16px',
+        },
+        classes: ['rectangle-element'],
+      };
+      
+    case 'text':
+      return {
+        ...baseElement,
+        height: 40,
+        content: 'Edit this text',
+        styles: {
+          fontSize: '16px',
+          fontWeight: '400',
+          color: '#1f2937',
+          padding: '8px',
+        },
+        classes: ['text-element'],
+      };
+      
+    case 'image':
+      return {
+        ...baseElement,
+        width: 300,
+        height: 200,
+        styles: {
+          backgroundColor: '#e5e7eb',
+          borderRadius: '6px',
+          backgroundImage: 'linear-gradient(45deg, #e5e7eb 25%, transparent 25%, transparent 75%, #e5e7eb 75%, #e5e7eb), linear-gradient(45deg, #e5e7eb 25%, transparent 25%, transparent 75%, #e5e7eb 75%, #e5e7eb)',
+          backgroundSize: '20px 20px',
+          backgroundPosition: '0 0, 10px 10px',
+        },
+        classes: ['image-element'],
+      };
+      
+    case 'container':
+      return {
+        ...baseElement,
+        width: 300,
+        height: 200,
+        isContainer: true,
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+        alignItems: 'stretch',
+        children: [],
+        styles: {
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '8px',
+          padding: '16px',
+          backgroundColor: '#ffffff',
+          border: '1px solid #d1d5db',
+          borderRadius: '6px',
+        },
+        classes: ['container-element'],
+      };
+      
+    default:
+      return baseElement;
+  }
+}
+
+export function isPointInElement(x: number, y: number, element: CanvasElement): boolean {
+  return x >= element.x && 
+         x <= element.x + element.width && 
+         y >= element.y && 
+         y <= element.y + element.height;
+}
+
+export function getElementAtPoint(x: number, y: number, elements: Record<string, CanvasElement>): CanvasElement | null {
+  // Get all elements as array and sort by z-index (if any)
+  const elementsArray = Object.values(elements);
+  
+  // Find the topmost element at the point
+  for (let i = elementsArray.length - 1; i >= 0; i--) {
+    const element = elementsArray[i];
+    if (isPointInElement(x, y, element)) {
+      return element;
+    }
+  }
+  
+  return null;
+}
+
+export function calculateSnapPosition(x: number, y: number, snapGrid: number = 10): { x: number; y: number } {
+  return {
+    x: Math.round(x / snapGrid) * snapGrid,
+    y: Math.round(y / snapGrid) * snapGrid,
+  };
+}
+
+export function getBoundingRect(elements: CanvasElement[]): { x: number; y: number; width: number; height: number } {
+  if (elements.length === 0) {
+    return { x: 0, y: 0, width: 0, height: 0 };
+  }
+  
+  let minX = Infinity;
+  let minY = Infinity;
+  let maxX = -Infinity;
+  let maxY = -Infinity;
+  
+  elements.forEach(element => {
+    minX = Math.min(minX, element.x);
+    minY = Math.min(minY, element.y);
+    maxX = Math.max(maxX, element.x + element.width);
+    maxY = Math.max(maxY, element.y + element.height);
+  });
+  
+  return {
+    x: minX,
+    y: minY,
+    width: maxX - minX,
+    height: maxY - minY,
+  };
+}
+
+export function validateCSSClassName(className: string): boolean {
+  // CSS class name validation
+  const validPattern = /^[a-zA-Z_-][a-zA-Z0-9_-]*$/;
+  return validPattern.test(className);
+}
+
+export function generateCSSClassSuggestions(type: CanvasElement['type']): string[] {
+  const baseSuggestions = ['container', 'wrapper', 'section', 'content'];
+  
+  switch (type) {
+    case 'text':
+      return ['heading', 'title', 'subtitle', 'paragraph', 'caption', 'label'];
+    case 'image':
+      return ['hero-image', 'thumbnail', 'avatar', 'logo', 'icon'];
+    case 'container':
+      return ['header', 'footer', 'sidebar', 'main', 'card', 'modal'];
+    case 'rectangle':
+      return ['box', 'panel', 'feature', 'highlight', 'banner'];
+    default:
+      return baseSuggestions;
+  }
+}
