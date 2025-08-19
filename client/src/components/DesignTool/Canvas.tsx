@@ -73,31 +73,44 @@ const Canvas: React.FC = () => {
 
     // Determine insertion zone based on mouse position relative to element
     const relativeY = y - elementY;
-    const topThird = elementHeight * 0.25;
-    const bottomThird = elementHeight * 0.75;
+    const relativeX = x - elementX;
+    
+    // Make before/after zones much smaller to reduce flickering
+    const beforeZone = 6;  // Only 6px at top edge
+    const afterZone = elementHeight - 6;  // Only 6px at bottom edge
 
-    if (relativeY < topThird) {
-      return {
-        position: 'before',
-        elementId: hoveredElement.id,
-        bounds: { x: elementX, y: elementY - 2, width: elementWidth, height: 4 }
-      };
-    } else if (relativeY > bottomThird) {
-      return {
-        position: 'after',
-        elementId: hoveredElement.id,
-        bounds: { x: elementX, y: elementY + elementHeight - 2, width: elementWidth, height: 4 }
-      };
-    } else {
-      // Inside element (containers and rectangles can accept children)
-      if (hoveredElement.isContainer || hoveredElement.type === 'container' || hoveredElement.type === 'rectangle') {
+    // For containers and rectangles, strongly prioritize "inside" detection
+    if (hoveredElement.isContainer || hoveredElement.type === 'container' || hoveredElement.type === 'rectangle') {
+      // Only show before/after if very close to edges AND away from the center
+      if (relativeY < beforeZone && relativeX > 15 && relativeX < elementWidth - 15) {
+        return {
+          position: 'before',
+          elementId: hoveredElement.id,
+          bounds: { x: elementX, y: elementY - 2, width: elementWidth, height: 4 }
+        };
+      } else if (relativeY > afterZone && relativeX > 15 && relativeX < elementWidth - 15) {
+        return {
+          position: 'after',
+          elementId: hoveredElement.id,
+          bounds: { x: elementX, y: elementY + elementHeight - 2, width: elementWidth, height: 4 }
+        };
+      } else {
+        // Default to inside for containers - this is the main case
         return {
           position: 'inside',
           elementId: hoveredElement.id,
           bounds: { x: elementX, y: elementY, width: elementWidth, height: elementHeight }
         };
+      }
+    } else {
+      // For non-container elements like text, use before/after more readily
+      if (relativeY < beforeZone) {
+        return {
+          position: 'before',
+          elementId: hoveredElement.id,
+          bounds: { x: elementX, y: elementY - 2, width: elementWidth, height: 4 }
+        };
       } else {
-        // For non-container elements, default to after
         return {
           position: 'after',
           elementId: hoveredElement.id,
@@ -137,8 +150,8 @@ const Canvas: React.FC = () => {
       if (['rectangle', 'text', 'image', 'container'].includes(selectedTool)) {
         const indicator = detectInsertionZone(x, y, false);
         
-        // Only update if detection changed significantly
-        const currentDetected = indicator?.elementId || 'none';
+        // Only update if detection changed significantly (element OR position)
+        const currentDetected = `${indicator?.elementId || 'none'}-${indicator?.position || 'none'}`;
         if (currentDetected !== lastDetectedRef.current) {
           lastDetectedRef.current = currentDetected;
           setInsertionIndicator(indicator);
