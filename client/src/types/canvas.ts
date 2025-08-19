@@ -14,6 +14,16 @@ export interface CanvasElement {
   justifyContent?: 'flex-start' | 'center' | 'flex-end' | 'space-between' | 'space-around';
   alignItems?: 'flex-start' | 'center' | 'flex-end' | 'stretch';
   classes?: string[];
+  
+  // Text-specific properties
+  textDisplay?: 'block' | 'inline';
+  
+  // Image-specific properties
+  imageUrl?: string;
+  imageRatio?: 'auto' | '16:9' | '4:3' | '1:1' | '3:2';
+  imageJustifySelf?: 'flex-start' | 'center' | 'flex-end';
+  widthUnit?: 'px' | 'rem' | '%' | 'vw' | 'auto';
+  heightUnit?: 'px' | 'rem' | '%' | 'vh' | 'auto';
 }
 
 export interface CSSProperties {

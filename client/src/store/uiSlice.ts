@@ -54,6 +54,19 @@ const uiSlice = createSlice({
       state.zoomLevel = Math.max(0.25, Math.min(4, action.payload));
     },
     
+    zoomIn: (state) => {
+      state.zoomLevel = Math.max(0.25, Math.min(4, state.zoomLevel * 1.2));
+    },
+    
+    zoomOut: (state) => {
+      state.zoomLevel = Math.max(0.25, Math.min(4, state.zoomLevel / 1.2));
+    },
+    
+    fitToScreen: (state) => {
+      state.zoomLevel = 1;
+      state.canvasOffset = { x: 0, y: 0 };
+    },
+    
     setCanvasOffset: (state, action: PayloadAction<{ x: number; y: number }>) => {
       state.canvasOffset = action.payload;
     },
@@ -103,6 +116,9 @@ export const {
   setCodeModalOpen,
   setGridVisible,
   setZoomLevel,
+  zoomIn,
+  zoomOut,
+  fitToScreen,
   setCanvasOffset,
   setDragging,
   setDragStart,

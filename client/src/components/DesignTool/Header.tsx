@@ -2,9 +2,9 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
 import { switchBreakpoint, undo, redo, updateProjectName } from '../../store/canvasSlice';
-import { setExportModalOpen, setCodeModalOpen } from '../../store/uiSlice';
+import { setExportModalOpen, setCodeModalOpen, zoomIn, zoomOut, fitToScreen } from '../../store/uiSlice';
 import { Button } from '@/components/ui/button';
-import { Eye, Undo, Redo, Download, Smartphone, Laptop, Monitor, Settings } from 'lucide-react';
+import { Eye, Undo, Redo, Download, Smartphone, Laptop, Monitor, Settings, Plus, Minus, Maximize } from 'lucide-react';
 
 const Header: React.FC = () => {
   const dispatch = useDispatch();
@@ -35,6 +35,18 @@ const Header: React.FC = () => {
 
   const handleExport = () => {
     dispatch(setExportModalOpen(true));
+  };
+
+  const handleZoomIn = () => {
+    dispatch(zoomIn());
+  };
+
+  const handleZoomOut = () => {
+    dispatch(zoomOut());
+  };
+
+  const handleFitToScreen = () => {
+    dispatch(fitToScreen());
   };
 
   return (
@@ -92,6 +104,40 @@ const Header: React.FC = () => {
           })}
         </div>
         
+        {/* Zoom Controls */}
+        <div className="flex items-center gap-1 bg-gray-100 rounded-lg p-1" data-testid="zoom-controls">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={handleZoomOut}
+            className="p-2 hover:bg-white hover:shadow-sm"
+            data-testid="button-zoom-out"
+            title="Zoom Out"
+          >
+            <Minus className="w-3 h-3" />
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={handleFitToScreen}
+            className="p-2 hover:bg-white hover:shadow-sm"
+            data-testid="button-fit-screen"
+            title="Fit to Screen"
+          >
+            <Maximize className="w-3 h-3" />
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={handleZoomIn}
+            className="p-2 hover:bg-white hover:shadow-sm"
+            data-testid="button-zoom-in"
+            title="Zoom In"
+          >
+            <Plus className="w-3 h-3" />
+          </Button>
+        </div>
+
         {/* Action Buttons */}
         <div className="flex items-center gap-2" data-testid="action-buttons">
           <Button

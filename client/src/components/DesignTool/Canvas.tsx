@@ -359,33 +359,7 @@ const Canvas: React.FC = () => {
           </div>
         )}
         
-        {/* Canvas Overlay Controls */}
-        <div className="absolute top-4 right-4 flex gap-2" data-testid="canvas-controls">
-          <button
-            onClick={handleZoomIn}
-            className="w-8 h-8 bg-white shadow-lg rounded-lg flex items-center justify-center text-gray-600 hover:text-gray-900 transition-colors"
-            title="Zoom In"
-            data-testid="button-zoom-in"
-          >
-            <Plus className="w-3 h-3" />
-          </button>
-          <button
-            onClick={handleZoomOut}
-            className="w-8 h-8 bg-white shadow-lg rounded-lg flex items-center justify-center text-gray-600 hover:text-gray-900 transition-colors"
-            title="Zoom Out"
-            data-testid="button-zoom-out"
-          >
-            <Minus className="w-3 h-3" />
-          </button>
-          <button
-            onClick={handleFitToScreen}
-            className="w-8 h-8 bg-white shadow-lg rounded-lg flex items-center justify-center text-gray-600 hover:text-gray-900 transition-colors"
-            title="Fit to Screen"
-            data-testid="button-fit-screen"
-          >
-            <Maximize className="w-3 h-3" />
-          </button>
-        </div>
+
       </div>
     </main>
   );

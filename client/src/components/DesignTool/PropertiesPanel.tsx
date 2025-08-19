@@ -271,6 +271,37 @@ const PropertiesPanel: React.FC = () => {
         <div className="p-4 border-b border-gray-200" data-testid="typography-properties">
           <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">Typography</h3>
           
+          {/* Text Display Type */}
+          <div className="mb-4">
+            <Label className="text-sm font-medium text-gray-700 mb-2">Display Type</Label>
+            <div className="grid grid-cols-2 gap-2">
+              <Button
+                variant={(selectedElement.textDisplay || 'block') === 'block' ? 'default' : 'outline'}
+                size="sm"
+                onClick={() => {
+                  handleElementUpdate('textDisplay', 'block');
+                  handleStyleUpdate('display', 'block');
+                }}
+                className="justify-start"
+                data-testid="button-text-block"
+              >
+                Block
+              </Button>
+              <Button
+                variant={selectedElement.textDisplay === 'inline' ? 'default' : 'outline'}
+                size="sm"
+                onClick={() => {
+                  handleElementUpdate('textDisplay', 'inline');
+                  handleStyleUpdate('display', 'inline');
+                }}
+                className="justify-start"
+                data-testid="button-text-inline"
+              >
+                Inline
+              </Button>
+            </div>
+          </div>
+          
           {/* Font Family */}
           <div className="mb-4">
             <Label className="text-sm font-medium text-gray-700 mb-2">Font Family</Label>
@@ -338,6 +369,126 @@ const PropertiesPanel: React.FC = () => {
                 className="flex-1 font-mono"
                 data-testid="input-text-color"
               />
+            </div>
+          </div>
+        </div>
+      )}
+      
+      {/* Image Properties */}
+      {selectedElement.type === 'image' && (
+        <div className="p-4 border-b border-gray-200" data-testid="image-properties">
+          <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">Image</h3>
+          
+          {/* Image URL */}
+          <div className="mb-4">
+            <Label className="text-sm font-medium text-gray-700 mb-2">Image URL</Label>
+            <Input
+              type="text"
+              placeholder="https://example.com/image.jpg"
+              value={selectedElement.imageUrl || ''}
+              onChange={(e) => handleElementUpdate('imageUrl', e.target.value)}
+              data-testid="input-image-url"
+            />
+          </div>
+          
+          {/* Aspect Ratio */}
+          <div className="mb-4">
+            <Label className="text-sm font-medium text-gray-700 mb-2">Aspect Ratio</Label>
+            <Select
+              value={selectedElement.imageRatio || 'auto'}
+              onValueChange={(value) => handleElementUpdate('imageRatio', value)}
+            >
+              <SelectTrigger data-testid="select-image-ratio">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="auto">Auto</SelectItem>
+                <SelectItem value="16:9">16:9</SelectItem>
+                <SelectItem value="4:3">4:3</SelectItem>
+                <SelectItem value="1:1">1:1</SelectItem>
+                <SelectItem value="3:2">3:2</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          
+          {/* Justify Self */}
+          <div className="mb-4">
+            <Label className="text-sm font-medium text-gray-700 mb-2">Justify Self</Label>
+            <Select
+              value={selectedElement.imageJustifySelf || 'flex-start'}
+              onValueChange={(value) => {
+                handleElementUpdate('imageJustifySelf', value);
+                handleStyleUpdate('justifySelf', value);
+              }}
+            >
+              <SelectTrigger data-testid="select-image-justify-self">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="flex-start">Start</SelectItem>
+                <SelectItem value="center">Center</SelectItem>
+                <SelectItem value="flex-end">End</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          
+          {/* Width and Height with Units */}
+          <div className="grid grid-cols-2 gap-2 mb-4">
+            <div>
+              <Label className="text-sm font-medium text-gray-700 mb-2">Width</Label>
+              <div className="flex gap-1">
+                <Input
+                  type="number"
+                  placeholder="100"
+                  value={selectedElement.width || ''}
+                  onChange={(e) => handleElementUpdate('width', parseInt(e.target.value) || 0)}
+                  className="flex-1"
+                  data-testid="input-image-width"
+                />
+                <Select
+                  value={selectedElement.widthUnit || 'px'}
+                  onValueChange={(value) => handleElementUpdate('widthUnit', value)}
+                >
+                  <SelectTrigger className="w-16">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="px">px</SelectItem>
+                    <SelectItem value="rem">rem</SelectItem>
+                    <SelectItem value="%">%</SelectItem>
+                    <SelectItem value="vw">vw</SelectItem>
+                    <SelectItem value="auto">auto</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+            <div>
+              <Label className="text-sm font-medium text-gray-700 mb-2">Height</Label>
+              <div className="flex gap-1">
+                <Input
+                  type="number"
+                  placeholder="100"
+                  value={selectedElement.height || ''}
+                  onChange={(e) => handleElementUpdate('height', parseInt(e.target.value) || 0)}
+                  className="flex-1"
+                  data-testid="input-image-height"
+                />
+                <Select
+                  value={selectedElement.heightUnit || 'px'}
+                  onValueChange={(value) => handleElementUpdate('heightUnit', value)}
+                >
+                  <SelectTrigger className="w-16">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="px">px</SelectItem>
+                    <SelectItem value="rem">rem</SelectItem>
+                    <SelectItem value="%">%</SelectItem>
+                    <SelectItem value="vh">vh</SelectItem>
+                    <SelectItem value="auto">auto</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
           </div>
         </div>
