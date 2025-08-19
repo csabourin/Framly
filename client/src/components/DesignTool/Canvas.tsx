@@ -148,9 +148,11 @@ const Canvas: React.FC = () => {
       }
     } else if (['rectangle', 'text', 'image', 'container'].includes(selectedTool)) {
       const indicator = detectInsertionZone(x, y, false);
+      console.log('Canvas click - indicator found:', indicator);
       
       if (indicator) {
         const newElement = createDefaultElement(selectedTool as any, 0, 0);
+        console.log('Creating new element:', newElement);
         
         if (indicator.position === 'inside') {
           // Insert inside the target element
@@ -164,6 +166,8 @@ const Canvas: React.FC = () => {
           const targetElement = project.elements[indicator.elementId];
           const parentId = targetElement?.parent || 'root';
           
+          console.log('Adding element as sibling:', { parentId, insertPosition: indicator.position, referenceElementId: indicator.elementId });
+          
           dispatch(addElement({ 
             element: newElement, 
             parentId: parentId,
@@ -172,11 +176,23 @@ const Canvas: React.FC = () => {
           }));
         }
         
-        // Clear the insertion indicator
+        // Clear the insertion indicator and select new element
         setInsertionIndicator(null);
+        dispatch(selectElement(newElement.id));
+      } else {
+        console.log('No indicator found - creating at root');
+        // If no specific insertion point, create at root
+        const newElement = createDefaultElement(selectedTool as any, x, y);
+        dispatch(addElement({ 
+          element: newElement, 
+          parentId: 'root',
+          insertPosition: 'inside'
+        }));
+        setInsertionIndicator(null);
+        dispatch(selectElement(newElement.id));
       }
     }
-  }, [selectedTool, zoomLevel, project.elements, dispatch]);
+  }, [selectedTool, zoomLevel, project.elements, dispatch, detectInsertionZone]);
 
   const handleMouseDown = useCallback((e: React.MouseEvent) => {
     const rect = canvasRef.current?.getBoundingClientRect();
