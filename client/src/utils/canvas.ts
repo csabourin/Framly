@@ -107,11 +107,11 @@ export function createDefaultElement(type: CanvasElement['type'], x: number = 0,
   }
 }
 
-export function isPointInElement(x: number, y: number, element: CanvasElement): boolean {
-  return x >= element.x && 
-         x <= element.x + element.width && 
-         y >= element.y && 
-         y <= element.y + element.height;
+export function isPointInElement(x: number, y: number, element: CanvasElement, tolerance: number = 3): boolean {
+  return x >= element.x - tolerance && 
+         x <= element.x + element.width + tolerance && 
+         y >= element.y - tolerance && 
+         y <= element.y + element.height + tolerance;
 }
 
 export function getElementAtPoint(x: number, y: number, elements: Record<string, CanvasElement>, zoomLevel: number = 1): CanvasElement | null {
@@ -157,9 +157,9 @@ export function getElementAtPoint(x: number, y: number, elements: Record<string,
     return aArea - bArea; // Smaller elements first
   });
   
-  // Check bounds with tolerance
+  // Check bounds with tolerance to prevent edge flickering
   for (const element of sortedElements) {
-    if (isPointInElement(x, y, element)) {
+    if (isPointInElement(x, y, element, 4)) { // 4px tolerance for detection
       return element;
     }
   }

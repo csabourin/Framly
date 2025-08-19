@@ -150,17 +150,14 @@ const Canvas: React.FC = () => {
         lastDetectedElementRef.current = currentElementId;
         
         const indicator = detectInsertionZone(x, y, false);
-        const currentIndicator = `${indicator?.elementId || 'none'}-${indicator?.position || 'none'}`;
         
         // Update insertion indicator
-        lastInsertionIndicatorRef.current = currentIndicator;
         setInsertionIndicator(indicator);
       }
       // If same element, keep current indicator without changes
     } else {
       setInsertionIndicator(null);
       lastDetectedElementRef.current = null;
-      lastInsertionIndicatorRef.current = null;
     }
   }, [selectedTool, zoomLevel, detectInsertionZone, isDraggingForReorder, draggedElementId, project.elements]);
 
