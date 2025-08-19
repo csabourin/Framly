@@ -446,41 +446,6 @@ const Canvas: React.FC = () => {
               height: insertionIndicator.bounds.height,
             }}
             data-testid="insertion-indicator"
-            onMouseEnter={(e) => {
-              e.stopPropagation();
-            }}
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              console.log('Insertion indicator clicked!', insertionIndicator);
-              // Trigger element creation at this position
-              if (['rectangle', 'text', 'image', 'container'].includes(selectedTool)) {
-                const newElement = createDefaultElement(selectedTool as any, 0, 0);
-                
-                if (insertionIndicator.position === 'inside') {
-                  // Insert inside the target element
-                  dispatch(addElement({ 
-                    element: newElement, 
-                    parentId: insertionIndicator.elementId,
-                    insertPosition: 'inside'
-                  }));
-                } else {
-                  // Insert before or after the target element (sibling)
-                  const targetElement = project.elements[insertionIndicator.elementId];
-                  const parentId = targetElement?.parent || 'root';
-                  
-                  dispatch(addElement({ 
-                    element: newElement, 
-                    parentId: parentId,
-                    insertPosition: insertionIndicator.position,
-                    referenceElementId: insertionIndicator.elementId
-                  }));
-                }
-                
-                setInsertionIndicator(null);
-                dispatch(selectElement(newElement.id));
-              }
-            }}
           >
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
               <div className={`text-white text-xs px-2 py-1 rounded whitespace-nowrap ${
