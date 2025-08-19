@@ -58,13 +58,31 @@ const canvasSlice = createSlice({
       state.project.selectedElementId = action.payload;
     },
     
-    addElement: (state, action: PayloadAction<{ element: CanvasElement; parentId?: string }>) => {
-      const { element, parentId = 'root' } = action.payload;
+    addElement: (state, action: PayloadAction<{ 
+      element: CanvasElement; 
+      parentId?: string; 
+      insertPosition?: 'before' | 'after' | 'inside';
+      referenceElementId?: string;
+    }>) => {
+      const { element, parentId = 'root', insertPosition = 'inside', referenceElementId } = action.payload;
       state.project.elements[element.id] = element;
+      element.parent = parentId;
       
       const parent = state.project.elements[parentId];
       if (parent && parent.children) {
-        parent.children.push(element.id);
+        if (insertPosition === 'inside' || !referenceElementId) {
+          // Add to end of children
+          parent.children.push(element.id);
+        } else {
+          // Find reference element index and insert before or after
+          const referenceIndex = parent.children.indexOf(referenceElementId);
+          if (referenceIndex !== -1) {
+            const insertIndex = insertPosition === 'before' ? referenceIndex : referenceIndex + 1;
+            parent.children.splice(insertIndex, 0, element.id);
+          } else {
+            parent.children.push(element.id);
+          }
+        }
       }
       
       state.project.selectedElementId = element.id;
