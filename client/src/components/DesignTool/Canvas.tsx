@@ -120,8 +120,9 @@ const Canvas: React.FC = () => {
     }
   }, [selectedTool, project.elements, zoomLevel, rootElement, draggedElementId]);
 
-  // Stable detection state
+  // Sticky detection state with hysteresis
   const lastDetectedRef = useRef<string | null>(null);
+  const lastMousePosRef = useRef<{x: number, y: number}>({x: 0, y: 0});
   const detectionTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Handle mouse move for insertion indicators and drag operations  
@@ -132,12 +133,24 @@ const Canvas: React.FC = () => {
     const x = (e.clientX - rect.left) / zoomLevel;
     const y = (e.clientY - rect.top) / zoomLevel;
 
+    // Calculate mouse movement distance
+    const deltaX = Math.abs(x - lastMousePosRef.current.x);
+    const deltaY = Math.abs(y - lastMousePosRef.current.y);
+    const totalMovement = deltaX + deltaY;
+
+    // Only trigger detection on significant movement (hysteresis)
+    if (totalMovement < 5) {
+      return; // Ignore tiny movements
+    }
+
+    lastMousePosRef.current = {x, y};
+
     // Clear previous timeout
     if (detectionTimeoutRef.current) {
       clearTimeout(detectionTimeoutRef.current);
     }
 
-    // Stabilize detection with short delay
+    // Stabilize detection with delay
     detectionTimeoutRef.current = setTimeout(() => {
       // Handle dragging for reorder (hand tool)
       if (isDraggingForReorder && draggedElementId && selectedTool === 'hand') {
@@ -150,7 +163,7 @@ const Canvas: React.FC = () => {
       if (['rectangle', 'text', 'image', 'container'].includes(selectedTool)) {
         const indicator = detectInsertionZone(x, y, false);
         
-        // Only update if detection changed significantly (element OR position)
+        // Only update if detection changed significantly
         const currentDetected = `${indicator?.elementId || 'none'}-${indicator?.position || 'none'}`;
         if (currentDetected !== lastDetectedRef.current) {
           lastDetectedRef.current = currentDetected;
@@ -160,7 +173,7 @@ const Canvas: React.FC = () => {
         setInsertionIndicator(null);
         lastDetectedRef.current = null;
       }
-    }, 50); // 50ms stabilization delay
+    }, 100); // Increased delay for more stability
   }, [selectedTool, zoomLevel, detectInsertionZone, isDraggingForReorder, draggedElementId]);
 
   const handleCanvasClick = useCallback((e: React.MouseEvent) => {

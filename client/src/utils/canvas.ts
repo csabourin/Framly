@@ -128,13 +128,28 @@ export function getElementAtPoint(x: number, y: number, elements: Record<string,
   const elementAtPoint = document.elementFromPoint(pageX, pageY);
   if (!elementAtPoint) return null;
   
-  // Use bounds-based detection first for more stable results
+  // Use bounds-based detection with tolerance for stability
   const nonRootElements = Object.values(elements).filter(el => el.id !== 'root');
   
-  // Sort by depth (children before parents) and area (smaller before larger)
+  // Sort by depth and area with more generous criteria
   const sortedElements = nonRootElements.sort((a, b) => {
-    const aDepth = (a.parent && a.parent !== 'root') ? 2 : 1;
-    const bDepth = (b.parent && b.parent !== 'root') ? 2 : 1;
+    // Calculate actual depth by walking parent chain
+    let aDepth = 0;
+    let current = a;
+    while (current.parent && current.parent !== 'root') {
+      aDepth++;
+      current = elements[current.parent];
+      if (!current || aDepth > 10) break; // Safety check
+    }
+    
+    let bDepth = 0;
+    current = b;
+    while (current.parent && current.parent !== 'root') {
+      bDepth++;
+      current = elements[current.parent];
+      if (!current || bDepth > 10) break; // Safety check
+    }
+    
     if (aDepth !== bDepth) return bDepth - aDepth; // Deeper elements first
     
     const aArea = a.width * a.height;
@@ -142,9 +157,13 @@ export function getElementAtPoint(x: number, y: number, elements: Record<string,
     return aArea - bArea; // Smaller elements first
   });
   
-  // Check if point is within any element bounds first
+  // Check bounds with small tolerance to prevent edge flickering
   for (const element of sortedElements) {
-    if (isPointInElement(x, y, element)) {
+    const tolerance = 2; // 2px tolerance
+    if (x >= element.x - tolerance && 
+        x <= element.x + element.width + tolerance && 
+        y >= element.y - tolerance && 
+        y <= element.y + element.height + tolerance) {
       return element;
     }
   }
