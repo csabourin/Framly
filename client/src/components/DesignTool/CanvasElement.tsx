@@ -108,9 +108,20 @@ const CanvasElement: React.FC<CanvasElementProps> = ({ element, isSelected, isHo
     height: element.styles.minHeight ? undefined : element.height,
     ...element.styles,
     backgroundColor: getBackgroundColor(),
-    border: getBorderStyle(),
+    border: getBorderStyle() || element.styles.border,
     boxShadow: isSelected ? '0 0 0 1px rgba(59, 130, 246, 0.3)' : undefined,
   };
+
+  // Add debug logging
+  if (isHovered) {
+    console.log('Element hover state:', { 
+      elementId: element.id, 
+      isHovered, 
+      hoveredZone, 
+      border: getBorderStyle(),
+      backgroundColor: getBackgroundColor()
+    });
+  }
 
   return (
     <div

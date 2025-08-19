@@ -152,6 +152,8 @@ const Canvas: React.FC = () => {
       }
     } else if (['rectangle', 'text', 'image', 'container'].includes(selectedTool)) {
       // Create element based on hovered element and zone
+      console.log('Click - hoveredElementId:', hoveredElementId, 'hoveredZone:', hoveredZone);
+      
       if (hoveredElementId && hoveredZone) {
         console.log('Creating element - hoveredElementId:', hoveredElementId, 'zone:', hoveredZone);
         
