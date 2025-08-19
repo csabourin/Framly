@@ -120,10 +120,9 @@ const Canvas: React.FC = () => {
     }
   }, [selectedTool, project.elements, zoomLevel, rootElement, draggedElementId]);
 
-  // Sticky detection state with hysteresis
-  const lastDetectedRef = useRef<string | null>(null);
-  const lastMousePosRef = useRef<{x: number, y: number}>({x: 0, y: 0});
-  const detectionTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  // Element-based sticky detection
+  const lastDetectedElementRef = useRef<string | null>(null);
+  const lastInsertionIndicatorRef = useRef<string | null>(null);
 
   // Handle mouse move for insertion indicators and drag operations  
   const handleCanvasMouseMove = useCallback((e: React.MouseEvent) => {
@@ -133,48 +132,37 @@ const Canvas: React.FC = () => {
     const x = (e.clientX - rect.left) / zoomLevel;
     const y = (e.clientY - rect.top) / zoomLevel;
 
-    // Calculate mouse movement distance
-    const deltaX = Math.abs(x - lastMousePosRef.current.x);
-    const deltaY = Math.abs(y - lastMousePosRef.current.y);
-    const totalMovement = deltaX + deltaY;
-
-    // Only trigger detection on significant movement (hysteresis)
-    if (totalMovement < 5) {
-      return; // Ignore tiny movements
+    // Handle dragging for reorder (hand tool)
+    if (isDraggingForReorder && draggedElementId && selectedTool === 'hand') {
+      const indicator = detectInsertionZone(x, y, true);
+      setInsertionIndicator(indicator);
+      return;
     }
 
-    lastMousePosRef.current = {x, y};
-
-    // Clear previous timeout
-    if (detectionTimeoutRef.current) {
-      clearTimeout(detectionTimeoutRef.current);
-    }
-
-    // Stabilize detection with delay
-    detectionTimeoutRef.current = setTimeout(() => {
-      // Handle dragging for reorder (hand tool)
-      if (isDraggingForReorder && draggedElementId && selectedTool === 'hand') {
-        const indicator = detectInsertionZone(x, y, true);
-        setInsertionIndicator(indicator);
-        return;
-      }
-
-      // Handle insertion indicators for element creation tools
-      if (['rectangle', 'text', 'image', 'container'].includes(selectedTool)) {
-        const indicator = detectInsertionZone(x, y, false);
+    // Handle insertion indicators for element creation tools
+    if (['rectangle', 'text', 'image', 'container'].includes(selectedTool)) {
+      // First, determine what element we're currently hovering over
+      const hoveredElement = getElementAtPoint(x, y, project.elements, zoomLevel);
+      const currentElementId = hoveredElement?.id || 'root';
+      
+      // Only recalculate insertion zone if we've moved to a different element
+      if (currentElementId !== lastDetectedElementRef.current) {
+        lastDetectedElementRef.current = currentElementId;
         
-        // Only update if detection changed significantly
-        const currentDetected = `${indicator?.elementId || 'none'}-${indicator?.position || 'none'}`;
-        if (currentDetected !== lastDetectedRef.current) {
-          lastDetectedRef.current = currentDetected;
-          setInsertionIndicator(indicator);
-        }
-      } else {
-        setInsertionIndicator(null);
-        lastDetectedRef.current = null;
+        const indicator = detectInsertionZone(x, y, false);
+        const currentIndicator = `${indicator?.elementId || 'none'}-${indicator?.position || 'none'}`;
+        
+        // Update insertion indicator
+        lastInsertionIndicatorRef.current = currentIndicator;
+        setInsertionIndicator(indicator);
       }
-    }, 100); // Increased delay for more stability
-  }, [selectedTool, zoomLevel, detectInsertionZone, isDraggingForReorder, draggedElementId]);
+      // If same element, keep current indicator without changes
+    } else {
+      setInsertionIndicator(null);
+      lastDetectedElementRef.current = null;
+      lastInsertionIndicatorRef.current = null;
+    }
+  }, [selectedTool, zoomLevel, detectInsertionZone, isDraggingForReorder, draggedElementId, project.elements]);
 
   const handleCanvasClick = useCallback((e: React.MouseEvent) => {
     e.preventDefault();

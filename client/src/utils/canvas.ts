@@ -157,13 +157,9 @@ export function getElementAtPoint(x: number, y: number, elements: Record<string,
     return aArea - bArea; // Smaller elements first
   });
   
-  // Check bounds with small tolerance to prevent edge flickering
+  // Check bounds with tolerance
   for (const element of sortedElements) {
-    const tolerance = 2; // 2px tolerance
-    if (x >= element.x - tolerance && 
-        x <= element.x + element.width + tolerance && 
-        y >= element.y - tolerance && 
-        y <= element.y + element.height + tolerance) {
+    if (isPointInElement(x, y, element)) {
       return element;
     }
   }
