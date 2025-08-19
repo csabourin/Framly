@@ -114,34 +114,38 @@ export function isPointInElement(x: number, y: number, element: CanvasElement): 
          y <= element.y + element.height;
 }
 
-export function getElementAtPoint(x: number, y: number, elements: Record<string, CanvasElement>): CanvasElement | null {
+export function getElementAtPoint(x: number, y: number, elements: Record<string, CanvasElement>, zoomLevel: number = 1): CanvasElement | null {
   // Use DOM-based detection for flexbox layouts
   const canvasElement = document.querySelector('[data-testid="canvas-container"]');
   if (!canvasElement) return null;
   
   const canvasRect = canvasElement.getBoundingClientRect();
-  // Account for zoom scaling in coordinate calculation  
-  const transform = (canvasElement as HTMLElement).style.transform;
-  const zoomMatch = transform.match(/scale\(([^)]+)\)/);
-  const zoomLevel = zoomMatch ? parseFloat(zoomMatch[1]) : 1;
+  // Convert canvas coordinates to page coordinates accounting for zoom
   const pageX = canvasRect.left + (x * zoomLevel);
   const pageY = canvasRect.top + (y * zoomLevel);
+  
+  console.log('getElementAtPoint:', { x, y, zoomLevel, pageX, pageY, canvasRect });
   
   // Get the element at this point using DOM
   const elementAtPoint = document.elementFromPoint(pageX, pageY);
   if (!elementAtPoint) return null;
   
+  console.log('DOM element at point:', elementAtPoint);
+  
   // Find the closest element with data-element-id
   let current: Element | null = elementAtPoint;
   while (current && current !== canvasElement) {
     const elementId = current.getAttribute('data-element-id');
+    console.log('Checking element:', current, 'elementId:', elementId);
     if (elementId && elements[elementId]) {
+      console.log('Found canvas element:', elementId);
       return elements[elementId];
     }
     current = current.parentElement;
   }
   
   // If no specific element found, return root
+  console.log('No specific element found, returning root');
   return elements.root || null;
 }
 

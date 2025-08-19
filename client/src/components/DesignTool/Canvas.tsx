@@ -32,7 +32,7 @@ const Canvas: React.FC = () => {
       return null;
     }
 
-    const hoveredElement = getElementAtPoint(x, y, project.elements);
+    const hoveredElement = getElementAtPoint(x, y, project.elements, zoomLevel);
     
     // Skip the dragged element itself during drag operations
     if (forDrag && draggedElementId && hoveredElement?.id === draggedElementId) {
@@ -132,7 +132,7 @@ const Canvas: React.FC = () => {
     const y = (e.clientY - rect.top) / zoomLevel;
     
     if (selectedTool === 'select') {
-      const clickedElement = getElementAtPoint(x, y, project.elements);
+      const clickedElement = getElementAtPoint(x, y, project.elements, zoomLevel);
       if (clickedElement) {
         dispatch(selectElement(clickedElement.id));
       } else {
@@ -140,7 +140,7 @@ const Canvas: React.FC = () => {
       }
     } else if (selectedTool === 'hand') {
       // Hand tool for selection and drag preparation
-      const clickedElement = getElementAtPoint(x, y, project.elements);
+      const clickedElement = getElementAtPoint(x, y, project.elements, zoomLevel);
       if (clickedElement && clickedElement.id !== 'root') {
         dispatch(selectElement(clickedElement.id));
       } else {
@@ -205,7 +205,7 @@ const Canvas: React.FC = () => {
       dispatch(setDragStart({ x: x - selectedElement.x, y: y - selectedElement.y }));
       dispatch(setDragging(true));
     } else if (selectedTool === 'hand') {
-      const clickedElement = getElementAtPoint(x, y, project.elements);
+      const clickedElement = getElementAtPoint(x, y, project.elements, zoomLevel);
       if (clickedElement && clickedElement.id !== 'root') {
         dispatch(selectElement(clickedElement.id));
         dispatch(setDraggedElement(clickedElement.id));
