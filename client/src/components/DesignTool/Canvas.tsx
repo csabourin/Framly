@@ -141,20 +141,11 @@ const Canvas: React.FC = () => {
 
     // Handle insertion indicators for element creation tools
     if (['rectangle', 'text', 'image', 'container'].includes(selectedTool)) {
-      // First, determine what element we're currently hovering over
-      const hoveredElement = getElementAtPoint(x, y, project.elements, zoomLevel);
-      const currentElementId = hoveredElement?.id || 'root';
+      // Always calculate insertion zone for accurate positioning
+      const indicator = detectInsertionZone(x, y, false);
       
-      // Only recalculate insertion zone if we've moved to a different element
-      if (currentElementId !== lastDetectedElementRef.current) {
-        lastDetectedElementRef.current = currentElementId;
-        
-        const indicator = detectInsertionZone(x, y, false);
-        
-        // Update insertion indicator
-        setInsertionIndicator(indicator);
-      }
-      // If same element, keep current indicator without changes
+      // Update insertion indicator
+      setInsertionIndicator(indicator);
     } else {
       setInsertionIndicator(null);
       lastDetectedElementRef.current = null;
@@ -188,12 +179,12 @@ const Canvas: React.FC = () => {
         dispatch(selectElement('root'));
       }
     } else if (['rectangle', 'text', 'image', 'container'].includes(selectedTool)) {
-      const indicator = detectInsertionZone(x, y, false);
-  
+      // Use the current insertion indicator if available, otherwise detect new one
+      const indicator = insertionIndicator || detectInsertionZone(x, y, false);
       
       if (indicator) {
+        console.log('Creating element with indicator:', indicator);
         const newElement = createDefaultElement(selectedTool as any, 0, 0);
-
         
         if (indicator.position === 'inside') {
           // Insert inside the target element
@@ -207,8 +198,6 @@ const Canvas: React.FC = () => {
           const targetElement = project.elements[indicator.elementId];
           const parentId = targetElement?.parent || 'root';
           
-
-          
           dispatch(addElement({ 
             element: newElement, 
             parentId: parentId,
@@ -221,7 +210,6 @@ const Canvas: React.FC = () => {
         setInsertionIndicator(null);
         dispatch(selectElement(newElement.id));
       } else {
-
         // If no specific insertion point, create at root
         const newElement = createDefaultElement(selectedTool as any, x, y);
         dispatch(addElement({ 
@@ -401,15 +389,10 @@ const Canvas: React.FC = () => {
         onClick={handleCanvasClick}
         onMouseDown={handleMouseDown}
         onMouseMove={handleCanvasMouseMove}
-        onMouseEnter={() => {
-          // Ensure we clear indicators when entering canvas area
-          if (!['rectangle', 'text', 'image', 'container'].includes(selectedTool) && !isDraggingForReorder) {
-            setInsertionIndicator(null);
-          }
-        }}
         onMouseLeave={() => {
           // Clear indicator when leaving canvas area
           setInsertionIndicator(null);
+          lastDetectedElementRef.current = null;
         }}
         data-testid="canvas-container"
       >
