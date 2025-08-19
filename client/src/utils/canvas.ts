@@ -128,10 +128,10 @@ export function getElementAtPoint(x: number, y: number, elements: Record<string,
   const elementAtPoint = document.elementFromPoint(pageX, pageY);
   if (!elementAtPoint) return null;
   
-  console.log('Element detection:', { pageX, pageY, elementAtPoint, canvasElement });
-  
-  // Find the closest element with data-element-id, excluding insertion indicators
+  // Find the closest element with data-element-id, prioritizing non-root elements
   let current: Element | null = elementAtPoint;
+  let foundRoot = false;
+  
   while (current && current !== canvasElement) {
     // Skip insertion indicators
     if (current.hasAttribute('data-testid') && current.getAttribute('data-testid') === 'insertion-indicator') {
@@ -140,16 +140,22 @@ export function getElementAtPoint(x: number, y: number, elements: Record<string,
     }
     
     const elementId = current.getAttribute('data-element-id');
-    console.log('Checking element:', current, 'elementId:', elementId);
-    if (elementId && elements[elementId] && elementId !== 'root') {
-      console.log('Found specific element:', elementId);
-      return elements[elementId];
+    if (elementId && elements[elementId]) {
+      if (elementId !== 'root') {
+        // Found a specific non-root element, return immediately
+        return elements[elementId];
+      } else {
+        // Mark that we found root, but keep looking for specific elements
+        foundRoot = true;
+      }
     }
     current = current.parentElement;
   }
   
-  // If no specific element found, return root
-  console.log('Defaulting to root');
+  // Return root only if we found it and no specific elements
+  if (foundRoot) {
+    return elements.root || null;
+  }
   return elements.root || null;
 }
 

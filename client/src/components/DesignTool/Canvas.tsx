@@ -40,8 +40,17 @@ const Canvas: React.FC = () => {
       return null;
     }
     
-    // If no specific element found or root, show root insertion
-    if (!hoveredElement || hoveredElement.id === 'root') {
+    // Only show root insertion if no specific element found
+    if (!hoveredElement) {
+      return {
+        position: 'inside',
+        elementId: 'root',
+        bounds: { x: 0, y: 0, width: rootElement.width, height: rootElement.height }
+      };
+    }
+
+    // If we found root explicitly, only show if no other elements are at this point
+    if (hoveredElement.id === 'root') {
       return {
         position: 'inside',
         elementId: 'root',
@@ -386,7 +395,9 @@ const Canvas: React.FC = () => {
                   ? 'border-2 border-green-400 border-dashed bg-green-50 bg-opacity-30 pointer-events-none z-40' 
                   : 'bg-green-500 pointer-events-auto cursor-pointer z-50'
                 : insertionIndicator.position === 'inside' 
-                  ? 'border-2 border-blue-400 border-dashed bg-blue-50 bg-opacity-30 pointer-events-auto cursor-pointer z-40' 
+                  ? insertionIndicator.elementId === 'root'
+                    ? 'border-2 border-blue-400 border-dashed bg-blue-50 bg-opacity-30 pointer-events-auto cursor-pointer z-10'
+                    : 'border-2 border-blue-400 border-dashed bg-blue-50 bg-opacity-30 pointer-events-auto cursor-pointer z-50'
                   : 'bg-blue-500 pointer-events-auto cursor-pointer z-50'
             }`}
             style={{
