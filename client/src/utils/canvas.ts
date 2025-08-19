@@ -128,7 +128,28 @@ export function getElementAtPoint(x: number, y: number, elements: Record<string,
   const elementAtPoint = document.elementFromPoint(pageX, pageY);
   if (!elementAtPoint) return null;
   
-  // Find the deepest element by collecting all elements in the hierarchy
+  // Use bounds-based detection first for more stable results
+  const nonRootElements = Object.values(elements).filter(el => el.id !== 'root');
+  
+  // Sort by depth (children before parents) and area (smaller before larger)
+  const sortedElements = nonRootElements.sort((a, b) => {
+    const aDepth = (a.parent && a.parent !== 'root') ? 2 : 1;
+    const bDepth = (b.parent && b.parent !== 'root') ? 2 : 1;
+    if (aDepth !== bDepth) return bDepth - aDepth; // Deeper elements first
+    
+    const aArea = a.width * a.height;
+    const bArea = b.width * b.height;
+    return aArea - bArea; // Smaller elements first
+  });
+  
+  // Check if point is within any element bounds first
+  for (const element of sortedElements) {
+    if (isPointInElement(x, y, element)) {
+      return element;
+    }
+  }
+  
+  // Fallback to DOM-based detection
   let foundElements: { element: CanvasElement; depth: number }[] = [];
   let current: Element | null = elementAtPoint;
   let depth = 0;

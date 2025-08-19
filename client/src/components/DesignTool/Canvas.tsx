@@ -107,6 +107,10 @@ const Canvas: React.FC = () => {
     }
   }, [selectedTool, project.elements, zoomLevel, rootElement, draggedElementId]);
 
+  // Stable detection state
+  const lastDetectedRef = useRef<string | null>(null);
+  const detectionTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
   // Handle mouse move for insertion indicators and drag operations  
   const handleCanvasMouseMove = useCallback((e: React.MouseEvent) => {
     const rect = canvasRef.current?.getBoundingClientRect();
@@ -115,20 +119,35 @@ const Canvas: React.FC = () => {
     const x = (e.clientX - rect.left) / zoomLevel;
     const y = (e.clientY - rect.top) / zoomLevel;
 
-    // Handle dragging for reorder (hand tool)
-    if (isDraggingForReorder && draggedElementId && selectedTool === 'hand') {
-      const indicator = detectInsertionZone(x, y, true);
-      setInsertionIndicator(indicator);
-      return;
+    // Clear previous timeout
+    if (detectionTimeoutRef.current) {
+      clearTimeout(detectionTimeoutRef.current);
     }
 
-    // Handle insertion indicators for element creation tools
-    if (['rectangle', 'text', 'image', 'container'].includes(selectedTool)) {
-      const indicator = detectInsertionZone(x, y, false);
-      setInsertionIndicator(indicator);
-    } else {
-      setInsertionIndicator(null);
-    }
+    // Stabilize detection with short delay
+    detectionTimeoutRef.current = setTimeout(() => {
+      // Handle dragging for reorder (hand tool)
+      if (isDraggingForReorder && draggedElementId && selectedTool === 'hand') {
+        const indicator = detectInsertionZone(x, y, true);
+        setInsertionIndicator(indicator);
+        return;
+      }
+
+      // Handle insertion indicators for element creation tools
+      if (['rectangle', 'text', 'image', 'container'].includes(selectedTool)) {
+        const indicator = detectInsertionZone(x, y, false);
+        
+        // Only update if detection changed significantly
+        const currentDetected = indicator?.elementId || 'none';
+        if (currentDetected !== lastDetectedRef.current) {
+          lastDetectedRef.current = currentDetected;
+          setInsertionIndicator(indicator);
+        }
+      } else {
+        setInsertionIndicator(null);
+        lastDetectedRef.current = null;
+      }
+    }, 50); // 50ms stabilization delay
   }, [selectedTool, zoomLevel, detectInsertionZone, isDraggingForReorder, draggedElementId]);
 
   const handleCanvasClick = useCallback((e: React.MouseEvent) => {
