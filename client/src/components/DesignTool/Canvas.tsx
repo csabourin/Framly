@@ -1,7 +1,7 @@
 import React, { useRef, useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
-import { selectElement, addElement, moveElement, resizeElement, reorderElement } from '../../store/canvasSlice';
+import { selectElement, addElement, moveElement, resizeElement, reorderElement, deleteElement } from '../../store/canvasSlice';
 import { setDragging, setDragStart, setResizing, setResizeHandle, resetUI, setDraggedElement, setDraggingForReorder } from '../../store/uiSlice';
 import { createDefaultElement, getElementAtPoint, calculateSnapPosition } from '../../utils/canvas';
 import CanvasElement from './CanvasElement';
@@ -300,16 +300,30 @@ const Canvas: React.FC = () => {
       }
     };
 
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Delete' || e.key === 'Backspace') {
+        if (selectedElement && selectedElement.id !== 'root') {
+          e.preventDefault();
+          dispatch(deleteElement(selectedElement.id));
+          dispatch(selectElement('root'));
+        }
+      }
+    };
+
     if (isDragging || isResizing || isDraggingForReorder) {
       document.addEventListener('mousemove', handleGlobalMouseMove);
       document.addEventListener('mouseup', handleGlobalMouseUp);
     }
 
+    // Always listen for delete key
+    document.addEventListener('keydown', handleKeyDown);
+
     return () => {
       document.removeEventListener('mousemove', handleGlobalMouseMove);
       document.removeEventListener('mouseup', handleGlobalMouseUp);
+      document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [isDragging, isResizing, isDraggingForReorder, handleMouseMove, handleMouseUp]);
+  }, [isDragging, isResizing, isDraggingForReorder, handleMouseMove, handleMouseUp, selectedElement, dispatch]);
 
   if (!rootElement) {
     return (
@@ -363,7 +377,7 @@ const Canvas: React.FC = () => {
                   ? 'border-2 border-green-400 border-dashed bg-green-50 bg-opacity-30 pointer-events-none' 
                   : 'bg-green-500 pointer-events-auto cursor-pointer'
                 : insertionIndicator.position === 'inside' 
-                  ? 'border-2 border-blue-400 border-dashed bg-blue-50 bg-opacity-30 pointer-events-none' 
+                  ? 'border-2 border-blue-400 border-dashed bg-blue-50 bg-opacity-30 pointer-events-auto cursor-pointer' 
                   : 'bg-blue-500 pointer-events-auto cursor-pointer'
             }`}
             style={{
@@ -374,13 +388,21 @@ const Canvas: React.FC = () => {
             }}
             data-testid="insertion-indicator"
             onClick={(e) => {
-              if (insertionIndicator.position !== 'inside') {
-                e.stopPropagation();
-                console.log('Insertion indicator clicked!', insertionIndicator);
-                // Trigger element creation at this position
-                if (['rectangle', 'text', 'image', 'container'].includes(selectedTool)) {
-                  const newElement = createDefaultElement(selectedTool as any, 0, 0);
-                  
+              e.stopPropagation();
+              console.log('Insertion indicator clicked!', insertionIndicator);
+              // Trigger element creation at this position
+              if (['rectangle', 'text', 'image', 'container'].includes(selectedTool)) {
+                const newElement = createDefaultElement(selectedTool as any, 0, 0);
+                
+                if (insertionIndicator.position === 'inside') {
+                  // Insert inside the target element
+                  dispatch(addElement({ 
+                    element: newElement, 
+                    parentId: insertionIndicator.elementId,
+                    insertPosition: 'inside'
+                  }));
+                } else {
+                  // Insert before or after the target element (sibling)
                   const targetElement = project.elements[insertionIndicator.elementId];
                   const parentId = targetElement?.parent || 'root';
                   
@@ -390,22 +412,20 @@ const Canvas: React.FC = () => {
                     insertPosition: insertionIndicator.position,
                     referenceElementId: insertionIndicator.elementId
                   }));
-                  
-                  setInsertionIndicator(null);
-                  dispatch(selectElement(newElement.id));
                 }
+                
+                setInsertionIndicator(null);
+                dispatch(selectElement(newElement.id));
               }
             }}
           >
-            {insertionIndicator.position !== 'inside' && (
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                <div className={`text-white text-xs px-2 py-1 rounded whitespace-nowrap ${
-                  isDraggingForReorder ? 'bg-green-500' : 'bg-blue-500'
-                }`}>
-                  {isDraggingForReorder ? 'Move' : 'Insert'} {insertionIndicator.position}
-                </div>
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <div className={`text-white text-xs px-2 py-1 rounded whitespace-nowrap ${
+                isDraggingForReorder ? 'bg-green-500' : 'bg-blue-500'
+              }`}>
+                {isDraggingForReorder ? 'Move' : 'Insert'} {insertionIndicator.position}
               </div>
-            )}
+            </div>
           </div>
         )}
         

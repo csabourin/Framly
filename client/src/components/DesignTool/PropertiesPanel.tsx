@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
-import { updateElement, updateElementStyles, addCSSClass, removeCSSClass } from '../../store/canvasSlice';
+import { updateElement, updateElementStyles, addCSSClass, removeCSSClass, deleteElement, selectElement } from '../../store/canvasSlice';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { validateCSSClassName, generateCSSClassSuggestions } from '../../utils/canvas';
-import { AlignLeft, AlignCenter, AlignRight, Plus, X, GripVertical } from 'lucide-react';
+import { AlignLeft, AlignCenter, AlignRight, Plus, X, GripVertical, Trash2 } from 'lucide-react';
 
 const PropertiesPanel: React.FC = () => {
   const dispatch = useDispatch();
@@ -51,6 +51,13 @@ const PropertiesPanel: React.FC = () => {
     dispatch(removeCSSClass({ elementId: selectedElement.id, className }));
   };
 
+  const handleDeleteElement = () => {
+    if (selectedElement.id !== 'root') {
+      dispatch(deleteElement(selectedElement.id));
+      dispatch(selectElement('root'));
+    }
+  };
+
   return (
     <aside 
       className="absolute right-0 top-12 bottom-8 w-80 bg-white border-l border-gray-200 overflow-y-auto z-40"
@@ -58,10 +65,25 @@ const PropertiesPanel: React.FC = () => {
     >
       {/* Panel Header */}
       <div className="p-4 border-b border-gray-200" data-testid="panel-header">
-        <h2 className="font-semibold text-gray-900">Properties</h2>
-        <p className="text-sm text-gray-600 mt-1">
-          {selectedElement.type} · {selectedElement.id}
-        </p>
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="font-semibold text-gray-900">Properties</h2>
+            <p className="text-sm text-gray-600 mt-1">
+              {selectedElement.type} · {selectedElement.id}
+            </p>
+          </div>
+          {selectedElement.id !== 'root' && (
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleDeleteElement}
+              className="text-red-600 hover:text-red-700 hover:bg-red-50"
+              data-testid="delete-element-button"
+            >
+              <Trash2 className="h-4 w-4" />
+            </Button>
+          )}
+        </div>
       </div>
       
       {/* Layout Properties */}
