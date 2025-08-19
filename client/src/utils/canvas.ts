@@ -35,11 +35,12 @@ export function createDefaultElement(type: CanvasElement['type'], x: number = 0,
           borderRadius: '6px',
           padding: '16px',
           width: '100%',
+          minHeight: '80px',
           display: 'flex',
           flexDirection: 'column',
           gap: '8px',
         },
-        classes: ['rectangle-element'],
+        classes: [`rectangle-${Date.now()}`],
       };
       
     case 'text':
@@ -53,7 +54,7 @@ export function createDefaultElement(type: CanvasElement['type'], x: number = 0,
           color: '#1f2937',
           padding: '8px',
         },
-        classes: ['text-element'],
+        classes: [`text-${Date.now()}`],
       };
       
     case 'image':
@@ -68,7 +69,7 @@ export function createDefaultElement(type: CanvasElement['type'], x: number = 0,
           backgroundSize: '20px 20px',
           backgroundPosition: '0 0, 10px 10px',
         },
-        classes: ['image-element'],
+        classes: [`image-${Date.now()}`],
       };
       
     case 'container':
@@ -90,7 +91,7 @@ export function createDefaultElement(type: CanvasElement['type'], x: number = 0,
           border: '1px solid #d1d5db',
           borderRadius: '6px',
         },
-        classes: ['container-element'],
+        classes: [`container-${Date.now()}`],
       };
       
     default:

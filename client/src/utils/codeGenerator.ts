@@ -85,18 +85,30 @@ ${indent}</${tag}>`;
     line-height: 1.6;
 }`);
     
-    // Generate CSS for each element with classes
+    // Generate CSS for unique class names only
+    const processedClasses = new Set<string>();
+    const classToElementMap = new Map<string, CanvasElement>();
+    
+    // Map classes to their first element to avoid duplicates
     elements.forEach(element => {
       if (element.classes && element.classes.length > 0) {
         element.classes.forEach(className => {
-          const selector = `.${className}`;
-          const styles = this.generateCSSProperties(element);
-          if (styles) {
-            cssRules.push(`${selector} {
-${styles}
-}`);
+          if (!processedClasses.has(className)) {
+            processedClasses.add(className);
+            classToElementMap.set(className, element);
           }
         });
+      }
+    });
+    
+    // Generate CSS for unique classes
+    classToElementMap.forEach((element, className) => {
+      const selector = `.${className}`;
+      const styles = this.generateCSSProperties(element);
+      if (styles) {
+        cssRules.push(`${selector} {
+${styles}
+}`);
       }
     });
     

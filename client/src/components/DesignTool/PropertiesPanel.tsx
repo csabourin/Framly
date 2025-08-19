@@ -94,18 +94,24 @@ const PropertiesPanel: React.FC = () => {
             <Label className="text-sm font-medium text-gray-700 mb-2">Direction</Label>
             <div className="grid grid-cols-2 gap-2">
               <Button
-                variant={selectedElement.flexDirection === 'row' ? 'default' : 'outline'}
+                variant={(selectedElement.styles.flexDirection || selectedElement.flexDirection) === 'row' ? 'default' : 'outline'}
                 size="sm"
-                onClick={() => handleElementUpdate('flexDirection', 'row')}
+                onClick={() => {
+                  handleElementUpdate('flexDirection', 'row');
+                  handleStyleUpdate('flexDirection', 'row');
+                }}
                 className="justify-start"
                 data-testid="button-flex-row"
               >
                 Row
               </Button>
               <Button
-                variant={selectedElement.flexDirection === 'column' ? 'default' : 'outline'}
+                variant={(selectedElement.styles.flexDirection || selectedElement.flexDirection) === 'column' ? 'default' : 'outline'}
                 size="sm"
-                onClick={() => handleElementUpdate('flexDirection', 'column')}
+                onClick={() => {
+                  handleElementUpdate('flexDirection', 'column');
+                  handleStyleUpdate('flexDirection', 'column');
+                }}
                 className="justify-start"
                 data-testid="button-flex-column"
               >
@@ -121,25 +127,34 @@ const PropertiesPanel: React.FC = () => {
             <Label className="text-sm font-medium text-gray-700 mb-2">Justify</Label>
             <div className="grid grid-cols-3 gap-1">
               <Button
-                variant={selectedElement.justifyContent === 'flex-start' ? 'default' : 'outline'}
+                variant={(selectedElement.styles.justifyContent || selectedElement.justifyContent) === 'flex-start' ? 'default' : 'outline'}
                 size="sm"
-                onClick={() => handleElementUpdate('justifyContent', 'flex-start')}
+                onClick={() => {
+                  handleElementUpdate('justifyContent', 'flex-start');
+                  handleStyleUpdate('justifyContent', 'flex-start');
+                }}
                 data-testid="button-justify-start"
               >
                 <AlignLeft className="w-4 h-4" />
               </Button>
               <Button
-                variant={selectedElement.justifyContent === 'center' ? 'default' : 'outline'}
+                variant={(selectedElement.styles.justifyContent || selectedElement.justifyContent) === 'center' ? 'default' : 'outline'}
                 size="sm"
-                onClick={() => handleElementUpdate('justifyContent', 'center')}
+                onClick={() => {
+                  handleElementUpdate('justifyContent', 'center');
+                  handleStyleUpdate('justifyContent', 'center');
+                }}
                 data-testid="button-justify-center"
               >
                 <AlignCenter className="w-4 h-4" />
               </Button>
               <Button
-                variant={selectedElement.justifyContent === 'flex-end' ? 'default' : 'outline'}
+                variant={(selectedElement.styles.justifyContent || selectedElement.justifyContent) === 'flex-end' ? 'default' : 'outline'}
                 size="sm"
-                onClick={() => handleElementUpdate('justifyContent', 'flex-end')}
+                onClick={() => {
+                  handleElementUpdate('justifyContent', 'flex-end');
+                  handleStyleUpdate('justifyContent', 'flex-end');
+                }}
                 data-testid="button-justify-end"
               >
                 <AlignRight className="w-4 h-4" />
