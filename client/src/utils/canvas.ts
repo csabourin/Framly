@@ -128,17 +128,28 @@ export function getElementAtPoint(x: number, y: number, elements: Record<string,
   const elementAtPoint = document.elementFromPoint(pageX, pageY);
   if (!elementAtPoint) return null;
   
-  // Find the closest element with data-element-id
+  console.log('Element detection:', { pageX, pageY, elementAtPoint, canvasElement });
+  
+  // Find the closest element with data-element-id, excluding insertion indicators
   let current: Element | null = elementAtPoint;
   while (current && current !== canvasElement) {
+    // Skip insertion indicators
+    if (current.hasAttribute('data-testid') && current.getAttribute('data-testid') === 'insertion-indicator') {
+      current = current.parentElement;
+      continue;
+    }
+    
     const elementId = current.getAttribute('data-element-id');
-    if (elementId && elements[elementId]) {
+    console.log('Checking element:', current, 'elementId:', elementId);
+    if (elementId && elements[elementId] && elementId !== 'root') {
+      console.log('Found specific element:', elementId);
       return elements[elementId];
     }
     current = current.parentElement;
   }
   
   // If no specific element found, return root
+  console.log('Defaulting to root');
   return elements.root || null;
 }
 

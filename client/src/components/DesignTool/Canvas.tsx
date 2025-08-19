@@ -33,22 +33,15 @@ const Canvas: React.FC = () => {
     }
 
     const hoveredElement = getElementAtPoint(x, y, project.elements, zoomLevel);
+    console.log('Detected hovered element:', hoveredElement?.id);
     
     // Skip the dragged element itself during drag operations
     if (forDrag && draggedElementId && hoveredElement?.id === draggedElementId) {
       return null;
     }
     
-    if (!hoveredElement) {
-      return {
-        position: 'inside',
-        elementId: 'root',
-        bounds: { x: 0, y: 0, width: rootElement.width, height: rootElement.height }
-      };
-    }
-
-    // Handle root element case
-    if (hoveredElement.id === 'root') {
+    // If no specific element found or root, show root insertion
+    if (!hoveredElement || hoveredElement.id === 'root') {
       return {
         position: 'inside',
         elementId: 'root',
