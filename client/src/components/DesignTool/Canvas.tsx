@@ -1,8 +1,8 @@
 import React, { useRef, useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
-import { selectElement, addElement, moveElement, resizeElement } from '../../store/canvasSlice';
-import { setDragging, setDragStart, setResizing, setResizeHandle, resetUI } from '../../store/uiSlice';
+import { selectElement, addElement, moveElement, resizeElement, reorderElement } from '../../store/canvasSlice';
+import { setDragging, setDragStart, setResizing, setResizeHandle, resetUI, setDraggedElement, setDraggingForReorder } from '../../store/uiSlice';
 import { createDefaultElement, getElementAtPoint, calculateSnapPosition } from '../../utils/canvas';
 import CanvasElement from './CanvasElement';
 import { Plus, Minus, Maximize } from 'lucide-react';
@@ -18,18 +18,27 @@ const Canvas: React.FC = () => {
   const canvasRef = useRef<HTMLDivElement>(null);
   const [insertionIndicator, setInsertionIndicator] = useState<InsertionIndicator | null>(null);
   const { project } = useSelector((state: RootState) => state.canvas);
-  const { selectedTool, isDragging, dragStart, isResizing, resizeHandle, zoomLevel, isGridVisible } = useSelector((state: RootState) => state.ui);
+  const { selectedTool, isDragging, dragStart, isResizing, resizeHandle, zoomLevel, isGridVisible, draggedElementId, isDraggingForReorder } = useSelector((state: RootState) => state.ui);
 
   const rootElement = project.elements.root;
   const selectedElement = project.selectedElementId ? project.elements[project.selectedElementId] : null;
 
   // Function to detect insertion zones based on mouse position
-  const detectInsertionZone = useCallback((x: number, y: number): InsertionIndicator | null => {
-    if (!['rectangle', 'text', 'image', 'container'].includes(selectedTool)) {
+  const detectInsertionZone = useCallback((x: number, y: number, forDrag = false): InsertionIndicator | null => {
+    if (!forDrag && !['rectangle', 'text', 'image', 'container'].includes(selectedTool)) {
+      return null;
+    }
+    if (forDrag && selectedTool !== 'hand') {
       return null;
     }
 
     const hoveredElement = getElementAtPoint(x, y, project.elements);
+    
+    // Skip the dragged element itself during drag operations
+    if (forDrag && draggedElementId && hoveredElement?.id === draggedElementId) {
+      return null;
+    }
+    
     if (!hoveredElement || hoveredElement.id === 'root') {
       return {
         position: 'inside',
@@ -76,24 +85,31 @@ const Canvas: React.FC = () => {
         bounds: { x: elementX, y: elementY, width: elementWidth, height: elementHeight }
       };
     }
-  }, [selectedTool, project.elements, zoomLevel, rootElement]);
+  }, [selectedTool, project.elements, zoomLevel, rootElement, draggedElementId]);
 
-  // Handle mouse move for insertion indicators
+  // Handle mouse move for insertion indicators and drag operations
   const handleCanvasMouseMove = useCallback((e: React.MouseEvent) => {
-    if (!['rectangle', 'text', 'image', 'container'].includes(selectedTool)) {
-      setInsertionIndicator(null);
-      return;
-    }
-
     const rect = canvasRef.current?.getBoundingClientRect();
     if (!rect) return;
 
     const x = (e.clientX - rect.left) / zoomLevel;
     const y = (e.clientY - rect.top) / zoomLevel;
 
-    const indicator = detectInsertionZone(x, y);
-    setInsertionIndicator(indicator);
-  }, [selectedTool, zoomLevel, detectInsertionZone]);
+    // Handle dragging for reorder (hand tool)
+    if (isDraggingForReorder && draggedElementId && selectedTool === 'hand') {
+      const indicator = detectInsertionZone(x, y, true);
+      setInsertionIndicator(indicator);
+      return;
+    }
+
+    // Handle insertion indicators for element creation tools
+    if (['rectangle', 'text', 'image', 'container'].includes(selectedTool)) {
+      const indicator = detectInsertionZone(x, y);
+      setInsertionIndicator(indicator);
+    } else {
+      setInsertionIndicator(null);
+    }
+  }, [selectedTool, zoomLevel, detectInsertionZone, isDraggingForReorder, draggedElementId]);
 
   const handleCanvasClick = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
@@ -108,6 +124,14 @@ const Canvas: React.FC = () => {
     if (selectedTool === 'select') {
       const clickedElement = getElementAtPoint(x, y, project.elements);
       if (clickedElement) {
+        dispatch(selectElement(clickedElement.id));
+      } else {
+        dispatch(selectElement('root'));
+      }
+    } else if (selectedTool === 'hand') {
+      // Hand tool for selection and drag preparation
+      const clickedElement = getElementAtPoint(x, y, project.elements);
+      if (clickedElement && clickedElement.id !== 'root') {
         dispatch(selectElement(clickedElement.id));
       } else {
         dispatch(selectElement('root'));
@@ -145,17 +169,25 @@ const Canvas: React.FC = () => {
   }, [selectedTool, zoomLevel, project.elements, dispatch]);
 
   const handleMouseDown = useCallback((e: React.MouseEvent) => {
-    if (selectedTool !== 'select' || !selectedElement) return;
-    
     const rect = canvasRef.current?.getBoundingClientRect();
     if (!rect) return;
     
     const x = (e.clientX - rect.left) / zoomLevel;
     const y = (e.clientY - rect.top) / zoomLevel;
     
-    dispatch(setDragStart({ x: x - selectedElement.x, y: y - selectedElement.y }));
-    dispatch(setDragging(true));
-  }, [selectedTool, selectedElement, zoomLevel, dispatch]);
+    if (selectedTool === 'select' && selectedElement) {
+      dispatch(setDragStart({ x: x - selectedElement.x, y: y - selectedElement.y }));
+      dispatch(setDragging(true));
+    } else if (selectedTool === 'hand') {
+      const clickedElement = getElementAtPoint(x, y, project.elements);
+      if (clickedElement && clickedElement.id !== 'root') {
+        dispatch(selectElement(clickedElement.id));
+        dispatch(setDraggedElement(clickedElement.id));
+        dispatch(setDraggingForReorder(true));
+        dispatch(setDragStart({ x, y }));
+      }
+    }
+  }, [selectedTool, selectedElement, zoomLevel, dispatch, project.elements]);
 
   const handleMouseMove = useCallback((e: React.MouseEvent) => {
     if (!isDragging || !selectedElement || !dragStart) return;
@@ -175,9 +207,36 @@ const Canvas: React.FC = () => {
     }));
   }, [isDragging, selectedElement, dragStart, zoomLevel, dispatch]);
 
-  const handleMouseUp = useCallback(() => {
+  const handleMouseUp = useCallback((e?: MouseEvent) => {
+    if (isDraggingForReorder && draggedElementId && insertionIndicator) {
+      // Complete the reorder operation
+      if (insertionIndicator.position === 'inside') {
+        dispatch(reorderElement({
+          elementId: draggedElementId,
+          newParentId: insertionIndicator.elementId,
+          insertPosition: 'inside'
+        }));
+      } else {
+        const targetElement = project.elements[insertionIndicator.elementId];
+        const parentId = targetElement?.parent || 'root';
+        
+        dispatch(reorderElement({
+          elementId: draggedElementId,
+          newParentId: parentId,
+          insertPosition: insertionIndicator.position,
+          referenceElementId: insertionIndicator.elementId
+        }));
+      }
+    }
+    
+    // Reset all drag states
+    dispatch(setDragging(false));
+    dispatch(setResizing(false));
+    dispatch(setDraggingForReorder(false));
+    dispatch(setDraggedElement(undefined));
+    setInsertionIndicator(null);
     dispatch(resetUI());
-  }, [dispatch]);
+  }, [dispatch, isDraggingForReorder, draggedElementId, insertionIndicator, project.elements]);
 
   const handleZoomIn = () => {
     // Zoom functionality would be implemented here
@@ -199,12 +258,12 @@ const Canvas: React.FC = () => {
     };
 
     const handleGlobalMouseUp = () => {
-      if (isDragging || isResizing) {
+      if (isDragging || isResizing || isDraggingForReorder) {
         handleMouseUp();
       }
     };
 
-    if (isDragging || isResizing) {
+    if (isDragging || isResizing || isDraggingForReorder) {
       document.addEventListener('mousemove', handleGlobalMouseMove);
       document.addEventListener('mouseup', handleGlobalMouseUp);
     }
@@ -213,7 +272,7 @@ const Canvas: React.FC = () => {
       document.removeEventListener('mousemove', handleGlobalMouseMove);
       document.removeEventListener('mouseup', handleGlobalMouseUp);
     };
-  }, [isDragging, isResizing, handleMouseMove, handleMouseUp]);
+  }, [isDragging, isResizing, isDraggingForReorder, handleMouseMove, handleMouseUp]);
 
   if (!rootElement) {
     return (
@@ -262,9 +321,13 @@ const Canvas: React.FC = () => {
         {insertionIndicator && (
           <div
             className={`absolute pointer-events-none z-50 ${
-              insertionIndicator.position === 'inside' 
-                ? 'border-2 border-blue-400 border-dashed bg-blue-50 bg-opacity-30' 
-                : 'bg-blue-500'
+              isDraggingForReorder 
+                ? insertionIndicator.position === 'inside' 
+                  ? 'border-2 border-green-400 border-dashed bg-green-50 bg-opacity-30' 
+                  : 'bg-green-500'
+                : insertionIndicator.position === 'inside' 
+                  ? 'border-2 border-blue-400 border-dashed bg-blue-50 bg-opacity-30' 
+                  : 'bg-blue-500'
             }`}
             style={{
               left: insertionIndicator.bounds.x,
@@ -276,8 +339,10 @@ const Canvas: React.FC = () => {
           >
             {insertionIndicator.position !== 'inside' && (
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="bg-blue-500 text-white text-xs px-2 py-1 rounded whitespace-nowrap">
-                  Insert {insertionIndicator.position}
+                <div className={`text-white text-xs px-2 py-1 rounded whitespace-nowrap ${
+                  isDraggingForReorder ? 'bg-green-500' : 'bg-blue-500'
+                }`}>
+                  {isDraggingForReorder ? 'Move' : 'Insert'} {insertionIndicator.position}
                 </div>
               </div>
             )}

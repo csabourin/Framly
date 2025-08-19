@@ -13,6 +13,8 @@ interface UIState {
   isResizing: boolean;
   resizeHandle?: string;
   showAdvancedMode: boolean;
+  draggedElementId?: string;
+  isDraggingForReorder: boolean;
 }
 
 const initialState: UIState = {
@@ -25,6 +27,7 @@ const initialState: UIState = {
   isDragging: false,
   isResizing: false,
   showAdvancedMode: false,
+  isDraggingForReorder: false,
 };
 
 const uiSlice = createSlice({
@@ -80,6 +83,16 @@ const uiSlice = createSlice({
       state.isResizing = false;
       state.dragStart = undefined;
       state.resizeHandle = undefined;
+      state.isDraggingForReorder = false;
+      state.draggedElementId = undefined;
+    },
+
+    setDraggedElement: (state, action: PayloadAction<string | undefined>) => {
+      state.draggedElementId = action.payload;
+    },
+
+    setDraggingForReorder: (state, action: PayloadAction<boolean>) => {
+      state.isDraggingForReorder = action.payload;
     },
   },
 });
@@ -97,6 +110,8 @@ export const {
   setResizeHandle,
   setAdvancedMode,
   resetUI,
+  setDraggedElement,
+  setDraggingForReorder,
 } = uiSlice.actions;
 
 export default uiSlice.reducer;

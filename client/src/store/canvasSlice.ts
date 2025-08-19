@@ -149,6 +149,49 @@ const canvasSlice = createSlice({
         state.project.elements[id].y = y;
       }
     },
+
+    reorderElement: (state, action: PayloadAction<{
+      elementId: string;
+      newParentId: string;
+      insertPosition: 'before' | 'after' | 'inside';
+      referenceElementId?: string;
+    }>) => {
+      const { elementId, newParentId, insertPosition, referenceElementId } = action.payload;
+      const element = state.project.elements[elementId];
+      
+      if (!element) return;
+
+      // Remove element from current parent
+      const currentParent = state.project.elements[element.parent || 'root'];
+      if (currentParent && currentParent.children) {
+        currentParent.children = currentParent.children.filter(id => id !== elementId);
+      }
+
+      // Add element to new parent at specified position
+      const newParent = state.project.elements[newParentId];
+      if (newParent) {
+        if (!newParent.children) {
+          newParent.children = [];
+        }
+
+        if (insertPosition === 'inside' || !referenceElementId) {
+          newParent.children.push(elementId);
+        } else {
+          const referenceIndex = newParent.children.indexOf(referenceElementId);
+          if (referenceIndex !== -1) {
+            const insertIndex = insertPosition === 'before' ? referenceIndex : referenceIndex + 1;
+            newParent.children.splice(insertIndex, 0, elementId);
+          } else {
+            newParent.children.push(elementId);
+          }
+        }
+
+        // Update element's parent reference
+        element.parent = newParentId;
+      }
+
+      canvasSlice.caseReducers.saveToHistory(state);
+    },
     
     resizeElement: (state, action: PayloadAction<{ id: string; width: number; height: number }>) => {
       const { id, width, height } = action.payload;
@@ -238,6 +281,7 @@ export const {
   duplicateElement,
   moveElement,
   resizeElement,
+  reorderElement,
   switchBreakpoint,
   updateProjectName,
   saveToHistory,
