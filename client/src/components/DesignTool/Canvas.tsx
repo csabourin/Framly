@@ -418,16 +418,16 @@ const Canvas: React.FC = () => {
         {/* Insertion Indicator */}
         {insertionIndicator && (
           <div
-            className={`absolute pointer-events-none ${
+            className={`absolute cursor-pointer ${
               isDraggingForReorder 
                 ? insertionIndicator.position === 'inside' 
-                  ? 'border-2 border-green-400 border-dashed bg-green-50 bg-opacity-30 z-40' 
-                  : 'bg-green-500 z-50'
+                  ? 'border-2 border-green-400 border-dashed bg-green-50 bg-opacity-30 pointer-events-none z-40' 
+                  : 'bg-green-500 pointer-events-auto z-50'
                 : insertionIndicator.position === 'inside' 
                   ? insertionIndicator.elementId === 'root'
-                    ? 'border-2 border-blue-400 border-dashed bg-blue-50 bg-opacity-20 z-[1]'
-                    : 'border-4 border-purple-500 border-solid bg-purple-100 bg-opacity-90 z-[1000] shadow-lg shadow-purple-300'
-                  : 'bg-blue-500 z-50'
+                    ? 'border-2 border-blue-400 border-dashed bg-blue-50 bg-opacity-20 pointer-events-auto z-[1]'
+                    : 'border-4 border-purple-500 border-solid bg-purple-100 bg-opacity-90 pointer-events-auto z-[1000] shadow-lg shadow-purple-300'
+                  : 'bg-blue-500 pointer-events-auto z-50'
             }`}
             style={{
               left: insertionIndicator.bounds.x,
@@ -436,6 +436,38 @@ const Canvas: React.FC = () => {
               height: insertionIndicator.bounds.height,
             }}
             data-testid="insertion-indicator"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              console.log('Insertion indicator clicked directly!', insertionIndicator);
+              
+              if (['rectangle', 'text', 'image', 'container'].includes(selectedTool)) {
+                const newElement = createDefaultElement(selectedTool as any, 0, 0);
+                
+                if (insertionIndicator.position === 'inside') {
+                  // Insert inside the target element
+                  dispatch(addElement({ 
+                    element: newElement, 
+                    parentId: insertionIndicator.elementId,
+                    insertPosition: 'inside'
+                  }));
+                } else {
+                  // Insert before or after the target element (sibling)
+                  const targetElement = project.elements[insertionIndicator.elementId];
+                  const parentId = targetElement?.parent || 'root';
+                  
+                  dispatch(addElement({ 
+                    element: newElement, 
+                    parentId: parentId,
+                    insertPosition: insertionIndicator.position,
+                    referenceElementId: insertionIndicator.elementId
+                  }));
+                }
+                
+                setInsertionIndicator(null);
+                dispatch(selectElement(newElement.id));
+              }
+            }}
           >
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
               <div className={`text-white text-xs px-2 py-1 rounded whitespace-nowrap ${
