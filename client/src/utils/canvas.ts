@@ -128,43 +128,7 @@ export function getElementAtPoint(x: number, y: number, elements: Record<string,
   const elementAtPoint = document.elementFromPoint(pageX, pageY);
   if (!elementAtPoint) return null;
   
-  // Use bounds-based detection with tolerance for stability
-  const nonRootElements = Object.values(elements).filter(el => el.id !== 'root');
-  
-  // Sort by depth and area with more generous criteria
-  const sortedElements = nonRootElements.sort((a, b) => {
-    // Calculate actual depth by walking parent chain
-    let aDepth = 0;
-    let current = a;
-    while (current.parent && current.parent !== 'root') {
-      aDepth++;
-      current = elements[current.parent];
-      if (!current || aDepth > 10) break; // Safety check
-    }
-    
-    let bDepth = 0;
-    current = b;
-    while (current.parent && current.parent !== 'root') {
-      bDepth++;
-      current = elements[current.parent];
-      if (!current || bDepth > 10) break; // Safety check
-    }
-    
-    if (aDepth !== bDepth) return bDepth - aDepth; // Deeper elements first
-    
-    const aArea = a.width * a.height;
-    const bArea = b.width * b.height;
-    return aArea - bArea; // Smaller elements first
-  });
-  
-  // Check bounds with tolerance to prevent edge flickering
-  for (const element of sortedElements) {
-    if (isPointInElement(x, y, element, 4)) { // 4px tolerance for detection
-      return element;
-    }
-  }
-  
-  // Fallback to DOM-based detection
+  // First try DOM-based detection for more accurate flexbox positioning
   let foundElements: { element: CanvasElement; depth: number }[] = [];
   let current: Element | null = elementAtPoint;
   let depth = 0;
@@ -189,10 +153,22 @@ export function getElementAtPoint(x: number, y: number, elements: Record<string,
   // Return the element with the smallest depth (deepest in DOM)
   if (foundElements.length > 0) {
     foundElements.sort((a, b) => a.depth - b.depth);
+    console.log('DOM detection found:', foundElements[0].element.id);
     return foundElements[0].element;
   }
   
-  // Fallback to root if no specific elements found
+  // Fallback to bounds-based detection if DOM detection fails
+  const nonRootElements = Object.values(elements).filter(el => el.id !== 'root');
+  
+  for (const element of nonRootElements) {
+    if (isPointInElement(x, y, element, 4)) {
+      console.log('Bounds detection found:', element.id);
+      return element;
+    }
+  }
+  
+  // Return root as final fallback
+  console.log('Falling back to root');
   return elements.root || null;
   return elements.root || null;
 }
