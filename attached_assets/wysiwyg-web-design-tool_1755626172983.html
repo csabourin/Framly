@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WYSIWYG Web Design Tool</title>
+    <style>
+        :root {
+            --color-primary: #3b82f6;
+            --color-secondary: #8b5cf6;
+            --color-success: #10b981;
+            --color-danger: #ef4444;
+            --color-warning: #f59e0b;
+            --color-dark: #1f2937;
+            --color-light: #f3f4f6;
+            --color-white: #ffffff;
+            --border-radius: 6px;
+            --transition: all 0.2s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: var(--color-light);
+            color: var(--color-dark);
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .app-container {
+            display: flex;
+            height: 100vh;
+            position: relative;
+        }
+
+        /* Header */
+        .header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 48px;
+            background: var(--color-white);
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            z-index: 100;
+            gap: 16px;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 18px;
+            color: var(--color-primary);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 8px;
+            margin-left: auto;
+        }
+
+        /* Toolbar */
+        .toolbar {
+            position: absolute;
+            left: 0;
+            top: 48px;
+            bottom: 32px;
+            width: 48px;
+            background: var(--color-white);
+            border-right: 1px solid #e5e7eb;
+            display: flex;
+            flex-direction: column;
+            padding: 8px 0;
+            gap: 4px;
+            z-index: 90;
+        }
+
+        .tool-btn {
+            width: 40px;
+            height: 40px;
+            margin: 0 4px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .tool-btn:hover {
+            background: var(--color-light);
+        }
+
+        .tool-btn.active {
+            background: var(--color-primary);
+            color: var(--color-white);
+        }
+
+        .tool-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .tooltip {
+            position: absolute;
+            left: 100%;
+            margin-left: 8px;
+            background: var(--color-dark);
+            color: var(--color-white);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            white-space: nowrap;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .tool-btn:hover .tooltip {
+            opacity: 1;
+        }
+
+        /* Canvas Area */
+        .canvas-container {
+            position: absolute;
+            left: 48px;
+            right: 320px;
+            top: 48px;
+            bottom: 32px;
+            background: #fafafa;
+            overflow: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .canvas {
+            background: var(--color-white);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            position: relative;
+            transition: var(--transition);
+            min-height: 600px;
+        }
+
+        .canvas.mobile {
+            width: 375px;
+        }
+
+        .canvas.desktop {
+            width: 1024px;
+        }
+
+        .canvas.large {
+            width: 1440px;
+        }
+
+        /* Rectangle Elements */
+        .rectangle {
+            position: relative;
+            min-height: 32px;
+            min-width: 32px;
+            border: 1px dashed transparent;
+            transition: var(--transition);
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .rectangle:hover {
+            border-color: var(--color-primary);
+            background: rgba(59, 130, 246, 0.05);
+        }
+
+        .rectangle.selected {
+            border: 2px solid var(--color-primary);
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .rectangle.container {
+            display: flex;
+            gap: 8px;
+        }
+
+        .rectangle.flex-row {
+            flex-direction: row;
+        }
+
+        .rectangle.flex-column {
+            flex-direction: column;
+        }
+
+        .rectangle-content {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6b7280;
+            font-size: 14px;
+            user-select: none;
+        }
+
+        .rectangle.text .rectangle-content {
+            align-items: flex-start;
+            justify-content: flex-start;
+            color: var(--color-dark);
+            user-select: text;
+        }
+
+        .rectangle.image .rectangle-content {
+            background: linear-gradient(45deg, #e5e7eb 25%, transparent 25%, transparent 75%, #e5e7eb 75%, #e5e7eb),
+                        linear-gradient(45deg, #e5e7eb 25%, transparent 25%, transparent 75%, #e5e7eb 75%, #e5e7eb);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+        }
+
+        /* Properties Panel */
+        .properties-panel {
+            position: absolute;
+            right: 0;
+            top: 48px;
+            bottom: 32px;
+            width: 320px;
+            background: var(--color-white);
+            border-left: 1px solid #e5e7eb;
+            overflow-y: auto;
+            z-index: 90;
+        }
+
+        .panel-header {
+            padding: 16px;
+            border-bottom: 1px solid #e5e7eb;
+            font-weight: 600;
+        }
+
+        .panel-section {
+            padding: 16px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .panel-section-title {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: #6b7280;
+            margin-bottom: 12px;
+        }
+
+        .property-group {
+            margin-bottom: 12px;
+        }
+
+        .property-label {
+            font-size: 14px;
+            margin-bottom: 4px;
+            color: #4b5563;
+        }
+
+        .property-input {
+            width: 100%;
+            padding: 6px 8px;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .property-input:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .property-select {
+            width: 100%;
+            padding: 6px 8px;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            font-size: 14px;
+            background: var(--color-white);
+            cursor: pointer;
+        }
+
+        .property-row {
+            display: flex;
+            gap: 8px;
+        }
+
+        .property-row .property-group {
+            flex: 1;
+        }
+
+        /* Breakpoint Switcher */
+        .breakpoint-switcher {
+            display: flex;
+            gap: 4px;
+            padding: 4px;
+            background: var(--color-light);
+            border-radius: var(--border-radius);
+        }
+
+        .breakpoint-btn {
+            flex: 1;
+            padding: 8px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .breakpoint-btn:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .breakpoint-btn.active {
+            background: var(--color-white);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Status Bar */
+        .status-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 32px;
+            background: var(--color-white);
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            font-size: 12px;
+            color: #6b7280;
+            z-index: 100;
+            gap: 16px;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 14px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .btn-primary {
+            background: var(--color-primary);
+            color: var(--color-white);
+        }
+
+        .btn-primary:hover {
+            background: #2563eb;
+        }
+
+        .btn-secondary {
+            background: var(--color-light);
+            color: var(--color-dark);
+        }
+
+        .btn-secondary:hover {
+            background: #e5e7eb;
+        }
+
+        .btn-icon {
+            width: 32px;
+            height: 32px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--color-white);
+            border-radius: var(--border-radius);
+            padding: 24px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .modal-content {
+            margin-bottom: 24px;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+        }
+
+        /* Code Preview */
+        .code-preview {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 16px;
+            border-radius: var(--border-radius);
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 13px;
+            line-height: 1.5;
+            overflow-x: auto;
+            white-space: pre;
+        }
+
+        .code-html {
+            color: #7dd3fc;
+        }
+
+        .code-css {
+            color: #c084fc;
+        }
+
+        /* Resize Handles */
+        .resize-handle {
+            position: absolute;
+            background: var(--color-primary);
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .rectangle.selected .resize-handle {
+            opacity: 1;
+        }
+
+        .resize-handle.top {
+            top: -2px;
+            left: 10%;
+            right: 10%;
+            height: 4px;
+            cursor: ns-resize;
+        }
+
+        .resize-handle.bottom {
+            bottom: -2px;
+            left: 10%;
+            right: 10%;
+            height: 4px;
+            cursor: ns-resize;
+        }
+
+        .resize-handle.left {
+            left: -2px;
+            top: 10%;
+            bottom: 10%;
+            width: 4px;
+            cursor: ew-resize;
+        }
+
+        .resize-handle.right {
+            right: -2px;
+            top: 10%;
+            bottom: 10%;
+            width: 4px;
+            cursor: ew-resize;
+        }
+
+        /* Content Editor */
+        .content-editor {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            padding: 8px;
+            background: var(--color-white);
+            border: 2px solid var(--color-primary);
+            outline: none;
+            font-family: inherit;
+            font-size: inherit;
+            resize: none;
+            display: none;
+        }
+
+        .content-editor.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">WYSIWYG Designer</div>
+            <div class="breakpoint-switcher">
+                <button class="breakpoint-btn active" data-breakpoint="mobile">Mobile</button>
+                <button class="breakpoint-btn" data-breakpoint="desktop">Desktop</button>
+                <button class="breakpoint-btn" data-breakpoint="large">Large</button>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-secondary" onclick="app.undo()">↶ Undo</button>
+                <button class="btn btn-secondary" onclick="app.redo()">↷ Redo</button>
+                <button class="btn btn-secondary" onclick="app.showCodePreview()">{'<>'} Code</button>
+                <button class="btn btn-primary" onclick="app.exportProject()">Export</button>
+            </div>
+        </header>
+
+        <!-- Toolbar -->
+        <div class="toolbar">
+            <button class="tool-btn active" data-tool="select">
+                <svg fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M3 3L10.07 19.97L12.58 12.58L19.97 10.07L3 3Z"/>
+                </svg>
+                <span class="tooltip">Select (V)</span>
+            </button>
+            <button class="tool-btn" data-tool="rectangle">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <rect x="3" y="3" width="18" height="18" rx="2"/>
+                </svg>
+                <span class="tooltip">Rectangle (R)</span>
+            </button>
+            <button class="tool-btn" data-tool="text">
+                <svg fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M5 3H19V7H17V5H13V19H15V21H9V19H11V5H7V7H5V3Z"/>
+                </svg>
+                <span class="tooltip">Text (T)</span>
+            </button>
+            <button class="tool-btn" data-tool="image">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <rect x="3" y="3" width="18" height="18" rx="2"/>
+                    <circle cx="8.5" cy="8.5" r="1.5"/>
+                    <path d="M21 15L16 10L5 21"/>
+                </svg>
+                <span class="tooltip">Image (I)</span>
+            </button>
+            <button class="tool-btn" data-tool="split">
+                <svg fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M11 3H3V11H11V3ZM21 3H13V11H21V3ZM11 13H3V21H11V13ZM21 13H13V21H21V13Z"/>
+                </svg>
+                <span class="tooltip">Split (S)</span>
+            </button>
+        </div>
+
+        <!-- Canvas -->
+        <div class="canvas-container">
+            <div id="canvas" class="canvas mobile">
+                <div id="root" class="rectangle container flex-column selected" data-id="root">
+                    <div class="rectangle-content">Click to add content</div>
+                    <div class="resize-handle top"></div>
+                    <div class="resize-handle bottom"></div>
+                    <div class="resize-handle left"></div>
+                    <div class="resize-handle right"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Properties Panel -->
+        <div class="properties-panel">
+            <div class="panel-header">Properties</div>
+            
+            <div class="panel-section">
+                <div class="panel-section-title">Layout</div>
+                <div class="property-group">
+                    <div class="property-label">Display</div>
+                    <select class="property-select" id="prop-display">
+                        <option value="flex">Flex</option>
+                        <option value="grid">Grid</option>
+                        <option value="block">Block</option>
+                    </select>
+                </div>
+                <div class="property-group">
+                    <div class="property-label">Direction</div>
+                    <select class="property-select" id="prop-direction">
+                        <option value="row">Row</option>
+                        <option value="column">Column</option>
+                    </select>
+                </div>
+                <div class="property-group">
+                    <div class="property-label">Gap</div>
+                    <input type="number" class="property-input" id="prop-gap" value="8" min="0">
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <div class="panel-section-title">Spacing</div>
+                <div class="property-group">
+                    <div class="property-label">Padding</div>
+                    <div class="property-row">
+                        <div class="property-group">
+                            <input type="number" class="property-input" id="prop-padding-top" placeholder="T" min="0">
+                        </div>
+                        <div class="property-group">
+                            <input type="number" class="property-input" id="prop-padding-right" placeholder="R" min="0">
+                        </div>
+                        <div class="property-group">
+                            <input type="number" class="property-input" id="prop-padding-bottom" placeholder="B" min="0">
+                        </div>
+                        <div class="property-group">
+                            <input type="number" class="property-input" id="prop-padding-left" placeholder="L" min="0">
+                        </div>
+                    </div>
+                </div>
+                <div class="property-group">
+                    <div class="property-label">Margin</div>
+                    <div class="property-row">
+                        <div class="property-group">
+                            <input type="number" class="property-input" id="prop-margin-top" placeholder="T" min="0">
+                        </div>
+                        <div class="property-group">
+                            <input type="number" class="property-input" id="prop-margin-right" placeholder="R" min="0">
+                        </div>
+                        <div class="property-group">
+                            <input type="number" class="property-input" id="prop-margin-bottom" placeholder="B" min="0">
+                        </div>
+                        <div class="property-group">
+                            <input type="number" class="property-input" id="prop-margin-left" placeholder="L" min="0">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <div class="panel-section-title">Size</div>
+                <div class="property-row">
+                    <div class="property-group">
+                        <div class="property-label">Width</div>
+                        <input type="text" class="property-input" id="prop-width" placeholder="auto">
+                    </div>
+                    <div class="property-group">
+                        <div class="property-label">Height</div>
+                        <input type="text" class="property-input" id="prop-height" placeholder="auto">
+                    </div>
+                </div>
+                <div class="property-row">
+                    <div class="property-group">
+                        <div class="property-label">Min Width</div>
+                        <input type="text" class="property-input" id="prop-min-width" placeholder="32px">
+                    </div>
+                    <div class="property-group">
+                        <div class="property-label">Min Height</div>
+                        <input type="text" class="property-input" id="prop-min-height" placeholder="32px">
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <div class="panel-section-title">Style</div>
+                <div class="property-group">
+                    <div class="property-label">Background Color</div>
+                    <input type="color" class="property-input" id="prop-bg-color" value="#ffffff">
+                </div>
+                <div class="property-group">
+                    <div class="property-label">Border Radius</div>
+                    <input type="number" class="property-input" id="prop-border-radius" value="0" min="0">
+                </div>
+                <div class="property-group">
+                    <div class="property-label">CSS Classes</div>
+                    <input type="text" class="property-input" id="prop-classes" placeholder="Enter class names">
+                </div>
+            </div>
+        </div>
+
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <div class="status-item">
+                <span>Selected: root</span>
+            </div>
+            <div class="status-item">
+                <span>Elements: 1</span>
+            </div>
+            <div class="status-item">
+                <span>Breakpoint: Mobile (375px)</span>
+            </div>
+            <div class="status-item" style="margin-left: auto;">
+                <span>Autosaved</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Code Preview -->
+    <div id="codeModal" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">Code Preview</div>
+            <div class="modal-content">
+                <div style="margin-bottom: 16px;">
+                    <strong>HTML:</strong>
+                    <div class="code-preview code-html" id="htmlPreview"></div>
+                </div>
+                <div>
+                    <strong>CSS:</strong>
+                    <div class="code-preview code-css" id="cssPreview"></div>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="app.hideCodePreview()">Close</button>
+                <button class="btn btn-primary" onclick="app.copyCode()">Copy Code</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class WYSIWYGApp {
+            constructor() {
+                this.selectedElement = null;
+                this.currentTool = 'select';
+                this.currentBreakpoint = 'mobile';
+                this.history = [];
+                this.historyIndex = -1;
+                this.elementCounter = 1;
+                this.elements = new Map();
+                this.styles = new Map();
+                
+                this.init();
+            }
+
+            init() {
+                this.setupEventListeners();
+                this.selectElement(document.getElementById('root'));
+                this.saveState();
+            }
+
+            setupEventListeners() {
+                // Tool selection
+                document.querySelectorAll('.tool-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        this.selectTool(btn.dataset.tool);
+                    });
+                });
+
+                // Breakpoint switching
+                document.querySelectorAll('.breakpoint-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        this.switchBreakpoint(btn.dataset.breakpoint);
+                    });
+                });
+
+                // Canvas click handling
+                document.getElementById('canvas').addEventListener('click', (e) => {
+                    this.handleCanvasClick(e);
+                });
+
+                // Property inputs
+                document.querySelectorAll('.property-input, .property-select').forEach(input => {
+                    input.addEventListener('change', (e) => {
+                        this.updateProperty(e.target.id, e.target.value);
+                    });
+                });
+
+                // Keyboard shortcuts
+                document.addEventListener('keydown', (e) => {
+                    this.handleKeyboard(e);
+                });
+
+                // Prevent default form submissions
+                document.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                });
+            }
+
+            selectTool(tool) {
+                this.currentTool = tool;
+                document.querySelectorAll('.tool-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.tool === tool);
+                });
+            }
+
+            switchBreakpoint(breakpoint) {
+                this.currentBreakpoint = breakpoint;
+                document.querySelectorAll('.breakpoint-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.breakpoint === breakpoint);
+                });
+
+                const canvas = document.getElementById('canvas');
+                canvas.className = `canvas ${breakpoint}`;
+
+                // Update status bar
+                const widths = { mobile: '375px', desktop: '1024px', large: '1440px' };
+                const statusText = `Breakpoint: ${breakpoint.charAt(0).toUpperCase() + breakpoint.slice(1)} (${widths[breakpoint]})`;
+                document.querySelector('.status-bar .status-item:nth-child(3) span').textContent = statusText;
+            }
+
+            handleCanvasClick(e) {
+                const rect = e.target.closest('.rectangle');
+                if (!rect) return;
+
+                if (this.currentTool === 'select') {
+                    this.selectElement(rect);
+                } else if (this.currentTool === 'rectangle') {
+                    this.addRectangle(rect);
+                } else if (this.currentTool === 'text') {
+                    this.addText(rect);
+                } else if (this.currentTool === 'image') {
+                    this.addImage(rect);
+                } else if (this.currentTool === 'split') {
+                    this.splitElement(rect);
+                }
+            }
+
+            selectElement(element) {
+                if (this.selectedElement) {
+                    this.selectedElement.classList.remove('selected');
+                }
+                
+                this.selectedElement = element;
+                element.classList.add('selected');
+                
+                // Update status bar
+                const id = element.dataset.id || 'unknown';
+                document.querySelector('.status-bar .status-item:first-child span').textContent = `Selected: ${id}`;
+                
+                // Update properties panel
+                this.updatePropertiesPanel();
+            }
+
+            addRectangle(parent) {
+                const id = `rect-${this.elementCounter++}`;
+                const rect = document.createElement('div');
+                rect.className = 'rectangle container flex-column';
+                rect.dataset.id = id;
+                rect.innerHTML = `
+                    <div class="rectangle-content">Container ${this.elementCounter}</div>
+                    <div class="resize-handle top"></div>
+                    <div class="resize-handle bottom"></div>
+                    <div class="resize-handle left"></div>
+                    <div class="resize-handle right"></div>
+                `;
+                
+                parent.appendChild(rect);
+                this.selectElement(rect);
+                this.saveState();
+                this.updateElementCount();
+            }
+
+            addText(parent) {
+                const id = `text-${this.elementCounter++}`;
+                const rect = document.createElement('div');
+                rect.className = 'rectangle text';
+                rect.dataset.id = id;
+                rect.innerHTML = `
+                    <div class="rectangle-content" contenteditable="true">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+                    <div class="resize-handle top"></div>
+                    <div class="resize-handle bottom"></div>
+                    <div class="resize-handle left"></div>
+                    <div class="resize-handle right"></div>
+                `;
+                
+                parent.appendChild(rect);
+                this.selectElement(rect);
+                this.saveState();
+                this.updateElementCount();
+            }
+
+            addImage(parent) {
+                const id = `img-${this.elementCounter++}`;
+                const rect = document.createElement('div');
+                rect.className = 'rectangle image';
+                rect.dataset.id = id;
+                rect.innerHTML = `
+                    <div class="rectangle-content">
+                        <span style="color: #6b7280;">Image Placeholder (16:9)</span>
+                    </div>
+                    <div class="resize-handle top"></div>
+                    <div class="resize-handle bottom"></div>
+                    <div class="resize-handle left"></div>
+                    <div class="resize-handle right"></div>
+                `;
+                
+                parent.appendChild(rect);
+                this.selectElement(rect);
+                this.saveState();
+                this.updateElementCount();
+            }
+
+            splitElement(element) {
+                if (!element.classList.contains('container')) {
+                    element.classList.add('container', 'flex-row');
+                    element.innerHTML = '';
+                }
+                
+                const id1 = `rect-${this.elementCounter++}`;
+                const id2 = `rect-${this.elementCounter++}`;
+                
+                const rect1 = this.createRectangleElement(id1, 'Split 1');
+                const rect2 = this.createRectangleElement(id2, 'Split 2');
+                
+                element.appendChild(rect1);
+                element.appendChild(rect2);
+                
+                this.saveState();
+                this.updateElementCount();
+            }
+
+            createRectangleElement(id, text) {
+                const rect = document.createElement('div');
+                rect.className = 'rectangle';
+                rect.dataset.id = id;
+                rect.innerHTML = `
+                    <div class="rectangle-content">${text}</div>
+                    <div class="resize-handle top"></div>
+                    <div class="resize-handle bottom"></div>
+                    <div class="resize-handle left"></div>
+                    <div class="resize-handle right"></div>
+                `;
+                return rect;
+            }
+
+            updateProperty(propId, value) {
+                if (!this.selectedElement) return;
+                
+                const prop = propId.replace('prop-', '');
+                
+                switch(prop) {
+                    case 'display':
+                        this.selectedElement.style.display = value;
+                        break;
+                    case 'direction':
+                        this.selectedElement.classList.remove('flex-row', 'flex-column');
+                        this.selectedElement.classList.add(`flex-${value}`);
+                        break;
+                    case 'gap':
+                        this.selectedElement.style.gap = `${value}px`;
+                        break;
+                    case 'padding-top':
+                    case 'padding-right':
+                    case 'padding-bottom':
+                    case 'padding-left':
+                    case 'margin-top':
+                    case 'margin-right':
+                    case 'margin-bottom':
+                    case 'margin-left':
+                        const [type, side] = prop.split('-');
+                        this.selectedElement.style[`${type}${side.charAt(0).toUpperCase() + side.slice(1)}`] = `${value}px`;
+                        break;
+                    case 'width':
+                    case 'height':
+                    case 'min-width':
+                    case 'min-height':
+                        const cssProp = prop.replace('-', '');
+                        this.selectedElement.style[cssProp] = isNaN(value) ? value : `${value}px`;
+                        break;
+                    case 'bg-color':
+                        this.selectedElement.style.backgroundColor = value;
+                        break;
+                    case 'border-radius':
+                        this.selectedElement.style.borderRadius = `${value}px`;
+                        break;
+                    case 'classes':
+                        this.selectedElement.className = `rectangle ${value}`;
+                        break;
+                }
+                
+                this.saveState();
+            }
+
+            updatePropertiesPanel() {
+                if (!this.selectedElement) return;
+                
+                const styles = window.getComputedStyle(this.selectedElement);
+                
+                // Update display properties
+                if (this.selectedElement.classList.contains('flex-row')) {
+                    document.getElementById('prop-direction').value = 'row';
+                } else if (this.selectedElement.classList.contains('flex-column')) {
+                    document.getElementById('prop-direction').value = 'column';
+                }
+                
+                // Update spacing
+                document.getElementById('prop-padding-top').value = parseInt(styles.paddingTop) || '';
+                document.getElementById('prop-padding-right').value = parseInt(styles.paddingRight) || '';
+                document.getElementById('prop-padding-bottom').value = parseInt(styles.paddingBottom) || '';
+                document.getElementById('prop-padding-left').value = parseInt(styles.paddingLeft) || '';
+                
+                document.getElementById('prop-margin-top').value = parseInt(styles.marginTop) || '';
+                document.getElementById('prop-margin-right').value = parseInt(styles.marginRight) || '';
+                document.getElementById('prop-margin-bottom').value = parseInt(styles.marginBottom) || '';
+                document.getElementById('prop-margin-left').value = parseInt(styles.marginLeft) || '';
+                
+                // Update size
+                document.getElementById('prop-width').value = styles.width === 'auto' ? '' : styles.width;
+                document.getElementById('prop-height').value = styles.height === 'auto' ? '' : styles.height;
+                document.getElementById('prop-min-width').value = styles.minWidth === '0px' ? '' : styles.minWidth;
+                document.getElementById('prop-min-height').value = styles.minHeight === '0px' ? '' : styles.minHeight;
+                
+                // Update style
+                const bgColor = styles.backgroundColor;
+                if (bgColor && bgColor !== 'rgba(0, 0, 0, 0)') {
+                    document.getElementById('prop-bg-color').value = this.rgbToHex(bgColor);
+                }
+                
+                document.getElementById('prop-border-radius').value = parseInt(styles.borderRadius) || 0;
+            }
+
+            rgbToHex(rgb) {
+                const result = rgb.match(/\d+/g);
+                if (!result) return '#ffffff';
+                
+                const r = parseInt(result[0]).toString(16).padStart(2, '0');
+                const g = parseInt(result[1]).toString(16).padStart(2, '0');
+                const b = parseInt(result[2]).toString(16).padStart(2, '0');
+                
+                return `#${r}${g}${b}`;
+            }
+
+            updateElementCount() {
+                const count = document.querySelectorAll('.rectangle').length;
+                document.querySelector('.status-bar .status-item:nth-child(2) span').textContent = `Elements: ${count}`;
+            }
+
+            handleKeyboard(e) {
+                // Undo: Ctrl/Cmd + Z
+                if ((e.ctrlKey || e.metaKey) && e.key === 'z' && !e.shiftKey) {
+                    e.preventDefault();
+                    this.undo();
+                }
+                
+                // Redo: Ctrl/Cmd + Shift + Z
+                if ((e.ctrlKey || e.metaKey) && e.key === 'z' && e.shiftKey) {
+                    e.preventDefault();
+                    this.redo();
+                }
+                
+                // Delete selected element
+                if (e.key === 'Delete' && this.selectedElement && this.selectedElement.id !== 'root') {
+                    e.preventDefault();
+                    this.deleteElement();
+                }
+                
+                // Tool shortcuts
+                if (!e.ctrlKey && !e.metaKey) {
+                    switch(e.key.toLowerCase()) {
+                        case 'v':
+                            this.selectTool('select');
+                            break;
+                        case 'r':
+                            this.selectTool('rectangle');
+                            break;
+                        case 't':
+                            this.selectTool('text');
+                            break;
+                        case 'i':
+                            this.selectTool('image');
+                            break;
+                        case 's':
+                            this.selectTool('split');
+                            break;
+                    }
+                }
+            }
+
+            deleteElement() {
+                if (this.selectedElement && this.selectedElement.id !== 'root') {
+                    const parent = this.selectedElement.parentElement;
+                    this.selectedElement.remove();
+                    this.selectElement(parent);
+                    this.saveState();
+                    this.updateElementCount();
+                }
+            }
+
+            saveState() {
+                const canvas = document.getElementById('canvas').cloneNode(true);
+                this.history = this.history.slice(0, this.historyIndex + 1);
+                this.history.push(canvas.innerHTML);
+                this.historyIndex++;
+                
+                // Limit history size
+                if (this.history.length > 50) {
+                    this.history.shift();
+                    this.historyIndex--;
+                }
+                
+                // Update autosave status
+                document.querySelector('.status-bar .status-item:last-child span').textContent = 'Autosaved';
+            }
+
+            undo() {
+                if (this.historyIndex > 0) {
+                    this.historyIndex--;
+                    document.getElementById('canvas').innerHTML = this.history[this.historyIndex];
+                    this.setupCanvasEventListeners();
+                    this.updateElementCount();
+                }
+            }
+
+            redo() {
+                if (this.historyIndex < this.history.length - 1) {
+                    this.historyIndex++;
+                    document.getElementById('canvas').innerHTML = this.history[this.historyIndex];
+                    this.setupCanvasEventListeners();
+                    this.updateElementCount();
+                }
+            }
+
+            setupCanvasEventListeners() {
+                // Re-attach event listeners after undo/redo
+                document.querySelectorAll('.rectangle').forEach(rect => {
+                    rect.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        if (this.currentTool === 'select') {
+                            this.selectElement(rect);
+                        }
+                    });
+                });
+            }
+
+            generateHTML() {
+                const canvas = document.getElementById('canvas').cloneNode(true);
+                
+                // Clean up editor-specific classes and attributes
+                canvas.querySelectorAll('.rectangle').forEach(rect => {
+                    rect.classList.remove('selected', 'rectangle');
+                    rect.removeAttribute('data-id');
+                    
+                    // Remove resize handles
+                    rect.querySelectorAll('.resize-handle').forEach(handle => handle.remove());
+                    
+                    // Convert to semantic HTML
+                    if (rect.classList.contains('text')) {
+                        const p = document.createElement('p');
+                        p.innerHTML = rect.querySelector('.rectangle-content').innerHTML;
+                        p.className = rect.className.replace('text', '').trim();
+                        rect.replaceWith(p);
+                    } else if (rect.classList.contains('image')) {
+                        const img = document.createElement('img');
+                        img.src = 'placeholder.jpg';
+                        img.alt = 'Image placeholder';
+                        img.className = rect.className.replace('image', '').trim();
+                        rect.replaceWith(img);
+                    } else {
+                        const div = document.createElement('div');
+                        div.innerHTML = rect.innerHTML;
+                        div.className = rect.className.replace('container', '').trim();
+                        rect.replaceWith(div);
+                    }
+                });
+                
+                return this.formatHTML(canvas.innerHTML);
+            }
+
+            generateCSS() {
+                const breakpoints = {
+                    mobile: '@media (max-width: 768px)',
+                    desktop: '@media (min-width: 769px) and (max-width: 1200px)',
+                    large: '@media (min-width: 1201px)'
+                };
+                
+                let css = `/* Generated CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Responsive breakpoints */
+${breakpoints.mobile} {
+    .container {
+        padding: 15px;
+    }
+}
+
+${breakpoints.desktop} {
+    .container {
+        padding: 20px;
+    }
+}
+
+${breakpoints.large} {
+    .container {
+        max-width: 1440px;
+    }
+}`;
+                
+                return css;
+            }
+
+            formatHTML(html) {
+                // Basic HTML formatting
+                let formatted = html.replace(/></g, '>\n<');
+                formatted = formatted.replace(/\n\s*\n/g, '\n');
+                
+                // Add proper indentation
+                const lines = formatted.split('\n');
+                let indentLevel = 0;
+                const indentedLines = lines.map(line => {
+                    const trimmed = line.trim();
+                    if (trimmed.startsWith('</')) {
+                        indentLevel--;
+                    }
+                    const indented = '  '.repeat(Math.max(0, indentLevel)) + trimmed;
+                    if (trimmed.startsWith('<') && !trimmed.startsWith('</') && !trimmed.endsWith('/>')) {
+                        indentLevel++;
+                    }
+                    return indented;
+                });
+                
+                return indentedLines.join('\n');
+            }
+
+            showCodePreview() {
+                const html = this.generateHTML();
+                const css = this.generateCSS();
+                
+                document.getElementById('htmlPreview').textContent = html;
+                document.getElementById('cssPreview').textContent = css;
+                document.getElementById('codeModal').classList.add('active');
+            }
+
+            hideCodePreview() {
+                document.getElementById('codeModal').classList.remove('active');
+            }
+
+            copyCode() {
+                const html = this.generateHTML();
+                const css = this.generateCSS();
+                const fullCode = `<!-- HTML -->\n${html}\n\n<!-- CSS -->\n<style>\n${css}\n</style>`;
+                
+                navigator.clipboard.writeText(fullCode).then(() => {
+                    alert('Code copied to clipboard!');
+                });
+            }
+
+            exportProject() {
+                const html = this.generateHTML();
+                const css = this.generateCSS();
+                
+                const fullHTML = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exported Design</title>
+    <style>
+${css}
+    </style>
+</head>
+<body>
+${html}
+</body>
+</html>`;
+                
+                // Create download link
+                const blob = new Blob([fullHTML], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'design.html';
+                a.click();
+                URL.revokeObjectURL(url);
+                
+                alert('Project exported successfully!');
+            }
+        }
+
+        // Initialize the application
+        const app = new WYSIWYGApp();
+    </script>
+</body>
+</html>
