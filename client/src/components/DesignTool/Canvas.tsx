@@ -39,7 +39,16 @@ const Canvas: React.FC = () => {
       return null;
     }
     
-    if (!hoveredElement || hoveredElement.id === 'root') {
+    if (!hoveredElement) {
+      return {
+        position: 'inside',
+        elementId: 'root',
+        bounds: { x: 0, y: 0, width: rootElement.width, height: rootElement.height }
+      };
+    }
+
+    // Handle root element case
+    if (hoveredElement.id === 'root') {
       return {
         position: 'inside',
         elementId: 'root',
@@ -301,7 +310,14 @@ const Canvas: React.FC = () => {
     };
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Delete' || e.key === 'Backspace') {
+      // Don't trigger delete when user is typing in an input, textarea, or contenteditable element
+      const target = e.target as HTMLElement;
+      const isTextInput = target.tagName === 'INPUT' || 
+                         target.tagName === 'TEXTAREA' || 
+                         target.contentEditable === 'true' ||
+                         target.isContentEditable;
+      
+      if ((e.key === 'Delete' || e.key === 'Backspace') && !isTextInput) {
         if (selectedElement && selectedElement.id !== 'root') {
           e.preventDefault();
           dispatch(deleteElement(selectedElement.id));
@@ -371,14 +387,14 @@ const Canvas: React.FC = () => {
         {/* Insertion Indicator */}
         {insertionIndicator && (
           <div
-            className={`absolute z-50 ${
+            className={`absolute ${
               isDraggingForReorder 
                 ? insertionIndicator.position === 'inside' 
-                  ? 'border-2 border-green-400 border-dashed bg-green-50 bg-opacity-30 pointer-events-none' 
-                  : 'bg-green-500 pointer-events-auto cursor-pointer'
+                  ? 'border-2 border-green-400 border-dashed bg-green-50 bg-opacity-30 pointer-events-none z-40' 
+                  : 'bg-green-500 pointer-events-auto cursor-pointer z-50'
                 : insertionIndicator.position === 'inside' 
-                  ? 'border-2 border-blue-400 border-dashed bg-blue-50 bg-opacity-30 pointer-events-auto cursor-pointer' 
-                  : 'bg-blue-500 pointer-events-auto cursor-pointer'
+                  ? 'border-2 border-blue-400 border-dashed bg-blue-50 bg-opacity-30 pointer-events-auto cursor-pointer z-40' 
+                  : 'bg-blue-500 pointer-events-auto cursor-pointer z-50'
             }`}
             style={{
               left: insertionIndicator.bounds.x,
