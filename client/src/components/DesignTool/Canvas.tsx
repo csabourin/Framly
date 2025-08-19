@@ -33,7 +33,6 @@ const Canvas: React.FC = () => {
     }
 
     const hoveredElement = getElementAtPoint(x, y, project.elements, zoomLevel);
-    console.log('Detected hovered element:', hoveredElement?.id);
     
     // Skip the dragged element itself during drag operations
     if (forDrag && draggedElementId && hoveredElement?.id === draggedElementId) {
@@ -116,20 +115,23 @@ const Canvas: React.FC = () => {
     const x = (e.clientX - rect.left) / zoomLevel;
     const y = (e.clientY - rect.top) / zoomLevel;
 
-    // Handle dragging for reorder (hand tool)
-    if (isDraggingForReorder && draggedElementId && selectedTool === 'hand') {
-      const indicator = detectInsertionZone(x, y, true);
-      setInsertionIndicator(indicator);
-      return;
-    }
+    // Use requestAnimationFrame to prevent rapid flickering
+    requestAnimationFrame(() => {
+      // Handle dragging for reorder (hand tool)
+      if (isDraggingForReorder && draggedElementId && selectedTool === 'hand') {
+        const indicator = detectInsertionZone(x, y, true);
+        setInsertionIndicator(indicator);
+        return;
+      }
 
-    // Handle insertion indicators for element creation tools
-    if (['rectangle', 'text', 'image', 'container'].includes(selectedTool)) {
-      const indicator = detectInsertionZone(x, y, false);
-      setInsertionIndicator(indicator);
-    } else {
-      setInsertionIndicator(null);
-    }
+      // Handle insertion indicators for element creation tools
+      if (['rectangle', 'text', 'image', 'container'].includes(selectedTool)) {
+        const indicator = detectInsertionZone(x, y, false);
+        setInsertionIndicator(indicator);
+      } else {
+        setInsertionIndicator(null);
+      }
+    });
   }, [selectedTool, zoomLevel, detectInsertionZone, isDraggingForReorder, draggedElementId]);
 
   const handleCanvasClick = useCallback((e: React.MouseEvent) => {
@@ -371,7 +373,10 @@ const Canvas: React.FC = () => {
         onClick={handleCanvasClick}
         onMouseDown={handleMouseDown}
         onMouseMove={handleCanvasMouseMove}
-        onMouseLeave={() => setInsertionIndicator(null)}
+        onMouseLeave={() => {
+          // Clear indicator when leaving canvas area
+          setInsertionIndicator(null);
+        }}
         data-testid="canvas-container"
       >
         {/* Render Canvas Elements */}
