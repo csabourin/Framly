@@ -115,23 +115,20 @@ const Canvas: React.FC = () => {
     const x = (e.clientX - rect.left) / zoomLevel;
     const y = (e.clientY - rect.top) / zoomLevel;
 
-    // Use requestAnimationFrame to prevent rapid flickering
-    requestAnimationFrame(() => {
-      // Handle dragging for reorder (hand tool)
-      if (isDraggingForReorder && draggedElementId && selectedTool === 'hand') {
-        const indicator = detectInsertionZone(x, y, true);
-        setInsertionIndicator(indicator);
-        return;
-      }
+    // Handle dragging for reorder (hand tool)
+    if (isDraggingForReorder && draggedElementId && selectedTool === 'hand') {
+      const indicator = detectInsertionZone(x, y, true);
+      setInsertionIndicator(indicator);
+      return;
+    }
 
-      // Handle insertion indicators for element creation tools
-      if (['rectangle', 'text', 'image', 'container'].includes(selectedTool)) {
-        const indicator = detectInsertionZone(x, y, false);
-        setInsertionIndicator(indicator);
-      } else {
-        setInsertionIndicator(null);
-      }
-    });
+    // Handle insertion indicators for element creation tools
+    if (['rectangle', 'text', 'image', 'container'].includes(selectedTool)) {
+      const indicator = detectInsertionZone(x, y, false);
+      setInsertionIndicator(indicator);
+    } else {
+      setInsertionIndicator(null);
+    }
   }, [selectedTool, zoomLevel, detectInsertionZone, isDraggingForReorder, draggedElementId]);
 
   const handleCanvasClick = useCallback((e: React.MouseEvent) => {
@@ -374,6 +371,12 @@ const Canvas: React.FC = () => {
         onClick={handleCanvasClick}
         onMouseDown={handleMouseDown}
         onMouseMove={handleCanvasMouseMove}
+        onMouseEnter={() => {
+          // Ensure we clear indicators when entering canvas area
+          if (!['rectangle', 'text', 'image', 'container'].includes(selectedTool) && !isDraggingForReorder) {
+            setInsertionIndicator(null);
+          }
+        }}
         onMouseLeave={() => {
           // Clear indicator when leaving canvas area
           setInsertionIndicator(null);
@@ -402,8 +405,8 @@ const Canvas: React.FC = () => {
                   : 'bg-green-500 pointer-events-auto cursor-pointer z-50'
                 : insertionIndicator.position === 'inside' 
                   ? insertionIndicator.elementId === 'root'
-                    ? 'border-2 border-blue-400 border-dashed bg-blue-50 bg-opacity-20 pointer-events-auto cursor-pointer z-10'
-                    : 'border-4 border-purple-500 border-solid bg-purple-100 bg-opacity-60 pointer-events-auto cursor-pointer z-50'
+                    ? 'border-2 border-blue-400 border-dashed bg-blue-50 bg-opacity-20 pointer-events-none z-[5]'
+                    : 'border-4 border-purple-500 border-solid bg-purple-100 bg-opacity-60 pointer-events-auto cursor-pointer z-[100]'
                   : 'bg-blue-500 pointer-events-auto cursor-pointer z-50'
             }`}
             style={{
@@ -413,7 +416,11 @@ const Canvas: React.FC = () => {
               height: insertionIndicator.bounds.height,
             }}
             data-testid="insertion-indicator"
+            onMouseEnter={(e) => {
+              e.stopPropagation();
+            }}
             onClick={(e) => {
+              e.preventDefault();
               e.stopPropagation();
               console.log('Insertion indicator clicked!', insertionIndicator);
               // Trigger element creation at this position
