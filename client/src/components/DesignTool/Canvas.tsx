@@ -156,6 +156,7 @@ const Canvas: React.FC = () => {
       const clickedElement = getElementAtPoint(x, y, project.elements, zoomLevel);
       if (clickedElement && clickedElement.id !== 'root') {
         dispatch(selectElement(clickedElement.id));
+        // Don't start drag on click, only on mouse down
       } else {
         dispatch(selectElement('root'));
       }
@@ -401,8 +402,8 @@ const Canvas: React.FC = () => {
                   : 'bg-green-500 pointer-events-auto cursor-pointer z-50'
                 : insertionIndicator.position === 'inside' 
                   ? insertionIndicator.elementId === 'root'
-                    ? 'border-2 border-blue-400 border-dashed bg-blue-50 bg-opacity-30 pointer-events-auto cursor-pointer z-10'
-                    : 'border-2 border-blue-400 border-dashed bg-blue-50 bg-opacity-30 pointer-events-auto cursor-pointer z-50'
+                    ? 'border-2 border-blue-400 border-dashed bg-blue-50 bg-opacity-20 pointer-events-auto cursor-pointer z-10'
+                    : 'border-4 border-purple-500 border-solid bg-purple-100 bg-opacity-60 pointer-events-auto cursor-pointer z-50'
                   : 'bg-blue-500 pointer-events-auto cursor-pointer z-50'
             }`}
             style={{
@@ -446,9 +447,17 @@ const Canvas: React.FC = () => {
           >
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
               <div className={`text-white text-xs px-2 py-1 rounded whitespace-nowrap ${
-                isDraggingForReorder ? 'bg-green-500' : 'bg-blue-500'
+                isDraggingForReorder 
+                  ? 'bg-green-500' 
+                  : insertionIndicator.position === 'inside' && insertionIndicator.elementId !== 'root'
+                    ? 'bg-purple-500'
+                    : 'bg-blue-500'
               }`}>
                 {isDraggingForReorder ? 'Move' : 'Insert'} {insertionIndicator.position}
+                {insertionIndicator.position === 'inside' && insertionIndicator.elementId !== 'root' 
+                  ? ` into ${insertionIndicator.elementId.split('-')[0]}` 
+                  : insertionIndicator.position === 'inside' ? ' into canvas' : ''
+                }
               </div>
             </div>
           </div>
