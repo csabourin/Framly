@@ -396,7 +396,23 @@ const PropertiesPanel: React.FC = () => {
             <Label className="text-sm font-medium text-gray-700 mb-2">Aspect Ratio</Label>
             <Select
               value={selectedElement.imageRatio || 'auto'}
-              onValueChange={(value) => handleElementUpdate('imageRatio', value)}
+              onValueChange={(value) => {
+                handleElementUpdate('imageRatio', value);
+                // Auto-calculate height based on width when aspect ratio changes
+                if (value !== 'auto' && selectedElement.width) {
+                  const aspectRatios: Record<string, number> = {
+                    '16:9': 16/9,
+                    '4:3': 4/3,
+                    '1:1': 1/1,
+                    '3:2': 3/2
+                  };
+                  const ratio = aspectRatios[value];
+                  if (ratio) {
+                    const newHeight = Math.round(selectedElement.width / ratio);
+                    handleElementUpdate('height', newHeight);
+                  }
+                }
+              }}
             >
               <SelectTrigger data-testid="select-image-ratio">
                 <SelectValue />
@@ -441,7 +457,24 @@ const PropertiesPanel: React.FC = () => {
                   type="number"
                   placeholder="100"
                   value={selectedElement.width || ''}
-                  onChange={(e) => handleElementUpdate('width', parseInt(e.target.value) || 0)}
+                  onChange={(e) => {
+                    const newWidth = parseInt(e.target.value) || 0;
+                    handleElementUpdate('width', newWidth);
+                    // Auto-calculate height if aspect ratio is set
+                    if (selectedElement.imageRatio && selectedElement.imageRatio !== 'auto') {
+                      const aspectRatios: Record<string, number> = {
+                        '16:9': 16/9,
+                        '4:3': 4/3,
+                        '1:1': 1/1,
+                        '3:2': 3/2
+                      };
+                      const ratio = aspectRatios[selectedElement.imageRatio];
+                      if (ratio && newWidth > 0) {
+                        const newHeight = Math.round(newWidth / ratio);
+                        handleElementUpdate('height', newHeight);
+                      }
+                    }
+                  }}
                   className="flex-1"
                   data-testid="input-image-width"
                 />

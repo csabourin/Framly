@@ -114,7 +114,7 @@ const Canvas: React.FC = () => {
 
     // Handle insertion indicators for element creation tools
     if (['rectangle', 'text', 'image', 'container'].includes(selectedTool)) {
-      const indicator = detectInsertionZone(x, y);
+      const indicator = detectInsertionZone(x, y, false);
       setInsertionIndicator(indicator);
     } else {
       setInsertionIndicator(null);
@@ -147,7 +147,7 @@ const Canvas: React.FC = () => {
         dispatch(selectElement('root'));
       }
     } else if (['rectangle', 'text', 'image', 'container'].includes(selectedTool)) {
-      const indicator = detectInsertionZone(x, y);
+      const indicator = detectInsertionZone(x, y, false);
       
       if (indicator) {
         const newElement = createDefaultElement(selectedTool as any, 0, 0);
@@ -200,22 +200,33 @@ const Canvas: React.FC = () => {
   }, [selectedTool, selectedElement, zoomLevel, dispatch, project.elements]);
 
   const handleMouseMove = useCallback((e: React.MouseEvent) => {
-    if (!isDragging || !selectedElement || !dragStart) return;
-    
     const rect = canvasRef.current?.getBoundingClientRect();
     if (!rect) return;
     
     const x = (e.clientX - rect.left) / zoomLevel;
     const y = (e.clientY - rect.top) / zoomLevel;
     
-    const snappedPosition = calculateSnapPosition(x - dragStart.x, y - dragStart.y);
-    
-    dispatch(moveElement({
-      id: selectedElement.id,
-      x: snappedPosition.x,
-      y: snappedPosition.y,
-    }));
-  }, [isDragging, selectedElement, dragStart, zoomLevel, dispatch]);
+    if (isDragging && selectedElement && dragStart) {
+      // Regular element dragging (select tool)
+      const snappedPosition = calculateSnapPosition(x - dragStart.x, y - dragStart.y);
+      
+      dispatch(moveElement({
+        id: selectedElement.id,
+        x: snappedPosition.x,
+        y: snappedPosition.y,
+      }));
+    } else if (isDraggingForReorder && draggedElementId) {
+      // Element reordering (hand tool) - show insertion indicators
+      const indicator = detectInsertionZone(x, y, true);
+      
+      // Only show insertion indicator if it's different from the dragged element
+      if (indicator && indicator.elementId !== draggedElementId) {
+        setInsertionIndicator(indicator);
+      } else {
+        setInsertionIndicator(null);
+      }
+    }
+  }, [isDragging, isDraggingForReorder, selectedElement, draggedElementId, dragStart, zoomLevel, dispatch]);
 
   const handleMouseUp = useCallback((e?: MouseEvent) => {
     if (isDraggingForReorder && draggedElementId && insertionIndicator) {
@@ -262,7 +273,7 @@ const Canvas: React.FC = () => {
 
   useEffect(() => {
     const handleGlobalMouseMove = (e: MouseEvent) => {
-      if (isDragging) {
+      if (isDragging || isDraggingForReorder) {
         handleMouseMove(e as any);
       }
     };
