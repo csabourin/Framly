@@ -7,9 +7,11 @@ import { CanvasElement as CanvasElementType } from '../../types/canvas';
 interface CanvasElementProps {
   element: CanvasElementType;
   isSelected: boolean;
+  isHovered?: boolean;
+  hoveredZone?: 'before' | 'after' | 'inside' | null;
 }
 
-const CanvasElement: React.FC<CanvasElementProps> = ({ element, isSelected }) => {
+const CanvasElement: React.FC<CanvasElementProps> = ({ element, isSelected, isHovered = false, hoveredZone = null }) => {
   const dispatch = useDispatch();
   const { project } = useSelector((state: RootState) => state.canvas);
   const { selectedTool } = useSelector((state: RootState) => state.ui);
@@ -69,6 +71,8 @@ const CanvasElement: React.FC<CanvasElementProps> = ({ element, isSelected }) =>
                 key={child.id} 
                 element={child}
                 isSelected={child.id === project.selectedElementId}
+                isHovered={false}
+                hoveredZone={null}
               />
             ) : null;
           })}
@@ -83,6 +87,19 @@ const CanvasElement: React.FC<CanvasElementProps> = ({ element, isSelected }) =>
     );
   };
 
+  // Define visual feedback based on selection and hover states
+  const getBorderStyle = () => {
+    if (isSelected) return '2px solid #3b82f6';
+    if (isHovered && hoveredZone === 'inside') return '4px solid #a855f7';
+    if (isHovered && (hoveredZone === 'before' || hoveredZone === 'after')) return '2px solid #3b82f6';
+    return undefined;
+  };
+
+  const getBackgroundColor = () => {
+    if (isHovered && hoveredZone === 'inside') return 'rgba(168, 85, 247, 0.1)';
+    return element.styles.backgroundColor;
+  };
+
   const combinedStyles: React.CSSProperties = {
     position: element.styles.position === 'absolute' ? 'absolute' : 'relative',
     left: element.styles.position === 'absolute' ? element.x : undefined,
@@ -90,6 +107,9 @@ const CanvasElement: React.FC<CanvasElementProps> = ({ element, isSelected }) =>
     width: element.styles.width || (element.width === 0 ? '100%' : element.width),
     height: element.styles.minHeight ? undefined : element.height,
     ...element.styles,
+    backgroundColor: getBackgroundColor(),
+    border: getBorderStyle(),
+    boxShadow: isSelected ? '0 0 0 1px rgba(59, 130, 246, 0.3)' : undefined,
   };
 
   return (

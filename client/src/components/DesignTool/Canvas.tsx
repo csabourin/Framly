@@ -16,7 +16,8 @@ interface InsertionIndicator {
 const Canvas: React.FC = () => {
   const dispatch = useDispatch();
   const canvasRef = useRef<HTMLDivElement>(null);
-  const [insertionIndicator, setInsertionIndicator] = useState<InsertionIndicator | null>(null);
+  const [hoveredElementId, setHoveredElementId] = useState<string | null>(null);
+  const [hoveredZone, setHoveredZone] = useState<'before' | 'after' | 'inside' | null>(null);
   const { project } = useSelector((state: RootState) => state.canvas);
   const { selectedTool, isDragging, dragStart, isResizing, resizeHandle, zoomLevel, isGridVisible, draggedElementId, isDraggingForReorder } = useSelector((state: RootState) => state.ui);
 
@@ -121,37 +122,7 @@ const Canvas: React.FC = () => {
     }
   }, [selectedTool, project.elements, zoomLevel, rootElement, draggedElementId]);
 
-  // Element-based sticky detection
-  const lastDetectedElementRef = useRef<string | null>(null);
-  const lastInsertionIndicatorRef = useRef<string | null>(null);
 
-  // Handle mouse move for insertion indicators and drag operations  
-  const handleCanvasMouseMove = useCallback((e: React.MouseEvent) => {
-    const rect = canvasRef.current?.getBoundingClientRect();
-    if (!rect) return;
-
-    const x = (e.clientX - rect.left) / zoomLevel;
-    const y = (e.clientY - rect.top) / zoomLevel;
-
-    // Handle dragging for reorder (hand tool)
-    if (isDraggingForReorder && draggedElementId && selectedTool === 'hand') {
-      const indicator = detectInsertionZone(x, y, true);
-      setInsertionIndicator(indicator);
-      return;
-    }
-
-    // Handle insertion indicators for element creation tools
-    if (['rectangle', 'text', 'image', 'container'].includes(selectedTool)) {
-      // Always calculate insertion zone for accurate positioning
-      const indicator = detectInsertionZone(x, y, false);
-      
-      // Update insertion indicator
-      setInsertionIndicator(indicator);
-    } else {
-      setInsertionIndicator(null);
-      lastDetectedElementRef.current = null;
-    }
-  }, [selectedTool, zoomLevel, detectInsertionZone, isDraggingForReorder, draggedElementId, project.elements]);
 
   const handleCanvasClick = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
@@ -180,41 +151,34 @@ const Canvas: React.FC = () => {
         dispatch(selectElement('root'));
       }
     } else if (['rectangle', 'text', 'image', 'container'].includes(selectedTool)) {
-      // Use the current insertion indicator if available, otherwise detect new one
-      const indicator = insertionIndicator || detectInsertionZone(x, y, false);
-      
-      if (indicator) {
-        console.log('Creating element with indicator:', indicator);
-        console.log('Available elements:', Object.keys(project.elements));
-        console.log('Click coordinates:', x, y);
-        
-        const hoveredElement = getElementAtPoint(x, y, project.elements, zoomLevel);
-        console.log('Hovered element at click:', hoveredElement);
+      // Create element based on hovered element and zone
+      if (hoveredElementId && hoveredZone) {
+        console.log('Creating element - hoveredElementId:', hoveredElementId, 'zone:', hoveredZone);
         
         const newElement = createDefaultElement(selectedTool as any, 0, 0);
         
-        if (indicator.position === 'inside') {
+        if (hoveredZone === 'inside') {
           // Insert inside the target element
           dispatch(addElement({ 
             element: newElement, 
-            parentId: indicator.elementId,
+            parentId: hoveredElementId,
             insertPosition: 'inside'
           }));
         } else {
           // Insert before or after the target element (sibling)
-          const targetElement = project.elements[indicator.elementId];
+          const targetElement = project.elements[hoveredElementId];
           const parentId = targetElement?.parent || 'root';
           
           dispatch(addElement({ 
             element: newElement, 
             parentId: parentId,
-            insertPosition: indicator.position,
-            referenceElementId: indicator.elementId
+            insertPosition: hoveredZone,
+            referenceElementId: hoveredElementId
           }));
         }
         
-        // Clear the insertion indicator and select new element
-        setInsertionIndicator(null);
+        setHoveredElementId(null);
+        setHoveredZone(null);
         dispatch(selectElement(newElement.id));
       } else {
         // If no specific insertion point, create at root
@@ -224,11 +188,10 @@ const Canvas: React.FC = () => {
           parentId: 'root',
           insertPosition: 'inside'
         }));
-        setInsertionIndicator(null);
         dispatch(selectElement(newElement.id));
       }
     }
-  }, [selectedTool, zoomLevel, project.elements, dispatch, detectInsertionZone]);
+  }, [selectedTool, zoomLevel, project.elements, dispatch, hoveredElementId, hoveredZone]);
 
   const handleMouseDown = useCallback((e: React.MouseEvent) => {
     const rect = canvasRef.current?.getBoundingClientRect();
@@ -268,36 +231,36 @@ const Canvas: React.FC = () => {
         y: snappedPosition.y,
       }));
     } else if (isDraggingForReorder && draggedElementId) {
-      // Element reordering (hand tool) - show insertion indicators
-      const indicator = detectInsertionZone(x, y, true);
-      
-      // Only show insertion indicator if it's different from the dragged element
-      if (indicator && indicator.elementId !== draggedElementId) {
-        setInsertionIndicator(indicator);
+      // Element reordering (hand tool) - show hover feedback
+      const hoveredElement = getElementAtPoint(x, y, project.elements, zoomLevel);
+      if (hoveredElement && hoveredElement.id !== draggedElementId) {
+        setHoveredElementId(hoveredElement.id);
+        setHoveredZone('inside');
       } else {
-        setInsertionIndicator(null);
+        setHoveredElementId(null);
+        setHoveredZone(null);
       }
     }
   }, [isDragging, isDraggingForReorder, selectedElement, draggedElementId, dragStart, zoomLevel, dispatch]);
 
   const handleMouseUp = useCallback((e?: MouseEvent) => {
-    if (isDraggingForReorder && draggedElementId && insertionIndicator) {
+    if (isDraggingForReorder && draggedElementId && hoveredElementId && hoveredZone) {
       // Complete the reorder operation
-      if (insertionIndicator.position === 'inside') {
+      if (hoveredZone === 'inside') {
         dispatch(reorderElement({
           elementId: draggedElementId,
-          newParentId: insertionIndicator.elementId,
+          newParentId: hoveredElementId,
           insertPosition: 'inside'
         }));
       } else {
-        const targetElement = project.elements[insertionIndicator.elementId];
+        const targetElement = project.elements[hoveredElementId];
         const parentId = targetElement?.parent || 'root';
         
         dispatch(reorderElement({
           elementId: draggedElementId,
           newParentId: parentId,
-          insertPosition: insertionIndicator.position,
-          referenceElementId: insertionIndicator.elementId
+          insertPosition: hoveredZone,
+          referenceElementId: hoveredElementId
         }));
       }
     }
@@ -307,9 +270,10 @@ const Canvas: React.FC = () => {
     dispatch(setResizing(false));
     dispatch(setDraggingForReorder(false));
     dispatch(setDraggedElement(undefined));
-    setInsertionIndicator(null);
+    setHoveredElementId(null);
+    setHoveredZone(null);
     dispatch(resetUI());
-  }, [dispatch, isDraggingForReorder, draggedElementId, insertionIndicator, project.elements]);
+  }, [dispatch, isDraggingForReorder, draggedElementId, hoveredElementId, hoveredZone, project.elements]);
 
   const handleZoomIn = () => {
     // Zoom functionality would be implemented here
@@ -395,11 +359,11 @@ const Canvas: React.FC = () => {
         }}
         onClick={handleCanvasClick}
         onMouseDown={handleMouseDown}
-        onMouseMove={handleCanvasMouseMove}
+        onMouseMove={handleMouseMove}
         onMouseLeave={() => {
-          // Clear indicator when leaving canvas area
-          setInsertionIndicator(null);
-          lastDetectedElementRef.current = null;
+          // Clear hover state when leaving canvas area
+          setHoveredElementId(null);
+          setHoveredZone(null);
         }}
         data-testid="canvas-container"
       >
@@ -411,81 +375,13 @@ const Canvas: React.FC = () => {
               key={element.id} 
               element={element}
               isSelected={element.id === project.selectedElementId}
+              isHovered={element.id === hoveredElementId}
+              hoveredZone={element.id === hoveredElementId ? hoveredZone : null}
             />
           ) : null;
         })}
         
-        {/* Insertion Indicator */}
-        {insertionIndicator && (
-          <div
-            className={`absolute cursor-pointer ${
-              isDraggingForReorder 
-                ? insertionIndicator.position === 'inside' 
-                  ? 'border-2 border-green-400 border-dashed bg-green-50 bg-opacity-30 pointer-events-none z-40' 
-                  : 'bg-green-500 pointer-events-auto z-50'
-                : insertionIndicator.position === 'inside' 
-                  ? insertionIndicator.elementId === 'root'
-                    ? 'border-2 border-blue-400 border-dashed bg-blue-50 bg-opacity-20 pointer-events-auto z-[1]'
-                    : 'border-4 border-purple-500 border-solid bg-purple-100 bg-opacity-90 pointer-events-auto z-[1000] shadow-lg shadow-purple-300'
-                  : 'bg-blue-500 pointer-events-auto z-50'
-            }`}
-            style={{
-              left: insertionIndicator.bounds.x,
-              top: insertionIndicator.bounds.y,
-              width: insertionIndicator.bounds.width,
-              height: insertionIndicator.bounds.height,
-            }}
-            data-testid="insertion-indicator"
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              console.log('Insertion indicator clicked directly!', insertionIndicator);
-              
-              if (['rectangle', 'text', 'image', 'container'].includes(selectedTool)) {
-                const newElement = createDefaultElement(selectedTool as any, 0, 0);
-                
-                if (insertionIndicator.position === 'inside') {
-                  // Insert inside the target element
-                  dispatch(addElement({ 
-                    element: newElement, 
-                    parentId: insertionIndicator.elementId,
-                    insertPosition: 'inside'
-                  }));
-                } else {
-                  // Insert before or after the target element (sibling)
-                  const targetElement = project.elements[insertionIndicator.elementId];
-                  const parentId = targetElement?.parent || 'root';
-                  
-                  dispatch(addElement({ 
-                    element: newElement, 
-                    parentId: parentId,
-                    insertPosition: insertionIndicator.position,
-                    referenceElementId: insertionIndicator.elementId
-                  }));
-                }
-                
-                setInsertionIndicator(null);
-                dispatch(selectElement(newElement.id));
-              }
-            }}
-          >
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <div className={`text-white text-xs px-2 py-1 rounded whitespace-nowrap ${
-                isDraggingForReorder 
-                  ? 'bg-green-500' 
-                  : insertionIndicator.position === 'inside' && insertionIndicator.elementId !== 'root'
-                    ? 'bg-purple-500'
-                    : 'bg-blue-500'
-              }`}>
-                {isDraggingForReorder ? 'Move' : 'Insert'} {insertionIndicator.position}
-                {insertionIndicator.position === 'inside' && insertionIndicator.elementId !== 'root' 
-                  ? ` into ${insertionIndicator.elementId.split('-')[0]}` 
-                  : insertionIndicator.position === 'inside' ? ' into canvas' : ''
-                }
-              </div>
-            </div>
-          </div>
-        )}
+
         
 
       </div>
