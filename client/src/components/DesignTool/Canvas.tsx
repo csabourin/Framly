@@ -148,11 +148,11 @@ const Canvas: React.FC = () => {
       }
     } else if (['rectangle', 'text', 'image', 'container'].includes(selectedTool)) {
       const indicator = detectInsertionZone(x, y, false);
-      console.log('Canvas click - indicator found:', indicator);
+  
       
       if (indicator) {
         const newElement = createDefaultElement(selectedTool as any, 0, 0);
-        console.log('Creating new element:', newElement);
+
         
         if (indicator.position === 'inside') {
           // Insert inside the target element
@@ -166,7 +166,7 @@ const Canvas: React.FC = () => {
           const targetElement = project.elements[indicator.elementId];
           const parentId = targetElement?.parent || 'root';
           
-          console.log('Adding element as sibling:', { parentId, insertPosition: indicator.position, referenceElementId: indicator.elementId });
+
           
           dispatch(addElement({ 
             element: newElement, 
@@ -180,7 +180,7 @@ const Canvas: React.FC = () => {
         setInsertionIndicator(null);
         dispatch(selectElement(newElement.id));
       } else {
-        console.log('No indicator found - creating at root');
+
         // If no specific insertion point, create at root
         const newElement = createDefaultElement(selectedTool as any, x, y);
         dispatch(addElement({ 
@@ -357,14 +357,14 @@ const Canvas: React.FC = () => {
         {/* Insertion Indicator */}
         {insertionIndicator && (
           <div
-            className={`absolute pointer-events-none z-50 ${
+            className={`absolute z-50 ${
               isDraggingForReorder 
                 ? insertionIndicator.position === 'inside' 
-                  ? 'border-2 border-green-400 border-dashed bg-green-50 bg-opacity-30' 
-                  : 'bg-green-500'
+                  ? 'border-2 border-green-400 border-dashed bg-green-50 bg-opacity-30 pointer-events-none' 
+                  : 'bg-green-500 pointer-events-auto cursor-pointer'
                 : insertionIndicator.position === 'inside' 
-                  ? 'border-2 border-blue-400 border-dashed bg-blue-50 bg-opacity-30' 
-                  : 'bg-blue-500'
+                  ? 'border-2 border-blue-400 border-dashed bg-blue-50 bg-opacity-30 pointer-events-none' 
+                  : 'bg-blue-500 pointer-events-auto cursor-pointer'
             }`}
             style={{
               left: insertionIndicator.bounds.x,
@@ -373,9 +373,32 @@ const Canvas: React.FC = () => {
               height: insertionIndicator.bounds.height,
             }}
             data-testid="insertion-indicator"
+            onClick={(e) => {
+              if (insertionIndicator.position !== 'inside') {
+                e.stopPropagation();
+                console.log('Insertion indicator clicked!', insertionIndicator);
+                // Trigger element creation at this position
+                if (['rectangle', 'text', 'image', 'container'].includes(selectedTool)) {
+                  const newElement = createDefaultElement(selectedTool as any, 0, 0);
+                  
+                  const targetElement = project.elements[insertionIndicator.elementId];
+                  const parentId = targetElement?.parent || 'root';
+                  
+                  dispatch(addElement({ 
+                    element: newElement, 
+                    parentId: parentId,
+                    insertPosition: insertionIndicator.position,
+                    referenceElementId: insertionIndicator.elementId
+                  }));
+                  
+                  setInsertionIndicator(null);
+                  dispatch(selectElement(newElement.id));
+                }
+              }
+            }}
           >
             {insertionIndicator.position !== 'inside' && (
-              <div className="absolute inset-0 flex items-center justify-center">
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                 <div className={`text-white text-xs px-2 py-1 rounded whitespace-nowrap ${
                   isDraggingForReorder ? 'bg-green-500' : 'bg-blue-500'
                 }`}>
