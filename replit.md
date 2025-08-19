@@ -2,6 +2,14 @@
 
 This is a WYSIWYG (What You See Is What You Get) web design tool built as a full-stack application. The application allows users to create visual designs through drag-and-drop interface elements, with real-time preview and code generation capabilities. Users can design responsive layouts, manage design elements, and export their creations as HTML/CSS or React components.
 
+## Recent Changes (January 19, 2025)
+
+- **Fixed insertion functionality**: Blue insertion indicators for "Insert before/after" are now fully functional and clickable
+- **Improved element detection**: Fixed coordinate calculations and zoom level handling for proper element detection
+- **Enhanced text editability**: Text elements are only editable when selected with text tool or double-clicked
+- **Fixed aspect ratio calculations**: Width changes automatically update height based on selected aspect ratio
+- **Resolved element reordering**: Elements can now be properly moved/reordered without being replaced
+
 # User Preferences
 
 Preferred communication style: Simple, everyday language.
