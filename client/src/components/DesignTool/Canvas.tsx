@@ -33,6 +33,7 @@ const Canvas: React.FC = () => {
     }
 
     const hoveredElement = getElementAtPoint(x, y, project.elements, zoomLevel);
+    console.log('detectInsertionZone - hoveredElement:', hoveredElement?.id);
     
     // Skip the dragged element itself during drag operations
     if (forDrag && draggedElementId && hoveredElement?.id === draggedElementId) {

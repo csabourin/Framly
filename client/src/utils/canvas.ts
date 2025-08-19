@@ -170,7 +170,6 @@ export function getElementAtPoint(x: number, y: number, elements: Record<string,
   // Return root as final fallback
   console.log('Falling back to root');
   return elements.root || null;
-  return elements.root || null;
 }
 
 export function calculateSnapPosition(x: number, y: number, snapGrid: number = 10): { x: number; y: number } {
