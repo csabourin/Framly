@@ -128,10 +128,10 @@ export function getElementAtPoint(x: number, y: number, elements: Record<string,
   const elementAtPoint = document.elementFromPoint(pageX, pageY);
   if (!elementAtPoint) return null;
   
-  // Find the closest element with data-element-id, prioritizing non-root elements
-  let current: Element | null = elementAtPoint;
+  // Find all elements with data-element-id in the hierarchy, prioritizing deepest first
+  let allFoundElements: CanvasElement[] = [];
   let foundRoot = false;
-  let specificElement: CanvasElement | null = null;
+  let current: Element | null = elementAtPoint;
   
   while (current && current !== canvasElement) {
     // Skip insertion indicators and their children
@@ -143,8 +143,8 @@ export function getElementAtPoint(x: number, y: number, elements: Record<string,
     const elementId = current.getAttribute('data-element-id');
     if (elementId && elements[elementId]) {
       if (elementId !== 'root') {
-        // Found a specific non-root element, store it and keep looking for more specific ones
-        specificElement = elements[elementId];
+        // Found a specific non-root element, add to array (deepest first)
+        allFoundElements.unshift(elements[elementId]);
       } else {
         // Mark that we found root
         foundRoot = true;
@@ -153,9 +153,9 @@ export function getElementAtPoint(x: number, y: number, elements: Record<string,
     current = current.parentElement;
   }
   
-  // Return the most specific element found, or root, or null
-  if (specificElement) {
-    return specificElement;
+  // Return the deepest (most specific) element found
+  if (allFoundElements.length > 0) {
+    return allFoundElements[0]; // First item is the deepest
   }
   if (foundRoot) {
     return elements.root || null;

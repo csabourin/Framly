@@ -107,7 +107,7 @@ const Canvas: React.FC = () => {
     }
   }, [selectedTool, project.elements, zoomLevel, rootElement, draggedElementId]);
 
-  // Handle mouse move for insertion indicators and drag operations
+  // Handle mouse move for insertion indicators and drag operations  
   const handleCanvasMouseMove = useCallback((e: React.MouseEvent) => {
     const rect = canvasRef.current?.getBoundingClientRect();
     if (!rect) return;
@@ -115,20 +115,24 @@ const Canvas: React.FC = () => {
     const x = (e.clientX - rect.left) / zoomLevel;
     const y = (e.clientY - rect.top) / zoomLevel;
 
-    // Handle dragging for reorder (hand tool)
-    if (isDraggingForReorder && draggedElementId && selectedTool === 'hand') {
-      const indicator = detectInsertionZone(x, y, true);
-      setInsertionIndicator(indicator);
-      return;
-    }
+    // Debounce to prevent rapid flickering
+    setTimeout(() => {
+      // Handle dragging for reorder (hand tool)
+      if (isDraggingForReorder && draggedElementId && selectedTool === 'hand') {
+        const indicator = detectInsertionZone(x, y, true);
+        setInsertionIndicator(indicator);
+        return;
+      }
 
-    // Handle insertion indicators for element creation tools
-    if (['rectangle', 'text', 'image', 'container'].includes(selectedTool)) {
-      const indicator = detectInsertionZone(x, y, false);
-      setInsertionIndicator(indicator);
-    } else {
-      setInsertionIndicator(null);
-    }
+      // Handle insertion indicators for element creation tools
+      if (['rectangle', 'text', 'image', 'container'].includes(selectedTool)) {
+        const indicator = detectInsertionZone(x, y, false);
+        console.log('Detection result:', indicator?.elementId, 'at coordinates:', x, y);
+        setInsertionIndicator(indicator);
+      } else {
+        setInsertionIndicator(null);
+      }
+    }, 10); // Small 10ms delay to prevent rapid updates
   }, [selectedTool, zoomLevel, detectInsertionZone, isDraggingForReorder, draggedElementId]);
 
   const handleCanvasClick = useCallback((e: React.MouseEvent) => {
@@ -405,8 +409,8 @@ const Canvas: React.FC = () => {
                   : 'bg-green-500 pointer-events-auto cursor-pointer z-50'
                 : insertionIndicator.position === 'inside' 
                   ? insertionIndicator.elementId === 'root'
-                    ? 'border-2 border-blue-400 border-dashed bg-blue-50 bg-opacity-20 pointer-events-none z-[5]'
-                    : 'border-4 border-purple-500 border-solid bg-purple-100 bg-opacity-60 pointer-events-auto cursor-pointer z-[100]'
+                    ? 'border-2 border-blue-400 border-dashed bg-blue-50 bg-opacity-20 pointer-events-none z-[1]'
+                    : 'border-4 border-purple-500 border-solid bg-purple-100 bg-opacity-80 pointer-events-auto cursor-pointer z-[999]'
                   : 'bg-blue-500 pointer-events-auto cursor-pointer z-50'
             }`}
             style={{
