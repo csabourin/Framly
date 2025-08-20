@@ -19,8 +19,12 @@ const CanvasElement: React.FC<CanvasElementProps> = ({ element, isSelected, isHo
 
   const handleClick = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
-    dispatch(selectElement(element.id));
-  }, [element.id, dispatch]);
+    // Only handle selection for select and hand tools
+    // Creation tools should be handled by the canvas click handler
+    if (['select', 'hand'].includes(selectedTool)) {
+      dispatch(selectElement(element.id));
+    }
+  }, [element.id, dispatch, selectedTool]);
 
   const handleContentEdit = useCallback((e: React.FormEvent<HTMLDivElement>) => {
     const newContent = e.currentTarget.textContent || '';
@@ -112,7 +116,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({ element, isSelected, isHo
     boxShadow: isSelected ? '0 0 0 1px rgba(59, 130, 246, 0.3)' : undefined,
   };
 
-  // Add debug logging
+  // Add debug logging for hover state
   if (isHovered) {
     console.log('Element hover state:', { 
       elementId: element.id, 

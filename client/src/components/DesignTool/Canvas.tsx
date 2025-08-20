@@ -151,31 +151,41 @@ const Canvas: React.FC = () => {
         dispatch(selectElement('root'));
       }
     } else if (['rectangle', 'text', 'image', 'container'].includes(selectedTool)) {
-      // Create element based on hovered element and zone
-      console.log('Click - hoveredElementId:', hoveredElementId, 'hoveredZone:', hoveredZone);
+      // Re-detect the insertion point at click time to ensure we have current hover state
+      const clickedElement = getElementAtPoint(x, y, project.elements, zoomLevel);
+      let targetElementId = hoveredElementId;
+      let targetZone = hoveredZone;
       
-      if (hoveredElementId && hoveredZone) {
-        console.log('Creating element - hoveredElementId:', hoveredElementId, 'zone:', hoveredZone);
+      // If hover state was lost, re-detect it
+      if (!targetElementId && clickedElement) {
+        targetElementId = clickedElement.id;
+        targetZone = 'inside'; // Default to inside for direct clicks
+      }
+      
+      console.log('Click - targetElementId:', targetElementId, 'targetZone:', targetZone);
+      
+      if (targetElementId && targetZone) {
+        console.log('Creating element - targetElementId:', targetElementId, 'zone:', targetZone);
         
         const newElement = createDefaultElement(selectedTool as any, 0, 0);
         
-        if (hoveredZone === 'inside') {
+        if (targetZone === 'inside') {
           // Insert inside the target element
           dispatch(addElement({ 
             element: newElement, 
-            parentId: hoveredElementId,
+            parentId: targetElementId,
             insertPosition: 'inside'
           }));
         } else {
           // Insert before or after the target element (sibling)
-          const targetElement = project.elements[hoveredElementId];
+          const targetElement = project.elements[targetElementId];
           const parentId = targetElement?.parent || 'root';
           
           dispatch(addElement({ 
             element: newElement, 
             parentId: parentId,
-            insertPosition: hoveredZone,
-            referenceElementId: hoveredElementId
+            insertPosition: targetZone,
+            referenceElementId: targetElementId
           }));
         }
         
@@ -184,6 +194,7 @@ const Canvas: React.FC = () => {
         dispatch(selectElement(newElement.id));
       } else {
         // If no specific insertion point, create at root
+        console.log('Creating element at root');
         const newElement = createDefaultElement(selectedTool as any, x, y);
         dispatch(addElement({ 
           element: newElement, 
@@ -263,7 +274,8 @@ const Canvas: React.FC = () => {
         const elementDiv = document.querySelector(`[data-element-id="${hoveredElement.id}"]`) as HTMLElement;
         if (elementDiv) {
           const elementRect = elementDiv.getBoundingClientRect();
-          const canvasRect = canvasRef.current.getBoundingClientRect();
+          const canvasRect = canvasRef.current?.getBoundingClientRect();
+          if (!canvasRect) return;
           
           const elementX = (elementRect.left - canvasRect.left) / zoomLevel;
           const elementY = (elementRect.top - canvasRect.top) / zoomLevel;
