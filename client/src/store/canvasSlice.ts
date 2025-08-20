@@ -70,17 +70,20 @@ const canvasSlice = createSlice({
       
       const parent = state.project.elements[parentId];
       if (parent && parent.children) {
-        if (insertPosition === 'inside' || !referenceElementId) {
-          // Add to end of children
-          parent.children.push(element.id);
-        } else {
-          // Find reference element index and insert before or after
-          const referenceIndex = parent.children.indexOf(referenceElementId);
-          if (referenceIndex !== -1) {
-            const insertIndex = insertPosition === 'before' ? referenceIndex : referenceIndex + 1;
-            parent.children.splice(insertIndex, 0, element.id);
-          } else {
+        // Check if element already exists in children to prevent duplicates
+        if (!parent.children.includes(element.id)) {
+          if (insertPosition === 'inside' || !referenceElementId) {
+            // Add to end of children
             parent.children.push(element.id);
+          } else {
+            // Find reference element index and insert before or after
+            const referenceIndex = parent.children.indexOf(referenceElementId);
+            if (referenceIndex !== -1) {
+              const insertIndex = insertPosition === 'before' ? referenceIndex : referenceIndex + 1;
+              parent.children.splice(insertIndex, 0, element.id);
+            } else {
+              parent.children.push(element.id);
+            }
           }
         }
       }

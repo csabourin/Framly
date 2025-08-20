@@ -432,27 +432,62 @@ const Canvas: React.FC = () => {
         
         console.log('Component drop coordinates:', { x, y, rawX, rawY, zoomLevel });
         
+        // Use the current hover state for intelligent placement
+        const targetElementId = hoveredElementId || 'root';
+        const targetElement = project.elements[targetElementId];
+        const targetZone = hoveredZone || 'inside';
+        
         // Instantiate the component at the drop position
         const { elements: newElements, rootElementId } = instantiateComponent(data.component, x, y);
         
-        // Add all elements to the project - simplified approach
-        Object.values(newElements).forEach(element => {
+        // Add the root element first with proper targeting
+        const rootElement = newElements[rootElementId];
+        if (rootElement) {
+          let parentId = 'root';
+          let insertPosition: 'before' | 'after' | 'inside' = 'inside';
+          let referenceElementId: string | undefined;
+          
+          // Use hover targeting for intelligent placement
+          if (targetElement && targetElementId !== 'root') {
+            if (targetZone === 'inside' && isValidDropTarget(targetElement)) {
+              parentId = targetElementId;
+              insertPosition = 'inside';
+            } else if (targetZone === 'before' || targetZone === 'after') {
+              parentId = targetElement.parent || 'root';
+              insertPosition = targetZone;
+              referenceElementId = targetElementId;
+            }
+          }
+          
+          // Add the root element with proper parent relationship
           dispatch(addElement({ 
-            element, 
-            parentId: element.parent || 'root',
-            insertPosition: 'inside'
+            element: { ...rootElement, parent: parentId },
+            parentId,
+            insertPosition,
+            referenceElementId
           }));
-        });
+          
+          // Add child elements (excluding the root which we already added)
+          Object.values(newElements).forEach(element => {
+            if (element.id !== rootElementId) {
+              dispatch(addElement({ 
+                element, 
+                parentId: element.parent || rootElementId,
+                insertPosition: 'inside'
+              }));
+            }
+          });
+        }
         
         // Select the root element
         dispatch(selectElement(rootElementId));
         
-        console.log('Component dropped successfully:', data.component.name);
+        console.log('Component dropped successfully:', data.component.name, 'in zone:', targetZone, 'of element:', targetElementId);
       }
     } catch (error) {
       console.error('Error handling drop:', error);
     }
-  }, [zoomLevel, dispatch]);
+  }, [zoomLevel, dispatch, hoveredElementId, hoveredZone, project.elements]);
 
   const handleZoomIn = () => {
     // Zoom functionality would be implemented here
@@ -563,7 +598,7 @@ const Canvas: React.FC = () => {
         data-testid="canvas-container"
       >
         {/* Render Canvas Elements */}
-        {rootElement.children?.map(childId => {
+        {rootElement.children?.filter((childId, index, arr) => arr.indexOf(childId) === index).map(childId => {
           const element = project.elements[childId];
           return element ? (
             <CanvasElement 

@@ -97,9 +97,10 @@ export function instantiateComponent(
   const elementIdMap = new Map<string, string>();
   const newElements: Record<string, CanvasElement> = {};
   
-  // First pass: create new IDs for all elements
+  // First pass: create new IDs for all elements using crypto.randomUUID for uniqueness
   Object.keys(component.elements).forEach(oldId => {
-    const newId = `${component.elements[oldId].type}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const uuid = crypto.randomUUID();
+    const newId = `${component.elements[oldId].type}-${uuid}`;
     elementIdMap.set(oldId, newId);
   });
   
