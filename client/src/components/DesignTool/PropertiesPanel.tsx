@@ -18,7 +18,7 @@ const PropertiesPanel: React.FC = () => {
 
   if (!selectedElement) {
     return (
-      <aside className="absolute right-0 top-12 bottom-8 w-80 bg-white border-l border-gray-200 overflow-y-auto z-40">
+      <aside className="absolute right-64 top-12 bottom-8 w-80 bg-white border-l border-gray-200 overflow-y-auto z-40">
         <div className="p-4 text-center text-gray-500">
           Select an element to edit properties
         </div>

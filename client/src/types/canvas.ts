@@ -58,4 +58,21 @@ export interface Project {
   currentBreakpoint: string;
 }
 
-export type Tool = 'select' | 'hand' | 'rectangle' | 'text' | 'image' | 'split-horizontal' | 'split-vertical' | 'merge';
+export type Tool = 'select' | 'hand' | 'rectangle' | 'text' | 'image' | 'split-horizontal' | 'split-vertical' | 'merge' | 'component';
+
+export interface CustomComponent {
+  id: string;
+  name: string;
+  category: string;
+  thumbnail?: string;
+  elements: Record<string, CanvasElement>;
+  rootElementId: string;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export interface ComponentCategory {
+  id: string;
+  name: string;
+  components: CustomComponent[];
+}

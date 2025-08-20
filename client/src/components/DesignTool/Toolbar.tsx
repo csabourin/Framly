@@ -11,7 +11,8 @@ import {
   Image, 
   SplitSquareHorizontal,
   SplitSquareVertical,
-  Combine 
+  Combine,
+  Package
 } from 'lucide-react';
 
 const Toolbar: React.FC = () => {
@@ -24,6 +25,7 @@ const Toolbar: React.FC = () => {
     { id: 'rectangle', icon: Square, label: 'Rectangle', shortcut: 'R' },
     { id: 'text', icon: Type, label: 'Text', shortcut: 'T' },
     { id: 'image', icon: Image, label: 'Image', shortcut: 'I' },
+    { id: 'component', icon: Package, label: 'Component', shortcut: 'C' },
     { id: 'split-horizontal', icon: SplitSquareHorizontal, label: 'Split Horizontal', shortcut: 'S' },
     { id: 'split-vertical', icon: SplitSquareVertical, label: 'Split Vertical' },
     { id: 'merge', icon: Combine, label: 'Merge', shortcut: 'M' },
@@ -41,7 +43,7 @@ const Toolbar: React.FC = () => {
       {tools.map((tool, index) => {
         const Icon = tool.icon;
         const isActive = selectedTool === tool.id;
-        const needsDivider = index === 4; // Add divider after image tool
+        const needsDivider = index === 5; // Add divider after component tool
         
         return (
           <div key={tool.id}>

@@ -2,8 +2,10 @@ import React, { useRef, useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
 import { selectElement, addElement, moveElement, resizeElement, reorderElement, deleteElement } from '../../store/canvasSlice';
+import { components } from '../../store/componentSlice';
 import { setDragging, setDragStart, setResizing, setResizeHandle, resetUI, setDraggedElement, setDraggingForReorder, setHoveredElement } from '../../store/uiSlice';
 import { createDefaultElement, getElementAtPoint, calculateSnapPosition, isValidDropTarget } from '../../utils/canvas';
+import { instantiateComponent } from '../../utils/componentGenerator';
 import CanvasElement from './CanvasElement';
 import { Plus, Minus, Maximize } from 'lucide-react';
 
@@ -20,13 +22,14 @@ const Canvas: React.FC = () => {
   const [hoveredZone, setHoveredZone] = useState<'before' | 'after' | 'inside' | null>(null);
   const { project } = useSelector((state: RootState) => state.canvas);
   const { selectedTool, isDragging, dragStart, isResizing, resizeHandle, zoomLevel, isGridVisible, draggedElementId, isDraggingForReorder } = useSelector((state: RootState) => state.ui);
+  const { components: availableComponents } = useSelector((state: RootState) => state.components);
 
   const rootElement = project.elements.root;
   const selectedElement = project.selectedElementId ? project.elements[project.selectedElementId] : null;
 
   // Function to detect insertion zones based on mouse position
   const detectInsertionZone = useCallback((x: number, y: number, forDrag = false): InsertionIndicator | null => {
-    if (!forDrag && !['rectangle', 'text', 'image', 'container'].includes(selectedTool)) {
+    if (!forDrag && !['rectangle', 'text', 'image', 'container', 'component'].includes(selectedTool)) {
       return null;
     }
     if (forDrag && selectedTool !== 'hand') {
@@ -151,7 +154,7 @@ const Canvas: React.FC = () => {
       } else {
         dispatch(selectElement('root'));
       }
-    } else if (['rectangle', 'text', 'image', 'container'].includes(selectedTool)) {
+    } else if (['rectangle', 'text', 'image', 'container', 'component'].includes(selectedTool)) {
       // Re-detect the insertion point at click time to ensure we have current hover state
       const clickedElement = getElementAtPoint(x, y, project.elements, zoomLevel);
       let targetElementId = hoveredElementId;
@@ -172,6 +175,12 @@ const Canvas: React.FC = () => {
       const canInsertInTarget = targetElement ? isValidDropTarget(targetElement) : true;
       
       console.log('CLICK DEBUG - Final target:', targetElementId, 'zone:', targetZone, 'canInsert:', canInsertInTarget);
+      
+      if (selectedTool === 'component') {
+        // Handle component tool - for now just show a message
+        console.log('Component tool clicked - use drag and drop from component panel');
+        return;
+      }
       
       if (targetElementId && targetZone && targetElementId !== 'root' && canInsertInTarget) {
         console.log('CLICK DEBUG - Creating element inside:', targetElementId);
@@ -291,7 +300,7 @@ const Canvas: React.FC = () => {
         setHoveredZone(null);
         dispatch(setHoveredElement({ elementId: null, zone: null }));
       }
-    } else if (['rectangle', 'text', 'image', 'container'].includes(selectedTool)) {
+    } else if (['rectangle', 'text', 'image', 'container', 'component'].includes(selectedTool)) {
       // Creation tool hover detection for insertion feedback
       console.log('Mouse move triggered, selectedTool:', selectedTool);
       
@@ -399,6 +408,47 @@ const Canvas: React.FC = () => {
     dispatch(resetUI());
   }, [dispatch, isDraggingForReorder, draggedElementId, hoveredElementId, hoveredZone, project.elements]);
 
+  // Handle drop events for components
+  const handleDragOver = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'copy';
+  }, []);
+
+  const handleDrop = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    
+    try {
+      const data = JSON.parse(e.dataTransfer.getData('application/json'));
+      
+      if (data.type === 'component' && data.component) {
+        const rect = canvasRef.current?.getBoundingClientRect();
+        if (!rect) return;
+        
+        const x = (e.clientX - rect.left) / zoomLevel;
+        const y = (e.clientY - rect.top) / zoomLevel;
+        
+        // Instantiate the component at the drop position
+        const { elements: newElements, rootElementId } = instantiateComponent(data.component, x, y);
+        
+        // Add all elements to the project
+        Object.values(newElements).forEach(element => {
+          dispatch(addElement({ 
+            element, 
+            parentId: element.parent || 'root',
+            insertPosition: 'inside'
+          }));
+        });
+        
+        // Select the root element
+        dispatch(selectElement(rootElementId));
+        
+        console.log('Component dropped successfully:', data.component.name);
+      }
+    } catch (error) {
+      console.error('Error handling drop:', error);
+    }
+  }, [zoomLevel, dispatch]);
+
   const handleZoomIn = () => {
     // Zoom functionality would be implemented here
   };
@@ -477,7 +527,9 @@ const Canvas: React.FC = () => {
 
   return (
     <main 
-      className="absolute left-12 right-80 top-12 bottom-8 bg-gray-50 overflow-auto flex items-center justify-center"
+      className="absolute left-12 right-[640px] top-12 bottom-8 bg-gray-50 overflow-auto flex items-center justify-center"
+      onDragOver={handleDragOver}
+      onDrop={handleDrop}
       data-testid="canvas-main"
     >
       {/* Canvas Container */}

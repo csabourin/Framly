@@ -5,6 +5,8 @@ import Header from './Header';
 import Toolbar from './Toolbar';
 import Canvas from './Canvas';
 import PropertiesPanel from './PropertiesPanel';
+import ComponentPanel from './ComponentPanel';
+import CreateComponentModal from './CreateComponentModal';
 import StatusBar from './StatusBar';
 import ExportModal from './ExportModal';
 import CodeModal from './CodeModal';
@@ -16,10 +18,12 @@ const DesignTool: React.FC = () => {
         <Header />
         <Toolbar />
         <Canvas />
+        <ComponentPanel />
         <PropertiesPanel />
         <StatusBar />
         <ExportModal />
         <CodeModal />
+        <CreateComponentModal />
       </div>
     </Provider>
   );
