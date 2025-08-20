@@ -4,6 +4,7 @@ import { RootState } from '../../store';
 import { addComponent, setCreatingComponent } from '../../store/componentSlice';
 import { selectElement } from '../../store/canvasSlice';
 import { CustomComponent, CanvasElement } from '../../types/canvas';
+import { generateComponentFromElements } from '../../utils/componentGenerator';
 import { 
   Dialog, 
   DialogContent, 
