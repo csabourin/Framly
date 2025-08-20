@@ -425,17 +425,49 @@ const Canvas: React.FC = () => {
         const x = (e.clientX - rect.left) / zoomLevel;
         const y = (e.clientY - rect.top) / zoomLevel;
         
+        // Get the element at the drop position to determine proper insertion
+        const elementAtPoint = getElementAtPoint(x, y, project.elements, 'root');
+        const targetElementId = elementAtPoint?.elementId || 'root';
+        const targetElement = project.elements[targetElementId];
+        const targetZone = elementAtPoint?.zone || 'inside';
+        
         // Instantiate the component at the drop position
         const { elements: newElements, rootElementId } = instantiateComponent(data.component, x, y);
         
-        // Add all elements to the project
-        Object.values(newElements).forEach(element => {
+        // Add the root element first with proper positioning
+        const rootElement = newElements[rootElementId];
+        if (rootElement) {
+          let parentId = 'root';
+          let insertPosition: 'before' | 'after' | 'inside' = 'inside';
+          
+          if (targetElement && isValidDropTarget(targetElement)) {
+            if (targetZone === 'inside') {
+              parentId = targetElementId;
+              insertPosition = 'inside';
+            } else {
+              parentId = targetElement.parent || 'root';
+              insertPosition = targetZone;
+            }
+          }
+          
           dispatch(addElement({ 
-            element, 
-            parentId: element.parent || 'root',
-            insertPosition: 'inside'
+            element: { ...rootElement, parent: parentId },
+            parentId,
+            insertPosition,
+            referenceElementId: targetZone !== 'inside' ? targetElementId : undefined
           }));
-        });
+          
+          // Add all child elements (excluding the root which we already added)
+          Object.values(newElements).forEach(element => {
+            if (element.id !== rootElementId) {
+              dispatch(addElement({ 
+                element, 
+                parentId: element.parent || rootElementId,
+                insertPosition: 'inside'
+              }));
+            }
+          });
+        }
         
         // Select the root element
         dispatch(selectElement(rootElementId));
@@ -445,7 +477,7 @@ const Canvas: React.FC = () => {
     } catch (error) {
       console.error('Error handling drop:', error);
     }
-  }, [zoomLevel, dispatch]);
+  }, [zoomLevel, dispatch, project.elements]);
 
   const handleZoomIn = () => {
     // Zoom functionality would be implemented here

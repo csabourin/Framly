@@ -117,7 +117,7 @@ export function instantiateComponent(
     if (oldId === component.rootElementId) {
       newElement.x = insertX;
       newElement.y = insertY;
-      newElement.parent = 'root';
+      // Don't set parent here - let the caller decide
     }
     
     newElements[newId] = newElement;
