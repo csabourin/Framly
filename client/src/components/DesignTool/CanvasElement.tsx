@@ -18,11 +18,16 @@ const CanvasElement: React.FC<CanvasElementProps> = ({ element, isSelected, isHo
   const elementRef = useRef<HTMLDivElement>(null);
 
   const handleClick = useCallback((e: React.MouseEvent) => {
-    e.stopPropagation();
+    console.log('CanvasElement click - selectedTool:', selectedTool, 'elementId:', element.id);
+    
     // Only handle selection for select and hand tools
-    // Creation tools should be handled by the canvas click handler
+    // For creation tools, let the event bubble to canvas
     if (['select', 'hand'].includes(selectedTool)) {
+      e.stopPropagation();
       dispatch(selectElement(element.id));
+    } else {
+      console.log('Creation tool - NOT stopping propagation, letting canvas handle it');
+      // Don't stop propagation for creation tools - let canvas handle it
     }
   }, [element.id, dispatch, selectedTool]);
 

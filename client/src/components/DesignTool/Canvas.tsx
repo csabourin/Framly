@@ -125,6 +125,7 @@ const Canvas: React.FC = () => {
 
 
   const handleCanvasClick = useCallback((e: React.MouseEvent) => {
+    console.log('Canvas click triggered - selectedTool:', selectedTool);
     e.preventDefault();
     e.stopPropagation();
     

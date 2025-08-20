@@ -1,0 +1,1710 @@
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648307949-l95cnfv22
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648307949-l95cnfv22
+Console.js:61 Hover zone: inside
+Console.js:61 Element hover state: {elementId: 'rectangle-1755648307949-l95cnfv22', isHovered: true, hoveredZone: 'inside', border: '4px solid #a855f7', backgroundColor: 'rgba(168, 85, 247, 0.1)'}
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Hover zone: after
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648307949-l95cnfv22
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648307949-l95cnfv22
+Console.js:61 Hover zone: inside
+Console.js:61 Element hover state: {elementId: 'rectangle-1755648307949-l95cnfv22', isHovered: true, hoveredZone: 'inside', border: '4px solid #a855f7', backgroundColor: 'rgba(168, 85, 247, 0.1)'}
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: before
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: after
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: after
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648307949-l95cnfv22
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648307949-l95cnfv22
+Console.js:61 Hover zone: inside
+Console.js:61 Element hover state: {elementId: 'rectangle-1755648307949-l95cnfv22', isHovered: true, hoveredZone: 'inside', border: '4px solid #a855f7', backgroundColor: 'rgba(168, 85, 247, 0.1)'}
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648307949-l95cnfv22
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648307949-l95cnfv22
+Console.js:61 Hover zone: after
+Console.js:61 Element hover state: {elementId: 'rectangle-1755648307949-l95cnfv22', isHovered: true, hoveredZone: 'after', border: '2px solid #3b82f6', backgroundColor: '#f3f4f6'}
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: before
+Console.js:61 Element hover state: {elementId: 'rectangle-1755648480723-byo674ok8', isHovered: true, hoveredZone: 'before', border: '2px solid #3b82f6', backgroundColor: '#f3f4f6'}
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Element hover state: {elementId: 'rectangle-1755648480723-byo674ok8', isHovered: true, hoveredZone: 'inside', border: '2px solid #3b82f6', backgroundColor: 'rgba(168, 85, 247, 0.1)'}
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: before
+Console.js:61 Element hover state: {elementId: 'rectangle-1755648480723-byo674ok8', isHovered: true, hoveredZone: 'before', border: '2px solid #3b82f6', backgroundColor: '#f3f4f6'}
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648307949-l95cnfv22
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648307949-l95cnfv22
+Console.js:61 Hover zone: after
+Console.js:61 Element hover state: {elementId: 'rectangle-1755648307949-l95cnfv22', isHovered: true, hoveredZone: 'after', border: '2px solid #3b82f6', backgroundColor: '#f3f4f6'}
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648307949-l95cnfv22
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648307949-l95cnfv22
+Console.js:61 Hover zone: inside
+Console.js:61 Element hover state: {elementId: 'rectangle-1755648307949-l95cnfv22', isHovered: true, hoveredZone: 'inside', border: '4px solid #a855f7', backgroundColor: 'rgba(168, 85, 247, 0.1)'}
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: after
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: before
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: before
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648307949-l95cnfv22
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648307949-l95cnfv22
+Console.js:61 Hover zone: inside
+Console.js:61 Element hover state: {elementId: 'rectangle-1755648307949-l95cnfv22', isHovered: true, hoveredZone: 'inside', border: '4px solid #a855f7', backgroundColor: 'rgba(168, 85, 247, 0.1)'}
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648307949-l95cnfv22
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648307949-l95cnfv22
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Hover zone: after
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Hover zone: after
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Hover zone: after
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648307949-l95cnfv22
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648307949-l95cnfv22
+Console.js:61 Hover zone: inside
+Console.js:61 Element hover state: {elementId: 'rectangle-1755648307949-l95cnfv22', isHovered: true, hoveredZone: 'inside', border: '4px solid #a855f7', backgroundColor: 'rgba(168, 85, 247, 0.1)'}
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648307949-l95cnfv22
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648307949-l95cnfv22
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648307949-l95cnfv22
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648307949-l95cnfv22
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648307949-l95cnfv22
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648307949-l95cnfv22
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648307949-l95cnfv22
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648307949-l95cnfv22
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648307949-l95cnfv22
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648307949-l95cnfv22
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648307949-l95cnfv22
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648307949-l95cnfv22
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648307949-l95cnfv22
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648307949-l95cnfv22
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648307949-l95cnfv22
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648307949-l95cnfv22
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: before
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: before
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: before
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: before
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: before
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: before
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: before
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: before
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: before
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: before
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: before
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648307949-l95cnfv22
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648307949-l95cnfv22
+Console.js:61 Hover zone: inside
+Console.js:61 Element hover state: {elementId: 'rectangle-1755648307949-l95cnfv22', isHovered: true, hoveredZone: 'inside', border: '4px solid #a855f7', backgroundColor: 'rgba(168, 85, 247, 0.1)'}
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648307949-l95cnfv22
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648307949-l95cnfv22
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648307949-l95cnfv22
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648307949-l95cnfv22
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648307949-l95cnfv22
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648307949-l95cnfv22
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648307949-l95cnfv22
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648307949-l95cnfv22
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648307949-l95cnfv22
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648307949-l95cnfv22
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648307949-l95cnfv22
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648307949-l95cnfv22
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Hover zone: after
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Hover zone: after
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Hover zone: after
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Hover zone: after
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Hover zone: after
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Hover zone: after
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Hover zone: after
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Hover zone: after
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Hover zone: after
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Hover zone: after
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Hover zone: after
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Hover zone: after
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Hover zone: after
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648307949-l95cnfv22
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648307949-l95cnfv22
+Console.js:61 Hover zone: inside
+Console.js:61 Element hover state: {elementId: 'rectangle-1755648307949-l95cnfv22', isHovered: true, hoveredZone: 'inside', border: '4px solid #a855f7', backgroundColor: 'rgba(168, 85, 247, 0.1)'}
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648307949-l95cnfv22
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648307949-l95cnfv22
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648307949-l95cnfv22
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648307949-l95cnfv22
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648307949-l95cnfv22
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648307949-l95cnfv22
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648307949-l95cnfv22
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648307949-l95cnfv22
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648307949-l95cnfv22
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648307949-l95cnfv22
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648307949-l95cnfv22
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648307949-l95cnfv22
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648307949-l95cnfv22
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648307949-l95cnfv22
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648307949-l95cnfv22
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648307949-l95cnfv22
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648307949-l95cnfv22
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648307949-l95cnfv22
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Hover zone: after
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Hover zone: after
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Hover zone: after
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Hover zone: after
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: after
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: after
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: after
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: after
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: after
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Hover zone: after
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648307949-l95cnfv22
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648307949-l95cnfv22
+Console.js:61 Hover zone: inside
+Console.js:61 Element hover state: {elementId: 'rectangle-1755648307949-l95cnfv22', isHovered: true, hoveredZone: 'inside', border: '4px solid #a855f7', backgroundColor: 'rgba(168, 85, 247, 0.1)'}
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: before
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: after
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648307949-l95cnfv22
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648307949-l95cnfv22
+Console.js:61 Hover zone: inside
+Console.js:61 Element hover state: {elementId: 'rectangle-1755648307949-l95cnfv22', isHovered: true, hoveredZone: 'inside', border: '4px solid #a855f7', backgroundColor: 'rgba(168, 85, 247, 0.1)'}
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: before
+Console.js:61 Element hover state: {elementId: 'rectangle-1755648480723-byo674ok8', isHovered: true, hoveredZone: 'before', border: '2px solid #3b82f6', backgroundColor: '#f3f4f6'}
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Element hover state: {elementId: 'rectangle-1755648480723-byo674ok8', isHovered: true, hoveredZone: 'inside', border: '2px solid #3b82f6', backgroundColor: 'rgba(168, 85, 247, 0.1)'}
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: before
+Console.js:61 Element hover state: {elementId: 'rectangle-1755648480723-byo674ok8', isHovered: true, hoveredZone: 'before', border: '2px solid #3b82f6', backgroundColor: '#f3f4f6'}
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648307949-l95cnfv22
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648307949-l95cnfv22
+Console.js:61 Hover zone: after
+Console.js:61 Element hover state: {elementId: 'rectangle-1755648307949-l95cnfv22', isHovered: true, hoveredZone: 'after', border: '2px solid #3b82f6', backgroundColor: '#f3f4f6'}
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648307949-l95cnfv22
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648307949-l95cnfv22
+Console.js:61 Hover zone: inside
+Console.js:61 Element hover state: {elementId: 'rectangle-1755648307949-l95cnfv22', isHovered: true, hoveredZone: 'inside', border: '4px solid #a855f7', backgroundColor: 'rgba(168, 85, 247, 0.1)'}
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: after
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: before
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648307949-l95cnfv22
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648307949-l95cnfv22
+Console.js:61 Hover zone: inside
+Console.js:61 Element hover state: {elementId: 'rectangle-1755648307949-l95cnfv22', isHovered: true, hoveredZone: 'inside', border: '4px solid #a855f7', backgroundColor: 'rgba(168, 85, 247, 0.1)'}
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Hover zone: after
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: after
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: after
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: after
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: after
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: after
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: after
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: after
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Hover zone: after
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648307949-l95cnfv22
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648307949-l95cnfv22
+Console.js:61 Hover zone: inside
+Console.js:61 Element hover state: {elementId: 'rectangle-1755648307949-l95cnfv22', isHovered: true, hoveredZone: 'inside', border: '4px solid #a855f7', backgroundColor: 'rgba(168, 85, 247, 0.1)'}
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: before
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: after
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: after
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: after
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: after
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648307949-l95cnfv22
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648307949-l95cnfv22
+Console.js:61 Hover zone: inside
+Console.js:61 Element hover state: {elementId: 'rectangle-1755648307949-l95cnfv22', isHovered: true, hoveredZone: 'inside', border: '4px solid #a855f7', backgroundColor: 'rgba(168, 85, 247, 0.1)'}
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648307949-l95cnfv22
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648307949-l95cnfv22
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648307949-l95cnfv22
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648307949-l95cnfv22
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648307949-l95cnfv22
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648307949-l95cnfv22
+Console.js:61 Hover zone: after
+Console.js:61 Element hover state: {elementId: 'rectangle-1755648307949-l95cnfv22', isHovered: true, hoveredZone: 'after', border: '2px solid #3b82f6', backgroundColor: '#f3f4f6'}
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: before
+Console.js:61 Element hover state: {elementId: 'rectangle-1755648480723-byo674ok8', isHovered: true, hoveredZone: 'before', border: '2px solid #3b82f6', backgroundColor: '#f3f4f6'}
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: before
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Element hover state: {elementId: 'rectangle-1755648480723-byo674ok8', isHovered: true, hoveredZone: 'inside', border: '2px solid #3b82f6', backgroundColor: 'rgba(168, 85, 247, 0.1)'}
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: before
+Console.js:61 Element hover state: {elementId: 'rectangle-1755648480723-byo674ok8', isHovered: true, hoveredZone: 'before', border: '2px solid #3b82f6', backgroundColor: '#f3f4f6'}
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: before
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: before
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648480723-byo674ok8
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648480723-byo674ok8
+Console.js:61 Hover zone: before
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648307949-l95cnfv22
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648307949-l95cnfv22
+Console.js:61 Hover zone: after
+Console.js:61 Element hover state: {elementId: 'rectangle-1755648307949-l95cnfv22', isHovered: true, hoveredZone: 'after', border: '2px solid #3b82f6', backgroundColor: '#f3f4f6'}
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648307949-l95cnfv22
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648307949-l95cnfv22
+Console.js:61 Hover zone: after
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648307949-l95cnfv22
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648307949-l95cnfv22
+Console.js:61 Hover zone: inside
+Console.js:61 Element hover state: {elementId: 'rectangle-1755648307949-l95cnfv22', isHovered: true, hoveredZone: 'inside', border: '4px solid #a855f7', backgroundColor: 'rgba(168, 85, 247, 0.1)'}
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648307949-l95cnfv22
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648307949-l95cnfv22
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648307949-l95cnfv22
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648307949-l95cnfv22
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: after
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: after
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+_app-3564ffdac8f73617.js:13 Fetch finished loading: POST "https://logs.browser-intake-us5-datadoghq.com/api/v2/logs?ddsource=browser&ddtags=sdk_version%3A4.46.0%2Capi%3Afetch%2Cenv%3Aproduction%2Cservice%3Awebsite%2Cversion%3A88b760de&dd-api-key=pub31a5047a3a4692afb84a423db984dc57&dd-evp-origin-version=4.46.0&dd-evp-origin=browser&dd-request-id=d9b2f8f0-4087-4593-8da0-09f1e13168a5".
+(anonymous) @ _app-3564ffdac8f73617.js:13
+(anonymous) @ _app-3564ffdac8f73617.js:1
+o @ _app-3564ffdac8f73617.js:20
+a @ _app-3564ffdac8f73617.js:40
+m @ _app-3564ffdac8f73617.js:40
+g @ _app-3564ffdac8f73617.js:40
+send @ _app-3564ffdac8f73617.js:40
+e.flush @ _app-3564ffdac8f73617.js:15
+(anonymous) @ _app-3564ffdac8f73617.js:15
+(anonymous) @ _app-3564ffdac8f73617.js:15
+e.notify @ _app-3564ffdac8f73617.js:15
+f @ _app-3564ffdac8f73617.js:15
+(anonymous) @ _app-3564ffdac8f73617.js:15
+d @ _app-3564ffdac8f73617.js:1
+(anonymous) @ _app-3564ffdac8f73617.js:1
+n @ _app-3564ffdac8f73617.js:13
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: before
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Hover zone: after
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: after
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+_app-3564ffdac8f73617.js:13 Fetch finished loading: POST "https://replit.com/graphql".
+(anonymous) @ _app-3564ffdac8f73617.js:13
+(anonymous) @ _app-3564ffdac8f73617.js:40
+e @ _app-3564ffdac8f73617.js:23
+t.subscribe @ _app-3564ffdac8f73617.js:23
+e.consumeQueue @ _app-3564ffdac8f73617.js:40
+(anonymous) @ _app-3564ffdac8f73617.js:40
+n @ _app-3564ffdac8f73617.js:13
+setTimeout
+(anonymous) @ _app-3564ffdac8f73617.js:13
+e.scheduleQueueConsumption @ _app-3564ffdac8f73617.js:40
+(anonymous) @ _app-3564ffdac8f73617.js:40
+e @ _app-3564ffdac8f73617.js:23
+t.subscribe @ _app-3564ffdac8f73617.js:23
+(anonymous) @ _app-3564ffdac8f73617.js:40
+e @ _app-3564ffdac8f73617.js:23
+t.subscribe @ _app-3564ffdac8f73617.js:23
+e.try @ _app-3564ffdac8f73617.js:40
+e.start @ _app-3564ffdac8f73617.js:40
+t.request @ _app-3564ffdac8f73617.js:40
+(anonymous) @ _app-3564ffdac8f73617.js:28
+(anonymous) @ _app-3564ffdac8f73617.js:28
+(anonymous) @ _app-3564ffdac8f73617.js:40
+(anonymous) @ _app-3564ffdac8f73617.js:28
+e.execute @ _app-3564ffdac8f73617.js:28
+e.getObservableFromLink @ _app-3564ffdac8f73617.js:28
+(anonymous) @ _app-3564ffdac8f73617.js:28
+(anonymous) @ _app-3564ffdac8f73617.js:28
+(anonymous) @ _app-3564ffdac8f73617.js:15
+(anonymous) @ _app-3564ffdac8f73617.js:15
+s @ _app-3564ffdac8f73617.js:15
+e.mutate @ _app-3564ffdac8f73617.js:28
+e.mutate @ _app-3564ffdac8f73617.js:28
+(anonymous) @ _app-3564ffdac8f73617.js:20
+(anonymous) @ _app-3564ffdac8f73617.js:15
+(anonymous) @ main-c0678dbbdfb4239a.js:1
+n @ main-c0678dbbdfb4239a.js:1
+u @ main-c0678dbbdfb4239a.js:1
+(anonymous) @ main-c0678dbbdfb4239a.js:1
+(anonymous) @ main-c0678dbbdfb4239a.js:1
+(anonymous) @ _app-3564ffdac8f73617.js:15
+n @ _app-3564ffdac8f73617.js:13
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648308792-mha2ddzyj
+Console.js:61 Hover zone: after
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648301785-k3kd9kpzb
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648307949-l95cnfv22
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648307949-l95cnfv22
+Console.js:61 Hover zone: inside
+Console.js:61 Element hover state: {elementId: 'rectangle-1755648307949-l95cnfv22', isHovered: true, hoveredZone: 'inside', border: '4px solid #a855f7', backgroundColor: 'rgba(168, 85, 247, 0.1)'}
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: before
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648305641-38rvd1qz6
+Console.js:61 Hover zone: inside
+Console.js:61 Mouse move triggered, selectedTool: rectangle
+Console.js:61 DOM detection found: rectangle-1755648307949-l95cnfv22
+Console.js:61 Mouse move - hoveredElement: rectangle-1755648307949-l95cnfv22
+Console.js:61 Hover zone: after
+Console.js:61 Element hover state: {elementId: 'rectangle-1755648307949-l95cnfv22', isHovered: true, hoveredZone: 'after', border: '2px solid #3b82f6', backgroundColor: '#f3f4f6'}
