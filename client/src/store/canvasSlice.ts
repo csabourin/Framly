@@ -158,8 +158,32 @@ const canvasSlice = createSlice({
     }>) => {
       const { elementId, newParentId, insertPosition, referenceElementId } = action.payload;
       const element = state.project.elements[elementId];
+      const newParent = state.project.elements[newParentId];
       
-      if (!element) return;
+      if (!element || !newParent) {
+        console.log('REORDER DEBUG - Element or target not found:', { elementId, newParentId });
+        return;
+      }
+
+      // Validate that the target can accept elements
+      if (newParent.type !== 'container' && newParent.type !== 'rectangle' && newParentId !== 'root') {
+        console.log('REORDER DEBUG - Invalid target type, canceling reorder:', newParent.type);
+        return;
+      }
+
+      // Prevent moving element to itself or its children
+      if (elementId === newParentId) {
+        console.log('REORDER DEBUG - Cannot move element to itself');
+        return;
+      }
+
+      console.log('REORDER DEBUG - Executing reorder:', { 
+        elementId, 
+        newParentId, 
+        insertPosition, 
+        referenceElementId,
+        currentParent: element.parent 
+      });
 
       // Remove element from current parent
       const currentParent = state.project.elements[element.parent || 'root'];
@@ -168,28 +192,26 @@ const canvasSlice = createSlice({
       }
 
       // Add element to new parent at specified position
-      const newParent = state.project.elements[newParentId];
-      if (newParent) {
-        if (!newParent.children) {
-          newParent.children = [];
-        }
-
-        if (insertPosition === 'inside' || !referenceElementId) {
-          newParent.children.push(elementId);
-        } else {
-          const referenceIndex = newParent.children.indexOf(referenceElementId);
-          if (referenceIndex !== -1) {
-            const insertIndex = insertPosition === 'before' ? referenceIndex : referenceIndex + 1;
-            newParent.children.splice(insertIndex, 0, elementId);
-          } else {
-            newParent.children.push(elementId);
-          }
-        }
-
-        // Update element's parent reference
-        element.parent = newParentId;
+      if (!newParent.children) {
+        newParent.children = [];
       }
 
+      if (insertPosition === 'inside' || !referenceElementId) {
+        newParent.children.push(elementId);
+      } else {
+        const referenceIndex = newParent.children.indexOf(referenceElementId);
+        if (referenceIndex !== -1) {
+          const insertIndex = insertPosition === 'before' ? referenceIndex : referenceIndex + 1;
+          newParent.children.splice(insertIndex, 0, elementId);
+        } else {
+          newParent.children.push(elementId);
+        }
+      }
+
+      // Update element's parent reference
+      element.parent = newParentId;
+
+      console.log('REORDER DEBUG - Reorder completed successfully');
       canvasSlice.caseReducers.saveToHistory(state);
     },
     

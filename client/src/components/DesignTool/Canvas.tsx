@@ -228,12 +228,15 @@ const Canvas: React.FC = () => {
     const x = (e.clientX - rect.left) / zoomLevel;
     const y = (e.clientY - rect.top) / zoomLevel;
     
+    console.log('DRAG DEBUG - Mouse down:', { selectedTool, selectedElementId: selectedElement?.id });
+    
     if (selectedTool === 'select' && selectedElement) {
       dispatch(setDragStart({ x: x - selectedElement.x, y: y - selectedElement.y }));
       dispatch(setDragging(true));
     } else if (selectedTool === 'hand') {
       const clickedElement = getElementAtPoint(x, y, project.elements, zoomLevel);
       if (clickedElement && clickedElement.id !== 'root') {
+        console.log('DRAG DEBUG - Starting reorder drag for:', clickedElement.id);
         dispatch(selectElement(clickedElement.id));
         dispatch(setDraggedElement(clickedElement.id));
         dispatch(setDraggingForReorder(true));
@@ -261,12 +264,32 @@ const Canvas: React.FC = () => {
     } else if (isDraggingForReorder && draggedElementId) {
       // Element reordering (hand tool) - show hover feedback
       const hoveredElement = getElementAtPoint(x, y, project.elements, zoomLevel);
+      
+      console.log('DRAG DEBUG - Mouse move during reorder:', { 
+        draggedElementId, 
+        hoveredElement: hoveredElement?.id,
+        hoveredElementType: hoveredElement?.type 
+      });
+      
       if (hoveredElement && hoveredElement.id !== draggedElementId) {
+        const canDropHere = isValidDropTarget(hoveredElement);
+        console.log('DRAG DEBUG - Drop validation during move:', { 
+          targetType: hoveredElement.type, 
+          canDropHere 
+        });
+        
         setHoveredElementId(hoveredElement.id);
         setHoveredZone('inside');
+        
+        // Update Redux state for visual feedback 
+        dispatch(setHoveredElement({ 
+          elementId: hoveredElement.id, 
+          zone: 'inside' 
+        }));
       } else {
         setHoveredElementId(null);
         setHoveredZone(null);
+        dispatch(setHoveredElement({ elementId: null, zone: null }));
       }
     } else if (['rectangle', 'text', 'image', 'container'].includes(selectedTool)) {
       // Creation tool hover detection for insertion feedback
@@ -331,34 +354,48 @@ const Canvas: React.FC = () => {
   }, [isDragging, isDraggingForReorder, selectedElement, draggedElementId, dragStart, zoomLevel, dispatch, selectedTool, project.elements]);
 
   const handleMouseUp = useCallback((e?: MouseEvent) => {
+    console.log('DRAG DEBUG - Mouse up:', { isDraggingForReorder, draggedElementId, hoveredElementId, hoveredZone });
+    
     if (isDraggingForReorder && draggedElementId && hoveredElementId && hoveredZone) {
-      // Complete the reorder operation
-      if (hoveredZone === 'inside') {
-        dispatch(reorderElement({
-          elementId: draggedElementId,
-          newParentId: hoveredElementId,
-          insertPosition: 'inside'
-        }));
+      const targetElement = project.elements[hoveredElementId];
+      const canDropHere = isValidDropTarget(targetElement);
+      
+      console.log('DRAG DEBUG - Drop validation:', { targetElement: targetElement?.type, canDropHere });
+      
+      if (canDropHere) {
+        // Complete the reorder operation only for valid targets
+        if (hoveredZone === 'inside') {
+          console.log('DRAG DEBUG - Reordering inside:', hoveredElementId);
+          dispatch(reorderElement({
+            elementId: draggedElementId,
+            newParentId: hoveredElementId,
+            insertPosition: 'inside'
+          }));
+        } else {
+          const parentId = targetElement?.parent || 'root';
+          console.log('DRAG DEBUG - Reordering as sibling:', { parentId, hoveredZone });
+          
+          dispatch(reorderElement({
+            elementId: draggedElementId,
+            newParentId: parentId,
+            insertPosition: hoveredZone,
+            referenceElementId: hoveredElementId
+          }));
+        }
       } else {
-        const targetElement = project.elements[hoveredElementId];
-        const parentId = targetElement?.parent || 'root';
-        
-        dispatch(reorderElement({
-          elementId: draggedElementId,
-          newParentId: parentId,
-          insertPosition: hoveredZone,
-          referenceElementId: hoveredElementId
-        }));
+        console.log('DRAG DEBUG - Invalid drop target, canceling reorder');
       }
     }
     
     // Reset all drag states
+    console.log('DRAG DEBUG - Resetting all drag states');
     dispatch(setDragging(false));
     dispatch(setResizing(false));
     dispatch(setDraggingForReorder(false));
     dispatch(setDraggedElement(undefined));
     setHoveredElementId(null);
     setHoveredZone(null);
+    dispatch(setHoveredElement({ elementId: null, zone: null }));
     dispatch(resetUI());
   }, [dispatch, isDraggingForReorder, draggedElementId, hoveredElementId, hoveredZone, project.elements]);
 
@@ -377,12 +414,23 @@ const Canvas: React.FC = () => {
   useEffect(() => {
     const handleGlobalMouseMove = (e: MouseEvent) => {
       if (isDragging || isDraggingForReorder) {
-        handleMouseMove(e as any);
+        console.log('DRAG DEBUG - Global mouse move triggered');
+        
+        // Create a synthetic React event for consistency
+        const syntheticEvent = {
+          clientX: e.clientX,
+          clientY: e.clientY,
+          preventDefault: () => {},
+          stopPropagation: () => {}
+        } as React.MouseEvent;
+        
+        handleMouseMove(syntheticEvent);
       }
     };
 
     const handleGlobalMouseUp = () => {
       if (isDragging || isResizing || isDraggingForReorder) {
+        console.log('DRAG DEBUG - Global mouse up triggered');
         handleMouseUp();
       }
     };
@@ -448,9 +496,12 @@ const Canvas: React.FC = () => {
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseLeave={() => {
-          // Clear hover state when leaving canvas area
-          setHoveredElementId(null);
-          setHoveredZone(null);
+          // Clear hover state when leaving canvas area, but not during drag operations
+          if (!isDraggingForReorder && !isDragging) {
+            setHoveredElementId(null);
+            setHoveredZone(null);
+            dispatch(setHoveredElement({ elementId: null, zone: null }));
+          }
         }}
         data-testid="canvas-container"
       >
