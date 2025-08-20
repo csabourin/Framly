@@ -11,6 +11,7 @@ import CreateComponentModal from './CreateComponentModal';
 import StatusBar from './StatusBar';
 import ExportModal from './ExportModal';
 import CodeModal from './CodeModal';
+import CSSOptimizationModal from './CSSOptimizationModal';
 
 const DesignToolContent: React.FC = () => {
   const { isComponentPanelVisible } = useSelector((state: RootState) => state.ui);
@@ -25,6 +26,7 @@ const DesignToolContent: React.FC = () => {
       <StatusBar />
       <ExportModal />
       <CodeModal />
+      <CSSOptimizationModal />
       <CreateComponentModal />
     </div>
   );

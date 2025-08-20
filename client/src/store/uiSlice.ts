@@ -5,6 +5,7 @@ interface UIState {
   selectedTool: Tool;
   isExportModalOpen: boolean;
   isCodeModalOpen: boolean;
+  isCSSOptimizationModalOpen: boolean;
   isGridVisible: boolean;
   isComponentPanelVisible: boolean;
   zoomLevel: number;
@@ -24,6 +25,7 @@ const initialState: UIState = {
   selectedTool: 'select',
   isExportModalOpen: false,
   isCodeModalOpen: false,
+  isCSSOptimizationModalOpen: false,
   isGridVisible: true,
   isComponentPanelVisible: true,
   zoomLevel: 1,
@@ -50,6 +52,9 @@ const uiSlice = createSlice({
     
     setCodeModalOpen: (state, action: PayloadAction<boolean>) => {
       state.isCodeModalOpen = action.payload;
+    },
+    setCSSOptimizationModalOpen: (state, action: PayloadAction<boolean>) => {
+      state.isCSSOptimizationModalOpen = action.payload;
     },
     
     setGridVisible: (state, action: PayloadAction<boolean>) => {
@@ -129,6 +134,7 @@ export const {
   setSelectedTool,
   setExportModalOpen,
   setCodeModalOpen,
+  setCSSOptimizationModalOpen,
   setGridVisible,
   toggleComponentPanel,
   setZoomLevel,

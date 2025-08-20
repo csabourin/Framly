@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { validateCSSClassName, generateCSSClassSuggestions } from '../../utils/canvas';
+import { cssClassGenerator } from '../../utils/cssClassGenerator';
 import { AlignLeft, AlignCenter, AlignRight, Plus, X, GripVertical, Trash2 } from 'lucide-react';
 
 const PropertiesPanel: React.FC = () => {
@@ -41,7 +41,7 @@ const PropertiesPanel: React.FC = () => {
   };
 
   const handleAddClass = () => {
-    if (newClassName && validateCSSClassName(newClassName)) {
+    if (newClassName && cssClassGenerator.validateCSSClassName(newClassName)) {
       dispatch(addCSSClass({ elementId: selectedElement.id, className: newClassName }));
       setNewClassName('');
     }
@@ -596,7 +596,7 @@ const PropertiesPanel: React.FC = () => {
               onClick={handleAddClass}
               size="sm"
               className="bg-primary text-white hover:bg-blue-600"
-              disabled={!newClassName || !validateCSSClassName(newClassName)}
+              disabled={!newClassName || !cssClassGenerator.validateCSSClassName(newClassName)}
               data-testid="button-add-class"
             >
               <Plus className="w-4 h-4" />
@@ -604,19 +604,23 @@ const PropertiesPanel: React.FC = () => {
           </div>
           
           {/* Class Suggestions */}
-          <div className="flex flex-wrap gap-1 mt-2">
-            {generateCSSClassSuggestions(selectedElement.type).map(suggestion => (
-              <Button
-                key={suggestion}
-                variant="outline"
-                size="sm"
-                onClick={() => setNewClassName(suggestion)}
-                className="text-xs h-6 px-2"
-                data-testid={`button-suggestion-${suggestion}`}
-              >
-                {suggestion}
-              </Button>
-            ))}
+          <div className="space-y-2 mt-2">
+            <div className="text-xs font-medium text-gray-600">Suggestions:</div>
+            <div className="flex flex-wrap gap-1">
+              {cssClassGenerator.generateCSSClassSuggestions(selectedElement.type).slice(0, 8).map(suggestion => (
+                <Button
+                  key={suggestion.name}
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setNewClassName(suggestion.name)}
+                  className="text-xs h-6 px-2"
+                  title={suggestion.description}
+                  data-testid={`button-suggestion-${suggestion.name}`}
+                >
+                  {suggestion.name}
+                </Button>
+              ))}
+            </div>
           </div>
         </div>
       </div>

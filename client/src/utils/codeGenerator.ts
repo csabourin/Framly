@@ -1,10 +1,13 @@
 import { CanvasElement, Project } from '../types/canvas';
+import { CSSOptimizer } from './cssOptimizer';
 
 export class CodeGenerator {
   private project: Project;
+  private cssOptimizer: CSSOptimizer;
   
   constructor(project: Project) {
     this.project = project;
+    this.cssOptimizer = new CSSOptimizer();
   }
   
   generateHTML(): string {
@@ -29,7 +32,10 @@ ${this.generateElementHTML(rootElement, 1)}
   
   private generateElementHTML(element: CanvasElement, depth: number): string {
     const indent = '    '.repeat(depth);
-    const classes = element.classes ? element.classes.join(' ') : '';
+    
+    // Generate optimized classes for this element
+    const optimizedClasses = this.getOptimizedClasses(element);
+    const classes = optimizedClasses.length > 0 ? optimizedClasses.join(' ') : '';
     const tag = this.getHTMLTag(element);
     
     let content = '';
@@ -70,6 +76,12 @@ ${indent}</${tag}>`;
   }
   
   generateCSS(): string {
+    // Use the CSS optimizer for better output
+    const optimizedCSS = this.cssOptimizer.optimizeCSS(this.project.elements);
+    return this.cssOptimizer.generateOptimizedCSS(optimizedCSS);
+  }
+
+  generateLegacyCSS(): string {
     const elements = Object.values(this.project.elements);
     const cssRules: string[] = [];
     
@@ -160,7 +172,10 @@ export default ${this.project.name.replace(/\s+/g, '')};`;
   
   private generateReactElementJSX(element: CanvasElement, depth: number): string {
     const indent = '    '.repeat(depth);
-    const classes = element.classes ? element.classes.join(' ') : '';
+    
+    // Generate optimized classes for this element
+    const optimizedClasses = this.getOptimizedClasses(element);
+    const classes = optimizedClasses.length > 0 ? optimizedClasses.join(' ') : '';
     const tag = this.getHTMLTag(element);
     
     let content = '';
@@ -187,11 +202,74 @@ ${indent}</${tag}>`;
     }
   }
   
-  exportProject(): { html: string; css: string; react: string } {
-    return {
-      html: this.generateHTML(),
-      css: this.generateCSS(),
-      react: this.generateReactComponent(),
-    };
+  private getOptimizedClasses(element: CanvasElement): string[] {
+    const classes: string[] = [];
+    
+    // Add existing custom classes
+    if (element.classes && element.classes.length > 0) {
+      classes.push(...element.classes);
+    }
+    
+    // Check if we can use utility classes for this element's styles
+    if (element.styles && Object.keys(element.styles).length > 0) {
+      try {
+        const utilityClass = this.cssOptimizer.getUtilityClass(element.styles);
+        if (utilityClass) {
+          classes.push(utilityClass);
+        } else {
+          const componentClass = this.cssOptimizer.getComponentClass(element.styles);
+          if (componentClass) {
+            classes.push(componentClass);
+          } else {
+            // Generate a unique class for this element
+            classes.push(`el-${element.id.split('-').pop()}`);
+          }
+        }
+      } catch (error) {
+        console.error('Error getting optimized classes:', error);
+        // Fallback to element classes
+        if (element.classes && element.classes.length > 0) {
+          return element.classes;
+        } else {
+          // Generate a fallback class
+          classes.push(`el-${element.id.split('-').pop()}`);
+        }
+      }
+    }
+    
+    return classes;
+  }
+
+  exportProject(): { 
+    html: string; 
+    css: string; 
+    react: string; 
+    optimizedCSS?: string;
+    cssAnalysis?: any;
+  } {
+    try {
+      const optimizedCSS = this.cssOptimizer.optimizeCSS(this.project.elements);
+      
+      return {
+        html: this.generateHTML(),
+        css: this.generateCSS(),
+        react: this.generateReactComponent(),
+        optimizedCSS: this.cssOptimizer.generateOptimizedCSS(optimizedCSS),
+        cssAnalysis: {
+          utilityClasses: optimizedCSS.utilities.length,
+          componentClasses: optimizedCSS.components.length,
+          layoutClasses: optimizedCSS.layout.length,
+          criticalCSS: optimizedCSS.critical.length
+        }
+      };
+    } catch (error) {
+      console.error('Error generating optimized CSS:', error);
+      // Fallback to legacy CSS generation
+      return {
+        html: this.generateHTML(),
+        css: this.generateLegacyCSS(),
+        react: this.generateReactComponent()
+      };
+    }
   }
 }
