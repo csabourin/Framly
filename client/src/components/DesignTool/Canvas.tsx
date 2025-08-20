@@ -432,10 +432,20 @@ const Canvas: React.FC = () => {
         
         console.log('Component drop coordinates:', { x, y, rawX, rawY, zoomLevel });
         
-        // Use the current hover state for intelligent placement
-        const targetElementId = hoveredElementId || 'root';
-        const targetElement = project.elements[targetElementId];
-        const targetZone = hoveredZone || 'inside';
+        // Get target element from hover state or mouse position
+        let targetElementId = hoveredElementId;
+        let targetZone = hoveredZone;
+        
+        // If no hover state, try to detect element at drop position
+        if (!targetElementId) {
+          const elementAtPoint = getElementAtPoint(x, y, project.elements, zoomLevel);
+          targetElementId = elementAtPoint?.id || 'root';
+          targetZone = 'inside'; // Default to inside when detected via coordinates
+        }
+        
+        const targetElement = targetElementId ? project.elements[targetElementId] : null;
+        
+        console.log('Component drop targeting:', { targetElementId, targetZone, x, y });
         
         // Instantiate the component at the drop position
         const { elements: newElements, rootElementId } = instantiateComponent(data.component, x, y);
@@ -448,7 +458,7 @@ const Canvas: React.FC = () => {
           let referenceElementId: string | undefined;
           
           // Use hover targeting for intelligent placement
-          if (targetElement && targetElementId !== 'root') {
+          if (targetElement && targetElementId && targetElementId !== 'root') {
             if (targetZone === 'inside' && isValidDropTarget(targetElement)) {
               parentId = targetElementId;
               insertPosition = 'inside';

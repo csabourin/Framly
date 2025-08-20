@@ -68,17 +68,55 @@ const ComponentPanel: React.FC = () => {
   };
 
   const handleAddToCanvas = (component: CustomComponent) => {
-    // Use the componentGenerator utility
-    const { elements: newElements, rootElementId } = instantiateComponent(component, 50, 50);
+    const selectedElementId = project.selectedElementId || 'root';
+    const selectedElement = project.elements[selectedElementId];
     
-    // Add all elements to the project
-    Object.values(newElements).forEach(element => {
+    // Determine insertion position based on selected element
+    let insertX = 50;
+    let insertY = 50;
+    let parentId = 'root';
+    let insertPosition: 'before' | 'after' | 'inside' = 'inside';
+    
+    if (selectedElement && selectedElementId !== 'root') {
+      // If a container/rectangle is selected, add inside it
+      if (selectedElement.type === 'container' || selectedElement.type === 'rectangle') {
+        parentId = selectedElementId;
+        insertX = selectedElement.x + 20;
+        insertY = selectedElement.y + 20;
+        insertPosition = 'inside';
+      } else {
+        // For other elements, add after them in the same parent
+        parentId = selectedElement.parent || 'root';
+        insertX = selectedElement.x;
+        insertY = selectedElement.y + (selectedElement.height || 40) + 10;
+        insertPosition = 'after';
+      }
+    }
+    
+    // Use the componentGenerator utility
+    const { elements: newElements, rootElementId } = instantiateComponent(component, insertX, insertY);
+    
+    // Add the root element with proper positioning
+    const rootElement = newElements[rootElementId];
+    if (rootElement) {
       dispatch(addElement({ 
-        element, 
-        parentId: element.parent || 'root',
-        insertPosition: 'inside'
+        element: { ...rootElement, parent: parentId },
+        parentId,
+        insertPosition,
+        referenceElementId: insertPosition !== 'inside' ? selectedElementId : undefined
       }));
-    });
+      
+      // Add child elements
+      Object.values(newElements).forEach(element => {
+        if (element.id !== rootElementId) {
+          dispatch(addElement({ 
+            element, 
+            parentId: element.parent || rootElementId,
+            insertPosition: 'inside'
+          }));
+        }
+      });
+    }
     
     // Select the root element
     dispatch(selectElement(rootElementId));
