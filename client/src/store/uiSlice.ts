@@ -15,6 +15,8 @@ interface UIState {
   showAdvancedMode: boolean;
   draggedElementId?: string;
   isDraggingForReorder: boolean;
+  hoveredElementId: string | null;
+  hoveredZone: 'before' | 'after' | 'inside' | null;
 }
 
 const initialState: UIState = {
@@ -28,6 +30,8 @@ const initialState: UIState = {
   isResizing: false,
   showAdvancedMode: false,
   isDraggingForReorder: false,
+  hoveredElementId: null,
+  hoveredZone: null,
 };
 
 const uiSlice = createSlice({
@@ -107,6 +111,11 @@ const uiSlice = createSlice({
     setDraggingForReorder: (state, action: PayloadAction<boolean>) => {
       state.isDraggingForReorder = action.payload;
     },
+    
+    setHoveredElement: (state, action: PayloadAction<{ elementId: string | null; zone: 'before' | 'after' | 'inside' | null }>) => {
+      state.hoveredElementId = action.payload.elementId;
+      state.hoveredZone = action.payload.zone;
+    },
   },
 });
 
@@ -128,6 +137,7 @@ export const {
   resetUI,
   setDraggedElement,
   setDraggingForReorder,
+  setHoveredElement,
 } = uiSlice.actions;
 
 export default uiSlice.reducer;

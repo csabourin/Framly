@@ -2,7 +2,7 @@ import React, { useRef, useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
 import { selectElement, addElement, moveElement, resizeElement, reorderElement, deleteElement } from '../../store/canvasSlice';
-import { setDragging, setDragStart, setResizing, setResizeHandle, resetUI, setDraggedElement, setDraggingForReorder } from '../../store/uiSlice';
+import { setDragging, setDragStart, setResizing, setResizeHandle, resetUI, setDraggedElement, setDraggingForReorder, setHoveredElement } from '../../store/uiSlice';
 import { createDefaultElement, getElementAtPoint, calculateSnapPosition } from '../../utils/canvas';
 import CanvasElement from './CanvasElement';
 import { Plus, Minus, Maximize } from 'lucide-react';
@@ -275,6 +275,9 @@ const Canvas: React.FC = () => {
 
       console.log('Mouse move - hoveredElement:', hoveredElement.id);
       setHoveredElementId(hoveredElement.id);
+      
+      // Also update Redux state for nested elements
+      dispatch(setHoveredElement({ elementId: hoveredElement.id, zone: null }));
 
       // Determine insertion zone for non-root elements
       if (hoveredElement.id !== 'root' && (hoveredElement.isContainer || hoveredElement.type === 'container' || hoveredElement.type === 'rectangle')) {
@@ -294,23 +297,28 @@ const Canvas: React.FC = () => {
           
           if (relativeY < beforeZone) {
             setHoveredZone('before');
+            dispatch(setHoveredElement({ elementId: hoveredElement.id, zone: 'before' }));
             console.log('Hover zone: before');
           } else if (relativeY > afterZone) {
             setHoveredZone('after');
+            dispatch(setHoveredElement({ elementId: hoveredElement.id, zone: 'after' }));
             console.log('Hover zone: after');
           } else {
             setHoveredZone('inside');
+            dispatch(setHoveredElement({ elementId: hoveredElement.id, zone: 'inside' }));
             console.log('Hover zone: inside');
           }
         }
       } else {
         setHoveredZone('inside');
+        dispatch(setHoveredElement({ elementId: hoveredElement.id, zone: 'inside' }));
         console.log('Hover zone: inside (default)');
       }
     } else {
       // Clear hover state for other tools
       setHoveredElementId(null);
       setHoveredZone(null);
+      dispatch(setHoveredElement({ elementId: null, zone: null }));
     }
   }, [isDragging, isDraggingForReorder, selectedElement, draggedElementId, dragStart, zoomLevel, dispatch, selectedTool, project.elements]);
 

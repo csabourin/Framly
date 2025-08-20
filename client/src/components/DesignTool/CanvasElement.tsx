@@ -9,13 +9,37 @@ interface CanvasElementProps {
   isSelected: boolean;
   isHovered?: boolean;
   hoveredZone?: 'before' | 'after' | 'inside' | null;
+  hoveredElementId?: string | null;
 }
 
-const CanvasElement: React.FC<CanvasElementProps> = ({ element, isSelected, isHovered = false, hoveredZone = null }) => {
+// Get hover state from Redux if not passed down
+const useHoverState = () => {
+  return useSelector((state: RootState) => ({
+    hoveredElementId: (state as any).ui?.hoveredElementId || null,
+    hoveredZone: (state as any).ui?.hoveredZone || null,
+  }));
+};
+
+const CanvasElement: React.FC<CanvasElementProps> = ({ 
+  element, 
+  isSelected, 
+  isHovered = false, 
+  hoveredZone = null,
+  hoveredElementId
+}) => {
   const dispatch = useDispatch();
   const { project } = useSelector((state: RootState) => state.canvas);
-  const { selectedTool } = useSelector((state: RootState) => state.ui);
+  const { selectedTool, isDraggingForReorder, draggedElementId } = useSelector((state: RootState) => state.ui);
   const elementRef = useRef<HTMLDivElement>(null);
+  
+  // Get hover state from Redux if not provided via props
+  const reduxHoverState = useHoverState();
+  const actualHoveredElementId = hoveredElementId !== undefined ? hoveredElementId : reduxHoverState.hoveredElementId;
+  const actualHoveredZone = hoveredZone !== undefined ? hoveredZone : reduxHoverState.hoveredZone;
+  
+  // Check if this element is hovered
+  const isThisElementHovered = actualHoveredElementId === element.id;
+  const thisElementHoveredZone = isThisElementHovered ? actualHoveredZone : null;
 
   const handleClick = useCallback((e: React.MouseEvent) => {
     console.log('CanvasElement click - selectedTool:', selectedTool, 'elementId:', element.id);
@@ -80,8 +104,9 @@ const CanvasElement: React.FC<CanvasElementProps> = ({ element, isSelected, isHo
                 key={child.id} 
                 element={child}
                 isSelected={child.id === project.selectedElementId}
-                isHovered={false}
-                hoveredZone={null}
+                isHovered={child.id === actualHoveredElementId}
+                hoveredZone={child.id === actualHoveredElementId ? actualHoveredZone : null}
+                hoveredElementId={actualHoveredElementId}
               />
             ) : null;
           })}
@@ -96,22 +121,37 @@ const CanvasElement: React.FC<CanvasElementProps> = ({ element, isSelected, isHo
     );
   };
 
-  // Define visual feedback based on selection and hover states
+  // Define visual feedback based on selection, hover, and drag states
   const getBorderStyle = () => {
     if (isSelected) return '2px solid #3b82f6';
-    if (isHovered && hoveredZone === 'inside') return '4px solid #a855f7';
-    if (isHovered && (hoveredZone === 'before' || hoveredZone === 'after')) return '2px solid #3b82f6';
+    
+    // Drag-drop visual feedback (blue dashed for insertion zones)
+    if (isDraggingForReorder && isThisElementHovered && thisElementHoveredZone === 'inside') {
+      return '3px dashed #3b82f6';
+    }
+    
+    // Creation tool hover feedback (purple for inside, blue for before/after)
+    if (isThisElementHovered && thisElementHoveredZone === 'inside') return '4px solid #a855f7';
+    if (isThisElementHovered && (thisElementHoveredZone === 'before' || thisElementHoveredZone === 'after')) return '2px solid #3b82f6';
+    
     return undefined;
   };
 
   const getBackgroundColor = () => {
-    if (isHovered && hoveredZone === 'inside') return 'rgba(168, 85, 247, 0.1)';
+    // Creation tool hover feedback
+    if (isThisElementHovered && thisElementHoveredZone === 'inside') return 'rgba(168, 85, 247, 0.1)';
+    
+    // Drag-drop feedback (lighter blue)
+    if (isDraggingForReorder && isThisElementHovered && thisElementHoveredZone === 'inside') {
+      return 'rgba(59, 130, 246, 0.05)';
+    }
+    
     return element.styles.backgroundColor;
   };
 
   const getBoxShadow = () => {
     if (isSelected) return '0 0 0 1px rgba(59, 130, 246, 0.3)';
-    if (isHovered && hoveredZone === 'inside') return '0 0 0 2px #a855f7';
+    if (isThisElementHovered && thisElementHoveredZone === 'inside') return '0 0 0 2px #a855f7';
     return undefined;
   };
 
@@ -126,15 +166,15 @@ const CanvasElement: React.FC<CanvasElementProps> = ({ element, isSelected, isHo
     border: getBorderStyle() || element.styles.border,
     boxShadow: getBoxShadow(),
     // Ensure the visual feedback is always visible
-    zIndex: isHovered ? 1000 : (isSelected ? 100 : undefined),
+    zIndex: isThisElementHovered ? 1000 : (isSelected ? 100 : undefined),
   };
 
   // Add debug logging for hover state
-  if (isHovered) {
+  if (isThisElementHovered) {
     console.log('Element hover state:', { 
       elementId: element.id, 
-      isHovered, 
-      hoveredZone, 
+      isHovered: isThisElementHovered, 
+      hoveredZone: thisElementHoveredZone, 
       border: getBorderStyle(),
       backgroundColor: getBackgroundColor()
     });
