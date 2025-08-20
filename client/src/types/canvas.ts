@@ -58,7 +58,7 @@ export interface Project {
   currentBreakpoint: string;
 }
 
-export type Tool = 'select' | 'hand' | 'rectangle' | 'text' | 'image' | 'split-horizontal' | 'split-vertical' | 'merge' | 'component';
+export type Tool = 'select' | 'hand' | 'rectangle' | 'text' | 'image' | 'container';
 
 export interface CustomComponent {
   id: string;

@@ -6,6 +6,7 @@ interface UIState {
   isExportModalOpen: boolean;
   isCodeModalOpen: boolean;
   isGridVisible: boolean;
+  isComponentPanelVisible: boolean;
   zoomLevel: number;
   canvasOffset: { x: number; y: number };
   isDragging: boolean;
@@ -24,6 +25,7 @@ const initialState: UIState = {
   isExportModalOpen: false,
   isCodeModalOpen: false,
   isGridVisible: true,
+  isComponentPanelVisible: true,
   zoomLevel: 1,
   canvasOffset: { x: 0, y: 0 },
   isDragging: false,
@@ -52,6 +54,10 @@ const uiSlice = createSlice({
     
     setGridVisible: (state, action: PayloadAction<boolean>) => {
       state.isGridVisible = action.payload;
+    },
+    
+    toggleComponentPanel: (state) => {
+      state.isComponentPanelVisible = !state.isComponentPanelVisible;
     },
     
     setZoomLevel: (state, action: PayloadAction<number>) => {
@@ -124,6 +130,7 @@ export const {
   setExportModalOpen,
   setCodeModalOpen,
   setGridVisible,
+  toggleComponentPanel,
   setZoomLevel,
   zoomIn,
   zoomOut,
