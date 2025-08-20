@@ -121,13 +121,16 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     );
   };
 
+  // Check if this element can accept drops (only containers and rectangles)
+  const canAcceptDrop = element.type === 'container' || element.type === 'rectangle';
+  
   // Define visual feedback based on selection, hover, and drag states
   const getBorderStyle = () => {
     if (isSelected) return '2px solid #3b82f6';
     
-    // Drag-drop visual feedback (blue dashed for insertion zones)
-    if (isDraggingForReorder && isThisElementHovered && thisElementHoveredZone === 'inside') {
-      return '3px dashed #3b82f6';
+    // Drag-drop visual feedback (only show for compatible drop targets)
+    if (isDraggingForReorder && isThisElementHovered && canAcceptDrop && thisElementHoveredZone === 'inside') {
+      return '4px solid #22c55e'; // Green border for valid drop zones
     }
     
     // Creation tool hover feedback (purple for inside, blue for before/after)
@@ -141,9 +144,13 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     // Creation tool hover feedback
     if (isThisElementHovered && thisElementHoveredZone === 'inside') return 'rgba(168, 85, 247, 0.1)';
     
-    // Drag-drop feedback (lighter blue)
+    // Drag-drop feedback (green for valid drop zones, red for invalid)
     if (isDraggingForReorder && isThisElementHovered && thisElementHoveredZone === 'inside') {
-      return 'rgba(59, 130, 246, 0.05)';
+      if (canAcceptDrop) {
+        return 'rgba(34, 197, 94, 0.1)'; // Green background for valid drops
+      } else {
+        return 'rgba(239, 68, 68, 0.1)'; // Red background for invalid drops
+      }
     }
     
     return element.styles.backgroundColor;
@@ -151,6 +158,17 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
 
   const getBoxShadow = () => {
     if (isSelected) return '0 0 0 1px rgba(59, 130, 246, 0.3)';
+    
+    // Drag-drop shadow feedback
+    if (isDraggingForReorder && isThisElementHovered && thisElementHoveredZone === 'inside') {
+      if (canAcceptDrop) {
+        return '0 0 0 3px rgba(34, 197, 94, 0.5)'; // Green shadow for valid drops
+      } else {
+        return '0 0 0 3px rgba(239, 68, 68, 0.5)'; // Red shadow for invalid drops
+      }
+    }
+    
+    // Creation tool shadow
     if (isThisElementHovered && thisElementHoveredZone === 'inside') return '0 0 0 2px #a855f7';
     return undefined;
   };
@@ -188,13 +206,26 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
         ${isSelected ? 'selected' : ''}
         ${element.classes?.join(' ') || ''}
       `}
-      style={combinedStyles}
+
       onClick={handleClick}
       onMouseDown={(e) => {
         // Prevent mouse down from interfering with canvas click detection
         if (!['select', 'hand'].includes(selectedTool)) {
           e.preventDefault();
         }
+        // Prevent text selection during drag operations
+        if (selectedTool === 'hand') {
+          e.preventDefault();
+        }
+      }}
+      onDragStart={(e) => {
+        // Prevent default drag behavior that interferes with our custom drag
+        e.preventDefault();
+      }}
+      style={{
+        ...combinedStyles,
+        userSelect: selectedTool !== 'text' ? 'none' : 'auto',
+        WebkitUserSelect: selectedTool !== 'text' ? 'none' : 'auto',
       }}
       data-element-id={element.id}
       data-testid={`canvas-element-${element.id}`}

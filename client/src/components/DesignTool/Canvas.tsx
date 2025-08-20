@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
 import { selectElement, addElement, moveElement, resizeElement, reorderElement, deleteElement } from '../../store/canvasSlice';
 import { setDragging, setDragStart, setResizing, setResizeHandle, resetUI, setDraggedElement, setDraggingForReorder, setHoveredElement } from '../../store/uiSlice';
-import { createDefaultElement, getElementAtPoint, calculateSnapPosition } from '../../utils/canvas';
+import { createDefaultElement, getElementAtPoint, calculateSnapPosition, isValidDropTarget } from '../../utils/canvas';
 import CanvasElement from './CanvasElement';
 import { Plus, Minus, Maximize } from 'lucide-react';
 
@@ -167,9 +167,13 @@ const Canvas: React.FC = () => {
         console.log('CLICK DEBUG - Using clicked element:', targetElementId);
       }
       
-      console.log('CLICK DEBUG - Final target:', targetElementId, 'zone:', targetZone);
+      // Validate the target element can accept new elements
+      const targetElement = targetElementId ? project.elements[targetElementId] : null;
+      const canInsertInTarget = targetElement ? isValidDropTarget(targetElement) : true;
       
-      if (targetElementId && targetZone && targetElementId !== 'root') {
+      console.log('CLICK DEBUG - Final target:', targetElementId, 'zone:', targetZone, 'canInsert:', canInsertInTarget);
+      
+      if (targetElementId && targetZone && targetElementId !== 'root' && canInsertInTarget) {
         console.log('CLICK DEBUG - Creating element inside:', targetElementId);
         
         const newElement = createDefaultElement(selectedTool as any, 0, 0);
@@ -200,8 +204,12 @@ const Canvas: React.FC = () => {
         setHoveredZone(null);
         dispatch(selectElement(newElement.id));
       } else {
-        // If no specific insertion point, create at root
-        console.log('CLICK DEBUG - Creating element at root, targetElementId was:', targetElementId);
+        // If no valid insertion point, create at root
+        if (!canInsertInTarget) {
+          console.log('CLICK DEBUG - Target cannot accept elements, creating at root instead');
+        } else {
+          console.log('CLICK DEBUG - Creating element at root, targetElementId was:', targetElementId);
+        }
         const newElement = createDefaultElement(selectedTool as any, x, y);
         dispatch(addElement({ 
           element: newElement, 

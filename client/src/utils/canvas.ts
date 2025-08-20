@@ -226,3 +226,20 @@ export function generateCSSClassSuggestions(type: CanvasElement['type']): string
       return baseSuggestions;
   }
 }
+
+// Check if an element can be dropped inside another element
+export function canDropInside(elementType: string, targetElement: CanvasElement): boolean {
+  // Text and images cannot contain other elements
+  if (targetElement.type === 'text' || targetElement.type === 'image') {
+    return false;
+  }
+  
+  // Containers and rectangles can contain other elements
+  return targetElement.type === 'container' || targetElement.type === 'rectangle';
+}
+
+// Check if a drop operation is valid
+export function isValidDropTarget(targetElement: CanvasElement | null): boolean {
+  if (!targetElement) return false;
+  return targetElement.type === 'container' || targetElement.type === 'rectangle';
+}
