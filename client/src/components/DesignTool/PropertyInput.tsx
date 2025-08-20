@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Slider } from '@/components/ui/slider';
 import { Button } from '@/components/ui/button';
-import { PropertyConfig, formatValueWithUnit } from '../../utils/propertyConfig';
+import { PropertyConfig, formatValueWithUnit, parseValueAndUnit } from '../../utils/propertyConfig';
 import { Info } from 'lucide-react';
 
 interface PropertyInputProps {
@@ -14,6 +14,14 @@ interface PropertyInputProps {
 }
 
 export const PropertyInput: React.FC<PropertyInputProps> = ({ config, value, onChange }) => {
+  const [selectedUnit, setSelectedUnit] = useState(() => {
+    if (config.units && config.units.length > 0) {
+      const parsed = parseValueAndUnit(value);
+      return parsed.unit || config.defaultUnit || config.units[0];
+    }
+    return config.unit || 'px';
+  });
+
   const renderInput = () => {
     switch (config.type) {
       case 'text':
@@ -43,14 +51,17 @@ export const PropertyInput: React.FC<PropertyInputProps> = ({ config, value, onC
         );
 
       case 'unit':
+        const parsed = parseValueAndUnit(value);
+        const numValue = parsed.value ? parseFloat(parsed.value) : 0;
+        
         return (
           <div className="flex gap-2">
             <Input
               type="number"
-              value={typeof value === 'string' ? parseFloat(value) || 0 : value || 0}
+              value={numValue || ''}
               onChange={(e) => {
-                const numValue = parseFloat(e.target.value) || 0;
-                onChange(formatValueWithUnit(numValue, config.unit));
+                const newValue = parseFloat(e.target.value) || 0;
+                onChange(formatValueWithUnit(newValue, selectedUnit));
               }}
               min={config.min}
               max={config.max}
@@ -58,9 +69,30 @@ export const PropertyInput: React.FC<PropertyInputProps> = ({ config, value, onC
               className="flex-1"
               data-testid={`input-${config.key}`}
             />
-            {config.unit && (
+            {config.units && config.units.length > 1 ? (
+              <Select
+                value={selectedUnit}
+                onValueChange={(unit) => {
+                  setSelectedUnit(unit);
+                  if (numValue) {
+                    onChange(formatValueWithUnit(numValue, unit));
+                  }
+                }}
+              >
+                <SelectTrigger className="w-20">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {config.units.map((unit) => (
+                    <SelectItem key={unit} value={unit}>
+                      {unit}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            ) : (
               <div className="flex items-center px-3 bg-gray-50 border rounded text-sm text-gray-600 min-w-[40px] justify-center">
-                {config.unit}
+                {selectedUnit}
               </div>
             )}
           </div>
@@ -137,6 +169,28 @@ export const PropertyInput: React.FC<PropertyInputProps> = ({ config, value, onC
           >
             {value ? 'On' : 'Off'}
           </Button>
+        );
+
+      case 'border':
+        return (
+          <div className="space-y-3">
+            {config.subProperties?.map((subProp) => (
+              <div key={subProp.key} className="space-y-1">
+                <Label className="text-xs font-medium text-gray-600">
+                  {subProp.label}
+                </Label>
+                <PropertyInput
+                  config={subProp}
+                  value={value?.[subProp.key] || ''}
+                  onChange={(subValue) => {
+                    const newValue = { ...value };
+                    newValue[subProp.key] = subValue;
+                    onChange(newValue);
+                  }}
+                />
+              </div>
+            ))}
+          </div>
         );
 
       default:

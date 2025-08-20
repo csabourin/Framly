@@ -4,15 +4,19 @@ export type ElementType = 'container' | 'rectangle' | 'text' | 'image';
 export interface PropertyConfig {
   key: string;
   label: string;
-  type: 'text' | 'number' | 'select' | 'color' | 'range' | 'toggle' | 'unit';
-  category: 'layout' | 'appearance' | 'text' | 'spacing' | 'effects' | 'advanced';
+  type: 'text' | 'number' | 'select' | 'color' | 'range' | 'toggle' | 'unit' | 'border' | 'compound';
+  category: 'layout' | 'appearance' | 'text' | 'spacing' | 'effects' | 'advanced' | 'flex' | 'grid';
   options?: Array<{ value: string; label: string }>;
+  units?: string[];
+  defaultUnit?: string;
   min?: number;
   max?: number;
   step?: number;
   unit?: string;
   description?: string;
   priority: number; // 1 = most important, higher = less important
+  condition?: (element: any) => boolean; // Function to determine if property should be shown
+  subProperties?: PropertyConfig[]; // For compound properties like border
 }
 
 export interface PropertyGroup {
@@ -61,7 +65,8 @@ const layoutProperties: PropertyConfig[] = [
     type: 'unit',
     category: 'layout',
     priority: 3,
-    unit: 'px',
+    units: ['px', '%', 'vw', 'em', 'rem', 'auto'],
+    defaultUnit: 'px',
     description: 'Element width'
   },
   {
@@ -70,7 +75,8 @@ const layoutProperties: PropertyConfig[] = [
     type: 'unit',
     category: 'layout',
     priority: 4,
-    unit: 'px',
+    units: ['px', '%', 'vh', 'em', 'rem', 'auto'],
+    defaultUnit: 'px',
     description: 'Element height'
   },
   {
@@ -81,7 +87,8 @@ const layoutProperties: PropertyConfig[] = [
     priority: 8,
     min: -999,
     max: 999,
-    description: 'Controls which elements appear in front'
+    description: 'Controls which elements appear in front',
+    condition: (element) => element.styles?.position && element.styles.position !== 'static'
   }
 ];
 
@@ -93,7 +100,8 @@ const spacingProperties: PropertyConfig[] = [
     type: 'unit',
     category: 'spacing',
     priority: 1,
-    unit: 'px',
+    units: ['px', '%', 'em', 'rem', 'auto'],
+    defaultUnit: 'px',
     description: 'Space outside the element'
   },
   {
@@ -102,7 +110,8 @@ const spacingProperties: PropertyConfig[] = [
     type: 'unit',
     category: 'spacing',
     priority: 2,
-    unit: 'px',
+    units: ['px', '%', 'em', 'rem'],
+    defaultUnit: 'px',
     description: 'Space inside the element'
   },
   {
@@ -111,8 +120,10 @@ const spacingProperties: PropertyConfig[] = [
     type: 'unit',
     category: 'spacing',
     priority: 3,
-    unit: 'px',
-    description: 'Space between child elements (flex/grid)'
+    units: ['px', '%', 'em', 'rem'],
+    defaultUnit: 'px',
+    description: 'Space between child elements (flex/grid)',
+    condition: (element) => element.styles?.display === 'flex' || element.styles?.display === 'grid'
   }
 ];
 
@@ -132,7 +143,8 @@ const appearanceProperties: PropertyConfig[] = [
     type: 'unit',
     category: 'appearance',
     priority: 2,
-    unit: 'px',
+    units: ['px', '%', 'em', 'rem'],
+    defaultUnit: 'px',
     min: 0,
     max: 50,
     description: 'How rounded the corners are'
@@ -140,10 +152,47 @@ const appearanceProperties: PropertyConfig[] = [
   {
     key: 'border',
     label: 'Border',
-    type: 'text',
+    type: 'border',
     category: 'appearance',
     priority: 3,
-    description: 'Border style (e.g., 1px solid #000)'
+    description: 'Border style and appearance',
+    subProperties: [
+      {
+        key: 'borderWidth',
+        label: 'Width',
+        type: 'unit',
+        category: 'appearance',
+        priority: 1,
+        units: ['px', 'em', 'rem'],
+        defaultUnit: 'px',
+        min: 0,
+        max: 20,
+        description: 'Border thickness'
+      },
+      {
+        key: 'borderStyle',
+        label: 'Style',
+        type: 'select',
+        category: 'appearance',
+        priority: 2,
+        options: [
+          { value: 'none', label: 'None' },
+          { value: 'solid', label: 'Solid' },
+          { value: 'dashed', label: 'Dashed' },
+          { value: 'dotted', label: 'Dotted' },
+          { value: 'double', label: 'Double' }
+        ],
+        description: 'Border line style'
+      },
+      {
+        key: 'borderColor',
+        label: 'Color',
+        type: 'color',
+        category: 'appearance',
+        priority: 3,
+        description: 'Border color'
+      }
+    ]
   },
   {
     key: 'opacity',
@@ -174,7 +223,8 @@ const textProperties: PropertyConfig[] = [
     type: 'unit',
     category: 'text',
     priority: 1,
-    unit: 'px',
+    units: ['px', 'em', 'rem', '%', 'pt'],
+    defaultUnit: 'px',
     min: 8,
     max: 120,
     description: 'Size of the text'
@@ -234,7 +284,8 @@ const textProperties: PropertyConfig[] = [
     type: 'unit',
     category: 'text',
     priority: 6,
-    unit: 'px',
+    units: ['px', 'em', 'rem', '%'],
+    defaultUnit: 'px',
     min: -2,
     max: 10,
     step: 0.1,
@@ -274,24 +325,25 @@ const textProperties: PropertyConfig[] = [
 const flexProperties: PropertyConfig[] = [
   {
     key: 'flexDirection',
-    label: 'Flex Direction',
+    label: 'Direction',
     type: 'select',
-    category: 'layout',
-    priority: 5,
+    category: 'flex',
+    priority: 1,
     options: [
-      { value: 'row', label: 'Left to Right' },
-      { value: 'column', label: 'Top to Bottom' },
-      { value: 'row-reverse', label: 'Right to Left' },
-      { value: 'column-reverse', label: 'Bottom to Top' }
+      { value: 'row', label: 'Horizontal →' },
+      { value: 'column', label: 'Vertical ↓' },
+      { value: 'row-reverse', label: 'Horizontal ←' },
+      { value: 'column-reverse', label: 'Vertical ↑' }
     ],
-    description: 'Direction of flex items'
+    description: 'Direction flex items flow',
+    condition: (element) => element.styles?.display === 'flex'
   },
   {
     key: 'justifyContent',
-    label: 'Main Alignment',
+    label: 'Main Axis',
     type: 'select',
-    category: 'layout',
-    priority: 6,
+    category: 'flex',
+    priority: 2,
     options: [
       { value: 'flex-start', label: 'Start' },
       { value: 'center', label: 'Center' },
@@ -300,14 +352,15 @@ const flexProperties: PropertyConfig[] = [
       { value: 'space-around', label: 'Space Around' },
       { value: 'space-evenly', label: 'Space Evenly' }
     ],
-    description: 'How items are aligned along main axis'
+    description: 'How items are aligned along main axis',
+    condition: (element) => element.styles?.display === 'flex'
   },
   {
     key: 'alignItems',
-    label: 'Cross Alignment',
+    label: 'Cross Axis',
     type: 'select',
-    category: 'layout',
-    priority: 7,
+    category: 'flex',
+    priority: 3,
     options: [
       { value: 'stretch', label: 'Stretch' },
       { value: 'flex-start', label: 'Start' },
@@ -315,7 +368,85 @@ const flexProperties: PropertyConfig[] = [
       { value: 'flex-end', label: 'End' },
       { value: 'baseline', label: 'Baseline' }
     ],
-    description: 'How items are aligned along cross axis'
+    description: 'How items are aligned along cross axis',
+    condition: (element) => element.styles?.display === 'flex'
+  },
+  {
+    key: 'flexWrap',
+    label: 'Wrap Items',
+    type: 'select',
+    category: 'flex',
+    priority: 4,
+    options: [
+      { value: 'nowrap', label: 'No Wrap' },
+      { value: 'wrap', label: 'Wrap' },
+      { value: 'wrap-reverse', label: 'Wrap Reverse' }
+    ],
+    description: 'Whether flex items wrap to new lines',
+    condition: (element) => element.styles?.display === 'flex'
+  }
+];
+
+// Grid-specific properties
+const gridProperties: PropertyConfig[] = [
+  {
+    key: 'gridTemplateColumns',
+    label: 'Columns',
+    type: 'text',
+    category: 'grid',
+    priority: 1,
+    description: 'Grid column layout (e.g., 1fr 1fr 1fr or repeat(3, 1fr))',
+    condition: (element) => element.styles?.display === 'grid'
+  },
+  {
+    key: 'gridTemplateRows',
+    label: 'Rows',
+    type: 'text',
+    category: 'grid',
+    priority: 2,
+    description: 'Grid row layout (e.g., auto auto or 100px 200px)',
+    condition: (element) => element.styles?.display === 'grid'
+  },
+  {
+    key: 'gridGap',
+    label: 'Gap',
+    type: 'unit',
+    category: 'grid',
+    priority: 3,
+    units: ['px', '%', 'em', 'rem'],
+    defaultUnit: 'px',
+    description: 'Space between grid items',
+    condition: (element) => element.styles?.display === 'grid'
+  },
+  {
+    key: 'justifyItems',
+    label: 'Justify Items',
+    type: 'select',
+    category: 'grid',
+    priority: 4,
+    options: [
+      { value: 'start', label: 'Start' },
+      { value: 'center', label: 'Center' },
+      { value: 'end', label: 'End' },
+      { value: 'stretch', label: 'Stretch' }
+    ],
+    description: 'How grid items are justified within their cells',
+    condition: (element) => element.styles?.display === 'grid'
+  },
+  {
+    key: 'alignItems',
+    label: 'Align Items',
+    type: 'select',
+    category: 'grid',
+    priority: 5,
+    options: [
+      { value: 'start', label: 'Start' },
+      { value: 'center', label: 'Center' },
+      { value: 'end', label: 'End' },
+      { value: 'stretch', label: 'Stretch' }
+    ],
+    description: 'How grid items are aligned within their cells',
+    condition: (element) => element.styles?.display === 'grid'
   }
 ];
 
@@ -360,6 +491,7 @@ export const elementPropertyMap: Record<ElementType, PropertyConfig[]> = {
     ...spacingProperties,
     ...appearanceProperties,
     ...flexProperties,
+    ...gridProperties,
     ...advancedProperties
   ],
   rectangle: [
@@ -399,12 +531,17 @@ export const elementPropertyMap: Record<ElementType, PropertyConfig[]> = {
 };
 
 // Group properties by category for better organization
-export function getPropertyGroups(elementType: ElementType): PropertyGroup[] {
+export function getPropertyGroups(elementType: ElementType, element?: any): PropertyGroup[] {
   const properties = elementPropertyMap[elementType] || [];
   const groups: Record<string, PropertyConfig[]> = {};
   
-  // Group properties by category
+  // Filter properties based on conditions and group by category
   properties.forEach(prop => {
+    // Check if property should be shown based on condition
+    if (prop.condition && element && !prop.condition(element)) {
+      return;
+    }
+    
     if (!groups[prop.category]) {
       groups[prop.category] = [];
     }
@@ -422,8 +559,10 @@ export function getPropertyGroups(elementType: ElementType): PropertyGroup[] {
     spacing: { label: 'Spacing', icon: '📏', order: 2 },
     appearance: { label: 'Appearance', icon: '🎨', order: 3 },
     text: { label: 'Typography', icon: '🔤', order: 4 },
-    effects: { label: 'Effects', icon: '✨', order: 5 },
-    advanced: { label: 'Advanced', icon: '⚙️', order: 6 }
+    flex: { label: 'Flexbox', icon: '📦', order: 5 },
+    grid: { label: 'Grid Layout', icon: '⚏', order: 6 },
+    effects: { label: 'Effects', icon: '✨', order: 7 },
+    advanced: { label: 'Advanced', icon: '⚙️', order: 8 }
   };
   
   // Convert to ordered array
@@ -467,9 +606,25 @@ export function formatValueWithUnit(value: string | number, unit?: string): stri
   
   // Don't add unit if value already has one
   const strValue = String(value);
-  if (strValue.match(/\d+(px|%|em|rem|vh|vw)$/)) {
+  if (strValue.match(/\d+(px|%|em|rem|vh|vw|pt|auto)$/)) {
     return strValue;
   }
   
   return `${value}${unit}`;
+}
+
+// Helper function to parse value and unit from a CSS value
+export function parseValueAndUnit(cssValue: string): { value: string; unit: string } {
+  if (!cssValue) return { value: '', unit: 'px' };
+  
+  const match = String(cssValue).match(/^([+-]?\d*\.?\d*)(.*)/);
+  if (match) {
+    const [, value, unit] = match;
+    return {
+      value: value || '',
+      unit: unit || 'px'
+    };
+  }
+  
+  return { value: String(cssValue), unit: '' };
 }

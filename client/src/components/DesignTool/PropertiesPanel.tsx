@@ -51,11 +51,9 @@ const PropertiesPanel: React.FC = () => {
     );
   }
 
-  const propertyGroups = getPropertyGroups(selectedElement.type as ElementType);
+  const propertyGroups = getPropertyGroups(selectedElement.type as ElementType, selectedElement);
   
   const handlePropertyChange = (propertyKey: string, value: any) => {
-    const cssProperty = getCSSPropertyKey(propertyKey);
-    
     // Handle special cases for element properties vs style properties
     if (['flexDirection', 'justifyContent', 'alignItems'].includes(propertyKey)) {
       // Update both element property and style for flex properties
@@ -65,13 +63,13 @@ const PropertiesPanel: React.FC = () => {
       }));
       dispatch(updateElementStyles({
         id: selectedElement.id,
-        styles: { [cssProperty]: value }
+        styles: { [propertyKey]: value }
       }));
     } else {
-      // Regular style update
+      // Regular style update - use camelCase for React style properties
       dispatch(updateElementStyles({
         id: selectedElement.id,
-        styles: { [cssProperty]: value }
+        styles: { [propertyKey]: value }
       }));
     }
   };
@@ -102,16 +100,14 @@ const PropertiesPanel: React.FC = () => {
   };
 
   const getPropertyValue = (property: PropertyConfig) => {
-    const cssProperty = getCSSPropertyKey(property.key);
-    
     // Check element properties first (for flex properties)
     if (selectedElement[property.key as keyof typeof selectedElement] !== undefined) {
       return selectedElement[property.key as keyof typeof selectedElement];
     }
     
-    // Then check styles
-    if (selectedElement.styles && selectedElement.styles[cssProperty] !== undefined) {
-      return selectedElement.styles[cssProperty];
+    // Then check styles using camelCase property names
+    if (selectedElement.styles && selectedElement.styles[property.key] !== undefined) {
+      return selectedElement.styles[property.key];
     }
     
     // Return default value
@@ -124,6 +120,8 @@ const PropertiesPanel: React.FC = () => {
       spacing: Spacing,
       appearance: Palette,
       text: Type,
+      flex: Layout,
+      grid: Layout,
       effects: Sparkles,
       advanced: SettingsIcon
     };
