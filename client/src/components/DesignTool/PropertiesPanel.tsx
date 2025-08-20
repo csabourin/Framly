@@ -7,18 +7,43 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { Slider } from '@/components/ui/slider';
 import { cssClassGenerator } from '../../utils/cssClassGenerator';
-import { AlignLeft, AlignCenter, AlignRight, Plus, X, GripVertical, Trash2 } from 'lucide-react';
+import { getPropertyGroups, getCSSPropertyKey, formatValueWithUnit, PropertyConfig, ElementType } from '../../utils/propertyConfig';
+import { PropertyInput } from './PropertyInput';
+import { 
+  AlignLeft, 
+  AlignCenter, 
+  AlignRight, 
+  Plus, 
+  X, 
+  GripVertical, 
+  Trash2, 
+  ChevronDown, 
+  ChevronRight,
+  Info,
+  Palette,
+  Type,
+  Layout,
+  Move3D as Spacing,
+  Sparkles,
+  Settings as SettingsIcon
+} from 'lucide-react';
 
 const PropertiesPanel: React.FC = () => {
   const dispatch = useDispatch();
   const { project } = useSelector((state: RootState) => state.canvas);
   const selectedElement = project.selectedElementId ? project.elements[project.selectedElementId] : null;
   const [newClassName, setNewClassName] = useState('');
+  const [expandedGroups, setExpandedGroups] = useState<Record<string, boolean>>({
+    layout: true,
+    spacing: true,
+    appearance: true
+  });
 
   if (!selectedElement) {
     return (
-      <aside className="absolute right-64 top-12 bottom-8 w-80 bg-white border-l border-gray-200 overflow-y-auto z-40">
+      <aside className="absolute right-0 top-12 bottom-8 w-80 bg-white border-l border-gray-200 overflow-y-auto z-40">
         <div className="p-4 text-center text-gray-500">
           Select an element to edit properties
         </div>
@@ -26,18 +51,29 @@ const PropertiesPanel: React.FC = () => {
     );
   }
 
-  const handleStyleUpdate = (property: string, value: any) => {
-    dispatch(updateElementStyles({
-      id: selectedElement.id,
-      styles: { [property]: value }
-    }));
-  };
-
-  const handleElementUpdate = (property: string, value: any) => {
-    dispatch(updateElement({
-      id: selectedElement.id,
-      updates: { [property]: value }
-    }));
+  const propertyGroups = getPropertyGroups(selectedElement.type as ElementType);
+  
+  const handlePropertyChange = (propertyKey: string, value: any) => {
+    const cssProperty = getCSSPropertyKey(propertyKey);
+    
+    // Handle special cases for element properties vs style properties
+    if (['flexDirection', 'justifyContent', 'alignItems'].includes(propertyKey)) {
+      // Update both element property and style for flex properties
+      dispatch(updateElement({
+        id: selectedElement.id,
+        updates: { [propertyKey]: value }
+      }));
+      dispatch(updateElementStyles({
+        id: selectedElement.id,
+        styles: { [cssProperty]: value }
+      }));
+    } else {
+      // Regular style update
+      dispatch(updateElementStyles({
+        id: selectedElement.id,
+        styles: { [cssProperty]: value }
+      }));
+    }
   };
 
   const handleAddClass = () => {
@@ -58,6 +94,42 @@ const PropertiesPanel: React.FC = () => {
     }
   };
 
+  const toggleGroup = (groupCategory: string) => {
+    setExpandedGroups(prev => ({
+      ...prev,
+      [groupCategory]: !prev[groupCategory]
+    }));
+  };
+
+  const getPropertyValue = (property: PropertyConfig) => {
+    const cssProperty = getCSSPropertyKey(property.key);
+    
+    // Check element properties first (for flex properties)
+    if (selectedElement[property.key as keyof typeof selectedElement] !== undefined) {
+      return selectedElement[property.key as keyof typeof selectedElement];
+    }
+    
+    // Then check styles
+    if (selectedElement.styles && selectedElement.styles[cssProperty] !== undefined) {
+      return selectedElement.styles[cssProperty];
+    }
+    
+    // Return default value
+    return '';
+  };
+
+  const getCategoryIcon = (category: string) => {
+    const icons: Record<string, React.ComponentType<any>> = {
+      layout: Layout,
+      spacing: Spacing,
+      appearance: Palette,
+      text: Type,
+      effects: Sparkles,
+      advanced: SettingsIcon
+    };
+    return icons[category] || Layout;
+  };
+
   return (
     <aside 
       className="absolute right-0 top-12 bottom-8 w-80 bg-white border-l border-gray-200 overflow-y-auto z-40"
@@ -68,8 +140,8 @@ const PropertiesPanel: React.FC = () => {
         <div className="flex items-center justify-between">
           <div>
             <h2 className="font-semibold text-gray-900">Properties</h2>
-            <p className="text-sm text-gray-600 mt-1">
-              {selectedElement.type} · {selectedElement.id}
+            <p className="text-sm text-gray-600 mt-1 capitalize">
+              {selectedElement.type.replace(/([A-Z])/g, ' $1').trim()}
             </p>
           </div>
           {selectedElement.id !== 'root' && (
@@ -85,541 +157,126 @@ const PropertiesPanel: React.FC = () => {
           )}
         </div>
       </div>
-      
-      {/* Layout Properties */}
-      <div className="p-4 border-b border-gray-200" data-testid="layout-properties">
-        <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">Layout</h3>
-        
-        {/* Display Type */}
-        <div className="mb-4">
-          <Label className="text-sm font-medium text-gray-700 mb-2">Display</Label>
-          <Select 
-            value={selectedElement.styles.display || 'block'}
-            onValueChange={(value) => handleStyleUpdate('display', value)}
-          >
-            <SelectTrigger data-testid="select-display">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="block">Block</SelectItem>
-              <SelectItem value="flex">Flex</SelectItem>
-              <SelectItem value="grid">Grid</SelectItem>
-              <SelectItem value="inline">Inline</SelectItem>
-              <SelectItem value="inline-block">Inline Block</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-        
-        {/* Flex Direction */}
-        {selectedElement.styles.display === 'flex' && (
-          <div className="mb-4">
-            <Label className="text-sm font-medium text-gray-700 mb-2">Direction</Label>
-            <div className="grid grid-cols-2 gap-2">
-              <Button
-                variant={(selectedElement.styles.flexDirection || selectedElement.flexDirection) === 'row' ? 'default' : 'outline'}
-                size="sm"
-                onClick={() => {
-                  handleElementUpdate('flexDirection', 'row');
-                  handleStyleUpdate('flexDirection', 'row');
-                }}
-                className="justify-start"
-                data-testid="button-flex-row"
-              >
-                Row
-              </Button>
-              <Button
-                variant={(selectedElement.styles.flexDirection || selectedElement.flexDirection) === 'column' ? 'default' : 'outline'}
-                size="sm"
-                onClick={() => {
-                  handleElementUpdate('flexDirection', 'column');
-                  handleStyleUpdate('flexDirection', 'column');
-                }}
-                className="justify-start"
-                data-testid="button-flex-column"
-              >
-                Column
-              </Button>
-            </div>
-          </div>
-        )}
-        
-        {/* Justify Content */}
-        {selectedElement.styles.display === 'flex' && (
-          <div className="mb-4">
-            <Label className="text-sm font-medium text-gray-700 mb-2">Justify</Label>
-            <div className="grid grid-cols-3 gap-1">
-              <Button
-                variant={(selectedElement.styles.justifyContent || selectedElement.justifyContent) === 'flex-start' ? 'default' : 'outline'}
-                size="sm"
-                onClick={() => {
-                  handleElementUpdate('justifyContent', 'flex-start');
-                  handleStyleUpdate('justifyContent', 'flex-start');
-                }}
-                data-testid="button-justify-start"
-              >
-                <AlignLeft className="w-4 h-4" />
-              </Button>
-              <Button
-                variant={(selectedElement.styles.justifyContent || selectedElement.justifyContent) === 'center' ? 'default' : 'outline'}
-                size="sm"
-                onClick={() => {
-                  handleElementUpdate('justifyContent', 'center');
-                  handleStyleUpdate('justifyContent', 'center');
-                }}
-                data-testid="button-justify-center"
-              >
-                <AlignCenter className="w-4 h-4" />
-              </Button>
-              <Button
-                variant={(selectedElement.styles.justifyContent || selectedElement.justifyContent) === 'flex-end' ? 'default' : 'outline'}
-                size="sm"
-                onClick={() => {
-                  handleElementUpdate('justifyContent', 'flex-end');
-                  handleStyleUpdate('justifyContent', 'flex-end');
-                }}
-                data-testid="button-justify-end"
-              >
-                <AlignRight className="w-4 h-4" />
-              </Button>
-            </div>
-          </div>
-        )}
-      </div>
-      
-      {/* Spacing Properties */}
-      <div className="p-4 border-b border-gray-200" data-testid="spacing-properties">
-        <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">Spacing</h3>
-        
-        {/* Padding */}
-        <div className="mb-4">
-          <Label className="text-sm font-medium text-gray-700 mb-2">Padding</Label>
-          <div className="grid grid-cols-2 gap-2">
-            <Input
-              type="number"
-              placeholder="All"
-              value={selectedElement.styles.padding?.replace('px', '') || ''}
-              onChange={(e) => handleStyleUpdate('padding', `${e.target.value}px`)}
-              data-testid="input-padding"
-            />
-            <Select defaultValue="px">
-              <SelectTrigger>
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="px">px</SelectItem>
-                <SelectItem value="rem">rem</SelectItem>
-                <SelectItem value="%">%</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-        </div>
-        
-        {/* Margin */}
-        <div className="mb-4">
-          <Label className="text-sm font-medium text-gray-700 mb-2">Margin</Label>
-          <div className="grid grid-cols-2 gap-2">
-            <Input
-              type="number"
-              placeholder="All"
-              value={selectedElement.styles.margin?.replace('px', '') || ''}
-              onChange={(e) => handleStyleUpdate('margin', `${e.target.value}px`)}
-              data-testid="input-margin"
-            />
-            <Select defaultValue="px">
-              <SelectTrigger>
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="px">px</SelectItem>
-                <SelectItem value="rem">rem</SelectItem>
-                <SelectItem value="%">%</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-        </div>
-      </div>
-      
-      {/* Style Properties */}
-      <div className="p-4 border-b border-gray-200" data-testid="style-properties">
-        <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">Appearance</h3>
-        
-        {/* Background Color */}
-        <div className="mb-4">
-          <Label className="text-sm font-medium text-gray-700 mb-2">Background</Label>
-          <div className="flex gap-2">
-            <div 
-              className="w-10 h-10 rounded-lg border-2 border-white shadow-sm cursor-pointer"
-              style={{ backgroundColor: selectedElement.styles.backgroundColor || '#ffffff' }}
-              title={selectedElement.styles.backgroundColor || '#ffffff'}
-            />
-            <Input
-              type="text"
-              value={selectedElement.styles.backgroundColor || ''}
-              onChange={(e) => handleStyleUpdate('backgroundColor', e.target.value)}
-              placeholder="#ffffff"
-              className="flex-1 font-mono"
-              data-testid="input-background-color"
-            />
-          </div>
-        </div>
-        
-        {/* Border Radius */}
-        <div className="mb-4">
-          <Label className="text-sm font-medium text-gray-700 mb-2">Border Radius</Label>
-          <div className="grid grid-cols-2 gap-2">
-            <Input
-              type="number"
-              placeholder="Radius"
-              value={selectedElement.styles.borderRadius?.replace('px', '') || ''}
-              onChange={(e) => handleStyleUpdate('borderRadius', `${e.target.value}px`)}
-              data-testid="input-border-radius"
-            />
-            <Select defaultValue="px">
-              <SelectTrigger>
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="px">px</SelectItem>
-                <SelectItem value="rem">rem</SelectItem>
-                <SelectItem value="%">%</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-        </div>
-      </div>
-      
-      {/* Typography Properties */}
-      {selectedElement.type === 'text' && (
-        <div className="p-4 border-b border-gray-200" data-testid="typography-properties">
-          <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">Typography</h3>
+
+      {/* Dynamic Property Groups */}
+      <div className="flex-1">
+        {propertyGroups.map((group) => {
+          const isExpanded = expandedGroups[group.category];
+          const IconComponent = getCategoryIcon(group.category);
           
-          {/* Text Display Type */}
-          <div className="mb-4">
-            <Label className="text-sm font-medium text-gray-700 mb-2">Display Type</Label>
-            <div className="grid grid-cols-2 gap-2">
-              <Button
-                variant={(selectedElement.textDisplay || 'block') === 'block' ? 'default' : 'outline'}
-                size="sm"
-                onClick={() => {
-                  handleElementUpdate('textDisplay', 'block');
-                  handleStyleUpdate('display', 'block');
-                }}
-                className="justify-start"
-                data-testid="button-text-block"
+          return (
+            <div key={group.category} className="border-b border-gray-200">
+              {/* Group Header */}
+              <button
+                onClick={() => toggleGroup(group.category)}
+                className="w-full p-4 flex items-center justify-between text-left hover:bg-gray-50 transition-colors"
+                data-testid={`group-header-${group.category}`}
               >
-                Block
-              </Button>
-              <Button
-                variant={selectedElement.textDisplay === 'inline' ? 'default' : 'outline'}
-                size="sm"
-                onClick={() => {
-                  handleElementUpdate('textDisplay', 'inline');
-                  handleStyleUpdate('display', 'inline');
-                }}
-                className="justify-start"
-                data-testid="button-text-inline"
-              >
-                Inline
-              </Button>
-            </div>
-          </div>
-          
-          {/* Font Family */}
-          <div className="mb-4">
-            <Label className="text-sm font-medium text-gray-700 mb-2">Font Family</Label>
-            <Select
-              value={selectedElement.styles.fontFamily || 'Inter'}
-              onValueChange={(value) => handleStyleUpdate('fontFamily', value)}
-            >
-              <SelectTrigger data-testid="select-font-family">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="Inter">Inter</SelectItem>
-                <SelectItem value="Roboto">Roboto</SelectItem>
-                <SelectItem value="Open Sans">Open Sans</SelectItem>
-                <SelectItem value="Helvetica">Helvetica</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-          
-          {/* Font Size & Weight */}
-          <div className="grid grid-cols-2 gap-2 mb-4">
-            <div>
-              <Label className="text-sm font-medium text-gray-700 mb-2">Size</Label>
-              <Input
-                type="number"
-                value={selectedElement.styles.fontSize?.replace('px', '') || '16'}
-                onChange={(e) => handleStyleUpdate('fontSize', `${e.target.value}px`)}
-                data-testid="input-font-size"
-              />
-            </div>
-            <div>
-              <Label className="text-sm font-medium text-gray-700 mb-2">Weight</Label>
-              <Select
-                value={selectedElement.styles.fontWeight || '400'}
-                onValueChange={(value) => handleStyleUpdate('fontWeight', value)}
-              >
-                <SelectTrigger data-testid="select-font-weight">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="300">300</SelectItem>
-                  <SelectItem value="400">400</SelectItem>
-                  <SelectItem value="500">500</SelectItem>
-                  <SelectItem value="600">600</SelectItem>
-                  <SelectItem value="700">700</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-          
-          {/* Text Color */}
-          <div className="mb-4">
-            <Label className="text-sm font-medium text-gray-700 mb-2">Color</Label>
-            <div className="flex gap-2">
-              <div 
-                className="w-10 h-10 rounded-lg border-2 border-white shadow-sm cursor-pointer"
-                style={{ backgroundColor: selectedElement.styles.color || '#1f2937' }}
-                title={selectedElement.styles.color || '#1f2937'}
-              />
-              <Input
-                type="text"
-                value={selectedElement.styles.color || ''}
-                onChange={(e) => handleStyleUpdate('color', e.target.value)}
-                placeholder="#1f2937"
-                className="flex-1 font-mono"
-                data-testid="input-text-color"
-              />
-            </div>
-          </div>
-        </div>
-      )}
-      
-      {/* Image Properties */}
-      {selectedElement.type === 'image' && (
-        <div className="p-4 border-b border-gray-200" data-testid="image-properties">
-          <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">Image</h3>
-          
-          {/* Image URL */}
-          <div className="mb-4">
-            <Label className="text-sm font-medium text-gray-700 mb-2">Image URL</Label>
-            <Input
-              type="text"
-              placeholder="https://example.com/image.jpg"
-              value={selectedElement.imageUrl || ''}
-              onChange={(e) => handleElementUpdate('imageUrl', e.target.value)}
-              data-testid="input-image-url"
-            />
-          </div>
-          
-          {/* Aspect Ratio */}
-          <div className="mb-4">
-            <Label className="text-sm font-medium text-gray-700 mb-2">Aspect Ratio</Label>
-            <Select
-              value={selectedElement.imageRatio || 'auto'}
-              onValueChange={(value) => {
-                handleElementUpdate('imageRatio', value);
-                // Auto-calculate height based on width when aspect ratio changes
-                if (value !== 'auto' && selectedElement.width) {
-                  const aspectRatios: Record<string, number> = {
-                    '16:9': 16/9,
-                    '4:3': 4/3,
-                    '1:1': 1/1,
-                    '3:2': 3/2
-                  };
-                  const ratio = aspectRatios[value];
-                  if (ratio) {
-                    const newHeight = Math.round(selectedElement.width / ratio);
-                    handleElementUpdate('height', newHeight);
-                  }
-                }
-              }}
-            >
-              <SelectTrigger data-testid="select-image-ratio">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="auto">Auto</SelectItem>
-                <SelectItem value="16:9">16:9</SelectItem>
-                <SelectItem value="4:3">4:3</SelectItem>
-                <SelectItem value="1:1">1:1</SelectItem>
-                <SelectItem value="3:2">3:2</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-          
-          {/* Justify Self */}
-          <div className="mb-4">
-            <Label className="text-sm font-medium text-gray-700 mb-2">Justify Self</Label>
-            <Select
-              value={selectedElement.imageJustifySelf || 'flex-start'}
-              onValueChange={(value) => {
-                handleElementUpdate('imageJustifySelf', value);
-                handleStyleUpdate('justifySelf', value);
-              }}
-            >
-              <SelectTrigger data-testid="select-image-justify-self">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="flex-start">Start</SelectItem>
-                <SelectItem value="center">Center</SelectItem>
-                <SelectItem value="flex-end">End</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-          
-          {/* Width and Height with Units */}
-          <div className="grid grid-cols-2 gap-2 mb-4">
-            <div>
-              <Label className="text-sm font-medium text-gray-700 mb-2">Width</Label>
-              <div className="flex gap-1">
-                <Input
-                  type="number"
-                  placeholder="100"
-                  value={selectedElement.width || ''}
-                  onChange={(e) => {
-                    const newWidth = parseInt(e.target.value) || 0;
-                    handleElementUpdate('width', newWidth);
-                    // Auto-calculate height if aspect ratio is set
-                    if (selectedElement.imageRatio && selectedElement.imageRatio !== 'auto') {
-                      const aspectRatios: Record<string, number> = {
-                        '16:9': 16/9,
-                        '4:3': 4/3,
-                        '1:1': 1/1,
-                        '3:2': 3/2
-                      };
-                      const ratio = aspectRatios[selectedElement.imageRatio];
-                      if (ratio && newWidth > 0) {
-                        const newHeight = Math.round(newWidth / ratio);
-                        handleElementUpdate('height', newHeight);
-                      }
-                    }
-                  }}
-                  className="flex-1"
-                  data-testid="input-image-width"
-                />
-                <Select
-                  value={selectedElement.widthUnit || 'px'}
-                  onValueChange={(value) => handleElementUpdate('widthUnit', value)}
-                >
-                  <SelectTrigger className="w-16">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="px">px</SelectItem>
-                    <SelectItem value="rem">rem</SelectItem>
-                    <SelectItem value="%">%</SelectItem>
-                    <SelectItem value="vw">vw</SelectItem>
-                    <SelectItem value="auto">auto</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-            <div>
-              <Label className="text-sm font-medium text-gray-700 mb-2">Height</Label>
-              <div className="flex gap-1">
-                <Input
-                  type="number"
-                  placeholder="100"
-                  value={selectedElement.height || ''}
-                  onChange={(e) => handleElementUpdate('height', parseInt(e.target.value) || 0)}
-                  className="flex-1"
-                  data-testid="input-image-height"
-                />
-                <Select
-                  value={selectedElement.heightUnit || 'px'}
-                  onValueChange={(value) => handleElementUpdate('heightUnit', value)}
-                >
-                  <SelectTrigger className="w-16">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="px">px</SelectItem>
-                    <SelectItem value="rem">rem</SelectItem>
-                    <SelectItem value="%">%</SelectItem>
-                    <SelectItem value="vh">vh</SelectItem>
-                    <SelectItem value="auto">auto</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-      
-      {/* CSS Classes */}
-      <div className="p-4" data-testid="css-classes">
-        <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">CSS Classes</h3>
-        
-        {/* Applied Classes */}
-        <div className="mb-4">
-          <Label className="text-sm font-medium text-gray-700 mb-2">Applied Classes</Label>
-          <div className="space-y-2 max-h-32 overflow-y-auto">
-            {selectedElement.classes?.map((className, index) => (
-              <div key={index} className="flex items-center justify-between bg-gray-50 p-2 rounded-lg">
                 <div className="flex items-center gap-2">
-                  <GripVertical className="w-3 h-3 text-gray-400" />
-                  <Badge variant="secondary" className="font-mono text-xs">
-                    .{className}
-                  </Badge>
+                  <IconComponent className="w-4 h-4 text-gray-600" />
+                  <h3 className="font-medium text-gray-900">{group.label}</h3>
+                  <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full">
+                    {group.properties.length}
+                  </span>
                 </div>
+                {isExpanded ? (
+                  <ChevronDown className="w-4 h-4 text-gray-400" />
+                ) : (
+                  <ChevronRight className="w-4 h-4 text-gray-400" />
+                )}
+              </button>
+
+              {/* Group Properties */}
+              {isExpanded && (
+                <div className="px-4 pb-4 space-y-4" data-testid={`group-content-${group.category}`}>
+                  {group.properties.map((property) => (
+                    <PropertyInput
+                      key={property.key}
+                      config={property}
+                      value={getPropertyValue(property)}
+                      onChange={(value) => handlePropertyChange(property.key, value)}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+          );
+        })}
+
+        {/* CSS Classes Section */}
+        <div className="border-b border-gray-200">
+          <div className="p-4">
+            <h3 className="font-medium text-gray-900 mb-3 flex items-center gap-2">
+              <X className="w-4 h-4 text-gray-600" />
+              CSS Classes
+            </h3>
+            
+            {/* Existing Classes */}
+            {selectedElement.classes && selectedElement.classes.length > 0 && (
+              <div className="mb-4">
+                <Label className="text-sm font-medium text-gray-700 mb-2">Current Classes</Label>
+                <div className="flex flex-wrap gap-2">
+                  {selectedElement.classes.map((className) => (
+                    <div key={className} className="flex items-center gap-1 bg-blue-50 border border-blue-200 rounded px-2 py-1">
+                      <span className="text-sm font-mono text-blue-800">{className}</span>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => handleRemoveClass(className)}
+                        className="p-0 h-4 w-4 text-blue-600 hover:text-red-600"
+                        data-testid={`remove-class-${className}`}
+                      >
+                        <X className="w-3 h-3" />
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+            
+            {/* Add New Class */}
+            <div>
+              <Label className="text-sm font-medium text-gray-700 mb-2">Add Class</Label>
+              <div className="flex gap-2">
+                <Input
+                  type="text"
+                  placeholder="class-name"
+                  value={newClassName}
+                  onChange={(e) => setNewClassName(e.target.value)}
+                  className="flex-1 font-mono"
+                  onKeyPress={(e) => e.key === 'Enter' && handleAddClass()}
+                  data-testid="input-new-class"
+                />
                 <Button
-                  variant="ghost"
+                  onClick={handleAddClass}
                   size="sm"
-                  onClick={() => handleRemoveClass(className)}
-                  className="p-1 h-auto text-gray-400 hover:text-red-600"
-                  data-testid={`button-remove-class-${className}`}
+                  className="bg-primary text-white hover:bg-blue-600"
+                  disabled={!newClassName || !cssClassGenerator.validateCSSClassName(newClassName)}
+                  data-testid="button-add-class"
                 >
-                  <X className="w-3 h-3" />
+                  <Plus className="w-4 h-4" />
                 </Button>
               </div>
-            ))}
-          </div>
-        </div>
-        
-        {/* Add New Class */}
-        <div>
-          <Label className="text-sm font-medium text-gray-700 mb-2">Add Class</Label>
-          <div className="flex gap-2">
-            <Input
-              type="text"
-              placeholder="class-name"
-              value={newClassName}
-              onChange={(e) => setNewClassName(e.target.value)}
-              className="flex-1 font-mono"
-              onKeyPress={(e) => e.key === 'Enter' && handleAddClass()}
-              data-testid="input-new-class"
-            />
-            <Button
-              onClick={handleAddClass}
-              size="sm"
-              className="bg-primary text-white hover:bg-blue-600"
-              disabled={!newClassName || !cssClassGenerator.validateCSSClassName(newClassName)}
-              data-testid="button-add-class"
-            >
-              <Plus className="w-4 h-4" />
-            </Button>
-          </div>
-          
-          {/* Class Suggestions */}
-          <div className="space-y-2 mt-2">
-            <div className="text-xs font-medium text-gray-600">Suggestions:</div>
-            <div className="flex flex-wrap gap-1">
-              {cssClassGenerator.generateCSSClassSuggestions(selectedElement.type).slice(0, 8).map(suggestion => (
-                <Button
-                  key={suggestion.name}
-                  variant="outline"
-                  size="sm"
-                  onClick={() => setNewClassName(suggestion.name)}
-                  className="text-xs h-6 px-2"
-                  title={suggestion.description}
-                  data-testid={`button-suggestion-${suggestion.name}`}
-                >
-                  {suggestion.name}
-                </Button>
-              ))}
+              
+              {/* Class Suggestions */}
+              <div className="space-y-2 mt-2">
+                <div className="text-xs font-medium text-gray-600">Suggestions:</div>
+                <div className="flex flex-wrap gap-1">
+                  {cssClassGenerator.generateCSSClassSuggestions(selectedElement.type).slice(0, 8).map(suggestion => (
+                    <Button
+                      key={suggestion.name}
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setNewClassName(suggestion.name)}
+                      className="text-xs h-6 px-2"
+                      title={suggestion.description}
+                      data-testid={`button-suggestion-${suggestion.name}`}
+                    >
+                      {suggestion.name}
+                    </Button>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </div>
