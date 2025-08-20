@@ -242,8 +242,58 @@ const Canvas: React.FC = () => {
         setHoveredElementId(null);
         setHoveredZone(null);
       }
+    } else if (['rectangle', 'text', 'image', 'container'].includes(selectedTool)) {
+      // Creation tool hover detection for insertion feedback
+      console.log('Mouse move triggered, selectedTool:', selectedTool);
+      
+      const hoveredElement = getElementAtPoint(x, y, project.elements, zoomLevel);
+      
+      if (!hoveredElement) {
+        console.log('No element found at point');
+        setHoveredElementId(null);
+        setHoveredZone(null);
+        return;
+      }
+
+      console.log('Mouse move - hoveredElement:', hoveredElement.id);
+      setHoveredElementId(hoveredElement.id);
+
+      // Determine insertion zone for non-root elements
+      if (hoveredElement.id !== 'root' && (hoveredElement.isContainer || hoveredElement.type === 'container' || hoveredElement.type === 'rectangle')) {
+        const elementDiv = document.querySelector(`[data-element-id="${hoveredElement.id}"]`) as HTMLElement;
+        if (elementDiv) {
+          const elementRect = elementDiv.getBoundingClientRect();
+          const canvasRect = canvasRef.current.getBoundingClientRect();
+          
+          const elementX = (elementRect.left - canvasRect.left) / zoomLevel;
+          const elementY = (elementRect.top - canvasRect.top) / zoomLevel;
+          const elementHeight = elementRect.height / zoomLevel;
+          
+          const relativeY = y - elementY;
+          const beforeZone = 8;
+          const afterZone = elementHeight - 8;
+          
+          if (relativeY < beforeZone) {
+            setHoveredZone('before');
+            console.log('Hover zone: before');
+          } else if (relativeY > afterZone) {
+            setHoveredZone('after');
+            console.log('Hover zone: after');
+          } else {
+            setHoveredZone('inside');
+            console.log('Hover zone: inside');
+          }
+        }
+      } else {
+        setHoveredZone('inside');
+        console.log('Hover zone: inside (default)');
+      }
+    } else {
+      // Clear hover state for other tools
+      setHoveredElementId(null);
+      setHoveredZone(null);
     }
-  }, [isDragging, isDraggingForReorder, selectedElement, draggedElementId, dragStart, zoomLevel, dispatch]);
+  }, [isDragging, isDraggingForReorder, selectedElement, draggedElementId, dragStart, zoomLevel, dispatch, selectedTool, project.elements]);
 
   const handleMouseUp = useCallback((e?: MouseEvent) => {
     if (isDraggingForReorder && draggedElementId && hoveredElementId && hoveredZone) {
