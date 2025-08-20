@@ -104,6 +104,12 @@ const CanvasElement: React.FC<CanvasElementProps> = ({ element, isSelected, isHo
     return element.styles.backgroundColor;
   };
 
+  const getBoxShadow = () => {
+    if (isSelected) return '0 0 0 1px rgba(59, 130, 246, 0.3)';
+    if (isHovered && hoveredZone === 'inside') return '0 0 0 2px #a855f7';
+    return undefined;
+  };
+
   const combinedStyles: React.CSSProperties = {
     position: element.styles.position === 'absolute' ? 'absolute' : 'relative',
     left: element.styles.position === 'absolute' ? element.x : undefined,
@@ -113,7 +119,9 @@ const CanvasElement: React.FC<CanvasElementProps> = ({ element, isSelected, isHo
     ...element.styles,
     backgroundColor: getBackgroundColor(),
     border: getBorderStyle() || element.styles.border,
-    boxShadow: isSelected ? '0 0 0 1px rgba(59, 130, 246, 0.3)' : undefined,
+    boxShadow: getBoxShadow(),
+    // Ensure the visual feedback is always visible
+    zIndex: isHovered ? 1000 : (isSelected ? 100 : undefined),
   };
 
   // Add debug logging for hover state
@@ -137,6 +145,12 @@ const CanvasElement: React.FC<CanvasElementProps> = ({ element, isSelected, isHo
       `}
       style={combinedStyles}
       onClick={handleClick}
+      onMouseDown={(e) => {
+        // Prevent mouse down from interfering with canvas click detection
+        if (!['select', 'hand'].includes(selectedTool)) {
+          e.preventDefault();
+        }
+      }}
       data-element-id={element.id}
       data-testid={`canvas-element-${element.id}`}
     >

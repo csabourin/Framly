@@ -156,21 +156,26 @@ const Canvas: React.FC = () => {
       let targetElementId = hoveredElementId;
       let targetZone = hoveredZone;
       
+      console.log('CLICK DEBUG - hoveredElementId:', hoveredElementId, 'hoveredZone:', hoveredZone);
+      console.log('CLICK DEBUG - clickedElement:', clickedElement?.id);
+      
       // If hover state was lost, re-detect it
       if (!targetElementId && clickedElement) {
         targetElementId = clickedElement.id;
         targetZone = 'inside'; // Default to inside for direct clicks
+        console.log('CLICK DEBUG - Using clicked element:', targetElementId);
       }
       
-      console.log('Click - targetElementId:', targetElementId, 'targetZone:', targetZone);
+      console.log('CLICK DEBUG - Final target:', targetElementId, 'zone:', targetZone);
       
-      if (targetElementId && targetZone) {
-        console.log('Creating element - targetElementId:', targetElementId, 'zone:', targetZone);
+      if (targetElementId && targetZone && targetElementId !== 'root') {
+        console.log('CLICK DEBUG - Creating element inside:', targetElementId);
         
         const newElement = createDefaultElement(selectedTool as any, 0, 0);
         
         if (targetZone === 'inside') {
           // Insert inside the target element
+          console.log('CLICK DEBUG - Dispatching addElement with parentId:', targetElementId);
           dispatch(addElement({ 
             element: newElement, 
             parentId: targetElementId,
@@ -181,6 +186,7 @@ const Canvas: React.FC = () => {
           const targetElement = project.elements[targetElementId];
           const parentId = targetElement?.parent || 'root';
           
+          console.log('CLICK DEBUG - Dispatching addElement as sibling, parentId:', parentId);
           dispatch(addElement({ 
             element: newElement, 
             parentId: parentId,
@@ -194,7 +200,7 @@ const Canvas: React.FC = () => {
         dispatch(selectElement(newElement.id));
       } else {
         // If no specific insertion point, create at root
-        console.log('Creating element at root');
+        console.log('CLICK DEBUG - Creating element at root, targetElementId was:', targetElementId);
         const newElement = createDefaultElement(selectedTool as any, x, y);
         dispatch(addElement({ 
           element: newElement, 
