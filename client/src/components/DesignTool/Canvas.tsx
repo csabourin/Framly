@@ -525,7 +525,7 @@ const Canvas: React.FC = () => {
 
   return (
     <main 
-      className="absolute left-12 right-[640px] top-12 bottom-8 bg-gray-50 overflow-auto flex items-center justify-center"
+      className="absolute left-12 right-[576px] top-12 bottom-8 bg-gray-50 overflow-auto flex items-center justify-center"
       onDragOver={handleDragOver}
       onDrop={handleDrop}
       data-testid="canvas-main"
