@@ -4,13 +4,14 @@ This is a WYSIWYG (What You See Is What You Get) web design tool built as a full
 
 ## Recent Changes (January 20, 2025)
 
-- **Component tool improvements**: Fixed component drag-drop targeting and + button placement to use selected element position
+- **IndexedDB Persistence Implementation**: Complete local storage system for workspace and components
+- **Auto-save functionality**: Workspace automatically saves every 5 seconds to prevent data loss
+- **Component persistence**: Custom components are saved locally and restored on app restart
+- **Data management UI**: Export/import functionality with JSON format for backup and transfer
+- **Component tool improvements**: Fixed component drag-drop targeting and + button placement
 - **Component panel toggle**: Components icon now toggles the component panel visibility instead of being a tool
-- **Toolbar cleanup**: Removed split horizontal, vertical, and merge tools from the toolbar for cleaner UI
+- **Toolbar cleanup**: Removed split horizontal, vertical, and merge tools from the toolbar
 - **Enhanced component placement**: Components now respect hover zones and provide intelligent positioning
-- **Fixed insertion functionality**: Blue insertion indicators for "Insert before/after" are now fully functional and clickable
-- **Improved element detection**: Fixed coordinate calculations and zoom level handling for proper element detection
-- **Enhanced text editability**: Text elements are only editable when selected with text tool or double-clicked
 
 # User Preferences
 
@@ -34,10 +35,12 @@ Preferred communication style: Simple, everyday language.
 - **Session Management**: Express session handling with PostgreSQL session store support
 
 ## Data Storage Solutions
-- **Primary Database**: PostgreSQL configured through Drizzle ORM
+- **Local Persistence**: IndexedDB for client-side storage of projects and components
+- **Auto-save System**: Automatic workspace saving every 5 seconds with change detection
+- **Component Storage**: User-created components stored locally with categories and metadata
+- **Data Export/Import**: JSON-based backup and restore functionality
+- **Primary Database**: PostgreSQL configured through Drizzle ORM (for future server features)
 - **Schema Management**: Drizzle Kit for database migrations and schema evolution
-- **Session Storage**: PostgreSQL-based session storage using connect-pg-simple
-- **Project Storage**: JSON-based project data storage in PostgreSQL with JSONB fields
 
 ## Design Tool Features
 - **Canvas System**: Interactive design canvas with zoom, grid, and element manipulation

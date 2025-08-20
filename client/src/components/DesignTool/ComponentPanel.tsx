@@ -7,6 +7,7 @@ import {
   setCreatingComponent,
   addCategory 
 } from '../../store/componentSlice';
+import { deleteComponent as deleteComponentFromDB } from '../../utils/persistence';
 import { 
   selectElement, 
   addElement 
@@ -64,7 +65,6 @@ const ComponentPanel: React.FC = () => {
 
   const handleComponentClick = (component: CustomComponent) => {
     dispatch(selectComponent(component));
-    dispatch(setSelectedTool('component'));
   };
 
   const handleAddToCanvas = (component: CustomComponent) => {
@@ -132,8 +132,17 @@ const ComponentPanel: React.FC = () => {
     e.dataTransfer.effectAllowed = 'copy';
   };
 
-  const handleDeleteComponent = (componentId: string) => {
+  const handleDeleteComponent = async (componentId: string) => {
+    // Delete from Redux store
     dispatch(deleteComponent(componentId));
+    
+    // Delete from IndexedDB
+    try {
+      await deleteComponentFromDB(componentId);
+      console.log('Component deleted from IndexedDB:', componentId);
+    } catch (error) {
+      console.error('Failed to delete component from IndexedDB:', error);
+    }
   };
 
   const handleCreateComponent = () => {

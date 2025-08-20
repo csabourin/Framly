@@ -1,7 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import { MousePointer, Layers, Save, Smartphone } from 'lucide-react';
+import { MousePointer, Layers, Smartphone } from 'lucide-react';
+import PersistenceStatus from '../PersistenceStatus';
 
 const StatusBar: React.FC = () => {
   const { project } = useSelector((state: RootState) => state.canvas);
@@ -67,10 +68,9 @@ const StatusBar: React.FC = () => {
         </span>
       </div>
       
-      {/* Auto-save Status */}
-      <div className="flex items-center gap-1 ml-auto text-green-600" data-testid="status-save">
-        <Save className="w-3 h-3" />
-        <span>Auto-saved</span>
+      {/* Persistence Status */}
+      <div className="ml-auto" data-testid="status-persistence">
+        <PersistenceStatus />
       </div>
     </footer>
   );

@@ -5,6 +5,7 @@ import { addComponent, setCreatingComponent } from '../../store/componentSlice';
 import { selectElement } from '../../store/canvasSlice';
 import { CustomComponent, CanvasElement } from '../../types/canvas';
 import { generateComponentFromElements } from '../../utils/componentGenerator';
+import { saveComponent } from '../../utils/persistence';
 import { 
   Dialog, 
   DialogContent, 
@@ -44,7 +45,7 @@ const CreateComponentModal: React.FC = () => {
 
   // Moved to componentGenerator.ts
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!selectedElement || !componentName.trim()) return;
 
     // Create the component using the utility function
@@ -55,7 +56,17 @@ const CreateComponentModal: React.FC = () => {
       componentCategory
     );
 
+    // Add to Redux store
     dispatch(addComponent(newComponent));
+    
+    // Save to IndexedDB
+    try {
+      await saveComponent(newComponent);
+      console.log('Component saved to IndexedDB:', newComponent.name);
+    } catch (error) {
+      console.error('Failed to save component to IndexedDB:', error);
+    }
+    
     dispatch(setCreatingComponent(false));
     
     // Reset form

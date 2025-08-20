@@ -221,33 +221,16 @@ const componentSlice = createSlice({
       state.isCreatingComponent = action.payload;
     },
     
+    loadComponents: (state, action: PayloadAction<ComponentCategory[]>) => {
+      state.categories = action.payload;
+      state.components = action.payload.flatMap(category => category.components);
+    },
+    
     addCategory: (state, action: PayloadAction<{ id: string; name: string }>) => {
       const { id, name } = action.payload;
       if (!state.categories.find(cat => cat.id === id)) {
         state.categories.push({ id, name, components: [] });
       }
-    },
-    
-    loadComponents: (state, action: PayloadAction<CustomComponent[]>) => {
-      state.components = action.payload;
-      
-      // Rebuild categories
-      state.categories.forEach(category => {
-        category.components = [];
-      });
-      
-      action.payload.forEach(component => {
-        const category = state.categories.find(cat => cat.id === component.category);
-        if (category) {
-          category.components.push(component);
-        } else {
-          // Add to custom category if category doesn't exist
-          const customCategory = state.categories.find(cat => cat.id === 'custom');
-          if (customCategory) {
-            customCategory.components.push(component);
-          }
-        }
-      });
     },
   },
 });
