@@ -115,8 +115,8 @@ export function instantiateComponent(
     
     // If this is the root element, position it at the specified location
     if (oldId === component.rootElementId) {
-      newElement.x = insertX;
-      newElement.y = insertY;
+      newElement.x = isFinite(insertX) ? insertX : 50;
+      newElement.y = isFinite(insertY) ? insertY : 50;
       // Don't set parent here - let the caller decide
     }
     
