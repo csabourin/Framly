@@ -2,7 +2,6 @@ import React, { useRef, useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
 import { selectElement, addElement, moveElement, resizeElement, reorderElement, deleteElement } from '../../store/canvasSlice';
-import { components } from '../../store/componentSlice';
 import { setDragging, setDragStart, setResizing, setResizeHandle, resetUI, setDraggedElement, setDraggingForReorder, setHoveredElement } from '../../store/uiSlice';
 import { createDefaultElement, getElementAtPoint, calculateSnapPosition, isValidDropTarget } from '../../utils/canvas';
 import { instantiateComponent } from '../../utils/componentGenerator';
@@ -22,7 +21,6 @@ const Canvas: React.FC = () => {
   const [hoveredZone, setHoveredZone] = useState<'before' | 'after' | 'inside' | null>(null);
   const { project } = useSelector((state: RootState) => state.canvas);
   const { selectedTool, isDragging, dragStart, isResizing, resizeHandle, zoomLevel, isGridVisible, draggedElementId, isDraggingForReorder } = useSelector((state: RootState) => state.ui);
-  const { components: availableComponents } = useSelector((state: RootState) => state.components);
 
   const rootElement = project.elements.root;
   const selectedElement = project.selectedElementId ? project.elements[project.selectedElementId] : null;
@@ -177,8 +175,8 @@ const Canvas: React.FC = () => {
       console.log('CLICK DEBUG - Final target:', targetElementId, 'zone:', targetZone, 'canInsert:', canInsertInTarget);
       
       if (selectedTool === 'component') {
-        // Handle component tool - for now just show a message
-        console.log('Component tool clicked - use drag and drop from component panel');
+        // Handle component tool - show user guidance
+        alert('Component Tool: Drag and drop components from the Component Panel on the right, or select an element and click "Create Component" to make your own reusable components.');
         return;
       }
       

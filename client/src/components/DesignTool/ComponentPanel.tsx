@@ -145,14 +145,25 @@ const ComponentPanel: React.FC = () => {
           </h2>
           <Button
             size="sm"
-            variant="ghost"
             onClick={handleCreateComponent}
-            className="h-6 w-6 p-0"
+            disabled={!project.selectedElementId || project.selectedElementId === 'root'}
+            className="text-xs"
             data-testid="button-create-component"
+            title={!project.selectedElementId || project.selectedElementId === 'root' 
+              ? 'Select an element to create a component' 
+              : 'Create component from selected element'}
           >
-            <Plus size={12} />
+            <Plus size={12} className="mr-1" />
+            Create
           </Button>
         </div>
+        
+        {/* Instructions for users when components exist */}
+        {categories.some(cat => cat.components.length > 0) && (
+          <div className="mb-3 p-2 bg-blue-50 border border-blue-200 rounded text-xs text-blue-700">
+            💡 Drag components to canvas or click the + button to add them
+          </div>
+        )}
         
         {/* Search */}
         <div className="relative">

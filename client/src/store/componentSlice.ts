@@ -9,13 +9,144 @@ interface ComponentState {
   isCreatingComponent: boolean;
 }
 
+// Sample components for testing
+const sampleComponents: CustomComponent[] = [
+  {
+    id: 'sample-button-1',
+    name: 'Primary Button',
+    category: 'ui',
+    thumbnail: `data:image/svg+xml,${encodeURIComponent(`
+      <svg width="80" height="60" xmlns="http://www.w3.org/2000/svg">
+        <rect x="10" y="20" width="60" height="20" fill="#3b82f6" stroke="#2563eb" rx="4"/>
+        <text x="40" y="32" font-family="Arial" font-size="8" fill="white" text-anchor="middle">Button</text>
+      </svg>
+    `)}`,
+    elements: {
+      'sample-button-element': {
+        id: 'sample-button-element',
+        type: 'rectangle',
+        x: 0,
+        y: 0,
+        width: 120,
+        height: 40,
+        styles: {
+          backgroundColor: '#3b82f6',
+          color: '#ffffff',
+          border: '1px solid #2563eb',
+          borderRadius: '6px',
+          padding: '8px 16px',
+          fontSize: '14px',
+          fontWeight: '500',
+          cursor: 'pointer',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        },
+        classes: [],
+        parent: 'root',
+        children: []
+      }
+    },
+    rootElementId: 'sample-button-element',
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
+  },
+  {
+    id: 'sample-card-1',
+    name: 'Info Card',
+    category: 'layout',
+    thumbnail: `data:image/svg+xml,${encodeURIComponent(`
+      <svg width="80" height="60" xmlns="http://www.w3.org/2000/svg">
+        <rect x="5" y="10" width="70" height="40" fill="#ffffff" stroke="#e5e7eb" rx="8"/>
+        <text x="10" y="25" font-family="Arial" font-size="6" fill="#374151">Title</text>
+        <text x="10" y="35" font-family="Arial" font-size="5" fill="#6b7280">Description text...</text>
+      </svg>
+    `)}`,
+    elements: {
+      'sample-card-container': {
+        id: 'sample-card-container',
+        type: 'container',
+        x: 0,
+        y: 0,
+        width: 300,
+        height: 150,
+        styles: {
+          backgroundColor: '#ffffff',
+          border: '1px solid #e5e7eb',
+          borderRadius: '8px',
+          padding: '16px',
+          boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)'
+        },
+        classes: [],
+        parent: 'root',
+        children: ['sample-card-title', 'sample-card-content'],
+        isContainer: true
+      },
+      'sample-card-title': {
+        id: 'sample-card-title',
+        type: 'text',
+        x: 0,
+        y: 0,
+        width: 268,
+        height: 30,
+        content: 'Card Title',
+        styles: {
+          fontSize: '18px',
+          fontWeight: '600',
+          color: '#111827',
+          marginBottom: '8px'
+        },
+        classes: [],
+        parent: 'sample-card-container',
+        children: []
+      },
+      'sample-card-content': {
+        id: 'sample-card-content',
+        type: 'text',
+        x: 0,
+        y: 40,
+        width: 268,
+        height: 60,
+        content: 'This is a sample card component with a title and content area. You can customize the styling and layout.',
+        styles: {
+          fontSize: '14px',
+          color: '#6b7280',
+          lineHeight: '1.5'
+        },
+        classes: [],
+        parent: 'sample-card-container',
+        children: []
+      }
+    },
+    rootElementId: 'sample-card-container',
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
+  }
+];
+
 const initialState: ComponentState = {
-  components: [],
+  components: sampleComponents,
   categories: [
-    { id: 'custom', name: 'Custom', components: [] },
-    { id: 'ui', name: 'UI Elements', components: [] },
-    { id: 'layout', name: 'Layout', components: [] },
-    { id: 'forms', name: 'Forms', components: [] }
+    { 
+      id: 'custom', 
+      name: 'Custom', 
+      components: sampleComponents.filter(comp => comp.category === 'custom') 
+    },
+    { 
+      id: 'ui', 
+      name: 'UI Elements', 
+      components: sampleComponents.filter(comp => comp.category === 'ui') 
+    },
+    { 
+      id: 'layout', 
+      name: 'Layout', 
+      components: sampleComponents.filter(comp => comp.category === 'layout') 
+    },
+    { 
+      id: 'forms', 
+      name: 'Forms', 
+      components: sampleComponents.filter(comp => comp.category === 'forms') 
+    }
   ],
   selectedComponent: null,
   isComponentPanelOpen: false,
