@@ -149,32 +149,43 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
     return config.sides.some(side => values[side.prop]);
   };
 
-  const renderBorderInput = (sideKey: string, label: string) => {
-    const value = getValue(sideKey);
-    
-    // Parse border value more carefully - clean up corrupted values
-    const valueStr = String(value || '').trim();
-    
-    // Use regex to properly extract border components
-    const borderMatch = valueStr.match(/^([^\s]+)\s+(solid|dashed|dotted|double|none|inset|outset|ridge|groove)?\s*(.*)$/);
-    
-    let width = '';
-    let style = 'solid';
-    let color = '#000000';
-    
-    if (borderMatch) {
-      width = borderMatch[1] || '';
-      style = borderMatch[2] || 'solid';
-      color = borderMatch[3] || '#000000';
-      
-      // Clean up width - remove any non-width characters
-      width = width.replace(/[^0-9.px%emrem]/g, '');
-      if (width && !width.match(/px|%|em|rem$/)) {
-        width = width + 'px';
-      }
+  // Store border components separately for each side
+  const [borderComponents, setBorderComponents] = React.useState<{[key: string]: {width: string, style: string, color: string}}>({});
+
+  const getBorderComponents = (sideKey: string) => {
+    if (borderComponents[sideKey]) {
+      return borderComponents[sideKey];
     }
     
-    console.log(`renderBorderInput ${sideKey}:`, { value, valueStr, width, style, color });
+    const value = getValue(sideKey);
+    const valueStr = String(value || '').trim();
+    
+    // Simple parsing - split on spaces and take first 3 parts
+    const parts = valueStr.split(' ');
+    return {
+      width: parts[0] || '',
+      style: parts[1] || 'solid',
+      color: parts[2] || '#000000'
+    };
+  };
+
+  const updateBorderComponent = (sideKey: string, component: 'width' | 'style' | 'color', value: string) => {
+    const current = getBorderComponents(sideKey);
+    const updated = { ...current, [component]: value };
+    
+    // Update local state
+    setBorderComponents(prev => ({ ...prev, [sideKey]: updated }));
+    
+    // Build new border value
+    const newValue = `${updated.width} ${updated.style} ${updated.color}`.trim();
+    console.log(`updateBorderComponent ${sideKey} ${component}=${value} -> ${newValue}`);
+    handleSideChange(sideKey, newValue);
+  };
+
+  const renderBorderInput = (sideKey: string, label: string) => {
+    const components = getBorderComponents(sideKey);
+    
+    console.log(`renderBorderInput ${sideKey}:`, components);
 
     return (
       <div className="space-y-1">
@@ -183,12 +194,10 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
           <Input
             type="text"
             placeholder="0px"
-            value={width}
+            value={components.width}
             onChange={(e) => {
               console.log(`Border width change for ${sideKey}:`, e.target.value);
-              const cleanWidth = e.target.value.trim();
-              const newValue = `${cleanWidth} ${style} ${color}`.trim();
-              handleSideChange(sideKey, newValue);
+              updateBorderComponent(sideKey, 'width', e.target.value);
             }}
             onFocus={(e) => {
               console.log(`Border input focused for ${sideKey}`);
@@ -201,10 +210,9 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
             data-testid={`input-border-width-${sideKey}`}
           />
           <Select
-            value={style}
+            value={components.style}
             onValueChange={(newStyle) => {
-              const newValue = `${width} ${newStyle} ${color}`.trim();
-              handleSideChange(sideKey, newValue);
+              updateBorderComponent(sideKey, 'style', newStyle);
             }}
           >
             <SelectTrigger className="w-16 text-xs h-7">
@@ -220,10 +228,9 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
           </Select>
           <input
             type="color"
-            value={color}
+            value={components.color}
             onChange={(e) => {
-              const newValue = `${width} ${style} ${e.target.value}`.trim();
-              handleSideChange(sideKey, newValue);
+              updateBorderComponent(sideKey, 'color', e.target.value);
             }}
             className="w-7 h-7 rounded border cursor-pointer"
           />
