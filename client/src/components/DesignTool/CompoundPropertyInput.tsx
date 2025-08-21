@@ -162,6 +162,8 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
   onChange,
   simpleValue
 }) => {
+  // Independent state for the "All Sides" global input
+  const [globalBorderValue, setGlobalBorderValue] = React.useState('');
   const [isExpanded, setIsExpanded] = useState(false);
 
   // Configuration for different property types
@@ -353,10 +355,14 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
             key="global-border"
             sideKey="all-sides"
             label="All Sides"
-            currentValue={simpleValue || ''}
+            currentValue={globalBorderValue}
             onSideChange={(sideKey, value) => {
               // Apply to all individual sides when using global input
               console.log('🔴 Global border input changed:', { sideKey, value });
+              
+              // Update the local state to prevent reverting
+              setGlobalBorderValue(value);
+              
               if (value && value.trim()) {
                 // FIRST: Clear the conflicting shorthand border property
                 console.log('🔴 Clearing shorthand border to avoid conflicts');
