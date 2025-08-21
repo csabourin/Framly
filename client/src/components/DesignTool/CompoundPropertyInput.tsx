@@ -22,15 +22,37 @@ interface SideConfig {
 const BorderInput = ({ 
   sideKey, 
   label, 
-  onSideChange 
+  onSideChange,
+  initialValue = ''
 }: { 
   sideKey: string; 
   label: string; 
   onSideChange: (sideKey: string, value: string) => void;
+  initialValue?: string;
 }) => {
-  const [width, setWidth] = React.useState('');
-  const [style, setStyle] = React.useState('solid');
-  const [color, setColor] = React.useState('#000000');
+  // Parse initial value to set individual components
+  const parseInitialValue = (value: string) => {
+    if (!value || typeof value !== 'string') {
+      return { width: '', style: 'solid', color: '#000000' };
+    }
+    
+    // Clean up corrupted values
+    if (value.includes('[') || value.includes('object') || value.match(/\d{2,}(px|solid)/)) {
+      return { width: '', style: 'solid', color: '#000000' };
+    }
+    
+    const parts = value.trim().split(/\s+/);
+    return {
+      width: parts[0] || '',
+      style: parts[1] || 'solid',
+      color: parts[2] || '#000000'
+    };
+  };
+
+  const initial = parseInitialValue(initialValue);
+  const [width, setWidth] = React.useState(initial.width);
+  const [style, setStyle] = React.useState(initial.style);
+  const [color, setColor] = React.useState(initial.color);
 
   const updateValue = React.useCallback((newWidth: string, newStyle: string, newColor: string) => {
     const newValue = newWidth.trim() ? `${newWidth.trim()} ${newStyle} ${newColor}` : '';
@@ -275,9 +297,11 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
                 <div key={side.key}>
                   {propertyType === 'border' ? (
                     <BorderInput 
+                      key={side.key}
                       sideKey={side.key} 
                       label={side.label} 
                       onSideChange={handleSideChange}
+                      initialValue={getValue(side.key)}
                     />
                   ) : (
                     renderSpacingInput(side.key, side.label)
