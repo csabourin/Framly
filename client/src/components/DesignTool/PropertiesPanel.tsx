@@ -71,6 +71,7 @@ const PropertiesPanel: React.FC = () => {
   const propertyGroups = getPropertyGroups(selectedElement.type as ElementType, selectedElement);
   
   const handlePropertyChange = (propertyKey: string, value: any) => {
+    console.log('🟡 handlePropertyChange called:', { propertyKey, value });
     // Handle special element-specific properties (not CSS styles)
     if (['headingLevel', 'listType'].includes(propertyKey)) {
       // Update element-specific properties (not styles)

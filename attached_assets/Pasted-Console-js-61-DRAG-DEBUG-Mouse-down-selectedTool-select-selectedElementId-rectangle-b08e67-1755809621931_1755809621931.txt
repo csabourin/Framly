@@ -1,0 +1,506 @@
+Console.js:61 DRAG DEBUG - Mouse down: {selectedTool: 'select', selectedElementId: 'rectangle-b08e6735-46a9-4e49-9e8a-83e30d9402d1'}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'margin', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'padding', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'borderRadius', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'border', hasConfig: true}
+Console.js:61 DRAG DEBUG - Global mouse move triggered
+Console.js:61 DRAG DEBUG - Global mouse up triggered
+Console.js:61 DRAG DEBUG - Mouse up: {isDraggingForReorder: false, draggedElementId: undefined, hoveredElementId: null, hoveredZone: null, insertionIndicator: null}
+Console.js:61 DRAG DEBUG - Resetting all drag states
+Console.js:61 CompoundPropertyInput render: {propertyType: 'margin', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'padding', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'borderRadius', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'border', hasConfig: true}
+Console.js:61 CanvasElement click - selectedTool: select elementId: rectangle-a7aa3daa-ce71-450e-a37f-a7dfed6c80a3
+Console.js:61 CompoundPropertyInput render: {propertyType: 'margin', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'padding', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'borderRadius', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'border', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'margin', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'padding', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'borderRadius', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'border', hasConfig: true}
+Console.js:61 DRAG DEBUG - Mouse down: {selectedTool: 'select', selectedElementId: 'rectangle-a7aa3daa-ce71-450e-a37f-a7dfed6c80a3'}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'margin', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'padding', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'borderRadius', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'border', hasConfig: true}
+Console.js:61 DRAG DEBUG - Global mouse up triggered
+Console.js:61 DRAG DEBUG - Mouse up: {isDraggingForReorder: false, draggedElementId: undefined, hoveredElementId: null, hoveredZone: null, insertionIndicator: null}
+Console.js:61 DRAG DEBUG - Resetting all drag states
+Console.js:61 CompoundPropertyInput render: {propertyType: 'margin', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'padding', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'borderRadius', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'border', hasConfig: true}
+Console.js:61 CanvasElement click - selectedTool: select elementId: rectangle-b08e6735-46a9-4e49-9e8a-83e30d9402d1
+Console.js:61 CompoundPropertyInput render: {propertyType: 'margin', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'padding', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'borderRadius', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'border', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'margin', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'padding', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'borderRadius', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'border', hasConfig: true}
+Console.js:61 🟦 BorderInput updateValue: all-sides -> "5px solid #d1d5db"
+Console.js:61 🟦 Calling onSideChange with: {sideKey: 'all-sides', newValue: '5px solid #d1d5db'}
+Console.js:61 🔴 Global border input changed: {sideKey: 'all-sides', value: '5px solid #d1d5db'}
+Console.js:61 🔴 Applying to all sides: 5px solid #d1d5db
+Console.js:61 🔴 Applied global border "5px solid #d1d5db" to all sides
+Console.js:61 Element rectangle-1755736274662-s64icfls8 border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-1755735890618-8sbesk1u3 border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-1755736031618-cqz52l3p5 border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element list-1755782993453-xxc2nlqq0 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element list-3eea354a-fca1-4488-a3cf-d4215894d539 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element list-743a5b3e-860c-44a5-9a8d-48911af69060 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-830321b8-9c81-4376-b0e7-2450a6beadbd border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element image-1755799521036-dzgsa6twm border styles: [Array(2)]
+Console.js:61 Element rectangle-612ab701-c75a-45ff-a791-510ea0029963 border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-b08e6735-46a9-4e49-9e8a-83e30d9402d1 border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-a7aa3daa-ce71-450e-a37f-a7dfed6c80a3 border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-1755736212836-anvsn6cce border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-1755736276695-9r1ow2b6z border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-0ce2c435-cd10-40ba-a505-8858921f88ff border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element image-1755735898684-1heg3a9if border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element heading-1755796317352-g68qhspgn border styles: (7) [Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element image-1755795175939-wqgvg5qgi border styles: [Array(2)]
+Console.js:61 Element rectangle-c5d6ed43-739d-492e-824c-177858d1fd2c border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-85c512e5-2a0a-4b23-93b6-464059d16601 border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element list-83b5cdb8-ae86-49d5-a33a-362fcb2ea752 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-ae15cb7c-ab2d-4126-b4ae-3d6cf2288be4 border styles: (11) [Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-1755736278243-qt3x611ku border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element text-1755781951981-12qw95rnp border styles: [Array(2)]
+Console.js:61 Element list-61a26136-5084-406f-89db-03e5fddb3358 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 CompoundPropertyInput render: {propertyType: 'margin', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'padding', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'borderRadius', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'border', hasConfig: true}
+_app-3564ffdac8f73617.js:13 Fetch finished loading: POST "https://replit.com/graphql".
+(anonymous) @ _app-3564ffdac8f73617.js:13
+(anonymous) @ _app-3564ffdac8f73617.js:40
+e @ _app-3564ffdac8f73617.js:23
+t.subscribe @ _app-3564ffdac8f73617.js:23
+e.consumeQueue @ _app-3564ffdac8f73617.js:40
+(anonymous) @ _app-3564ffdac8f73617.js:40
+n @ _app-3564ffdac8f73617.js:13
+setTimeout
+(anonymous) @ _app-3564ffdac8f73617.js:13
+e.scheduleQueueConsumption @ _app-3564ffdac8f73617.js:40
+(anonymous) @ _app-3564ffdac8f73617.js:40
+e @ _app-3564ffdac8f73617.js:23
+t.subscribe @ _app-3564ffdac8f73617.js:23
+(anonymous) @ _app-3564ffdac8f73617.js:40
+e @ _app-3564ffdac8f73617.js:23
+t.subscribe @ _app-3564ffdac8f73617.js:23
+e.try @ _app-3564ffdac8f73617.js:40
+e.start @ _app-3564ffdac8f73617.js:40
+t.request @ _app-3564ffdac8f73617.js:40
+(anonymous) @ _app-3564ffdac8f73617.js:28
+(anonymous) @ _app-3564ffdac8f73617.js:28
+(anonymous) @ _app-3564ffdac8f73617.js:40
+(anonymous) @ _app-3564ffdac8f73617.js:28
+e.execute @ _app-3564ffdac8f73617.js:28
+e.getObservableFromLink @ _app-3564ffdac8f73617.js:28
+e.getResultsFromLink @ _app-3564ffdac8f73617.js:28
+v @ _app-3564ffdac8f73617.js:28
+e.fetchQueryByPolicy @ _app-3564ffdac8f73617.js:28
+v @ _app-3564ffdac8f73617.js:28
+e.fetchConcastWithInfo @ _app-3564ffdac8f73617.js:28
+t.fetch @ _app-3564ffdac8f73617.js:15
+t.reobserveAsConcast @ _app-3564ffdac8f73617.js:15
+e.executeQuery @ _app-3564ffdac8f73617.js:28
+(anonymous) @ _app-3564ffdac8f73617.js:28
+(anonymous) @ _app-3564ffdac8f73617.js:15
+(anonymous) @ main-c0678dbbdfb4239a.js:1
+n @ main-c0678dbbdfb4239a.js:1
+u @ main-c0678dbbdfb4239a.js:1
+(anonymous) @ main-c0678dbbdfb4239a.js:1
+(anonymous) @ main-c0678dbbdfb4239a.js:1
+(anonymous) @ _app-3564ffdac8f73617.js:15
+(anonymous) @ _app-3564ffdac8f73617.js:15
+(anonymous) @ main-c0678dbbdfb4239a.js:1
+n @ main-c0678dbbdfb4239a.js:1
+u @ main-c0678dbbdfb4239a.js:1
+(anonymous) @ main-c0678dbbdfb4239a.js:1
+(anonymous) @ main-c0678dbbdfb4239a.js:1
+(anonymous) @ _app-3564ffdac8f73617.js:15
+n @ _app-3564ffdac8f73617.js:13
+_app-3564ffdac8f73617.js:13 Fetch finished loading: POST "https://logs.browser-intake-us5-datadoghq.com/api/v2/logs?ddsource=browser&ddtags=sdk_version%3A4.46.0%2Capi%3Afetch%2Cenv%3Aproduction%2Cservice%3Awebsite%2Cversion%3A88b760de&dd-api-key=pub31a5047a3a4692afb84a423db984dc57&dd-evp-origin-version=4.46.0&dd-evp-origin=browser&dd-request-id=d0284210-869b-4af8-b6d4-3bd3e6f7fce2".
+(anonymous) @ _app-3564ffdac8f73617.js:13
+(anonymous) @ _app-3564ffdac8f73617.js:1
+o @ _app-3564ffdac8f73617.js:20
+a @ _app-3564ffdac8f73617.js:40
+m @ _app-3564ffdac8f73617.js:40
+g @ _app-3564ffdac8f73617.js:40
+send @ _app-3564ffdac8f73617.js:40
+e.flush @ _app-3564ffdac8f73617.js:15
+(anonymous) @ _app-3564ffdac8f73617.js:15
+(anonymous) @ _app-3564ffdac8f73617.js:15
+e.notify @ _app-3564ffdac8f73617.js:15
+f @ _app-3564ffdac8f73617.js:15
+(anonymous) @ _app-3564ffdac8f73617.js:15
+d @ _app-3564ffdac8f73617.js:1
+(anonymous) @ _app-3564ffdac8f73617.js:1
+n @ _app-3564ffdac8f73617.js:13
+Console.js:61 🟦 BorderInput updateValue: all-sides -> "5px solid #ddd6d4"
+Console.js:61 🟦 Calling onSideChange with: {sideKey: 'all-sides', newValue: '5px solid #ddd6d4'}
+Console.js:61 🔴 Global border input changed: {sideKey: 'all-sides', value: '5px solid #ddd6d4'}
+Console.js:61 🔴 Applying to all sides: 5px solid #ddd6d4
+Console.js:61 🔴 Applied global border "5px solid #ddd6d4" to all sides
+Console.js:61 Element rectangle-1755736274662-s64icfls8 border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-1755735890618-8sbesk1u3 border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-1755736031618-cqz52l3p5 border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element list-1755782993453-xxc2nlqq0 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element list-3eea354a-fca1-4488-a3cf-d4215894d539 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element list-743a5b3e-860c-44a5-9a8d-48911af69060 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-830321b8-9c81-4376-b0e7-2450a6beadbd border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element image-1755799521036-dzgsa6twm border styles: [Array(2)]
+Console.js:61 Element rectangle-612ab701-c75a-45ff-a791-510ea0029963 border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-b08e6735-46a9-4e49-9e8a-83e30d9402d1 border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-a7aa3daa-ce71-450e-a37f-a7dfed6c80a3 border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-1755736212836-anvsn6cce border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-1755736276695-9r1ow2b6z border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-0ce2c435-cd10-40ba-a505-8858921f88ff border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element image-1755735898684-1heg3a9if border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element heading-1755796317352-g68qhspgn border styles: (7) [Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element image-1755795175939-wqgvg5qgi border styles: [Array(2)]
+Console.js:61 Element rectangle-c5d6ed43-739d-492e-824c-177858d1fd2c border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-85c512e5-2a0a-4b23-93b6-464059d16601 border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element list-83b5cdb8-ae86-49d5-a33a-362fcb2ea752 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-ae15cb7c-ab2d-4126-b4ae-3d6cf2288be4 border styles: (11) [Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-1755736278243-qt3x611ku border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element text-1755781951981-12qw95rnp border styles: [Array(2)]
+Console.js:61 Element list-61a26136-5084-406f-89db-03e5fddb3358 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 CompoundPropertyInput render: {propertyType: 'margin', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'padding', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'borderRadius', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'border', hasConfig: true}
+Console.js:61 🟦 BorderInput updateValue: all-sides -> "5px solid #ddd5d4"
+Console.js:61 🟦 Calling onSideChange with: {sideKey: 'all-sides', newValue: '5px solid #ddd5d4'}
+Console.js:61 🔴 Global border input changed: {sideKey: 'all-sides', value: '5px solid #ddd5d4'}
+Console.js:61 🔴 Applying to all sides: 5px solid #ddd5d4
+Console.js:61 🔴 Applied global border "5px solid #ddd5d4" to all sides
+Console.js:61 Element rectangle-1755736274662-s64icfls8 border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-1755735890618-8sbesk1u3 border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-1755736031618-cqz52l3p5 border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element list-1755782993453-xxc2nlqq0 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element list-3eea354a-fca1-4488-a3cf-d4215894d539 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element list-743a5b3e-860c-44a5-9a8d-48911af69060 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-830321b8-9c81-4376-b0e7-2450a6beadbd border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element image-1755799521036-dzgsa6twm border styles: [Array(2)]
+Console.js:61 Element rectangle-612ab701-c75a-45ff-a791-510ea0029963 border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-b08e6735-46a9-4e49-9e8a-83e30d9402d1 border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-a7aa3daa-ce71-450e-a37f-a7dfed6c80a3 border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-1755736212836-anvsn6cce border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-1755736276695-9r1ow2b6z border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-0ce2c435-cd10-40ba-a505-8858921f88ff border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element image-1755735898684-1heg3a9if border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element heading-1755796317352-g68qhspgn border styles: (7) [Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element image-1755795175939-wqgvg5qgi border styles: [Array(2)]
+Console.js:61 Element rectangle-c5d6ed43-739d-492e-824c-177858d1fd2c border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-85c512e5-2a0a-4b23-93b6-464059d16601 border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element list-83b5cdb8-ae86-49d5-a33a-362fcb2ea752 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-ae15cb7c-ab2d-4126-b4ae-3d6cf2288be4 border styles: (11) [Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-1755736278243-qt3x611ku border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element text-1755781951981-12qw95rnp border styles: [Array(2)]
+Console.js:61 Element list-61a26136-5084-406f-89db-03e5fddb3358 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 CompoundPropertyInput render: {propertyType: 'margin', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'padding', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'borderRadius', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'border', hasConfig: true}
+Console.js:61 🟦 BorderInput updateValue: all-sides -> "5px solid #ddd4d4"
+Console.js:61 🟦 Calling onSideChange with: {sideKey: 'all-sides', newValue: '5px solid #ddd4d4'}
+Console.js:61 🔴 Global border input changed: {sideKey: 'all-sides', value: '5px solid #ddd4d4'}
+Console.js:61 🔴 Applying to all sides: 5px solid #ddd4d4
+Console.js:61 🔴 Applied global border "5px solid #ddd4d4" to all sides
+Console.js:61 Element rectangle-1755736274662-s64icfls8 border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-1755735890618-8sbesk1u3 border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-1755736031618-cqz52l3p5 border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element list-1755782993453-xxc2nlqq0 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element list-3eea354a-fca1-4488-a3cf-d4215894d539 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element list-743a5b3e-860c-44a5-9a8d-48911af69060 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-830321b8-9c81-4376-b0e7-2450a6beadbd border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element image-1755799521036-dzgsa6twm border styles: [Array(2)]
+Console.js:61 Element rectangle-612ab701-c75a-45ff-a791-510ea0029963 border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-b08e6735-46a9-4e49-9e8a-83e30d9402d1 border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-a7aa3daa-ce71-450e-a37f-a7dfed6c80a3 border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-1755736212836-anvsn6cce border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-1755736276695-9r1ow2b6z border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-0ce2c435-cd10-40ba-a505-8858921f88ff border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element image-1755735898684-1heg3a9if border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element heading-1755796317352-g68qhspgn border styles: (7) [Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element image-1755795175939-wqgvg5qgi border styles: [Array(2)]
+Console.js:61 Element rectangle-c5d6ed43-739d-492e-824c-177858d1fd2c border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-85c512e5-2a0a-4b23-93b6-464059d16601 border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element list-83b5cdb8-ae86-49d5-a33a-362fcb2ea752 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-ae15cb7c-ab2d-4126-b4ae-3d6cf2288be4 border styles: (11) [Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-1755736278243-qt3x611ku border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element text-1755781951981-12qw95rnp border styles: [Array(2)]
+Console.js:61 Element list-61a26136-5084-406f-89db-03e5fddb3358 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 CompoundPropertyInput render: {propertyType: 'margin', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'padding', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'borderRadius', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'border', hasConfig: true}
+Console.js:61 🟦 BorderInput updateValue: all-sides -> "5px solid #af0e0e"
+Console.js:61 🟦 Calling onSideChange with: {sideKey: 'all-sides', newValue: '5px solid #af0e0e'}
+Console.js:61 🔴 Global border input changed: {sideKey: 'all-sides', value: '5px solid #af0e0e'}
+Console.js:61 🔴 Applying to all sides: 5px solid #af0e0e
+Console.js:61 🔴 Applied global border "5px solid #af0e0e" to all sides
+Console.js:61 Element rectangle-1755736274662-s64icfls8 border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-1755735890618-8sbesk1u3 border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-1755736031618-cqz52l3p5 border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element list-1755782993453-xxc2nlqq0 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element list-3eea354a-fca1-4488-a3cf-d4215894d539 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element list-743a5b3e-860c-44a5-9a8d-48911af69060 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-830321b8-9c81-4376-b0e7-2450a6beadbd border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element image-1755799521036-dzgsa6twm border styles: [Array(2)]
+Console.js:61 Element rectangle-612ab701-c75a-45ff-a791-510ea0029963 border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-b08e6735-46a9-4e49-9e8a-83e30d9402d1 border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-a7aa3daa-ce71-450e-a37f-a7dfed6c80a3 border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-1755736212836-anvsn6cce border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-1755736276695-9r1ow2b6z border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-0ce2c435-cd10-40ba-a505-8858921f88ff border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element image-1755735898684-1heg3a9if border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element heading-1755796317352-g68qhspgn border styles: (7) [Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element image-1755795175939-wqgvg5qgi border styles: [Array(2)]
+Console.js:61 Element rectangle-c5d6ed43-739d-492e-824c-177858d1fd2c border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-85c512e5-2a0a-4b23-93b6-464059d16601 border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element list-83b5cdb8-ae86-49d5-a33a-362fcb2ea752 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-ae15cb7c-ab2d-4126-b4ae-3d6cf2288be4 border styles: (11) [Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-1755736278243-qt3x611ku border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element text-1755781951981-12qw95rnp border styles: [Array(2)]
+Console.js:61 Element list-61a26136-5084-406f-89db-03e5fddb3358 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 CompoundPropertyInput render: {propertyType: 'margin', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'padding', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'borderRadius', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'border', hasConfig: true}
+Console.js:61 🟦 BorderInput updateValue: all-sides -> "5px solid #b40e0e"
+Console.js:61 🟦 Calling onSideChange with: {sideKey: 'all-sides', newValue: '5px solid #b40e0e'}
+Console.js:61 🔴 Global border input changed: {sideKey: 'all-sides', value: '5px solid #b40e0e'}
+Console.js:61 🔴 Applying to all sides: 5px solid #b40e0e
+Console.js:61 🔴 Applied global border "5px solid #b40e0e" to all sides
+Console.js:61 Element rectangle-1755736274662-s64icfls8 border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-1755735890618-8sbesk1u3 border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-1755736031618-cqz52l3p5 border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element list-1755782993453-xxc2nlqq0 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element list-3eea354a-fca1-4488-a3cf-d4215894d539 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element list-743a5b3e-860c-44a5-9a8d-48911af69060 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-830321b8-9c81-4376-b0e7-2450a6beadbd border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element image-1755799521036-dzgsa6twm border styles: [Array(2)]
+Console.js:61 Element rectangle-612ab701-c75a-45ff-a791-510ea0029963 border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-b08e6735-46a9-4e49-9e8a-83e30d9402d1 border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-a7aa3daa-ce71-450e-a37f-a7dfed6c80a3 border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-1755736212836-anvsn6cce border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-1755736276695-9r1ow2b6z border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-0ce2c435-cd10-40ba-a505-8858921f88ff border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element image-1755735898684-1heg3a9if border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element heading-1755796317352-g68qhspgn border styles: (7) [Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element image-1755795175939-wqgvg5qgi border styles: [Array(2)]
+Console.js:61 Element rectangle-c5d6ed43-739d-492e-824c-177858d1fd2c border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-85c512e5-2a0a-4b23-93b6-464059d16601 border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element list-83b5cdb8-ae86-49d5-a33a-362fcb2ea752 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-ae15cb7c-ab2d-4126-b4ae-3d6cf2288be4 border styles: (11) [Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-1755736278243-qt3x611ku border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element text-1755781951981-12qw95rnp border styles: [Array(2)]
+Console.js:61 Element list-61a26136-5084-406f-89db-03e5fddb3358 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 CompoundPropertyInput render: {propertyType: 'margin', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'padding', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'borderRadius', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'border', hasConfig: true}
+Console.js:61 🟦 BorderInput updateValue: all-sides -> "5px solid #bf0d0d"
+Console.js:61 🟦 Calling onSideChange with: {sideKey: 'all-sides', newValue: '5px solid #bf0d0d'}
+Console.js:61 🔴 Global border input changed: {sideKey: 'all-sides', value: '5px solid #bf0d0d'}
+Console.js:61 🔴 Applying to all sides: 5px solid #bf0d0d
+Console.js:61 🔴 Applied global border "5px solid #bf0d0d" to all sides
+Console.js:61 Element rectangle-1755736274662-s64icfls8 border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-1755735890618-8sbesk1u3 border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-1755736031618-cqz52l3p5 border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element list-1755782993453-xxc2nlqq0 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element list-3eea354a-fca1-4488-a3cf-d4215894d539 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element list-743a5b3e-860c-44a5-9a8d-48911af69060 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-830321b8-9c81-4376-b0e7-2450a6beadbd border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element image-1755799521036-dzgsa6twm border styles: [Array(2)]
+Console.js:61 Element rectangle-612ab701-c75a-45ff-a791-510ea0029963 border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-b08e6735-46a9-4e49-9e8a-83e30d9402d1 border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-a7aa3daa-ce71-450e-a37f-a7dfed6c80a3 border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-1755736212836-anvsn6cce border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-1755736276695-9r1ow2b6z border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-0ce2c435-cd10-40ba-a505-8858921f88ff border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element image-1755735898684-1heg3a9if border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element heading-1755796317352-g68qhspgn border styles: (7) [Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element image-1755795175939-wqgvg5qgi border styles: [Array(2)]
+Console.js:61 Element rectangle-c5d6ed43-739d-492e-824c-177858d1fd2c border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-85c512e5-2a0a-4b23-93b6-464059d16601 border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element list-83b5cdb8-ae86-49d5-a33a-362fcb2ea752 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-ae15cb7c-ab2d-4126-b4ae-3d6cf2288be4 border styles: (11) [Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-1755736278243-qt3x611ku border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element text-1755781951981-12qw95rnp border styles: [Array(2)]
+Console.js:61 Element list-61a26136-5084-406f-89db-03e5fddb3358 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 CompoundPropertyInput render: {propertyType: 'margin', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'padding', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'borderRadius', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'border', hasConfig: true}
+Console.js:61 🟦 BorderInput updateValue: all-sides -> "5px solid #c10b0b"
+Console.js:61 🟦 Calling onSideChange with: {sideKey: 'all-sides', newValue: '5px solid #c10b0b'}
+Console.js:61 🔴 Global border input changed: {sideKey: 'all-sides', value: '5px solid #c10b0b'}
+Console.js:61 🔴 Applying to all sides: 5px solid #c10b0b
+Console.js:61 🔴 Applied global border "5px solid #c10b0b" to all sides
+Console.js:61 Element rectangle-1755736274662-s64icfls8 border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-1755735890618-8sbesk1u3 border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-1755736031618-cqz52l3p5 border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element list-1755782993453-xxc2nlqq0 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element list-3eea354a-fca1-4488-a3cf-d4215894d539 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element list-743a5b3e-860c-44a5-9a8d-48911af69060 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-830321b8-9c81-4376-b0e7-2450a6beadbd border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element image-1755799521036-dzgsa6twm border styles: [Array(2)]
+Console.js:61 Element rectangle-612ab701-c75a-45ff-a791-510ea0029963 border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-b08e6735-46a9-4e49-9e8a-83e30d9402d1 border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-a7aa3daa-ce71-450e-a37f-a7dfed6c80a3 border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-1755736212836-anvsn6cce border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-1755736276695-9r1ow2b6z border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-0ce2c435-cd10-40ba-a505-8858921f88ff border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element image-1755735898684-1heg3a9if border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element heading-1755796317352-g68qhspgn border styles: (7) [Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element image-1755795175939-wqgvg5qgi border styles: [Array(2)]
+Console.js:61 Element rectangle-c5d6ed43-739d-492e-824c-177858d1fd2c border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-85c512e5-2a0a-4b23-93b6-464059d16601 border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element list-83b5cdb8-ae86-49d5-a33a-362fcb2ea752 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-ae15cb7c-ab2d-4126-b4ae-3d6cf2288be4 border styles: (11) [Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-1755736278243-qt3x611ku border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element text-1755781951981-12qw95rnp border styles: [Array(2)]
+Console.js:61 Element list-61a26136-5084-406f-89db-03e5fddb3358 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 CompoundPropertyInput render: {propertyType: 'margin', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'padding', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'borderRadius', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'border', hasConfig: true}
+Console.js:61 🟦 BorderInput updateValue: all-sides -> "5px solid #d50707"
+Console.js:61 🟦 Calling onSideChange with: {sideKey: 'all-sides', newValue: '5px solid #d50707'}
+Console.js:61 🔴 Global border input changed: {sideKey: 'all-sides', value: '5px solid #d50707'}
+Console.js:61 🔴 Applying to all sides: 5px solid #d50707
+Console.js:61 🔴 Applied global border "5px solid #d50707" to all sides
+Console.js:61 Element rectangle-1755736274662-s64icfls8 border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-1755735890618-8sbesk1u3 border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-1755736031618-cqz52l3p5 border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element list-1755782993453-xxc2nlqq0 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element list-3eea354a-fca1-4488-a3cf-d4215894d539 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element list-743a5b3e-860c-44a5-9a8d-48911af69060 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-830321b8-9c81-4376-b0e7-2450a6beadbd border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element image-1755799521036-dzgsa6twm border styles: [Array(2)]
+Console.js:61 Element rectangle-612ab701-c75a-45ff-a791-510ea0029963 border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-b08e6735-46a9-4e49-9e8a-83e30d9402d1 border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-a7aa3daa-ce71-450e-a37f-a7dfed6c80a3 border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-1755736212836-anvsn6cce border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-1755736276695-9r1ow2b6z border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-0ce2c435-cd10-40ba-a505-8858921f88ff border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element image-1755735898684-1heg3a9if border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element heading-1755796317352-g68qhspgn border styles: (7) [Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element image-1755795175939-wqgvg5qgi border styles: [Array(2)]
+Console.js:61 Element rectangle-c5d6ed43-739d-492e-824c-177858d1fd2c border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-85c512e5-2a0a-4b23-93b6-464059d16601 border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element list-83b5cdb8-ae86-49d5-a33a-362fcb2ea752 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-ae15cb7c-ab2d-4126-b4ae-3d6cf2288be4 border styles: (11) [Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-1755736278243-qt3x611ku border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element text-1755781951981-12qw95rnp border styles: [Array(2)]
+Console.js:61 Element list-61a26136-5084-406f-89db-03e5fddb3358 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 CompoundPropertyInput render: {propertyType: 'margin', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'padding', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'borderRadius', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'border', hasConfig: true}
+Console.js:61 🟦 BorderInput updateValue: all-sides -> "5px solid #e20303"
+Console.js:61 🟦 Calling onSideChange with: {sideKey: 'all-sides', newValue: '5px solid #e20303'}
+Console.js:61 🔴 Global border input changed: {sideKey: 'all-sides', value: '5px solid #e20303'}
+Console.js:61 🔴 Applying to all sides: 5px solid #e20303
+Console.js:61 🔴 Applied global border "5px solid #e20303" to all sides
+Console.js:61 Element rectangle-1755736274662-s64icfls8 border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-1755735890618-8sbesk1u3 border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-1755736031618-cqz52l3p5 border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element list-1755782993453-xxc2nlqq0 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element list-3eea354a-fca1-4488-a3cf-d4215894d539 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element list-743a5b3e-860c-44a5-9a8d-48911af69060 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-830321b8-9c81-4376-b0e7-2450a6beadbd border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element image-1755799521036-dzgsa6twm border styles: [Array(2)]
+Console.js:61 Element rectangle-612ab701-c75a-45ff-a791-510ea0029963 border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-b08e6735-46a9-4e49-9e8a-83e30d9402d1 border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-a7aa3daa-ce71-450e-a37f-a7dfed6c80a3 border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-1755736212836-anvsn6cce border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-1755736276695-9r1ow2b6z border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-0ce2c435-cd10-40ba-a505-8858921f88ff border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element image-1755735898684-1heg3a9if border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element heading-1755796317352-g68qhspgn border styles: (7) [Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element image-1755795175939-wqgvg5qgi border styles: [Array(2)]
+Console.js:61 Element rectangle-c5d6ed43-739d-492e-824c-177858d1fd2c border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-85c512e5-2a0a-4b23-93b6-464059d16601 border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element list-83b5cdb8-ae86-49d5-a33a-362fcb2ea752 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-ae15cb7c-ab2d-4126-b4ae-3d6cf2288be4 border styles: (11) [Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-1755736278243-qt3x611ku border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element text-1755781951981-12qw95rnp border styles: [Array(2)]
+Console.js:61 Element list-61a26136-5084-406f-89db-03e5fddb3358 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 CompoundPropertyInput render: {propertyType: 'margin', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'padding', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'borderRadius', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'border', hasConfig: true}
+Console.js:61 🟦 BorderInput updateValue: all-sides -> "5px solid #fa0000"
+Console.js:61 🟦 Calling onSideChange with: {sideKey: 'all-sides', newValue: '5px solid #fa0000'}
+Console.js:61 🔴 Global border input changed: {sideKey: 'all-sides', value: '5px solid #fa0000'}
+Console.js:61 🔴 Applying to all sides: 5px solid #fa0000
+Console.js:61 🔴 Applied global border "5px solid #fa0000" to all sides
+Console.js:61 Element rectangle-1755736274662-s64icfls8 border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-1755735890618-8sbesk1u3 border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-1755736031618-cqz52l3p5 border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element list-1755782993453-xxc2nlqq0 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element list-3eea354a-fca1-4488-a3cf-d4215894d539 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element list-743a5b3e-860c-44a5-9a8d-48911af69060 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-830321b8-9c81-4376-b0e7-2450a6beadbd border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element image-1755799521036-dzgsa6twm border styles: [Array(2)]
+Console.js:61 Element rectangle-612ab701-c75a-45ff-a791-510ea0029963 border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-b08e6735-46a9-4e49-9e8a-83e30d9402d1 border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-a7aa3daa-ce71-450e-a37f-a7dfed6c80a3 border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-1755736212836-anvsn6cce border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-1755736276695-9r1ow2b6z border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-0ce2c435-cd10-40ba-a505-8858921f88ff border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element image-1755735898684-1heg3a9if border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element heading-1755796317352-g68qhspgn border styles: (7) [Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element image-1755795175939-wqgvg5qgi border styles: [Array(2)]
+Console.js:61 Element rectangle-c5d6ed43-739d-492e-824c-177858d1fd2c border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-85c512e5-2a0a-4b23-93b6-464059d16601 border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element list-83b5cdb8-ae86-49d5-a33a-362fcb2ea752 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-ae15cb7c-ab2d-4126-b4ae-3d6cf2288be4 border styles: (11) [Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-1755736278243-qt3x611ku border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element text-1755781951981-12qw95rnp border styles: [Array(2)]
+Console.js:61 Element list-61a26136-5084-406f-89db-03e5fddb3358 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 CompoundPropertyInput render: {propertyType: 'margin', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'padding', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'borderRadius', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'border', hasConfig: true}
+Console.js:61 🟦 BorderInput updateValue: all-sides -> "5px solid #ff0000"
+Console.js:61 🟦 Calling onSideChange with: {sideKey: 'all-sides', newValue: '5px solid #ff0000'}
+Console.js:61 🔴 Global border input changed: {sideKey: 'all-sides', value: '5px solid #ff0000'}
+Console.js:61 🔴 Applying to all sides: 5px solid #ff0000
+Console.js:61 🔴 Applied global border "5px solid #ff0000" to all sides
+Console.js:61 Element rectangle-1755736274662-s64icfls8 border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-1755735890618-8sbesk1u3 border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-1755736031618-cqz52l3p5 border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element list-1755782993453-xxc2nlqq0 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element list-3eea354a-fca1-4488-a3cf-d4215894d539 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element list-743a5b3e-860c-44a5-9a8d-48911af69060 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-830321b8-9c81-4376-b0e7-2450a6beadbd border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element image-1755799521036-dzgsa6twm border styles: [Array(2)]
+Console.js:61 Element rectangle-612ab701-c75a-45ff-a791-510ea0029963 border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-b08e6735-46a9-4e49-9e8a-83e30d9402d1 border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-a7aa3daa-ce71-450e-a37f-a7dfed6c80a3 border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-1755736212836-anvsn6cce border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-1755736276695-9r1ow2b6z border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-0ce2c435-cd10-40ba-a505-8858921f88ff border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element image-1755735898684-1heg3a9if border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element heading-1755796317352-g68qhspgn border styles: (7) [Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element image-1755795175939-wqgvg5qgi border styles: [Array(2)]
+Console.js:61 Element rectangle-c5d6ed43-739d-492e-824c-177858d1fd2c border styles: (2) [Array(2), Array(2)]
+Console.js:61 Element rectangle-85c512e5-2a0a-4b23-93b6-464059d16601 border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element list-83b5cdb8-ae86-49d5-a33a-362fcb2ea752 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-ae15cb7c-ab2d-4126-b4ae-3d6cf2288be4 border styles: (11) [Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 Element rectangle-1755736278243-qt3x611ku border styles: (3) [Array(2), Array(2), Array(2)]
+Console.js:61 Element text-1755781951981-12qw95rnp border styles: [Array(2)]
+Console.js:61 Element list-61a26136-5084-406f-89db-03e5fddb3358 border styles: (4) [Array(2), Array(2), Array(2), Array(2)]
+Console.js:61 CompoundPropertyInput render: {propertyType: 'margin', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'padding', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'borderRadius', hasConfig: true}
+Console.js:61 CompoundPropertyInput render: {propertyType: 'border', hasConfig: true}
