@@ -130,6 +130,19 @@ const PropertiesPanel: React.FC = () => {
       return property.options[0].value;
     }
     
+    // For numeric and unit fields, check if there are element dimension properties to use as defaults
+    if (property.type === 'number' || property.type === 'unit') {
+      // For width/height, check element dimensions first
+      if (property.key === 'width' && selectedElement.width !== undefined) {
+        return property.type === 'unit' ? `${selectedElement.width}px` : selectedElement.width;
+      }
+      if (property.key === 'height' && selectedElement.height !== undefined) {
+        return property.type === 'unit' ? `${selectedElement.height}px` : selectedElement.height;
+      }
+      // Default to 0 for other numeric fields
+      return property.type === 'unit' ? `0${property.defaultUnit || property.units?.[0] || 'px'}` : 0;
+    }
+    
     return '';
   };
 

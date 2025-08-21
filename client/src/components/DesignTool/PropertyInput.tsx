@@ -40,7 +40,7 @@ export const PropertyInput: React.FC<PropertyInputProps> = ({ config, value, onC
         return (
           <Input
             type="number"
-            value={value || ''}
+            value={value === null || value === undefined ? '' : value}
             onChange={(e) => onChange(parseFloat(e.target.value) || 0)}
             min={config.min}
             max={config.max}
@@ -52,13 +52,13 @@ export const PropertyInput: React.FC<PropertyInputProps> = ({ config, value, onC
 
       case 'unit':
         const parsed = parseValueAndUnit(value);
-        const numValue = parsed.value ? parseFloat(parsed.value) : 0;
+        const numValue = parsed.value !== undefined && parsed.value !== null ? parseFloat(parsed.value) : 0;
         
         return (
           <div className="flex gap-2">
             <Input
               type="number"
-              value={numValue || ''}
+              value={numValue === null || numValue === undefined || isNaN(numValue) ? '' : numValue}
               onChange={(e) => {
                 const newValue = parseFloat(e.target.value) || 0;
                 onChange(formatValueWithUnit(newValue, selectedUnit));
@@ -74,9 +74,8 @@ export const PropertyInput: React.FC<PropertyInputProps> = ({ config, value, onC
                 value={selectedUnit}
                 onValueChange={(unit) => {
                   setSelectedUnit(unit);
-                  if (numValue) {
-                    onChange(formatValueWithUnit(numValue, unit));
-                  }
+                  // Always apply the unit change, even if numValue is 0
+                  onChange(formatValueWithUnit(numValue, unit));
                 }}
               >
                 <SelectTrigger className="w-20">
