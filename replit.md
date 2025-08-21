@@ -34,7 +34,16 @@ This is a WYSIWYG (What You See Is What You Get) web design tool built as a full
 - **Visual Feedback Accuracy**: Blue insertion lines now correctly correspond to actual drop behavior - no more "does nothing" scenarios
 - **Reliable Element Reordering**: Fixed all edge cases where elements would incorrectly "fall back to root" during drag operations
 
-### Enhanced Text Editing System (Latest Update)
+### Class-First Styling System (Latest Update - January 21, 2025)
+
+- **Strict Class-Based Architecture**: All styling must be class-based, inline styles completely disabled
+- **Auto-Class Generation**: When properties are changed on elements without classes, new classes are automatically created
+- **Smart Class Selection**: Single classes auto-select for editing, multiple classes require manual selection
+- **Comprehensive Property Support**: All CSS properties work through the class system including display, borders, typography, spacing, and effects
+- **No Inline Style Fallbacks**: System enforces class-first workflow to prevent style conflicts and maintain clean code generation
+- **Automatic Class Creation**: Elements without classes get auto-generated classes when first property is modified
+
+### Enhanced Text Editing System
 
 - **Natural Text Editing**: Text elements now fill their entire parent container and provide natural selection behavior
 - **Paragraph Flow Support**: Enhanced HTML content support with proper paragraph (`<p>`) structure

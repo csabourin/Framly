@@ -113,7 +113,7 @@ const PropertiesPanel: React.FC = () => {
         styles: { [propertyKey]: value }
       }));
     } else if ([
-      // Common style properties that should always work directly
+      // Common style properties that should always work through classes
       'display', 'position', 'borderRadius', 'borderWidth', 'borderStyle', 'borderColor',
       'fontWeight', 'fontStyle', 'fontSize', 'fontFamily', 'lineHeight',
       'textAlign', 'textDecoration', 'textTransform', 'letterSpacing',
@@ -122,10 +122,10 @@ const PropertiesPanel: React.FC = () => {
       'padding', 'paddingTop', 'paddingRight', 'paddingBottom', 'paddingLeft',
       'opacity', 'visibility', 'overflow', 'overflowX', 'overflowY',
       'zIndex', 'cursor', 'transition', 'transform', 'transformOrigin',
-      'boxShadow', 'textShadow', 'outline', 'outlineColor', 'outlineWidth'
+      'boxShadow', 'textShadow', 'outline', 'outlineColor', 'outlineWidth',
+      'border', 'gap', 'alignSelf', 'minWidth', 'maxWidth', 'minHeight', 'maxHeight'
     ].includes(propertyKey)) {
-      // These common style properties should always update directly
-      // Either to the selected class or as inline styles
+      // All style properties must go through classes - create class automatically if needed
       if (selectedClassForEditing) {
         // Update the selected class styles locally
         const existingClass = customClasses[selectedClassForEditing];
@@ -137,14 +137,25 @@ const PropertiesPanel: React.FC = () => {
           }));
         }
       } else {
-        // Update as inline styles
-        dispatch(updateElementStyles({
-          id: selectedElement.id,
-          styles: { [propertyKey]: value }
+        // Auto-create a class for this element
+        const autoClassName = `${selectedElement.type}-${Date.now().toString(36)}`;
+        
+        // Add class to element
+        dispatch(addCSSClass({ elementId: selectedElement.id, className: autoClassName }));
+        
+        // Create the class with the new property
+        dispatch(addCustomClass({
+          name: autoClassName,
+          styles: { [propertyKey]: value },
+          description: `Auto-generated class for ${selectedElement.type}`,
+          category: 'auto-generated'
         }));
+        
+        // Select the new class for editing
+        setSelectedClassForEditing(autoClassName);
       }
     } else {
-      // Check if we're editing a specific class or allow inline styles
+      // All other style properties - must use classes only (no inline styles)
       if (selectedClassForEditing) {
         // Update the selected class styles locally
         const existingClass = customClasses[selectedClassForEditing];
@@ -160,12 +171,22 @@ const PropertiesPanel: React.FC = () => {
         console.warn('Multiple classes available. Please select a class to edit its styles.');
         return;
       } else {
-        // No class selected or no classes - allow inline styles as fallback
-        // This allows basic editing while encouraging class-based workflow
-        dispatch(updateElementStyles({
-          id: selectedElement.id,
-          styles: { [propertyKey]: value }
+        // Auto-create a class for any style property
+        const autoClassName = `${selectedElement.type}-${Date.now().toString(36)}`;
+        
+        // Add class to element
+        dispatch(addCSSClass({ elementId: selectedElement.id, className: autoClassName }));
+        
+        // Create the class with the new property
+        dispatch(addCustomClass({
+          name: autoClassName,
+          styles: { [propertyKey]: value },
+          description: `Auto-generated class for ${selectedElement.type}`,
+          category: 'auto-generated'
         }));
+        
+        // Select the new class for editing
+        setSelectedClassForEditing(autoClassName);
       }
     }
   };
@@ -328,8 +349,8 @@ const PropertiesPanel: React.FC = () => {
           {!selectedClassForEditing && (!selectedElement.classes || selectedElement.classes.length === 0) && (
             <div className="p-3 bg-green-50 border border-green-200 rounded-md mb-3">
               <p className="text-sm text-green-800">
-                <strong>✏️ Editing inline styles</strong><br/>
-                Properties will be applied directly to this element. Consider creating a class for reusable styles.
+                <strong>🎯 Ready to create classes</strong><br/>
+                When you edit properties, a new class will be automatically created for this element.
               </p>
             </div>
           )}
