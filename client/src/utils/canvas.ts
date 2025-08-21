@@ -155,7 +155,7 @@ export function isPointInElement(x: number, y: number, element: CanvasElement, t
          y <= element.y + element.height + tolerance;
 }
 
-export function getElementAtPoint(x: number, y: number, elements: Record<string, CanvasElement>, zoomLevel: number = 1): CanvasElement | null {
+export function getElementAtPoint(x: number, y: number, elements: Record<string, CanvasElement>, zoomLevel: number = 1, draggedElementId?: string): CanvasElement | null {
   // Use DOM-based detection for flexbox layouts
   const canvasElement = document.querySelector('[data-testid="canvas-container"]');
   if (!canvasElement) return null;
@@ -165,52 +165,71 @@ export function getElementAtPoint(x: number, y: number, elements: Record<string,
   const pageX = canvasRect.left + (x * zoomLevel);
   const pageY = canvasRect.top + (y * zoomLevel);
   
-  // Get the element at this point using DOM
-  const elementAtPoint = document.elementFromPoint(pageX, pageY);
-  if (!elementAtPoint) return null;
+  // Temporarily hide the dragged element to improve detection
+  let draggedElement: HTMLElement | null = null;
+  let originalDisplay = '';
   
-  // First try DOM-based detection for more accurate flexbox positioning
-  let foundElements: { element: CanvasElement; depth: number }[] = [];
-  let current: Element | null = elementAtPoint;
-  let depth = 0;
+  if (draggedElementId) {
+    draggedElement = document.querySelector(`[data-element-id="${draggedElementId}"]`) as HTMLElement;
+    if (draggedElement) {
+      originalDisplay = draggedElement.style.display;
+      draggedElement.style.display = 'none';
+    }
+  }
   
-  while (current && current !== canvasElement) {
-    // Skip insertion indicators
-    if (current.hasAttribute('data-testid') && current.getAttribute('data-testid') === 'insertion-indicator') {
+  try {
+    // Get the element at this point using DOM
+    const elementAtPoint = document.elementFromPoint(pageX, pageY);
+    if (!elementAtPoint) return null;
+    
+    // First try DOM-based detection for more accurate flexbox positioning
+    let foundElements: { element: CanvasElement; depth: number }[] = [];
+    let current: Element | null = elementAtPoint;
+    let depth = 0;
+    
+    while (current && current !== canvasElement) {
+      // Skip insertion indicators and dragged elements
+      if (current.hasAttribute('data-testid') && current.getAttribute('data-testid') === 'insertion-indicator') {
+        current = current.parentElement;
+        depth++;
+        continue;
+      }
+      
+      const elementId = current.getAttribute('data-element-id');
+      if (elementId && elements[elementId] && elementId !== 'root' && elementId !== draggedElementId) {
+        foundElements.push({ element: elements[elementId], depth });
+      }
+      
       current = current.parentElement;
       depth++;
-      continue;
     }
     
-    const elementId = current.getAttribute('data-element-id');
-    if (elementId && elements[elementId] && elementId !== 'root') {
-      foundElements.push({ element: elements[elementId], depth });
+    // Return the element with the smallest depth (deepest in DOM)
+    if (foundElements.length > 0) {
+      foundElements.sort((a, b) => a.depth - b.depth);
+      console.log('DOM detection found:', foundElements[0].element.id);
+      return foundElements[0].element;
     }
     
-    current = current.parentElement;
-    depth++;
-  }
-  
-  // Return the element with the smallest depth (deepest in DOM)
-  if (foundElements.length > 0) {
-    foundElements.sort((a, b) => a.depth - b.depth);
-    console.log('DOM detection found:', foundElements[0].element.id);
-    return foundElements[0].element;
-  }
-  
-  // Fallback to bounds-based detection if DOM detection fails
-  const nonRootElements = Object.values(elements).filter(el => el.id !== 'root');
-  
-  for (const element of nonRootElements) {
-    if (isPointInElement(x, y, element, 4)) {
-      console.log('Bounds detection found:', element.id);
-      return element;
+    // Fallback to bounds-based detection if DOM detection fails
+    const nonRootElements = Object.values(elements).filter(el => el.id !== 'root' && el.id !== draggedElementId);
+    
+    for (const element of nonRootElements) {
+      if (isPointInElement(x, y, element, 4)) {
+        console.log('Bounds detection found:', element.id);
+        return element;
+      }
+    }
+    
+    // Return root as final fallback
+    console.log('Falling back to root');
+    return elements.root || null;
+  } finally {
+    // Restore the dragged element
+    if (draggedElement) {
+      draggedElement.style.display = originalDisplay;
     }
   }
-  
-  // Return root as final fallback
-  console.log('Falling back to root');
-  return elements.root || null;
 }
 
 export function calculateSnapPosition(x: number, y: number, snapGrid: number = 10): { x: number; y: number } {

@@ -39,7 +39,7 @@ const Canvas: React.FC = () => {
       return null;
     }
 
-    const hoveredElement = getElementAtPoint(x, y, project.elements, zoomLevel);
+    const hoveredElement = getElementAtPoint(x, y, project.elements, zoomLevel, draggedElementId);
     console.log('detectInsertionZone - hoveredElement:', hoveredElement?.id);
     
     // Skip the dragged element itself during drag operations
@@ -423,7 +423,7 @@ const Canvas: React.FC = () => {
       // Creation tool hover detection for insertion feedback
       console.log('Mouse move triggered, selectedTool:', selectedTool);
       
-      const hoveredElement = getElementAtPoint(x, y, project.elements, zoomLevel);
+      const hoveredElement = getElementAtPoint(x, y, project.elements, zoomLevel, draggedElementId);
       
       if (!hoveredElement) {
         console.log('No element found at point');
@@ -585,7 +585,7 @@ const Canvas: React.FC = () => {
         
         // If no hover state, try to detect element at drop position
         if (!targetElementId) {
-          const elementAtPoint = getElementAtPoint(x, y, project.elements, zoomLevel);
+          const elementAtPoint = getElementAtPoint(x, y, project.elements, zoomLevel, draggedElementId);
           targetElementId = elementAtPoint?.id || 'root';
           targetZone = 'inside'; // Default to inside when detected via coordinates
         }
