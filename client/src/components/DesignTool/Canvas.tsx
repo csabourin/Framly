@@ -500,25 +500,21 @@ const Canvas: React.FC = () => {
             insertPosition: 'inside'
           }));
         } else if ((insertionIndicator as any).position === 'between') {
-          // Precise insertion between siblings - find the parent container
-          const hoveredElement = project.elements[insertionIndicator.elementId];
-          const parentId = hoveredElement?.parent || 'root';
-          
+          // Precise insertion between siblings using the container and reference element
           console.log('DRAG DEBUG - Reordering between siblings:', { 
-            hoveredElementId: insertionIndicator.elementId,
-            parentId, 
+            containerId: insertionIndicator.elementId,
             insertPosition: (insertionIndicator as any).insertPosition,
             referenceElementId: (insertionIndicator as any).referenceElementId
           });
           
           dispatch(reorderElement({
             elementId: draggedElementId,
-            newParentId: parentId,
+            newParentId: insertionIndicator.elementId, // This is the container ID
             insertPosition: (insertionIndicator as any).insertPosition,
             referenceElementId: (insertionIndicator as any).referenceElementId
           }));
         } else {
-          // Handle before/after positions (sibling insertion) - use the direct parent
+          // Handle before/after positions (sibling insertion) - use the hovered element's parent
           const hoveredElement = project.elements[insertionIndicator.elementId];
           const parentId = hoveredElement?.parent || 'root';
           
