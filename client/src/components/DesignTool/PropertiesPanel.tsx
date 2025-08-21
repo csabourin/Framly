@@ -113,7 +113,7 @@ const PropertiesPanel: React.FC = () => {
         styles: { [propertyKey]: value }
       }));
     } else {
-      // Check if we're editing a specific class or need to create one
+      // Check if we're editing a specific class or allow inline styles
       if (selectedClassForEditing) {
         // Update the selected class styles locally
         const existingClass = customClasses[selectedClassForEditing];
@@ -124,14 +124,17 @@ const PropertiesPanel: React.FC = () => {
             styles: updatedStyles
           }));
         }
-      } else if (selectedElement.classes && selectedElement.classes.length > 0) {
+      } else if (selectedElement.classes && selectedElement.classes.length > 1) {
         // Multiple classes available, user needs to select one
         console.warn('Multiple classes available. Please select a class to edit its styles.');
         return;
       } else {
-        // No classes on element, guide user to create one
-        console.warn('No classes on this element. Please create a class to edit styles.');
-        return;
+        // No class selected or no classes - allow inline styles as fallback
+        // This allows basic editing while encouraging class-based workflow
+        dispatch(updateElementStyles({
+          id: selectedElement.id,
+          styles: { [propertyKey]: value }
+        }));
       }
     }
   };
@@ -287,6 +290,15 @@ const PropertiesPanel: React.FC = () => {
               <p className="text-sm text-blue-800">
                 <strong>💡 Click a class below to edit its styles</strong><br/>
                 Select a class to customize its appearance, or create a new one.
+              </p>
+            </div>
+          )}
+          
+          {!selectedClassForEditing && (!selectedElement.classes || selectedElement.classes.length === 0) && (
+            <div className="p-3 bg-green-50 border border-green-200 rounded-md mb-3">
+              <p className="text-sm text-green-800">
+                <strong>✏️ Editing inline styles</strong><br/>
+                Properties will be applied directly to this element. Consider creating a class for reusable styles.
               </p>
             </div>
           )}
