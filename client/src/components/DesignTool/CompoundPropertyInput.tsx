@@ -143,8 +143,8 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
     return config.sides.some(side => values[side.prop]);
   };
 
-  const renderBorderInput = (sideKey: string, label: string) => {
-    // Just use simple local state for each input
+  // Separate component to avoid hooks violations
+  const BorderInput = ({ sideKey, label }: { sideKey: string; label: string }) => {
     const [width, setWidth] = React.useState('');
     const [style, setStyle] = React.useState('solid');
     const [color, setColor] = React.useState('#000000');
@@ -262,7 +262,7 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
               {config.sides.map((side) => (
                 <div key={side.key}>
                   {propertyType === 'border' ? (
-                    renderBorderInput(side.key, side.label)
+                    <BorderInput sideKey={side.key} label={side.label} />
                   ) : (
                     renderSpacingInput(side.key, side.label)
                   )}
