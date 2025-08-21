@@ -358,43 +358,38 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
               // Apply to all individual sides when using global input
               console.log('🔴 Global border input changed:', { sideKey, value });
               if (value && value.trim()) {
-                // Apply the same border value to all four sides using a batch update
-                console.log('🔴 Applying to all sides:', value);
-                // Create a single batch update object for all border sides
-                const borderUpdates = {
-                  'border-top': value,
-                  'border-right': value, 
-                  'border-bottom': value,
-                  'border-left': value
-                };
+                // FIRST: Clear the conflicting shorthand border property
+                console.log('🔴 Clearing shorthand border to avoid conflicts');
+                onChange('border', '');
                 
-                // Call a special batch onChange that handles multiple properties at once
-                if (typeof onChange === 'function') {
-                  // For now, use a setTimeout to batch the updates
-                  Object.entries(borderUpdates).forEach(([key, val], index) => {
-                    setTimeout(() => onChange(key, val), index * 10);
-                  });
-                } else {
-                  // Fallback to individual calls
+                // THEN: Apply the same border value to all four sides
+                console.log('🔴 Applying to all sides:', value);
+                
+                // Use setTimeout to ensure border is cleared first
+                setTimeout(() => {
                   onChange('border-top', value);
+                }, 10);
+                setTimeout(() => {
                   onChange('border-right', value);
+                }, 20);
+                setTimeout(() => {
                   onChange('border-bottom', value);
+                }, 30);
+                setTimeout(() => {
                   onChange('border-left', value);
-                }
+                }, 40);
+                
                 console.log(`🔴 Applied global border "${value}" to all sides`);
               } else {
                 // Clear all borders if value is empty
                 console.log('🔴 Clearing all border sides');
-                const borderClears = {
-                  'border-top': '',
-                  'border-right': '', 
-                  'border-bottom': '',
-                  'border-left': ''
-                };
-                
-                Object.entries(borderClears).forEach(([key, val], index) => {
-                  setTimeout(() => onChange(key, val), index * 10);
-                });
+                onChange('border', '');
+                setTimeout(() => {
+                  onChange('border-top', '');
+                  onChange('border-right', '');
+                  onChange('border-bottom', '');
+                  onChange('border-left', '');
+                }, 10);
                 console.log('🔴 Cleared all border sides');
               }
             }}
