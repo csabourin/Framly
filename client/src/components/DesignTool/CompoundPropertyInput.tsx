@@ -152,12 +152,27 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
   const renderBorderInput = (sideKey: string, label: string) => {
     const value = getValue(sideKey);
     
-    // Parse border value (e.g., "2px solid #000") - ensure value is string
-    const valueStr = String(value || '');
-    const parts = valueStr.split(' ');
-    const width = parts[0] || '';
-    const style = parts[1] || 'solid';
-    const color = parts[2] || '#000000';
+    // Parse border value more carefully - clean up corrupted values
+    const valueStr = String(value || '').trim();
+    
+    // Use regex to properly extract border components
+    const borderMatch = valueStr.match(/^([^\s]+)\s+(solid|dashed|dotted|double|none|inset|outset|ridge|groove)?\s*(.*)$/);
+    
+    let width = '';
+    let style = 'solid';
+    let color = '#000000';
+    
+    if (borderMatch) {
+      width = borderMatch[1] || '';
+      style = borderMatch[2] || 'solid';
+      color = borderMatch[3] || '#000000';
+      
+      // Clean up width - remove any non-width characters
+      width = width.replace(/[^0-9.px%emrem]/g, '');
+      if (width && !width.match(/px|%|em|rem$/)) {
+        width = width + 'px';
+      }
+    }
     
     console.log(`renderBorderInput ${sideKey}:`, { value, valueStr, width, style, color });
 
@@ -171,7 +186,8 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
             value={width}
             onChange={(e) => {
               console.log(`Border width change for ${sideKey}:`, e.target.value);
-              const newValue = `${e.target.value} ${style} ${color}`.trim();
+              const cleanWidth = e.target.value.trim();
+              const newValue = `${cleanWidth} ${style} ${color}`.trim();
               handleSideChange(sideKey, newValue);
             }}
             onFocus={(e) => {
