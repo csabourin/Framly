@@ -3,6 +3,7 @@ import { CanvasElement, Project, CSSProperties } from '../types/canvas';
 
 interface CanvasState {
   project: Project;
+  components: Record<string, any>;
   history: Project[];
   historyIndex: number;
   clipboard?: CanvasElement;
@@ -46,6 +47,7 @@ const initialProject: Project = {
 
 const initialState: CanvasState = {
   project: initialProject,
+  components: {},
   history: [initialProject],
   historyIndex: 0,
 };
@@ -294,6 +296,13 @@ const canvasSlice = createSlice({
         element.classes = classes;
       }
     },
+    
+    updateComponent: (state, action: PayloadAction<{ id: string; updates: any }>) => {
+      const { id, updates } = action.payload;
+      if (state.components[id]) {
+        state.components[id] = { ...state.components[id], ...updates };
+      }
+    },
   },
 });
 
@@ -316,6 +325,7 @@ export const {
   addCSSClass,
   removeCSSClass,
   reorderCSSClass,
+  updateComponent,
 } = canvasSlice.actions;
 
 export default canvasSlice.reducer;

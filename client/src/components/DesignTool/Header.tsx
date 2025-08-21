@@ -2,9 +2,9 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
 import { switchBreakpoint, undo, redo, updateProjectName } from '../../store/canvasSlice';
-import { setExportModalOpen, setCodeModalOpen, setCSSOptimizationModalOpen, zoomIn, zoomOut, fitToScreen, toggleDOMTreePanel } from '../../store/uiSlice';
+import { setExportModalOpen, setCodeModalOpen, setCSSOptimizationModalOpen, zoomIn, zoomOut, fitToScreen, toggleDOMTreePanel, setClassEditorOpen, setComponentEditorOpen } from '../../store/uiSlice';
 import { Button } from '@/components/ui/button';
-import { Eye, Undo, Redo, Download, Smartphone, Laptop, Monitor, Settings, Plus, Minus, Maximize, Zap, List } from 'lucide-react';
+import { Eye, Undo, Redo, Download, Smartphone, Laptop, Monitor, Settings, Plus, Minus, Maximize, Zap, List, Palette, Component } from 'lucide-react';
 
 const Header: React.FC = () => {
   const dispatch = useDispatch();
@@ -55,6 +55,15 @@ const Header: React.FC = () => {
 
   const handleToggleDOMTree = () => {
     dispatch(toggleDOMTreePanel());
+  };
+
+  const handleOpenClassEditor = () => {
+    dispatch(setClassEditorOpen(true));
+  };
+
+  const handleOpenComponentEditor = () => {
+    dispatch(setComponentEditorOpen(true));
+    // Could also set a specific component ID if editing existing component
   };
 
   return (
@@ -155,6 +164,30 @@ const Header: React.FC = () => {
             title="Zoom In"
           >
             <Plus className="w-3 h-3" />
+          </Button>
+        </div>
+
+        {/* Advanced Tools */}
+        <div className="flex items-center gap-1 bg-gray-100 rounded-lg p-1" data-testid="advanced-tools">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={handleOpenClassEditor}
+            className="p-2 hover:bg-white hover:shadow-sm text-gray-600"
+            data-testid="button-open-class-editor"
+            title="Open Class Editor"
+          >
+            <Palette className="w-4 h-4" />
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={handleOpenComponentEditor}
+            className="p-2 hover:bg-white hover:shadow-sm text-gray-600"
+            data-testid="button-open-component-editor"
+            title="Open Component Editor"
+          >
+            <Component className="w-4 h-4" />
           </Button>
         </div>
 

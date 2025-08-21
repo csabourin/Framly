@@ -1,7 +1,8 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { store, RootState } from '../../store';
+import { setClassEditorOpen, setComponentEditorOpen, setEditingComponent } from '../../store/uiSlice';
 import Header from './Header';
 import Toolbar from './Toolbar';
 import Canvas from './Canvas';
@@ -13,9 +14,27 @@ import StatusBar from './StatusBar';
 import ExportModal from './ExportModal';
 import CodeModal from './CodeModal';
 import CSSOptimizationModal from './CSSOptimizationModal';
+import ClassEditor from './ClassEditor';
+import ComponentEditor from './ComponentEditor';
 
 const DesignToolContent: React.FC = () => {
-  const { isComponentPanelVisible, isDOMTreePanelVisible } = useSelector((state: RootState) => state.ui);
+  const dispatch = useDispatch();
+  const { 
+    isComponentPanelVisible, 
+    isDOMTreePanelVisible, 
+    isClassEditorOpen, 
+    isComponentEditorOpen, 
+    editingComponentId 
+  } = useSelector((state: RootState) => state.ui);
+
+  const handleCloseClassEditor = () => {
+    dispatch(setClassEditorOpen(false));
+  };
+
+  const handleCloseComponentEditor = () => {
+    dispatch(setComponentEditorOpen(false));
+    dispatch(setEditingComponent(null));
+  };
 
   return (
     <div className="flex h-screen relative bg-gray-50 font-inter overflow-hidden">
@@ -30,6 +49,19 @@ const DesignToolContent: React.FC = () => {
       <CodeModal />
       <CSSOptimizationModal />
       <CreateComponentModal />
+      
+      {/* Class Editor */}
+      <ClassEditor 
+        isOpen={isClassEditorOpen}
+        onClose={handleCloseClassEditor}
+      />
+      
+      {/* Component Editor */}
+      <ComponentEditor 
+        isOpen={isComponentEditorOpen}
+        componentId={editingComponentId}
+        onClose={handleCloseComponentEditor}
+      />
     </div>
   );
 };

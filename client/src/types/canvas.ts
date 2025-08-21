@@ -1,6 +1,6 @@
 export interface CanvasElement {
   id: string;
-  type: 'rectangle' | 'text' | 'image' | 'container' | 'heading' | 'list';
+  type: 'rectangle' | 'text' | 'image' | 'container' | 'heading' | 'list' | 'component';
   x: number;
   y: number;
   width: number;
@@ -14,6 +14,10 @@ export interface CanvasElement {
   justifyContent?: 'flex-start' | 'center' | 'flex-end' | 'space-between' | 'space-around';
   alignItems?: 'flex-start' | 'center' | 'flex-end' | 'stretch';
   classes?: string[];
+  
+  // Component-specific properties
+  componentId?: string;
+  instanceData?: Record<string, any>;
   
   // Text-specific properties
   textDisplay?: 'block' | 'inline';

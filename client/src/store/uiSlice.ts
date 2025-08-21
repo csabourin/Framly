@@ -9,6 +9,9 @@ interface UIState {
   isGridVisible: boolean;
   isComponentPanelVisible: boolean;
   isDOMTreePanelVisible: boolean;
+  isComponentEditorOpen: boolean;
+  editingComponentId: string | null;
+  isClassEditorOpen: boolean;
   zoomLevel: number;
   canvasOffset: { x: number; y: number };
   isDragging: boolean;
@@ -31,6 +34,9 @@ const initialState: UIState = {
   isGridVisible: true,
   isComponentPanelVisible: true,
   isDOMTreePanelVisible: true,
+  isComponentEditorOpen: false,
+  editingComponentId: null,
+  isClassEditorOpen: false,
   zoomLevel: 1,
   canvasOffset: { x: 0, y: 0 },
   isDragging: false,
@@ -71,6 +77,18 @@ const uiSlice = createSlice({
     
     toggleDOMTreePanel: (state) => {
       state.isDOMTreePanelVisible = !state.isDOMTreePanelVisible;
+    },
+    
+    setComponentEditorOpen: (state, action: PayloadAction<boolean>) => {
+      state.isComponentEditorOpen = action.payload;
+    },
+    
+    setEditingComponent: (state, action: PayloadAction<string | null>) => {
+      state.editingComponentId = action.payload;
+    },
+    
+    setClassEditorOpen: (state, action: PayloadAction<boolean>) => {
+      state.isClassEditorOpen = action.payload;
     },
     
     setZoomLevel: (state, action: PayloadAction<number>) => {
@@ -146,6 +164,9 @@ export const {
   setGridVisible,
   toggleComponentPanel,
   toggleDOMTreePanel,
+  setComponentEditorOpen,
+  setEditingComponent,
+  setClassEditorOpen,
   setZoomLevel,
   zoomIn,
   zoomOut,
