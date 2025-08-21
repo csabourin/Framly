@@ -539,20 +539,23 @@ export const elementPropertyMap: Record<ElementType, PropertyConfig[]> = {
     ...advancedProperties
   ],
   rectangle: [
-    ...layoutProperties.filter(p => !['display'].includes(p.key)),
+    ...layoutProperties,
     ...spacingProperties,
     ...appearanceProperties,
+    ...flexProperties,
+    ...gridProperties,
     ...advancedProperties.filter(p => !['overflow'].includes(p.key))
   ],
   text: [
-    ...layoutProperties.filter(p => !['display', 'width', 'height'].includes(p.key)),
+    ...layoutProperties.filter(p => !['width', 'height'].includes(p.key)),
     ...spacingProperties.filter(p => p.key !== 'gap'),
     ...textProperties,
     ...appearanceProperties.filter(p => !['backgroundColor'].includes(p.key)),
+    ...flexProperties,
     ...advancedProperties.filter(p => !['overflow'].includes(p.key))
   ],
   image: [
-    ...layoutProperties.filter(p => !['display'].includes(p.key)),
+    ...layoutProperties,
     ...spacingProperties.filter(p => p.key !== 'gap'),
     ...appearanceProperties,
     {
@@ -570,6 +573,8 @@ export const elementPropertyMap: Record<ElementType, PropertyConfig[]> = {
       ],
       description: 'How image fits in its container'
     },
+    ...flexProperties,
+    ...gridProperties,
     ...advancedProperties.filter(p => !['overflow'].includes(p.key))
   ]
 };
