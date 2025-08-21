@@ -112,15 +112,25 @@ const PropertiesPanel: React.FC = () => {
     
     // ALL style properties (including width/height and flex) go through classes
     // This ensures consistent class-based styling for everything
+    console.log('Property change debug:', {
+      propertyKey,
+      value,
+      selectedClassForEditing,
+      elementClasses: selectedElement.classes,
+      elementId: selectedElement.id
+    });
+
     if (selectedClassForEditing) {
       // Update the selected class styles
       const existingClass = customClasses[selectedClassForEditing];
+      console.log('Updating existing class:', selectedClassForEditing, existingClass);
       if (existingClass) {
         const updatedStyles = { ...existingClass.styles, [propertyKey]: value };
         dispatch(updateCustomClass({
           name: selectedClassForEditing,
           styles: updatedStyles
         }));
+        console.log('Class updated successfully with styles:', updatedStyles);
       }
     } else if (selectedElement.classes && selectedElement.classes.length > 1) {
       // Multiple classes available, user needs to select one
@@ -129,6 +139,7 @@ const PropertiesPanel: React.FC = () => {
     } else {
       // Auto-create a class for any style property
       const autoClassName = `${selectedElement.type}-${Date.now().toString(36)}`;
+      console.log('Auto-creating class:', autoClassName, 'for property:', propertyKey, value);
       
       // Add class to element
       dispatch(addCSSClass({ elementId: selectedElement.id, className: autoClassName }));
@@ -143,6 +154,7 @@ const PropertiesPanel: React.FC = () => {
       
       // Select the new class for editing
       setSelectedClassForEditing(autoClassName);
+      console.log('Auto-created class and set for editing:', autoClassName);
     }
   };
 
