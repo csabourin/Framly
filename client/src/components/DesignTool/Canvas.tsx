@@ -19,6 +19,7 @@ const Canvas: React.FC = () => {
   const canvasRef = useRef<HTMLDivElement>(null);
   const [hoveredElementId, setHoveredElementId] = useState<string | null>(null);
   const [hoveredZone, setHoveredZone] = useState<'before' | 'after' | 'inside' | null>(null);
+  const [insertionIndicator, setInsertionIndicator] = useState<any | null>(null);
   const { project } = useSelector((state: RootState) => state.canvas);
   const { selectedTool, isDragging, dragStart, isResizing, resizeHandle, zoomLevel, isGridVisible, draggedElementId, isDraggingForReorder, isDOMTreePanelVisible } = useSelector((state: RootState) => state.ui);
 
@@ -76,29 +77,37 @@ const Canvas: React.FC = () => {
 
     // Determine insertion zone based on mouse position relative to element
     const relativeY = y - elementY;
-    const relativeX = x - elementX;
     
-    // Make before/after zones much smaller to reduce flickering
-    const beforeZone = 6;  // Only 6px at top edge
-    const afterZone = elementHeight - 6;  // Only 6px at bottom edge
-
-    // For containers and rectangles, strongly prioritize "inside" detection
+    // Enhanced insertion zone detection for containers with children
     if (hoveredElement.isContainer || hoveredElement.type === 'container' || hoveredElement.type === 'rectangle') {
-      // Only show before/after if very close to edges AND away from the center
-      if (relativeY < beforeZone && relativeX > 15 && relativeX < elementWidth - 15) {
+      const children = hoveredElement.children || [];
+      
+      if (children.length > 0 && forDrag) {
+        // For containers with children, detect insertion points between siblings
+        const insertionPoint = detectSiblingInsertionPoint(x, y, hoveredElement.id, children);
+        if (insertionPoint) {
+          return insertionPoint;
+        }
+      }
+      
+      // Enhanced zone detection for containers
+      const beforeZone = 12;  // Slightly larger for better UX
+      const afterZone = elementHeight - 12;
+      
+      if (relativeY < beforeZone) {
         return {
           position: 'before',
           elementId: hoveredElement.id,
           bounds: { x: elementX, y: elementY - 2, width: elementWidth, height: 4 }
         };
-      } else if (relativeY > afterZone && relativeX > 15 && relativeX < elementWidth - 15) {
+      } else if (relativeY > afterZone) {
         return {
           position: 'after',
           elementId: hoveredElement.id,
           bounds: { x: elementX, y: elementY + elementHeight - 2, width: elementWidth, height: 4 }
         };
       } else {
-        // Default to inside for containers - this is the main case
+        // Default to inside for containers
         return {
           position: 'inside',
           elementId: hoveredElement.id,
@@ -107,7 +116,8 @@ const Canvas: React.FC = () => {
       }
     } else {
       // For non-container elements like text, use before/after more readily
-      if (relativeY < beforeZone) {
+      const midpoint = elementHeight / 2;
+      if (relativeY < midpoint) {
         return {
           position: 'before',
           elementId: hoveredElement.id,
@@ -122,6 +132,96 @@ const Canvas: React.FC = () => {
       }
     }
   }, [selectedTool, project.elements, zoomLevel, rootElement, draggedElementId]);
+
+  // New function to detect insertion points between sibling elements
+  const detectSiblingInsertionPoint = useCallback((x: number, y: number, containerId: string, childIds: string[]) => {
+    const container = project.elements[containerId];
+    if (!container) return null;
+
+    // Get container bounds
+    const containerDiv = document.querySelector(`[data-element-id="${containerId}"]`) as HTMLElement;
+    if (!containerDiv) return null;
+
+    const containerRect = containerDiv.getBoundingClientRect();
+    const canvasRect = canvasRef.current?.getBoundingClientRect();
+    if (!canvasRect) return null;
+
+    const containerX = (containerRect.left - canvasRect.left) / zoomLevel;
+    const containerY = (containerRect.top - canvasRect.top) / zoomLevel;
+    const containerWidth = containerRect.width / zoomLevel;
+
+    // Check each child element to find insertion points
+    for (let i = 0; i < childIds.length; i++) {
+      const childId = childIds[i];
+      const child = project.elements[childId];
+      if (!child || child.id === draggedElementId) continue;
+
+      const childDiv = document.querySelector(`[data-element-id="${childId}"]`) as HTMLElement;
+      if (!childDiv) continue;
+
+      const childRect = childDiv.getBoundingClientRect();
+      const childX = (childRect.left - canvasRect.left) / zoomLevel;
+      const childY = (childRect.top - canvasRect.top) / zoomLevel;
+      const childHeight = childRect.height / zoomLevel;
+      const childBottom = childY + childHeight;
+
+      // Check if mouse is between this child and the next one (or at the end)
+      const nextChildId = childIds[i + 1];
+      let insertionY: number;
+      
+      if (nextChildId) {
+        const nextChild = project.elements[nextChildId];
+        if (nextChild && nextChild.id !== draggedElementId) {
+          const nextChildDiv = document.querySelector(`[data-element-id="${nextChildId}"]`) as HTMLElement;
+          if (nextChildDiv) {
+            const nextChildRect = nextChildDiv.getBoundingClientRect();
+            const nextChildY = (nextChildRect.top - canvasRect.top) / zoomLevel;
+            
+            // Check if mouse is between current child and next child
+            if (y >= childBottom && y <= nextChildY) {
+              insertionY = childBottom + (nextChildY - childBottom) / 2;
+              
+              return {
+                position: 'between' as any,
+                elementId: containerId,
+                referenceElementId: nextChildId,
+                insertPosition: 'before' as any,
+                bounds: { x: containerX, y: insertionY - 1, width: containerWidth, height: 2 }
+              };
+            }
+          }
+        }
+      } else {
+        // Check if mouse is after the last child
+        if (y >= childBottom) {
+          insertionY = childBottom + 8; // Small gap after last element
+          
+          return {
+            position: 'between' as any,
+            elementId: containerId,
+            referenceElementId: null,
+            insertPosition: 'inside' as any,
+            bounds: { x: containerX, y: insertionY - 1, width: containerWidth, height: 2 }
+          };
+        }
+      }
+      
+      // Check if mouse is before the first child
+      if (i === 0 && y <= childY) {
+        insertionY = childY - 8; // Small gap before first element
+        
+        return {
+          position: 'between' as any,
+          elementId: containerId,
+          referenceElementId: childId,
+          insertPosition: 'before' as any,
+          bounds: { x: containerX, y: insertionY - 1, width: containerWidth, height: 2 }
+        };
+      }
+    }
+
+    return null;
+  }, [project.elements, zoomLevel, draggedElementId]);
 
 
 
@@ -263,34 +363,43 @@ const Canvas: React.FC = () => {
         y: snappedPosition.y,
       }));
     } else if (isDraggingForReorder && draggedElementId) {
-      // Element reordering (hand tool) - show hover feedback
-      const hoveredElement = getElementAtPoint(x, y, project.elements, zoomLevel);
-      
+      // Element reordering (hand tool) - show precise insertion feedback
       console.log('DRAG DEBUG - Mouse move during reorder:', { 
         draggedElementId, 
-        hoveredElement: hoveredElement?.id,
-        hoveredElementType: hoveredElement?.type 
+        x, y
       });
       
-      if (hoveredElement && hoveredElement.id !== draggedElementId) {
-        const canDropHere = isValidDropTarget(hoveredElement);
+      // Detect more precise insertion zones during drag
+      const insertionZone = detectInsertionZone(x, y, true);
+      
+      if (insertionZone) {
+        console.log('DRAG DEBUG - Insertion zone detected:', insertionZone);
+        
+        const targetElement = project.elements[insertionZone.elementId];
+        const canDropHere = targetElement ? isValidDropTarget(targetElement) : false;
+        
         console.log('DRAG DEBUG - Drop validation during move:', { 
-          targetType: hoveredElement.type, 
-          canDropHere 
+          targetType: targetElement?.type, 
+          canDropHere,
+          position: (insertionZone as any).position
         });
         
-        setHoveredElementId(hoveredElement.id);
-        setHoveredZone('inside');
+        setHoveredElementId(insertionZone.elementId);
+        setHoveredZone((insertionZone as any).position === 'between' ? 'inside' : (insertionZone as any).position);
         
         // Update Redux state for visual feedback 
         dispatch(setHoveredElement({ 
-          elementId: hoveredElement.id, 
-          zone: 'inside' 
+          elementId: insertionZone.elementId, 
+          zone: (insertionZone as any).position === 'between' ? 'inside' : (insertionZone as any).position
         }));
+        
+        // Store the insertion indicator for visual feedback
+        setInsertionIndicator(insertionZone);
       } else {
         setHoveredElementId(null);
         setHoveredZone(null);
         dispatch(setHoveredElement({ elementId: null, zone: null }));
+        setInsertionIndicator(null);
       }
     } else if (['rectangle', 'text', 'image', 'container', 'heading', 'list'].includes(selectedTool)) {
       // Creation tool hover detection for insertion feedback
@@ -355,32 +464,45 @@ const Canvas: React.FC = () => {
   }, [isDragging, isDraggingForReorder, selectedElement, draggedElementId, dragStart, zoomLevel, dispatch, selectedTool, project.elements]);
 
   const handleMouseUp = useCallback((e?: MouseEvent) => {
-    console.log('DRAG DEBUG - Mouse up:', { isDraggingForReorder, draggedElementId, hoveredElementId, hoveredZone });
+    console.log('DRAG DEBUG - Mouse up:', { isDraggingForReorder, draggedElementId, hoveredElementId, hoveredZone, insertionIndicator });
     
-    if (isDraggingForReorder && draggedElementId && hoveredElementId && hoveredZone) {
-      const targetElement = project.elements[hoveredElementId];
-      const canDropHere = isValidDropTarget(targetElement);
+    if (isDraggingForReorder && draggedElementId && insertionIndicator) {
+      const targetElement = project.elements[insertionIndicator.elementId];
+      const canDropHere = targetElement ? isValidDropTarget(targetElement) : false;
       
-      console.log('DRAG DEBUG - Drop validation:', { targetElement: targetElement?.type, canDropHere });
+      console.log('DRAG DEBUG - Drop validation:', { targetElement: targetElement?.type, canDropHere, insertionPosition: (insertionIndicator as any).position });
       
       if (canDropHere) {
         // Complete the reorder operation only for valid targets
-        if (hoveredZone === 'inside') {
-          console.log('DRAG DEBUG - Reordering inside:', hoveredElementId);
+        if ((insertionIndicator as any).position === 'inside') {
+          console.log('DRAG DEBUG - Reordering inside:', insertionIndicator.elementId);
           dispatch(reorderElement({
             elementId: draggedElementId,
-            newParentId: hoveredElementId,
+            newParentId: insertionIndicator.elementId,
             insertPosition: 'inside'
+          }));
+        } else if ((insertionIndicator as any).position === 'between') {
+          // Precise insertion between siblings
+          console.log('DRAG DEBUG - Reordering between siblings:', { 
+            parentId: insertionIndicator.elementId, 
+            insertPosition: (insertionIndicator as any).insertPosition,
+            referenceElementId: (insertionIndicator as any).referenceElementId
+          });
+          dispatch(reorderElement({
+            elementId: draggedElementId,
+            newParentId: insertionIndicator.elementId,
+            insertPosition: (insertionIndicator as any).insertPosition,
+            referenceElementId: (insertionIndicator as any).referenceElementId
           }));
         } else {
           const parentId = targetElement?.parent || 'root';
-          console.log('DRAG DEBUG - Reordering as sibling:', { parentId, hoveredZone });
+          console.log('DRAG DEBUG - Reordering as sibling:', { parentId, position: (insertionIndicator as any).position });
           
           dispatch(reorderElement({
             elementId: draggedElementId,
             newParentId: parentId,
-            insertPosition: hoveredZone,
-            referenceElementId: hoveredElementId
+            insertPosition: (insertionIndicator as any).position,
+            referenceElementId: insertionIndicator.elementId
           }));
         }
       } else {
@@ -394,11 +516,12 @@ const Canvas: React.FC = () => {
     dispatch(setResizing(false));
     dispatch(setDraggingForReorder(false));
     dispatch(setDraggedElement(undefined));
+    setInsertionIndicator(null);
     setHoveredElementId(null);
     setHoveredZone(null);
     dispatch(setHoveredElement({ elementId: null, zone: null }));
     dispatch(resetUI());
-  }, [dispatch, isDraggingForReorder, draggedElementId, hoveredElementId, hoveredZone, project.elements]);
+  }, [dispatch, isDraggingForReorder, draggedElementId, hoveredElementId, hoveredZone, insertionIndicator, project.elements]);
 
   // Handle drop events for components
   const handleDragOver = useCallback((e: React.DragEvent) => {
@@ -619,8 +742,42 @@ const Canvas: React.FC = () => {
           ) : null;
         })}
         
-
-        
+        {/* Insertion Indicator */}
+        {insertionIndicator && (
+          <div
+            className="absolute pointer-events-none z-50"
+            style={{
+              left: insertionIndicator.bounds.x,
+              top: insertionIndicator.bounds.y,
+              width: insertionIndicator.bounds.width,
+              height: insertionIndicator.bounds.height,
+              backgroundColor: 
+                (insertionIndicator as any).position === 'inside' ? 'rgba(168, 85, 247, 0.3)' :
+                (insertionIndicator as any).position === 'between' ? '#3b82f6' :
+                '#3b82f6',
+              border: 
+                (insertionIndicator as any).position === 'inside' ? '2px dashed #a855f7' :
+                (insertionIndicator as any).position === 'between' ? '2px solid #3b82f6' :
+                'none',
+              borderRadius: (insertionIndicator as any).position === 'inside' ? '4px' : '0',
+              boxShadow: (insertionIndicator as any).position === 'between' ? '0 0 8px rgba(59, 130, 246, 0.6)' : 'none'
+            }}
+          >
+            {/* Enhanced visual for insertion line */}
+            {(insertionIndicator as any).position === 'between' && (
+              <>
+                <div 
+                  className="absolute left-0 top-0 w-2 h-2 bg-blue-500 rounded-full transform -translate-x-1 -translate-y-1"
+                  style={{ boxShadow: '0 0 4px rgba(59, 130, 246, 0.8)' }}
+                />
+                <div 
+                  className="absolute right-0 top-0 w-2 h-2 bg-blue-500 rounded-full transform translate-x-1 -translate-y-1"
+                  style={{ boxShadow: '0 0 4px rgba(59, 130, 246, 0.8)' }}
+                />
+              </>
+            )}
+          </div>
+        )}
 
       </div>
     </main>
