@@ -65,6 +65,21 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     }));
     setIsEditing(false);
   }, [element.id, dispatch]);
+  
+  const handleListContentEdit = useCallback((e: React.FormEvent<HTMLDivElement>) => {
+    const htmlContent = e.currentTarget.innerHTML || '';
+    
+    // Extract list items from the HTML
+    const listContainer = e.currentTarget.querySelector('ul, ol');
+    if (listContainer) {
+      const listItems = Array.from(listContainer.querySelectorAll('li')).map(li => li.textContent || '');
+      dispatch(updateElement({ 
+        id: element.id, 
+        updates: { listItems } 
+      }));
+    }
+    setIsEditing(false);
+  }, [element.id, dispatch]);
 
   const handleKeyDown = useCallback((e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === 'Enter') {
@@ -159,6 +174,105 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
               boxSizing: 'border-box'
             }}
             dangerouslySetInnerHTML={{ __html: htmlContent }}
+          />
+        );
+      }
+    }
+    
+    if (element.type === 'heading') {
+      const isTextEditable = isSelected && (selectedTool === 'text' || isEditing);
+      const headingLevel = element.headingLevel || 1;
+      const HeadingTag = `h${headingLevel}` as keyof JSX.IntrinsicElements;
+      
+      const processedContent = element.content || `Heading ${headingLevel}`;
+
+      if (isTextEditable) {
+        return (
+          <div
+            ref={textEditRef}
+            contentEditable={true}
+            suppressContentEditableWarning
+            onBlur={handleContentEdit}
+            onKeyDown={handleKeyDown}
+            className="w-full h-full outline-none cursor-text text-editing"
+            style={{ 
+              minHeight: 'inherit',
+              padding: '4px',
+              width: '100%',
+              height: '100%',
+              boxSizing: 'border-box'
+            }}
+            dangerouslySetInnerHTML={{ __html: processedContent }}
+            autoFocus
+          />
+        );
+      } else {
+        return (
+          <HeadingTag
+            onDoubleClick={(e) => {
+              e.stopPropagation();
+              setIsEditing(true);
+            }}
+            className="w-full h-full outline-none cursor-pointer text-element"
+            style={{ 
+              minHeight: 'inherit',
+              padding: '4px',
+              width: '100%',
+              height: '100%',
+              boxSizing: 'border-box',
+              margin: 0
+            }}
+            dangerouslySetInnerHTML={{ __html: processedContent }}
+          />
+        );
+      }
+    }
+    
+    if (element.type === 'list') {
+      const isTextEditable = isSelected && (selectedTool === 'text' || isEditing);
+      const listType = element.listType || 'unordered';
+      const ListTag = listType === 'ordered' ? 'ol' : 'ul';
+      const listItems = element.listItems || ['List item 1', 'List item 2', 'List item 3'];
+      
+      const listHTML = listItems.map(item => `<li>${item}</li>`).join('');
+
+      if (isTextEditable) {
+        return (
+          <div
+            ref={textEditRef}
+            contentEditable={true}
+            suppressContentEditableWarning
+            onBlur={handleListContentEdit}
+            onKeyDown={handleKeyDown}
+            className="w-full h-full outline-none cursor-text text-editing"
+            style={{ 
+              minHeight: 'inherit',
+              padding: '4px',
+              width: '100%',
+              height: '100%',
+              boxSizing: 'border-box'
+            }}
+            dangerouslySetInnerHTML={{ __html: `<${ListTag}>${listHTML}</${ListTag}>` }}
+            autoFocus
+          />
+        );
+      } else {
+        return (
+          <ListTag
+            onDoubleClick={(e) => {
+              e.stopPropagation();
+              setIsEditing(true);
+            }}
+            className="w-full h-full outline-none cursor-pointer text-element"
+            style={{ 
+              minHeight: 'inherit',
+              padding: '4px',
+              width: '100%',
+              height: '100%',
+              boxSizing: 'border-box',
+              margin: 0
+            }}
+            dangerouslySetInnerHTML={{ __html: listHTML }}
           />
         );
       }
@@ -268,9 +382,9 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     position: element.styles.position === 'absolute' ? 'absolute' : 'relative',
     left: element.styles.position === 'absolute' ? element.x : undefined,
     top: element.styles.position === 'absolute' ? element.y : undefined,
-    width: element.type === 'text' ? '100%' : (element.styles.width || (element.width === 0 ? '100%' : element.width)),
-    height: element.type === 'text' ? 'auto' : (element.styles.minHeight ? undefined : element.height),
-    minHeight: element.type === 'text' ? '1.2em' : undefined,
+    width: (['text', 'heading', 'list'].includes(element.type)) ? '100%' : (element.styles.width || (element.width === 0 ? '100%' : element.width)),
+    height: (['text', 'heading', 'list'].includes(element.type)) ? 'auto' : (element.styles.minHeight ? undefined : element.height),
+    minHeight: (['text', 'heading', 'list'].includes(element.type)) ? '1.2em' : undefined,
     ...convertCSSPropertiesToCamelCase(element.styles),
     backgroundColor: getBackgroundColor(),
     border: getBorderStyle() || element.styles.border,

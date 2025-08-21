@@ -61,6 +61,45 @@ export function createDefaultElement(type: CanvasElement['type'], x: number = 0,
         classes: [`text-${Date.now()}`],
       };
       
+    case 'heading':
+      return {
+        ...baseElement,
+        width: 0, // Will be set to 100% in styles
+        height: 50,
+        content: 'Heading Text',
+        headingLevel: 1,
+        styles: {
+          fontSize: '32px',
+          fontWeight: '700',
+          color: '#111827',
+          padding: '8px',
+          display: 'block',
+          width: '100%',
+          lineHeight: '1.2',
+          marginBottom: '16px',
+        },
+        classes: [`heading-${Date.now()}`],
+      };
+      
+    case 'list':
+      return {
+        ...baseElement,
+        width: 0, // Will be set to 100% in styles
+        height: 120,
+        listType: 'unordered',
+        listItems: ['List item 1', 'List item 2', 'List item 3'],
+        styles: {
+          fontSize: '16px',
+          fontWeight: '400',
+          color: '#374151',
+          padding: '8px',
+          display: 'block',
+          width: '100%',
+          lineHeight: '1.6',
+        },
+        classes: [`list-${Date.now()}`],
+      };
+      
     case 'image':
       return {
         ...baseElement,
@@ -231,8 +270,8 @@ export function generateCSSClassSuggestions(type: CanvasElement['type']): string
 
 // Check if an element can be dropped inside another element
 export function canDropInside(elementType: string, targetElement: CanvasElement): boolean {
-  // Text and images cannot contain other elements
-  if (targetElement.type === 'text' || targetElement.type === 'image') {
+  // Text, headings, lists and images cannot contain other elements
+  if (['text', 'heading', 'list', 'image'].includes(targetElement.type)) {
     return false;
   }
   

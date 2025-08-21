@@ -1,5 +1,5 @@
 // Property configuration for dynamic properties panel
-export type ElementType = 'container' | 'rectangle' | 'text' | 'image';
+export type ElementType = 'container' | 'rectangle' | 'text' | 'heading' | 'list' | 'image';
 
 export interface PropertyConfig {
   key: string;
@@ -547,6 +547,50 @@ export const elementPropertyMap: Record<ElementType, PropertyConfig[]> = {
     ...advancedProperties.filter(p => !['overflow'].includes(p.key))
   ],
   text: [
+    ...layoutProperties.filter(p => !['width', 'height'].includes(p.key)),
+    ...spacingProperties.filter(p => p.key !== 'gap'),
+    ...textProperties,
+    ...appearanceProperties.filter(p => !['backgroundColor'].includes(p.key)),
+    ...flexProperties,
+    ...advancedProperties.filter(p => !['overflow'].includes(p.key))
+  ],
+  heading: [
+    {
+      key: 'headingLevel',
+      label: 'Heading Level',
+      type: 'select',
+      category: 'text',
+      priority: 1,
+      options: [
+        { value: '1', label: 'H1 (Largest)' },
+        { value: '2', label: 'H2' },
+        { value: '3', label: 'H3' },
+        { value: '4', label: 'H4' },
+        { value: '5', label: 'H5' },
+        { value: '6', label: 'H6 (Smallest)' }
+      ],
+      description: 'HTML heading level (1-6)'
+    },
+    ...layoutProperties.filter(p => !['width', 'height'].includes(p.key)),
+    ...spacingProperties.filter(p => p.key !== 'gap'),
+    ...textProperties,
+    ...appearanceProperties.filter(p => !['backgroundColor'].includes(p.key)),
+    ...flexProperties,
+    ...advancedProperties.filter(p => !['overflow'].includes(p.key))
+  ],
+  list: [
+    {
+      key: 'listType',
+      label: 'List Type',
+      type: 'select',
+      category: 'text',
+      priority: 1,
+      options: [
+        { value: 'unordered', label: 'Bullet List' },
+        { value: 'ordered', label: 'Numbered List' }
+      ],
+      description: 'Type of list (bullet or numbered)'
+    },
     ...layoutProperties.filter(p => !['width', 'height'].includes(p.key)),
     ...spacingProperties.filter(p => p.key !== 'gap'),
     ...textProperties,

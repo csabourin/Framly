@@ -27,7 +27,7 @@ const Canvas: React.FC = () => {
 
   // Function to detect insertion zones based on mouse position
   const detectInsertionZone = useCallback((x: number, y: number, forDrag = false): InsertionIndicator | null => {
-    if (!forDrag && !['rectangle', 'text', 'image', 'container', 'component'].includes(selectedTool)) {
+    if (!forDrag && !['rectangle', 'text', 'image', 'container', 'component', 'heading', 'list'].includes(selectedTool)) {
       return null;
     }
     if (forDrag && selectedTool !== 'hand') {
@@ -152,7 +152,7 @@ const Canvas: React.FC = () => {
       } else {
         dispatch(selectElement('root'));
       }
-    } else if (['rectangle', 'text', 'image', 'container'].includes(selectedTool)) {
+    } else if (['rectangle', 'text', 'image', 'container', 'heading', 'list'].includes(selectedTool)) {
       // Re-detect the insertion point at click time to ensure we have current hover state
       const clickedElement = getElementAtPoint(x, y, project.elements, zoomLevel);
       let targetElementId = hoveredElementId;
@@ -292,7 +292,7 @@ const Canvas: React.FC = () => {
         setHoveredZone(null);
         dispatch(setHoveredElement({ elementId: null, zone: null }));
       }
-    } else if (['rectangle', 'text', 'image', 'container'].includes(selectedTool)) {
+    } else if (['rectangle', 'text', 'image', 'container', 'heading', 'list'].includes(selectedTool)) {
       // Creation tool hover detection for insertion feedback
       console.log('Mouse move triggered, selectedTool:', selectedTool);
       

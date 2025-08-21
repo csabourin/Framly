@@ -1,6 +1,6 @@
 export interface CanvasElement {
   id: string;
-  type: 'rectangle' | 'text' | 'image' | 'container';
+  type: 'rectangle' | 'text' | 'image' | 'container' | 'heading' | 'list';
   x: number;
   y: number;
   width: number;
@@ -17,6 +17,13 @@ export interface CanvasElement {
   
   // Text-specific properties
   textDisplay?: 'block' | 'inline';
+  
+  // Heading-specific properties
+  headingLevel?: 1 | 2 | 3 | 4 | 5 | 6;
+  
+  // List-specific properties
+  listType?: 'ordered' | 'unordered';
+  listItems?: string[];
   
   // Image-specific properties
   imageUrl?: string;
@@ -58,7 +65,7 @@ export interface Project {
   currentBreakpoint: string;
 }
 
-export type Tool = 'select' | 'hand' | 'rectangle' | 'text' | 'image' | 'container';
+export type Tool = 'select' | 'hand' | 'rectangle' | 'text' | 'heading' | 'list' | 'image' | 'container';
 
 export interface CustomComponent {
   id: string;

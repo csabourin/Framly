@@ -9,7 +9,9 @@ import {
   Square, 
   Type, 
   Image, 
-  Package
+  Package,
+  Heading,
+  List
 } from 'lucide-react';
 
 const Toolbar: React.FC = () => {
@@ -21,6 +23,8 @@ const Toolbar: React.FC = () => {
     { id: 'hand', icon: Hand, label: 'Hand', shortcut: 'H' },
     { id: 'rectangle', icon: Square, label: 'Rectangle', shortcut: 'R' },
     { id: 'text', icon: Type, label: 'Text', shortcut: 'T' },
+    { id: 'heading', icon: Heading, label: 'Heading', shortcut: 'Shift+H' },
+    { id: 'list', icon: List, label: 'List', shortcut: 'L' },
     { id: 'image', icon: Image, label: 'Image', shortcut: 'I' },
   ];
 
