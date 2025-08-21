@@ -116,7 +116,6 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
   const handleSideChange = (sideKey: string, value: string) => {
     const side = config.sides.find(s => s.key === sideKey);
     if (side) {
-      console.log(`handleSideChange: ${sideKey} -> ${side.prop} = ${value}`);
       onChange(side.prop, value);
     }
   };
@@ -125,32 +124,17 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
     const side = config.sides.find(s => s.key === sideKey);
     if (!side) return '';
     
-    // Debug: log all current values
-    console.log(`getValue DEBUG for ${sideKey}:`, {
-      sideKey,
-      sideProp: side.prop,
-      allValues: values,
-      sideValue: values[side.prop],
-      simpleValue,
-      hasAdvanced: hasAnyAdvancedValues()
-    });
-    
     // Check if there's a specific side value first
     const sideValue = values[side.prop];
     if (sideValue !== undefined && sideValue !== null) {
-      const stringValue = String(sideValue);
-      console.log(`getValue for ${sideKey}: found sideValue:`, sideValue, 'converted to:', stringValue);
-      return stringValue;
+      return String(sideValue);
     }
     
     // If no side-specific value but there's a simple value, use it as default
     if (simpleValue && !hasAnyAdvancedValues()) {
-      const stringValue = String(simpleValue);
-      console.log(`getValue for ${sideKey}: using simpleValue:`, simpleValue, 'converted to:', stringValue);
-      return stringValue;
+      return String(simpleValue);
     }
     
-    console.log(`getValue for ${sideKey}: returning empty string`);
     return '';
   };
 
@@ -159,68 +143,29 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
     return config.sides.some(side => values[side.prop]);
   };
 
-  // Store border components separately for each side
-  const [borderComponents, setBorderComponents] = React.useState<{[key: string]: {width: string, style: string, color: string}}>({});
-
-  const getBorderComponents = (sideKey: string) => {
-    if (borderComponents[sideKey]) {
-      console.log(`getBorderComponents: using cached for ${sideKey}:`, borderComponents[sideKey]);
-      return borderComponents[sideKey];
-    }
-    
-    const value = getValue(sideKey);
-    const valueStr = String(value || '').trim();
-    
-    console.log(`getBorderComponents: parsing "${valueStr}" for ${sideKey}`);
-    
-    // ALWAYS start with clean defaults for now to avoid corruption issues
-    const cleanDefaults = {
-      width: '',
-      style: 'solid',
-      color: '#000000'
-    };
-    
-    // Only parse if the value looks clean and valid
-    if (valueStr && !valueStr.includes('[') && !valueStr.includes('object') && 
-        !valueStr.match(/\d+solid/) && !valueStr.match(/px\d+/) && !valueStr.match(/\d{2,}px/) &&
-        valueStr.length < 30) { // reasonable length check
-      
-      const parts = valueStr.split(/\s+/);
-      if (parts.length >= 1 && parts.length <= 3) {
-        cleanDefaults.width = parts[0] || '';
-        cleanDefaults.style = parts[1] || 'solid';
-        cleanDefaults.color = parts[2] || '#000000';
-      }
-    }
-    
-    console.log(`getBorderComponents: using clean result for ${sideKey}:`, cleanDefaults);
-    return cleanDefaults;
-  };
-
-  const updateBorderComponent = (sideKey: string, component: 'width' | 'style' | 'color', value: string) => {
-    const current = getBorderComponents(sideKey);
-    const updated = { ...current, [component]: value };
-    
-    // Update local state first
-    setBorderComponents(prev => ({ ...prev, [sideKey]: updated }));
-    
-    // Build new border value - only include width if it's not empty
-    let newValue = '';
-    if (updated.width.trim()) {
-      newValue = `${updated.width.trim()} ${updated.style} ${updated.color}`.trim();
-    } else {
-      // If no width, set empty value to clear the border
-      newValue = '';
-    }
-    
-    console.log(`updateBorderComponent ${sideKey} ${component}=${value} -> "${newValue}"`);
-    handleSideChange(sideKey, newValue);
-  };
-
   const renderBorderInput = (sideKey: string, label: string) => {
-    const components = getBorderComponents(sideKey);
-    
-    console.log(`renderBorderInput ${sideKey}:`, components);
+    // Just use simple local state for each input
+    const [width, setWidth] = React.useState('');
+    const [style, setStyle] = React.useState('solid');
+    const [color, setColor] = React.useState('#000000');
+
+    const handleWidthChange = (newWidth: string) => {
+      setWidth(newWidth);
+      const newValue = newWidth.trim() ? `${newWidth.trim()} ${style} ${color}` : '';
+      handleSideChange(sideKey, newValue);
+    };
+
+    const handleStyleChange = (newStyle: string) => {
+      setStyle(newStyle);
+      const newValue = width.trim() ? `${width.trim()} ${newStyle} ${color}` : '';
+      handleSideChange(sideKey, newValue);
+    };
+
+    const handleColorChange = (newColor: string) => {
+      setColor(newColor);
+      const newValue = width.trim() ? `${width.trim()} ${style} ${newColor}` : '';
+      handleSideChange(sideKey, newValue);
+    };
 
     return (
       <div className="space-y-1">
@@ -229,26 +174,16 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
           <Input
             type="text"
             placeholder="0px"
-            value={components.width}
-            onChange={(e) => {
-              console.log(`Border width change for ${sideKey}:`, e.target.value);
-              updateBorderComponent(sideKey, 'width', e.target.value);
-            }}
-            onFocus={(e) => {
-              console.log(`Border input focused for ${sideKey}`);
-              e.stopPropagation();
-            }}
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
+            value={width}
+            onChange={(e) => handleWidthChange(e.target.value)}
+            onFocus={(e) => e.stopPropagation()}
+            onClick={(e) => e.stopPropagation()}
             className="flex-1 text-xs h-7"
             data-testid={`input-border-width-${sideKey}`}
           />
           <Select
-            value={components.style}
-            onValueChange={(newStyle) => {
-              updateBorderComponent(sideKey, 'style', newStyle);
-            }}
+            value={style}
+            onValueChange={handleStyleChange}
           >
             <SelectTrigger className="w-16 text-xs h-7">
               <SelectValue />
@@ -263,10 +198,8 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
           </Select>
           <input
             type="color"
-            value={components.color}
-            onChange={(e) => {
-              updateBorderComponent(sideKey, 'color', e.target.value);
-            }}
+            value={color}
+            onChange={(e) => handleColorChange(e.target.value)}
             className="w-7 h-7 rounded border cursor-pointer"
           />
         </div>
