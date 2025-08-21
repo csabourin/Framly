@@ -69,6 +69,21 @@ const classSlice = createSlice({
       }
     },
     
+    batchUpdateCustomClass: (state, action: PayloadAction<{
+      name: string;
+      styleUpdates: Record<string, any>;
+    }>) => {
+      const { name, styleUpdates } = action.payload;
+      
+      if (state.customClasses[name]) {
+        // Apply all style updates in a single operation
+        Object.entries(styleUpdates).forEach(([key, value]) => {
+          state.customClasses[name].styles[key] = value;
+        });
+        state.customClasses[name].updatedAt = Date.now();
+      }
+    },
+    
     deleteCustomClass: (state, action: PayloadAction<string>) => {
       const className = action.payload;
       delete state.customClasses[className];
@@ -145,6 +160,7 @@ const classSlice = createSlice({
 export const {
   addCustomClass,
   updateCustomClass,
+  batchUpdateCustomClass,
   deleteCustomClass,
   renameCustomClass,
   selectClass,

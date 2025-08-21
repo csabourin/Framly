@@ -9,6 +9,7 @@ interface CompoundPropertyInputProps {
   propertyType: 'border' | 'margin' | 'padding' | 'borderRadius';
   values: Record<string, any>;
   onChange: (property: string, value: any) => void;
+  onBatchChange?: (propertyUpdates: Record<string, any>) => void;
   simpleValue?: any;
 }
 
@@ -160,6 +161,7 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
   propertyType,
   values,
   onChange,
+  onBatchChange,
   simpleValue
 }) => {
   // Independent state for the "All Sides" global input
@@ -349,7 +351,7 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
   return (
     <div className="border border-gray-200 rounded-md bg-gray-50">
       {/* Global Border Input (for all sides) */}
-      {(propertyType === 'border' || propertyType === 'compound') && (
+      {propertyType === 'border' && (
         <div className="p-2 border-b border-gray-200">
           <BorderInput
             key="global-border"
@@ -364,38 +366,51 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
               setGlobalBorderValue(value);
               
               if (value && value.trim()) {
-                // FIRST: Clear the conflicting shorthand border property
-                console.log('🔴 Clearing shorthand border to avoid conflicts');
-                onChange('border', '');
+                console.log('🔴 Using batch update for all sides:', value);
                 
-                // THEN: Apply the same border value to all four sides
-                console.log('🔴 Applying to all sides:', value);
-                
-                // Use setTimeout to ensure border is cleared first
-                setTimeout(() => {
-                  onChange('border-top', value);
-                }, 10);
-                setTimeout(() => {
-                  onChange('border-right', value);
-                }, 20);
-                setTimeout(() => {
-                  onChange('border-bottom', value);
-                }, 30);
-                setTimeout(() => {
-                  onChange('border-left', value);
-                }, 40);
-                
+                // Use batch update to apply all borders in a single Redux action
+                if (onBatchChange) {
+                  console.log('🔴 Batch updating all border sides');
+                  onBatchChange({
+                    'border': '', // Clear conflicting shorthand first
+                    'border-top': value,
+                    'border-right': value,
+                    'border-bottom': value,
+                    'border-left': value
+                  });
+                } else {
+                  // Fallback to individual calls if no batch handler
+                  console.log('🔴 Fallback to individual onChange calls');
+                  onChange('border', '');
+                  setTimeout(() => {
+                    onChange('border-top', value);
+                    onChange('border-right', value);
+                    onChange('border-bottom', value);
+                    onChange('border-left', value);
+                  }, 10);
+                }
                 console.log(`🔴 Applied global border "${value}" to all sides`);
               } else {
                 // Clear all borders if value is empty
                 console.log('🔴 Clearing all border sides');
-                onChange('border', '');
-                setTimeout(() => {
-                  onChange('border-top', '');
-                  onChange('border-right', '');
-                  onChange('border-bottom', '');
-                  onChange('border-left', '');
-                }, 10);
+                
+                if (onBatchChange) {
+                  onBatchChange({
+                    'border': '',
+                    'border-top': '',
+                    'border-right': '',
+                    'border-bottom': '',
+                    'border-left': ''
+                  });
+                } else {
+                  onChange('border', '');
+                  setTimeout(() => {
+                    onChange('border-top', '');
+                    onChange('border-right', '');
+                    onChange('border-bottom', '');
+                    onChange('border-left', '');
+                  }, 10);
+                }
                 console.log('🔴 Cleared all border sides');
               }
             }}

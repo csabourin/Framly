@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import type { AppDispatch } from '../../store';
 import { RootState } from '../../store';
 import { updateElement, updateElementStyles, addCSSClass, removeCSSClass, deleteElement, selectElement } from '../../store/canvasSlice';
-import { addCustomClass, updateCustomClass, deleteCustomClass } from '../../store/classSlice';
+import { addCustomClass, updateCustomClass, batchUpdateCustomClass, deleteCustomClass } from '../../store/classSlice';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -70,6 +70,37 @@ const PropertiesPanel: React.FC = () => {
 
   const propertyGroups = getPropertyGroups(selectedElement.type as ElementType, selectedElement);
   
+  // Batch property change handler for multiple properties at once (e.g., all border sides)
+  const handleBatchPropertyChange = (propertyUpdates: Record<string, any>) => {
+    console.log('🟦 handleBatchPropertyChange called:', propertyUpdates);
+    
+    if (selectedClassForEditing) {
+      // Update the selected class with batch updates
+      dispatch(batchUpdateCustomClass({
+        name: selectedClassForEditing,
+        styleUpdates: propertyUpdates
+      }));
+    } else if (selectedElement.classes && selectedElement.classes.length > 1) {
+      // Multiple classes available, user needs to select one
+      console.warn('Multiple classes available. Please select a class to edit its styles.');
+      return;
+    } else {
+      // Auto-create a class for batch style updates
+      const autoClassName = `${selectedElement.type}-${Date.now().toString(36)}`;
+      
+      // Add class to element
+      dispatch(addCSSClass({ elementId: selectedElement.id, className: autoClassName }));
+      
+      // Create the class with batch styles
+      dispatch(addCustomClass({
+        name: autoClassName,
+        styles: propertyUpdates,
+        description: `Auto-generated class for ${selectedElement.type}`,
+        category: 'auto-generated'
+      }));
+    }
+  };
+
   const handlePropertyChange = (propertyKey: string, value: any) => {
     console.log('🟡 handlePropertyChange called:', { propertyKey, value });
     // Handle special element-specific properties (not CSS styles)
@@ -492,6 +523,7 @@ const PropertiesPanel: React.FC = () => {
                               propertyType={compoundType}
                               values={getMergedStylesForCompound()}
                               onChange={handlePropertyChange}
+                              onBatchChange={handleBatchPropertyChange}
                               simpleValue={getPropertyValue(property)}
                             />
                           </div>
