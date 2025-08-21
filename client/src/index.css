@@ -73,6 +73,45 @@
   background-color: hsla(203.8863, 88.2845%, 53.1373%, 0.05);
 }
 
+/* Canvas grid pattern */
+.canvas-grid {
+  background-image: 
+    linear-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.1) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Sibling spacing animations during drag operations */
+.sibling-spacing-before {
+  transform: translateY(-8px);
+  transition: transform 0.2s ease-out;
+}
+
+.sibling-spacing-after {
+  transform: translateY(8px);
+  transition: transform 0.2s ease-out;
+}
+
+.sibling-spacing-reset {
+  transform: translateY(0);
+  transition: transform 0.2s ease-out;
+}
+
+/* Enhanced insertion line visibility */
+.insertion-line {
+  z-index: 60;
+  background: linear-gradient(90deg, transparent, #3b82f6, transparent);
+  box-shadow: 0 0 12px rgba(59, 130, 246, 0.8);
+}
+
+.insertion-line-bright {
+  background: #3b82f6;
+  box-shadow: 
+    0 0 12px rgba(59, 130, 246, 0.8),
+    0 0 20px rgba(59, 130, 246, 0.6),
+    0 0 30px rgba(59, 130, 246, 0.4);
+}
+
 .canvas-element.selected {
   border-color: hsl(203.8863, 88.2845%, 53.1373%);
   background-color: hsla(203.8863, 88.2845%, 53.1373%, 0.1);

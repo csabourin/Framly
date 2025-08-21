@@ -29,7 +29,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
 }) => {
   const dispatch = useDispatch();
   const { project } = useSelector((state: RootState) => state.canvas);
-  const { selectedTool, isDraggingForReorder, draggedElementId } = useSelector((state: RootState) => state.ui);
+  const { selectedTool, isDraggingForReorder, draggedElementId, insertionIndicator } = useSelector((state: RootState) => state.ui);
   const elementRef = useRef<HTMLDivElement>(null);
   const [isEditing, setIsEditing] = React.useState(false);
   const textEditRef = useRef<HTMLDivElement>(null);
@@ -42,6 +42,37 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
   // Check if this element is hovered
   const isThisElementHovered = actualHoveredElementId === element.id;
   const thisElementHoveredZone = isThisElementHovered ? actualHoveredZone : null;
+  
+  // Calculate sibling spacing classes based on insertion indicator
+  const getSiblingSpacingClass = useCallback(() => {
+    if (!isDraggingForReorder || !insertionIndicator || !draggedElementId) {
+      return 'sibling-spacing-reset';
+    }
+    
+    const indicator = insertionIndicator as any;
+    
+    // Only apply spacing for "between" position
+    if (indicator.position === 'between' && indicator.referenceElementId) {
+      // If this element is the reference element (the one after the insertion point)
+      if (element.id === indicator.referenceElementId) {
+        return 'sibling-spacing-after'; // Move this element down
+      }
+      
+      // Find the element before the reference element
+      const container = project.elements[indicator.elementId];
+      if (container && container.children) {
+        const refIndex = container.children.indexOf(indicator.referenceElementId);
+        if (refIndex > 0) {
+          const beforeElementId = container.children[refIndex - 1];
+          if (element.id === beforeElementId) {
+            return 'sibling-spacing-before'; // Move this element up
+          }
+        }
+      }
+    }
+    
+    return 'sibling-spacing-reset';
+  }, [isDraggingForReorder, insertionIndicator, draggedElementId, element.id, project.elements]);
 
   const handleClick = useCallback((e: React.MouseEvent) => {
     console.log('CanvasElement click - selectedTool:', selectedTool, 'elementId:', element.id);
@@ -412,6 +443,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
         canvas-element
         ${isSelected ? 'selected' : ''}
         ${element.classes?.join(' ') || ''}
+        ${getSiblingSpacingClass()}
       `}
 
       onClick={handleClick}

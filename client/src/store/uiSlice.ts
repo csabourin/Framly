@@ -20,6 +20,7 @@ interface UIState {
   isDraggingForReorder: boolean;
   hoveredElementId: string | null;
   hoveredZone: 'before' | 'after' | 'inside' | null;
+  insertionIndicator: any;
 }
 
 const initialState: UIState = {
@@ -38,6 +39,7 @@ const initialState: UIState = {
   isDraggingForReorder: false,
   hoveredElementId: null,
   hoveredZone: null,
+  insertionIndicator: null,
 };
 
 const uiSlice = createSlice({

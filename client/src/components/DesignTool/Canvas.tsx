@@ -9,9 +9,13 @@ import CanvasElement from './CanvasElement';
 import { Plus, Minus, Maximize } from 'lucide-react';
 
 interface InsertionIndicator {
-  position: 'before' | 'after' | 'inside';
+  position: 'before' | 'after' | 'inside' | 'between';
   elementId: string;
   bounds: { x: number; y: number; width: number; height: number };
+  isEmpty?: boolean;
+  spacingOffset?: number;
+  referenceElementId?: string | null;
+  insertPosition?: 'before' | 'after' | 'inside';
 }
 
 const Canvas: React.FC = () => {
@@ -78,8 +82,10 @@ const Canvas: React.FC = () => {
     // Determine insertion zone based on mouse position relative to element
     const relativeY = y - elementY;
     
-    // Enhanced insertion zone detection for containers with children
-    if (hoveredElement.isContainer || hoveredElement.type === 'container' || hoveredElement.type === 'rectangle') {
+    // Check if element is a valid drop target (container)
+    const isValidContainer = hoveredElement.isContainer || hoveredElement.type === 'container' || hoveredElement.type === 'rectangle';
+    
+    if (isValidContainer) {
       const children = hoveredElement.children || [];
       
       if (children.length > 0 && forDrag) {
@@ -91,43 +97,44 @@ const Canvas: React.FC = () => {
       }
       
       // Enhanced zone detection for containers
-      const beforeZone = 12;  // Slightly larger for better UX
-      const afterZone = elementHeight - 12;
+      const beforeZone = 15;  // Larger for better UX
+      const afterZone = elementHeight - 15;
       
       if (relativeY < beforeZone) {
         return {
           position: 'before',
           elementId: hoveredElement.id,
-          bounds: { x: elementX, y: elementY - 2, width: elementWidth, height: 4 }
+          bounds: { x: elementX, y: elementY - 3, width: elementWidth, height: 6 }
         };
       } else if (relativeY > afterZone) {
         return {
           position: 'after',
           elementId: hoveredElement.id,
-          bounds: { x: elementX, y: elementY + elementHeight - 2, width: elementWidth, height: 4 }
+          bounds: { x: elementX, y: elementY + elementHeight - 3, width: elementWidth, height: 6 }
         };
       } else {
-        // Default to inside for containers
+        // Inside zone for containers - enhanced visual feedback for empty containers
         return {
           position: 'inside',
           elementId: hoveredElement.id,
-          bounds: { x: elementX, y: elementY, width: elementWidth, height: elementHeight }
+          bounds: { x: elementX + 2, y: elementY + 2, width: elementWidth - 4, height: elementHeight - 4 },
+          isEmpty: children.length === 0
         };
       }
     } else {
-      // For non-container elements like text, use before/after more readily
+      // For non-container elements (text, image, heading, list), only show before/after
       const midpoint = elementHeight / 2;
       if (relativeY < midpoint) {
         return {
           position: 'before',
           elementId: hoveredElement.id,
-          bounds: { x: elementX, y: elementY - 2, width: elementWidth, height: 4 }
+          bounds: { x: elementX, y: elementY - 3, width: elementWidth, height: 6 }
         };
       } else {
         return {
           position: 'after',
           elementId: hoveredElement.id,
-          bounds: { x: elementX, y: elementY + elementHeight - 2, width: elementWidth, height: 4 }
+          bounds: { x: elementX, y: elementY + elementHeight - 3, width: elementWidth, height: 6 }
         };
       }
     }
@@ -165,9 +172,10 @@ const Canvas: React.FC = () => {
       const childHeight = childRect.height / zoomLevel;
       const childBottom = childY + childHeight;
 
-      // Check if mouse is between this child and the next one (or at the end)
+      // Enhanced insertion point detection with better spacing
       const nextChildId = childIds[i + 1];
       let insertionY: number;
+      const insertionGap = 12; // Gap to show between siblings
       
       if (nextChildId) {
         const nextChild = project.elements[nextChildId];
@@ -177,8 +185,11 @@ const Canvas: React.FC = () => {
             const nextChildRect = nextChildDiv.getBoundingClientRect();
             const nextChildY = (nextChildRect.top - canvasRect.top) / zoomLevel;
             
-            // Check if mouse is between current child and next child
-            if (y >= childBottom && y <= nextChildY) {
+            // Check if mouse is between current child and next child with expanded detection zone
+            const gapStart = childBottom - 4; // Start detection slightly before child bottom
+            const gapEnd = nextChildY + 4;     // End detection slightly after next child top
+            
+            if (y >= gapStart && y <= gapEnd) {
               insertionY = childBottom + (nextChildY - childBottom) / 2;
               
               return {
@@ -186,36 +197,38 @@ const Canvas: React.FC = () => {
                 elementId: containerId,
                 referenceElementId: nextChildId,
                 insertPosition: 'before' as any,
-                bounds: { x: containerX, y: insertionY - 1, width: containerWidth, height: 2 }
+                bounds: { x: containerX, y: insertionY - 2, width: containerWidth, height: 4 },
+                spacingOffset: insertionGap  // For visual sibling spacing
               };
             }
           }
         }
       } else {
-        // Check if mouse is after the last child
-        if (y >= childBottom) {
-          insertionY = childBottom + 8; // Small gap after last element
+        // Check if mouse is after the last child (expanded zone)
+        if (y >= childBottom - 4) {
+          insertionY = childBottom + insertionGap;
           
           return {
             position: 'between' as any,
             elementId: containerId,
             referenceElementId: null,
             insertPosition: 'inside' as any,
-            bounds: { x: containerX, y: insertionY - 1, width: containerWidth, height: 2 }
+            bounds: { x: containerX, y: insertionY - 2, width: containerWidth, height: 4 }
           };
         }
       }
       
-      // Check if mouse is before the first child
-      if (i === 0 && y <= childY) {
-        insertionY = childY - 8; // Small gap before first element
+      // Check if mouse is before the first child (expanded zone)
+      if (i === 0 && y <= childY + 4) {
+        insertionY = childY - insertionGap;
         
         return {
           position: 'between' as any,
           elementId: containerId,
           referenceElementId: childId,
           insertPosition: 'before' as any,
-          bounds: { x: containerX, y: insertionY - 1, width: containerWidth, height: 2 }
+          bounds: { x: containerX, y: insertionY - 2, width: containerWidth, height: 4 },
+          spacingOffset: insertionGap  // For visual sibling spacing
         };
       }
     }
@@ -742,37 +755,67 @@ const Canvas: React.FC = () => {
           ) : null;
         })}
         
-        {/* Insertion Indicator */}
+        {/* Enhanced Insertion Indicator */}
         {insertionIndicator && (
           <div
-            className="absolute pointer-events-none z-50"
+            className="absolute pointer-events-none z-[60]"
             style={{
               left: insertionIndicator.bounds.x,
               top: insertionIndicator.bounds.y,
               width: insertionIndicator.bounds.width,
               height: insertionIndicator.bounds.height,
               backgroundColor: 
-                (insertionIndicator as any).position === 'inside' ? 'rgba(168, 85, 247, 0.3)' :
+                (insertionIndicator as any).position === 'inside' ? 
+                  (insertionIndicator as any).isEmpty ? 'rgba(34, 197, 94, 0.15)' : 'rgba(168, 85, 247, 0.15)' :
                 (insertionIndicator as any).position === 'between' ? '#3b82f6' :
                 '#3b82f6',
               border: 
-                (insertionIndicator as any).position === 'inside' ? '2px dashed #a855f7' :
-                (insertionIndicator as any).position === 'between' ? '2px solid #3b82f6' :
+                (insertionIndicator as any).position === 'inside' ? 
+                  (insertionIndicator as any).isEmpty ? '2px dashed #22c55e' : '2px dashed #a855f7' :
                 'none',
-              borderRadius: (insertionIndicator as any).position === 'inside' ? '4px' : '0',
-              boxShadow: (insertionIndicator as any).position === 'between' ? '0 0 8px rgba(59, 130, 246, 0.6)' : 'none'
+              borderRadius: (insertionIndicator as any).position === 'inside' ? '6px' : '2px',
+              boxShadow: 
+                (insertionIndicator as any).position === 'between' ? '0 0 12px rgba(59, 130, 246, 0.8)' :
+                (insertionIndicator as any).position === 'inside' && (insertionIndicator as any).isEmpty ? '0 0 8px rgba(34, 197, 94, 0.4)' :
+                (insertionIndicator as any).position === 'inside' ? '0 0 8px rgba(168, 85, 247, 0.4)' :
+                '0 0 12px rgba(59, 130, 246, 0.8)'
             }}
           >
-            {/* Enhanced visual for insertion line */}
+            {/* Enhanced visual indicators */}
             {(insertionIndicator as any).position === 'between' && (
               <>
                 <div 
-                  className="absolute left-0 top-0 w-2 h-2 bg-blue-500 rounded-full transform -translate-x-1 -translate-y-1"
-                  style={{ boxShadow: '0 0 4px rgba(59, 130, 246, 0.8)' }}
+                  className="absolute left-0 top-1/2 w-3 h-3 bg-blue-500 rounded-full transform -translate-x-1.5 -translate-y-1.5 border-2 border-white"
+                  style={{ boxShadow: '0 0 6px rgba(59, 130, 246, 1)' }}
                 />
                 <div 
-                  className="absolute right-0 top-0 w-2 h-2 bg-blue-500 rounded-full transform translate-x-1 -translate-y-1"
-                  style={{ boxShadow: '0 0 4px rgba(59, 130, 246, 0.8)' }}
+                  className="absolute right-0 top-1/2 w-3 h-3 bg-blue-500 rounded-full transform translate-x-1.5 -translate-y-1.5 border-2 border-white"
+                  style={{ boxShadow: '0 0 6px rgba(59, 130, 246, 1)' }}
+                />
+                {/* Center indicator for better visibility */}
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1 h-1 bg-white rounded-full" />
+              </>
+            )}
+            
+            {/* Empty container indicator */}
+            {(insertionIndicator as any).position === 'inside' && (insertionIndicator as any).isEmpty && (
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="text-green-600 text-sm font-medium bg-white px-2 py-1 rounded shadow-sm">
+                  Drop here
+                </div>
+              </div>
+            )}
+            
+            {/* Regular insertion line indicators */}
+            {((insertionIndicator as any).position === 'before' || (insertionIndicator as any).position === 'after') && (
+              <>
+                <div 
+                  className="absolute left-0 top-1/2 w-3 h-3 bg-blue-500 rounded-full transform -translate-x-1.5 -translate-y-1.5 border-2 border-white"
+                  style={{ boxShadow: '0 0 6px rgba(59, 130, 246, 1)' }}
+                />
+                <div 
+                  className="absolute right-0 top-1/2 w-3 h-3 bg-blue-500 rounded-full transform translate-x-1.5 -translate-y-1.5 border-2 border-white"
+                  style={{ boxShadow: '0 0 6px rgba(59, 130, 246, 1)' }}
                 />
               </>
             )}
