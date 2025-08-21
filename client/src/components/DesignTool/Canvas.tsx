@@ -13,6 +13,7 @@ interface InsertionIndicator {
   elementId: string;
   bounds: { x: number; y: number; width: number; height: number };
   isEmpty?: boolean;
+  insertAtBeginning?: boolean;
   spacingOffset?: number;
   referenceElementId?: string | null;
   insertPosition?: 'before' | 'after' | 'inside';
@@ -118,13 +119,26 @@ const Canvas: React.FC = () => {
           bounds: { x: elementX, y: elementY + elementHeight - 3, width: elementWidth, height: 6 }
         };
       } else {
-        // Inside zone for containers - enhanced visual feedback for empty containers
-        return {
-          position: 'inside',
-          elementId: hoveredElement.id,
-          bounds: { x: elementX + 2, y: elementY + 2, width: elementWidth - 4, height: elementHeight - 4 },
-          isEmpty: children.length === 0
-        };
+        // Inside zone for containers - make empty containers position-aware
+        if (children.length === 0) {
+          // Empty container: position-aware insertion
+          const relativePosition = relativeY / elementHeight;
+          return {
+            position: 'inside',
+            elementId: hoveredElement.id,
+            bounds: { x: elementX + 2, y: elementY + 2, width: elementWidth - 4, height: elementHeight - 4 },
+            isEmpty: true,
+            insertAtBeginning: relativePosition < 0.5 // Insert at beginning if in top half
+          };
+        } else {
+          // Container with children: show as inside insertion
+          return {
+            position: 'inside',
+            elementId: hoveredElement.id,
+            bounds: { x: elementX + 2, y: elementY + 2, width: elementWidth - 4, height: elementHeight - 4 },
+            isEmpty: false
+          };
+        }
       }
     } else {
       // For non-container elements (text, image, heading, list), show before/after as sibling insertion
@@ -731,7 +745,12 @@ const Canvas: React.FC = () => {
           if (canDropHere) {
             if ((insertionZone as any).position === 'inside') {
               parentId = insertionZone.elementId;
-              insertPosition = 'inside';
+              // For empty containers, respect the spatial positioning
+              if ((insertionZone as any).isEmpty && (insertionZone as any).insertAtBeginning) {
+                insertPosition = 'inside'; // Will be first child
+              } else {
+                insertPosition = 'inside'; // Will be last child (default)
+              }
             } else if ((insertionZone as any).position === 'between') {
               // Precise insertion between siblings
               parentId = insertionZone.elementId; // This is the container ID
@@ -933,7 +952,9 @@ const Canvas: React.FC = () => {
               height: insertionIndicator.bounds.height,
               backgroundColor: 
                 (insertionIndicator as any).position === 'inside' ? 
-                  (insertionIndicator as any).isEmpty ? 'rgba(34, 197, 94, 0.15)' : 'rgba(168, 85, 247, 0.15)' :
+                  (insertionIndicator as any).isEmpty ? 
+                    (insertionIndicator as any).insertAtBeginning ? 'rgba(34, 197, 94, 0.15)' : 'rgba(34, 197, 94, 0.1)' :
+                    'rgba(168, 85, 247, 0.15)' :
                 (insertionIndicator as any).position === 'between' ? '#3b82f6' :
                 '#3b82f6',
               border: 
@@ -964,12 +985,18 @@ const Canvas: React.FC = () => {
               </>
             )}
             
-            {/* Empty container indicator */}
+            {/* Empty container indicator with spatial positioning */}
             {(insertionIndicator as any).position === 'inside' && (insertionIndicator as any).isEmpty && (
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-green-600 text-sm font-medium bg-white px-2 py-1 rounded shadow-sm">
-                  Drop here
+                <div className="text-green-600 text-sm font-medium bg-white px-3 py-1 rounded-lg shadow-lg border border-green-200">
+                  {(insertionIndicator as any).insertAtBeginning ? 'Drop at top' : 'Drop at bottom'}
                 </div>
+                {/* Position indicator */}
+                <div 
+                  className={`absolute w-2 h-2 bg-green-500 rounded-full ${
+                    (insertionIndicator as any).insertAtBeginning ? 'top-2 left-1/2 transform -translate-x-1/2' : 'bottom-2 left-1/2 transform -translate-x-1/2'
+                  }`}
+                />
               </div>
             )}
             
