@@ -9,6 +9,7 @@ interface CompoundPropertyInputProps {
   propertyType: 'border' | 'margin' | 'padding' | 'borderRadius';
   values: Record<string, any>;
   onChange: (property: string, value: any) => void;
+  simpleValue?: any;
 }
 
 interface SideConfig {
@@ -20,10 +21,10 @@ interface SideConfig {
 const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
   propertyType,
   values,
-  onChange
+  onChange,
+  simpleValue
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [isLinked, setIsLinked] = useState(true);
 
   // Configuration for different property types
   const getConfig = () => {
@@ -116,22 +117,28 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
     const side = config.sides.find(s => s.key === sideKey);
     if (side) {
       onChange(side.prop, value);
-
-      // If linked, update all sides
-      if (isLinked) {
-        config.sides.forEach(otherSide => {
-          if (otherSide.key !== sideKey) {
-            onChange(otherSide.prop, value);
-          }
-        });
-      }
     }
   };
 
   const getValue = (sideKey: string): string => {
     const side = config.sides.find(s => s.key === sideKey);
     if (!side) return '';
-    return values[side.prop] || '';
+    
+    // Check if there's a specific side value first
+    const sideValue = values[side.prop];
+    if (sideValue) return sideValue;
+    
+    // If no side-specific value but there's a simple value, use it as default
+    if (simpleValue && !hasAnyAdvancedValues()) {
+      return simpleValue;
+    }
+    
+    return '';
+  };
+
+  // Check if any advanced (side-specific) values are present
+  const hasAnyAdvancedValues = (): boolean => {
+    return config.sides.some(side => values[side.prop]);
   };
 
   const renderBorderInput = (sideKey: string, label: string) => {
@@ -144,45 +151,47 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
     const color = parts[2] || '#000000';
 
     return (
-      <div className="flex items-center gap-2">
-        <Label className="w-12 text-xs">{label}</Label>
-        <Input
-          type="text"
-          placeholder="Width"
-          value={width}
-          onChange={(e) => {
-            const newValue = `${e.target.value} ${style} ${color}`.trim();
-            handleSideChange(sideKey, newValue);
-          }}
-          className="w-16 text-xs"
-        />
-        <Select
-          value={style}
-          onValueChange={(newStyle) => {
-            const newValue = `${width} ${newStyle} ${color}`.trim();
-            handleSideChange(sideKey, newValue);
-          }}
-        >
-          <SelectTrigger className="w-20 text-xs">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="solid">Solid</SelectItem>
-            <SelectItem value="dashed">Dashed</SelectItem>
-            <SelectItem value="dotted">Dotted</SelectItem>
-            <SelectItem value="double">Double</SelectItem>
-            <SelectItem value="none">None</SelectItem>
-          </SelectContent>
-        </Select>
-        <input
-          type="color"
-          value={color}
-          onChange={(e) => {
-            const newValue = `${width} ${style} ${e.target.value}`.trim();
-            handleSideChange(sideKey, newValue);
-          }}
-          className="w-8 h-6 rounded border cursor-pointer"
-        />
+      <div className="space-y-1">
+        <Label className="text-xs text-gray-500">{label}</Label>
+        <div className="flex gap-1">
+          <Input
+            type="text"
+            placeholder="0px"
+            value={width}
+            onChange={(e) => {
+              const newValue = `${e.target.value} ${style} ${color}`.trim();
+              handleSideChange(sideKey, newValue);
+            }}
+            className="flex-1 text-xs h-7"
+          />
+          <Select
+            value={style}
+            onValueChange={(newStyle) => {
+              const newValue = `${width} ${newStyle} ${color}`.trim();
+              handleSideChange(sideKey, newValue);
+            }}
+          >
+            <SelectTrigger className="w-16 text-xs h-7">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="solid">Solid</SelectItem>
+              <SelectItem value="dashed">Dashed</SelectItem>
+              <SelectItem value="dotted">Dotted</SelectItem>
+              <SelectItem value="double">Double</SelectItem>
+              <SelectItem value="none">None</SelectItem>
+            </SelectContent>
+          </Select>
+          <input
+            type="color"
+            value={color}
+            onChange={(e) => {
+              const newValue = `${width} ${style} ${e.target.value}`.trim();
+              handleSideChange(sideKey, newValue);
+            }}
+            className="w-7 h-7 rounded border cursor-pointer"
+          />
+        </div>
       </div>
     );
   };
@@ -191,90 +200,56 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
     const value = getValue(sideKey);
     
     return (
-      <div className="flex items-center gap-2">
-        <Label className="w-12 text-xs">{label}</Label>
+      <div className="space-y-1">
+        <Label className="text-xs text-gray-500">{label}</Label>
         <Input
           type="text"
           placeholder="0px"
           value={value}
           onChange={(e) => handleSideChange(sideKey, e.target.value)}
-          className="flex-1 text-xs"
+          className="text-xs h-7"
         />
       </div>
     );
   };
 
   return (
-    <div className="border rounded-md">
+    <div className="border border-gray-200 rounded-md bg-gray-50">
       {/* Header */}
       <button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="w-full p-3 flex items-center justify-between text-left hover:bg-gray-50 transition-colors"
+        className="w-full p-2 flex items-center justify-between text-left hover:bg-gray-100 transition-colors"
       >
-        <div className="flex items-center gap-2">
-          <span className="text-sm">{config.icon}</span>
-          <span className="font-medium text-sm">{config.label}</span>
-        </div>
+        <span className="text-sm text-gray-600">Individual sides</span>
         {isExpanded ? (
-          <ChevronDown className="w-4 h-4 text-gray-400" />
+          <ChevronDown className="w-3 h-3 text-gray-400" />
         ) : (
-          <ChevronRight className="w-4 h-4 text-gray-400" />
+          <ChevronRight className="w-3 h-3 text-gray-400" />
         )}
       </button>
 
       {/* Expanded Content */}
       {isExpanded && (
-        <div className="px-3 pb-3 space-y-3 border-t border-gray-100">
-          {/* Link Toggle */}
-          <div className="flex items-center gap-2">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setIsLinked(!isLinked)}
-              className="h-6 px-2 text-xs"
-            >
-              {isLinked ? <Link className="w-3 h-3" /> : <Unlink className="w-3 h-3" />}
-              {isLinked ? 'Linked' : 'Unlinked'}
-            </Button>
-          </div>
-
-          {/* All Sides Shortcut */}
-          <div className="space-y-2">
-            <Label className="text-xs font-medium text-gray-600">All Sides</Label>
-            {propertyType === 'border' ? (
-              renderBorderInput('border', 'All')
-            ) : (
-              <Input
-                type="text"
-                placeholder={propertyType === 'borderRadius' ? '0px' : '0px'}
-                onChange={(e) => handleShortcutChange(config.shortcuts[config.shortcuts.length - 1]?.key || '', e.target.value)}
-                className="text-xs"
-              />
-            )}
-          </div>
-
+        <div className="px-2 pb-2 space-y-3 border-t border-gray-200">
           {/* Individual Sides */}
-          {!isLinked && (
-            <div className="space-y-2">
-              <Label className="text-xs font-medium text-gray-600">Individual Sides</Label>
-              <div className="space-y-2">
-                {config.sides.map((side) => (
-                  <div key={side.key}>
-                    {propertyType === 'border' ? (
-                      renderBorderInput(side.key, side.label)
-                    ) : (
-                      renderSpacingInput(side.key, side.label)
-                    )}
-                  </div>
-                ))}
-              </div>
+          <div className="space-y-2">
+            <div className="grid grid-cols-2 gap-2">
+              {config.sides.map((side) => (
+                <div key={side.key}>
+                  {propertyType === 'border' ? (
+                    renderBorderInput(side.key, side.label)
+                  ) : (
+                    renderSpacingInput(side.key, side.label)
+                  )}
+                </div>
+              ))}
             </div>
-          )}
+          </div>
 
           {/* Horizontal/Vertical Shortcuts */}
-          {!isLinked && config.shortcuts.length > 1 && (
+          {config.shortcuts.length > 1 && (
             <div className="space-y-2">
-              <Label className="text-xs font-medium text-gray-600">Shortcuts</Label>
+              <Label className="text-xs font-medium text-gray-500">Shortcuts</Label>
               <div className="grid grid-cols-2 gap-2">
                 {config.shortcuts.slice(0, -1).map((shortcut) => (
                   <div key={shortcut.key} className="space-y-1">
@@ -283,7 +258,7 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
                       type="text"
                       placeholder="0px"
                       onChange={(e) => handleShortcutChange(shortcut.key, e.target.value)}
-                      className="text-xs"
+                      className="text-xs h-7"
                     />
                   </div>
                 ))}

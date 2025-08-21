@@ -266,6 +266,17 @@ const PropertiesPanel: React.FC = () => {
     return baseStyles;
   };
 
+  // Determine if a property has advanced compound controls
+  const getCompoundPropertyType = (propertyKey: string): 'border' | 'margin' | 'padding' | 'borderRadius' | null => {
+    switch (propertyKey) {
+      case 'border': return 'border';
+      case 'margin': return 'margin';
+      case 'padding': return 'padding';
+      case 'borderRadius': return 'borderRadius';
+      default: return null;
+    }
+  };
+
   const getCategoryIcon = (category: string) => {
     const icons: Record<string, React.ComponentType<any>> = {
       layout: Layout,
@@ -465,12 +476,27 @@ const PropertiesPanel: React.FC = () => {
               {isExpanded && (
                 <div className="px-4 pb-4 space-y-4" data-testid={`group-content-${group.category}`}>
                   {group.properties.map((property) => (
-                    <PropertyInput
-                      key={property.key}
-                      config={property}
-                      value={getPropertyValue(property)}
-                      onChange={(value) => handlePropertyChange(property.key, value)}
-                    />
+                    <div key={property.key}>
+                      <PropertyInput
+                        config={property}
+                        value={getPropertyValue(property)}
+                        onChange={(value) => handlePropertyChange(property.key, value)}
+                      />
+                      {/* Add advanced controls right below their simple counterparts */}
+                      {(() => {
+                        const compoundType = getCompoundPropertyType(property.key);
+                        return compoundType && (
+                          <div className="mt-2">
+                            <CompoundPropertyInput
+                              propertyType={compoundType}
+                              values={getMergedStylesForCompound()}
+                              onChange={handlePropertyChange}
+                              simpleValue={getPropertyValue(property)}
+                            />
+                          </div>
+                        );
+                      })()}
+                    </div>
                   ))}
                 </div>
               )}
@@ -478,37 +504,7 @@ const PropertiesPanel: React.FC = () => {
           );
         })}
 
-        {/* Compound Property Sections */}
-        <div className="border-b border-gray-200">
-          <div className="p-4">
-            <h3 className="font-medium text-gray-900 mb-4 flex items-center gap-2">
-              <Spacing className="w-4 h-4 text-gray-600" />
-              Advanced Spacing & Borders
-            </h3>
-            <div className="space-y-4">
-              <CompoundPropertyInput
-                propertyType="border"
-                values={getMergedStylesForCompound()}
-                onChange={handlePropertyChange}
-              />
-              <CompoundPropertyInput
-                propertyType="margin"
-                values={getMergedStylesForCompound()}
-                onChange={handlePropertyChange}
-              />
-              <CompoundPropertyInput
-                propertyType="padding"
-                values={getMergedStylesForCompound()}
-                onChange={handlePropertyChange}
-              />
-              <CompoundPropertyInput
-                propertyType="borderRadius"
-                values={getMergedStylesForCompound()}
-                onChange={handlePropertyChange}
-              />
-            </div>
-          </div>
-        </div>
+        {/* Removed standalone compound property sections - they now appear inline */}
 
       </div>
     </aside>
