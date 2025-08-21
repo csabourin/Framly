@@ -38,7 +38,9 @@ const PropertiesPanel: React.FC = () => {
   const [expandedGroups, setExpandedGroups] = useState<Record<string, boolean>>({
     layout: true,
     spacing: true,
-    appearance: true
+    appearance: true,
+    flex: true,
+    grid: true
   });
 
   if (!selectedElement) {

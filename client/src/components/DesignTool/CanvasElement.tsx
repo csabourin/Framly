@@ -173,13 +173,26 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     return undefined;
   };
 
+  // Convert kebab-case CSS properties to camelCase for React
+  const convertCSSPropertiesToCamelCase = (styles: any): React.CSSProperties => {
+    const camelCaseStyles: any = {};
+    
+    for (const [key, value] of Object.entries(styles)) {
+      // Convert kebab-case to camelCase
+      const camelKey = key.replace(/-([a-z])/g, (match, letter) => letter.toUpperCase());
+      camelCaseStyles[camelKey] = value;
+    }
+    
+    return camelCaseStyles;
+  };
+
   const combinedStyles: React.CSSProperties = {
     position: element.styles.position === 'absolute' ? 'absolute' : 'relative',
     left: element.styles.position === 'absolute' ? element.x : undefined,
     top: element.styles.position === 'absolute' ? element.y : undefined,
     width: element.styles.width || (element.width === 0 ? '100%' : element.width),
     height: element.styles.minHeight ? undefined : element.height,
-    ...element.styles,
+    ...convertCSSPropertiesToCamelCase(element.styles),
     backgroundColor: getBackgroundColor(),
     border: getBorderStyle() || element.styles.border,
     boxShadow: getBoxShadow(),

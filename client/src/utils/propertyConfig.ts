@@ -80,11 +80,55 @@ const layoutProperties: PropertyConfig[] = [
     description: 'Element height'
   },
   {
+    key: 'top',
+    label: 'Top',
+    type: 'unit',
+    category: 'layout',
+    priority: 5,
+    units: ['px', '%', 'em', 'rem', 'vh', 'auto'],
+    defaultUnit: 'px',
+    description: 'Distance from top edge',
+    condition: (element) => element.styles?.position && ['absolute', 'fixed', 'sticky'].includes(element.styles.position)
+  },
+  {
+    key: 'bottom',
+    label: 'Bottom',
+    type: 'unit',
+    category: 'layout',
+    priority: 6,
+    units: ['px', '%', 'em', 'rem', 'vh', 'auto'],
+    defaultUnit: 'px',
+    description: 'Distance from bottom edge',
+    condition: (element) => element.styles?.position && ['absolute', 'fixed', 'sticky'].includes(element.styles.position)
+  },
+  {
+    key: 'left',
+    label: 'Left',
+    type: 'unit',
+    category: 'layout',
+    priority: 7,
+    units: ['px', '%', 'em', 'rem', 'vw', 'auto'],
+    defaultUnit: 'px',
+    description: 'Distance from left edge',
+    condition: (element) => element.styles?.position && ['absolute', 'fixed', 'sticky'].includes(element.styles.position)
+  },
+  {
+    key: 'right',
+    label: 'Right',
+    type: 'unit',
+    category: 'layout',
+    priority: 8,
+    units: ['px', '%', 'em', 'rem', 'vw', 'auto'],
+    defaultUnit: 'px',
+    description: 'Distance from right edge',
+    condition: (element) => element.styles?.position && ['absolute', 'fixed', 'sticky'].includes(element.styles.position)
+  },
+  {
     key: 'zIndex',
     label: 'Stack Order',
     type: 'number',
     category: 'layout',
-    priority: 8,
+    priority: 9,
     min: -999,
     max: 999,
     description: 'Controls which elements appear in front',
