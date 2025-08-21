@@ -74,6 +74,30 @@ const PropertiesPanel: React.FC = () => {
         id: selectedElement.id,
         updates: { [propertyKey]: processedValue }
       }));
+    } else if (['width', 'height'].includes(propertyKey)) {
+      // Width and height are element properties, not styles
+      // Extract numeric value for element property, keep full value for styles
+      let elementValue = value;
+      
+      // If it's a unit string, extract the numeric part for the element property
+      if (typeof value === 'string' && value.match(/^\d+(\.\d+)?(px|%|vw|vh|em|rem)$/)) {
+        const numericValue = parseFloat(value);
+        if (!isNaN(numericValue)) {
+          elementValue = numericValue;
+        }
+      }
+      
+      // Update element property with the processed value
+      dispatch(updateElement({
+        id: selectedElement.id,
+        updates: { [propertyKey]: elementValue }
+      }));
+      
+      // Update styles with the full value for rendering consistency
+      dispatch(updateElementStyles({
+        id: selectedElement.id,
+        styles: { [propertyKey]: value }
+      }));
     } else {
       // Regular style update - use camelCase for React style properties
       dispatch(updateElementStyles({
