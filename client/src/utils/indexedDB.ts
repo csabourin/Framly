@@ -1,13 +1,16 @@
 import { CanvasElement, Project, CustomComponent, ComponentCategory } from '../types/canvas';
+import { CustomClass, Category } from '../store/classSlice';
 
 const DB_NAME = 'DesignToolDB';
-const DB_VERSION = 1;
+const DB_VERSION = 2;
 
 // Store names
 const PROJECTS_STORE = 'projects';
 const COMPONENTS_STORE = 'components';
 const CATEGORIES_STORE = 'categories';
 const SETTINGS_STORE = 'settings';
+const CUSTOM_CLASSES_STORE = 'customClasses';
+const CLASS_CATEGORIES_STORE = 'classCategories';
 
 interface IndexedDBSchema {
   projects: {
@@ -29,6 +32,22 @@ interface IndexedDBSchema {
       data: any;
       updatedAt: string;
     };
+  };
+  customClasses: {
+    key: string;
+    value: CustomClass & { updatedAt: string };
+  };
+  classCategories: {
+    key: string;
+    value: Category & { updatedAt: string };
+  };
+  customClasses: {
+    key: string;
+    value: CustomClass & { updatedAt: string };
+  };
+  classCategories: {
+    key: string;
+    value: Category & { updatedAt: string };
   };
 }
 
@@ -77,6 +96,18 @@ class IndexedDBManager {
 
         if (!db.objectStoreNames.contains(SETTINGS_STORE)) {
           db.createObjectStore(SETTINGS_STORE, { keyPath: 'id' });
+        }
+
+        if (!db.objectStoreNames.contains(CUSTOM_CLASSES_STORE)) {
+          const customClassStore = db.createObjectStore(CUSTOM_CLASSES_STORE, { keyPath: 'name' });
+          customClassStore.createIndex('category', 'category', { unique: false });
+          customClassStore.createIndex('updatedAt', 'updatedAt', { unique: false });
+        }
+
+        if (!db.objectStoreNames.contains(CLASS_CATEGORIES_STORE)) {
+          const classCategoryStore = db.createObjectStore(CLASS_CATEGORIES_STORE, { keyPath: 'id' });
+          classCategoryStore.createIndex('type', 'type', { unique: false });
+          classCategoryStore.createIndex('updatedAt', 'updatedAt', { unique: false });
         }
 
         console.log('IndexedDB schema created/upgraded');
@@ -291,10 +322,94 @@ class IndexedDBManager {
     });
   }
 
+  // Custom Classes operations
+  async saveCustomClass(customClass: CustomClass): Promise<void> {
+    const db = await this.ensureDB();
+    const transaction = db.transaction([CUSTOM_CLASSES_STORE], 'readwrite');
+    const store = transaction.objectStore(CUSTOM_CLASSES_STORE);
+    
+    const classWithTimestamp = {
+      ...customClass,
+      updatedAt: new Date().toISOString()
+    };
+
+    await new Promise<void>((resolve, reject) => {
+      const request = store.put(classWithTimestamp);
+      request.onsuccess = () => resolve();
+      request.onerror = () => reject(request.error);
+    });
+  }
+
+  async getAllCustomClasses(): Promise<CustomClass[]> {
+    const db = await this.ensureDB();
+    const transaction = db.transaction([CUSTOM_CLASSES_STORE], 'readonly');
+    const store = transaction.objectStore(CUSTOM_CLASSES_STORE);
+
+    return new Promise((resolve, reject) => {
+      const request = store.getAll();
+      request.onsuccess = () => {
+        const results = request.result.map((item: any) => {
+          const { updatedAt, ...customClass } = item;
+          return customClass as CustomClass;
+        });
+        resolve(results);
+      };
+      request.onerror = () => reject(request.error);
+    });
+  }
+
+  async deleteCustomClass(className: string): Promise<void> {
+    const db = await this.ensureDB();
+    const transaction = db.transaction([CUSTOM_CLASSES_STORE], 'readwrite');
+    const store = transaction.objectStore(CUSTOM_CLASSES_STORE);
+
+    await new Promise<void>((resolve, reject) => {
+      const request = store.delete(className);
+      request.onsuccess = () => resolve();
+      request.onerror = () => reject(request.error);
+    });
+  }
+
+  // Class Categories operations
+  async saveClassCategory(category: Category): Promise<void> {
+    const db = await this.ensureDB();
+    const transaction = db.transaction([CLASS_CATEGORIES_STORE], 'readwrite');
+    const store = transaction.objectStore(CLASS_CATEGORIES_STORE);
+    
+    const categoryWithTimestamp = {
+      ...category,
+      updatedAt: new Date().toISOString()
+    };
+
+    await new Promise<void>((resolve, reject) => {
+      const request = store.put(categoryWithTimestamp);
+      request.onsuccess = () => resolve();
+      request.onerror = () => reject(request.error);
+    });
+  }
+
+  async getAllClassCategories(): Promise<Category[]> {
+    const db = await this.ensureDB();
+    const transaction = db.transaction([CLASS_CATEGORIES_STORE], 'readonly');
+    const store = transaction.objectStore(CLASS_CATEGORIES_STORE);
+
+    return new Promise((resolve, reject) => {
+      const request = store.getAll();
+      request.onsuccess = () => {
+        const results = request.result.map((item: any) => {
+          const { updatedAt, ...category } = item;
+          return category as Category;
+        });
+        resolve(results);
+      };
+      request.onerror = () => reject(request.error);
+    });
+  }
+
   // Utility methods
   async clearAll(): Promise<void> {
     const db = await this.ensureDB();
-    const transaction = db.transaction([PROJECTS_STORE, COMPONENTS_STORE, CATEGORIES_STORE, SETTINGS_STORE], 'readwrite');
+    const transaction = db.transaction([PROJECTS_STORE, COMPONENTS_STORE, CATEGORIES_STORE, SETTINGS_STORE, CUSTOM_CLASSES_STORE, CLASS_CATEGORIES_STORE], 'readwrite');
     
     await Promise.all([
       new Promise<void>((resolve, reject) => {
@@ -314,6 +429,16 @@ class IndexedDBManager {
       }),
       new Promise<void>((resolve, reject) => {
         const request = transaction.objectStore(SETTINGS_STORE).clear();
+        request.onsuccess = () => resolve();
+        request.onerror = () => reject(request.error);
+      }),
+      new Promise<void>((resolve, reject) => {
+        const request = transaction.objectStore(CUSTOM_CLASSES_STORE).clear();
+        request.onsuccess = () => resolve();
+        request.onerror = () => reject(request.error);
+      }),
+      new Promise<void>((resolve, reject) => {
+        const request = transaction.objectStore(CLASS_CATEGORIES_STORE).clear();
         request.onsuccess = () => resolve();
         request.onerror = () => reject(request.error);
       })
@@ -394,6 +519,56 @@ export async function loadCategoriesFromIndexedDB(): Promise<ComponentCategory[]
     return categories;
   } catch (error) {
     console.error('Failed to load categories from IndexedDB:', error);
+    return [];
+  }
+}
+
+// Custom Classes convenience methods
+export async function saveCustomClassToIndexedDB(customClass: CustomClass): Promise<void> {
+  try {
+    await indexedDBManager.saveCustomClass(customClass);
+    console.log('Custom class saved to IndexedDB:', customClass.name);
+  } catch (error) {
+    console.error('Failed to save custom class to IndexedDB:', error);
     throw error;
+  }
+}
+
+export async function loadCustomClassesFromIndexedDB(): Promise<CustomClass[]> {
+  try {
+    return await indexedDBManager.getAllCustomClasses();
+  } catch (error) {
+    console.error('Failed to load custom classes from IndexedDB:', error);
+    return [];
+  }
+}
+
+export async function deleteCustomClassFromIndexedDB(className: string): Promise<void> {
+  try {
+    await indexedDBManager.deleteCustomClass(className);
+    console.log('Custom class deleted from IndexedDB:', className);
+  } catch (error) {
+    console.error('Failed to delete custom class from IndexedDB:', error);
+    throw error;
+  }
+}
+
+// Class Categories convenience methods
+export async function saveClassCategoryToIndexedDB(category: Category): Promise<void> {
+  try {
+    await indexedDBManager.saveClassCategory(category);
+    console.log('Class category saved to IndexedDB:', category.id);
+  } catch (error) {
+    console.error('Failed to save class category to IndexedDB:', error);
+    throw error;
+  }
+}
+
+export async function loadClassCategoriesFromIndexedDB(): Promise<Category[]> {
+  try {
+    return await indexedDBManager.getAllClassCategories();
+  } catch (error) {
+    console.error('Failed to load class categories from IndexedDB:', error);
+    return [];
   }
 }

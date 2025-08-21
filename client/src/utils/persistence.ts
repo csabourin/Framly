@@ -1,6 +1,7 @@
 import { store } from '../store';
 import { loadProject } from '../store/canvasSlice';
 import { loadComponents } from '../store/componentSlice';
+import { loadCustomClassesFromStorage, loadCategoriesFromStorage } from '../store/classSlice';
 import { 
   initializeDB, 
   saveProjectToIndexedDB, 
@@ -9,6 +10,8 @@ import {
   loadComponentsFromIndexedDB,
   saveCategoryToIndexedDB,
   loadCategoriesFromIndexedDB,
+  loadCustomClassesFromIndexedDB,
+  loadClassCategoriesFromIndexedDB,
   indexedDBManager
 } from './indexedDB';
 import { Project, CustomComponent, ComponentCategory } from '../types/canvas';
@@ -51,6 +54,9 @@ export class PersistenceManager {
       
       // Load components and categories
       await this.loadComponents();
+      
+      // Load custom classes and categories
+      await this.loadCustomClasses();
     } catch (error) {
       console.error('Failed to load persisted data:', error);
     }
@@ -105,6 +111,29 @@ export class PersistenceManager {
     }
   }
 
+  private async loadCustomClasses(): Promise<void> {
+    try {
+      const [customClasses, classCategories] = await Promise.all([
+        loadCustomClassesFromIndexedDB(),
+        loadClassCategoriesFromIndexedDB()
+      ]);
+
+      // Convert array to object for Redux store
+      const customClassesObject = customClasses.reduce((acc, cls) => {
+        acc[cls.name] = cls;
+        return acc;
+      }, {} as Record<string, any>);
+
+      // Load into Redux store
+      store.dispatch(loadCustomClassesFromStorage(customClassesObject));
+      store.dispatch(loadCategoriesFromStorage(classCategories));
+      
+      console.log(`Loaded ${customClasses.length} custom classes and ${classCategories.length} class categories`);
+    } catch (error) {
+      console.error('Failed to load custom classes:', error);
+    }
+  }
+
   async saveCurrentProject(): Promise<void> {
     try {
       const state = store.getState();
@@ -120,6 +149,9 @@ export class PersistenceManager {
         ...project,
         id: PROJECT_ID
       });
+      
+      // Also save custom classes when project is saved
+      await this.saveCustomClasses();
       
       this.lastSavedState = currentStateString;
       console.log('Project auto-saved');
@@ -198,6 +230,33 @@ export class PersistenceManager {
     } catch (error) {
       console.error('Failed to export data:', error);
       throw error;
+    }
+  }
+
+  async saveCustomClasses(): Promise<void> {
+    try {
+      const state = store.getState();
+      const classState = (state as any).classes;
+      
+      if (classState) {
+        const { customClasses, categories } = classState;
+        
+        // Save custom classes
+        await Promise.all(
+          Object.values(customClasses).map((cls: any) => 
+            indexedDBManager.saveCustomClass(cls)
+          )
+        );
+        
+        // Save class categories
+        await Promise.all(
+          categories.map((category: any) => 
+            indexedDBManager.saveClassCategory(category)
+          )
+        );
+      }
+    } catch (error) {
+      console.error('Failed to save custom classes:', error);
     }
   }
 

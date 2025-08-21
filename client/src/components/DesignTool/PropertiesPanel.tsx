@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import type { AppDispatch } from '../../store';
 import { RootState } from '../../store';
 import { updateElement, updateElementStyles, addCSSClass, removeCSSClass, deleteElement, selectElement } from '../../store/canvasSlice';
-import { addCustomClass, updateCustomClass, deleteCustomClass, saveCustomClass, updateCustomClassDB, loadCustomClasses } from '../../store/classSlice';
+import { addCustomClass, updateCustomClass, deleteCustomClass } from '../../store/classSlice';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -105,14 +105,13 @@ const PropertiesPanel: React.FC = () => {
     } else {
       // Check if we're editing a specific class or element inline styles
       if (selectedClassForEditing) {
-        // Update the selected class styles in database
+        // Update the selected class styles locally
         const existingClass = customClasses[selectedClassForEditing];
         if (existingClass) {
           const updatedStyles = { ...existingClass.styles, [propertyKey]: value };
-          // Use database update
-          dispatch(updateCustomClassDB({
+          dispatch(updateCustomClass({
             name: selectedClassForEditing,
-            updates: { styles: updatedStyles }
+            styles: updatedStyles
           }));
         }
       } else {
@@ -129,16 +128,13 @@ const PropertiesPanel: React.FC = () => {
     if (newClassName && cssClassGenerator.validateCSSClassName(newClassName)) {
       dispatch(addCSSClass({ elementId: selectedElement.id, className: newClassName }));
       
-      // Create the class in the database with empty styles initially
-      const newClass = {
+      // Create the class locally with empty styles initially
+      dispatch(addCustomClass({
         name: newClassName,
         styles: {},
         description: `Custom class for ${selectedElement.type}`,
-        category: 'custom',
-        createdAt: Date.now(),
-        updatedAt: Date.now()
-      };
-      dispatch(saveCustomClass(newClass));
+        category: 'custom'
+      }));
       
       setNewClassName('');
       // Automatically select the new class for editing
