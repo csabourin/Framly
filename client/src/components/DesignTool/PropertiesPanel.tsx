@@ -112,6 +112,37 @@ const PropertiesPanel: React.FC = () => {
         id: selectedElement.id,
         styles: { [propertyKey]: value }
       }));
+    } else if ([
+      // Common style properties that should always work directly
+      'display', 'position', 'borderRadius', 'borderWidth', 'borderStyle', 'borderColor',
+      'fontWeight', 'fontStyle', 'fontSize', 'fontFamily', 'lineHeight',
+      'textAlign', 'textDecoration', 'textTransform', 'letterSpacing',
+      'color', 'backgroundColor', 'backgroundImage', 'backgroundSize', 'backgroundPosition',
+      'margin', 'marginTop', 'marginRight', 'marginBottom', 'marginLeft',
+      'padding', 'paddingTop', 'paddingRight', 'paddingBottom', 'paddingLeft',
+      'opacity', 'visibility', 'overflow', 'overflowX', 'overflowY',
+      'zIndex', 'cursor', 'transition', 'transform', 'transformOrigin',
+      'boxShadow', 'textShadow', 'outline', 'outlineColor', 'outlineWidth'
+    ].includes(propertyKey)) {
+      // These common style properties should always update directly
+      // Either to the selected class or as inline styles
+      if (selectedClassForEditing) {
+        // Update the selected class styles locally
+        const existingClass = customClasses[selectedClassForEditing];
+        if (existingClass) {
+          const updatedStyles = { ...existingClass.styles, [propertyKey]: value };
+          dispatch(updateCustomClass({
+            name: selectedClassForEditing,
+            styles: updatedStyles
+          }));
+        }
+      } else {
+        // Update as inline styles
+        dispatch(updateElementStyles({
+          id: selectedElement.id,
+          styles: { [propertyKey]: value }
+        }));
+      }
     } else {
       // Check if we're editing a specific class or allow inline styles
       if (selectedClassForEditing) {
