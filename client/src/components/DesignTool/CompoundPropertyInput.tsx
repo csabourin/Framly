@@ -236,6 +236,9 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
   };
 
   const config = getConfig();
+  
+  // Debug logging
+  console.log('CompoundPropertyInput render:', { propertyType, hasConfig: !!getConfig() });
 
   const handleShortcutChange = (shortcutKey: string, value: string) => {
     console.log(`handleShortcutChange: ${shortcutKey} = ${value}`);
@@ -343,7 +346,7 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
   return (
     <div className="border border-gray-200 rounded-md bg-gray-50">
       {/* Global Border Input (for all sides) */}
-      {propertyType === 'border' && (
+      {(propertyType === 'border' || propertyType === 'compound') && (
         <div className="p-2 border-b border-gray-200">
           <BorderInput
             key="global-border"
