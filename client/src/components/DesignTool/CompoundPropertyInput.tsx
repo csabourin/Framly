@@ -32,30 +32,40 @@ const BorderInput = ({
 }) => {
   // Parse initial value to set individual components
   const parseInitialValue = (value: string) => {
-    if (!value || typeof value !== 'string') {
+    console.log(`BorderInput ${sideKey} parsing initial value:`, value);
+    
+    if (!value || typeof value !== 'string' || value.trim() === '') {
+      console.log(`BorderInput ${sideKey} using empty defaults`);
       return { width: '', style: 'solid', color: '#000000' };
     }
     
     // Clean up corrupted values
     if (value.includes('[') || value.includes('object') || value.match(/\d{2,}(px|solid)/)) {
+      console.log(`BorderInput ${sideKey} detected corrupted value, using defaults`);
       return { width: '', style: 'solid', color: '#000000' };
     }
     
     const parts = value.trim().split(/\s+/);
-    return {
+    const result = {
       width: parts[0] || '',
       style: parts[1] || 'solid',
       color: parts[2] || '#000000'
     };
+    
+    console.log(`BorderInput ${sideKey} parsed result:`, result);
+    return result;
   };
 
   const initial = parseInitialValue(initialValue);
   const [width, setWidth] = React.useState(initial.width);
   const [style, setStyle] = React.useState(initial.style);
   const [color, setColor] = React.useState(initial.color);
+  
+  console.log(`BorderInput ${sideKey} initialized with:`, { width, style, color });
 
   const updateValue = React.useCallback((newWidth: string, newStyle: string, newColor: string) => {
     const newValue = newWidth.trim() ? `${newWidth.trim()} ${newStyle} ${newColor}` : '';
+    console.log(`BorderInput ${sideKey} updateValue:`, { newWidth, newStyle, newColor, newValue });
     onSideChange(sideKey, newValue);
   }, [sideKey, onSideChange]);
 
@@ -199,13 +209,18 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
   const config = getConfig();
 
   const handleShortcutChange = (shortcutKey: string, value: string) => {
+    console.log(`handleShortcutChange: ${shortcutKey} = ${value}`);
     const shortcut = config.shortcuts.find(s => s.key === shortcutKey);
-    if (!shortcut) return;
+    if (!shortcut) {
+      console.log(`No shortcut found for ${shortcutKey}`);
+      return;
+    }
 
     // Apply value to all sides in the shortcut
     shortcut.sides.forEach(sideKey => {
       const side = config.sides.find(s => s.key === sideKey);
       if (side) {
+        console.log(`Applying ${value} to ${side.prop}`);
         onChange(side.prop, value);
       }
     });
@@ -214,6 +229,14 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
   const handleSideChange = (sideKey: string, value: string) => {
     const side = config.sides.find(s => s.key === sideKey);
     if (side) {
+      console.log(`handleSideChange: ${sideKey} -> ${side.prop} = "${value}"`);
+      
+      // For borders, clear the shorthand border property to avoid conflicts
+      if (propertyType === 'border' && values.border !== undefined) {
+        console.log('Clearing shorthand border property to avoid conflicts');
+        onChange('border', '');
+      }
+      
       onChange(side.prop, value);
     }
   };
@@ -224,15 +247,26 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
     
     // Check if there's a specific side value first
     const sideValue = values[side.prop];
-    if (sideValue !== undefined && sideValue !== null) {
-      return String(sideValue);
+    if (sideValue !== undefined && sideValue !== null && sideValue !== '') {
+      const stringValue = String(sideValue);
+      console.log(`getValue ${sideKey}: found side value:`, stringValue);
+      return stringValue;
+    }
+    
+    // For borders, don't use simple value as it conflicts with individual sides
+    if (propertyType === 'border') {
+      console.log(`getValue ${sideKey}: returning empty for border (no side value)`);
+      return '';
     }
     
     // If no side-specific value but there's a simple value, use it as default
     if (simpleValue && !hasAnyAdvancedValues()) {
-      return String(simpleValue);
+      const stringValue = String(simpleValue);
+      console.log(`getValue ${sideKey}: using simple value:`, stringValue);
+      return stringValue;
     }
     
+    console.log(`getValue ${sideKey}: returning empty`);
     return '';
   };
 
@@ -319,12 +353,25 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
                 {config.shortcuts.slice(0, -1).map((shortcut) => (
                   <div key={shortcut.key} className="space-y-1">
                     <Label className="text-xs text-gray-500">{shortcut.label}</Label>
-                    <Input
-                      type="text"
-                      placeholder="0px"
-                      onChange={(e) => handleShortcutChange(shortcut.key, e.target.value)}
-                      className="text-xs h-7"
-                    />
+                    {propertyType === 'border' ? (
+                      <Input
+                        type="text"
+                        placeholder="1px solid #000000"
+                        onChange={(e) => handleShortcutChange(shortcut.key, e.target.value)}
+                        onFocus={(e) => e.stopPropagation()}
+                        onClick={(e) => e.stopPropagation()}
+                        className="text-xs h-7"
+                      />
+                    ) : (
+                      <Input
+                        type="text"
+                        placeholder="0px"
+                        onChange={(e) => handleShortcutChange(shortcut.key, e.target.value)}
+                        onFocus={(e) => e.stopPropagation()}
+                        onClick={(e) => e.stopPropagation()}
+                        className="text-xs h-7"
+                      />
+                    )}
                   </div>
                 ))}
               </div>
