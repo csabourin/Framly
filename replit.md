@@ -17,6 +17,14 @@ This is a WYSIWYG (What You See Is What You Get) web design tool built as a full
 - **Layout Positioning Fix**: Proper positioning to prevent DOM tree panel from covering main toolbar
 - **Canvas Layout Adaptation**: Dynamic canvas positioning that accounts for DOM tree panel visibility
 
+### Critical Drag-Drop System Fixes (January 21, 2025)
+
+- **DOM Detection Enhancement**: Fixed element detection during drag operations by temporarily hiding dragged element to prevent interference
+- **Sibling Insertion Logic**: Corrected parent container detection for precise element positioning between siblings
+- **Drop Validation System**: Implemented smart validation that checks parent containers for sibling insertion vs target containers for inside placement  
+- **Visual Feedback Accuracy**: Blue insertion lines now correctly correspond to actual drop behavior - no more "does nothing" scenarios
+- **Reliable Element Reordering**: Fixed all edge cases where elements would incorrectly "fall back to root" during drag operations
+
 ### Enhanced Text Editing System (Latest Update)
 
 - **Natural Text Editing**: Text elements now fill their entire parent container and provide natural selection behavior
