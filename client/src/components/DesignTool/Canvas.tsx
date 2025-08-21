@@ -26,6 +26,8 @@ const Canvas: React.FC = () => {
   const [hoveredZone, setHoveredZone] = useState<'before' | 'after' | 'inside' | null>(null);
   const [insertionIndicator, setInsertionIndicator] = useState<any | null>(null);
   const [isDraggingComponent, setIsDraggingComponent] = useState(false);
+  const [dragThreshold, setDragThreshold] = useState({ x: 0, y: 0, exceeded: false });
+  const [dragStartPos, setDragStartPos] = useState({ x: 0, y: 0 });
   const { project } = useSelector((state: RootState) => state.canvas);
   const { selectedTool, isDragging, dragStart, isResizing, resizeHandle, zoomLevel, isGridVisible, draggedElementId, isDraggingForReorder, isDOMTreePanelVisible } = useSelector((state: RootState) => state.ui);
 
@@ -374,11 +376,13 @@ const Canvas: React.FC = () => {
     } else if (selectedTool === 'hand') {
       const clickedElement = getElementAtPoint(x, y, project.elements, zoomLevel);
       if (clickedElement && clickedElement.id !== 'root') {
-        console.log('DRAG DEBUG - Starting reorder drag for:', clickedElement.id);
+        console.log('DRAG DEBUG - Preparing drag for:', clickedElement.id);
         dispatch(selectElement(clickedElement.id));
+        // Set up drag preparation but don't start dragging yet
+        setDragStartPos({ x, y });
+        setDragThreshold({ x, y, exceeded: false });
         dispatch(setDraggedElement(clickedElement.id));
-        dispatch(setDraggingForReorder(true));
-        dispatch(setDragStart({ x, y }));
+        // Don't set dragging state yet - wait for threshold
       }
     }
   }, [selectedTool, selectedElement, zoomLevel, dispatch, project.elements]);
@@ -399,15 +403,37 @@ const Canvas: React.FC = () => {
         x: snappedPosition.x,
         y: snappedPosition.y,
       }));
-    } else if (isDraggingForReorder && draggedElementId) {
+    } else if (draggedElementId) {
+      // Handle drag threshold logic first
+      if (!dragThreshold.exceeded) {
+        const distance = Math.sqrt(
+          Math.pow(x - dragThreshold.x, 2) + Math.pow(y - dragThreshold.y, 2)
+        );
+        
+        const DRAG_THRESHOLD = 8; // pixels - require actual drag movement
+        
+        if (distance > DRAG_THRESHOLD) {
+          console.log('DRAG DEBUG - Threshold exceeded, starting drag for:', draggedElementId);
+          setDragThreshold(prev => ({ ...prev, exceeded: true }));
+          dispatch(setDraggingForReorder(true));
+          dispatch(setDragStart({ x: dragThreshold.x, y: dragThreshold.y }));
+        } else {
+          // Below threshold - no drag feedback yet
+          return;
+        }
+      }
+      
       // Element reordering (hand tool) - show precise insertion feedback
       console.log('DRAG DEBUG - Mouse move during reorder:', { 
         draggedElementId, 
-        x, y
+        x, y, 
+        thresholdExceeded: dragThreshold.exceeded
       });
       
-      // Detect more precise insertion zones during drag
-      const insertionZone = detectInsertionZone(x, y, true);
+      // Only show insertion feedback if we're actually dragging
+      if (isDraggingForReorder) {
+        // Detect more precise insertion zones during drag
+        const insertionZone = detectInsertionZone(x, y, true);
       
       if (insertionZone) {
         console.log('DRAG DEBUG - Insertion zone detected:', insertionZone);
@@ -451,6 +477,7 @@ const Canvas: React.FC = () => {
         dispatch(setHoveredElement({ elementId: null, zone: null }));
         setInsertionIndicator(null);
       }
+      } // Close isDraggingForReorder check
     } else if (['rectangle', 'text', 'image', 'container', 'heading', 'list'].includes(selectedTool)) {
       // Creation tool hover detection for insertion feedback
       console.log('Mouse move triggered, selectedTool:', selectedTool);
@@ -511,7 +538,7 @@ const Canvas: React.FC = () => {
       setHoveredZone(null);
       dispatch(setHoveredElement({ elementId: null, zone: null }));
     }
-  }, [isDragging, isDraggingForReorder, selectedElement, draggedElementId, dragStart, zoomLevel, dispatch, selectedTool, project.elements]);
+  }, [isDragging, isDraggingForReorder, selectedElement, draggedElementId, dragStart, zoomLevel, dispatch, selectedTool, project.elements, dragThreshold]);
 
   const handleMouseUp = useCallback((e?: MouseEvent) => {
     console.log('DRAG DEBUG - Mouse up:', { isDraggingForReorder, draggedElementId, hoveredElementId, hoveredZone, insertionIndicator });
@@ -596,7 +623,10 @@ const Canvas: React.FC = () => {
     setHoveredZone(null);
     dispatch(setHoveredElement({ elementId: null, zone: null }));
     dispatch(resetUI());
-  }, [dispatch, isDraggingForReorder, draggedElementId, hoveredElementId, hoveredZone, insertionIndicator, project.elements]);
+    
+    // Reset drag threshold
+    setDragThreshold({ x: 0, y: 0, exceeded: false });
+  }, [dispatch, isDraggingForReorder, draggedElementId, hoveredElementId, hoveredZone, insertionIndicator, project.elements, dragThreshold, setDragThreshold]);
 
   // Handle drop events for components
   const handleDragOver = useCallback((e: React.DragEvent) => {
