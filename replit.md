@@ -35,6 +35,14 @@ This is a WYSIWYG (What You See Is What You Get) web design tool built as a full
 - **Click-Outside Detection**: Automatic text editing mode exit when clicking outside the text element
 - **Full Container Coverage**: Text selection box now covers the whole text area, taking all available space within parent
 
+### Properties Panel Bug Fixes (January 21, 2025)
+
+- **Fixed Numeric Field Display**: Width and Height fields now properly show `0` instead of appearing empty
+- **Corrected Value Handling**: Replaced falsy checks with explicit null/undefined checks for proper zero value display
+- **Fixed Property Conflicts**: Resolved multiplication bug caused by conflicting element.width and styles.width values
+- **Enhanced Default Values**: Added intelligent defaults that use element dimensions when available
+- **Improved Tool Interaction**: Non-container elements automatically switch to selection tool when clicked during creation
+
 ### CSS Optimization System
 
 - **Advanced CSS Optimizer**: Comprehensive CSS optimization system with intelligent class generation
@@ -49,6 +57,60 @@ This is a WYSIWYG (What You See Is What You Get) web design tool built as a full
 # User Preferences
 
 Preferred communication style: Simple, everyday language.
+
+# Future Improvements TODO List
+
+## Workspace & Canvas Enhancements
+- **Viewport boundary constraints**: Prevent workspace from extending beyond viewport bounds to maintain scrollability
+- **Infinite canvas with boundaries**: Ensure users can always scroll back to see all added elements
+- **Canvas scroll behavior**: Implement proper scroll limits and reset functionality
+
+## Advanced Styling System
+- **Class style editor**: 
+  - Extract styles from selected elements into reusable classes
+  - Apply custom classes to selections
+  - Visual class customization interface
+- **Media query support**: Modifications in mobile/desktop/large breakpoints should apply to relevant media queries
+- **Advanced CSS features**: Support for animations, transitions, and complex selectors
+
+## Component System Enhancements
+- **Component editor**: Dedicated editing interface that opens components in isolated tabs
+- **Component inheritance**: Changes to components automatically affect all instances
+- **Instance detachment**: Allow instances to become independent and stop inheriting component changes
+- **Component replacement workflow**: Creating components should replace selection with component instance
+- **Default component categories**: Prevent empty categories by providing sensible defaults
+- **Component library**: Built-in collection including:
+  - Accordions
+  - Tabs (vertical/horizontal orientation)
+  - Navigation components
+  - Form components
+  - Layout templates
+
+## Interactive Elements
+- **Button component system**: 
+  - Specialized button creation tools
+  - State editor for hover, active, focus, disabled states
+  - Button variants and styling options
+
+## Persistence & State Management
+- **Workspace configuration persistence**:
+  - Panel visibility states
+  - Properties panel group order and expansion states
+  - User interface layout preferences
+- **Undo/Redo system**: 
+  - Implement Ctrl+Z/Ctrl+Shift+Z functionality
+  - Make undo history persistent across sessions
+  - Support for complex operations like component modifications
+
+## User Interface Improvements  
+- **Multi-tab workspace**: Bottom tab interface for multiple projects/components
+- **Enhanced panel management**: Better organization and customization of UI panels
+- **Keyboard shortcuts**: Comprehensive shortcut system for power users
+
+## Component Categories & Organization
+- **Category persistence**: Save custom component categories
+- **Category management**: Tools for organizing and restructuring component library
+- **Search and filtering**: Easy discovery of components and classes
 
 # System Architecture
 
