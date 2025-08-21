@@ -2,6 +2,7 @@ import React, { useRef, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
 import { selectElement, updateElement } from '../../store/canvasSlice';
+import { setSelectedTool } from '../../store/uiSlice';
 import { CanvasElement as CanvasElementType } from '../../types/canvas';
 
 interface CanvasElementProps {
@@ -83,16 +84,25 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
   const handleClick = useCallback((e: React.MouseEvent) => {
     console.log('CanvasElement click - selectedTool:', selectedTool, 'elementId:', element.id);
     
-    // Only handle selection for select and hand tools
-    // For creation tools, let the event bubble to canvas
+    // Define non-container elements that cannot have children
+    const nonContainerElements = ['text', 'heading', 'list', 'image'];
+    const isNonContainer = nonContainerElements.includes(element.type);
+    
+    // Handle selection for select and hand tools
     if (['select', 'hand'].includes(selectedTool)) {
       e.stopPropagation();
       dispatch(selectElement(element.id));
+    } else if (isNonContainer && ['rectangle', 'text', 'image', 'container', 'heading', 'list'].includes(selectedTool)) {
+      // For non-container elements clicked with creation tools, auto-switch to selection
+      console.log('Non-container clicked with creation tool - switching to select tool');
+      e.stopPropagation();
+      dispatch(setSelectedTool('select'));
+      dispatch(selectElement(element.id));
     } else {
       console.log('Creation tool - NOT stopping propagation, letting canvas handle it');
-      // Don't stop propagation for creation tools - let canvas handle it
+      // Don't stop propagation for creation tools on containers - let canvas handle it
     }
-  }, [element.id, dispatch, selectedTool]);
+  }, [element.id, element.type, dispatch, selectedTool]);
 
   const handleContentEdit = useCallback((e: React.FormEvent<HTMLDivElement>) => {
     const newContent = e.currentTarget.innerHTML || '';
