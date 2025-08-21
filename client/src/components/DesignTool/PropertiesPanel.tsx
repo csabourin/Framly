@@ -109,9 +109,15 @@ const PropertiesPanel: React.FC = () => {
   };
 
   const getPropertyValue = (property: PropertyConfig) => {
-    // Check element properties first (for flex properties)
+    // Check element properties first (for flex properties and specific element properties like headingLevel)
     if (selectedElement[property.key as keyof typeof selectedElement] !== undefined) {
-      return selectedElement[property.key as keyof typeof selectedElement];
+      const value = selectedElement[property.key as keyof typeof selectedElement];
+      // Convert numbers to strings for dropdowns
+      const result = property.type === 'select' ? String(value) : value;
+      if (property.key === 'headingLevel') {
+        console.log('Getting headingLevel value:', value, 'returning:', result);
+      }
+      return result;
     }
     
     // Then check styles using camelCase property names

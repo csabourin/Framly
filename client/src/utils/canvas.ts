@@ -66,7 +66,7 @@ export function createDefaultElement(type: CanvasElement['type'], x: number = 0,
         ...baseElement,
         width: 0, // Will be set to 100% in styles
         height: 50,
-        content: 'Heading Text',
+        content: 'Edit this heading',
         headingLevel: 1,
         styles: {
           fontSize: '32px',

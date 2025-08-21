@@ -185,7 +185,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
 
       const HeadingTag = `h${headingLevel}` as keyof JSX.IntrinsicElements;
       
-      const processedContent = element.content || `Heading ${headingLevel}`;
+      const processedContent = element.content || 'Edit this heading';
 
       if (isTextEditable) {
         return (
