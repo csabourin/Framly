@@ -132,6 +132,7 @@
 [contenteditable] p {
   margin: 0 0 0.5em 0;
   line-height: 1.4;
+  width: 100%;
 }
 
 [contenteditable] p:last-child {
@@ -144,11 +145,38 @@
 }
 
 /* Text display styling */
+.text-element {
+  width: 100% !important;
+  height: 100% !important;
+}
+
 .text-element p {
   margin: 0 0 0.5em 0;
   line-height: 1.4;
+  width: 100%;
 }
 
 .text-element p:last-child {
   margin-bottom: 0;
+}
+
+/* Text editing mode styling */
+.text-editing {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 100% !important;
+  background-color: rgba(59, 130, 246, 0.05);
+  border: 2px solid rgb(59, 130, 246);
+  border-radius: 4px;
+}
+
+.text-editing p {
+  width: 100%;
+  margin: 0 0 0.5em 0;
+  line-height: 1.4;
+}
+
+.text-editing:focus {
+  outline: none;
+  background-color: rgba(59, 130, 246, 0.08);
 }

@@ -17,7 +17,17 @@ This is a WYSIWYG (What You See Is What You Get) web design tool built as a full
 - **Layout Positioning Fix**: Proper positioning to prevent DOM tree panel from covering main toolbar
 - **Canvas Layout Adaptation**: Dynamic canvas positioning that accounts for DOM tree panel visibility
 
-### CSS Optimization System (Latest Update)
+### Enhanced Text Editing System (Latest Update)
+
+- **Natural Text Editing**: Text elements now fill their entire parent container and provide natural selection behavior
+- **Paragraph Flow Support**: Enhanced HTML content support with proper paragraph (`<p>`) structure
+- **Keyboard Controls**: Shift+Enter for line breaks (`<br>`) within paragraphs, Enter for new paragraphs
+- **Inline Editing Mode**: Double-click text to edit while staying in selection tool, no tool switching required
+- **Visual Feedback**: Text editing mode shows blue border and background highlighting the entire editable area
+- **Click-Outside Detection**: Automatic text editing mode exit when clicking outside the text element
+- **Full Container Coverage**: Text selection box now covers the whole text area, taking all available space within parent
+
+### CSS Optimization System
 
 - **Advanced CSS Optimizer**: Comprehensive CSS optimization system with intelligent class generation
 - **Utility Class Detection**: Automatically identifies and creates reusable utility classes for common patterns

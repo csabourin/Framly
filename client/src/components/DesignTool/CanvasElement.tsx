@@ -130,8 +130,14 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
             suppressContentEditableWarning
             onBlur={handleContentEdit}
             onKeyDown={handleKeyDown}
-            className="w-full h-full outline-none cursor-text"
-            style={{ minHeight: '1em' }}
+            className="w-full h-full outline-none cursor-text text-editing"
+            style={{ 
+              minHeight: '1em',
+              padding: '4px',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'flex-start'
+            }}
             dangerouslySetInnerHTML={{ __html: htmlContent }}
             autoFocus
           />
@@ -145,7 +151,13 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
               setIsEditing(true);
             }}
             className="w-full h-full outline-none cursor-pointer text-element"
-            style={{ minHeight: '1em' }}
+            style={{ 
+              minHeight: '1em',
+              padding: '4px',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'flex-start'
+            }}
             dangerouslySetInnerHTML={{ __html: htmlContent }}
           />
         );
