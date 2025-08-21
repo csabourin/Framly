@@ -18,6 +18,82 @@ interface SideConfig {
   sides: string[];
 }
 
+// Separate border input component to prevent focus loss
+const BorderInput = ({ 
+  sideKey, 
+  label, 
+  onSideChange 
+}: { 
+  sideKey: string; 
+  label: string; 
+  onSideChange: (sideKey: string, value: string) => void;
+}) => {
+  const [width, setWidth] = React.useState('');
+  const [style, setStyle] = React.useState('solid');
+  const [color, setColor] = React.useState('#000000');
+
+  const updateValue = React.useCallback((newWidth: string, newStyle: string, newColor: string) => {
+    const newValue = newWidth.trim() ? `${newWidth.trim()} ${newStyle} ${newColor}` : '';
+    onSideChange(sideKey, newValue);
+  }, [sideKey, onSideChange]);
+
+  const handleWidthChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const newWidth = e.target.value;
+    setWidth(newWidth);
+    updateValue(newWidth, style, color);
+  }, [style, color, updateValue]);
+
+  const handleStyleChange = React.useCallback((newStyle: string) => {
+    setStyle(newStyle);
+    updateValue(width, newStyle, color);
+  }, [width, color, updateValue]);
+
+  const handleColorChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const newColor = e.target.value;
+    setColor(newColor);
+    updateValue(width, style, newColor);
+  }, [width, style, updateValue]);
+
+  return (
+    <div className="space-y-1">
+      <Label className="text-xs text-gray-500">{label}</Label>
+      <div className="flex gap-1">
+        <Input
+          type="text"
+          placeholder="0px"
+          value={width}
+          onChange={handleWidthChange}
+          onFocus={(e) => e.stopPropagation()}
+          onClick={(e) => e.stopPropagation()}
+          className="flex-1 text-xs h-7"
+          data-testid={`input-border-width-${sideKey}`}
+        />
+        <Select
+          value={style}
+          onValueChange={handleStyleChange}
+        >
+          <SelectTrigger className="w-16 text-xs h-7">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="solid">Solid</SelectItem>
+            <SelectItem value="dashed">Dashed</SelectItem>
+            <SelectItem value="dotted">Dotted</SelectItem>
+            <SelectItem value="double">Double</SelectItem>
+            <SelectItem value="none">None</SelectItem>
+          </SelectContent>
+        </Select>
+        <input
+          type="color"
+          value={color}
+          onChange={handleColorChange}
+          className="w-7 h-7 rounded border cursor-pointer"
+        />
+      </div>
+    </div>
+  );
+};
+
 const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
   propertyType,
   values,
@@ -143,70 +219,6 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
     return config.sides.some(side => values[side.prop]);
   };
 
-  // Separate component to avoid hooks violations
-  const BorderInput = ({ sideKey, label }: { sideKey: string; label: string }) => {
-    const [width, setWidth] = React.useState('');
-    const [style, setStyle] = React.useState('solid');
-    const [color, setColor] = React.useState('#000000');
-
-    const handleWidthChange = (newWidth: string) => {
-      setWidth(newWidth);
-      const newValue = newWidth.trim() ? `${newWidth.trim()} ${style} ${color}` : '';
-      handleSideChange(sideKey, newValue);
-    };
-
-    const handleStyleChange = (newStyle: string) => {
-      setStyle(newStyle);
-      const newValue = width.trim() ? `${width.trim()} ${newStyle} ${color}` : '';
-      handleSideChange(sideKey, newValue);
-    };
-
-    const handleColorChange = (newColor: string) => {
-      setColor(newColor);
-      const newValue = width.trim() ? `${width.trim()} ${style} ${newColor}` : '';
-      handleSideChange(sideKey, newValue);
-    };
-
-    return (
-      <div className="space-y-1">
-        <Label className="text-xs text-gray-500">{label}</Label>
-        <div className="flex gap-1">
-          <Input
-            type="text"
-            placeholder="0px"
-            value={width}
-            onChange={(e) => handleWidthChange(e.target.value)}
-            onFocus={(e) => e.stopPropagation()}
-            onClick={(e) => e.stopPropagation()}
-            className="flex-1 text-xs h-7"
-            data-testid={`input-border-width-${sideKey}`}
-          />
-          <Select
-            value={style}
-            onValueChange={handleStyleChange}
-          >
-            <SelectTrigger className="w-16 text-xs h-7">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="solid">Solid</SelectItem>
-              <SelectItem value="dashed">Dashed</SelectItem>
-              <SelectItem value="dotted">Dotted</SelectItem>
-              <SelectItem value="double">Double</SelectItem>
-              <SelectItem value="none">None</SelectItem>
-            </SelectContent>
-          </Select>
-          <input
-            type="color"
-            value={color}
-            onChange={(e) => handleColorChange(e.target.value)}
-            className="w-7 h-7 rounded border cursor-pointer"
-          />
-        </div>
-      </div>
-    );
-  };
-
   const renderSpacingInput = (sideKey: string, label: string) => {
     const value = getValue(sideKey);
     
@@ -262,7 +274,11 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
               {config.sides.map((side) => (
                 <div key={side.key}>
                   {propertyType === 'border' ? (
-                    <BorderInput sideKey={side.key} label={side.label} />
+                    <BorderInput 
+                      sideKey={side.key} 
+                      label={side.label} 
+                      onSideChange={handleSideChange}
+                    />
                   ) : (
                     renderSpacingInput(side.key, side.label)
                   )}
