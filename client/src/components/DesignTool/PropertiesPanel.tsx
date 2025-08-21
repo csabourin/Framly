@@ -38,6 +38,16 @@ const PropertiesPanel: React.FC = () => {
   const selectedElement = project.selectedElementId ? project.elements[project.selectedElementId] : null;
   const [newClassName, setNewClassName] = useState('');
   const [selectedClassForEditing, setSelectedClassForEditing] = useState<string | null>(null);
+
+  // Auto-select the class for editing if there's only one class
+  React.useEffect(() => {
+    if (selectedElement?.classes && selectedElement.classes.length === 1) {
+      setSelectedClassForEditing(selectedElement.classes[0]);
+    } else if (!selectedElement?.classes || selectedElement.classes.length === 0) {
+      setSelectedClassForEditing(null);
+    }
+    // When element changes, reset selection unless there's exactly one class
+  }, [selectedElement?.id, selectedElement?.classes]);
   const customClasses = useSelector((state: RootState) => (state as any).classes?.customClasses || {});
   const [expandedGroups, setExpandedGroups] = useState<Record<string, boolean>>({
     layout: true,
@@ -103,7 +113,7 @@ const PropertiesPanel: React.FC = () => {
         styles: { [propertyKey]: value }
       }));
     } else {
-      // Only allow editing if a class is selected - no inline styles
+      // Check if we're editing a specific class or need to create one
       if (selectedClassForEditing) {
         // Update the selected class styles locally
         const existingClass = customClasses[selectedClassForEditing];
@@ -114,9 +124,13 @@ const PropertiesPanel: React.FC = () => {
             styles: updatedStyles
           }));
         }
+      } else if (selectedElement.classes && selectedElement.classes.length > 0) {
+        // Multiple classes available, user needs to select one
+        console.warn('Multiple classes available. Please select a class to edit its styles.');
+        return;
       } else {
-        // Force user to create or select a class instead of allowing inline styles
-        console.warn('Style editing disabled. Please create or select a class to edit styles.');
+        // No classes on element, guide user to create one
+        console.warn('No classes on this element. Please create a class to edit styles.');
         return;
       }
     }
@@ -268,7 +282,7 @@ const PropertiesPanel: React.FC = () => {
             </div>
           )}
           
-          {!selectedClassForEditing && selectedElement.classes && selectedElement.classes.length > 0 && (
+          {!selectedClassForEditing && selectedElement.classes && selectedElement.classes.length > 1 && (
             <div className="p-3 bg-blue-50 border border-blue-200 rounded-md mb-3">
               <p className="text-sm text-blue-800">
                 <strong>💡 Click a class below to edit its styles</strong><br/>
