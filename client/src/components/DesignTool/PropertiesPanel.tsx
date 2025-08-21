@@ -70,26 +70,19 @@ const PropertiesPanel: React.FC = () => {
   const propertyGroups = getPropertyGroups(selectedElement.type as ElementType, selectedElement);
   
   const handlePropertyChange = (propertyKey: string, value: any) => {
-    // Handle special cases for element properties vs style properties
-    if (['flexDirection', 'justifyContent', 'alignItems'].includes(propertyKey)) {
-      // Update both element property and style for flex properties
-      dispatch(updateElement({
-        id: selectedElement.id,
-        updates: { [propertyKey]: value }
-      }));
-      dispatch(updateElementStyles({
-        id: selectedElement.id,
-        styles: { [propertyKey]: value }
-      }));
-    } else if (['headingLevel', 'listType'].includes(propertyKey)) {
+    // Handle special element-specific properties (not CSS styles)
+    if (['headingLevel', 'listType'].includes(propertyKey)) {
       // Update element-specific properties (not styles)
       const processedValue = propertyKey === 'headingLevel' ? parseInt(value, 10) : value;
       dispatch(updateElement({
         id: selectedElement.id,
         updates: { [propertyKey]: processedValue }
       }));
-    } else if (['width', 'height'].includes(propertyKey)) {
-      // Width and height are element properties, not styles
+      return;
+    }
+    
+    // Handle width and height as both element properties and styles
+    if (['width', 'height'].includes(propertyKey)) {
       // Extract numeric value for element property, keep full value for styles
       let elementValue = value;
       
@@ -106,88 +99,50 @@ const PropertiesPanel: React.FC = () => {
         id: selectedElement.id,
         updates: { [propertyKey]: elementValue }
       }));
-      
-      // Update styles with the full value for rendering consistency
-      dispatch(updateElementStyles({
+    }
+
+    // Handle flex properties that need both element and style updates
+    if (['flexDirection', 'justifyContent', 'alignItems'].includes(propertyKey)) {
+      // Update element property for internal logic
+      dispatch(updateElement({
         id: selectedElement.id,
-        styles: { [propertyKey]: value }
+        updates: { [propertyKey]: value }
       }));
-    } else if ([
-      // Common style properties that should always work through classes
-      'display', 'position', 'borderRadius', 'borderWidth', 'borderStyle', 'borderColor',
-      'fontWeight', 'fontStyle', 'fontSize', 'fontFamily', 'lineHeight',
-      'textAlign', 'textDecoration', 'textTransform', 'letterSpacing',
-      'color', 'backgroundColor', 'backgroundImage', 'backgroundSize', 'backgroundPosition',
-      'margin', 'marginTop', 'marginRight', 'marginBottom', 'marginLeft',
-      'padding', 'paddingTop', 'paddingRight', 'paddingBottom', 'paddingLeft',
-      'opacity', 'visibility', 'overflow', 'overflowX', 'overflowY',
-      'zIndex', 'cursor', 'transition', 'transform', 'transformOrigin',
-      'boxShadow', 'textShadow', 'outline', 'outlineColor', 'outlineWidth',
-      'border', 'gap', 'alignSelf', 'minWidth', 'maxWidth', 'minHeight', 'maxHeight'
-    ].includes(propertyKey)) {
-      // All style properties must go through classes - create class automatically if needed
-      if (selectedClassForEditing) {
-        // Update the selected class styles locally
-        const existingClass = customClasses[selectedClassForEditing];
-        if (existingClass) {
-          const updatedStyles = { ...existingClass.styles, [propertyKey]: value };
-          dispatch(updateCustomClass({
-            name: selectedClassForEditing,
-            styles: updatedStyles
-          }));
-        }
-      } else {
-        // Auto-create a class for this element
-        const autoClassName = `${selectedElement.type}-${Date.now().toString(36)}`;
-        
-        // Add class to element
-        dispatch(addCSSClass({ elementId: selectedElement.id, className: autoClassName }));
-        
-        // Create the class with the new property
-        dispatch(addCustomClass({
-          name: autoClassName,
-          styles: { [propertyKey]: value },
-          description: `Auto-generated class for ${selectedElement.type}`,
-          category: 'auto-generated'
+    }
+    
+    // ALL style properties (including width/height and flex) go through classes
+    // This ensures consistent class-based styling for everything
+    if (selectedClassForEditing) {
+      // Update the selected class styles
+      const existingClass = customClasses[selectedClassForEditing];
+      if (existingClass) {
+        const updatedStyles = { ...existingClass.styles, [propertyKey]: value };
+        dispatch(updateCustomClass({
+          name: selectedClassForEditing,
+          styles: updatedStyles
         }));
-        
-        // Select the new class for editing
-        setSelectedClassForEditing(autoClassName);
       }
+    } else if (selectedElement.classes && selectedElement.classes.length > 1) {
+      // Multiple classes available, user needs to select one
+      console.warn('Multiple classes available. Please select a class to edit its styles.');
+      return;
     } else {
-      // All other style properties - must use classes only (no inline styles)
-      if (selectedClassForEditing) {
-        // Update the selected class styles locally
-        const existingClass = customClasses[selectedClassForEditing];
-        if (existingClass) {
-          const updatedStyles = { ...existingClass.styles, [propertyKey]: value };
-          dispatch(updateCustomClass({
-            name: selectedClassForEditing,
-            styles: updatedStyles
-          }));
-        }
-      } else if (selectedElement.classes && selectedElement.classes.length > 1) {
-        // Multiple classes available, user needs to select one
-        console.warn('Multiple classes available. Please select a class to edit its styles.');
-        return;
-      } else {
-        // Auto-create a class for any style property
-        const autoClassName = `${selectedElement.type}-${Date.now().toString(36)}`;
-        
-        // Add class to element
-        dispatch(addCSSClass({ elementId: selectedElement.id, className: autoClassName }));
-        
-        // Create the class with the new property
-        dispatch(addCustomClass({
-          name: autoClassName,
-          styles: { [propertyKey]: value },
-          description: `Auto-generated class for ${selectedElement.type}`,
-          category: 'auto-generated'
-        }));
-        
-        // Select the new class for editing
-        setSelectedClassForEditing(autoClassName);
-      }
+      // Auto-create a class for any style property
+      const autoClassName = `${selectedElement.type}-${Date.now().toString(36)}`;
+      
+      // Add class to element
+      dispatch(addCSSClass({ elementId: selectedElement.id, className: autoClassName }));
+      
+      // Create the class with the new property
+      dispatch(addCustomClass({
+        name: autoClassName,
+        styles: { [propertyKey]: value },
+        description: `Auto-generated class for ${selectedElement.type}`,
+        category: 'auto-generated'
+      }));
+      
+      // Select the new class for editing
+      setSelectedClassForEditing(autoClassName);
     }
   };
 
