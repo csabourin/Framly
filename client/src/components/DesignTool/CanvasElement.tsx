@@ -2,7 +2,6 @@ import React, { useRef, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
 import { selectElement, updateElement } from '../../store/canvasSlice';
-import { setSelectedTool } from '../../store/uiSlice';
 import { CanvasElement as CanvasElementType } from '../../types/canvas';
 
 interface CanvasElementProps {
@@ -32,6 +31,8 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
   const { project } = useSelector((state: RootState) => state.canvas);
   const { selectedTool, isDraggingForReorder, draggedElementId } = useSelector((state: RootState) => state.ui);
   const elementRef = useRef<HTMLDivElement>(null);
+  const [isEditing, setIsEditing] = React.useState(false);
+  const textEditRef = useRef<HTMLDivElement>(null);
   
   // Get hover state from Redux if not provided via props
   const reduxHoverState = useHoverState();
@@ -62,6 +63,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
       id: element.id,
       updates: { content: newContent }
     }));
+    setIsEditing(false);
   }, [element.id, dispatch]);
 
   const handleKeyDown = useCallback((e: React.KeyboardEvent<HTMLDivElement>) => {
@@ -95,9 +97,23 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     }
   }, []);
 
+  // Handle clicking outside to stop text editing
+  React.useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (isEditing && textEditRef.current && !textEditRef.current.contains(event.target as Node)) {
+        setIsEditing(false);
+      }
+    };
+
+    if (isEditing) {
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => document.removeEventListener('mousedown', handleClickOutside);
+    }
+  }, [isEditing]);
+
   const renderContent = () => {
     if (element.type === 'text') {
-      const isTextEditable = isSelected && selectedTool === 'text';
+      const isTextEditable = isSelected && (selectedTool === 'text' || isEditing);
       
       const processedContent = element.content || 'Edit this text';
       
@@ -109,6 +125,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
       if (isTextEditable) {
         return (
           <div
+            ref={textEditRef}
             contentEditable={true}
             suppressContentEditableWarning
             onBlur={handleContentEdit}
@@ -116,6 +133,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
             className="w-full h-full outline-none cursor-text"
             style={{ minHeight: '1em' }}
             dangerouslySetInnerHTML={{ __html: htmlContent }}
+            autoFocus
           />
         );
       } else {
@@ -123,8 +141,8 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
           <div
             onDoubleClick={(e) => {
               e.stopPropagation();
-              // Switch to text tool on double click
-              dispatch(setSelectedTool('text'));
+              // Enable text editing without changing tool
+              setIsEditing(true);
             }}
             className="w-full h-full outline-none cursor-pointer text-element"
             style={{ minHeight: '1em' }}
