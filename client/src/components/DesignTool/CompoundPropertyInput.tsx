@@ -27,14 +27,18 @@ const BorderInput = React.memo(({
 }: { 
   sideKey: string; 
   label: string; 
-  currentValue: string;
+  currentValue: any;
   onSideChange: (sideKey: string, value: string) => void;
 }) => {
   // Parse current value to preserve state
-  const parseBorderValue = (borderValue: string) => {
+  const parseBorderValue = (borderValue: any) => {
+    // Handle empty, null, or undefined values
     if (!borderValue || borderValue === '') return { width: '', unit: 'px', style: 'solid', color: '#000000' };
     
-    const parts = borderValue.trim().split(/\s+/);
+    // Convert to string if it's not already
+    const borderStr = typeof borderValue === 'string' ? borderValue : String(borderValue);
+    
+    const parts = borderStr.trim().split(/\s+/);
     const widthWithUnit = parts[0] || '';
     
     // Extract numeric value and unit
