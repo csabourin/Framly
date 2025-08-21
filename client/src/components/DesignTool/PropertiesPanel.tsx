@@ -131,6 +131,16 @@ const PropertiesPanel: React.FC = () => {
           styles: updatedStyles
         }));
         console.log('Class updated successfully with styles:', updatedStyles);
+      } else {
+        // Class doesn't exist in customClasses store - create it first
+        console.log('Class not found in store, creating it:', selectedClassForEditing);
+        dispatch(addCustomClass({
+          name: selectedClassForEditing,
+          styles: { [propertyKey]: value },
+          description: `Auto-generated class for ${selectedElement.type}`,
+          category: 'auto-generated'
+        }));
+        console.log('Class created and updated with property:', propertyKey, value);
       }
     } else if (selectedElement.classes && selectedElement.classes.length > 1) {
       // Multiple classes available, user needs to select one
