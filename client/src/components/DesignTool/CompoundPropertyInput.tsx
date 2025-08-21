@@ -160,10 +160,19 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
             placeholder="0px"
             value={width}
             onChange={(e) => {
+              console.log(`Border width change for ${sideKey}:`, e.target.value);
               const newValue = `${e.target.value} ${style} ${color}`.trim();
               handleSideChange(sideKey, newValue);
             }}
+            onFocus={(e) => {
+              console.log(`Border input focused for ${sideKey}`);
+              e.stopPropagation();
+            }}
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
             className="flex-1 text-xs h-7"
+            data-testid={`input-border-width-${sideKey}`}
           />
           <Select
             value={style}
@@ -207,8 +216,19 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
           type="text"
           placeholder="0px"
           value={value}
-          onChange={(e) => handleSideChange(sideKey, e.target.value)}
+          onChange={(e) => {
+            console.log(`Spacing change for ${sideKey}:`, e.target.value);
+            handleSideChange(sideKey, e.target.value);
+          }}
+          onFocus={(e) => {
+            console.log(`Spacing input focused for ${sideKey}`);
+            e.stopPropagation();
+          }}
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
           className="text-xs h-7"
+          data-testid={`input-spacing-${sideKey}`}
         />
       </div>
     );
@@ -231,7 +251,10 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
 
       {/* Expanded Content */}
       {isExpanded && (
-        <div className="px-2 pb-2 space-y-3 border-t border-gray-200">
+        <div 
+          className="px-2 pb-2 space-y-3 border-t border-gray-200"
+          onClick={(e) => e.stopPropagation()}
+        >
           {/* Individual Sides */}
           <div className="space-y-2">
             <div className="grid grid-cols-2 gap-2">
