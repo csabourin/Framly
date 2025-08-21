@@ -32,8 +32,12 @@ const Canvas: React.FC = () => {
   const selectedElement = project.selectedElementId ? project.elements[project.selectedElementId] : null;
 
   // Function to detect insertion zones based on mouse position
-  const detectInsertionZone = useCallback((x: number, y: number, forDrag = false): InsertionIndicator | null => {
-    if (!forDrag && !['rectangle', 'text', 'image', 'container', 'component', 'heading', 'list'].includes(selectedTool)) {
+  const detectInsertionZone = useCallback((x: number, y: number, forDrag = false, forComponentDrag = false): InsertionIndicator | null => {
+    // Allow insertion zone detection for:
+    // 1. Element creation with specific tools
+    // 2. Element reordering with hand tool
+    // 3. Component dragging from panel
+    if (!forComponentDrag && !forDrag && !['rectangle', 'text', 'image', 'container', 'component', 'heading', 'list'].includes(selectedTool)) {
       return null;
     }
     if (forDrag && selectedTool !== 'hand') {
@@ -598,7 +602,7 @@ const Canvas: React.FC = () => {
           const y = (e.clientY - rect.top) / zoomLevel;
           
           // Use the same insertion zone detection as element reordering
-          const insertionZone = detectInsertionZone(x, y, false); // false because this isn't reordering
+          const insertionZone = detectInsertionZone(x, y, false, true); // false for forDrag, true for forComponentDrag
           
           if (insertionZone) {
             console.log('COMPONENT DRAG - Insertion zone detected:', insertionZone);
@@ -695,7 +699,7 @@ const Canvas: React.FC = () => {
         console.log('Component drop coordinates:', { x, y, rawX, rawY, zoomLevel });
         
         // Use the same precise insertion zone detection as element reordering
-        const insertionZone = detectInsertionZone(x, y, false); // false because this isn't a drag reorder
+        const insertionZone = detectInsertionZone(x, y, false, true); // false for forDrag, true for forComponentDrag
         
         let parentId = 'root';
         let insertPosition: 'before' | 'after' | 'inside' = 'inside';
