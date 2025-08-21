@@ -19,49 +19,21 @@ interface SideConfig {
 }
 
 // Separate border input component to prevent focus loss
-const BorderInput = ({ 
+const BorderInput = React.memo(({ 
   sideKey, 
   label, 
-  onSideChange,
-  initialValue = ''
+  onSideChange
 }: { 
   sideKey: string; 
   label: string; 
   onSideChange: (sideKey: string, value: string) => void;
-  initialValue?: string;
 }) => {
-  // Parse initial value to set individual components
-  const parseInitialValue = (value: string) => {
-    console.log(`BorderInput ${sideKey} parsing initial value:`, value);
-    
-    if (!value || typeof value !== 'string' || value.trim() === '') {
-      console.log(`BorderInput ${sideKey} using empty defaults`);
-      return { width: '', style: 'solid', color: '#000000' };
-    }
-    
-    // Clean up corrupted values
-    if (value.includes('[') || value.includes('object') || value.match(/\d{2,}(px|solid)/)) {
-      console.log(`BorderInput ${sideKey} detected corrupted value, using defaults`);
-      return { width: '', style: 'solid', color: '#000000' };
-    }
-    
-    const parts = value.trim().split(/\s+/);
-    const result = {
-      width: parts[0] || '',
-      style: parts[1] || 'solid',
-      color: parts[2] || '#000000'
-    };
-    
-    console.log(`BorderInput ${sideKey} parsed result:`, result);
-    return result;
-  };
-
-  const initial = parseInitialValue(initialValue);
-  const [width, setWidth] = React.useState(initial.width);
-  const [style, setStyle] = React.useState(initial.style);
-  const [color, setColor] = React.useState(initial.color);
+  // Always start with clean state to avoid concatenation
+  const [width, setWidth] = React.useState('');
+  const [style, setStyle] = React.useState('solid');
+  const [color, setColor] = React.useState('#000000');
   
-  console.log(`BorderInput ${sideKey} initialized with:`, { width, style, color });
+  console.log(`BorderInput ${sideKey} rendered with state:`, { width, style, color });
 
   const updateValue = React.useCallback((newWidth: string, newStyle: string, newColor: string) => {
     const newValue = newWidth.trim() ? `${newWidth.trim()} ${newStyle} ${newColor}` : '';
@@ -124,7 +96,7 @@ const BorderInput = ({
       </div>
     </div>
   );
-};
+});
 
 const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
   propertyType,
@@ -230,14 +202,19 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
     const side = config.sides.find(s => s.key === sideKey);
     if (side) {
       console.log(`handleSideChange: ${sideKey} -> ${side.prop} = "${value}"`);
-      
-      // For borders, clear the shorthand border property to avoid conflicts
-      if (propertyType === 'border' && values.border !== undefined) {
-        console.log('Clearing shorthand border property to avoid conflicts');
-        onChange('border', '');
-      }
-      
       onChange(side.prop, value);
+    }
+  };
+
+  // Clear all border conflicts when expanding individual sides for borders
+  const clearBorderConflicts = () => {
+    if (propertyType === 'border') {
+      console.log('Clearing all border conflicts');
+      // Clear shorthand properties that conflict
+      onChange('border', '');
+      onChange('borderWidth', '');
+      onChange('borderStyle', '');
+      onChange('borderColor', '');
     }
   };
 
@@ -307,7 +284,14 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
     <div className="border border-gray-200 rounded-md bg-gray-50">
       {/* Header */}
       <button
-        onClick={() => setIsExpanded(!isExpanded)}
+        onClick={() => {
+          const newExpanded = !isExpanded;
+          setIsExpanded(newExpanded);
+          // Clear conflicts when expanding border individual sides
+          if (newExpanded) {
+            clearBorderConflicts();
+          }
+        }}
         className="w-full p-2 flex items-center justify-between text-left hover:bg-gray-100 transition-colors"
       >
         <span className="text-sm text-gray-600">Individual sides</span>
@@ -331,11 +315,10 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
                 <div key={side.key}>
                   {propertyType === 'border' ? (
                     <BorderInput 
-                      key={side.key}
+                      key={`${side.key}-stable`}
                       sideKey={side.key} 
                       label={side.label} 
                       onSideChange={handleSideChange}
-                      initialValue={getValue(side.key)}
                     />
                   ) : (
                     renderSpacingInput(side.key, side.label)
