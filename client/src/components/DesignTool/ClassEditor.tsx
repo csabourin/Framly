@@ -28,6 +28,8 @@ export const ClassEditor: React.FC<ClassEditorProps> = ({ isOpen, onClose }) => 
   const [newClassName, setNewClassName] = useState('');
   const [editingClass, setEditingClass] = useState<string | null>(null);
   const [classStyles, setClassStyles] = useState<Record<string, any>>({});
+  const [newPropertyKey, setNewPropertyKey] = useState('');
+  const [newPropertyValue, setNewPropertyValue] = useState('');
 
   // Extract styles from selected element into a new class
   const extractStylesToClass = () => {
@@ -95,6 +97,28 @@ export const ClassEditor: React.FC<ClassEditorProps> = ({ isOpen, onClose }) => 
     }
   };
 
+  // Add a new property to the class being edited
+  const addNewProperty = () => {
+    if (!newPropertyKey.trim() || !newPropertyValue.trim()) return;
+    
+    setClassStyles(prev => ({
+      ...prev,
+      [newPropertyKey.trim()]: newPropertyValue.trim()
+    }));
+    
+    setNewPropertyKey('');
+    setNewPropertyValue('');
+  };
+
+  // Remove a property from the class being edited
+  const removeProperty = (propertyKey: string) => {
+    setClassStyles(prev => {
+      const newStyles = { ...prev };
+      delete newStyles[propertyKey];
+      return newStyles;
+    });
+  };
+
   // Save class changes
   const saveClassChanges = () => {
     if (!editingClass) return;
@@ -106,6 +130,8 @@ export const ClassEditor: React.FC<ClassEditorProps> = ({ isOpen, onClose }) => 
     
     setEditingClass(null);
     setClassStyles({});
+    setNewPropertyKey('');
+    setNewPropertyValue('');
   };
 
   // Delete a custom class
@@ -305,42 +331,95 @@ export const ClassEditor: React.FC<ClassEditorProps> = ({ isOpen, onClose }) => 
                 Edit the styles for this class. Changes will apply to all elements using this class.
               </div>
               
-              {/* Style Properties */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {/* Common style properties */}
-                {[
-                  { key: 'backgroundColor', label: 'Background Color', type: 'color' },
-                  { key: 'color', label: 'Text Color', type: 'color' },
-                  { key: 'fontSize', label: 'Font Size', type: 'unit', units: ['px', 'rem', 'em'] },
-                  { key: 'fontWeight', label: 'Font Weight', type: 'select', options: [
-                    { value: '400', label: 'Normal' },
-                    { value: '600', label: 'Semi Bold' },
-                    { value: '700', label: 'Bold' }
-                  ]},
-                  { key: 'padding', label: 'Padding', type: 'unit', units: ['px', 'rem', 'em'] },
-                  { key: 'margin', label: 'Margin', type: 'unit', units: ['px', 'rem', 'em'] },
-                  { key: 'borderRadius', label: 'Border Radius', type: 'unit', units: ['px', 'rem'] },
-                  { key: 'border', label: 'Border', type: 'text' }
-                ].map((config) => (
-                  <div key={config.key} className="space-y-1">
-                    <Label>{config.label}</Label>
-                    <PropertyInput
-                      config={config as PropertyConfig}
-                      value={classStyles[config.key] || ''}
-                      onChange={(value) => setClassStyles(prev => ({ ...prev, [config.key]: value }))}
+              {/* Existing Properties */}
+              <div className="space-y-4">
+                <h4 className="font-medium text-sm text-gray-800">Current Properties</h4>
+                {Object.keys(classStyles).length === 0 ? (
+                  <div className="text-sm text-gray-500">No properties defined</div>
+                ) : (
+                  <div className="space-y-3">
+                    {Object.entries(classStyles).map(([key, value]) => (
+                      <div key={key} className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                        <div className="flex-1 grid grid-cols-2 gap-3">
+                          <div>
+                            <Label className="text-xs text-gray-600">Property</Label>
+                            <div className="font-mono text-sm">{key}</div>
+                          </div>
+                          <div>
+                            <Label className="text-xs text-gray-600">Value</Label>
+                            <Input
+                              value={String(value)}
+                              onChange={(e) => setClassStyles(prev => ({ ...prev, [key]: e.target.value }))}
+                              className="font-mono text-sm"
+                            />
+                          </div>
+                        </div>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => removeProperty(key)}
+                          className="text-red-600 hover:bg-red-50"
+                        >
+                          <X className="w-4 h-4" />
+                        </Button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Add New Property */}
+              <div className="space-y-3 p-4 border border-dashed border-gray-300 rounded-lg">
+                <h4 className="font-medium text-sm text-gray-800">Add New Property</h4>
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <Label>CSS Property</Label>
+                    <Input
+                      placeholder="e.g., margin-top, transform, opacity"
+                      value={newPropertyKey}
+                      onChange={(e) => setNewPropertyKey(e.target.value)}
+                      className="font-mono"
                     />
                   </div>
-                ))}
+                  <div>
+                    <Label>Value</Label>
+                    <Input
+                      placeholder="e.g., 10px, center, 0.5"
+                      value={newPropertyValue}
+                      onChange={(e) => setNewPropertyValue(e.target.value)}
+                      className="font-mono"
+                    />
+                  </div>
+                </div>
+                <Button 
+                  onClick={addNewProperty}
+                  disabled={!newPropertyKey.trim() || !newPropertyValue.trim()}
+                  size="sm"
+                  className="w-full"
+                >
+                  <Plus className="w-4 h-4 mr-2" />
+                  Add Property
+                </Button>
               </div>
               
-              <div className="flex justify-end gap-2">
-                <Button variant="outline" onClick={() => setEditingClass(null)}>
-                  Cancel
-                </Button>
-                <Button onClick={saveClassChanges}>
-                  <Save className="w-4 h-4 mr-2" />
-                  Save Changes
-                </Button>
+              <div className="flex justify-between">
+                <div className="text-xs text-gray-500">
+                  {Object.keys(classStyles).length} properties
+                </div>
+                <div className="flex gap-2">
+                  <Button variant="outline" onClick={() => {
+                    setEditingClass(null);
+                    setClassStyles({});
+                    setNewPropertyKey('');
+                    setNewPropertyValue('');
+                  }}>
+                    Cancel
+                  </Button>
+                  <Button onClick={saveClassChanges}>
+                    <Save className="w-4 h-4 mr-2" />
+                    Save Changes
+                  </Button>
+                </div>
               </div>
             </div>
           </DialogContent>
