@@ -196,47 +196,10 @@ const appearanceProperties: PropertyConfig[] = [
   {
     key: 'border',
     label: 'Border',
-    type: 'border',
+    type: 'compound',
     category: 'appearance',
     priority: 3,
-    description: 'Border style and appearance',
-    subProperties: [
-      {
-        key: 'borderWidth',
-        label: 'Width',
-        type: 'unit',
-        category: 'appearance',
-        priority: 1,
-        units: ['px', 'em', 'rem'],
-        defaultUnit: 'px',
-        min: 0,
-        max: 20,
-        description: 'Border thickness'
-      },
-      {
-        key: 'borderStyle',
-        label: 'Style',
-        type: 'select',
-        category: 'appearance',
-        priority: 2,
-        options: [
-          { value: 'none', label: 'None' },
-          { value: 'solid', label: 'Solid' },
-          { value: 'dashed', label: 'Dashed' },
-          { value: 'dotted', label: 'Dotted' },
-          { value: 'double', label: 'Double' }
-        ],
-        description: 'Border line style'
-      },
-      {
-        key: 'borderColor',
-        label: 'Color',
-        type: 'color',
-        category: 'appearance',
-        priority: 3,
-        description: 'Border color'
-      }
-    ]
+    description: 'Border style and appearance'
   },
   {
     key: 'opacity',

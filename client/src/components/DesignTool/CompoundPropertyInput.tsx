@@ -72,6 +72,7 @@ const BorderInput = React.memo(({
   const updateValue = React.useCallback((newWidth: string, newUnit: string, newStyle: string, newColor: string) => {
     const fullWidth = newWidth.trim() && newWidth !== '0' ? `${newWidth.trim()}${newUnit}` : '';
     const newValue = fullWidth ? `${fullWidth} ${newStyle} ${newColor}` : '';
+    console.log(`BorderInput updateValue: ${sideKey} -> "${newValue}"`);
     onSideChange(sideKey, newValue);
   }, [sideKey, onSideChange]);
 
@@ -351,8 +352,10 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
             currentValue={simpleValue || ''}
             onSideChange={(_, value) => {
               // Apply to all individual sides when using global input
+              console.log('Global border input changed:', value);
               const config = getConfig();
               config.sides.forEach(side => {
+                console.log(`Applying global border "${value}" to ${side.prop}`);
                 onChange(side.prop, value);
               });
             }}
