@@ -33,6 +33,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
   const dispatch = useDispatch();
   const { project } = useSelector((state: RootState) => state.canvas);
   const { selectedTool, isDraggingForReorder, draggedElementId, insertionIndicator } = useSelector((state: RootState) => state.ui);
+  const customClasses = useSelector((state: RootState) => (state as any).classes?.customClasses || {});
   const elementRef = useRef<HTMLDivElement>(null);
   const [isEditing, setIsEditing] = React.useState(false);
   const textEditRef = useRef<HTMLDivElement>(null);
@@ -427,16 +428,34 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     return camelCaseStyles;
   };
 
+  // Compute merged styles including custom classes
+  const mergedStyles = React.useMemo(() => {
+    const baseStyles = { ...element.styles };
+    
+    // Apply custom class styles
+    if (element.classes && element.classes.length > 0) {
+      element.classes.forEach((className: string) => {
+        const customClass = customClasses[className];
+        if (customClass && customClass.styles) {
+          // Merge custom class styles with base styles
+          Object.assign(baseStyles, customClass.styles);
+        }
+      });
+    }
+    
+    return baseStyles;
+  }, [element.styles, element.classes, customClasses]);
+
   const combinedStyles: React.CSSProperties = {
-    position: element.styles.position === 'absolute' ? 'absolute' : 'relative',
-    left: element.styles.position === 'absolute' ? element.x : undefined,
-    top: element.styles.position === 'absolute' ? element.y : undefined,
-    width: (['text', 'heading', 'list'].includes(element.type)) ? '100%' : (element.styles.width || (element.width === 0 ? '100%' : element.width)),
-    height: (['text', 'heading', 'list'].includes(element.type)) ? 'auto' : (element.styles.minHeight ? undefined : element.height),
+    position: mergedStyles.position === 'absolute' ? 'absolute' : 'relative',
+    left: mergedStyles.position === 'absolute' ? element.x : undefined,
+    top: mergedStyles.position === 'absolute' ? element.y : undefined,
+    width: (['text', 'heading', 'list'].includes(element.type)) ? '100%' : (mergedStyles.width || (element.width === 0 ? '100%' : element.width)),
+    height: (['text', 'heading', 'list'].includes(element.type)) ? 'auto' : (mergedStyles.minHeight ? undefined : element.height),
     minHeight: (['text', 'heading', 'list'].includes(element.type)) ? '1.2em' : undefined,
-    ...convertCSSPropertiesToCamelCase(element.styles),
+    ...convertCSSPropertiesToCamelCase(mergedStyles),
     backgroundColor: getBackgroundColor(),
-    border: getBorderStyle() || element.styles.border,
+    border: getBorderStyle() || mergedStyles.border,
     boxShadow: getBoxShadow(),
     // Ensure the visual feedback is always visible
     zIndex: isThisElementHovered ? 1000 : (isSelected ? 100 : undefined),
