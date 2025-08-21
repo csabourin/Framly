@@ -564,7 +564,7 @@ const Canvas: React.FC = () => {
   if (!rootElement) {
     return (
       <main className={`absolute top-12 bottom-8 bg-gray-50 flex items-center justify-center ${
-        isDOMTreePanelVisible ? 'left-72 right-80' : 'left-12 right-80'
+        isDOMTreePanelVisible ? 'left-80 right-80' : 'left-16 right-80'
       }`}>
         <div className="text-gray-500">No canvas available</div>
       </main>
@@ -574,7 +574,7 @@ const Canvas: React.FC = () => {
   return (
     <main 
       className={`absolute top-12 bottom-8 bg-gray-50 overflow-auto flex items-center justify-center ${
-        isDOMTreePanelVisible ? 'left-72 right-[576px]' : 'left-12 right-[576px]'
+        isDOMTreePanelVisible ? 'left-80 right-[576px]' : 'left-16 right-[576px]'
       }`}
       onDragOver={handleDragOver}
       onDrop={handleDrop}

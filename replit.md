@@ -2,7 +2,7 @@
 
 This is a WYSIWYG (What You See Is What You Get) web design tool built as a full-stack application. The application allows users to create visual designs through drag-and-drop interface elements, with real-time preview and code generation capabilities. Users can design responsive layouts, manage design elements, and export their creations as HTML/CSS or React components.
 
-## Recent Changes (January 20, 2025)
+## Recent Changes (January 20-21, 2025)
 
 - **IndexedDB Persistence Implementation**: Complete local storage system for workspace and components
 - **Auto-save functionality**: Workspace automatically saves every 5 seconds to prevent data loss
@@ -12,6 +12,10 @@ This is a WYSIWYG (What You See Is What You Get) web design tool built as a full
 - **Component panel toggle**: Components icon now toggles the component panel visibility instead of being a tool
 - **Toolbar cleanup**: Removed split horizontal, vertical, and merge tools from the toolbar
 - **Enhanced component placement**: Components now respect hover zones and provide intelligent positioning
+- **DOM Tree Panel Implementation**: Added hierarchical element selection panel with toggle functionality
+- **Element Tree Navigation**: Click elements in tree to select hard-to-reach elements in canvas
+- **Layout Positioning Fix**: Proper positioning to prevent DOM tree panel from covering main toolbar
+- **Canvas Layout Adaptation**: Dynamic canvas positioning that accounts for DOM tree panel visibility
 
 ### CSS Optimization System (Latest Update)
 

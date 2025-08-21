@@ -115,7 +115,7 @@ const DOMTreePanel: React.FC = () => {
   const rootElement = project.elements.root;
   
   return (
-    <div className="absolute left-0 top-12 bottom-8 w-64 bg-white border-r border-gray-200 overflow-y-auto z-40" data-testid="dom-tree-panel">
+    <div className="absolute left-16 top-12 bottom-8 w-64 bg-white border-r border-gray-200 overflow-y-auto z-40" data-testid="dom-tree-panel">
       <div className="p-3 border-b border-gray-200 bg-gray-50">
         <h3 className="font-medium text-gray-900 text-sm">Element Tree</h3>
         <p className="text-xs text-gray-500 mt-1">Click to select elements</p>
