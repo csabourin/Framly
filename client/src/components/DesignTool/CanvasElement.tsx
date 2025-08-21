@@ -268,7 +268,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     position: element.styles.position === 'absolute' ? 'absolute' : 'relative',
     left: element.styles.position === 'absolute' ? element.x : undefined,
     top: element.styles.position === 'absolute' ? element.y : undefined,
-    width: element.styles.width || (element.width === 0 ? '100%' : element.width),
+    width: element.type === 'text' ? '100%' : (element.styles.width || (element.width === 0 ? '100%' : element.width)),
     height: element.type === 'text' ? 'auto' : (element.styles.minHeight ? undefined : element.height),
     minHeight: element.type === 'text' ? '1.2em' : undefined,
     ...convertCSSPropertiesToCamelCase(element.styles),

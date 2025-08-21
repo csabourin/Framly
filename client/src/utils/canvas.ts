@@ -46,6 +46,7 @@ export function createDefaultElement(type: CanvasElement['type'], x: number = 0,
     case 'text':
       return {
         ...baseElement,
+        width: 0, // Will be set to 100% in styles
         height: 40,
         content: 'Edit this text',
         textDisplay: 'block',
@@ -55,6 +56,7 @@ export function createDefaultElement(type: CanvasElement['type'], x: number = 0,
           color: '#1f2937',
           padding: '8px',
           display: 'block',
+          width: '100%',
         },
         classes: [`text-${Date.now()}`],
       };
