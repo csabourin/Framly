@@ -24,6 +24,7 @@ const Canvas: React.FC = () => {
   const [hoveredElementId, setHoveredElementId] = useState<string | null>(null);
   const [hoveredZone, setHoveredZone] = useState<'before' | 'after' | 'inside' | null>(null);
   const [insertionIndicator, setInsertionIndicator] = useState<any | null>(null);
+  const [isDraggingComponent, setIsDraggingComponent] = useState(false);
   const { project } = useSelector((state: RootState) => state.canvas);
   const { selectedTool, isDragging, dragStart, isResizing, resizeHandle, zoomLevel, isGridVisible, draggedElementId, isDraggingForReorder, isDOMTreePanelVisible } = useSelector((state: RootState) => state.ui);
 
@@ -583,10 +584,98 @@ const Canvas: React.FC = () => {
   const handleDragOver = useCallback((e: React.DragEvent) => {
     e.preventDefault();
     e.dataTransfer.dropEffect = 'copy';
-  }, []);
+    
+    // Check if we're dragging a component from the component panel
+    try {
+      const data = e.dataTransfer.types.includes('application/json');
+      if (data) {
+        setIsDraggingComponent(true);
+        
+        // Get mouse coordinates and detect insertion zones during component dragging
+        const rect = canvasRef.current?.getBoundingClientRect();
+        if (rect) {
+          const x = (e.clientX - rect.left) / zoomLevel;
+          const y = (e.clientY - rect.top) / zoomLevel;
+          
+          // Use the same insertion zone detection as element reordering
+          const insertionZone = detectInsertionZone(x, y, false); // false because this isn't reordering
+          
+          if (insertionZone) {
+            console.log('COMPONENT DRAG - Insertion zone detected:', insertionZone);
+            
+            const targetElement = project.elements[insertionZone.elementId];
+            
+            // Apply the same validation logic as element reordering
+            let canDropHere = false;
+            if ((insertionZone as any).position === 'inside' || (insertionZone as any).position === 'between') {
+              // For inside/between positions, the target must be a container
+              canDropHere = targetElement ? isValidDropTarget(targetElement) : false;
+            } else {
+              // For before/after positions (sibling insertion), check if the parent can accept children
+              const parentId = targetElement?.parent || 'root';
+              const parentElement = project.elements[parentId];
+              canDropHere = parentElement ? isValidDropTarget(parentElement) : false;
+            }
+            
+            console.log('COMPONENT DRAG - Drop validation:', { 
+              targetType: targetElement?.type, 
+              canDropHere, 
+              insertionPosition: (insertionZone as any).position,
+              parentId: targetElement?.parent,
+              parentType: project.elements[targetElement?.parent || 'root']?.type
+            });
+            
+            if (canDropHere) {
+              setHoveredElementId(insertionZone.elementId);
+              setHoveredZone((insertionZone as any).position === 'between' ? 'inside' : (insertionZone as any).position);
+              
+              // Update Redux state for visual feedback 
+              dispatch(setHoveredElement({ 
+                elementId: insertionZone.elementId, 
+                zone: (insertionZone as any).position === 'between' ? 'inside' : (insertionZone as any).position
+              }));
+              
+              // Store the insertion indicator for visual feedback
+              setInsertionIndicator(insertionZone);
+            } else {
+              // Clear visual feedback if invalid drop target
+              setHoveredElementId(null);
+              setHoveredZone(null);
+              dispatch(setHoveredElement({ elementId: null, zone: null }));
+              setInsertionIndicator(null);
+            }
+          } else {
+            // Clear visual feedback if no insertion zone
+            setHoveredElementId(null);
+            setHoveredZone(null);
+            dispatch(setHoveredElement({ elementId: null, zone: null }));
+            setInsertionIndicator(null);
+          }
+        }
+      }
+    } catch (error) {
+      // Silently handle drag data parsing errors
+    }
+  }, [zoomLevel, dispatch, project.elements]);
+
+  // Handle drag leave to clear visual feedback when component drag leaves canvas
+  const handleDragLeave = useCallback((e: React.DragEvent) => {
+    // Only clear if leaving the canvas container itself, not child elements
+    if (e.target === canvasRef.current) {
+      console.log('COMPONENT DRAG - Left canvas area');
+      setIsDraggingComponent(false);
+      setHoveredElementId(null);
+      setHoveredZone(null);
+      dispatch(setHoveredElement({ elementId: null, zone: null }));
+      setInsertionIndicator(null);
+    }
+  }, [dispatch]);
 
   const handleDrop = useCallback((e: React.DragEvent) => {
     e.preventDefault();
+    
+    // Clear component dragging state
+    setIsDraggingComponent(false);
     
     try {
       const data = JSON.parse(e.dataTransfer.getData('application/json'));
@@ -605,20 +694,59 @@ const Canvas: React.FC = () => {
         
         console.log('Component drop coordinates:', { x, y, rawX, rawY, zoomLevel });
         
-        // Get target element from hover state or mouse position
-        let targetElementId = hoveredElementId;
-        let targetZone = hoveredZone;
+        // Use the same precise insertion zone detection as element reordering
+        const insertionZone = detectInsertionZone(x, y, false); // false because this isn't a drag reorder
         
-        // If no hover state, try to detect element at drop position
-        if (!targetElementId) {
-          const elementAtPoint = getElementAtPoint(x, y, project.elements, zoomLevel, draggedElementId);
-          targetElementId = elementAtPoint?.id || 'root';
-          targetZone = 'inside'; // Default to inside when detected via coordinates
+        let parentId = 'root';
+        let insertPosition: 'before' | 'after' | 'inside' = 'inside';
+        let referenceElementId: string | undefined;
+        
+        if (insertionZone) {
+          const targetElement = project.elements[insertionZone.elementId];
+          
+          // Apply the same validation logic as element reordering
+          let canDropHere = false;
+          if ((insertionZone as any).position === 'inside' || (insertionZone as any).position === 'between') {
+            // For inside/between positions, the target must be a container
+            canDropHere = targetElement ? isValidDropTarget(targetElement) : false;
+          } else {
+            // For before/after positions (sibling insertion), check if the parent can accept children
+            const targetParentId = targetElement?.parent || 'root';
+            const parentElement = project.elements[targetParentId];
+            canDropHere = parentElement ? isValidDropTarget(parentElement) : false;
+          }
+          
+          console.log('Component drop validation:', { 
+            targetElement: targetElement?.type, 
+            canDropHere, 
+            insertionPosition: (insertionZone as any).position,
+            parentId: targetElement?.parent,
+            parentType: project.elements[targetElement?.parent || 'root']?.type
+          });
+          
+          if (canDropHere) {
+            if ((insertionZone as any).position === 'inside') {
+              parentId = insertionZone.elementId;
+              insertPosition = 'inside';
+            } else if ((insertionZone as any).position === 'between') {
+              // Precise insertion between siblings
+              parentId = insertionZone.elementId; // This is the container ID
+              insertPosition = (insertionZone as any).insertPosition;
+              referenceElementId = (insertionZone as any).referenceElementId;
+            } else {
+              // Handle before/after positions (sibling insertion)
+              parentId = targetElement?.parent || 'root';
+              insertPosition = (insertionZone as any).position;
+              referenceElementId = insertionZone.elementId;
+            }
+            
+            console.log('Component insertion targeting:', { parentId, insertPosition, referenceElementId });
+          } else {
+            console.log('Component drop rejected - invalid target, falling back to root');
+          }
+        } else {
+          console.log('No insertion zone detected, using root as default');
         }
-        
-        const targetElement = targetElementId ? project.elements[targetElementId] : null;
-        
-        console.log('Component drop targeting:', { targetElementId, targetZone, x, y });
         
         // Instantiate the component at the drop position
         const { elements: newElements, rootElementId } = instantiateComponent(data.component, x, y);
@@ -626,21 +754,6 @@ const Canvas: React.FC = () => {
         // Add the root element first with proper targeting
         const rootElement = newElements[rootElementId];
         if (rootElement) {
-          let parentId = 'root';
-          let insertPosition: 'before' | 'after' | 'inside' = 'inside';
-          let referenceElementId: string | undefined;
-          
-          // Use hover targeting for intelligent placement
-          if (targetElement && targetElementId && targetElementId !== 'root') {
-            if (targetZone === 'inside' && isValidDropTarget(targetElement)) {
-              parentId = targetElementId;
-              insertPosition = 'inside';
-            } else if (targetZone === 'before' || targetZone === 'after') {
-              parentId = targetElement.parent || 'root';
-              insertPosition = targetZone;
-              referenceElementId = targetElementId;
-            }
-          }
           
           // Add the root element with proper parent relationship
           dispatch(addElement({ 
@@ -665,12 +778,18 @@ const Canvas: React.FC = () => {
         // Select the root element
         dispatch(selectElement(rootElementId));
         
-        console.log('Component dropped successfully:', data.component.name, 'in zone:', targetZone, 'of element:', targetElementId);
+        console.log('Component dropped successfully:', data.component.name, 'at position:', insertPosition, 'in parent:', parentId);
       }
     } catch (error) {
       console.error('Error handling drop:', error);
     }
-  }, [zoomLevel, dispatch, hoveredElementId, hoveredZone, project.elements]);
+    
+    // Always clear visual feedback after drop
+    setHoveredElementId(null);
+    setHoveredZone(null);
+    dispatch(setHoveredElement({ elementId: null, zone: null }));
+    setInsertionIndicator(null);
+  }, [zoomLevel, dispatch, project.elements]);
 
   const handleZoomIn = () => {
     // Zoom functionality would be implemented here
@@ -757,6 +876,7 @@ const Canvas: React.FC = () => {
       }`}
       onDragOver={handleDragOver}
       onDrop={handleDrop}
+      onDragLeave={handleDragLeave}
       data-testid="canvas-main"
     >
       {/* Canvas Container */}
