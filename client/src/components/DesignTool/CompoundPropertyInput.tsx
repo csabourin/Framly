@@ -350,14 +350,24 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
             sideKey="border"
             label="All Sides"
             currentValue={simpleValue || ''}
-            onSideChange={(_, value) => {
+            onSideChange={(sideKey, value) => {
               // Apply to all individual sides when using global input
-              console.log('Global border input changed:', value);
-              const config = getConfig();
-              config.sides.forEach(side => {
-                console.log(`Applying global border "${value}" to ${side.prop}`);
-                onChange(side.prop, value);
-              });
+              console.log('Global border input changed:', { sideKey, value });
+              if (value && value.trim()) {
+                // Apply the same border value to all four sides
+                onChange('border-top', value);
+                onChange('border-right', value);
+                onChange('border-bottom', value);
+                onChange('border-left', value);
+                console.log(`Applied global border "${value}" to all sides`);
+              } else {
+                // Clear all borders if value is empty
+                onChange('border-top', '');
+                onChange('border-right', '');
+                onChange('border-bottom', '');
+                onChange('border-left', '');
+                console.log('Cleared all border sides');
+              }
             }}
           />
         </div>
