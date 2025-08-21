@@ -62,15 +62,22 @@ const BorderInput = React.memo(({
     <div className="space-y-1">
       <Label className="text-xs text-gray-500">{label}</Label>
       <div className="flex gap-1">
-        <Input
+        <input
           type="text"
           placeholder="0px"
           value={width}
           onChange={handleWidthChange}
           onFocus={(e) => e.stopPropagation()}
           onClick={(e) => e.stopPropagation()}
-          className="flex-1 text-xs h-7"
+          className="flex-1 text-xs h-7 px-2 rounded border"
           data-testid={`input-border-width-${sideKey}`}
+          style={{
+            color: '#000000',
+            backgroundColor: '#ffffff',
+            border: '1px solid #ccc',
+            fontSize: '12px',
+            padding: '2px 4px'
+          }}
         />
         <Select
           value={style}
@@ -210,8 +217,11 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
   const clearBorderConflicts = () => {
     if (propertyType === 'border') {
       console.log('Clearing all border conflicts');
-      // Clear shorthand properties that conflict
+      // Clear ALL shorthand properties that conflict with individual sides
       onChange('border', '');
+      onChange('border-width', '');
+      onChange('border-style', '');
+      onChange('border-color', '');
       onChange('borderWidth', '');
       onChange('borderStyle', '');
       onChange('borderColor', '');
