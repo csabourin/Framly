@@ -125,6 +125,16 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
     const side = config.sides.find(s => s.key === sideKey);
     if (!side) return '';
     
+    // Debug: log all current values
+    console.log(`getValue DEBUG for ${sideKey}:`, {
+      sideKey,
+      sideProp: side.prop,
+      allValues: values,
+      sideValue: values[side.prop],
+      simpleValue,
+      hasAdvanced: hasAnyAdvancedValues()
+    });
+    
     // Check if there's a specific side value first
     const sideValue = values[side.prop];
     if (sideValue !== undefined && sideValue !== null) {
@@ -154,31 +164,56 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
 
   const getBorderComponents = (sideKey: string) => {
     if (borderComponents[sideKey]) {
+      console.log(`getBorderComponents: using cached for ${sideKey}:`, borderComponents[sideKey]);
       return borderComponents[sideKey];
     }
     
     const value = getValue(sideKey);
     const valueStr = String(value || '').trim();
     
-    // Simple parsing - split on spaces and take first 3 parts
-    const parts = valueStr.split(' ');
-    return {
-      width: parts[0] || '',
-      style: parts[1] || 'solid',
-      color: parts[2] || '#000000'
+    console.log(`getBorderComponents: parsing "${valueStr}" for ${sideKey}`);
+    
+    // ALWAYS start with clean defaults for now to avoid corruption issues
+    const cleanDefaults = {
+      width: '',
+      style: 'solid',
+      color: '#000000'
     };
+    
+    // Only parse if the value looks clean and valid
+    if (valueStr && !valueStr.includes('[') && !valueStr.includes('object') && 
+        !valueStr.match(/\d+solid/) && !valueStr.match(/px\d+/) && !valueStr.match(/\d{2,}px/) &&
+        valueStr.length < 30) { // reasonable length check
+      
+      const parts = valueStr.split(/\s+/);
+      if (parts.length >= 1 && parts.length <= 3) {
+        cleanDefaults.width = parts[0] || '';
+        cleanDefaults.style = parts[1] || 'solid';
+        cleanDefaults.color = parts[2] || '#000000';
+      }
+    }
+    
+    console.log(`getBorderComponents: using clean result for ${sideKey}:`, cleanDefaults);
+    return cleanDefaults;
   };
 
   const updateBorderComponent = (sideKey: string, component: 'width' | 'style' | 'color', value: string) => {
     const current = getBorderComponents(sideKey);
     const updated = { ...current, [component]: value };
     
-    // Update local state
+    // Update local state first
     setBorderComponents(prev => ({ ...prev, [sideKey]: updated }));
     
-    // Build new border value
-    const newValue = `${updated.width} ${updated.style} ${updated.color}`.trim();
-    console.log(`updateBorderComponent ${sideKey} ${component}=${value} -> ${newValue}`);
+    // Build new border value - only include width if it's not empty
+    let newValue = '';
+    if (updated.width.trim()) {
+      newValue = `${updated.width.trim()} ${updated.style} ${updated.color}`.trim();
+    } else {
+      // If no width, set empty value to clear the border
+      newValue = '';
+    }
+    
+    console.log(`updateBorderComponent ${sideKey} ${component}=${value} -> "${newValue}"`);
     handleSideChange(sideKey, newValue);
   };
 
