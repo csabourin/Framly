@@ -7,6 +7,7 @@ import Toolbar from './Toolbar';
 import Canvas from './Canvas';
 import PropertiesPanel from './PropertiesPanel';
 import ComponentPanel from './ComponentPanel';
+import DOMTreePanel from './DOMTreePanel';
 import CreateComponentModal from './CreateComponentModal';
 import StatusBar from './StatusBar';
 import ExportModal from './ExportModal';
@@ -14,12 +15,13 @@ import CodeModal from './CodeModal';
 import CSSOptimizationModal from './CSSOptimizationModal';
 
 const DesignToolContent: React.FC = () => {
-  const { isComponentPanelVisible } = useSelector((state: RootState) => state.ui);
+  const { isComponentPanelVisible, isDOMTreePanelVisible } = useSelector((state: RootState) => state.ui);
 
   return (
     <div className="flex h-screen relative bg-gray-50 font-inter overflow-hidden">
       <Header />
       <Toolbar />
+      {isDOMTreePanelVisible && <DOMTreePanel />}
       <Canvas />
       {isComponentPanelVisible && <ComponentPanel />}
       <PropertiesPanel />

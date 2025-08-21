@@ -20,7 +20,7 @@ const Canvas: React.FC = () => {
   const [hoveredElementId, setHoveredElementId] = useState<string | null>(null);
   const [hoveredZone, setHoveredZone] = useState<'before' | 'after' | 'inside' | null>(null);
   const { project } = useSelector((state: RootState) => state.canvas);
-  const { selectedTool, isDragging, dragStart, isResizing, resizeHandle, zoomLevel, isGridVisible, draggedElementId, isDraggingForReorder } = useSelector((state: RootState) => state.ui);
+  const { selectedTool, isDragging, dragStart, isResizing, resizeHandle, zoomLevel, isGridVisible, draggedElementId, isDraggingForReorder, isDOMTreePanelVisible } = useSelector((state: RootState) => state.ui);
 
   const rootElement = project.elements.root;
   const selectedElement = project.selectedElementId ? project.elements[project.selectedElementId] : null;
@@ -563,7 +563,9 @@ const Canvas: React.FC = () => {
 
   if (!rootElement) {
     return (
-      <main className="absolute left-12 right-80 top-12 bottom-8 bg-gray-50 flex items-center justify-center">
+      <main className={`absolute top-12 bottom-8 bg-gray-50 flex items-center justify-center ${
+        isDOMTreePanelVisible ? 'left-72 right-80' : 'left-12 right-80'
+      }`}>
         <div className="text-gray-500">No canvas available</div>
       </main>
     );
@@ -571,7 +573,9 @@ const Canvas: React.FC = () => {
 
   return (
     <main 
-      className="absolute left-12 right-[576px] top-12 bottom-8 bg-gray-50 overflow-auto flex items-center justify-center"
+      className={`absolute top-12 bottom-8 bg-gray-50 overflow-auto flex items-center justify-center ${
+        isDOMTreePanelVisible ? 'left-72 right-[576px]' : 'left-12 right-[576px]'
+      }`}
       onDragOver={handleDragOver}
       onDrop={handleDrop}
       data-testid="canvas-main"

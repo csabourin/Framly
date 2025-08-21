@@ -2,14 +2,14 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
 import { switchBreakpoint, undo, redo, updateProjectName } from '../../store/canvasSlice';
-import { setExportModalOpen, setCodeModalOpen, setCSSOptimizationModalOpen, zoomIn, zoomOut, fitToScreen } from '../../store/uiSlice';
+import { setExportModalOpen, setCodeModalOpen, setCSSOptimizationModalOpen, zoomIn, zoomOut, fitToScreen, toggleDOMTreePanel } from '../../store/uiSlice';
 import { Button } from '@/components/ui/button';
-import { Eye, Undo, Redo, Download, Smartphone, Laptop, Monitor, Settings, Plus, Minus, Maximize, Zap } from 'lucide-react';
+import { Eye, Undo, Redo, Download, Smartphone, Laptop, Monitor, Settings, Plus, Minus, Maximize, Zap, List } from 'lucide-react';
 
 const Header: React.FC = () => {
   const dispatch = useDispatch();
   const { project } = useSelector((state: RootState) => state.canvas);
-  const { isExportModalOpen } = useSelector((state: RootState) => state.ui);
+  const { isExportModalOpen, isDOMTreePanelVisible } = useSelector((state: RootState) => state.ui);
 
   const breakpoints = [
     { name: 'mobile', width: 375, icon: Smartphone, label: 'Mobile' },
@@ -51,6 +51,10 @@ const Header: React.FC = () => {
 
   const handleFitToScreen = () => {
     dispatch(fitToScreen());
+  };
+
+  const handleToggleDOMTree = () => {
+    dispatch(toggleDOMTreePanel());
   };
 
   return (
@@ -108,6 +112,18 @@ const Header: React.FC = () => {
           })}
         </div>
         
+        {/* DOM Tree Toggle */}
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={handleToggleDOMTree}
+          className={`p-2 hover:bg-gray-100 ${isDOMTreePanelVisible ? 'bg-gray-100 text-blue-600' : 'text-gray-600'}`}
+          data-testid="button-toggle-dom-tree"
+          title="Toggle Element Tree"
+        >
+          <List className="w-4 h-4" />
+        </Button>
+
         {/* Zoom Controls */}
         <div className="flex items-center gap-1 bg-gray-100 rounded-lg p-1" data-testid="zoom-controls">
           <Button
