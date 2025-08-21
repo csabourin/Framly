@@ -88,12 +88,26 @@ export const ClassEditor: React.FC<ClassEditorProps> = ({ isOpen, onClose }) => 
     dispatch(removeCSSClass({ elementId: selectedElement.id, className }));
   };
 
-  // Start editing a class
+  // Start editing a class (either custom or applied)
   const startEditingClass = (className: string) => {
     const classData = customClasses[className] as { styles: Record<string, any> };
     if (classData) {
       setEditingClass(className);
       setClassStyles({ ...classData.styles });
+    }
+  };
+
+  // Start editing an applied class (create custom class if doesn't exist)
+  const startEditingAppliedClass = (className: string) => {
+    const classData = customClasses[className] as { styles: Record<string, any> };
+    if (classData) {
+      // Edit existing custom class
+      setEditingClass(className);
+      setClassStyles({ ...classData.styles });
+    } else {
+      // Create new custom class for editing
+      setEditingClass(className);
+      setClassStyles({}); // Start with empty styles for new class
     }
   };
 
@@ -123,10 +137,20 @@ export const ClassEditor: React.FC<ClassEditorProps> = ({ isOpen, onClose }) => 
   const saveClassChanges = () => {
     if (!editingClass) return;
     
-    dispatch(updateCustomClass({
-      name: editingClass,
-      styles: classStyles
-    }));
+    // Check if this class exists, if not create it
+    if (customClasses[editingClass]) {
+      dispatch(updateCustomClass({
+        name: editingClass,
+        styles: classStyles
+      }));
+    } else {
+      // Create new custom class
+      dispatch(addCustomClass({
+        name: editingClass,
+        styles: classStyles,
+        description: `Custom class for ${editingClass}`
+      }));
+    }
     
     setEditingClass(null);
     setClassStyles({});
@@ -229,18 +253,29 @@ export const ClassEditor: React.FC<ClassEditorProps> = ({ isOpen, onClose }) => 
                         <Label>Applied Classes</Label>
                         <div className="flex flex-wrap gap-2">
                           {selectedElement.classes.map((className) => (
-                            <Badge key={className} variant="secondary" className="flex items-center gap-1">
-                              {className}
+                            <div key={className} className="flex items-center gap-1 px-3 py-1 bg-blue-50 border border-blue-200 rounded-full">
+                              <span className="text-sm font-mono text-blue-800">.{className}</span>
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                className="h-4 w-4 p-0 hover:bg-blue-100"
+                                onClick={() => startEditingAppliedClass(className)}
+                                data-testid={`edit-class-${className}`}
+                                title="Edit this class"
+                              >
+                                <Edit3 className="w-3 h-3" />
+                              </Button>
                               <Button
                                 variant="ghost"
                                 size="sm"
                                 className="h-4 w-4 p-0 hover:bg-red-100"
                                 onClick={() => removeClassFromElement(className)}
                                 data-testid={`remove-class-${className}`}
+                                title="Remove from element"
                               >
                                 <X className="w-3 h-3" />
                               </Button>
-                            </Badge>
+                            </div>
                           ))}
                         </div>
                       </div>
