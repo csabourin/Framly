@@ -188,3 +188,40 @@
   outline: none;
   background-color: rgba(59, 130, 246, 0.08);
 }
+
+/* List styling to show bullets and numbering */
+ul, ol {
+  list-style-position: inside;
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style-type: disc;
+}
+
+ol {
+  list-style-type: decimal;
+}
+
+ul li, ol li {
+  margin: 0.25em 0;
+  padding-left: 0.5em;
+}
+
+/* Nested list styling */
+ul ul {
+  list-style-type: circle;
+}
+
+ul ul ul {
+  list-style-type: square;
+}
+
+ol ol {
+  list-style-type: lower-alpha;
+}
+
+ol ol ol {
+  list-style-type: lower-roman;
+}
