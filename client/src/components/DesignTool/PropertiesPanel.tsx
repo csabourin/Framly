@@ -119,7 +119,11 @@ const PropertiesPanel: React.FC = () => {
       return selectedElement.styles[property.key];
     }
     
-    // Return default value
+    // Return appropriate default value based on property type
+    if (property.type === 'select' && property.options && property.options.length > 0) {
+      return property.options[0].value;
+    }
+    
     return '';
   };
 

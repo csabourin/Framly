@@ -225,3 +225,46 @@ ol ol {
 ol ol ol {
   list-style-type: lower-roman;
 }
+
+/* Heading level styling to show visual differences */
+h1 {
+  font-size: 2rem !important; /* 32px */
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
+  margin-bottom: 1rem !important;
+}
+
+h2 {
+  font-size: 1.75rem !important; /* 28px */
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
+  margin-bottom: 0.875rem !important;
+}
+
+h3 {
+  font-size: 1.5rem !important; /* 24px */
+  font-weight: 600 !important;
+  line-height: 1.2 !important;
+  margin-bottom: 0.75rem !important;
+}
+
+h4 {
+  font-size: 1.25rem !important; /* 20px */
+  font-weight: 600 !important;
+  line-height: 1.2 !important;
+  margin-bottom: 0.625rem !important;
+}
+
+h5 {
+  font-size: 1.125rem !important; /* 18px */
+  font-weight: 600 !important;
+  line-height: 1.2 !important;
+  margin-bottom: 0.5rem !important;
+}
+
+h6 {
+  font-size: 1rem !important; /* 16px */
+  font-weight: 600 !important;
+  line-height: 1.2 !important;
+  margin-bottom: 0.5rem !important;
+}

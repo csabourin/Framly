@@ -42,6 +42,11 @@ ${this.generateElementHTML(rootElement, 1)}
     
     if (element.type === 'text' && element.content) {
       content = element.content;
+    } else if (element.type === 'heading' && element.content) {
+      content = element.content;
+    } else if (element.type === 'list' && element.listItems) {
+      const listItems = element.listItems.map(item => `${indent}    <li>${item}</li>`).join('\n');
+      content = '\n' + listItems + '\n' + indent;
     } else if (element.type === 'image') {
       return `${indent}<img class="${classes}" src="placeholder.jpg" alt="Image placeholder" />`;
     } else if (element.children && element.children.length > 0) {
@@ -66,6 +71,12 @@ ${indent}</${tag}>`;
     switch (element.type) {
       case 'text':
         return 'p';
+      case 'heading':
+        const headingLevel = element.headingLevel || 1;
+        return `h${headingLevel}`;
+      case 'list':
+        const listType = element.listType || 'unordered';
+        return listType === 'ordered' ? 'ol' : 'ul';
       case 'container':
         return 'div';
       case 'rectangle':
