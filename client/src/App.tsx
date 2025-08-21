@@ -6,6 +6,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import DesignTool from "./components/DesignTool";
 import NotFound from "@/pages/not-found";
+import ClassDataManager from "./components/DesignTool/ClassDataManager";
 
 function Router() {
   return (
@@ -20,8 +21,10 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <Toaster />
-        <Router />
+        <ClassDataManager>
+          <Toaster />
+          <Router />
+        </ClassDataManager>
       </TooltipProvider>
     </QueryClientProvider>
   );

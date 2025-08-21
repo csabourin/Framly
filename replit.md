@@ -4,6 +4,16 @@ This is a WYSIWYG (What You See Is What You Get) web design tool built as a full
 
 ## Recent Changes (January 20-21, 2025)
 
+### PostgreSQL Database Integration (Latest Update)
+- **Database Schema Implementation**: Added PostgreSQL tables for custom classes and categories with proper relationships
+- **Custom Class Persistence**: Custom CSS classes now save to database with styles, descriptions, and categories
+- **Category Management**: Category names and organization now persist in PostgreSQL database
+- **API Endpoints**: Complete REST API for custom classes and categories CRUD operations
+- **Database Storage Migration**: Migrated from MemStorage to DatabaseStorage with Drizzle ORM integration
+- **Frontend Database Integration**: Redux store now connects to database through async thunks for all custom class operations
+- **Class Data Manager**: Automatic loading of custom classes and categories on application startup
+
+### Previous Features
 - **IndexedDB Persistence Implementation**: Complete local storage system for workspace and components
 - **Auto-save functionality**: Workspace automatically saves every 5 seconds to prevent data loss
 - **Component persistence**: Custom components are saved locally and restored on app restart
@@ -142,11 +152,14 @@ Preferred communication style: Simple, everyday language.
 - **Session Management**: Express session handling with PostgreSQL session store support
 
 ## Data Storage Solutions
-- **Local Persistence**: IndexedDB for client-side storage of projects and components
+- **PostgreSQL Database**: Primary persistence layer for custom classes and categories with full CRUD operations
+- **Database Integration**: Complete API layer with REST endpoints for all database operations
+- **Custom Class Storage**: CSS classes with styles, descriptions, and categories stored in database
+- **Category Management**: Persistent category organization system for both components and classes
+- **Local Persistence**: IndexedDB for client-side storage of projects and components (legacy support)
 - **Auto-save System**: Automatic workspace saving every 5 seconds with change detection
 - **Component Storage**: User-created components stored locally with categories and metadata
 - **Data Export/Import**: JSON-based backup and restore functionality
-- **Primary Database**: PostgreSQL configured through Drizzle ORM (for future server features)
 - **Schema Management**: Drizzle Kit for database migrations and schema evolution
 
 ## Design Tool Features

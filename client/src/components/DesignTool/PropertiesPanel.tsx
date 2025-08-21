@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import type { AppDispatch } from '../../store';
 import { RootState } from '../../store';
 import { updateElement, updateElementStyles, addCSSClass, removeCSSClass, deleteElement, selectElement } from '../../store/canvasSlice';
-import { addCustomClass, updateCustomClass, deleteCustomClass } from '../../store/classSlice';
+import { addCustomClass, updateCustomClass, deleteCustomClass, saveCustomClass, updateCustomClassDB, loadCustomClasses } from '../../store/classSlice';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -32,7 +33,7 @@ import {
 } from 'lucide-react';
 
 const PropertiesPanel: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const { project } = useSelector((state: RootState) => state.canvas);
   const selectedElement = project.selectedElementId ? project.elements[project.selectedElementId] : null;
   const [newClassName, setNewClassName] = useState('');
@@ -104,12 +105,14 @@ const PropertiesPanel: React.FC = () => {
     } else {
       // Check if we're editing a specific class or element inline styles
       if (selectedClassForEditing) {
-        // Update the selected class styles
+        // Update the selected class styles in database
         const existingClass = customClasses[selectedClassForEditing];
         if (existingClass) {
-          dispatch(updateCustomClass({
+          const updatedStyles = { ...existingClass.styles, [propertyKey]: value };
+          // Use database update
+          dispatch(updateCustomClassDB({
             name: selectedClassForEditing,
-            styles: { ...existingClass.styles, [propertyKey]: value }
+            updates: { styles: updatedStyles }
           }));
         }
       } else {
@@ -125,6 +128,18 @@ const PropertiesPanel: React.FC = () => {
   const handleAddClass = () => {
     if (newClassName && cssClassGenerator.validateCSSClassName(newClassName)) {
       dispatch(addCSSClass({ elementId: selectedElement.id, className: newClassName }));
+      
+      // Create the class in the database with empty styles initially
+      const newClass = {
+        name: newClassName,
+        styles: {},
+        description: `Custom class for ${selectedElement.type}`,
+        category: 'custom',
+        createdAt: Date.now(),
+        updatedAt: Date.now()
+      };
+      dispatch(saveCustomClass(newClass));
+      
       setNewClassName('');
       // Automatically select the new class for editing
       setSelectedClassForEditing(newClassName);
