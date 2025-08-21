@@ -394,12 +394,25 @@ const Canvas: React.FC = () => {
         console.log('DRAG DEBUG - Insertion zone detected:', insertionZone);
         
         const targetElement = project.elements[insertionZone.elementId];
-        const canDropHere = targetElement ? isValidDropTarget(targetElement) : false;
+        // Different validation logic based on insertion type
+        let canDropHere = false;
+        if ((insertionZone as any).position === 'inside' || (insertionZone as any).position === 'between') {
+          // For inside/between positions, the target must be a container
+          canDropHere = targetElement ? isValidDropTarget(targetElement) : false;
+        } else {
+          // For before/after positions (sibling insertion), check if the parent can accept children
+          const parentId = targetElement?.parent || 'root';
+          const parentElement = project.elements[parentId];
+          canDropHere = parentElement ? isValidDropTarget(parentElement) : false;
+        }
         
         console.log('DRAG DEBUG - Drop validation during move:', { 
           targetType: targetElement?.type, 
+          targetId: targetElement?.id,
           canDropHere,
-          position: (insertionZone as any).position
+          position: (insertionZone as any).position,
+          parentId: targetElement?.parent,
+          parentType: project.elements[targetElement?.parent || 'root']?.type
         });
         
         setHoveredElementId(insertionZone.elementId);
@@ -486,9 +499,26 @@ const Canvas: React.FC = () => {
     
     if (isDraggingForReorder && draggedElementId && insertionIndicator) {
       const targetElement = project.elements[insertionIndicator.elementId];
-      const canDropHere = targetElement ? isValidDropTarget(targetElement) : false;
+      let canDropHere = false;
       
-      console.log('DRAG DEBUG - Drop validation:', { targetElement: targetElement?.type, canDropHere, insertionPosition: (insertionIndicator as any).position });
+      // Different validation logic based on insertion type
+      if ((insertionIndicator as any).position === 'inside' || (insertionIndicator as any).position === 'between') {
+        // For inside/between positions, the target must be a container
+        canDropHere = targetElement ? isValidDropTarget(targetElement) : false;
+      } else {
+        // For before/after positions (sibling insertion), check if the parent can accept children
+        const parentId = targetElement?.parent || 'root';
+        const parentElement = project.elements[parentId];
+        canDropHere = parentElement ? isValidDropTarget(parentElement) : false;
+      }
+      
+      console.log('DRAG DEBUG - Drop validation:', { 
+        targetElement: targetElement?.type, 
+        canDropHere, 
+        insertionPosition: (insertionIndicator as any).position,
+        parentId: targetElement?.parent,
+        parentType: project.elements[targetElement?.parent || 'root']?.type
+      });
       
       if (canDropHere) {
         // Complete the reorder operation only for valid targets
