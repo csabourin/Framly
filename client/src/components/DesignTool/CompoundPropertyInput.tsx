@@ -126,11 +126,11 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
     
     // Check if there's a specific side value first
     const sideValue = values[side.prop];
-    if (sideValue) return sideValue;
+    if (sideValue) return String(sideValue);
     
     // If no side-specific value but there's a simple value, use it as default
     if (simpleValue && !hasAnyAdvancedValues()) {
-      return simpleValue;
+      return String(simpleValue);
     }
     
     return '';
@@ -144,8 +144,9 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
   const renderBorderInput = (sideKey: string, label: string) => {
     const value = getValue(sideKey);
     
-    // Parse border value (e.g., "2px solid #000")
-    const parts = (value || '').split(' ');
+    // Parse border value (e.g., "2px solid #000") - ensure value is string
+    const valueStr = String(value || '');
+    const parts = valueStr.split(' ');
     const width = parts[0] || '';
     const style = parts[1] || 'solid';
     const color = parts[2] || '#000000';
