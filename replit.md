@@ -52,6 +52,8 @@ This is a WYSIWYG (What You See Is What You Get) web design tool built as a full
 - **Property Management Interface**: Visual interface for adding, editing, and removing individual CSS properties
 - **Object-Safe Rendering**: Fixed React rendering errors when displaying complex CSS values
 - **CSS Export Functionality**: Generate clean CSS from custom classes with proper kebab-case conversion
+- **Class Renaming System**: Full class renaming with automatic element updates across the entire project
+- **Applied Class Enhancement**: Edit any applied class with proper style extraction from selected elements
 
 ### CSS Optimization System
 

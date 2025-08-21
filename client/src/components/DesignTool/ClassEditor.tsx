@@ -9,7 +9,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import { Plus, X, Edit3, Save, Trash2, Download } from 'lucide-react';
+import { Plus, X, Edit3, Save, Trash2, Download, Edit } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { PropertyInput } from './PropertyInput';
 import { getPropertyGroups, PropertyConfig, ElementType } from '../../utils/propertyConfig';
@@ -30,6 +30,8 @@ export const ClassEditor: React.FC<ClassEditorProps> = ({ isOpen, onClose }) => 
   const [classStyles, setClassStyles] = useState<Record<string, any>>({});
   const [newPropertyKey, setNewPropertyKey] = useState('');
   const [newPropertyValue, setNewPropertyValue] = useState('');
+  const [renamingClass, setRenamingClass] = useState<string | null>(null);
+  const [renameClassName, setRenameClassName] = useState('');
 
   // Extract styles from selected element into a new class
   const extractStylesToClass = () => {
@@ -188,6 +190,56 @@ export const ClassEditor: React.FC<ClassEditorProps> = ({ isOpen, onClose }) => 
     dispatch(deleteCustomClass(className));
   };
 
+  // Start renaming a class
+  const startRenamingClass = (className: string) => {
+    setRenamingClass(className);
+    setRenameClassName(className);
+  };
+
+  // Rename a class
+  const renameClass = () => {
+    if (!renamingClass || !renameClassName.trim() || renameClassName.trim() === renamingClass) {
+      setRenamingClass(null);
+      setRenameClassName('');
+      return;
+    }
+
+    const trimmedNewName = renameClassName.trim();
+    
+    // Check if new name already exists
+    if (customClasses[trimmedNewName]) {
+      alert('A class with that name already exists');
+      return;
+    }
+
+    // Get the old class data
+    const oldClassData = customClasses[renamingClass] as { styles: Record<string, any>; description?: string };
+    if (!oldClassData) return;
+
+    // Create the new class with the same properties
+    dispatch(addCustomClass({
+      name: trimmedNewName,
+      styles: oldClassData.styles,
+      description: oldClassData.description || `Renamed from ${renamingClass}`
+    }));
+
+    // Update all elements that use the old class name
+    Object.values(project.elements).forEach((element: any) => {
+      if (element.classes && element.classes.includes(renamingClass)) {
+        // Remove old class and add new class
+        dispatch(removeCSSClass({ elementId: element.id, className: renamingClass }));
+        dispatch(addCSSClass({ elementId: element.id, className: trimmedNewName }));
+      }
+    });
+
+    // Delete the old class
+    dispatch(deleteCustomClass(renamingClass));
+
+    // Clean up state
+    setRenamingClass(null);
+    setRenameClassName('');
+  };
+
   // Generate CSS for export
   const generateCSS = () => {
     let css = '/* Custom Classes */\n\n';
@@ -337,6 +389,7 @@ export const ClassEditor: React.FC<ClassEditorProps> = ({ isOpen, onClose }) => 
                                   size="sm"
                                   onClick={() => applyClassToElement(name)}
                                   data-testid={`apply-class-${name}`}
+                                  title="Apply to selected element"
                                 >
                                   Apply
                                 </Button>
@@ -346,14 +399,25 @@ export const ClassEditor: React.FC<ClassEditorProps> = ({ isOpen, onClose }) => 
                                 size="sm"
                                 onClick={() => startEditingClass(name)}
                                 data-testid={`edit-class-${name}`}
+                                title="Edit class properties"
                               >
                                 <Edit3 className="w-4 h-4" />
                               </Button>
                               <Button
                                 variant="ghost"
                                 size="sm"
+                                onClick={() => startRenamingClass(name)}
+                                data-testid={`rename-class-${name}`}
+                                title="Rename class"
+                              >
+                                <Edit className="w-4 h-4 text-blue-600" />
+                              </Button>
+                              <Button
+                                variant="ghost"
+                                size="sm"
                                 onClick={() => deleteClass(name)}
                                 data-testid={`delete-class-${name}`}
+                                title="Delete class"
                               >
                                 <Trash2 className="w-4 h-4" />
                               </Button>
@@ -485,6 +549,56 @@ export const ClassEditor: React.FC<ClassEditorProps> = ({ isOpen, onClose }) => 
                     Save Changes
                   </Button>
                 </div>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
+      )}
+
+      {/* Class Rename Dialog */}
+      {renamingClass && (
+        <Dialog open={!!renamingClass} onOpenChange={() => setRenamingClass(null)}>
+          <DialogContent className="max-w-md">
+            <DialogHeader>
+              <DialogTitle>Rename Class</DialogTitle>
+            </DialogHeader>
+            
+            <div className="space-y-4">
+              <div className="text-sm text-gray-600">
+                Renaming class: <span className="font-mono">.{renamingClass}</span>
+              </div>
+              
+              <div className="space-y-2">
+                <Label>New Class Name</Label>
+                <Input
+                  placeholder="Enter new class name..."
+                  value={renameClassName}
+                  onChange={(e) => setRenameClassName(e.target.value)}
+                  onKeyDown={(e) => e.key === 'Enter' && renameClass()}
+                  className="font-mono"
+                />
+              </div>
+              
+              <div className="text-xs text-gray-500">
+                This will update all elements using this class
+              </div>
+              
+              <div className="flex justify-end gap-2">
+                <Button 
+                  variant="outline" 
+                  onClick={() => {
+                    setRenamingClass(null);
+                    setRenameClassName('');
+                  }}
+                >
+                  Cancel
+                </Button>
+                <Button 
+                  onClick={renameClass}
+                  disabled={!renameClassName.trim() || renameClassName.trim() === renamingClass}
+                >
+                  Rename Class
+                </Button>
               </div>
             </div>
           </DialogContent>
