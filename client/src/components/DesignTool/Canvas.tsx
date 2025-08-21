@@ -122,18 +122,24 @@ const Canvas: React.FC = () => {
         };
       }
     } else {
-      // For non-container elements (text, image, heading, list), only show before/after
+      // For non-container elements (text, image, heading, list), show before/after as sibling insertion
       const midpoint = elementHeight / 2;
+      const parentId = hoveredElement.parent || 'root';
+      
       if (relativeY < midpoint) {
         return {
-          position: 'before',
-          elementId: hoveredElement.id,
+          position: 'between' as any,
+          elementId: parentId,  // Parent container, not the hovered element
+          referenceElementId: hoveredElement.id,  // The element we're inserting before
+          insertPosition: 'before' as any,
           bounds: { x: elementX, y: elementY - 3, width: elementWidth, height: 6 }
         };
       } else {
         return {
-          position: 'after',
-          elementId: hoveredElement.id,
+          position: 'between' as any,
+          elementId: parentId,  // Parent container, not the hovered element  
+          referenceElementId: hoveredElement.id,  // The element we're inserting after
+          insertPosition: 'after' as any,
           bounds: { x: elementX, y: elementY + elementHeight - 3, width: elementWidth, height: 6 }
         };
       }
@@ -495,19 +501,25 @@ const Canvas: React.FC = () => {
             insertPosition: 'inside'
           }));
         } else if ((insertionIndicator as any).position === 'between') {
-          // Precise insertion between siblings
+          // Precise insertion between siblings - find the parent container
+          const hoveredElement = project.elements[insertionIndicator.elementId];
+          const parentId = hoveredElement?.parent || 'root';
+          
           console.log('DRAG DEBUG - Reordering between siblings:', { 
-            parentId: insertionIndicator.elementId, 
+            hoveredElementId: insertionIndicator.elementId,
+            parentId, 
             insertPosition: (insertionIndicator as any).insertPosition,
             referenceElementId: (insertionIndicator as any).referenceElementId
           });
+          
           dispatch(reorderElement({
             elementId: draggedElementId,
-            newParentId: insertionIndicator.elementId,
+            newParentId: parentId,
             insertPosition: (insertionIndicator as any).insertPosition,
             referenceElementId: (insertionIndicator as any).referenceElementId
           }));
         } else {
+          // Handle before/after positions (sibling insertion)
           const parentId = targetElement?.parent || 'root';
           console.log('DRAG DEBUG - Reordering as sibling:', { parentId, position: (insertionIndicator as any).position });
           
