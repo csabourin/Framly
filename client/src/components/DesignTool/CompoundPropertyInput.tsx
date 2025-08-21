@@ -72,7 +72,8 @@ const BorderInput = React.memo(({
   const updateValue = React.useCallback((newWidth: string, newUnit: string, newStyle: string, newColor: string) => {
     const fullWidth = newWidth.trim() && newWidth !== '0' ? `${newWidth.trim()}${newUnit}` : '';
     const newValue = fullWidth ? `${fullWidth} ${newStyle} ${newColor}` : '';
-    console.log(`BorderInput updateValue: ${sideKey} -> "${newValue}"`);
+    console.log(`🟦 BorderInput updateValue: ${sideKey} -> "${newValue}"`);
+    console.log('🟦 Calling onSideChange with:', { sideKey, newValue });
     onSideChange(sideKey, newValue);
   }, [sideKey, onSideChange]);
 
@@ -350,26 +351,28 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
         <div className="p-2 border-b border-gray-200">
           <BorderInput
             key="global-border"
-            sideKey="border"
+            sideKey="all-sides"
             label="All Sides"
             currentValue={simpleValue || ''}
             onSideChange={(sideKey, value) => {
               // Apply to all individual sides when using global input
-              console.log('Global border input changed:', { sideKey, value });
+              console.log('🔴 Global border input changed:', { sideKey, value });
               if (value && value.trim()) {
                 // Apply the same border value to all four sides
+                console.log('🔴 Applying to all sides:', value);
                 onChange('border-top', value);
                 onChange('border-right', value);
                 onChange('border-bottom', value);
                 onChange('border-left', value);
-                console.log(`Applied global border "${value}" to all sides`);
+                console.log(`🔴 Applied global border "${value}" to all sides`);
               } else {
                 // Clear all borders if value is empty
+                console.log('🔴 Clearing all border sides');
                 onChange('border-top', '');
                 onChange('border-right', '');
                 onChange('border-bottom', '');
                 onChange('border-left', '');
-                console.log('Cleared all border sides');
+                console.log('🔴 Cleared all border sides');
               }
             }}
           />
