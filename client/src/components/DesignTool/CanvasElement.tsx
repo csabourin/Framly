@@ -182,6 +182,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     if (element.type === 'heading') {
       const isTextEditable = isSelected && (selectedTool === 'text' || isEditing);
       const headingLevel = element.headingLevel || 1;
+
       const HeadingTag = `h${headingLevel}` as keyof JSX.IntrinsicElements;
       
       const processedContent = element.content || `Heading ${headingLevel}`;

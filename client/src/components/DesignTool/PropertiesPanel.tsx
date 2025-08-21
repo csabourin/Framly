@@ -69,9 +69,10 @@ const PropertiesPanel: React.FC = () => {
       }));
     } else if (['headingLevel', 'listType'].includes(propertyKey)) {
       // Update element-specific properties (not styles)
+      const processedValue = propertyKey === 'headingLevel' ? parseInt(value, 10) : value;
       dispatch(updateElement({
         id: selectedElement.id,
-        updates: { [propertyKey]: value }
+        updates: { [propertyKey]: processedValue }
       }));
     } else {
       // Regular style update - use camelCase for React style properties
