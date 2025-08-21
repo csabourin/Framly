@@ -337,6 +337,25 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
 
   return (
     <div className="border border-gray-200 rounded-md bg-gray-50">
+      {/* Global Border Input (for all sides) */}
+      {propertyType === 'border' && (
+        <div className="p-2 border-b border-gray-200">
+          <BorderInput
+            key="global-border"
+            sideKey="border"
+            label="All Sides"
+            currentValue={simpleValue || ''}
+            onSideChange={(_, value) => {
+              // Apply to all individual sides when using global input
+              const config = getConfig();
+              config.sides.forEach(side => {
+                onChange(side.prop, value);
+              });
+            }}
+          />
+        </div>
+      )}
+      
       {/* Header */}
       <button
         onClick={() => {
