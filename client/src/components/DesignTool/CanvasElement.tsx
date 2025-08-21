@@ -366,21 +366,20 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
   // Check if this element can accept drops (only containers and rectangles)
   const canAcceptDrop = element.type === 'container' || element.type === 'rectangle';
   
-  // Define visual feedback based on selection, hover, and drag states
-  const getBorderStyle = (mergedBorder?: string) => {
+  // Define visual feedback based on selection, hover, and drag states using outline
+  const getOutlineStyle = () => {
     if (isSelected) return '2px solid #3b82f6';
     
     // Drag-drop visual feedback (only show for compatible drop targets)
     if (isDraggingForReorder && isThisElementHovered && canAcceptDrop && thisElementHoveredZone === 'inside') {
-      return '4px solid #22c55e'; // Green border for valid drop zones
+      return '4px solid #22c55e'; // Green outline for valid drop zones
     }
     
     // Creation tool hover feedback (purple for inside, blue for before/after)
     if (isThisElementHovered && thisElementHoveredZone === 'inside') return '4px solid #a855f7';
     if (isThisElementHovered && (thisElementHoveredZone === 'before' || thisElementHoveredZone === 'after')) return '2px solid #3b82f6';
     
-    // Use merged styles (includes custom classes) when no hover/selection state
-    return mergedBorder;
+    return undefined;
   };
 
   const getBackgroundColor = (mergedBgColor?: string) => {
@@ -456,9 +455,10 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     height: (['text', 'heading', 'list'].includes(element.type)) ? 'auto' : (mergedStyles.minHeight ? undefined : element.height),
     minHeight: (['text', 'heading', 'list'].includes(element.type)) ? '1.2em' : undefined,
     ...convertCSSPropertiesToCamelCase(mergedStyles),
-    // Pass merged styles to functions so custom classes are preserved
+    // Custom class styles are now fully preserved for border
     backgroundColor: getBackgroundColor(mergedStyles.backgroundColor),
-    border: getBorderStyle(mergedStyles.border),
+    // Use outline for selection/hover feedback instead of border
+    outline: getOutlineStyle(),
     boxShadow: getBoxShadow(),
     // Ensure the visual feedback is always visible
     zIndex: isThisElementHovered ? 1000 : (isSelected ? 100 : undefined),
@@ -470,8 +470,8 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
       elementId: element.id, 
       isHovered: isThisElementHovered, 
       hoveredZone: thisElementHoveredZone, 
-      border: getBorderStyle(),
-      backgroundColor: getBackgroundColor()
+      outline: getOutlineStyle(),
+      backgroundColor: getBackgroundColor(mergedStyles.backgroundColor)
     });
   }
 
