@@ -36,10 +36,19 @@ export const ClassEditor: React.FC<ClassEditorProps> = ({ isOpen, onClose }) => 
     const className = newClassName.trim();
     const elementStyles = { ...selectedElement.styles };
     
-    // Remove default/inherited styles to keep class clean
+    // Remove default/inherited styles to keep class clean and ensure all values are strings
     const cleanStyles = Object.entries(elementStyles).reduce((acc, [key, value]) => {
       if (value && value !== 'initial' && value !== 'inherit') {
-        acc[key] = value;
+        // Convert objects to strings if needed (e.g., {borderWidth: '1px'} -> '1px')
+        if (typeof value === 'object' && value !== null) {
+          // If it's an object with properties, try to extract the main value
+          if (value.borderWidth) acc[key] = String(value.borderWidth);
+          else if (value.width) acc[key] = String(value.width);
+          else if (value.color) acc[key] = String(value.color);
+          else acc[key] = JSON.stringify(value);
+        } else {
+          acc[key] = String(value);
+        }
       }
       return acc;
     }, {} as Record<string, any>);
@@ -114,7 +123,9 @@ export const ClassEditor: React.FC<ClassEditorProps> = ({ isOpen, onClose }) => 
       Object.entries(typedClassData.styles).forEach(([property, value]) => {
         // Convert camelCase to kebab-case
         const cssProperty = property.replace(/([A-Z])/g, '-$1').toLowerCase();
-        css += `  ${cssProperty}: ${value};\n`;
+        // Ensure value is a string
+        const cssValue = typeof value === 'object' ? JSON.stringify(value) : String(value);
+        css += `  ${cssProperty}: ${cssValue};\n`;
       });
       css += '}\n\n';
     });
@@ -267,7 +278,7 @@ export const ClassEditor: React.FC<ClassEditorProps> = ({ isOpen, onClose }) => 
                           )}
                           <div className="text-xs font-mono bg-gray-50 p-2 rounded">
                             {Object.entries(typedClassData.styles).map(([prop, value]) => (
-                              <div key={prop}>{prop}: {value};</div>
+                              <div key={prop}>{prop}: {String(value)};</div>
                             ))}
                           </div>
                         </div>
