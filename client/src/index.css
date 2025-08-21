@@ -127,3 +127,28 @@
     linear-gradient(90deg, rgba(0, 0, 0, 0.1) 1px, transparent 1px);
   background-size: 20px 20px;
 }
+
+/* Text element paragraph styling */
+[contenteditable] p {
+  margin: 0 0 0.5em 0;
+  line-height: 1.4;
+}
+
+[contenteditable] p:last-child {
+  margin-bottom: 0;
+}
+
+[contenteditable] p:empty::before {
+  content: '\00a0'; /* Non-breaking space for empty paragraphs */
+  color: transparent;
+}
+
+/* Text display styling */
+.text-element p {
+  margin: 0 0 0.5em 0;
+  line-height: 1.4;
+}
+
+.text-element p:last-child {
+  margin-bottom: 0;
+}

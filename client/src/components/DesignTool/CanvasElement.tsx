@@ -2,6 +2,7 @@ import React, { useRef, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
 import { selectElement, updateElement } from '../../store/canvasSlice';
+import { setSelectedTool } from '../../store/uiSlice';
 import { CanvasElement as CanvasElementType } from '../../types/canvas';
 
 interface CanvasElementProps {
@@ -56,34 +57,81 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
   }, [element.id, dispatch, selectedTool]);
 
   const handleContentEdit = useCallback((e: React.FormEvent<HTMLDivElement>) => {
-    const newContent = e.currentTarget.textContent || '';
+    const newContent = e.currentTarget.innerHTML || '';
     dispatch(updateElement({
       id: element.id,
       updates: { content: newContent }
     }));
   }, [element.id, dispatch]);
 
+  const handleKeyDown = useCallback((e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      
+      if (e.shiftKey) {
+        // Shift+Enter: Insert line break
+        document.execCommand('insertHTML', false, '<br>');
+      } else {
+        // Enter: Create new paragraph
+        const selection = window.getSelection();
+        if (selection && selection.rangeCount > 0) {
+          const range = selection.getRangeAt(0);
+          
+          // Create new paragraph element
+          const newP = document.createElement('p');
+          newP.innerHTML = '<br>'; // Empty paragraph with break for cursor positioning
+          
+          // Insert the new paragraph
+          range.deleteContents();
+          range.insertNode(newP);
+          
+          // Position cursor at start of new paragraph
+          range.setStart(newP, 0);
+          range.collapse(true);
+          selection.removeAllRanges();
+          selection.addRange(range);
+        }
+      }
+    }
+  }, []);
+
   const renderContent = () => {
     if (element.type === 'text') {
       const isTextEditable = isSelected && selectedTool === 'text';
       
-      return (
-        <div
-          contentEditable={isTextEditable}
-          suppressContentEditableWarning
-          onBlur={handleContentEdit}
-          onDoubleClick={(e) => {
-            e.stopPropagation();
-            // Make editable on double click
-            e.currentTarget.contentEditable = 'true';
-            e.currentTarget.focus();
-          }}
-          className={`w-full h-full outline-none ${isTextEditable ? 'cursor-text' : 'cursor-pointer'}`}
-          style={{ minHeight: '1em' }}
-        >
-          {element.content || 'Edit this text'}
-        </div>
-      );
+      const processedContent = element.content || 'Edit this text';
+      
+      // If content doesn't have paragraph tags, wrap it in a paragraph
+      const htmlContent = processedContent.includes('<p>') ? 
+        processedContent : 
+        `<p>${processedContent.replace(/\n/g, '<br>')}</p>`;
+
+      if (isTextEditable) {
+        return (
+          <div
+            contentEditable={true}
+            suppressContentEditableWarning
+            onBlur={handleContentEdit}
+            onKeyDown={handleKeyDown}
+            className="w-full h-full outline-none cursor-text"
+            style={{ minHeight: '1em' }}
+            dangerouslySetInnerHTML={{ __html: htmlContent }}
+          />
+        );
+      } else {
+        return (
+          <div
+            onDoubleClick={(e) => {
+              e.stopPropagation();
+              // Switch to text tool on double click
+              dispatch(setSelectedTool('text'));
+            }}
+            className="w-full h-full outline-none cursor-pointer text-element"
+            style={{ minHeight: '1em' }}
+            dangerouslySetInnerHTML={{ __html: htmlContent }}
+          />
+        );
+      }
     }
 
     if (element.type === 'image') {
