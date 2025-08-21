@@ -116,6 +116,7 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
   const handleSideChange = (sideKey: string, value: string) => {
     const side = config.sides.find(s => s.key === sideKey);
     if (side) {
+      console.log(`handleSideChange: ${sideKey} -> ${side.prop} = ${value}`);
       onChange(side.prop, value);
     }
   };
@@ -126,13 +127,20 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
     
     // Check if there's a specific side value first
     const sideValue = values[side.prop];
-    if (sideValue) return String(sideValue);
+    if (sideValue !== undefined && sideValue !== null) {
+      const stringValue = String(sideValue);
+      console.log(`getValue for ${sideKey}: found sideValue:`, sideValue, 'converted to:', stringValue);
+      return stringValue;
+    }
     
     // If no side-specific value but there's a simple value, use it as default
     if (simpleValue && !hasAnyAdvancedValues()) {
-      return String(simpleValue);
+      const stringValue = String(simpleValue);
+      console.log(`getValue for ${sideKey}: using simpleValue:`, simpleValue, 'converted to:', stringValue);
+      return stringValue;
     }
     
+    console.log(`getValue for ${sideKey}: returning empty string`);
     return '';
   };
 
@@ -150,6 +158,8 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
     const width = parts[0] || '';
     const style = parts[1] || 'solid';
     const color = parts[2] || '#000000';
+    
+    console.log(`renderBorderInput ${sideKey}:`, { value, valueStr, width, style, color });
 
     return (
       <div className="space-y-1">
