@@ -1,13 +1,22 @@
 import { CanvasElement, Project } from '../types/canvas';
 import { CSSOptimizer } from './cssOptimizer';
 
+interface CustomClass {
+  name: string;
+  styles: Record<string, any>;
+  description?: string;
+  category?: string;
+}
+
 export class CodeGenerator {
   private project: Project;
   private cssOptimizer: CSSOptimizer;
+  private customClasses: Record<string, CustomClass>;
   
-  constructor(project: Project) {
+  constructor(project: Project, customClasses: Record<string, CustomClass> = {}) {
     this.project = project;
     this.cssOptimizer = new CSSOptimizer();
+    this.customClasses = customClasses;
   }
   
   generateHTML(): string {
@@ -87,9 +96,50 @@ ${indent}</${tag}>`;
   }
   
   generateCSS(): string {
-    // Use the CSS optimizer for better output
-    const optimizedCSS = this.cssOptimizer.optimizeCSS(this.project.elements);
-    return this.cssOptimizer.generateOptimizedCSS(optimizedCSS);
+    // Generate CSS including custom classes
+    const cssRules: string[] = [];
+    
+    // Reset styles
+    cssRules.push(`* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}`);
+    
+    cssRules.push(`body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+}`);
+    
+    // Generate CSS for custom classes
+    Object.values(this.customClasses).forEach(customClass => {
+      if (customClass.styles && Object.keys(customClass.styles).length > 0) {
+        const selector = `.${customClass.name}`;
+        const styles = this.generateCustomClassCSS(customClass.styles);
+        if (styles) {
+          cssRules.push(`${selector} {
+${styles}
+}`);
+        }
+      }
+    });
+    
+    // Generate element-specific styles for elements without classes
+    const elements = Object.values(this.project.elements);
+    elements.forEach(element => {
+      // Only generate element styles if no custom classes are applied
+      if (!element.classes || element.classes.length === 0) {
+        const elementSelector = `[data-element-id="${element.id}"]`;
+        const styles = this.generateCSSProperties(element);
+        if (styles) {
+          cssRules.push(`${elementSelector} {
+${styles}
+}`);
+        }
+      }
+    });
+    
+    return cssRules.join('\n\n');
   }
 
   generateLegacyCSS(): string {
@@ -146,6 +196,20 @@ ${styles}
     });
     
     return cssRules.join('\n\n');
+  }
+  
+  private generateCustomClassCSS(styles: Record<string, any>): string {
+    const cssProps: string[] = [];
+    
+    for (const [key, value] of Object.entries(styles)) {
+      if (value !== undefined && value !== null && value !== '') {
+        // Convert camelCase to kebab-case
+        const cssKey = key.replace(/([A-Z])/g, '-$1').toLowerCase();
+        cssProps.push(`    ${cssKey}: ${value};`);
+      }
+    }
+    
+    return cssProps.join('\n');
   }
   
   private generateCSSProperties(element: CanvasElement): string {

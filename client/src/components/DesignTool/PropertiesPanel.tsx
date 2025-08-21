@@ -103,7 +103,7 @@ const PropertiesPanel: React.FC = () => {
         styles: { [propertyKey]: value }
       }));
     } else {
-      // Check if we're editing a specific class or element inline styles
+      // Only allow editing if a class is selected - no inline styles
       if (selectedClassForEditing) {
         // Update the selected class styles locally
         const existingClass = customClasses[selectedClassForEditing];
@@ -115,11 +115,9 @@ const PropertiesPanel: React.FC = () => {
           }));
         }
       } else {
-        // Regular style update - use camelCase for React style properties
-        dispatch(updateElementStyles({
-          id: selectedElement.id,
-          styles: { [propertyKey]: value }
-        }));
+        // Force user to create or select a class instead of allowing inline styles
+        console.warn('Style editing disabled. Please create or select a class to edit styles.');
+        return;
       }
     }
   };
@@ -144,7 +142,7 @@ const PropertiesPanel: React.FC = () => {
 
   const handleRemoveClass = (className: string) => {
     dispatch(removeCSSClass({ elementId: selectedElement.id, className }));
-    // If we're editing the class being removed, switch to inline styles
+    // If we're editing the class being removed, clear selection
     if (selectedClassForEditing === className) {
       setSelectedClassForEditing(null);
     }
@@ -260,6 +258,25 @@ const PropertiesPanel: React.FC = () => {
             Class Editing
           </h3>
           
+          {/* Style Editing Status */}
+          {!selectedClassForEditing && (!selectedElement.classes || selectedElement.classes.length === 0) && (
+            <div className="p-3 bg-amber-50 border border-amber-200 rounded-md mb-3">
+              <p className="text-sm text-amber-800">
+                <strong>⚠️ Create a class to edit styles</strong><br/>
+                Inline styles are disabled. Create or select a class below to customize this element's appearance.
+              </p>
+            </div>
+          )}
+          
+          {!selectedClassForEditing && selectedElement.classes && selectedElement.classes.length > 0 && (
+            <div className="p-3 bg-blue-50 border border-blue-200 rounded-md mb-3">
+              <p className="text-sm text-blue-800">
+                <strong>💡 Click a class below to edit its styles</strong><br/>
+                Select a class to customize its appearance, or create a new one.
+              </p>
+            </div>
+          )}
+
           {/* Current Classes with Edit Selection */}
           {selectedElement.classes && selectedElement.classes.length > 0 ? (
             <div className="space-y-3">
@@ -286,51 +303,21 @@ const PropertiesPanel: React.FC = () => {
                 </div>
               </div>
               
-              {/* Inline Styles Option */}
-              <div>
-                <button
-                  onClick={() => setSelectedClassForEditing(null)}
-                  className={`flex items-center gap-2 px-3 py-1 border rounded-full transition-colors ${
-                    selectedClassForEditing === null
-                      ? 'bg-gray-100 border-gray-300 text-gray-800'
-                      : 'bg-white border-gray-200 hover:border-gray-300'
-                  }`}
-                  title="Edit element inline styles"
-                >
-                  <span className="text-sm">Inline Styles</span>
-                  {selectedClassForEditing === null && (
-                    <span className="text-xs text-gray-600">✓</span>
-                  )}
-                </button>
-              </div>
-              
               {/* Current Editing Mode Indicator */}
-              <div className="p-2 bg-white rounded border-l-4 border-blue-400">
-                <div className="text-sm font-medium">
-                  {selectedClassForEditing ? (
+              {selectedClassForEditing && (
+                <div className="p-2 bg-white rounded border-l-4 border-blue-400">
+                  <div className="text-sm font-medium">
                     <span className="text-blue-700">
                       Editing: <span className="font-mono">.{selectedClassForEditing}</span>
                     </span>
-                  ) : (
-                    <span className="text-gray-700">Editing: Inline Styles</span>
-                  )}
+                  </div>
+                  <div className="text-xs text-gray-500 mt-1">
+                    Property changes will apply to this class
+                  </div>
                 </div>
-                <div className="text-xs text-gray-500 mt-1">
-                  Property changes will apply to {selectedClassForEditing ? 'this class' : 'element inline styles'}
-                </div>
-              </div>
+              )}
             </div>
-          ) : (
-            <div>
-              <div className="text-sm text-gray-600 mb-3">No classes applied - editing inline styles</div>
-              <div className="p-2 bg-white rounded border-l-4 border-gray-400">
-                <div className="text-sm font-medium text-gray-700">Editing: Inline Styles</div>
-                <div className="text-xs text-gray-500 mt-1">
-                  Add classes below to enable class-based styling
-                </div>
-              </div>
-            </div>
-          )}
+          ) : null}
           
           {/* Add New Class */}
           <div className="mt-4 p-3 bg-white rounded border">

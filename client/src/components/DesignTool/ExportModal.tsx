@@ -18,6 +18,7 @@ import { Code, Image, FileText, Download, X } from 'lucide-react';
 const ExportModal: React.FC = () => {
   const dispatch = useDispatch();
   const { project } = useSelector((state: RootState) => state.canvas);
+  const customClasses = useSelector((state: RootState) => (state as any).classes?.customClasses || {});
   const { isExportModalOpen } = useSelector((state: RootState) => state.ui);
   
   const [exportSettings, setExportSettings] = useState({
@@ -33,7 +34,7 @@ const ExportModal: React.FC = () => {
   };
 
   const handleExport = () => {
-    const generator = new CodeGenerator(project);
+    const generator = new CodeGenerator(project, customClasses);
     const { html, css, react } = generator.exportProject();
     
     switch (selectedFormat) {

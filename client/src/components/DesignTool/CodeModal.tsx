@@ -16,14 +16,15 @@ import { Copy, Download, X } from 'lucide-react';
 const CodeModal: React.FC = () => {
   const dispatch = useDispatch();
   const { project } = useSelector((state: RootState) => state.canvas);
+  const customClasses = useSelector((state: RootState) => (state as any).classes?.customClasses || {});
   const { isCodeModalOpen } = useSelector((state: RootState) => state.ui);
   
   const [activeTab, setActiveTab] = useState('html');
 
   const generatedCode = useMemo(() => {
-    const generator = new CodeGenerator(project);
+    const generator = new CodeGenerator(project, customClasses);
     return generator.exportProject();
-  }, [project]);
+  }, [project, customClasses]);
 
   const handleClose = () => {
     dispatch(setCodeModalOpen(false));
