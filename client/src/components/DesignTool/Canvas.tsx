@@ -28,6 +28,7 @@ const Canvas: React.FC = () => {
   const [isDraggingComponent, setIsDraggingComponent] = useState(false);
   const [dragThreshold, setDragThreshold] = useState({ x: 0, y: 0, exceeded: false });
   const [dragStartPos, setDragStartPos] = useState({ x: 0, y: 0 });
+  const [expandedContainerId, setExpandedContainerId] = useState<string | null>(null);
   const { project } = useSelector((state: RootState) => state.canvas);
   const { selectedTool, isDragging, dragStart, isResizing, resizeHandle, zoomLevel, isGridVisible, draggedElementId, isDraggingForReorder, isDOMTreePanelVisible } = useSelector((state: RootState) => state.ui);
 
@@ -471,11 +472,18 @@ const Canvas: React.FC = () => {
         
         // Store the insertion indicator for visual feedback
         setInsertionIndicator(insertionZone);
+        
+        // Apply padding expansion for better targeting
+        const hoveredContainerElement = project.elements[insertionZone.elementId];
+        if (hoveredContainerElement && (hoveredContainerElement.isContainer || hoveredContainerElement.type === 'container' || hoveredContainerElement.type === 'rectangle')) {
+          setExpandedContainerId(insertionZone.elementId);
+        }
       } else {
         setHoveredElementId(null);
         setHoveredZone(null);
         dispatch(setHoveredElement({ elementId: null, zone: null }));
         setInsertionIndicator(null);
+        setExpandedContainerId(null);
       }
       } // Close isDraggingForReorder check
     } else if (['rectangle', 'text', 'image', 'container', 'heading', 'list'].includes(selectedTool)) {
@@ -624,8 +632,9 @@ const Canvas: React.FC = () => {
     dispatch(setHoveredElement({ elementId: null, zone: null }));
     dispatch(resetUI());
     
-    // Reset drag threshold
+    // Reset drag threshold and expanded container
     setDragThreshold({ x: 0, y: 0, exceeded: false });
+    setExpandedContainerId(null);
   }, [dispatch, isDraggingForReorder, draggedElementId, hoveredElementId, hoveredZone, insertionIndicator, project.elements, dragThreshold, setDragThreshold]);
 
   // Handle drop events for components
@@ -967,6 +976,7 @@ const Canvas: React.FC = () => {
               isSelected={element.id === project.selectedElementId}
               isHovered={element.id === hoveredElementId}
               hoveredZone={element.id === hoveredElementId ? hoveredZone : null}
+              expandedContainerId={expandedContainerId}
             />
           ) : null;
         })}

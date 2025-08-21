@@ -112,6 +112,17 @@
     0 0 30px rgba(59, 130, 246, 0.4);
 }
 
+/* Animated padding expansion for better drag targeting */
+.drag-expand-padding {
+  transition: padding 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  padding: 45px !important;
+}
+
+/* Ensure smooth transitions for all padding changes during drag */
+.drag-transition-padding {
+  transition: padding 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
 .canvas-element.selected {
   border-color: hsl(203.8863, 88.2845%, 53.1373%);
   background-color: hsla(203.8863, 88.2845%, 53.1373%, 0.1);

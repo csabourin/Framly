@@ -10,6 +10,7 @@ interface CanvasElementProps {
   isHovered?: boolean;
   hoveredZone?: 'before' | 'after' | 'inside' | null;
   hoveredElementId?: string | null;
+  expandedContainerId?: string | null;
 }
 
 // Get hover state from Redux if not passed down
@@ -25,7 +26,8 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
   isSelected, 
   isHovered = false, 
   hoveredZone = null,
-  hoveredElementId
+  hoveredElementId,
+  expandedContainerId = null
 }) => {
   const dispatch = useDispatch();
   const { project } = useSelector((state: RootState) => state.canvas);
@@ -42,6 +44,10 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
   // Check if this element is hovered
   const isThisElementHovered = actualHoveredElementId === element.id;
   const thisElementHoveredZone = isThisElementHovered ? actualHoveredZone : null;
+  
+  // Check if this element should have expanded padding
+  const isExpandedContainer = expandedContainerId === element.id;
+  const isDragActive = isDraggingForReorder || draggedElementId;
   
   // Calculate sibling spacing classes based on insertion indicator
   const getSiblingSpacingClass = useCallback(() => {
@@ -331,6 +337,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
                 isHovered={child.id === actualHoveredElementId}
                 hoveredZone={child.id === actualHoveredElementId ? actualHoveredZone : null}
                 hoveredElementId={actualHoveredElementId}
+                expandedContainerId={expandedContainerId}
               />
             ) : null;
           })}
@@ -444,6 +451,8 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
         ${isSelected ? 'selected' : ''}
         ${element.classes?.join(' ') || ''}
         ${getSiblingSpacingClass()}
+        ${isDragActive ? 'drag-transition-padding' : ''}
+        ${isExpandedContainer ? 'drag-expand-padding' : ''}
       `}
 
       onClick={handleClick}
