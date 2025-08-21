@@ -13,6 +13,7 @@ import { Slider } from '@/components/ui/slider';
 import { cssClassGenerator } from '../../utils/cssClassGenerator';
 import { getPropertyGroups, getCSSPropertyKey, formatValueWithUnit, PropertyConfig, ElementType } from '../../utils/propertyConfig';
 import { PropertyInput } from './PropertyInput';
+import CompoundPropertyInput from './CompoundPropertyInput';
 import { 
   AlignLeft, 
   AlignCenter, 
@@ -240,6 +241,31 @@ const PropertiesPanel: React.FC = () => {
     return '';
   };
 
+  // Get merged styles for compound property inputs
+  const getMergedStylesForCompound = () => {
+    const baseStyles = { ...selectedElement.styles };
+    
+    // If editing a specific class, merge its styles
+    if (selectedClassForEditing) {
+      const customClass = customClasses[selectedClassForEditing];
+      if (customClass && customClass.styles) {
+        Object.assign(baseStyles, customClass.styles);
+      }
+    }
+    
+    // Also merge all applied custom classes
+    if (selectedElement.classes && selectedElement.classes.length > 0) {
+      selectedElement.classes.forEach((className: string) => {
+        const customClass = customClasses[className];
+        if (customClass && customClass.styles) {
+          Object.assign(baseStyles, customClass.styles);
+        }
+      });
+    }
+    
+    return baseStyles;
+  };
+
   const getCategoryIcon = (category: string) => {
     const icons: Record<string, React.ComponentType<any>> = {
       layout: Layout,
@@ -452,6 +478,37 @@ const PropertiesPanel: React.FC = () => {
           );
         })}
 
+        {/* Compound Property Sections */}
+        <div className="border-b border-gray-200">
+          <div className="p-4">
+            <h3 className="font-medium text-gray-900 mb-4 flex items-center gap-2">
+              <Spacing className="w-4 h-4 text-gray-600" />
+              Advanced Spacing & Borders
+            </h3>
+            <div className="space-y-4">
+              <CompoundPropertyInput
+                propertyType="border"
+                values={getMergedStylesForCompound()}
+                onChange={handlePropertyChange}
+              />
+              <CompoundPropertyInput
+                propertyType="margin"
+                values={getMergedStylesForCompound()}
+                onChange={handlePropertyChange}
+              />
+              <CompoundPropertyInput
+                propertyType="padding"
+                values={getMergedStylesForCompound()}
+                onChange={handlePropertyChange}
+              />
+              <CompoundPropertyInput
+                propertyType="borderRadius"
+                values={getMergedStylesForCompound()}
+                onChange={handlePropertyChange}
+              />
+            </div>
+          </div>
+        </div>
 
       </div>
     </aside>

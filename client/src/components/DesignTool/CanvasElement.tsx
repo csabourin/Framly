@@ -423,7 +423,22 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     for (const [key, value] of Object.entries(styles)) {
       // Convert kebab-case to camelCase
       const camelKey = key.replace(/-([a-z])/g, (match, letter) => letter.toUpperCase());
-      camelCaseStyles[camelKey] = value;
+      
+      // Handle complex objects that need to be converted to CSS strings
+      if (typeof value === 'object' && value !== null) {
+        // Convert object to CSS string representation
+        if (Array.isArray(value)) {
+          camelCaseStyles[camelKey] = value.join(' ');
+        } else {
+          // For objects like border shorthand, convert to string
+          const cssString = Object.entries(value)
+            .map(([k, v]) => `${v}`)
+            .join(' ');
+          camelCaseStyles[camelKey] = cssString || undefined;
+        }
+      } else {
+        camelCaseStyles[camelKey] = value;
+      }
     }
     
     return camelCaseStyles;
