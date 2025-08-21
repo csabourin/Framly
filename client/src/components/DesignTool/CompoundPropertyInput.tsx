@@ -18,72 +18,117 @@ interface SideConfig {
   sides: string[];
 }
 
-// Separate border input component to prevent focus loss
+// Enhanced border input component with unit dropdown and value persistence
 const BorderInput = React.memo(({ 
   sideKey, 
   label, 
+  currentValue,
   onSideChange
 }: { 
   sideKey: string; 
   label: string; 
+  currentValue: string;
   onSideChange: (sideKey: string, value: string) => void;
 }) => {
-  // Always start with clean state to avoid concatenation
-  const [width, setWidth] = React.useState('');
-  const [style, setStyle] = React.useState('solid');
-  const [color, setColor] = React.useState('#000000');
-  
-  console.log(`BorderInput ${sideKey} rendered with state:`, { width, style, color });
+  // Parse current value to preserve state
+  const parseBorderValue = (borderValue: string) => {
+    if (!borderValue || borderValue === '') return { width: '', unit: 'px', style: 'solid', color: '#000000' };
+    
+    const parts = borderValue.trim().split(/\s+/);
+    const widthWithUnit = parts[0] || '';
+    
+    // Extract numeric value and unit
+    const match = widthWithUnit.match(/^(\d*\.?\d*)(.*)$/);
+    const numericWidth = match ? match[1] : '';
+    const unit = match && match[2] ? match[2] : 'px';
+    
+    return {
+      width: numericWidth,
+      unit: unit || 'px',
+      style: parts[1] || 'solid',
+      color: parts[2] || '#000000'
+    };
+  };
 
-  const updateValue = React.useCallback((newWidth: string, newStyle: string, newColor: string) => {
-    const newValue = newWidth.trim() ? `${newWidth.trim()} ${newStyle} ${newColor}` : '';
-    console.log(`BorderInput ${sideKey} updateValue:`, { newWidth, newStyle, newColor, newValue });
+  const parsedValue = parseBorderValue(currentValue);
+  const [width, setWidth] = React.useState(parsedValue.width);
+  const [unit, setUnit] = React.useState(parsedValue.unit);
+  const [style, setStyle] = React.useState(parsedValue.style);
+  const [color, setColor] = React.useState(parsedValue.color);
+
+  // Update local state when currentValue changes (for persistence)
+  React.useEffect(() => {
+    const newParsed = parseBorderValue(currentValue);
+    setWidth(newParsed.width);
+    setUnit(newParsed.unit);
+    setStyle(newParsed.style);
+    setColor(newParsed.color);
+  }, [currentValue]);
+
+  const updateValue = React.useCallback((newWidth: string, newUnit: string, newStyle: string, newColor: string) => {
+    const fullWidth = newWidth.trim() && newWidth !== '0' ? `${newWidth.trim()}${newUnit}` : '';
+    const newValue = fullWidth ? `${fullWidth} ${newStyle} ${newColor}` : '';
     onSideChange(sideKey, newValue);
   }, [sideKey, onSideChange]);
 
   const handleWidthChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const newWidth = e.target.value;
     setWidth(newWidth);
-    updateValue(newWidth, style, color);
-  }, [style, color, updateValue]);
+    updateValue(newWidth, unit, style, color);
+  }, [unit, style, color, updateValue]);
+
+  const handleUnitChange = React.useCallback((newUnit: string) => {
+    setUnit(newUnit);
+    updateValue(width, newUnit, style, color);
+  }, [width, style, color, updateValue]);
 
   const handleStyleChange = React.useCallback((newStyle: string) => {
     setStyle(newStyle);
-    updateValue(width, newStyle, color);
-  }, [width, color, updateValue]);
+    updateValue(width, unit, newStyle, color);
+  }, [width, unit, color, updateValue]);
 
   const handleColorChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const newColor = e.target.value;
     setColor(newColor);
-    updateValue(width, style, newColor);
-  }, [width, style, updateValue]);
+    updateValue(width, unit, style, newColor);
+  }, [width, unit, style, updateValue]);
 
   return (
     <div className="space-y-1">
       <Label className="text-xs text-gray-500">{label}</Label>
-      <div className="flex gap-1">
+      {/* Compact grid layout to prevent scrolling */}
+      <div className="grid grid-cols-12 gap-1 items-center">
         <input
-          type="text"
-          placeholder="0px"
+          type="number"
+          placeholder="0"
           value={width}
           onChange={handleWidthChange}
           onFocus={(e) => e.stopPropagation()}
           onClick={(e) => e.stopPropagation()}
-          className="flex-1 text-xs h-7 px-2 rounded border"
+          className="col-span-4 text-xs h-7 px-2 rounded border text-center"
           data-testid={`input-border-width-${sideKey}`}
           style={{
             color: '#000000',
             backgroundColor: '#ffffff',
             border: '1px solid #ccc',
-            fontSize: '12px',
-            padding: '2px 4px'
+            fontSize: '11px'
           }}
         />
-        <Select
-          value={style}
-          onValueChange={handleStyleChange}
-        >
-          <SelectTrigger className="w-16 text-xs h-7">
+        <Select value={unit} onValueChange={handleUnitChange}>
+          <SelectTrigger className="col-span-2 w-full text-xs h-7 px-1">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="px">px</SelectItem>
+            <SelectItem value="em">em</SelectItem>
+            <SelectItem value="rem">rem</SelectItem>
+            <SelectItem value="%">%</SelectItem>
+            <SelectItem value="vh">vh</SelectItem>
+            <SelectItem value="vw">vw</SelectItem>
+          </SelectContent>
+        </Select>
+        <Select value={style} onValueChange={handleStyleChange}>
+          <SelectTrigger className="col-span-4 w-full text-xs h-7 px-1">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -98,7 +143,7 @@ const BorderInput = React.memo(({
           type="color"
           value={color}
           onChange={handleColorChange}
-          className="w-7 h-7 rounded border cursor-pointer"
+          className="col-span-2 w-full h-7 rounded border cursor-pointer"
         />
       </div>
     </div>
@@ -328,6 +373,7 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
                       key={`${side.key}-stable`}
                       sideKey={side.key} 
                       label={side.label} 
+                      currentValue={getValue(side.key)}
                       onSideChange={handleSideChange}
                     />
                   ) : (
