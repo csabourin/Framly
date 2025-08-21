@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Provider } from 'react-redux';
 import { useSelector, useDispatch } from 'react-redux';
 import { store, RootState } from '../../store';
 import { setClassEditorOpen, setComponentEditorOpen, setEditingComponent } from '../../store/uiSlice';
+import { historyManager } from '../../utils/historyManager';
+import { useKeyboardShortcuts } from '../../hooks/useKeyboardShortcuts';
 import Header from './Header';
 import Toolbar from './Toolbar';
 import Canvas from './Canvas';
@@ -18,6 +20,13 @@ import ClassEditor from './ClassEditor';
 import ComponentEditor from './ComponentEditor';
 
 const DesignToolContent: React.FC = () => {
+  // Initialize keyboard shortcuts
+  useKeyboardShortcuts();
+  
+  // Initialize history manager
+  useEffect(() => {
+    historyManager.init();
+  }, []);
   const dispatch = useDispatch();
   const { 
     isComponentPanelVisible, 

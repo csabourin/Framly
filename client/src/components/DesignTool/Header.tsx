@@ -5,6 +5,7 @@ import { switchBreakpoint, undo, redo, updateProjectName } from '../../store/can
 import { setExportModalOpen, setCodeModalOpen, setCSSOptimizationModalOpen, zoomIn, zoomOut, fitToScreen, toggleDOMTreePanel, setClassEditorOpen, setComponentEditorOpen } from '../../store/uiSlice';
 import { Button } from '@/components/ui/button';
 import { Eye, Undo, Redo, Download, Smartphone, Laptop, Monitor, Settings, Plus, Minus, Maximize, Zap, List, Palette, Component } from 'lucide-react';
+import UndoRedoControls from './UndoRedoControls';
 
 const Header: React.FC = () => {
   const dispatch = useDispatch();
@@ -21,13 +22,7 @@ const Header: React.FC = () => {
     dispatch(switchBreakpoint(breakpointName));
   };
 
-  const handleUndo = () => {
-    dispatch(undo());
-  };
-
-  const handleRedo = () => {
-    dispatch(redo());
-  };
+  // Note: handleUndo and handleRedo removed - now using UndoRedoControls component
 
   const handlePreview = () => {
     dispatch(setCodeModalOpen(true));
@@ -203,26 +198,9 @@ const Header: React.FC = () => {
           >
             <Eye className="w-4 h-4" />
           </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={handleUndo}
-            className="p-2 hover:bg-gray-100"
-            data-testid="button-undo"
-            title="Undo"
-          >
-            <Undo className="w-4 h-4" />
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={handleRedo}
-            className="p-2 hover:bg-gray-100"
-            data-testid="button-redo"
-            title="Redo"
-          >
-            <Redo className="w-4 h-4" />
-          </Button>
+          
+          {/* Undo/Redo Controls with History Management */}
+          <UndoRedoControls />
           <Button
             variant="ghost"
             size="sm"
