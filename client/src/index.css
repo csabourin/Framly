@@ -164,16 +164,21 @@
 .text-editing {
   width: 100% !important;
   height: 100% !important;
-  min-height: 100% !important;
+  min-height: 2em !important;
   background-color: rgba(59, 130, 246, 0.05);
   border: 2px solid rgb(59, 130, 246);
   border-radius: 4px;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-start !important;
 }
 
 .text-editing p {
   width: 100%;
   margin: 0 0 0.5em 0;
   line-height: 1.4;
+  flex-grow: 0;
+  flex-shrink: 0;
 }
 
 .text-editing:focus {

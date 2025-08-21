@@ -132,11 +132,11 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
             onKeyDown={handleKeyDown}
             className="w-full h-full outline-none cursor-text text-editing"
             style={{ 
-              minHeight: '1em',
+              minHeight: 'inherit',
               padding: '4px',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'flex-start'
+              width: '100%',
+              height: '100%',
+              boxSizing: 'border-box'
             }}
             dangerouslySetInnerHTML={{ __html: htmlContent }}
             autoFocus
@@ -152,11 +152,11 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
             }}
             className="w-full h-full outline-none cursor-pointer text-element"
             style={{ 
-              minHeight: '1em',
+              minHeight: 'inherit',
               padding: '4px',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'flex-start'
+              width: '100%',
+              height: '100%',
+              boxSizing: 'border-box'
             }}
             dangerouslySetInnerHTML={{ __html: htmlContent }}
           />
@@ -269,7 +269,8 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     left: element.styles.position === 'absolute' ? element.x : undefined,
     top: element.styles.position === 'absolute' ? element.y : undefined,
     width: element.styles.width || (element.width === 0 ? '100%' : element.width),
-    height: element.styles.minHeight ? undefined : element.height,
+    height: element.type === 'text' ? 'auto' : (element.styles.minHeight ? undefined : element.height),
+    minHeight: element.type === 'text' ? '1.2em' : undefined,
     ...convertCSSPropertiesToCamelCase(element.styles),
     backgroundColor: getBackgroundColor(),
     border: getBorderStyle() || element.styles.border,
