@@ -105,9 +105,34 @@ export const ClassEditor: React.FC<ClassEditorProps> = ({ isOpen, onClose }) => 
       setEditingClass(className);
       setClassStyles({ ...classData.styles });
     } else {
-      // Create new custom class for editing
+      // For non-custom classes, try to extract styles from the current element
       setEditingClass(className);
-      setClassStyles({}); // Start with empty styles for new class
+      
+      if (selectedElement) {
+        // Get the element's current styles as a starting point
+        const elementStyles = { ...selectedElement.styles };
+        
+        // Clean up the styles (remove defaults/inherited values)
+        const cleanStyles = Object.entries(elementStyles).reduce((acc, [key, value]) => {
+          if (value && value !== 'initial' && value !== 'inherit') {
+            // Convert objects to strings if needed
+            if (typeof value === 'object' && value !== null) {
+              if (value.borderWidth) acc[key] = String(value.borderWidth);
+              else if (value.width) acc[key] = String(value.width);
+              else if (value.color) acc[key] = String(value.color);
+              else acc[key] = JSON.stringify(value);
+            } else {
+              acc[key] = String(value);
+            }
+          }
+          return acc;
+        }, {} as Record<string, any>);
+        
+        setClassStyles(cleanStyles);
+      } else {
+        // No element selected, start with empty styles
+        setClassStyles({});
+      }
     }
   };
 
@@ -359,6 +384,11 @@ export const ClassEditor: React.FC<ClassEditorProps> = ({ isOpen, onClose }) => 
           <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
             <DialogHeader>
               <DialogTitle>Edit Class: .{editingClass}</DialogTitle>
+              {editingClass && !customClasses[editingClass] && (
+                <div className="text-sm text-amber-600 bg-amber-50 p-2 rounded">
+                  This class will be created as a new custom class. Starting with current element styles.
+                </div>
+              )}
             </DialogHeader>
             
             <div className="space-y-4">
