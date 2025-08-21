@@ -367,7 +367,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
   const canAcceptDrop = element.type === 'container' || element.type === 'rectangle';
   
   // Define visual feedback based on selection, hover, and drag states
-  const getBorderStyle = () => {
+  const getBorderStyle = (mergedBorder?: string) => {
     if (isSelected) return '2px solid #3b82f6';
     
     // Drag-drop visual feedback (only show for compatible drop targets)
@@ -379,10 +379,11 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     if (isThisElementHovered && thisElementHoveredZone === 'inside') return '4px solid #a855f7';
     if (isThisElementHovered && (thisElementHoveredZone === 'before' || thisElementHoveredZone === 'after')) return '2px solid #3b82f6';
     
-    return undefined;
+    // Use merged styles (includes custom classes) when no hover/selection state
+    return mergedBorder;
   };
 
-  const getBackgroundColor = () => {
+  const getBackgroundColor = (mergedBgColor?: string) => {
     // Creation tool hover feedback
     if (isThisElementHovered && thisElementHoveredZone === 'inside') return 'rgba(168, 85, 247, 0.1)';
     
@@ -395,7 +396,8 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
       }
     }
     
-    return element.styles.backgroundColor;
+    // Use merged styles (includes custom classes) instead of just element.styles
+    return mergedBgColor || mergedStyles.backgroundColor;
   };
 
   const getBoxShadow = () => {
@@ -454,8 +456,9 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     height: (['text', 'heading', 'list'].includes(element.type)) ? 'auto' : (mergedStyles.minHeight ? undefined : element.height),
     minHeight: (['text', 'heading', 'list'].includes(element.type)) ? '1.2em' : undefined,
     ...convertCSSPropertiesToCamelCase(mergedStyles),
-    backgroundColor: getBackgroundColor(),
-    border: getBorderStyle() || mergedStyles.border,
+    // Pass merged styles to functions so custom classes are preserved
+    backgroundColor: getBackgroundColor(mergedStyles.backgroundColor),
+    border: getBorderStyle(mergedStyles.border),
     boxShadow: getBoxShadow(),
     // Ensure the visual feedback is always visible
     zIndex: isThisElementHovered ? 1000 : (isSelected ? 100 : undefined),
