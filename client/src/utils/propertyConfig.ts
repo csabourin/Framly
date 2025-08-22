@@ -1,5 +1,13 @@
 // Property configuration for dynamic properties panel
-export type ElementType = 'container' | 'rectangle' | 'text' | 'heading' | 'list' | 'image' | 'button';
+export type ElementType = 'container' | 'rectangle' | 'text' | 'heading' | 'list' | 'image' | 'button' |
+  // Form elements
+  'input' | 'textarea' | 'checkbox' | 'radio' | 'select' |
+  // Structural elements
+  'section' | 'nav' | 'header' | 'footer' | 'article' |
+  // Media elements
+  'video' | 'audio' |
+  // Content elements
+  'link' | 'code' | 'divider';
 
 export interface PropertyConfig {
   key: string;
@@ -655,6 +663,552 @@ export const elementPropertyMap: Record<ElementType, PropertyConfig[]> = {
     },
     ...flexProperties,
     ...gridProperties,
+    ...advancedProperties.filter(p => !['overflow'].includes(p.key))
+  ],
+  
+  // Form Elements
+  input: [
+    // Input-specific properties first
+    {
+      key: 'placeholder',
+      label: 'Placeholder Text',
+      type: 'text',
+      category: 'content',
+      priority: 1,
+      description: 'Text displayed when input is empty'
+    },
+    {
+      key: 'inputType',
+      label: 'Input Type',
+      type: 'select',
+      category: 'content',
+      priority: 2,
+      options: [
+        { value: 'text', label: 'Text' },
+        { value: 'email', label: 'Email' },
+        { value: 'password', label: 'Password' },
+        { value: 'number', label: 'Number' },
+        { value: 'tel', label: 'Phone' },
+        { value: 'url', label: 'URL' }
+      ],
+      description: 'Type of input field'
+    },
+    {
+      key: 'required',
+      label: 'Required Field',
+      type: 'toggle',
+      category: 'content',
+      priority: 3,
+      description: 'Make this field mandatory'
+    },
+    {
+      key: 'disabled',
+      label: 'Disabled',
+      type: 'toggle',
+      category: 'content',
+      priority: 4,
+      description: 'Disable user interaction'
+    },
+    ...layoutProperties,
+    ...spacingProperties,
+    ...textProperties,
+    ...appearanceProperties,
+    ...advancedProperties.filter(p => !['overflow'].includes(p.key))
+  ],
+  
+  textarea: [
+    // Textarea-specific properties first
+    {
+      key: 'placeholder',
+      label: 'Placeholder Text',
+      type: 'text',
+      category: 'content',
+      priority: 1,
+      description: 'Text displayed when textarea is empty'
+    },
+    {
+      key: 'rows',
+      label: 'Visible Rows',
+      type: 'number',
+      category: 'layout',
+      priority: 1,
+      min: 2,
+      max: 20,
+      description: 'Number of visible text rows'
+    },
+    {
+      key: 'cols',
+      label: 'Columns Width',
+      type: 'number',
+      category: 'layout',
+      priority: 2,
+      min: 10,
+      max: 100,
+      description: 'Width in characters'
+    },
+    {
+      key: 'maxlength',
+      label: 'Max Characters',
+      type: 'number',
+      category: 'content',
+      priority: 3,
+      min: 1,
+      max: 10000,
+      description: 'Maximum number of characters'
+    },
+    {
+      key: 'required',
+      label: 'Required Field',
+      type: 'toggle',
+      category: 'content',
+      priority: 4,
+      description: 'Make this field mandatory'
+    },
+    {
+      key: 'disabled',
+      label: 'Disabled',
+      type: 'toggle',
+      category: 'content',
+      priority: 5,
+      description: 'Disable user interaction'
+    },
+    ...layoutProperties,
+    ...spacingProperties,
+    ...textProperties,
+    ...appearanceProperties,
+    ...advancedProperties.filter(p => !['overflow'].includes(p.key))
+  ],
+  
+  checkbox: [
+    // Checkbox-specific properties
+    {
+      key: 'checkboxLabel',
+      label: 'Label Text',
+      type: 'text',
+      category: 'content',
+      priority: 1,
+      description: 'Text displayed next to checkbox'
+    },
+    {
+      key: 'checked',
+      label: 'Default Checked',
+      type: 'toggle',
+      category: 'content',
+      priority: 2,
+      description: 'Whether checkbox is checked by default'
+    },
+    {
+      key: 'value',
+      label: 'Form Value',
+      type: 'text',
+      category: 'content',
+      priority: 3,
+      description: 'Value sent when form is submitted'
+    },
+    {
+      key: 'name',
+      label: 'Input Name',
+      type: 'text',
+      category: 'content',
+      priority: 4,
+      description: 'Name attribute for form processing'
+    },
+    {
+      key: 'required',
+      label: 'Required Field',
+      type: 'toggle',
+      category: 'content',
+      priority: 5,
+      description: 'Make this field mandatory'
+    },
+    {
+      key: 'disabled',
+      label: 'Disabled',
+      type: 'toggle',
+      category: 'content',
+      priority: 6,
+      description: 'Disable user interaction'
+    },
+    ...layoutProperties.filter(p => !['width', 'height'].includes(p.key)),
+    ...spacingProperties,
+    ...textProperties,
+    ...appearanceProperties,
+    ...advancedProperties.filter(p => !['overflow'].includes(p.key))
+  ],
+  
+  radio: [
+    // Radio-specific properties
+    {
+      key: 'radioLabel',
+      label: 'Label Text',
+      type: 'text',
+      category: 'content',
+      priority: 1,
+      description: 'Text displayed next to radio button'
+    },
+    {
+      key: 'checked',
+      label: 'Default Selected',
+      type: 'toggle',
+      category: 'content',
+      priority: 2,
+      description: 'Whether radio is selected by default'
+    },
+    {
+      key: 'value',
+      label: 'Form Value',
+      type: 'text',
+      category: 'content',
+      priority: 3,
+      description: 'Value sent when form is submitted'
+    },
+    {
+      key: 'name',
+      label: 'Group Name',
+      type: 'text',
+      category: 'content',
+      priority: 4,
+      description: 'Name attribute to group radio buttons'
+    },
+    {
+      key: 'required',
+      label: 'Required Field',
+      type: 'toggle',
+      category: 'content',
+      priority: 5,
+      description: 'Make this field mandatory'
+    },
+    {
+      key: 'disabled',
+      label: 'Disabled',
+      type: 'toggle',
+      category: 'content',
+      priority: 6,
+      description: 'Disable user interaction'
+    },
+    ...layoutProperties.filter(p => !['width', 'height'].includes(p.key)),
+    ...spacingProperties,
+    ...textProperties,
+    ...appearanceProperties,
+    ...advancedProperties.filter(p => !['overflow'].includes(p.key))
+  ],
+  
+  select: [
+    // Select-specific properties
+    {
+      key: 'selectOptions',
+      label: 'Options',
+      type: 'text',
+      category: 'content',
+      priority: 1,
+      description: 'Options for dropdown (one per line)'
+    },
+    {
+      key: 'multiple',
+      label: 'Multiple Selection',
+      type: 'toggle',
+      category: 'content',
+      priority: 2,
+      description: 'Allow selecting multiple options'
+    },
+    {
+      key: 'size',
+      label: 'Visible Options',
+      type: 'number',
+      category: 'layout',
+      priority: 1,
+      min: 1,
+      max: 10,
+      description: 'Number of visible options'
+    },
+    {
+      key: 'required',
+      label: 'Required Field',
+      type: 'toggle',
+      category: 'content',
+      priority: 3,
+      description: 'Make this field mandatory'
+    },
+    {
+      key: 'disabled',
+      label: 'Disabled',
+      type: 'toggle',
+      category: 'content',
+      priority: 4,
+      description: 'Disable user interaction'
+    },
+    ...layoutProperties,
+    ...spacingProperties,
+    ...textProperties,
+    ...appearanceProperties,
+    ...advancedProperties.filter(p => !['overflow'].includes(p.key))
+  ],
+  
+  // Structural Elements (Container-like)
+  section: [
+    ...layoutProperties,
+    ...spacingProperties,
+    ...appearanceProperties,
+    ...flexProperties,
+    ...gridProperties,
+    ...advancedProperties
+  ],
+  
+  nav: [
+    ...layoutProperties,
+    ...spacingProperties,
+    ...appearanceProperties,
+    ...flexProperties,
+    ...gridProperties,
+    ...advancedProperties
+  ],
+  
+  header: [
+    ...layoutProperties,
+    ...spacingProperties,
+    ...appearanceProperties,
+    ...flexProperties,
+    ...gridProperties,
+    ...advancedProperties
+  ],
+  
+  footer: [
+    ...layoutProperties,
+    ...spacingProperties,
+    ...appearanceProperties,
+    ...flexProperties,
+    ...gridProperties,
+    ...advancedProperties
+  ],
+  
+  article: [
+    ...layoutProperties,
+    ...spacingProperties,
+    ...appearanceProperties,
+    ...flexProperties,
+    ...gridProperties,
+    ...advancedProperties
+  ],
+  
+  // Media Elements
+  video: [
+    // Video-specific properties
+    {
+      key: 'videoSrc',
+      label: 'Video URL',
+      type: 'text',
+      category: 'content',
+      priority: 1,
+      description: 'URL or path to video file'
+    },
+    {
+      key: 'poster',
+      label: 'Preview Image',
+      type: 'text',
+      category: 'content',
+      priority: 2,
+      description: 'Image shown before video plays'
+    },
+    {
+      key: 'autoplay',
+      label: 'Auto Play',
+      type: 'toggle',
+      category: 'content',
+      priority: 3,
+      description: 'Start playing automatically'
+    },
+    {
+      key: 'controls',
+      label: 'Show Controls',
+      type: 'toggle',
+      category: 'content',
+      priority: 4,
+      description: 'Display play/pause controls'
+    },
+    {
+      key: 'loop',
+      label: 'Loop Video',
+      type: 'toggle',
+      category: 'content',
+      priority: 5,
+      description: 'Repeat video when finished'
+    },
+    {
+      key: 'muted',
+      label: 'Start Muted',
+      type: 'toggle',
+      category: 'content',
+      priority: 6,
+      description: 'Start with audio muted'
+    },
+    ...layoutProperties,
+    ...spacingProperties,
+    ...appearanceProperties,
+    ...advancedProperties.filter(p => !['overflow'].includes(p.key))
+  ],
+  
+  audio: [
+    // Audio-specific properties
+    {
+      key: 'audioSrc',
+      label: 'Audio URL',
+      type: 'text',
+      category: 'content',
+      priority: 1,
+      description: 'URL or path to audio file'
+    },
+    {
+      key: 'autoplay',
+      label: 'Auto Play',
+      type: 'toggle',
+      category: 'content',
+      priority: 2,
+      description: 'Start playing automatically'
+    },
+    {
+      key: 'controls',
+      label: 'Show Controls',
+      type: 'toggle',
+      category: 'content',
+      priority: 3,
+      description: 'Display play/pause controls'
+    },
+    {
+      key: 'loop',
+      label: 'Loop Audio',
+      type: 'toggle',
+      category: 'content',
+      priority: 4,
+      description: 'Repeat audio when finished'
+    },
+    {
+      key: 'muted',
+      label: 'Start Muted',
+      type: 'toggle',
+      category: 'content',
+      priority: 5,
+      description: 'Start with audio muted'
+    },
+    ...layoutProperties.filter(p => !['height'].includes(p.key)),
+    ...spacingProperties,
+    ...appearanceProperties,
+    ...advancedProperties.filter(p => !['overflow'].includes(p.key))
+  ],
+  
+  // Content Elements
+  link: [
+    // Link-specific properties
+    {
+      key: 'linkText',
+      label: 'Link Text',
+      type: 'text',
+      category: 'content',
+      priority: 1,
+      description: 'Text displayed for the link'
+    },
+    {
+      key: 'href',
+      label: 'Link URL',
+      type: 'text',
+      category: 'content',
+      priority: 2,
+      description: 'URL or path to link to'
+    },
+    {
+      key: 'target',
+      label: 'Link Target',
+      type: 'select',
+      category: 'content',
+      priority: 3,
+      options: [
+        { value: '_self', label: 'Same Window' },
+        { value: '_blank', label: 'New Window' },
+        { value: '_parent', label: 'Parent Frame' },
+        { value: '_top', label: 'Top Frame' }
+      ],
+      description: 'Where to open the link'
+    },
+    {
+      key: 'title',
+      label: 'Link Title',
+      type: 'text',
+      category: 'content',
+      priority: 4,
+      description: 'Tooltip text on hover'
+    },
+    ...layoutProperties.filter(p => !['width', 'height'].includes(p.key)),
+    ...spacingProperties,
+    ...textProperties,
+    ...appearanceProperties,
+    ...advancedProperties.filter(p => !['overflow'].includes(p.key))
+  ],
+  
+  code: [
+    // Code-specific properties
+    {
+      key: 'codeContent',
+      label: 'Code Content',
+      type: 'text',
+      category: 'content',
+      priority: 1,
+      description: 'The code content to display'
+    },
+    {
+      key: 'language',
+      label: 'Language',
+      type: 'select',
+      category: 'content',
+      priority: 2,
+      options: [
+        { value: 'javascript', label: 'JavaScript' },
+        { value: 'typescript', label: 'TypeScript' },
+        { value: 'html', label: 'HTML' },
+        { value: 'css', label: 'CSS' },
+        { value: 'python', label: 'Python' },
+        { value: 'java', label: 'Java' },
+        { value: 'json', label: 'JSON' },
+        { value: 'plaintext', label: 'Plain Text' }
+      ],
+      description: 'Programming language for syntax highlighting'
+    },
+    ...layoutProperties,
+    ...spacingProperties,
+    ...textProperties,
+    ...appearanceProperties,
+    ...advancedProperties
+  ],
+  
+  divider: [
+    // Divider-specific properties
+    {
+      key: 'dividerStyle',
+      label: 'Divider Style',
+      type: 'select',
+      category: 'appearance',
+      priority: 1,
+      options: [
+        { value: 'solid', label: 'Solid Line' },
+        { value: 'dashed', label: 'Dashed Line' },
+        { value: 'dotted', label: 'Dotted Line' },
+        { value: 'double', label: 'Double Line' }
+      ],
+      description: 'Style of the divider line'
+    },
+    {
+      key: 'dividerThickness',
+      label: 'Thickness',
+      type: 'unit',
+      category: 'appearance',
+      priority: 2,
+      units: ['px', 'rem', 'em'],
+      defaultUnit: 'px',
+      min: 1,
+      max: 20,
+      description: 'Thickness of the divider'
+    },
+    ...layoutProperties.filter(p => !['height'].includes(p.key)),
+    ...spacingProperties,
+    ...appearanceProperties,
     ...advancedProperties.filter(p => !['overflow'].includes(p.key))
   ]
 };
