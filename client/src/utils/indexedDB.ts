@@ -420,20 +420,52 @@ class IndexedDBManager {
 
   // Image operations
   async saveImage(image: SavedImage): Promise<void> {
-    const db = await this.ensureDB();
-    const transaction = db.transaction([IMAGES_STORE], 'readwrite');
-    const store = transaction.objectStore(IMAGES_STORE);
-    
-    const imageWithTimestamp = {
-      ...image,
-      createdAt: new Date().toISOString()
-    };
+    try {
+      console.log('IndexedDB saveImage called with:', { 
+        id: image.id, 
+        filename: image.filename,
+        size: image.size,
+        mimeType: image.mimeType 
+      });
 
-    await new Promise<void>((resolve, reject) => {
-      const request = store.put(imageWithTimestamp);
-      request.onsuccess = () => resolve();
-      request.onerror = () => reject(request.error);
-    });
+      const db = await this.ensureDB();
+      console.log('Database connection established');
+
+      const transaction = db.transaction([IMAGES_STORE], 'readwrite');
+      const store = transaction.objectStore(IMAGES_STORE);
+      console.log('Transaction and store created');
+      
+      const imageWithTimestamp = {
+        ...image,
+        createdAt: image.createdAt || new Date().toISOString() // Use provided timestamp or create new
+      };
+
+      console.log('About to store image with data:', {
+        id: imageWithTimestamp.id,
+        filename: imageWithTimestamp.filename,
+        dataLength: imageWithTimestamp.data.length,
+        createdAt: imageWithTimestamp.createdAt
+      });
+
+      await new Promise<void>((resolve, reject) => {
+        const request = store.put(imageWithTimestamp);
+        
+        request.onsuccess = () => {
+          console.log('Image stored successfully in IndexedDB');
+          resolve();
+        };
+        
+        request.onerror = () => {
+          console.error('IndexedDB store.put failed:', request.error);
+          reject(new Error(`IndexedDB store error: ${request.error?.message || 'Unknown error'}`));
+        };
+      });
+
+      console.log('SaveImage operation completed successfully');
+    } catch (error) {
+      console.error('SaveImage failed with error:', error);
+      throw error;
+    }
   }
 
   async getImage(id: string): Promise<SavedImage | null> {
