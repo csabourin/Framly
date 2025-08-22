@@ -68,29 +68,51 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
         console.log('Processing CSS...');
         await processCSS(css);
         
-        // TEST: Create a simple test element first
-        console.log('Creating test element...');
-        try {
-          const testElement: CanvasElement = {
+        // Convert body content to canvas elements (with safe processing)
+        console.log('Converting HTML to canvas elements...');
+        const bodyElement = doc.body;
+        if (bodyElement && bodyElement.children.length > 0) {
+          // Start with just the first few simple elements
+          const elementsToProcess = Array.from(bodyElement.children).slice(0, 3);
+          console.log(`Processing ${elementsToProcess.length} top-level elements`);
+          
+          for (let i = 0; i < elementsToProcess.length; i++) {
+            const child = elementsToProcess[i];
+            try {
+              console.log(`Processing element ${i + 1}/${elementsToProcess.length}: ${child.tagName}`);
+              
+              // Skip script and style tags
+              if (['script', 'style', 'meta', 'link'].includes(child.tagName.toLowerCase())) {
+                console.log('Skipping non-visual element:', child.tagName);
+                continue;
+              }
+              
+              await convertHTMLToElements(child, 'root');
+              console.log(`Successfully processed: ${child.tagName}`);
+              
+            } catch (elementError) {
+              console.error('Failed to convert element:', child.tagName, elementError);
+              // Continue with other elements
+            }
+          }
+        } else {
+          console.log('No body element or children found - creating fallback element');
+          
+          // Create a fallback element if no body content
+          const fallbackElement: CanvasElement = {
             id: nanoid(),
             type: 'text',
             x: 50,
             y: 50,
-            width: 200,
-            height: 50,
-            styles: {},
+            width: 300,
+            height: 100,
+            styles: { fontSize: '16px', color: '#333333' },
             classes: [],
-            content: 'Imported website content',
+            content: 'Website imported successfully (no visible content found)',
             htmlTag: 'div'
           };
-
-          console.log('Dispatching test element:', testElement);
-          dispatch(addElement({ element: testElement, parentId: 'root' }));
-          console.log('Test element added successfully');
           
-        } catch (testError) {
-          console.error('Failed to create test element:', testError);
-          throw testError;
+          dispatch(addElement({ element: fallbackElement, parentId: 'root' }));
         }
 
         // Process assets (images)
@@ -256,14 +278,27 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
         }
       }
 
+      // Calculate better dimensions based on content
+      let width = 200;
+      let height = 50;
+      
+      if (elementType === 'text') {
+        const textLength = (elementData.content as string)?.length || 0;
+        width = Math.min(Math.max(textLength * 8, 100), 600);
+        height = Math.max(textLength > 50 ? 100 : 50, 30);
+      } else if (elementType === 'container') {
+        width = 300;
+        height = 100;
+      }
+
       // Create canvas element with safe defaults
       const canvasElement: CanvasElement = {
         id: elementId,
         type: elementType,
-        x: 0,
-        y: 0,
-        width: 100, // Set minimum width
-        height: 50, // Set minimum height
+        x: Math.random() * 50, // Small random offset to prevent overlap
+        y: Math.random() * 50,
+        width,
+        height,
         styles: inlineStyles,
         classes,
         htmlTag: htmlElement.tagName.toLowerCase(),
@@ -273,7 +308,7 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
       // Add element to canvas
       dispatch(addElement({ element: canvasElement, parentId }));
 
-      console.log(`Created element: ${elementType} (${htmlElement.tagName})`);
+      console.log(`Created element: ${elementType} (${htmlElement.tagName}) - "${(elementData.content as string)?.substring(0, 50) || 'container'}"`);
 
     } catch (elementError) {
       console.error('Failed to convert element:', htmlElement.tagName, elementError);
