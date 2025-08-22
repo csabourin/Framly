@@ -2,10 +2,14 @@ import { RootState } from './index';
 import { CanvasElement, DesignTab } from '../types/canvas';
 import { createSelector } from '@reduxjs/toolkit';
 
-// Tab selectors
-export const selectCurrentTab = (state: RootState): DesignTab | undefined => {
-  return state.canvas.project.tabs[state.canvas.project.activeTabId];
-};
+// Tab selectors - the most critical one for tab switching performance
+export const selectCurrentTab = createSelector(
+  [
+    (state: RootState) => state.canvas.project.tabs,
+    (state: RootState) => state.canvas.project.activeTabId
+  ],
+  (tabs, activeTabId): DesignTab | undefined => tabs[activeTabId]
+);
 
 // Create a default root element once to avoid recreation
 const defaultRootElement: CanvasElement = {
@@ -53,15 +57,15 @@ export const selectSelectedElement = createSelector(
   }
 );
 
-export const selectSelectedElementId = (state: RootState): string | undefined => {
-  const currentTab = selectCurrentTab(state);
-  return currentTab?.viewSettings.selectedElementId;
-};
+export const selectSelectedElementId = createSelector(
+  [selectCurrentTab],
+  (currentTab): string | undefined => currentTab?.viewSettings.selectedElementId
+);
 
-export const selectRootElement = (state: RootState): CanvasElement | undefined => {
-  const currentTab = selectCurrentTab(state);
-  return currentTab?.elements.root;
-};
+export const selectRootElement = createSelector(
+  [selectCurrentTab],
+  (currentTab): CanvasElement | undefined => currentTab?.elements.root
+);
 
 const defaultViewSettings = {
   zoom: 1,
@@ -75,23 +79,26 @@ export const selectCurrentTabViewSettings = createSelector(
   (currentTab) => currentTab?.viewSettings || defaultViewSettings
 );
 
-export const selectAllTabs = (state: RootState) => {
-  return state.canvas.project.tabs;
-};
+export const selectAllTabs = createSelector(
+  [(state: RootState) => state.canvas.project.tabs],
+  (tabs) => tabs
+);
 
-export const selectActiveTabId = (state: RootState) => {
-  return state.canvas.project.activeTabId;
-};
+export const selectActiveTabId = createSelector(
+  [(state: RootState) => state.canvas.project.activeTabId],
+  (activeTabId) => activeTabId
+);
 
-export const selectTabOrder = (state: RootState) => {
-  return state.canvas.project.tabOrder;
-};
+export const selectTabOrder = createSelector(
+  [(state: RootState) => state.canvas.project.tabOrder],
+  (tabOrder) => tabOrder
+);
 
 // Helper to get element by ID in current tab
-export const selectElementById = (state: RootState, elementId: string): CanvasElement | undefined => {
-  const elements = selectCurrentElements(state);
-  return elements[elementId];
-};
+export const selectElementById = createSelector(
+  [selectCurrentElements, (_state: RootState, elementId: string) => elementId],
+  (elements, elementId): CanvasElement | undefined => elements[elementId]
+);
 
 // Helper to get children of an element in current tab
 export const selectElementChildren = createSelector(
@@ -108,7 +115,7 @@ export const selectElementChildren = createSelector(
 );
 
 // Helper to check if element exists in current tab
-export const selectElementExists = (state: RootState, elementId: string): boolean => {
-  const elements = selectCurrentElements(state);
-  return !!elements[elementId];
-};
+export const selectElementExists = createSelector(
+  [selectCurrentElements, (_state: RootState, elementId: string) => elementId],
+  (elements, elementId): boolean => !!elements[elementId]
+);
