@@ -68,11 +68,8 @@ const ButtonElement: React.FC<ButtonElementProps> = ({
     
     return {
       ...combinedStyles,
-      position: 'absolute',
-      left: `${element.x}px`,
-      top: `${element.y}px`,
-      width: `${element.width}px`,
-      height: `${element.height}px`,
+      width: '100%',
+      height: '100%',
     } as React.CSSProperties;
   };
 
@@ -192,10 +189,8 @@ const ButtonElement: React.FC<ButtonElementProps> = ({
     <button
       style={getButtonStyles()}
       className={`
-        font-medium focus:outline-none transition-all duration-200
-        ${isSelected ? 'ring-2 ring-blue-500 ring-offset-1' : ''}
+        font-medium focus:outline-none transition-all duration-200 w-full h-full
       `}
-      onClick={onSelect}
       onDoubleClick={handleDoubleClick}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -204,22 +199,9 @@ const ButtonElement: React.FC<ButtonElementProps> = ({
       onFocus={handleFocus}
       onBlur={handleBlur}
       data-testid={`canvas-button-${element.id}`}
-      data-element-id={element.id}
       data-element-type="button"
     >
       {buttonText}
-      
-      {/* Edit overlay when selected */}
-      {isSelected && (
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute -top-6 left-0 bg-blue-500 text-white text-xs px-2 py-1 rounded">
-            Button
-            {buttonDesign && (
-              <span className="ml-1 opacity-75">({buttonDesign.name})</span>
-            )}
-          </div>
-        </div>
-      )}
     </button>
   );
 };
