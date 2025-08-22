@@ -34,6 +34,15 @@ export const ClassEditor: React.FC<ClassEditorProps> = ({ isOpen, onClose }) => 
   const [renamingClass, setRenamingClass] = useState<string | null>(null);
   const [renameClassName, setRenameClassName] = useState('');
 
+  // Auto-focus on selected element's first class when modal opens
+  React.useEffect(() => {
+    if (isOpen && selectedElement && selectedElement.classes && selectedElement.classes.length > 0) {
+      const firstClass = selectedElement.classes[0];
+      // Auto-start editing the first applied class for immediate access
+      startEditingAppliedClass(firstClass);
+    }
+  }, [isOpen, selectedElement?.id]);
+
   // Extract styles from selected element into a new class
   const extractStylesToClass = () => {
     if (!selectedElement || !newClassName.trim()) return;
@@ -293,79 +302,105 @@ export const ClassEditor: React.FC<ClassEditorProps> = ({ isOpen, onClose }) => 
         <div className="p-6 overflow-y-auto max-h-[calc(90vh-140px)]">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             
-            {/* Extract Styles Section */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">Create New Class</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                {selectedElement ? (
-                  <>
-                    <div className="text-sm text-gray-600">
-                      Selected: {selectedElement.type} element
+            {/* Selected Element Classes - Top Priority */}
+            {selectedElement ? (
+              <Card className="border-blue-200 bg-blue-50">
+                <CardHeader>
+                  <CardTitle className="text-lg text-blue-800 flex items-center gap-2">
+                    🎯 Selected Element: {selectedElement.type}
+                    <Badge variant="outline" className="text-xs">
+                      ID: {selectedElement.id.split('-').pop()}
+                    </Badge>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  {selectedElement.classes && selectedElement.classes.length > 0 ? (
+                    <div className="space-y-3">
+                      <div className="space-y-2">
+                        <Label className="text-blue-700 font-medium">Applied Classes (Click to Edit)</Label>
+                        <div className="flex flex-wrap gap-2">
+                          {selectedElement.classes.map((className) => {
+                            const isCurrentlyEditing = editingClass === className;
+                            return (
+                              <div key={className} className={`flex items-center gap-2 px-4 py-2 border rounded-lg transition-all ${
+                                isCurrentlyEditing 
+                                  ? 'bg-blue-200 border-blue-500 ring-2 ring-blue-300 shadow-md' 
+                                  : 'bg-white border-blue-300 hover:border-blue-400 hover:shadow-sm'
+                              }`}>
+                                <span className="text-sm font-mono text-blue-800 font-medium">.{className}</span>
+                                {isCurrentlyEditing && <span className="text-xs text-blue-600 font-bold px-2 py-1 bg-blue-100 rounded">EDITING</span>}
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  className="h-6 w-6 p-0 hover:bg-blue-100"
+                                  onClick={() => startEditingAppliedClass(className)}
+                                  data-testid={`edit-class-${className}`}
+                                  title="Edit this class styles"
+                                >
+                                  <Edit3 className="w-3 h-3" />
+                                </Button>
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  className="h-6 w-6 p-0 hover:bg-red-100 text-red-600"
+                                  onClick={() => removeClassFromElement(className)}
+                                  data-testid={`remove-class-${className}`}
+                                  title="Remove from element"
+                                >
+                                  <X className="w-3 h-3" />
+                                </Button>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
                     </div>
-                    
-                    <div className="space-y-2">
-                      <Label>Class Name</Label>
+                  ) : (
+                    <div className="text-center p-4 bg-blue-100 rounded-lg border-2 border-dashed border-blue-300">
+                      <p className="text-sm text-blue-700 mb-3 font-medium">This element has no classes yet</p>
+                      <p className="text-xs text-blue-600 mb-3">Create a class to start styling this element</p>
+                    </div>
+                  )}
+                  
+                  {/* Create New Class Section */}
+                  <div className="pt-3 border-t border-blue-200">
+                    <Label className="text-blue-700 font-medium">Create New Class</Label>
+                    <div className="flex gap-2 mt-2">
                       <Input
                         placeholder="my-custom-class"
                         value={newClassName}
                         onChange={(e) => setNewClassName(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' && newClassName.trim()) {
+                            extractStylesToClass();
+                          }
+                        }}
                         data-testid="new-class-name-input"
                       />
+                      <Button 
+                        onClick={extractStylesToClass}
+                        disabled={!newClassName.trim()}
+                        data-testid="extract-styles-button"
+                      >
+                        <Plus className="w-4 h-4 mr-1" />
+                        Create
+                      </Button>
                     </div>
-                    
-                    <Button 
-                      onClick={extractStylesToClass}
-                      disabled={!newClassName.trim()}
-                      className="w-full"
-                      data-testid="extract-styles-button"
-                    >
-                      <Plus className="w-4 h-4 mr-2" />
-                      Create Class from Current Styles
-                    </Button>
-                    
-                    {/* Current Element Classes */}
-                    {selectedElement.classes && selectedElement.classes.length > 0 && (
-                      <div className="space-y-2">
-                        <Label>Applied Classes</Label>
-                        <div className="flex flex-wrap gap-2">
-                          {selectedElement.classes.map((className) => (
-                            <div key={className} className="flex items-center gap-1 px-3 py-1 bg-blue-50 border border-blue-200 rounded-full">
-                              <span className="text-sm font-mono text-blue-800">.{className}</span>
-                              <Button
-                                variant="ghost"
-                                size="sm"
-                                className="h-4 w-4 p-0 hover:bg-blue-100"
-                                onClick={() => startEditingAppliedClass(className)}
-                                data-testid={`edit-class-${className}`}
-                                title="Edit this class"
-                              >
-                                <Edit3 className="w-3 h-3" />
-                              </Button>
-                              <Button
-                                variant="ghost"
-                                size="sm"
-                                className="h-4 w-4 p-0 hover:bg-red-100"
-                                onClick={() => removeClassFromElement(className)}
-                                data-testid={`remove-class-${className}`}
-                                title="Remove from element"
-                              >
-                                <X className="w-3 h-3" />
-                              </Button>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </>
-                ) : (
-                  <div className="text-sm text-gray-500">
-                    Select an element to create or apply classes
                   </div>
-                )}
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            ) : (
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-lg">Create New Class</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-center p-4">
+                    <p className="text-sm text-gray-500">Select an element on the canvas to manage its classes</p>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
 
             {/* Custom Classes Management */}
             <Card>
@@ -380,9 +415,24 @@ export const ClassEditor: React.FC<ClassEditorProps> = ({ isOpen, onClose }) => 
                     {Object.entries(customClasses).map(([name, classData]) => {
                       const typedClassData = classData as { description?: string; styles: Record<string, any> };
                       return (
-                        <div key={name} className="border rounded-lg p-3">
+                        <div key={name} className={`border rounded-lg p-3 ${
+                          selectedElement && selectedElement.classes && selectedElement.classes.includes(name)
+                            ? 'border-blue-300 bg-blue-50' 
+                            : 'border-gray-200'
+                        }`}>
                           <div className="flex items-center justify-between mb-2">
-                            <div className="font-medium">.{name}</div>
+                            <div className={`font-medium ${
+                              selectedElement && selectedElement.classes && selectedElement.classes.includes(name)
+                                ? 'text-blue-800' 
+                                : 'text-gray-900'
+                            }`}>
+                              .{name}
+                              {selectedElement && selectedElement.classes && selectedElement.classes.includes(name) && (
+                                <Badge variant="outline" className="ml-2 text-xs bg-blue-100 text-blue-700">
+                                  Applied to Selected
+                                </Badge>
+                              )}
+                            </div>
                             <div className="flex gap-1">
                               {selectedElement && (
                                 <Button
