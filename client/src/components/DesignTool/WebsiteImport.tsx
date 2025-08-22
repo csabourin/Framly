@@ -493,12 +493,24 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
         case 'td':
         case 'th':
         default:
-          // For semantic and container elements, process their children to extract content
-          elementType = 'container';
+          // For all other HTML elements, create a generic "element" type
+          // This allows the browser to render any HTML element naturally
+          elementType = 'element';
           elementData = {
-            isContainer: true,
+            content: textContent || '',
+            // Check if this element can contain other elements
+            isContainer: htmlElement.children.length > 0 || 
+                        ['div', 'span', 'section', 'article', 'nav', 'header', 'footer', 
+                         'main', 'aside', 'form', 'fieldset', 'blockquote'].includes(htmlElement.tagName.toLowerCase()),
             children: []
           };
+          
+          // If it's a container, set up container properties
+          if (elementData.isContainer) {
+            elementData.flexDirection = 'column';
+            elementData.justifyContent = 'flex-start';
+            elementData.alignItems = 'stretch';
+          }
           break;
       }
 
@@ -540,8 +552,12 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
         const textLength = (elementData.content as string)?.length || 0;
         width = Math.min(Math.max(textLength * 6, 120), 500);
         height = Math.max(Math.ceil(textLength / 50) * 20, 30);
-      } else if (elementType === 'container') {
+      } else if (elementData.isContainer) {
         // Make containers larger to accommodate content
+        width = 600;
+        height = 200;
+      } else if (elementType === 'element' && elementData.isContainer) {
+        // For generic container elements
         width = 600;
         height = 200;
         
@@ -586,7 +602,7 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
         height,
         styles: {
           // Ensure basic styles for canvas rendering
-          display: elementType === 'container' ? 'flex' : 'block',
+          display: elementData.isContainer ? 'flex' : 'block',
           position: 'relative',
           ...inlineStyles
         },
@@ -597,12 +613,11 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
       };
 
       // Ensure container elements have proper flex properties
-      if (elementType === 'container') {
-        canvasElement.isContainer = true;
-        canvasElement.flexDirection = 'column';
-        canvasElement.justifyContent = 'flex-start';
-        canvasElement.alignItems = 'stretch';
-        canvasElement.children = [];
+      if (canvasElement.isContainer) {
+        canvasElement.flexDirection = canvasElement.flexDirection || 'column';
+        canvasElement.justifyContent = canvasElement.justifyContent || 'flex-start';
+        canvasElement.alignItems = canvasElement.alignItems || 'stretch';
+        canvasElement.children = canvasElement.children || [];
       }
 
       // Add element to canvas
@@ -611,7 +626,7 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
       console.log(`Created element: ${elementType} (${htmlElement.tagName}) - "${(elementData.content as string)?.substring(0, 50) || 'container'}" with scoped classes: [${scopedClasses.join(', ')}]`);
 
       // Process children recursively if it's a container
-      if (elementType === 'container' && htmlElement.children && htmlElement.children.length > 0) {
+      if (canvasElement.isContainer && htmlElement.children && htmlElement.children.length > 0) {
         console.log(`Processing ${htmlElement.children.length} children of ${htmlElement.tagName}`);
         
         // Process all children - no artificial limits, but be smart about it

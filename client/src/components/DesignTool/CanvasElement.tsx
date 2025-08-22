@@ -389,7 +389,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
       }
     }
 
-    if ((element.type === 'container' || element.type === 'rectangle') && element.children) {
+    if ((element.type === 'container' || element.type === 'rectangle' || element.isContainer) && element.children) {
       return (
         <>
           {element.children.map(childId => {
@@ -409,6 +409,61 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
         </>
       );
     }
+    
+    // Handle generic HTML element type
+    if (element.type === 'element') {
+      const isTextEditable = isSelected && (selectedTool === 'text' || isEditing);
+      const htmlTag = element.htmlTag || 'div';
+      const content = element.content || '';
+      
+      // Use React.createElement to render the original HTML tag
+      if (isTextEditable && content) {
+        return (
+          <div
+            ref={textEditRef}
+            contentEditable={true}
+            suppressContentEditableWarning
+            onBlur={handleContentEdit}
+            onKeyDown={handleKeyDown}
+            className="w-full h-full outline-none cursor-text text-editing"
+            style={{ 
+              minHeight: 'inherit',
+              padding: '4px',
+              width: '100%',
+              height: '100%',
+              boxSizing: 'border-box'
+            }}
+            dangerouslySetInnerHTML={{ __html: content }}
+            autoFocus
+          />
+        );
+      } else {
+        // Render the original HTML element with its content
+        return React.createElement(
+          htmlTag,
+          {
+            className: `w-full h-full outline-none ${content ? 'cursor-pointer' : ''}`,
+            style: { 
+              minHeight: 'inherit',
+              width: '100%',
+              height: '100%',
+              boxSizing: 'border-box',
+              padding: content ? '4px' : '8px',
+              display: element.isContainer ? 'flex' : 'block',
+              flexDirection: element.flexDirection || 'column',
+              justifyContent: element.justifyContent || 'flex-start',
+              alignItems: element.alignItems || 'stretch'
+            },
+            onDoubleClick: content ? (e: React.MouseEvent) => {
+              e.stopPropagation();
+              setIsEditing(true);
+            } : undefined,
+            dangerouslySetInnerHTML: content ? { __html: content } : undefined
+          },
+          !content && `<${htmlTag}>`
+        );
+      }
+    }
 
     return (
       <div className="w-full h-full flex items-center justify-center text-gray-400">
@@ -417,8 +472,8 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     );
   };
 
-  // Check if this element can accept drops (only containers and rectangles)
-  const canAcceptDrop = element.type === 'container' || element.type === 'rectangle';
+  // Check if this element can accept drops (containers, rectangles, and generic container elements)
+  const canAcceptDrop = element.type === 'container' || element.type === 'rectangle' || element.isContainer;
   
   // Define visual feedback based on selection, hover, and drag states using outline
   const getOutlineStyle = () => {

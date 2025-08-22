@@ -1,6 +1,6 @@
 export interface CanvasElement {
   id: string;
-  type: 'rectangle' | 'text' | 'image' | 'container' | 'heading' | 'list' | 'component' | 'button';
+  type: 'rectangle' | 'text' | 'image' | 'container' | 'heading' | 'list' | 'component' | 'button' | 'element';
   x: number;
   y: number;
   width: number;
