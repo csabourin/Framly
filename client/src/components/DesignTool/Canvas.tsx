@@ -38,6 +38,11 @@ const Canvas: React.FC = () => {
   const selectedElementId = useSelector(selectSelectedElementId);
 
   const rootElement = currentElements.root;
+  
+  // Debug logging for tab switching issues
+  console.log('Canvas render - currentElements keys:', Object.keys(currentElements));
+  console.log('Canvas render - rootElement exists:', !!rootElement);
+  console.log('Canvas render - activeTabId:', project.activeTabId);
   const selectedElement = selectedElementId ? currentElements[selectedElementId] : null;
 
   // Function to detect insertion zones based on mouse position

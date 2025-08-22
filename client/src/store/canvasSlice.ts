@@ -87,6 +87,11 @@ const getCurrentElements = (state: CanvasState): Record<string, CanvasElement> =
 };
 
 const duplicateElementWithNewId = (element: CanvasElement): CanvasElement => {
+  // Don't change the root element ID
+  if (element.id === 'root') {
+    return { ...element };
+  }
+  
   const newId = nanoid();
   const newElement = { ...element, id: newId };
   
@@ -417,7 +422,12 @@ const canvasSlice = createSlice({
       // First pass: create all elements with new IDs
       Object.values(sourceTab.elements).forEach(element => {
         const newElement = duplicateElementWithNewId(element);
-        elementMap[element.id] = newElement.id;
+        // For root element, keep the same mapping
+        if (element.id === 'root') {
+          elementMap[element.id] = 'root';
+        } else {
+          elementMap[element.id] = newElement.id;
+        }
         newElements[newElement.id] = newElement;
       });
       
@@ -432,7 +442,9 @@ const canvasSlice = createSlice({
       });
       
       newTab.elements = newElements;
-      newTab.viewSettings.selectedElementId = elementMap[sourceTab.viewSettings.selectedElementId] || 'root';
+      // For root element, always use 'root' as ID since it doesn't get remapped
+      const sourceSelectedId = sourceTab.viewSettings.selectedElementId;
+      newTab.viewSettings.selectedElementId = sourceSelectedId === 'root' ? 'root' : (elementMap[sourceSelectedId] || 'root');
       
       state.project.tabs[newTab.id] = newTab;
       state.project.tabOrder.push(newTab.id);
