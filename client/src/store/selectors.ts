@@ -135,7 +135,18 @@ export const selectUIState = createSelector(
     editingComponentId: ui.editingComponentId,
     isButtonDesignerOpen: ui.isButtonDesignerOpen,
     isCodeModalOpen: ui.isCodeModalOpen,
-    isCSSOptimizationModalOpen: ui.isCSSOptimizationModalOpen
+    isCSSOptimizationModalOpen: ui.isCSSOptimizationModalOpen,
+    hoveredElementId: ui.hoveredElementId || null,
+    hoveredZone: ui.hoveredZone || null
+  })
+);
+
+// Hover state selector to prevent inline object creation
+export const selectHoverState = createSelector(
+  [(state: RootState) => state.ui],
+  (ui) => ({
+    hoveredElementId: ui.hoveredElementId || null,
+    hoveredZone: ui.hoveredZone || null,
   })
 );
 

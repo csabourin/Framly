@@ -1,7 +1,7 @@
 import React, { useRef, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
-import { selectUIState } from '../../store/selectors';
+import { selectUIState, selectHoverState, selectSelectedElementId, selectCustomClasses } from '../../store/selectors';
 import { selectElement, updateElement } from '../../store/canvasSlice';
 import { setSelectedTool } from '../../store/uiSlice';
 import { CanvasElement as CanvasElementType } from '../../types/canvas';
@@ -18,13 +18,7 @@ interface CanvasElementProps {
   expandedContainerId?: string | null;
 }
 
-// Get hover state from Redux if not passed down
-const useHoverState = () => {
-  return useSelector((state: RootState) => ({
-    hoveredElementId: (state as any).ui?.hoveredElementId || null,
-    hoveredZone: (state as any).ui?.hoveredZone || null,
-  }));
-};
+// REMOVED: useHoverState hook - now using memoized selector
 
 const CanvasElement: React.FC<CanvasElementProps> = ({ 
   element, 
@@ -36,19 +30,15 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
 }) => {
   const dispatch = useDispatch();
   const currentElements = useSelector(selectCurrentElements);
-  const selectedElementId = useSelector((state: RootState) => {
-    const project = state.canvas.project;
-    if (!project.activeTabId || !project.tabs[project.activeTabId]) return 'root';
-    return project.tabs[project.activeTabId].viewSettings.selectedElementId;
-  });
+  const selectedElementId = useSelector(selectSelectedElementId);
   const { selectedTool, isDraggingForReorder, draggedElementId, insertionIndicator } = useSelector(selectUIState);
-  const customClasses = useSelector((state: RootState) => (state as any).classes?.customClasses || {});
+  const customClasses = useSelector(selectCustomClasses);
   const elementRef = useRef<HTMLDivElement>(null);
   const [isEditing, setIsEditing] = React.useState(false);
   const textEditRef = useRef<HTMLDivElement>(null);
   
   // Get hover state from Redux if not provided via props
-  const reduxHoverState = useHoverState();
+  const reduxHoverState = useSelector(selectHoverState);
   const actualHoveredElementId = hoveredElementId !== undefined ? hoveredElementId : reduxHoverState.hoveredElementId;
   const actualHoveredZone = hoveredZone !== undefined ? hoveredZone : reduxHoverState.hoveredZone;
   
