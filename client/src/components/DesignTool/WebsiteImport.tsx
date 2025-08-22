@@ -40,8 +40,11 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
     setError('');
 
     try {
-      console.log('Starting website import for:', url);
+      console.log('🚀 STARTING WEBSITE IMPORT PROCESS');
+      console.log('📍 Target URL:', url);
+      console.log('⏱️ Start time:', new Date().toISOString());
       
+      console.log('🌐 STEP 1: Fetching webpage content from server...');
       // Fetch the webpage content
       const response = await fetch('/api/import-website', {
         method: 'POST',
@@ -52,32 +55,48 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
       });
 
       if (!response.ok) {
+        console.error('❌ Server request failed:', response.status, response.statusText);
         throw new Error(`Failed to fetch website: ${response.statusText}`);
       }
 
       const { html, css, assets } = await response.json();
-      console.log('Website content fetched successfully');
-      console.log('HTML length:', html?.length || 0);
-      console.log('CSS length:', css?.length || 0);
-      console.log('Assets count:', assets?.length || 0);
+      console.log('✅ STEP 1 COMPLETE: Website content fetched successfully');
+      console.log('📄 HTML length:', html?.length || 0, 'characters');
+      console.log('🎨 CSS length:', css?.length || 0, 'characters');
+      console.log('🖼️ Assets count:', assets?.length || 0);
+      
+      if (!html || html.length === 0) {
+        console.error('❌ No HTML content received from server');
+        throw new Error('No HTML content received');
+      }
 
       try {
         // Parse HTML and convert to canvas elements
-        console.log('Parsing HTML content...');
+        console.log('🔧 STEP 2: Parsing HTML content...');
         const parser = new DOMParser();
         const doc = parser.parseFromString(html, 'text/html');
         
-        // Extract and process all CSS
-        console.log('Processing CSS...');
-        await processCSS(css);
+        if (!doc || !doc.body) {
+          console.error('❌ Failed to parse HTML - no body element found');
+          throw new Error('Invalid HTML structure');
+        }
+        console.log('✅ STEP 2 COMPLETE: HTML parsed successfully');
+        
+        // Extract and process only used CSS classes
+        console.log('🔍 STEP 3: Analyzing HTML for used CSS classes...');
+        const usedClasses = extractUsedClasses(doc);
+        console.log(`📊 Found ${usedClasses.size} unique CSS classes in HTML:`, Array.from(usedClasses));
+        
+        console.log('🎨 STEP 4: Processing CSS with selective extraction...');
+        await processCSS(css, usedClasses);
         
         // Convert body content to canvas elements (comprehensive processing)
-        console.log('Converting HTML to canvas elements...');
+        console.log('🏗️ STEP 5: Converting HTML to canvas elements...');
         const bodyElement = doc.body;
         if (bodyElement && bodyElement.children.length > 0) {
           // Process all meaningful elements - no arbitrary limits
           const elementsToProcess = Array.from(bodyElement.children);
-          console.log(`Processing ${elementsToProcess.length} top-level elements from body`);
+          console.log(`🎯 Processing ${elementsToProcess.length} top-level elements from body`);
           
           for (let i = 0; i < elementsToProcess.length; i++) {
             const child = elementsToProcess[i];
@@ -144,12 +163,46 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
     }
   };
 
-  const processCSS = async (css: string) => {
-    console.log('Processing CSS styles for custom classes with scoping');
-    console.log('CSS input length:', css?.length || 0);
+  // Function to extract all CSS classes actually used in the HTML
+  const extractUsedClasses = (doc: Document): Set<string> => {
+    console.log('🔍 Scanning HTML for used CSS classes...');
+    const usedClasses = new Set<string>();
+    
+    // Get all elements with class attributes
+    const elementsWithClasses = doc.querySelectorAll('[class]');
+    console.log(`📊 Found ${elementsWithClasses.length} elements with class attributes`);
+    
+    elementsWithClasses.forEach((element, index) => {
+      const classList = element.getAttribute('class');
+      if (classList) {
+        // Split class string and add each class
+        const classes = classList.split(/\s+/).filter(cls => cls.trim().length > 0);
+        classes.forEach(cls => {
+          usedClasses.add(cls.trim());
+        });
+        
+        if (index < 10) { // Log first 10 for debugging
+          console.log(`📋 Element ${index + 1}: ${element.tagName} classes: [${classes.join(', ')}]`);
+        }
+      }
+    });
+    
+    console.log(`✅ Class extraction complete: ${usedClasses.size} unique classes found`);
+    return usedClasses;
+  };
+
+  const processCSS = async (css: string, usedClasses: Set<string>) => {
+    console.log('🎨 Processing CSS styles with selective import and scoping');
+    console.log('📊 Input - CSS length:', css?.length || 0, 'characters');
+    console.log('📊 Input - Classes to match:', usedClasses.size);
     
     if (!css || css.trim().length === 0) {
-      console.log('⚠️ No CSS content to process - CSS extraction may have failed');
+      console.error('⚠️ No CSS content to process - CSS extraction may have failed');
+      return;
+    }
+    
+    if (usedClasses.size === 0) {
+      console.warn('⚠️ No CSS classes found in HTML - skipping CSS processing');
       return;
     }
 
@@ -158,19 +211,48 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
       const importScope = `imported-${nanoid(8)}`;
       console.log(`Creating CSS scope: ${importScope}`);
       
-      // Enhanced CSS parsing to extract all rules including element selectors
+      // Enhanced CSS parsing - only extract rules for classes actually used
       const rules: Array<{ selector: string; styles: Record<string, string>; scopedSelector: string }> = [];
+      const skippedRules = { total: 0, unused: 0, invalid: 0, atRule: 0 };
       
       // Parse CSS rules - handle both class and element selectors
+      console.log('🔍 Parsing CSS rules...');
       const ruleRegex = /([^{}]+)\s*\{([^}]+)\}/g;
       let match;
+      let totalRules = 0;
       
       while ((match = ruleRegex.exec(css)) !== null) {
+        totalRules++;
         const originalSelector = match[1].trim();
         const styleBlock = match[2];
         
         // Skip @rules, comments, and complex selectors for now
-        if (originalSelector.startsWith('@') || originalSelector.includes('/*')) {
+        if (originalSelector.startsWith('@')) {
+          skippedRules.atRule++;
+          continue;
+        }
+        
+        if (originalSelector.includes('/*')) {
+          skippedRules.invalid++;
+          continue;
+        }
+        
+        // Check if this rule is for a class we actually use
+        let isRelevant = false;
+        
+        if (originalSelector.startsWith('.')) {
+          // Class selector - check if we use this class
+          const className = originalSelector.substring(1).split(/[:\s,]/)[0]; // Get base class name
+          if (usedClasses.has(className)) {
+            isRelevant = true;
+          }
+        } else if (originalSelector.match(/^[a-zA-Z]/)) {
+          // Element selector (body, div, etc.) - always include these
+          isRelevant = true;
+        }
+        
+        if (!isRelevant) {
+          skippedRules.unused++;
           continue;
         }
         
@@ -213,7 +295,19 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
         }
       }
 
-      console.log(`Extracted ${rules.length} CSS rules for scoped import`);
+      console.log('📊 CSS PARSING RESULTS:');
+      console.log(`  Total rules found: ${totalRules}`);
+      console.log(`  Rules imported: ${rules.length}`);
+      console.log(`  Rules skipped: ${skippedRules.total = skippedRules.unused + skippedRules.invalid + skippedRules.atRule}`);
+      console.log(`    - Unused classes: ${skippedRules.unused}`);
+      console.log(`    - @rules/@media: ${skippedRules.atRule}`);
+      console.log(`    - Invalid/comments: ${skippedRules.invalid}`);
+      console.log(`  Compression ratio: ${((1 - rules.length / totalRules) * 100).toFixed(1)}% reduction`);
+      
+      if (rules.length === 0) {
+        console.warn('⚠️ No relevant CSS rules found - styles may not apply correctly');
+        return;
+      }
 
       // Create scoped CSS classes for the custom class system
       const scopedClasses: Record<string, any> = {};
