@@ -64,6 +64,7 @@ const PropertiesPanel: React.FC = () => {
   }, [selectedElement?.id, selectedElement?.classes]);
   const customClasses = useSelector((state: RootState) => (state as any).classes?.customClasses || {});
   const [expandedGroups, setExpandedGroups] = useState<Record<string, boolean>>({
+    content: true,
     layout: true,
     spacing: true,
     appearance: true,
