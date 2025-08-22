@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import type { AppDispatch } from '../../store';
 import { RootState } from '../../store';
 import { updateElement, updateElementStyles, addCSSClass, removeCSSClass, deleteElement, selectElement } from '../../store/canvasSlice';
+import { selectCurrentElements, selectSelectedElementId } from '../../store/selectors';
 import { addCustomClass, updateCustomClass, batchUpdateCustomClass, deleteCustomClass } from '../../store/classSlice';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -37,8 +38,9 @@ import ButtonStateSelector from './ButtonStateSelector';
 
 const PropertiesPanel: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { project } = useSelector((state: RootState) => state.canvas);
-  const selectedElement = project.selectedElementId ? project.elements[project.selectedElementId] : null;
+  const currentElements = useSelector(selectCurrentElements);
+  const selectedElementId = useSelector(selectSelectedElementId);
+  const selectedElement = selectedElementId ? currentElements[selectedElementId] : null;
   const [newClassName, setNewClassName] = useState('');
   const [selectedClassForEditing, setSelectedClassForEditing] = useState<string | null>(null);
   const [selectedButtonState, setSelectedButtonState] = useState<string>('default');

@@ -267,7 +267,7 @@ const TabBar: React.FC = () => {
   }
 
   return (
-    <div className="flex items-end gap-1 bg-gray-100 px-4 pt-2 border-b border-gray-200">
+    <div className="flex items-end gap-1 bg-gray-100 px-4 pt-2 pb-0 border-b border-gray-200 min-h-[40px]">
       {/* Tab items */}
       {project.tabOrder.map((tabId) => {
         const tab = project.tabs[tabId];
