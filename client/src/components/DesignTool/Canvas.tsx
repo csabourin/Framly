@@ -274,7 +274,7 @@ const Canvas: React.FC = () => {
     }
 
     return null;
-  }, [project.elements, zoomLevel, draggedElementId]);
+  }, [currentElements, zoomLevel, draggedElementId]);
 
 
 
@@ -383,7 +383,7 @@ const Canvas: React.FC = () => {
       }
     } else {
       // Clicked on empty area (non-recipient) with creation tool - switch to selection tool
-      const clickedElement = getElementAtPoint(x, y, project.elements, zoomLevel);
+      const clickedElement = getElementAtPoint(x, y, currentElements, zoomLevel);
       
       // Only switch to select tool if clicking on truly empty area or non-recipient elements
       if (!clickedElement || clickedElement.id === 'root' || !isValidDropTarget(clickedElement)) {
@@ -397,7 +397,7 @@ const Canvas: React.FC = () => {
         console.log('TOOL SWITCH DEBUG - Staying in current tool (clicked recipient):', { clickedElement: clickedElement?.id, selectedTool, isValidDropTarget: isValidDropTarget(clickedElement) });
       }
     }
-  }, [selectedTool, zoomLevel, project.elements, dispatch, hoveredElementId, hoveredZone]);
+  }, [selectedTool, zoomLevel, currentElements, dispatch, hoveredElementId, hoveredZone]);
 
   const handleMouseDown = useCallback((e: React.MouseEvent) => {
     const rect = canvasRef.current?.getBoundingClientRect();
@@ -412,7 +412,7 @@ const Canvas: React.FC = () => {
       dispatch(setDragStart({ x: x - selectedElement.x, y: y - selectedElement.y }));
       dispatch(setDragging(true));
     } else if (selectedTool === 'hand') {
-      const clickedElement = getElementAtPoint(x, y, project.elements, zoomLevel);
+      const clickedElement = getElementAtPoint(x, y, currentElements, zoomLevel);
       if (clickedElement && clickedElement.id !== 'root') {
         console.log('DRAG DEBUG - Preparing drag for:', clickedElement.id);
         dispatch(selectElement(clickedElement.id));
@@ -423,7 +423,7 @@ const Canvas: React.FC = () => {
         // Don't set dragging state yet - wait for threshold
       }
     }
-  }, [selectedTool, selectedElement, zoomLevel, dispatch, project.elements]);
+  }, [selectedTool, selectedElement, zoomLevel, dispatch, currentElements]);
 
   const handleMouseMove = useCallback((e: React.MouseEvent) => {
     const rect = canvasRef.current?.getBoundingClientRect();
@@ -639,7 +639,7 @@ const Canvas: React.FC = () => {
           }));
         } else {
           // Handle before/after positions (sibling insertion) - use the hovered element's parent
-          const hoveredElement = project.elements[insertionIndicator.elementId];
+          const hoveredElement = currentElements[insertionIndicator.elementId];
           const parentId = hoveredElement?.parent || 'root';
           
           console.log('DRAG DEBUG - Reordering as sibling:', { 
@@ -675,7 +675,7 @@ const Canvas: React.FC = () => {
     // Reset drag threshold and expanded container
     setDragThreshold({ x: 0, y: 0, exceeded: false });
     setExpandedContainerId(null);
-  }, [dispatch, isDraggingForReorder, draggedElementId, hoveredElementId, hoveredZone, insertionIndicator, project.elements, dragThreshold, setDragThreshold]);
+  }, [dispatch, isDraggingForReorder, draggedElementId, hoveredElementId, hoveredZone, insertionIndicator, currentElements, dragThreshold, setDragThreshold]);
 
   // Handle drop events for components
   const handleDragOver = useCallback((e: React.DragEvent) => {
@@ -700,7 +700,7 @@ const Canvas: React.FC = () => {
           if (insertionZone) {
             console.log('COMPONENT DRAG - Insertion zone detected:', insertionZone);
             
-            const targetElement = project.elements[insertionZone.elementId];
+            const targetElement = currentElements[insertionZone.elementId];
             
             // Apply the same validation logic as element reordering
             let canDropHere = false;
@@ -710,7 +710,7 @@ const Canvas: React.FC = () => {
             } else {
               // For before/after positions (sibling insertion), check if the parent can accept children
               const parentId = targetElement?.parent || 'root';
-              const parentElement = project.elements[parentId];
+              const parentElement = currentElements[parentId];
               canDropHere = parentElement ? isValidDropTarget(parentElement) : false;
             }
             
@@ -719,7 +719,7 @@ const Canvas: React.FC = () => {
               canDropHere, 
               insertionPosition: (insertionZone as any).position,
               parentId: targetElement?.parent,
-              parentType: project.elements[targetElement?.parent || 'root']?.type
+              parentType: currentElements[targetElement?.parent || 'root']?.type
             });
             
             if (canDropHere) {
@@ -753,7 +753,7 @@ const Canvas: React.FC = () => {
     } catch (error) {
       // Silently handle drag data parsing errors
     }
-  }, [zoomLevel, dispatch, project.elements]);
+  }, [zoomLevel, dispatch, currentElements]);
 
   // Handle drag leave to clear visual feedback when component drag leaves canvas
   const handleDragLeave = useCallback((e: React.DragEvent) => {
@@ -799,7 +799,7 @@ const Canvas: React.FC = () => {
         let referenceElementId: string | undefined;
         
         if (insertionZone) {
-          const targetElement = project.elements[insertionZone.elementId];
+          const targetElement = currentElements[insertionZone.elementId];
           
           // Apply the same validation logic as element reordering
           let canDropHere = false;
@@ -809,7 +809,7 @@ const Canvas: React.FC = () => {
           } else {
             // For before/after positions (sibling insertion), check if the parent can accept children
             const targetParentId = targetElement?.parent || 'root';
-            const parentElement = project.elements[targetParentId];
+            const parentElement = currentElements[targetParentId];
             canDropHere = parentElement ? isValidDropTarget(parentElement) : false;
           }
           
@@ -818,7 +818,7 @@ const Canvas: React.FC = () => {
             canDropHere, 
             insertionPosition: (insertionZone as any).position,
             parentId: targetElement?.parent,
-            parentType: project.elements[targetElement?.parent || 'root']?.type
+            parentType: currentElements[targetElement?.parent || 'root']?.type
           });
           
           if (canDropHere) {
@@ -891,7 +891,7 @@ const Canvas: React.FC = () => {
     setHoveredZone(null);
     dispatch(setHoveredElement({ elementId: null, zone: null }));
     setInsertionIndicator(null);
-  }, [zoomLevel, dispatch, project.elements]);
+  }, [zoomLevel, dispatch, currentElements]);
 
   const handleZoomIn = () => {
     // Zoom functionality would be implemented here
@@ -1012,12 +1012,12 @@ const Canvas: React.FC = () => {
       >
         {/* Render Canvas Elements */}
         {rootElement.children?.filter((childId, index, arr) => arr.indexOf(childId) === index).map(childId => {
-          const element = project.elements[childId];
+          const element = currentElements[childId];
           return element ? (
             <CanvasElement 
               key={element.id} 
               element={element}
-              isSelected={element.id === project.selectedElementId}
+              isSelected={element.id === selectedElementId}
               isHovered={element.id === hoveredElementId}
               hoveredZone={element.id === hoveredElementId ? hoveredZone : null}
               expandedContainerId={expandedContainerId}

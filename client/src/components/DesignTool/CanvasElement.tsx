@@ -6,6 +6,7 @@ import { setSelectedTool } from '../../store/uiSlice';
 import { CanvasElement as CanvasElementType } from '../../types/canvas';
 import ButtonElement from './CanvasElements/ButtonElement';
 import { isValidDropTarget } from '../../utils/canvas';
+import { selectCurrentElements } from '../../store/selectors';
 
 interface CanvasElementProps {
   element: CanvasElementType;
@@ -33,7 +34,12 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
   expandedContainerId = null
 }) => {
   const dispatch = useDispatch();
-  const { project } = useSelector((state: RootState) => state.canvas);
+  const currentElements = useSelector(selectCurrentElements);
+  const selectedElementId = useSelector((state: RootState) => {
+    const project = state.canvas.project;
+    if (!project.activeTabId || !project.tabs[project.activeTabId]) return 'root';
+    return project.tabs[project.activeTabId].viewSettings.selectedElementId;
+  });
   const { selectedTool, isDraggingForReorder, draggedElementId, insertionIndicator } = useSelector((state: RootState) => state.ui);
   const customClasses = useSelector((state: RootState) => (state as any).classes?.customClasses || {});
   const elementRef = useRef<HTMLDivElement>(null);
@@ -69,7 +75,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
       }
       
       // Find the element before the reference element
-      const container = project.elements[indicator.elementId];
+      const container = currentElements[indicator.elementId];
       if (container && container.children) {
         const refIndex = container.children.indexOf(indicator.referenceElementId);
         if (refIndex > 0) {
@@ -82,7 +88,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     }
     
     return 'sibling-spacing-reset';
-  }, [isDraggingForReorder, insertionIndicator, draggedElementId, element.id, project.elements]);
+  }, [isDraggingForReorder, insertionIndicator, draggedElementId, element.id, currentElements]);
 
   const handleClick = useCallback((e: React.MouseEvent) => {
     console.log('CanvasElement click - selectedTool:', selectedTool, 'elementId:', element.id);
@@ -437,12 +443,12 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
       return (
         <>
           {element.children.map(childId => {
-            const child = project.elements[childId];
+            const child = currentElements[childId];
             return child ? (
               <CanvasElement 
                 key={child.id} 
                 element={child}
-                isSelected={child.id === project.selectedElementId}
+                isSelected={child.id === selectedElementId}
                 isHovered={child.id === actualHoveredElementId}
                 hoveredZone={child.id === actualHoveredElementId ? actualHoveredZone : null}
                 hoveredElementId={actualHoveredElementId}
