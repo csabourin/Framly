@@ -75,6 +75,23 @@ export interface CSSProperties {
   [key: string]: any;
 }
 
+export interface TabViewSettings {
+  zoom: number;
+  panX: number;
+  panY: number;
+  selectedElementId: string;
+}
+
+export interface DesignTab {
+  id: string;
+  name: string;
+  color?: string;
+  elements: Record<string, CanvasElement>;
+  viewSettings: TabViewSettings;
+  createdAt: number;
+  updatedAt: number;
+}
+
 export interface Breakpoint {
   name: string;
   width: number;
@@ -84,9 +101,10 @@ export interface Breakpoint {
 export interface Project {
   id: string;
   name: string;
-  elements: Record<string, CanvasElement>;
+  tabs: Record<string, DesignTab>;
+  activeTabId: string;
+  tabOrder: string[];
   breakpoints: Record<string, any>;
-  selectedElementId?: string;
   currentBreakpoint: string;
 }
 

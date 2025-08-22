@@ -71,13 +71,82 @@ export class PersistenceManager {
       const project = await loadProjectFromIndexedDB(PROJECT_ID);
       if (project) {
         console.log('Loading persisted project:', project.name);
-        store.dispatch(loadProject(project));
+        
+        // Check if project needs migration from old structure to new tab structure
+        const migratedProject = this.migrateProjectToTabStructure(project);
+        store.dispatch(loadProject(migratedProject));
       } else {
         console.log('No persisted project found, using default');
       }
     } catch (error) {
       console.error('Failed to load current project:', error);
     }
+  }
+
+  private migrateProjectToTabStructure(project: any): Project {
+    // Check if project already has the new tab structure
+    if (project.tabs && project.activeTabId && project.tabOrder) {
+      return project as Project;
+    }
+
+    // Migrate old structure to new tab structure
+    const tabId = 'main-tab';
+    
+    const migratedProject: Project = {
+      id: project.id || 'default',
+      name: project.name || 'Untitled Project',
+      tabs: {
+        [tabId]: {
+          id: tabId,
+          name: 'Main',
+          elements: project.elements || { root: this.createDefaultRootElement() },
+          viewSettings: {
+            zoom: 1,
+            panX: 0,
+            panY: 0,
+            selectedElementId: project.selectedElementId || 'root'
+          },
+          createdAt: Date.now(),
+          updatedAt: Date.now()
+        }
+      },
+      activeTabId: tabId,
+      tabOrder: [tabId],
+      breakpoints: project.breakpoints || {
+        mobile: { name: 'Mobile', width: 375, isDefault: true },
+        tablet: { name: 'Tablet', width: 768, isDefault: false },
+        desktop: { name: 'Desktop', width: 1024, isDefault: false }
+      },
+      currentBreakpoint: project.currentBreakpoint || 'mobile'
+    };
+
+    console.log('Migrated project from old structure to tab structure');
+    return migratedProject;
+  }
+
+  private createDefaultRootElement() {
+    return {
+      id: 'root',
+      type: 'container' as const,
+      x: 0,
+      y: 0,
+      width: 375,
+      height: 600,
+      styles: {
+        display: 'flex',
+        flexDirection: 'column',
+        backgroundColor: '#ffffff',
+        minHeight: '600px',
+        padding: '20px',
+        gap: '16px'
+      },
+      isContainer: true,
+      flexDirection: 'column' as const,
+      justifyContent: 'flex-start' as const,
+      alignItems: 'stretch' as const,
+      children: [],
+      classes: []
+    };
   }
 
   private async loadComponents(): Promise<void> {

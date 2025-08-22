@@ -31,9 +31,19 @@ const Canvas: React.FC = () => {
   const [expandedContainerId, setExpandedContainerId] = useState<string | null>(null);
   const { project } = useSelector((state: RootState) => state.canvas);
   const { selectedTool, isDragging, dragStart, isResizing, resizeHandle, zoomLevel, isGridVisible, draggedElementId, isDraggingForReorder, isDOMTreePanelVisible, isComponentPanelVisible } = useSelector((state: RootState) => state.ui);
+  
+  // Use new selectors for tab-based data
+  const currentElements = useSelector((state: RootState) => {
+    const currentTab = state.canvas.project.tabs[state.canvas.project.activeTabId];
+    return currentTab ? currentTab.elements : {};
+  });
+  const selectedElementId = useSelector((state: RootState) => {
+    const currentTab = state.canvas.project.tabs[state.canvas.project.activeTabId];
+    return currentTab ? currentTab.viewSettings.selectedElementId : undefined;
+  });
 
-  const rootElement = project.elements.root;
-  const selectedElement = project.selectedElementId ? project.elements[project.selectedElementId] : null;
+  const rootElement = currentElements.root;
+  const selectedElement = selectedElementId ? currentElements[selectedElementId] : null;
 
   // Function to detect insertion zones based on mouse position
   const detectInsertionZone = useCallback((x: number, y: number, forDrag = false, forComponentDrag = false): InsertionIndicator | null => {
@@ -51,7 +61,7 @@ const Canvas: React.FC = () => {
       return null;
     }
 
-    const hoveredElement = getElementAtPoint(x, y, project.elements, zoomLevel, draggedElementId);
+    const hoveredElement = getElementAtPoint(x, y, currentElements, zoomLevel, draggedElementId);
     console.log('detectInsertionZone - hoveredElement:', hoveredElement?.id);
     
     // Skip the dragged element itself during drag operations
@@ -168,11 +178,11 @@ const Canvas: React.FC = () => {
         return null;
       }
     }
-  }, [selectedTool, project.elements, zoomLevel, rootElement, draggedElementId]);
+  }, [selectedTool, currentElements, zoomLevel, rootElement, draggedElementId]);
 
   // New function to detect insertion points between sibling elements
   const detectSiblingInsertionPoint = useCallback((x: number, y: number, containerId: string, childIds: string[]) => {
-    const container = project.elements[containerId];
+    const container = currentElements[containerId];
     if (!container) return null;
 
     // Get container bounds
@@ -190,7 +200,7 @@ const Canvas: React.FC = () => {
     // Check each child element to find insertion points
     for (let i = 0; i < childIds.length; i++) {
       const childId = childIds[i];
-      const child = project.elements[childId];
+      const child = currentElements[childId];
       if (!child || child.id === draggedElementId) continue;
 
       const childDiv = document.querySelector(`[data-element-id="${childId}"]`) as HTMLElement;
@@ -208,7 +218,7 @@ const Canvas: React.FC = () => {
       const insertionGap = 12; // Gap to show between siblings
       
       if (nextChildId) {
-        const nextChild = project.elements[nextChildId];
+        const nextChild = currentElements[nextChildId];
         if (nextChild && nextChild.id !== draggedElementId) {
           const nextChildDiv = document.querySelector(`[data-element-id="${nextChildId}"]`) as HTMLElement;
           if (nextChildDiv) {
@@ -466,7 +476,7 @@ const Canvas: React.FC = () => {
       if (insertionZone) {
         console.log('DRAG DEBUG - Insertion zone detected:', insertionZone);
         
-        const targetElement = project.elements[insertionZone.elementId];
+        const targetElement = currentElements[insertionZone.elementId];
         // Different validation logic based on insertion type
         let canDropHere = false;
         if ((insertionZone as any).position === 'inside' || (insertionZone as any).position === 'between') {
@@ -475,7 +485,7 @@ const Canvas: React.FC = () => {
         } else {
           // For before/after positions (sibling insertion), check if the parent can accept children
           const parentId = targetElement?.parent || 'root';
-          const parentElement = project.elements[parentId];
+          const parentElement = currentElements[parentId];
           canDropHere = parentElement ? isValidDropTarget(parentElement) : false;
         }
         
@@ -485,7 +495,7 @@ const Canvas: React.FC = () => {
           canDropHere,
           position: (insertionZone as any).position,
           parentId: targetElement?.parent,
-          parentType: project.elements[targetElement?.parent || 'root']?.type
+          parentType: currentElements[targetElement?.parent || 'root']?.type
         });
         
         setHoveredElementId(insertionZone.elementId);
@@ -501,7 +511,7 @@ const Canvas: React.FC = () => {
         setInsertionIndicator(insertionZone);
         
         // Apply padding expansion for better targeting
-        const hoveredContainerElement = project.elements[insertionZone.elementId];
+        const hoveredContainerElement = currentElements[insertionZone.elementId];
         if (hoveredContainerElement && (hoveredContainerElement.isContainer || hoveredContainerElement.type === 'container' || hoveredContainerElement.type === 'rectangle')) {
           setExpandedContainerId(insertionZone.elementId);
         }
@@ -520,7 +530,7 @@ const Canvas: React.FC = () => {
       // Creation tool hover detection for insertion feedback
       console.log('Mouse move triggered, selectedTool:', selectedTool);
       
-      const hoveredElement = getElementAtPoint(x, y, project.elements, zoomLevel, draggedElementId);
+      const hoveredElement = getElementAtPoint(x, y, currentElements, zoomLevel, draggedElementId);
       
       if (!hoveredElement) {
         console.log('No element found at point');
@@ -576,13 +586,13 @@ const Canvas: React.FC = () => {
       setHoveredZone(null);
       dispatch(setHoveredElement({ elementId: null, zone: null }));
     }
-  }, [isDragging, isDraggingForReorder, selectedElement, draggedElementId, dragStart, zoomLevel, dispatch, selectedTool, project.elements, dragThreshold]);
+  }, [isDragging, isDraggingForReorder, selectedElement, draggedElementId, dragStart, zoomLevel, dispatch, selectedTool, currentElements, dragThreshold]);
 
   const handleMouseUp = useCallback((e?: MouseEvent) => {
     console.log('DRAG DEBUG - Mouse up:', { isDraggingForReorder, draggedElementId, hoveredElementId, hoveredZone, insertionIndicator });
     
     if (isDraggingForReorder && draggedElementId && insertionIndicator) {
-      const targetElement = project.elements[insertionIndicator.elementId];
+      const targetElement = currentElements[insertionIndicator.elementId];
       let canDropHere = false;
       
       // Different validation logic based on insertion type
@@ -592,7 +602,7 @@ const Canvas: React.FC = () => {
       } else {
         // For before/after positions (sibling insertion), check if the parent can accept children
         const parentId = targetElement?.parent || 'root';
-        const parentElement = project.elements[parentId];
+        const parentElement = currentElements[parentId];
         canDropHere = parentElement ? isValidDropTarget(parentElement) : false;
       }
       
@@ -601,7 +611,7 @@ const Canvas: React.FC = () => {
         canDropHere, 
         insertionPosition: (insertionIndicator as any).position,
         parentId: targetElement?.parent,
-        parentType: project.elements[targetElement?.parent || 'root']?.type
+        parentType: currentElements[targetElement?.parent || 'root']?.type
       });
       
       if (canDropHere) {

@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
 import { setCSSOptimizationModalOpen } from '../../store/uiSlice';
+import { selectCurrentElements } from '../../store/selectors';
 import { CSSOptimizer } from '../../utils/cssOptimizer';
 import { cssClassGenerator } from '../../utils/cssClassGenerator';
 import { 
@@ -30,57 +31,96 @@ import {
 const CSSOptimizationModal: React.FC = () => {
   const dispatch = useDispatch();
   const { project } = useSelector((state: RootState) => state.canvas);
+  const currentElements = useSelector(selectCurrentElements);
   const { isCSSOptimizationModalOpen } = useSelector((state: RootState) => state.ui);
   
   const [activeTab, setActiveTab] = useState('overview');
 
   const optimizationData = useMemo(() => {
-    const optimizer = new CSSOptimizer();
-    const optimizedCSS = optimizer.optimizeCSS(project.elements);
-    const optimizedOutput = optimizer.generateOptimizedCSS(optimizedCSS);
+    // Only optimize if we have valid elements
+    if (!currentElements || Object.keys(currentElements).length === 0) {
+      return {
+        optimizedCSS: { utilities: [], components: [], layout: [], critical: [] },
+        optimizedOutput: '/* No elements to optimize */',
+        metrics: {
+          totalElements: 0,
+          elementsWithStyles: 0,
+          totalStyleProperties: 0,
+          utilityClasses: 0,
+          componentClasses: 0,
+          layoutClasses: 0,
+          criticalCSS: 0,
+          utilityClassesSaved: 0,
+          componentClassesSaved: 0,
+          sizeSaving: 0
+        }
+      };
+    }
     
-    // Calculate optimization metrics
-    const totalElements = Object.keys(project.elements).length;
-    const elementsWithStyles = Object.values(project.elements).filter(el => 
-      el.styles && Object.keys(el.styles).length > 0
-    ).length;
-    
-    const totalStyleProperties = Object.values(project.elements).reduce((acc, el) => 
-      acc + (el.styles ? Object.keys(el.styles).length : 0), 0
-    );
-    
-    const utilityClassesSaved = optimizedCSS.utilities.reduce((acc, util) => 
-      acc + util.elementIds.length, 0
-    );
-    
-    const componentClassesSaved = optimizedCSS.components.reduce((acc, comp) => 
-      acc + comp.elementIds.length, 0
-    );
-    
-    // Estimate size reduction
-    const originalEstimatedSize = totalStyleProperties * 25; // ~25 chars per property
-    const optimizedEstimatedSize = optimizedOutput.length;
-    const sizeSaving = Math.max(0, Math.round(((originalEstimatedSize - optimizedEstimatedSize) / originalEstimatedSize) * 100));
-    
-    return {
-      optimizedCSS,
-      optimizedOutput,
-      metrics: {
-        totalElements,
-        elementsWithStyles,
-        totalStyleProperties,
-        utilityClasses: optimizedCSS.utilities.length,
-        componentClasses: optimizedCSS.components.length,
-        layoutClasses: optimizedCSS.layout.length,
-        criticalCSS: optimizedCSS.critical.length,
-        utilityClassesSaved,
-        componentClassesSaved,
-        sizeSaving,
-        originalSize: originalEstimatedSize,
-        optimizedSize: optimizedEstimatedSize
-      }
-    };
-  }, [project.elements]);
+    try {
+      const optimizer = new CSSOptimizer();
+      const optimizedCSS = optimizer.optimizeCSS(currentElements);
+      const optimizedOutput = optimizer.generateOptimizedCSS(optimizedCSS);
+      
+      // Calculate optimization metrics
+      const totalElements = Object.keys(currentElements).length;
+      const elementsWithStyles = Object.values(currentElements).filter(el => 
+        el.styles && Object.keys(el.styles).length > 0
+      ).length;
+      
+      const totalStyleProperties = Object.values(currentElements).reduce((acc, el) => 
+        acc + (el.styles ? Object.keys(el.styles).length : 0), 0
+      );
+      
+      const utilityClassesSaved = optimizedCSS.utilities.reduce((acc, util) => 
+        acc + util.elementIds.length, 0
+      );
+      
+      const componentClassesSaved = optimizedCSS.components.reduce((acc, comp) => 
+        acc + comp.elementIds.length, 0
+      );
+      
+      // Estimate size reduction
+      const originalEstimatedSize = totalStyleProperties * 25; // ~25 chars per property
+      const optimizedEstimatedSize = optimizedOutput.length;
+      const sizeSaving = Math.max(0, Math.round(((originalEstimatedSize - optimizedEstimatedSize) / originalEstimatedSize) * 100));
+      
+      return {
+        optimizedCSS,
+        optimizedOutput,
+        metrics: {
+          totalElements,
+          elementsWithStyles,
+          totalStyleProperties,
+          utilityClasses: optimizedCSS.utilities.length,
+          componentClasses: optimizedCSS.components.length,
+          layoutClasses: optimizedCSS.layout.length,
+          criticalCSS: optimizedCSS.critical.length,
+          utilityClassesSaved,
+          componentClassesSaved,
+          sizeSaving
+        }
+      };
+    } catch (error) {
+      console.error('Error generating optimized CSS:', error);
+      return {
+        optimizedCSS: { utilities: [], components: [], layout: [], critical: [] },
+        optimizedOutput: '/* Error optimizing CSS */',
+        metrics: {
+          totalElements: 0,
+          elementsWithStyles: 0,
+          totalStyleProperties: 0,
+          utilityClasses: 0,
+          componentClasses: 0,
+          layoutClasses: 0,
+          criticalCSS: 0,
+          utilityClassesSaved: 0,
+          componentClassesSaved: 0,
+          sizeSaving: 0
+        }
+      };
+    }
+  }, [currentElements]);
 
   const handleClose = () => {
     dispatch(setCSSOptimizationModalOpen(false));

@@ -6,6 +6,7 @@ import { setClassEditorOpen, setComponentEditorOpen, setEditingComponent, setBut
 import { historyManager } from '../../utils/historyManager';
 import { useKeyboardShortcuts } from '../../hooks/useKeyboardShortcuts';
 import Header from './Header';
+import TabBar from './TabBar';
 import Toolbar from './Toolbar';
 import Canvas from './Canvas';
 import PropertiesPanel from './PropertiesPanel';
@@ -57,13 +58,16 @@ const DesignToolContent: React.FC = () => {
   };
 
   return (
-    <div className="flex h-screen relative bg-gray-50 font-inter overflow-hidden">
+    <div className="flex flex-col h-screen relative bg-gray-50 font-inter overflow-hidden">
       <Header />
-      <Toolbar />
-      {isDOMTreePanelVisible && <DOMTreePanel />}
-      <Canvas />
-      {isComponentPanelVisible && <ComponentPanel />}
-      <PropertiesPanel />
+      <TabBar />
+      <div className="flex flex-1 overflow-hidden">
+        <Toolbar />
+        {isDOMTreePanelVisible && <DOMTreePanel />}
+        <Canvas />
+        {isComponentPanelVisible && <ComponentPanel />}
+        <PropertiesPanel />
+      </div>
       <StatusBar />
       <ExportModal />
       <CodeModal />

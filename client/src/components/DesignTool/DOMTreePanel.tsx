@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
 import { selectElement } from '../../store/canvasSlice';
+import { selectCurrentElements, selectSelectedElementId } from '../../store/selectors';
 import { CanvasElement } from '../../types/canvas';
 import { ChevronRight, ChevronDown, Eye, EyeOff, Square, Type, Image as ImageIcon, Box } from 'lucide-react';
 
@@ -110,9 +111,10 @@ const DOMTreeNode: React.FC<DOMTreeNodeProps> = ({ element, level, selectedEleme
 };
 
 const DOMTreePanel: React.FC = () => {
-  const { project } = useSelector((state: RootState) => state.canvas);
-  const selectedElement = project.selectedElementId ? project.elements[project.selectedElementId] : null;
-  const rootElement = project.elements.root;
+  // Use new selectors for tab-based data
+  const currentElements = useSelector(selectCurrentElements);
+  const selectedElementId = useSelector(selectSelectedElementId);
+  const rootElement = currentElements.root;
   
   return (
     <div className="absolute left-16 top-12 bottom-8 w-64 bg-white border-r border-gray-200 overflow-y-auto z-40" data-testid="dom-tree-panel">
@@ -126,8 +128,8 @@ const DOMTreePanel: React.FC = () => {
           <DOMTreeNode
             element={rootElement}
             level={0}
-            selectedElementId={selectedElement?.id || null}
-            allElements={project.elements}
+            selectedElementId={selectedElementId || null}
+            allElements={currentElements}
           />
         )}
       </div>

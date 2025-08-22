@@ -8,9 +8,15 @@ const StatusBar: React.FC = () => {
   const { project } = useSelector((state: RootState) => state.canvas);
   const { selectedTool } = useSelector((state: RootState) => state.ui);
 
+  // Use new selectors for tab-based data
+  const currentElements = useSelector((state: RootState) => {
+    const currentTab = state.canvas.project.tabs[state.canvas.project.activeTabId];
+    return currentTab ? currentTab.elements : {};
+  });
+
   // Count only non-root elements to give users a meaningful count
-  const elementCount = Object.keys(project.elements).filter(id => id !== 'root').length;
-  const rootElement = project.elements.root;
+  const elementCount = Object.keys(currentElements).filter(id => id !== 'root').length;
+  const rootElement = currentElements.root;
   const currentBreakpoint = project.breakpoints[project.currentBreakpoint];
 
   const getToolDisplay = () => {

@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
 import { setCodeModalOpen } from '../../store/uiSlice';
+import { selectCurrentElements } from '../../store/selectors';
 import { CodeGenerator } from '../../utils/codeGenerator';
 import { 
   Dialog, 
@@ -16,15 +17,39 @@ import { Copy, Download, X } from 'lucide-react';
 const CodeModal: React.FC = () => {
   const dispatch = useDispatch();
   const { project } = useSelector((state: RootState) => state.canvas);
+  const currentElements = useSelector(selectCurrentElements);
   const customClasses = useSelector((state: RootState) => (state as any).classes?.customClasses || {});
   const { isCodeModalOpen } = useSelector((state: RootState) => state.ui);
   
   const [activeTab, setActiveTab] = useState('html');
 
   const generatedCode = useMemo(() => {
-    const generator = new CodeGenerator(project, customClasses);
-    return generator.exportProject();
-  }, [project, customClasses]);
+    // Only generate code if we have valid data
+    if (!currentElements || Object.keys(currentElements).length === 0) {
+      return {
+        html: '<!-- No elements to generate -->',
+        css: '/* No styles to generate */',
+        react: '// No components to generate'
+      };
+    }
+    
+    try {
+      // Create a project-like object with current elements for the code generator
+      const projectForGeneration = {
+        ...project,
+        elements: currentElements
+      };
+      const generator = new CodeGenerator(projectForGeneration, customClasses);
+      return generator.exportProject();
+    } catch (error) {
+      console.error('Error generating code:', error);
+      return {
+        html: '<!-- Error generating HTML -->',
+        css: '/* Error generating CSS */',
+        react: '// Error generating React component'
+      };
+    }
+  }, [project, currentElements, customClasses]);
 
   const handleClose = () => {
     dispatch(setCodeModalOpen(false));
