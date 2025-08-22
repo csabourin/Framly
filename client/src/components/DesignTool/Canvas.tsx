@@ -292,7 +292,7 @@ const Canvas: React.FC = () => {
       } else {
         dispatch(selectElement('root'));
       }
-    } else if (['rectangle', 'text', 'image', 'container', 'heading', 'list'].includes(selectedTool)) {
+    } else if (['rectangle', 'text', 'image', 'container', 'heading', 'list', 'button'].includes(selectedTool)) {
       // Re-detect the insertion point at click time to ensure we have current hover state
       const clickedElement = getElementAtPoint(x, y, project.elements, zoomLevel);
       let targetElementId = hoveredElementId;
@@ -486,7 +486,7 @@ const Canvas: React.FC = () => {
         setExpandedContainerId(null);
       }
       } // Close isDraggingForReorder check
-    } else if (['rectangle', 'text', 'image', 'container', 'heading', 'list'].includes(selectedTool)) {
+    } else if (['rectangle', 'text', 'image', 'container', 'heading', 'list', 'button'].includes(selectedTool)) {
       // Creation tool hover detection for insertion feedback
       console.log('Mouse move triggered, selectedTool:', selectedTool);
       
