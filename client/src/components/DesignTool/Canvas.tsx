@@ -5,6 +5,7 @@ import { selectElement, addElement, moveElement, resizeElement, reorderElement, 
 import { setDragging, setDragStart, setResizing, setResizeHandle, resetUI, setDraggedElement, setDraggingForReorder, setHoveredElement, setSelectedTool } from '../../store/uiSlice';
 import { createDefaultElement, getElementAtPoint, calculateSnapPosition, isValidDropTarget } from '../../utils/canvas';
 import { instantiateComponent } from '../../utils/componentGenerator';
+import { selectCurrentElements, selectSelectedElementId } from '../../store/selectors';
 import CanvasElement from './CanvasElement';
 import { Plus, Minus, Maximize } from 'lucide-react';
 
@@ -32,15 +33,9 @@ const Canvas: React.FC = () => {
   const { project } = useSelector((state: RootState) => state.canvas);
   const { selectedTool, isDragging, dragStart, isResizing, resizeHandle, zoomLevel, isGridVisible, draggedElementId, isDraggingForReorder, isDOMTreePanelVisible, isComponentPanelVisible } = useSelector((state: RootState) => state.ui);
   
-  // Use new selectors for tab-based data
-  const currentElements = useSelector((state: RootState) => {
-    const currentTab = state.canvas.project.tabs[state.canvas.project.activeTabId];
-    return currentTab ? currentTab.elements : {};
-  });
-  const selectedElementId = useSelector((state: RootState) => {
-    const currentTab = state.canvas.project.tabs[state.canvas.project.activeTabId];
-    return currentTab ? currentTab.viewSettings.selectedElementId : undefined;
-  });
+  // Use centralized selectors for tab-based data
+  const currentElements = useSelector(selectCurrentElements);
+  const selectedElementId = useSelector(selectSelectedElementId);
 
   const rootElement = currentElements.root;
   const selectedElement = selectedElementId ? currentElements[selectedElementId] : null;

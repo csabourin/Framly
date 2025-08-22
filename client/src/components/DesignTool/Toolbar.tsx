@@ -127,7 +127,7 @@ const Toolbar: React.FC = () => {
 
   return (
     <aside 
-      className="absolute left-0 top-12 bottom-8 w-12 bg-white border-r border-gray-200 flex flex-col py-2 gap-1 z-40"
+      className="absolute left-0 top-12 bottom-20 w-12 bg-white border-r border-gray-200 flex flex-col py-2 gap-1 z-40"
       data-testid="toolbar-main"
     >
       {/* Essential Tools */}
