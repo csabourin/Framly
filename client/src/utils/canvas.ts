@@ -183,6 +183,306 @@ export function createDefaultElement(type: CanvasElement['type'], x: number = 0,
         })(),
         classes: [`button-${Date.now()}`],
       };
+
+    // Form elements
+    case 'input':
+      return {
+        ...baseElement,
+        width: 0,
+        height: 40,
+        content: '',
+        styles: {
+          width: '100%',
+          padding: '8px 12px',
+          border: '1px solid #d1d5db',
+          borderRadius: '4px',
+          fontSize: '14px',
+          backgroundColor: '#ffffff',
+        },
+        htmlTag: 'input',
+        classes: [`input-${Date.now()}`],
+      };
+
+    case 'textarea':
+      return {
+        ...baseElement,
+        width: 0,
+        height: 100,
+        content: 'Entrez votre texte...',
+        styles: {
+          width: '100%',
+          padding: '8px 12px',
+          border: '1px solid #d1d5db',
+          borderRadius: '4px',
+          fontSize: '14px',
+          backgroundColor: '#ffffff',
+          resize: 'vertical',
+        },
+        htmlTag: 'textarea',
+        classes: [`textarea-${Date.now()}`],
+      };
+
+    case 'checkbox':
+      return {
+        ...baseElement,
+        width: 100,
+        height: 20,
+        content: 'Option',
+        styles: {
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+          fontSize: '14px',
+        },
+        htmlTag: 'label',
+        classes: [`checkbox-${Date.now()}`],
+      };
+
+    case 'radio':
+      return {
+        ...baseElement,
+        width: 100,
+        height: 20,
+        content: 'Option',
+        styles: {
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+          fontSize: '14px',
+        },
+        htmlTag: 'label',
+        classes: [`radio-${Date.now()}`],
+      };
+
+    case 'select':
+      return {
+        ...baseElement,
+        width: 0,
+        height: 40,
+        content: '<option>Choisir une option</option>',
+        styles: {
+          width: '100%',
+          padding: '8px 12px',
+          border: '1px solid #d1d5db',
+          borderRadius: '4px',
+          fontSize: '14px',
+          backgroundColor: '#ffffff',
+        },
+        htmlTag: 'select',
+        classes: [`select-${Date.now()}`],
+      };
+
+    // Structural elements
+    case 'section':
+      return {
+        ...baseElement,
+        width: 0,
+        height: 200,
+        content: '',
+        isContainer: true,
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+        alignItems: 'stretch',
+        children: [],
+        styles: {
+          width: '100%',
+          minHeight: '200px',
+          padding: '24px',
+          display: 'flex',
+          flexDirection: 'column',
+        },
+        htmlTag: 'section',
+        classes: [`section-${Date.now()}`],
+      };
+
+    case 'nav':
+      return {
+        ...baseElement,
+        width: 0,
+        height: 60,
+        content: '',
+        isContainer: true,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        children: [],
+        styles: {
+          width: '100%',
+          height: '60px',
+          padding: '0 24px',
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          backgroundColor: '#f8fafc',
+          borderBottom: '1px solid #e2e8f0',
+        },
+        htmlTag: 'nav',
+        classes: [`nav-${Date.now()}`],
+      };
+
+    case 'header':
+      return {
+        ...baseElement,
+        width: 0,
+        height: 150,
+        content: '',
+        isContainer: true,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        children: [],
+        styles: {
+          width: '100%',
+          height: '150px',
+          padding: '24px',
+          display: 'flex',
+          flexDirection: 'column',
+          textAlign: 'center',
+          backgroundColor: '#f1f5f9',
+        },
+        htmlTag: 'header',
+        classes: [`header-${Date.now()}`],
+      };
+
+    case 'footer':
+      return {
+        ...baseElement,
+        width: 0,
+        height: 100,
+        content: '',
+        isContainer: true,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        children: [],
+        styles: {
+          width: '100%',
+          height: '100px',
+          padding: '24px',
+          display: 'flex',
+          flexDirection: 'row',
+          backgroundColor: '#1f2937',
+          color: '#ffffff',
+        },
+        htmlTag: 'footer',
+        classes: [`footer-${Date.now()}`],
+      };
+
+    case 'article':
+      return {
+        ...baseElement,
+        width: 0,
+        height: 300,
+        content: '',
+        isContainer: true,
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+        alignItems: 'stretch',
+        children: [],
+        styles: {
+          width: '100%',
+          minHeight: '300px',
+          padding: '24px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '16px',
+        },
+        htmlTag: 'article',
+        classes: [`article-${Date.now()}`],
+      };
+
+    // Media elements
+    case 'video':
+      return {
+        ...baseElement,
+        width: 0,
+        height: 200,
+        content: '',
+        styles: {
+          width: '100%',
+          height: '200px',
+          backgroundColor: '#000000',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          color: '#ffffff',
+          fontSize: '14px',
+        },
+        htmlTag: 'video',
+        classes: [`video-${Date.now()}`],
+      };
+
+    case 'audio':
+      return {
+        ...baseElement,
+        width: 0,
+        height: 40,
+        content: '',
+        styles: {
+          width: '100%',
+          height: '40px',
+        },
+        htmlTag: 'audio',
+        classes: [`audio-${Date.now()}`],
+      };
+
+    // Interactive elements
+    case 'link':
+      return {
+        ...baseElement,
+        width: 0,
+        height: 30,
+        content: 'Lien',
+        styles: {
+          color: '#2563eb',
+          textDecoration: 'underline',
+          fontSize: '16px',
+          padding: '4px',
+          display: 'inline-block',
+          cursor: 'pointer',
+        },
+        htmlTag: 'a',
+        classes: [`link-${Date.now()}`],
+      };
+
+    // Content elements
+    case 'code':
+      return {
+        ...baseElement,
+        width: 0,
+        height: 100,
+        content: '// Votre code ici\nconsole.log("Hello World");',
+        styles: {
+          width: '100%',
+          padding: '16px',
+          backgroundColor: '#1f2937',
+          color: '#f9fafb',
+          fontFamily: 'monospace',
+          fontSize: '14px',
+          borderRadius: '6px',
+          whiteSpace: 'pre-wrap',
+          overflow: 'auto',
+        },
+        htmlTag: 'pre',
+        classes: [`code-${Date.now()}`],
+      };
+
+    case 'divider':
+      return {
+        ...baseElement,
+        width: 0,
+        height: 1,
+        content: '',
+        styles: {
+          width: '100%',
+          height: '1px',
+          backgroundColor: '#d1d5db',
+          border: 'none',
+          margin: '16px 0',
+        },
+        htmlTag: 'hr',
+        classes: [`divider-${Date.now()}`],
+      };
       
     default:
       return baseElement;

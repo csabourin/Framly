@@ -41,7 +41,10 @@ const Canvas: React.FC = () => {
     // 1. Element creation with specific tools
     // 2. Element reordering with hand tool
     // 3. Component dragging from panel
-    if (!forComponentDrag && !forDrag && !['rectangle', 'text', 'image', 'container', 'component', 'heading', 'list', 'button'].includes(selectedTool)) {
+    if (!forComponentDrag && !forDrag && !['rectangle', 'text', 'image', 'container', 'component', 'heading', 'list', 'button',
+              'input', 'textarea', 'checkbox', 'radio', 'select',
+              'section', 'nav', 'header', 'footer', 'article',
+              'video', 'audio', 'link', 'code', 'divider'].includes(selectedTool)) {
       return null;
     }
     if (forDrag && selectedTool !== 'hand') {
@@ -292,7 +295,10 @@ const Canvas: React.FC = () => {
       } else {
         dispatch(selectElement('root'));
       }
-    } else if (['rectangle', 'text', 'image', 'container', 'heading', 'list', 'button'].includes(selectedTool)) {
+    } else if (['rectangle', 'text', 'image', 'container', 'heading', 'list', 'button',
+              'input', 'textarea', 'checkbox', 'radio', 'select',
+              'section', 'nav', 'header', 'footer', 'article',
+              'video', 'audio', 'link', 'code', 'divider'].includes(selectedTool)) {
       // Re-detect the insertion point at click time to ensure we have current hover state
       const clickedElement = getElementAtPoint(x, y, project.elements, zoomLevel);
       let targetElementId = hoveredElementId;
@@ -507,7 +513,10 @@ const Canvas: React.FC = () => {
         setExpandedContainerId(null);
       }
       } // Close isDraggingForReorder check
-    } else if (['rectangle', 'text', 'image', 'container', 'heading', 'list', 'button'].includes(selectedTool)) {
+    } else if (['rectangle', 'text', 'image', 'container', 'heading', 'list', 'button',
+              'input', 'textarea', 'checkbox', 'radio', 'select',
+              'section', 'nav', 'header', 'footer', 'article',
+              'video', 'audio', 'link', 'code', 'divider'].includes(selectedTool)) {
       // Creation tool hover detection for insertion feedback
       console.log('Mouse move triggered, selectedTool:', selectedTool);
       
