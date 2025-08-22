@@ -124,7 +124,7 @@ export const PropertyInput: React.FC<PropertyInputProps> = ({ config, value, onC
           <div className="flex gap-2">
             <Input
               type="color"
-              value={value || '#000000'}
+              value={value === 'transparent' ? '#000000' : (value || '#000000')}
               onChange={(e) => onChange(e.target.value)}
               className="w-12 h-9 p-1 border rounded"
               data-testid={`color-${config.key}`}
@@ -137,6 +137,18 @@ export const PropertyInput: React.FC<PropertyInputProps> = ({ config, value, onC
               className="flex-1 font-mono text-sm"
               data-testid={`input-${config.key}`}
             />
+            <button
+              onClick={() => onChange('transparent')}
+              className={`px-2 py-1 text-xs rounded border transition-colors ${
+                value === 'transparent' 
+                  ? 'bg-blue-100 border-blue-300 text-blue-700' 
+                  : 'bg-gray-50 border-gray-200 text-gray-600 hover:bg-gray-100'
+              }`}
+              data-testid={`transparent-${config.key}`}
+              title="Set to transparent"
+            >
+              Clear
+            </button>
           </div>
         );
 

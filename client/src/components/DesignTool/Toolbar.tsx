@@ -152,7 +152,7 @@ const Toolbar: React.FC = () => {
             <Icon className="w-4 h-4" />
             
             {/* Tooltip */}
-            <div className="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-xs rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50">
+            <div className="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-xs rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-[100]">
               {tool.label}
               {tool.shortcut && <span className="ml-1 text-gray-400">({tool.shortcut})</span>}
             </div>
@@ -186,7 +186,7 @@ const Toolbar: React.FC = () => {
               <CategoryIcon className="w-4 h-4" />
               
               {/* Tooltip */}
-              <div className="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-xs rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50">
+              <div className="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-xs rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-[100]">
                 {category.label}
               </div>
             </button>

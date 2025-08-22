@@ -956,21 +956,21 @@ const Canvas: React.FC = () => {
     };
   }, [isDragging, isResizing, isDraggingForReorder, handleMouseMove, handleMouseUp, selectedElement, dispatch]);
 
-  if (!rootElement) {
+  if (!rootElement || !currentElements || Object.keys(currentElements).length === 0) {
     return (
-      <main className={`absolute top-12 bottom-8 bg-gray-50 flex items-center justify-center ${
+      <main className={`absolute top-12 bottom-20 bg-gray-50 flex items-center justify-center ${
         isDOMTreePanelVisible 
           ? (isComponentPanelVisible ? 'left-80 right-[576px]' : 'left-80 right-80')
           : (isComponentPanelVisible ? 'left-16 right-[576px]' : 'left-16 right-80')
       }`}>
-        <div className="text-gray-500">No canvas available</div>
+        <div className="text-gray-500">Loading canvas...</div>
       </main>
     );
   }
 
   return (
     <main 
-      className={`absolute top-12 bottom-8 bg-gray-50 overflow-auto flex items-center justify-center ${
+      className={`absolute top-12 bottom-20 bg-gray-50 overflow-auto flex items-center justify-center ${
         isDOMTreePanelVisible 
           ? (isComponentPanelVisible ? 'left-80 right-[576px]' : 'left-80 right-80')
           : (isComponentPanelVisible ? 'left-16 right-[576px]' : 'left-16 right-80')
