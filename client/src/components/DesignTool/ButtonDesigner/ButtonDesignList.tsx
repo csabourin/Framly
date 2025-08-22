@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../../store';
+import { selectButtonDesignerState } from '../../../store/selectors';
 import { 
   createButtonDesign, 
   selectButtonDesign, 
@@ -14,7 +15,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 
 const ButtonDesignList: React.FC = () => {
   const dispatch = useDispatch();
-  const { designs, currentDesignId } = useSelector((state: RootState) => state.button);
+  const { designs, currentDesignId } = useSelector(selectButtonDesignerState);
   const [isCreating, setIsCreating] = useState(false);
   const [newName, setNewName] = useState('');
 

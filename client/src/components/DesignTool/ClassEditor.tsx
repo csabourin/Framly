@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
+import { selectCanvasProject, selectCustomClasses } from '../../store/selectors';
 import { updateElementStyles, addCSSClass, removeCSSClass } from '../../store/canvasSlice';
 import { addCustomClass, updateCustomClass, deleteCustomClass } from '../../store/classSlice';
 import { Button } from '@/components/ui/button';
@@ -21,8 +22,8 @@ interface ClassEditorProps {
 
 export const ClassEditor: React.FC<ClassEditorProps> = ({ isOpen, onClose }) => {
   const dispatch = useDispatch();
-  const { project } = useSelector((state: RootState) => state.canvas);
-  const { customClasses } = useSelector((state: RootState) => state.classes);
+  const project = useSelector(selectCanvasProject);
+  const customClasses = useSelector(selectCustomClasses);
   const selectedElement = project.selectedElementId ? project.elements[project.selectedElementId] : null;
   
   const [newClassName, setNewClassName] = useState('');

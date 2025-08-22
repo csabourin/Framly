@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../../store';
+import { selectButtonDesignerState } from '../../../store/selectors';
 import { setPreviewState } from '../../../store/buttonSlice';
 import { Button } from '../../ui/button';
 import { Eye, Code } from 'lucide-react';
 
 const ButtonPreview: React.FC = () => {
   const dispatch = useDispatch();
-  const { currentDesignId, designs, previewState } = useSelector((state: RootState) => state.button);
+  const { designs, currentDesignId } = useSelector(selectButtonDesignerState);
+  const previewState = 'default'; // Default preview state
   const [showCode, setShowCode] = useState(false);
 
   if (!currentDesignId || !designs[currentDesignId]) {

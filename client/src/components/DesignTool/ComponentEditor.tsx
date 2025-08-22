@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
+import { selectCanvasProject, selectCanvasUIState } from '../../store/selectors';
 import { updateComponent, selectElement } from '../../store/canvasSlice';
 import { setComponentEditorOpen, setEditingComponent } from '../../store/uiSlice';
 import { Button } from '@/components/ui/button';
@@ -19,8 +20,8 @@ interface ComponentEditorProps {
 
 export const ComponentEditor: React.FC<ComponentEditorProps> = ({ isOpen, componentId, onClose }) => {
   const dispatch = useDispatch();
-  const { project, components } = useSelector((state: RootState) => state.canvas);
-  const { selectedTool } = useSelector((state: RootState) => state.ui);
+  const project = useSelector(selectCanvasProject);
+  const { selectedTool } = useSelector(selectCanvasUIState);
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
   const [isPreviewMode, setIsPreviewMode] = useState(false);
 

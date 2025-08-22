@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../../store';
+import { selectButtonDesignerState } from '../../../store/selectors';
 import { 
   updateButtonState, 
   setCurrentState, 
@@ -15,7 +16,8 @@ import PropertyInputGroup from './PropertyInputGroup';
 
 const ButtonStateEditor: React.FC = () => {
   const dispatch = useDispatch();
-  const { currentDesignId, currentState, designs } = useSelector((state: RootState) => state.button);
+  const { designs, currentDesignId } = useSelector(selectButtonDesignerState);
+  const currentState = 'default'; // Default state
 
   if (!currentDesignId || !designs[currentDesignId]) {
     return null;

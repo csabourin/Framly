@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../store';
+import { selectButtonDesignerState } from '../../../store/selectors';
 import { Button } from '../../ui/button';
 import { Input } from '../../ui/input';
 import { MousePointer2 } from 'lucide-react';
 
 const ButtonTestingMode: React.FC = () => {
-  const { designs } = useSelector((state: RootState) => state.button);
+  const { designs } = useSelector(selectButtonDesignerState);
   const [testText, setTestText] = useState('Button');
 
   const designsArray = Object.values(designs);

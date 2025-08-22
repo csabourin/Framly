@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../../store';
+import { selectButtonDesignerState, selectCustomClasses } from '../../../store/selectors';
 import { updateElement, selectElement } from '../../../store/canvasSlice';
 import { CanvasElement } from '../../../types/canvas';
 import { ButtonStyles } from '../../../types/button';
@@ -19,7 +20,7 @@ const ButtonElement: React.FC<ButtonElementProps> = ({
   onUpdate 
 }) => {
   const dispatch = useDispatch();
-  const { designs } = useSelector((state: RootState) => state.button);
+  const { designs } = useSelector(selectButtonDesignerState);
   const [isEditing, setIsEditing] = useState(false);
   const [editText, setEditText] = useState(element.buttonText || 'Button');
   // Use element's currentButtonState for real-time state visualization from Properties panel
@@ -29,7 +30,7 @@ const ButtonElement: React.FC<ButtonElementProps> = ({
   const buttonDesign = element.buttonDesignId ? designs[element.buttonDesignId] : null;
 
   // Get custom classes styles with state-specific support
-  const { customClasses = {} } = useSelector((state: RootState) => state.classes);
+  const customClasses = useSelector(selectCustomClasses);
   
   // Calculate styles - prioritize custom classes with state support over design states
   const getButtonStyles = (): React.CSSProperties => {
