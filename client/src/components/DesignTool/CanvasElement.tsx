@@ -115,6 +115,18 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     }));
     setIsEditing(false);
   }, [element.id, dispatch]);
+
+  // Generic text edit handler for different content properties
+  const handleTextPropertyEdit = useCallback((property: string) => {
+    return (e: React.FormEvent<HTMLDivElement>) => {
+      const newContent = e.currentTarget.textContent || '';
+      dispatch(updateElement({
+        id: element.id,
+        updates: { [property]: newContent }
+      }));
+      setIsEditing(false);
+    };
+  }, [element.id, dispatch]);
   
   const handleListContentEdit = useCallback((e: React.FormEvent<HTMLDivElement>) => {
     const htmlContent = e.currentTarget.innerHTML || '';
@@ -330,13 +342,44 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     }
 
     if (element.type === 'button') {
+      // Check if button is in text editing mode
+      if (isSelected && isEditing) {
+        const buttonText = element.content || 'Bouton';
+        return (
+          <button
+            ref={textEditRef}
+            className="w-full h-full outline-none cursor-text"
+            style={mergedStyles}
+          >
+            <span
+              contentEditable={true}
+              suppressContentEditableWarning
+              onBlur={handleTextPropertyEdit('content')}
+              onKeyDown={handleKeyDown}
+              className="outline-none"
+              autoFocus
+            >
+              {buttonText}
+            </span>
+          </button>
+        );
+      }
+      
       return (
-        <ButtonElement
-          element={element}
-          isSelected={isSelected}
-          onSelect={() => dispatch(selectElement(element.id))}
-          onUpdate={(updates) => dispatch(updateElement({ id: element.id, updates }))}
-        />
+        <div 
+          onDoubleClick={(e) => {
+            e.stopPropagation();
+            setIsEditing(true);
+          }}
+          className="w-full h-full cursor-pointer"
+        >
+          <ButtonElement
+            element={element}
+            isSelected={isSelected}
+            onSelect={() => dispatch(selectElement(element.id))}
+            onUpdate={(updates) => dispatch(updateElement({ id: element.id, updates }))}
+          />
+        </div>
       );
     }
 
@@ -501,22 +544,156 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
       if (element.type === 'checkbox' || element.type === 'radio') {
         const inputType = element.type;
         const labelText = element.content || 'Option';
+        const isTextEditable = isSelected && isEditing;
+        
+        if (isTextEditable) {
+          return (
+            <label className="w-full h-full outline-none flex items-center gap-2" style={mergedStyles}>
+              <input 
+                type={inputType} 
+                className="flex-shrink-0"
+                name={element.type === 'radio' ? `radio-group-${element.id}` : undefined}
+              />
+              <span
+                ref={textEditRef}
+                contentEditable={true}
+                suppressContentEditableWarning
+                onBlur={handleTextPropertyEdit('content')}
+                onKeyDown={handleKeyDown}
+                className="text-sm outline-none cursor-text flex-1"
+                autoFocus
+              >
+                {labelText}
+              </span>
+            </label>
+          );
+        }
         
         return (
-          <label className="w-full h-full outline-none flex items-center gap-2" style={mergedStyles}>
+          <label className="w-full h-full outline-none flex items-center gap-2 cursor-pointer" style={mergedStyles}>
             <input 
               type={inputType} 
               className="flex-shrink-0"
               name={element.type === 'radio' ? `radio-group-${element.id}` : undefined}
             />
-            <span className="text-sm">{labelText}</span>
+            <span 
+              className="text-sm"
+              onDoubleClick={(e) => {
+                e.stopPropagation();
+                setIsEditing(true);
+              }}
+            >
+              {labelText}
+            </span>
           </label>
+        );
+      }
+
+      // Special handling for link elements
+      if (element.type === 'link') {
+        const linkText = element.content || 'Lien';
+        const isTextEditable = isSelected && isEditing;
+        
+        if (isTextEditable) {
+          return (
+            <span
+              ref={textEditRef}
+              contentEditable={true}
+              suppressContentEditableWarning
+              onBlur={handleTextPropertyEdit('content')}
+              onKeyDown={handleKeyDown}
+              className="w-full h-full outline-none cursor-text"
+              style={mergedStyles}
+              autoFocus
+            >
+              {linkText}
+            </span>
+          );
+        }
+        
+        return (
+          <a
+            onDoubleClick={(e) => {
+              e.stopPropagation();
+              setIsEditing(true);
+            }}
+            className="w-full h-full outline-none cursor-pointer"
+            style={mergedStyles}
+          >
+            {linkText}
+          </a>
+        );
+      }
+
+      // Special handling for code elements
+      if (element.type === 'code') {
+        const codeContent = element.content || '// Votre code ici';
+        const isTextEditable = isSelected && isEditing;
+        
+        if (isTextEditable) {
+          return (
+            <pre
+              ref={textEditRef}
+              contentEditable={true}
+              suppressContentEditableWarning
+              onBlur={handleTextPropertyEdit('content')}
+              onKeyDown={handleKeyDown}
+              className="w-full h-full outline-none cursor-text"
+              style={mergedStyles}
+              autoFocus
+            >
+              {codeContent}
+            </pre>
+          );
+        }
+        
+        return (
+          <pre
+            onDoubleClick={(e) => {
+              e.stopPropagation();
+              setIsEditing(true);
+            }}
+            className="w-full h-full outline-none cursor-pointer"
+            style={mergedStyles}
+          >
+            {codeContent}
+          </pre>
         );
       }
       
       // For other form elements and special types
       const htmlTag = element.htmlTag || 'div';
       const content = element.content || '';
+      
+      // Check if this element type can have editable text
+      const canEditText = ['input', 'textarea'].includes(element.type) && content;
+      const isTextEditable = isSelected && isEditing && canEditText;
+      
+      if (isTextEditable && element.type === 'textarea') {
+        return (
+          <textarea
+            ref={textEditRef}
+            contentEditable={false}
+            value={content}
+            onChange={(e) => {
+              dispatch(updateElement({
+                id: element.id,
+                updates: { content: e.target.value }
+              }));
+            }}
+            onBlur={() => setIsEditing(false)}
+            onKeyDown={(e) => {
+              if (e.key === 'Escape') {
+                setIsEditing(false);
+              }
+            }}
+            className="w-full h-full outline-none cursor-text resize-none"
+            style={mergedStyles}
+            autoFocus
+            placeholder="Entrez votre texte..."
+          />
+        );
+      }
       
       const elementProps: any = {
         className: 'w-full h-full outline-none',
@@ -540,6 +717,15 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
         elementProps.type = 'text';
       } else if (['video', 'audio'].includes(element.type)) {
         elementProps.controls = true;
+      }
+
+      // Add double-click handler for elements with content
+      if (content && !element.isContainer && !['video', 'audio', 'input'].includes(element.type)) {
+        elementProps.onDoubleClick = (e: React.MouseEvent) => {
+          e.stopPropagation();
+          setIsEditing(true);
+        };
+        elementProps.className += ' cursor-pointer';
       }
 
       // Only set innerHTML OR children, never both
