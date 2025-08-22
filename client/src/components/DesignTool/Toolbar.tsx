@@ -11,7 +11,8 @@ import {
   Image, 
   Package,
   Heading,
-  List
+  List,
+  MousePointer2
 } from 'lucide-react';
 
 const Toolbar: React.FC = () => {
@@ -25,6 +26,7 @@ const Toolbar: React.FC = () => {
     { id: 'text', icon: Type, label: 'Text', shortcut: 'T' },
     { id: 'heading', icon: Heading, label: 'Heading', shortcut: 'Shift+H' },
     { id: 'list', icon: List, label: 'List', shortcut: 'L' },
+    { id: 'button', icon: MousePointer2, label: 'Button', shortcut: 'B' },
     { id: 'image', icon: Image, label: 'Image', shortcut: 'I' },
   ];
 

@@ -41,7 +41,7 @@ const Canvas: React.FC = () => {
     // 1. Element creation with specific tools
     // 2. Element reordering with hand tool
     // 3. Component dragging from panel
-    if (!forComponentDrag && !forDrag && !['rectangle', 'text', 'image', 'container', 'component', 'heading', 'list'].includes(selectedTool)) {
+    if (!forComponentDrag && !forDrag && !['rectangle', 'text', 'image', 'container', 'component', 'heading', 'list', 'button'].includes(selectedTool)) {
       return null;
     }
     if (forDrag && selectedTool !== 'hand') {

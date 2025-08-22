@@ -142,6 +142,33 @@ export function createDefaultElement(type: CanvasElement['type'], x: number = 0,
         },
         classes: [`container-${Date.now()}`],
       };
+
+    case 'button':
+      return {
+        ...baseElement,
+        width: 120,
+        height: 40,
+        buttonText: 'Button',
+        currentButtonState: 'default',
+        styles: {
+          backgroundColor: '#3b82f6',
+          color: '#ffffff',
+          border: 'none',
+          borderRadius: '6px',
+          padding: '8px 16px',
+          fontSize: '14px',
+          fontWeight: '500',
+          cursor: 'pointer',
+          display: 'inline-flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          transition: 'all 0.2s ease',
+          fontFamily: 'inherit',
+          textDecoration: 'none',
+          outline: 'none'
+        },
+        classes: [`button-${Date.now()}`],
+      };
       
     default:
       return baseElement;

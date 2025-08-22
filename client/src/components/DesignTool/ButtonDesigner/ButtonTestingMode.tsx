@@ -3,27 +3,15 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../../store';
 import { Button } from '../../ui/button';
 import { Input } from '../../ui/input';
-import { Play, Pause, RotateCcw } from 'lucide-react';
+import { MousePointer2 } from 'lucide-react';
 
 const ButtonTestingMode: React.FC = () => {
   const { designs } = useSelector((state: RootState) => state.button);
-  const [testText, setTestText] = useState('Test Button');
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [currentStateIndex, setCurrentStateIndex] = useState(0);
+  const [testText, setTestText] = useState('Button');
 
   const designsArray = Object.values(designs);
-  const states = ['default', 'hover', 'active', 'focus', 'disabled'] as const;
 
-  // Auto-cycle through states
-  React.useEffect(() => {
-    if (!isPlaying) return;
-
-    const interval = setInterval(() => {
-      setCurrentStateIndex((prev) => (prev + 1) % states.length);
-    }, 1500);
-
-    return () => clearInterval(interval);
-  }, [isPlaying]);
+  // Real-time interactive button preview
 
   const renderButton = (design: any, stateName: string, isActive: boolean = false) => {
     const stateStyles = {

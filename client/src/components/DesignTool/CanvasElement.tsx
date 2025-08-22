@@ -4,6 +4,7 @@ import { RootState } from '../../store';
 import { selectElement, updateElement } from '../../store/canvasSlice';
 import { setSelectedTool } from '../../store/uiSlice';
 import { CanvasElement as CanvasElementType } from '../../types/canvas';
+import ButtonElement from './CanvasElements/ButtonElement';
 
 interface CanvasElementProps {
   element: CanvasElementType;
@@ -325,6 +326,17 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
           />
         );
       }
+    }
+
+    if (element.type === 'button') {
+      return (
+        <ButtonElement
+          element={element}
+          isSelected={isSelected}
+          onSelect={() => dispatch(selectElement(element.id))}
+          onUpdate={(updates) => dispatch(updateElement({ id: element.id, updates }))}
+        />
+      );
     }
 
     if (element.type === 'image') {

@@ -1,6 +1,6 @@
 export interface CanvasElement {
   id: string;
-  type: 'rectangle' | 'text' | 'image' | 'container' | 'heading' | 'list' | 'component';
+  type: 'rectangle' | 'text' | 'image' | 'container' | 'heading' | 'list' | 'component' | 'button';
   x: number;
   y: number;
   width: number;
@@ -35,6 +35,11 @@ export interface CanvasElement {
   imageJustifySelf?: 'flex-start' | 'center' | 'flex-end';
   widthUnit?: 'px' | 'rem' | '%' | 'vw' | 'auto';
   heightUnit?: 'px' | 'rem' | '%' | 'vh' | 'auto';
+  
+  // Button-specific properties
+  buttonText?: string;
+  buttonDesignId?: string; // Links to component design
+  currentButtonState?: 'default' | 'hover' | 'active' | 'focus' | 'disabled';
 }
 
 export interface CSSProperties {
@@ -69,7 +74,7 @@ export interface Project {
   currentBreakpoint: string;
 }
 
-export type Tool = 'select' | 'hand' | 'rectangle' | 'text' | 'heading' | 'list' | 'image' | 'container';
+export type Tool = 'select' | 'hand' | 'rectangle' | 'text' | 'heading' | 'list' | 'image' | 'container' | 'button';
 
 export interface CustomComponent {
   id: string;
