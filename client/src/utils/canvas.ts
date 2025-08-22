@@ -630,17 +630,36 @@ export function generateCSSClassSuggestions(type: CanvasElement['type']): string
 
 // Check if an element can be dropped inside another element
 export function canDropInside(elementType: string, targetElement: CanvasElement): boolean {
-  // Text, headings, lists and images cannot contain other elements
-  if (['text', 'heading', 'list', 'image'].includes(targetElement.type)) {
+  // Elements that cannot contain other elements
+  const nonContainerTypes = [
+    'text', 'heading', 'list', 'image', 'button',  // Content elements
+    'input', 'textarea', 'checkbox', 'radio', 'select',  // Form elements
+    'video', 'audio',  // Media elements
+    'link', 'code', 'divider'  // Inline/self-contained elements
+  ];
+  
+  if (nonContainerTypes.includes(targetElement.type)) {
     return false;
   }
   
-  // Containers and rectangles can contain other elements
-  return targetElement.type === 'container' || targetElement.type === 'rectangle';
+  // Container types that can accept dropped elements
+  const containerTypes = [
+    'container', 'rectangle',  // Basic containers
+    'section', 'nav', 'header', 'footer', 'article'  // Structural containers
+  ];
+  
+  return containerTypes.includes(targetElement.type) || targetElement.isContainer === true;
 }
 
 // Check if a drop operation is valid
 export function isValidDropTarget(targetElement: CanvasElement | null): boolean {
   if (!targetElement) return false;
-  return targetElement.type === 'container' || targetElement.type === 'rectangle';
+  
+  // Container types that can accept dropped elements
+  const validDropTargets = [
+    'container', 'rectangle',  // Basic containers
+    'section', 'nav', 'header', 'footer', 'article'  // Structural containers
+  ];
+  
+  return validDropTargets.includes(targetElement.type) || targetElement.isContainer === true;
 }

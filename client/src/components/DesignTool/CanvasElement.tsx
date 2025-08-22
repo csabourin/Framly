@@ -5,6 +5,7 @@ import { selectElement, updateElement } from '../../store/canvasSlice';
 import { setSelectedTool } from '../../store/uiSlice';
 import { CanvasElement as CanvasElementType } from '../../types/canvas';
 import ButtonElement from './CanvasElements/ButtonElement';
+import { isValidDropTarget } from '../../utils/canvas';
 
 interface CanvasElementProps {
   element: CanvasElementType;
@@ -561,8 +562,8 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     );
   };
 
-  // Check if this element can accept drops (containers, rectangles, and generic container elements)
-  const canAcceptDrop = element.type === 'container' || element.type === 'rectangle' || element.isContainer;
+  // Check if this element can accept drops using centralized logic
+  const canAcceptDrop = isValidDropTarget(element);
   
   // Define visual feedback based on selection, hover, and drag states using outline
   const getOutlineStyle = () => {

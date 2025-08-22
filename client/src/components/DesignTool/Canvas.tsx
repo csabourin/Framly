@@ -95,7 +95,7 @@ const Canvas: React.FC = () => {
     const relativeY = y - elementY;
     
     // Check if element is a valid drop target (container)
-    const isValidContainer = hoveredElement.isContainer || hoveredElement.type === 'container' || hoveredElement.type === 'rectangle';
+    const isValidContainer = isValidDropTarget(hoveredElement);
     
     if (isValidContainer) {
       const children = hoveredElement.children || [];
