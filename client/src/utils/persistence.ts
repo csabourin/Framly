@@ -285,12 +285,12 @@ export class PersistenceManager {
       clearInterval(this.autoSaveTimer);
     }
 
-    // TEMPORARILY DISABLED to prevent browser crashes during tab switching
-    // this.autoSaveTimer = setInterval(() => {
-    //   this.saveCurrentProject();
-    // }, AUTO_SAVE_INTERVAL);
+    // Auto-save re-enabled after fixing memory leak issues with memoized selectors
+    this.autoSaveTimer = setInterval(() => {
+      this.saveCurrentProject();
+    }, AUTO_SAVE_INTERVAL);
 
-    console.log('Auto-save DISABLED to prevent browser crashes');
+    console.log('Auto-save ENABLED - every', AUTO_SAVE_INTERVAL / 1000, 'seconds');
   }
 
   stopAutoSave(): void {
