@@ -141,33 +141,94 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
   };
 
   const processCSS = async (css: string) => {
-    console.log('Processing CSS styles');
+    console.log('Processing CSS styles for custom classes');
     
-    // Extract CSS classes and create custom classes in our system
-    const classRegex = /\.([a-zA-Z][\w-]*)\s*\{([^}]+)\}/g;
-    let match;
-    
-    while ((match = classRegex.exec(css)) !== null) {
-      const className = match[1];
-      const styles = match[2];
+    if (!css || css.trim().length === 0) {
+      console.log('No CSS content to process');
+      return;
+    }
+
+    try {
+      // Enhanced CSS parsing to extract all rules including element selectors
+      const rules: Array<{ selector: string; styles: Record<string, string> }> = [];
       
-      // Parse CSS properties
-      const styleObj: Record<string, string> = {};
-      const propertyRegex = /([^:;]+):\s*([^;]+)/g;
-      let propMatch;
+      // Parse CSS rules - handle both class and element selectors
+      const ruleRegex = /([^{}]+)\s*\{([^}]+)\}/g;
+      let match;
       
-      while ((propMatch = propertyRegex.exec(styles)) !== null) {
-        const property = propMatch[1].trim();
-        const value = propMatch[2].trim();
-        styleObj[property] = value;
+      while ((match = ruleRegex.exec(css)) !== null) {
+        const selector = match[1].trim();
+        const styleBlock = match[2];
+        
+        // Skip @rules, comments, and complex selectors for now
+        if (selector.startsWith('@') || selector.includes('/*') || selector.includes(':')) {
+          continue;
+        }
+        
+        // Parse CSS properties
+        const styleObj: Record<string, string> = {};
+        const propertyRegex = /([^:;]+):\s*([^;]+)/g;
+        let propMatch;
+        
+        while ((propMatch = propertyRegex.exec(styleBlock)) !== null) {
+          const property = propMatch[1].trim();
+          const value = propMatch[2].trim();
+          
+          // Clean up property names (convert kebab-case to camelCase for React)
+          const camelProperty = property.replace(/-([a-z])/g, (match, letter) => letter.toUpperCase());
+          styleObj[camelProperty] = value;
+        }
+
+        if (Object.keys(styleObj).length > 0) {
+          rules.push({ selector, styles: styleObj });
+        }
       }
 
-      // Add as custom class
-      dispatch(addCustomClass({
-        name: className,
-        styles: styleObj,
-        category: 'imported'
-      }));
+      console.log(`Extracted ${rules.length} CSS rules for import`);
+
+      // Process each rule and add to custom classes
+      for (const rule of rules) {
+        let className: string;
+        
+        if (rule.selector.startsWith('.')) {
+          // Class selector - use as is
+          className = rule.selector.substring(1);
+        } else {
+          // Element selector - create a custom class name
+          className = `imported-${rule.selector.replace(/[^a-zA-Z0-9]/g, '-')}-${nanoid(6)}`;
+        }
+
+        // Create the custom class in the style editor
+        console.log(`Creating custom class: ${className} with ${Object.keys(rule.styles).length} properties`);
+        
+        dispatch(addCustomClass({
+          name: className,
+          styles: rule.styles,
+          description: `Imported from ${rule.selector}`,
+          category: 'imported'
+        }));
+        
+        console.log(`✓ Added custom class "${className}" to style editor`);
+      }
+
+      // Also create a consolidated import stylesheet
+      const importedCSS = rules.map(rule => {
+        const className = rule.selector.startsWith('.') 
+          ? rule.selector.substring(1) 
+          : `imported-${rule.selector.replace(/[^a-zA-Z0-9]/g, '-')}-${nanoid(6)}`;
+        
+        const styleString = Object.entries(rule.styles)
+          .map(([prop, value]) => `  ${prop}: ${value};`)
+          .join('\n');
+        
+        return `.${className} {\n${styleString}\n}`;
+      }).join('\n\n');
+
+      console.log('Complete imported CSS for Style Editor:');
+      console.log(importedCSS);
+      
+    } catch (error) {
+      console.error('Failed to process CSS:', error);
     }
   };
 
@@ -239,19 +300,23 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
           };
           break;
           
-        case 'div':
-        case 'section':
-        case 'article':
+        case 'main':
         case 'header':
         case 'footer':
-        case 'nav':
-        case 'main':
         case 'aside':
+        case 'nav':
+        case 'section':
+        case 'article':
+        case 'div':
         case 'ul':
         case 'ol':
         case 'li':
+        case 'form':
+        case 'fieldset':
+        case 'details':
+        case 'summary':
         default:
-          // For divs and containers, process their children to extract text elements
+          // For semantic and container elements, process their children to extract content
           elementType = 'container';
           elementData = {
             isContainer: true,
