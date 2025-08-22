@@ -98,8 +98,12 @@ const Canvas: React.FC = () => {
     const elementWidth = rect.width / zoomLevel;
     const elementHeight = rect.height / zoomLevel;
 
-    // Determine insertion zone based on mouse position relative to element
+    // SIMPLIFIED DETECTION LOGIC - More predictable zones
     const relativeY = y - elementY;
+    
+    // Larger tolerance zones for better UX
+    const BEFORE_ZONE_HEIGHT = Math.max(20, elementHeight * 0.25); // Top 25% or minimum 20px
+    const AFTER_ZONE_HEIGHT = Math.max(20, elementHeight * 0.25);  // Bottom 25% or minimum 20px
     
     // Check if element is a valid drop target (container)
     const isValidContainer = isValidDropTarget(hoveredElement);
@@ -115,36 +119,29 @@ const Canvas: React.FC = () => {
         }
       }
       
-      // Enhanced zone detection for containers
-      const beforeZone = 15;  // Larger for better UX
-      const afterZone = elementHeight - 15;
-      
-      if (relativeY < beforeZone) {
+      if (relativeY < BEFORE_ZONE_HEIGHT) {
         return {
           position: 'before',
           elementId: hoveredElement.id,
-          bounds: { x: elementX, y: elementY - 3, width: elementWidth, height: 6 }
+          bounds: { x: elementX - 4, y: elementY - 10, width: elementWidth + 8, height: 20 } // Large visible zone
         };
-      } else if (relativeY > afterZone) {
+      } else if (relativeY > elementHeight - AFTER_ZONE_HEIGHT) {
         return {
           position: 'after',
           elementId: hoveredElement.id,
-          bounds: { x: elementX, y: elementY + elementHeight - 3, width: elementWidth, height: 6 }
+          bounds: { x: elementX - 4, y: elementY + elementHeight - 10, width: elementWidth + 8, height: 20 } // Large visible zone
         };
       } else {
-        // Inside zone for containers - make empty containers position-aware
+        // Inside zone for containers
         if (children.length === 0) {
-          // Empty container: position-aware insertion
-          const relativePosition = relativeY / elementHeight;
           return {
             position: 'inside',
             elementId: hoveredElement.id,
             bounds: { x: elementX + 2, y: elementY + 2, width: elementWidth - 4, height: elementHeight - 4 },
             isEmpty: true,
-            insertAtBeginning: relativePosition < 0.5 // Insert at beginning if in top half
+            insertAtBeginning: relativeY < elementHeight / 2
           };
         } else {
-          // Container with children: show as inside insertion
           return {
             position: 'inside',
             elementId: hoveredElement.id,
@@ -154,21 +151,18 @@ const Canvas: React.FC = () => {
         }
       }
     } else {
-      // For non-container elements (text, image, heading, list), show before/after as sibling insertion
-      const beforeZone = elementHeight * 0.25;  // Top 25% for "before"
-      const afterZone = elementHeight * 0.75;   // Bottom 25% for "after"
-      
-      if (relativeY < beforeZone) {
+      // For non-container elements - simplified zones
+      if (relativeY < BEFORE_ZONE_HEIGHT) {
         return {
           position: 'before',
           elementId: hoveredElement.id,
-          bounds: { x: elementX, y: elementY - 3, width: elementWidth, height: 6 }
+          bounds: { x: elementX - 4, y: elementY - 10, width: elementWidth + 8, height: 20 } // Large visible zone
         };
-      } else if (relativeY > afterZone) {
+      } else if (relativeY > elementHeight - AFTER_ZONE_HEIGHT) {
         return {
           position: 'after',
           elementId: hoveredElement.id,
-          bounds: { x: elementX, y: elementY + elementHeight - 3, width: elementWidth, height: 6 }
+          bounds: { x: elementX - 4, y: elementY + elementHeight - 10, width: elementWidth + 8, height: 20 } // Large visible zone
         };
       } else {
         // Middle zone - no insertion feedback for non-containers
@@ -1020,79 +1014,146 @@ const Canvas: React.FC = () => {
           ) : null;
         })}
         
-        {/* Enhanced Insertion Indicator */}
+        {/* LARGE, OBVIOUS DROP ZONES */}
         {insertionIndicator && (
           <div
-            className="absolute pointer-events-none z-[60]"
+            className="absolute pointer-events-none z-[60] transition-all duration-150"
             style={{
               left: insertionIndicator.bounds.x,
               top: insertionIndicator.bounds.y,
               width: insertionIndicator.bounds.width,
               height: insertionIndicator.bounds.height,
-              backgroundColor: 
-                (insertionIndicator as any).position === 'inside' ? 
-                  (insertionIndicator as any).isEmpty ? 
-                    (insertionIndicator as any).insertAtBeginning ? 'rgba(34, 197, 94, 0.15)' : 'rgba(34, 197, 94, 0.1)' :
-                    'rgba(168, 85, 247, 0.15)' :
-                (insertionIndicator as any).position === 'between' ? '#3b82f6' :
-                '#3b82f6',
-              border: 
-                (insertionIndicator as any).position === 'inside' ? 
-                  (insertionIndicator as any).isEmpty ? '2px dashed #22c55e' : '2px dashed #a855f7' :
-                'none',
-              borderRadius: (insertionIndicator as any).position === 'inside' ? '6px' : '2px',
-              boxShadow: 
-                (insertionIndicator as any).position === 'between' ? '0 0 12px rgba(59, 130, 246, 0.8)' :
-                (insertionIndicator as any).position === 'inside' && (insertionIndicator as any).isEmpty ? '0 0 8px rgba(34, 197, 94, 0.4)' :
-                (insertionIndicator as any).position === 'inside' ? '0 0 8px rgba(168, 85, 247, 0.4)' :
-                '0 0 12px rgba(59, 130, 246, 0.8)'
             }}
           >
-            {/* Enhanced visual indicators */}
-            {(insertionIndicator as any).position === 'between' && (
-              <>
-                <div 
-                  className="absolute left-0 top-1/2 w-3 h-3 bg-blue-500 rounded-full transform -translate-x-1.5 -translate-y-1.5 border-2 border-white"
-                  style={{ boxShadow: '0 0 6px rgba(59, 130, 246, 1)' }}
-                />
-                <div 
-                  className="absolute right-0 top-1/2 w-3 h-3 bg-blue-500 rounded-full transform translate-x-1.5 -translate-y-1.5 border-2 border-white"
-                  style={{ boxShadow: '0 0 6px rgba(59, 130, 246, 1)' }}
-                />
-                {/* Center indicator for better visibility */}
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1 h-1 bg-white rounded-full" />
-              </>
-            )}
-            
-            {/* Empty container indicator with spatial positioning */}
-            {(insertionIndicator as any).position === 'inside' && (insertionIndicator as any).isEmpty && (
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-green-600 text-sm font-medium bg-white px-3 py-1 rounded-lg shadow-lg border border-green-200">
-                  {(insertionIndicator as any).insertAtBeginning ? 'Drop at top' : 'Drop at bottom'}
+            {/* BEFORE/AFTER ZONES - Large blue bars */}
+            {((insertionIndicator as any).position === 'before' || (insertionIndicator as any).position === 'after') && (
+              <div 
+                className="w-full h-full rounded-lg animate-pulse"
+                style={{
+                  backgroundColor: 'rgba(59, 130, 246, 0.8)',
+                  boxShadow: '0 0 20px rgba(59, 130, 246, 0.6), inset 0 2px 4px rgba(255, 255, 255, 0.3)',
+                  border: '2px solid #3b82f6'
+                }}
+              >
+                <div className="flex items-center justify-center h-full">
+                  <div className="bg-white text-blue-600 text-sm font-bold px-4 py-2 rounded-lg shadow-lg border border-blue-300">
+                    {(insertionIndicator as any).position === 'before' ? '⬆ DROP ABOVE ⬆' : '⬇ DROP BELOW ⬇'}
+                  </div>
                 </div>
-                {/* Position indicator */}
+                {/* Side indicators for extra visibility */}
+                <div className="absolute -left-2 top-1/2 w-4 h-4 bg-blue-500 rounded-full transform -translate-y-2 border-2 border-white shadow-lg" />
+                <div className="absolute -right-2 top-1/2 w-4 h-4 bg-blue-500 rounded-full transform -translate-y-2 border-2 border-white shadow-lg" />
+              </div>
+            )}
+
+            {/* INSIDE EMPTY CONTAINER - Green highlight */}
+            {(insertionIndicator as any).position === 'inside' && (insertionIndicator as any).isEmpty && (
+              <div 
+                className="w-full h-full rounded-lg border-4 border-dashed animate-pulse"
+                style={{
+                  backgroundColor: 'rgba(34, 197, 94, 0.15)',
+                  borderColor: '#22c55e',
+                  boxShadow: '0 0 20px rgba(34, 197, 94, 0.4)'
+                }}
+              >
+                <div className="flex items-center justify-center h-full">
+                  <div className="text-green-700 text-lg font-bold bg-white px-6 py-3 rounded-lg shadow-lg border-2 border-green-300">
+                    📦 DROP INSIDE CONTAINER
+                  </div>
+                </div>
                 <div 
-                  className={`absolute w-2 h-2 bg-green-500 rounded-full ${
-                    (insertionIndicator as any).insertAtBeginning ? 'top-2 left-1/2 transform -translate-x-1/2' : 'bottom-2 left-1/2 transform -translate-x-1/2'
+                  className={`absolute w-3 h-3 bg-green-500 rounded-full border-2 border-white shadow-lg ${
+                    (insertionIndicator as any).insertAtBeginning ? 'top-4 left-1/2 transform -translate-x-1/2' : 'bottom-4 left-1/2 transform -translate-x-1/2'
                   }`}
                 />
               </div>
             )}
-            
-            {/* Regular insertion line indicators */}
-            {((insertionIndicator as any).position === 'before' || (insertionIndicator as any).position === 'after') && (
-              <>
-                <div 
-                  className="absolute left-0 top-1/2 w-3 h-3 bg-blue-500 rounded-full transform -translate-x-1.5 -translate-y-1.5 border-2 border-white"
-                  style={{ boxShadow: '0 0 6px rgba(59, 130, 246, 1)' }}
-                />
-                <div 
-                  className="absolute right-0 top-1/2 w-3 h-3 bg-blue-500 rounded-full transform translate-x-1.5 -translate-y-1.5 border-2 border-white"
-                  style={{ boxShadow: '0 0 6px rgba(59, 130, 246, 1)' }}
-                />
-              </>
+
+            {/* INSIDE NON-EMPTY CONTAINER - Purple highlight */}
+            {(insertionIndicator as any).position === 'inside' && !(insertionIndicator as any).isEmpty && (
+              <div 
+                className="w-full h-full rounded-lg border-4 border-dashed animate-pulse"
+                style={{
+                  backgroundColor: 'rgba(168, 85, 247, 0.15)',
+                  borderColor: '#a855f7',
+                  boxShadow: '0 0 20px rgba(168, 85, 247, 0.4)'
+                }}
+              >
+                <div className="flex items-center justify-center h-full">
+                  <div className="text-purple-700 text-lg font-bold bg-white px-6 py-3 rounded-lg shadow-lg border-2 border-purple-300">
+                    🎯 ADD TO CONTAINER
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* BETWEEN SIBLINGS - Special blue highlight */}
+            {(insertionIndicator as any).position === 'between' && (
+              <div 
+                className="w-full h-full rounded-lg animate-pulse"
+                style={{
+                  backgroundColor: 'rgba(59, 130, 246, 0.9)',
+                  boxShadow: '0 0 25px rgba(59, 130, 246, 0.8), inset 0 2px 4px rgba(255, 255, 255, 0.3)',
+                  border: '3px solid #2563eb'
+                }}
+              >
+                <div className="flex items-center justify-center h-full">
+                  <div className="bg-white text-blue-600 text-sm font-bold px-4 py-2 rounded-lg shadow-lg border border-blue-300">
+                    ↕ INSERT BETWEEN ELEMENTS ↕
+                  </div>
+                </div>
+                <div className="absolute -left-3 top-1/2 w-6 h-6 bg-blue-500 rounded-full transform -translate-y-3 border-3 border-white shadow-lg" />
+                <div className="absolute -right-3 top-1/2 w-6 h-6 bg-blue-500 rounded-full transform -translate-y-3 border-3 border-white shadow-lg" />
+              </div>
             )}
           </div>
+        )}
+
+        {/* GHOST PREVIEW SYSTEM */}
+        {isDraggingForReorder && draggedElementId && insertionIndicator && (
+          (() => {
+            const draggedElement = currentElements[draggedElementId];
+            if (!draggedElement) return null;
+            
+            // Calculate ghost position based on insertion indicator
+            let ghostX = insertionIndicator.bounds.x;
+            let ghostY = insertionIndicator.bounds.y;
+            
+            if ((insertionIndicator as any).position === 'before') {
+              ghostY += 25; // Position ghost below the drop zone
+            } else if ((insertionIndicator as any).position === 'after') {
+              ghostY -= 25; // Position ghost above the drop zone  
+            } else if ((insertionIndicator as any).position === 'inside') {
+              ghostX += 10;
+              ghostY += 10;
+            }
+            
+            return (
+              <div
+                className="absolute pointer-events-none z-[70] transition-all duration-200 ease-out"
+                style={{
+                  left: ghostX,
+                  top: ghostY,
+                  opacity: 0.6,
+                  transform: 'scale(0.95)',
+                  filter: 'blur(0.5px)',
+                }}
+              >
+                <div 
+                  className="border-4 border-dashed border-blue-400 rounded-lg bg-blue-50 shadow-xl"
+                  style={{
+                    width: draggedElement.width || 200,
+                    height: draggedElement.height || 100,
+                    minHeight: 40
+                  }}
+                >
+                  <div className="flex items-center justify-center h-full text-blue-600 font-medium text-sm">
+                    👻 {draggedElement.type.toUpperCase()}
+                  </div>
+                </div>
+              </div>
+            );
+          })()
         )}
 
       </div>
