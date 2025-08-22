@@ -119,3 +119,16 @@ export const selectElementExists = createSelector(
   [selectCurrentElements, (_state: RootState, elementId: string) => elementId],
   (elements, elementId): boolean => !!elements[elementId]
 );
+
+// UI state selectors to prevent inline object creation
+export const selectUIState = createSelector(
+  [(state: RootState) => state.ui],
+  (ui) => ({
+    isComponentPanelVisible: ui.isComponentPanelVisible,
+    isDOMTreePanelVisible: ui.isDOMTreePanelVisible,
+    isClassEditorOpen: ui.isClassEditorOpen,
+    isComponentEditorOpen: ui.isComponentEditorOpen,
+    editingComponentId: ui.editingComponentId,
+    isButtonDesignerOpen: ui.isButtonDesignerOpen
+  })
+);

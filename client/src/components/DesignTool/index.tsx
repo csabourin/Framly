@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import { useSelector, useDispatch } from 'react-redux';
 import { store, RootState } from '../../store';
 import { setClassEditorOpen, setComponentEditorOpen, setEditingComponent, setButtonDesignerOpen } from '../../store/uiSlice';
+import { selectUIState } from '../../store/selectors';
 import { historyManager } from '../../utils/historyManager';
 import { useKeyboardShortcuts } from '../../hooks/useKeyboardShortcuts';
 import Header from './Header';
@@ -35,6 +36,8 @@ const DesignToolContent: React.FC = () => {
     });
   }, []);
   const dispatch = useDispatch();
+  const uiState = useSelector(selectUIState);
+  
   const { 
     isComponentPanelVisible, 
     isDOMTreePanelVisible, 
@@ -42,7 +45,7 @@ const DesignToolContent: React.FC = () => {
     isComponentEditorOpen, 
     editingComponentId,
     isButtonDesignerOpen
-  } = useSelector((state: RootState) => state.ui);
+  } = uiState;
 
   const handleCloseClassEditor = () => {
     dispatch(setClassEditorOpen(false));

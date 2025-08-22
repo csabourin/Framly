@@ -19,7 +19,7 @@ import { Project, CustomComponent, ComponentCategory } from '../types/canvas';
 
 // Constants
 const CURRENT_PROJECT_KEY = 'currentProject';
-const AUTO_SAVE_INTERVAL = 10000; // 10 seconds - reduced frequency to help with performance
+const AUTO_SAVE_INTERVAL = 30000; // 30 seconds - drastically reduced to prevent browser crashes
 const PROJECT_ID = 'default-project'; // For now, we'll use a single project
 
 export class PersistenceManager {
@@ -285,11 +285,12 @@ export class PersistenceManager {
       clearInterval(this.autoSaveTimer);
     }
 
-    this.autoSaveTimer = setInterval(() => {
-      this.saveCurrentProject();
-    }, AUTO_SAVE_INTERVAL);
+    // TEMPORARILY DISABLED to prevent browser crashes during tab switching
+    // this.autoSaveTimer = setInterval(() => {
+    //   this.saveCurrentProject();
+    // }, AUTO_SAVE_INTERVAL);
 
-    console.log('Auto-save started (interval: 5s)');
+    console.log('Auto-save DISABLED to prevent browser crashes');
   }
 
   stopAutoSave(): void {
