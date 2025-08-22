@@ -2,7 +2,7 @@ import React, { useRef, useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
 import { selectElement, addElement, moveElement, resizeElement, reorderElement, deleteElement } from '../../store/canvasSlice';
-import { setDragging, setDragStart, setResizing, setResizeHandle, resetUI, setDraggedElement, setDraggingForReorder, setHoveredElement } from '../../store/uiSlice';
+import { setDragging, setDragStart, setResizing, setResizeHandle, resetUI, setDraggedElement, setDraggingForReorder, setHoveredElement, setSelectedTool } from '../../store/uiSlice';
 import { createDefaultElement, getElementAtPoint, calculateSnapPosition, isValidDropTarget } from '../../utils/canvas';
 import { instantiateComponent } from '../../utils/componentGenerator';
 import CanvasElement from './CanvasElement';
@@ -344,6 +344,9 @@ const Canvas: React.FC = () => {
         setHoveredElementId(null);
         setHoveredZone(null);
         dispatch(selectElement(newElement.id));
+        
+        // Switch to selection tool after creating element
+        dispatch(setSelectedTool('select'));
       } else {
         // If no valid insertion point, create at root
         if (!canInsertInTarget) {
@@ -358,6 +361,15 @@ const Canvas: React.FC = () => {
           insertPosition: 'inside'
         }));
         dispatch(selectElement(newElement.id));
+        
+        // Switch to selection tool after creating element
+        dispatch(setSelectedTool('select'));
+      }
+    } else {
+      // Clicked on empty area with creation tool - switch to selection tool
+      if (['rectangle', 'text', 'image', 'container', 'heading', 'list', 'button'].includes(selectedTool)) {
+        dispatch(setSelectedTool('select'));
+        dispatch(selectElement('root'));
       }
     }
   }, [selectedTool, zoomLevel, project.elements, dispatch, hoveredElementId, hoveredZone]);

@@ -32,6 +32,7 @@ import {
   Sparkles,
   Settings as SettingsIcon
 } from 'lucide-react';
+import ButtonStateSelector from './ButtonStateSelector';
 
 const PropertiesPanel: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -39,6 +40,7 @@ const PropertiesPanel: React.FC = () => {
   const selectedElement = project.selectedElementId ? project.elements[project.selectedElementId] : null;
   const [newClassName, setNewClassName] = useState('');
   const [selectedClassForEditing, setSelectedClassForEditing] = useState<string | null>(null);
+  const [selectedButtonState, setSelectedButtonState] = useState<string>('default');
 
   // Auto-select the class for editing if there's only one class
   React.useEffect(() => {
@@ -48,6 +50,16 @@ const PropertiesPanel: React.FC = () => {
       setSelectedClassForEditing(null);
     }
     // When element changes, reset selection unless there's exactly one class
+    
+    // Reset button state when element changes
+    if (selectedElement?.type === 'button') {
+      setSelectedButtonState('default');
+      // Update button's current state on canvas
+      dispatch(updateElement({
+        id: selectedElement.id,
+        updates: { currentButtonState: 'default' }
+      }));
+    }
   }, [selectedElement?.id, selectedElement?.classes]);
   const customClasses = useSelector((state: RootState) => (state as any).classes?.customClasses || {});
   const [expandedGroups, setExpandedGroups] = useState<Record<string, boolean>>({
@@ -475,6 +487,50 @@ const PropertiesPanel: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Button-Specific Properties */}
+      {selectedElement.type === 'button' && (
+        <div className="border-b border-gray-200 bg-orange-50">
+          <div className="p-4">
+            <h3 className="font-medium text-gray-900 mb-3 flex items-center gap-2">
+              <Type className="w-4 h-4 text-orange-600" />
+              Button Properties
+            </h3>
+            
+            {/* Button Text */}
+            <div className="space-y-3">
+              <div>
+                <Label className="text-sm font-medium text-gray-700">Button Text</Label>
+                <Input
+                  value={selectedElement.buttonText || 'Button'}
+                  onChange={(e) => {
+                    dispatch(updateElement({
+                      id: selectedElement.id,
+                      updates: { buttonText: e.target.value }
+                    }));
+                  }}
+                  placeholder="Enter button text..."
+                  className="mt-1"
+                  data-testid="button-text-input"
+                />
+              </div>
+              
+              {/* Button State Selector */}
+              <ButtonStateSelector
+                currentState={selectedButtonState}
+                onStateChange={(state) => {
+                  setSelectedButtonState(state);
+                  // Update canvas element to show selected state
+                  dispatch(updateElement({
+                    id: selectedElement.id,
+                    updates: { currentButtonState: state }
+                  }));
+                }}
+              />
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Dynamic Property Groups */}
       <div className="flex-1">

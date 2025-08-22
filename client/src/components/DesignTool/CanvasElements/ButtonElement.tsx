@@ -20,7 +20,8 @@ const ButtonElement: React.FC<ButtonElementProps> = ({
 }) => {
   const dispatch = useDispatch();
   const { designs } = useSelector((state: RootState) => state.button);
-  const [currentState, setCurrentState] = useState<string>('default');
+  // Use element's currentButtonState for real-time state visualization from Properties panel
+  const currentState = element.currentButtonState || 'default';
 
   // Get button design if linked to one
   const buttonDesign = element.buttonDesignId ? designs[element.buttonDesignId] : null;
@@ -51,33 +52,59 @@ const ButtonElement: React.FC<ButtonElementProps> = ({
   };
 
   const handleMouseEnter = () => {
-    if (buttonDesign?.states.hover) {
-      setCurrentState('hover');
+    // Only update state if not being edited in Properties panel (when not selected)
+    if (!isSelected && buttonDesign?.states.hover) {
+      dispatch(updateElement({
+        id: element.id,
+        updates: { currentButtonState: 'hover' }
+      }));
     }
   };
 
   const handleMouseLeave = () => {
-    setCurrentState('default');
+    // Only reset to default if not being edited in Properties panel
+    if (!isSelected) {
+      dispatch(updateElement({
+        id: element.id,
+        updates: { currentButtonState: 'default' }
+      }));
+    }
   };
 
   const handleMouseDown = () => {
-    if (buttonDesign?.states.active) {
-      setCurrentState('active');
+    if (!isSelected && buttonDesign?.states.active) {
+      dispatch(updateElement({
+        id: element.id,
+        updates: { currentButtonState: 'active' }
+      }));
     }
   };
 
   const handleMouseUp = () => {
-    setCurrentState('hover');
+    if (!isSelected && buttonDesign?.states.hover) {
+      dispatch(updateElement({
+        id: element.id,
+        updates: { currentButtonState: 'hover' }
+      }));
+    }
   };
 
   const handleFocus = () => {
-    if (buttonDesign?.states.focus) {
-      setCurrentState('focus');
+    if (!isSelected && buttonDesign?.states.focus) {
+      dispatch(updateElement({
+        id: element.id,
+        updates: { currentButtonState: 'focus' }
+      }));
     }
   };
 
   const handleBlur = () => {
-    setCurrentState('default');
+    if (!isSelected) {
+      dispatch(updateElement({
+        id: element.id,
+        updates: { currentButtonState: 'default' }
+      }));
+    }
   };
 
   const handleTextChange = (newText: string) => {
