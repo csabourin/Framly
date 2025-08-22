@@ -11,6 +11,7 @@ interface UIState {
   isDOMTreePanelVisible: boolean;
   isComponentEditorOpen: boolean;
   editingComponentId: string | null;
+  isButtonDesignerOpen: boolean;
   isClassEditorOpen: boolean;
   zoomLevel: number;
   canvasOffset: { x: number; y: number };
@@ -36,6 +37,7 @@ const initialState: UIState = {
   isDOMTreePanelVisible: true,
   isComponentEditorOpen: false,
   editingComponentId: null,
+  isButtonDesignerOpen: false,
   isClassEditorOpen: false,
   zoomLevel: 1,
   canvasOffset: { x: 0, y: 0 },
@@ -85,6 +87,10 @@ const uiSlice = createSlice({
     
     setEditingComponent: (state, action: PayloadAction<string | null>) => {
       state.editingComponentId = action.payload;
+    },
+
+    setButtonDesignerOpen: (state, action: PayloadAction<boolean>) => {
+      state.isButtonDesignerOpen = action.payload;
     },
     
     setClassEditorOpen: (state, action: PayloadAction<boolean>) => {
@@ -166,6 +172,7 @@ export const {
   toggleDOMTreePanel,
   setComponentEditorOpen,
   setEditingComponent,
+  setButtonDesignerOpen,
   setClassEditorOpen,
   setZoomLevel,
   zoomIn,

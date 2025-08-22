@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Provider } from 'react-redux';
 import { useSelector, useDispatch } from 'react-redux';
 import { store, RootState } from '../../store';
-import { setClassEditorOpen, setComponentEditorOpen, setEditingComponent } from '../../store/uiSlice';
+import { setClassEditorOpen, setComponentEditorOpen, setEditingComponent, setButtonDesignerOpen } from '../../store/uiSlice';
 import { historyManager } from '../../utils/historyManager';
 import { useKeyboardShortcuts } from '../../hooks/useKeyboardShortcuts';
 import Header from './Header';
@@ -18,6 +18,7 @@ import CodeModal from './CodeModal';
 import CSSOptimizationModal from './CSSOptimizationModal';
 import ClassEditor from './ClassEditor';
 import ComponentEditor from './ComponentEditor';
+import ButtonDesigner from './ButtonDesigner';
 
 const DesignToolContent: React.FC = () => {
   // Initialize keyboard shortcuts
@@ -38,7 +39,8 @@ const DesignToolContent: React.FC = () => {
     isDOMTreePanelVisible, 
     isClassEditorOpen, 
     isComponentEditorOpen, 
-    editingComponentId 
+    editingComponentId,
+    isButtonDesignerOpen
   } = useSelector((state: RootState) => state.ui);
 
   const handleCloseClassEditor = () => {
@@ -48,6 +50,10 @@ const DesignToolContent: React.FC = () => {
   const handleCloseComponentEditor = () => {
     dispatch(setComponentEditorOpen(false));
     dispatch(setEditingComponent(null));
+  };
+
+  const handleCloseButtonDesigner = () => {
+    dispatch(setButtonDesignerOpen(false));
   };
 
   return (
@@ -75,6 +81,12 @@ const DesignToolContent: React.FC = () => {
         isOpen={isComponentEditorOpen}
         componentId={editingComponentId}
         onClose={handleCloseComponentEditor}
+      />
+      
+      {/* Button Designer */}
+      <ButtonDesigner 
+        isOpen={isButtonDesignerOpen}
+        onClose={handleCloseButtonDesigner}
       />
     </div>
   );

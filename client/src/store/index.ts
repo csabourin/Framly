@@ -4,6 +4,7 @@ import uiReducer from './uiSlice';
 import componentReducer from './componentSlice';
 import classReducer from './classSlice';
 import historyReducer from './historySlice';
+import buttonReducer from './buttonSlice';
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
     components: componentReducer,
     classes: classReducer,
     history: historyReducer,
+    button: buttonReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

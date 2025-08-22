@@ -2,9 +2,9 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
 import { switchBreakpoint, undo, redo, updateProjectName } from '../../store/canvasSlice';
-import { setExportModalOpen, setCodeModalOpen, setCSSOptimizationModalOpen, zoomIn, zoomOut, fitToScreen, toggleDOMTreePanel, setClassEditorOpen, setComponentEditorOpen } from '../../store/uiSlice';
+import { setExportModalOpen, setCodeModalOpen, setCSSOptimizationModalOpen, zoomIn, zoomOut, fitToScreen, toggleDOMTreePanel, setClassEditorOpen, setComponentEditorOpen, setButtonDesignerOpen } from '../../store/uiSlice';
 import { Button } from '@/components/ui/button';
-import { Eye, Undo, Redo, Download, Smartphone, Laptop, Monitor, Settings, Plus, Minus, Maximize, Zap, List, Palette, Component } from 'lucide-react';
+import { Eye, Undo, Redo, Download, Smartphone, Laptop, Monitor, Settings, Plus, Minus, Maximize, Zap, List, Palette, Component, MousePointer2 } from 'lucide-react';
 import UndoRedoControls from './UndoRedoControls';
 
 const Header: React.FC = () => {
@@ -59,6 +59,10 @@ const Header: React.FC = () => {
   const handleOpenComponentEditor = () => {
     dispatch(setComponentEditorOpen(true));
     // Could also set a specific component ID if editing existing component
+  };
+
+  const handleOpenButtonDesigner = () => {
+    dispatch(setButtonDesignerOpen(true));
   };
 
   return (
@@ -183,6 +187,16 @@ const Header: React.FC = () => {
             title="Open Component Editor"
           >
             <Component className="w-4 h-4" />
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={handleOpenButtonDesigner}
+            className="p-2 hover:bg-white hover:shadow-sm text-gray-600"
+            data-testid="button-open-button-designer"
+            title="Button Designer & States"
+          >
+            <MousePointer2 className="w-4 h-4" />
           </Button>
         </div>
 
