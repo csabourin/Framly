@@ -258,8 +258,12 @@ const TabBar: React.FC = () => {
     dispatch(setTabColor({ tabId, color }));
   }, [dispatch]);
 
+  // Always show at least one tab - if none exist, create one
   if (!project.tabs || Object.keys(project.tabs).length === 0) {
-    return null;
+    // Create default tab if none exist
+    const defaultTabId = 'main-tab';
+    dispatch(createTab({ name: 'Main' }));
+    return null; // Will re-render after dispatch
   }
 
   return (

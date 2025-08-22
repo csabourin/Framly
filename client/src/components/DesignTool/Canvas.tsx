@@ -290,7 +290,7 @@ const Canvas: React.FC = () => {
     const y = (e.clientY - rect.top) / zoomLevel;
     
     if (selectedTool === 'select') {
-      const clickedElement = getElementAtPoint(x, y, project.elements, zoomLevel);
+      const clickedElement = getElementAtPoint(x, y, currentElements, zoomLevel);
       if (clickedElement) {
         dispatch(selectElement(clickedElement.id));
       } else {
@@ -298,7 +298,7 @@ const Canvas: React.FC = () => {
       }
     } else if (selectedTool === 'hand') {
       // Hand tool for selection and drag preparation
-      const clickedElement = getElementAtPoint(x, y, project.elements, zoomLevel);
+      const clickedElement = getElementAtPoint(x, y, currentElements, zoomLevel);
       if (clickedElement && clickedElement.id !== 'root') {
         dispatch(selectElement(clickedElement.id));
         // Don't start drag on click, only on mouse down
@@ -310,7 +310,7 @@ const Canvas: React.FC = () => {
               'section', 'nav', 'header', 'footer', 'article',
               'video', 'audio', 'link', 'code', 'divider'].includes(selectedTool)) {
       // Re-detect the insertion point at click time to ensure we have current hover state
-      const clickedElement = getElementAtPoint(x, y, project.elements, zoomLevel);
+      const clickedElement = getElementAtPoint(x, y, currentElements, zoomLevel);
       let targetElementId = hoveredElementId;
       let targetZone = hoveredZone;
       
@@ -325,7 +325,7 @@ const Canvas: React.FC = () => {
       }
       
       // Validate the target element can accept new elements
-      const targetElement = targetElementId ? project.elements[targetElementId] : null;
+      const targetElement = targetElementId ? currentElements[targetElementId] : null;
       const canInsertInTarget = targetElement ? isValidDropTarget(targetElement) : true;
       
       console.log('CLICK DEBUG - Final target:', targetElementId, 'zone:', targetZone, 'canInsert:', canInsertInTarget);
@@ -345,7 +345,7 @@ const Canvas: React.FC = () => {
           }));
         } else {
           // Insert before or after the target element (sibling)
-          const targetElement = project.elements[targetElementId];
+          const targetElement = currentElements[targetElementId];
           const parentId = targetElement?.parent || 'root';
           
           console.log('CLICK DEBUG - Dispatching addElement as sibling, parentId:', parentId);
