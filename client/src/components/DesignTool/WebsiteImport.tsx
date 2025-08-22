@@ -98,29 +98,42 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
           const elementsToProcess = Array.from(bodyElement.children);
           console.log(`🎯 Processing ${elementsToProcess.length} top-level elements from body`);
           
+          let processedElements = 0;
+          const startTime = Date.now();
+          
           for (let i = 0; i < elementsToProcess.length; i++) {
             const child = elementsToProcess[i];
             try {
-              console.log(`Processing element ${i + 1}/${elementsToProcess.length}: ${child.tagName}`);
-              console.log('Element classes:', Array.from(child.classList || []));
-              console.log('Element content preview:', child.textContent?.substring(0, 100));
+              console.log(`🔧 Processing element ${i + 1}/${elementsToProcess.length}: ${child.tagName}`);
               
               // Skip script and style tags, but process everything else
               if (['script', 'style', 'meta', 'link', 'title'].includes(child.tagName.toLowerCase())) {
-                console.log('Skipping non-visual element:', child.tagName);
+                console.log(`⏭️ Skipping non-visual element: ${child.tagName}`);
                 continue;
               }
               
+              const elementClasses = Array.from(child.classList || []);
+              console.log(`📋 Classes: [${elementClasses.slice(0, 3).join(', ')}${elementClasses.length > 3 ? '...' : ''}]`);
+              
               await convertHTMLToElements(child, 'root');
-              console.log(`Successfully processed: ${child.tagName}`);
+              processedElements++;
+              console.log(`✅ Processed: ${child.tagName} (${processedElements} total)`);
+              
+              // Add small delay to prevent UI blocking for large imports
+              if (processedElements % 5 === 0) {
+                await new Promise(resolve => setTimeout(resolve, 10));
+              }
               
             } catch (elementError) {
-              console.error('Failed to convert element:', child.tagName, elementError);
+              console.error(`❌ Failed to convert element ${child.tagName}:`, elementError);
               // Continue with other elements
             }
           }
+          
+          const processingTime = Date.now() - startTime;
+          console.log(`✅ STEP 5 COMPLETE: Processed ${processedElements}/${elementsToProcess.length} elements in ${processingTime}ms`);
         } else {
-          console.log('No body element or children found - creating fallback element');
+          console.log('⚠️ No body element or children found - creating fallback element');
           
           // Create a fallback element if no body content
           const fallbackElement: CanvasElement = {
@@ -153,13 +166,14 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
         onImportComplete();
       }
 
-      console.log('Website import completed successfully');
+      console.log('🎉 IMPORT COMPLETE: Website successfully imported!');
 
     } catch (error) {
-      console.error('Import failed:', error);
-      setError(error instanceof Error ? error.message : 'Import failed');
+      console.error('❌ Website import failed:', error);
+      setError(error instanceof Error ? error.message : 'Failed to import website');
     } finally {
       setIsImporting(false);
+      console.log('🔄 Import process finished');
     }
   };
 
@@ -331,15 +345,23 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
         });
 
         // Create the custom class in the style editor
-        dispatch(addCustomClass({
-          name: className,
-          styles: reactStyles,
-          description: `Scoped import from ${rule.selector}`,
-          category: 'imported'
-        }));
-        
-        scopedClasses[className] = reactStyles;
-        console.log(`✓ Added scoped class "${className}"`);
+        try {
+          dispatch(addCustomClass({
+            name: className,
+            styles: reactStyles,
+            description: `Scoped import from ${rule.selector}`,
+            category: 'imported'
+          }));
+          
+          scopedClasses[className] = reactStyles;
+          
+          // Only log first 10 to avoid spam
+          if (Object.keys(scopedClasses).length <= 10) {
+            console.log(`✓ Added scoped class "${className}"`);
+          }
+        } catch (classError) {
+          console.error(`❌ Failed to create custom class "${className}":`, classError);
+        }
       }
 
       // Create the scoped CSS stylesheet and inject it into the page
@@ -353,17 +375,28 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
 
       // Inject scoped CSS into the page
       if (scopedCSS.trim()) {
-        const styleElement = document.createElement('style');
-        styleElement.id = `imported-styles-${importScope}`;
-        styleElement.textContent = scopedCSS;
-        document.head.appendChild(styleElement);
-        
-        console.log(`✓ Injected ${scopedCSS.length} characters of scoped CSS`);
-        console.log('Scoped CSS preview:', scopedCSS.substring(0, 500) + '...');
+        try {
+          // Remove any existing imported styles first
+          const existingStyle = document.getElementById(`imported-styles-${importScope}`);
+          if (existingStyle) {
+            existingStyle.remove();
+          }
+          
+          const styleElement = document.createElement('style');
+          styleElement.id = `imported-styles-${importScope}`;
+          styleElement.textContent = scopedCSS;
+          document.head.appendChild(styleElement);
+          
+          console.log(`✅ Injected ${scopedCSS.length} characters of scoped CSS`);
+          console.log('📄 CSS Preview:', scopedCSS.substring(0, 300) + '...');
+        } catch (styleError) {
+          console.error('❌ Failed to inject CSS styles:', styleError);
+        }
       }
 
       // Store the scope for applying to imported elements
       (window as any).lastImportScope = importScope;
+      console.log(`✅ STEP 4 COMPLETE: CSS processing finished successfully`);
       
     } catch (error) {
       console.error('Failed to process CSS:', error);
