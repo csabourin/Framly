@@ -141,19 +141,7 @@ const TabItem: React.FC<TabItemProps> = ({
         )}
       </div>
 
-      {/* Close button - only show on active tab or hover */}
-      {(isActive || dropdownOpen) && (
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            onDelete();
-          }}
-          className="opacity-0 group-hover:opacity-100 p-1 hover:bg-gray-200 rounded transition-opacity"
-          data-testid={`button-close-tab-${tabId}`}
-        >
-          <X size={12} />
-        </button>
-      )}
+      {/* Close button removed - delete function available in dropdown menu */}
 
       {/* Actions dropdown */}
       <DropdownMenu.Root open={dropdownOpen} onOpenChange={setDropdownOpen}>
