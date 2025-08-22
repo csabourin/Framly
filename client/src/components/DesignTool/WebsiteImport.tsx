@@ -80,6 +80,7 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
             const child = elementsToProcess[i];
             try {
               console.log(`Processing element ${i + 1}/${elementsToProcess.length}: ${child.tagName}`);
+              console.log('Element content preview:', child.textContent?.substring(0, 100));
               
               // Skip script and style tags
               if (['script', 'style', 'meta', 'link'].includes(child.tagName.toLowerCase())) {
@@ -201,6 +202,9 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
       let elementType: CanvasElement['type'] = 'container'; // Default fallback
       let elementData: Partial<CanvasElement> = {};
 
+      const textContent = htmlElement.textContent?.trim() || '';
+      console.log(`Element ${htmlElement.tagName} text content: "${textContent.substring(0, 50)}"`);
+
       switch (htmlElement.tagName.toLowerCase()) {
         case 'img':
           elementType = 'image';
@@ -224,14 +228,14 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
         case 'a':
           elementType = 'text';
           elementData = {
-            content: htmlElement.textContent?.trim() || 'Text'
+            content: textContent || `${htmlElement.tagName} text`
           };
           break;
           
         case 'button':
           elementType = 'button';
           elementData = {
-            content: htmlElement.textContent?.trim() || 'Button'
+            content: textContent || 'Button'
           };
           break;
           
@@ -247,6 +251,7 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
         case 'ol':
         case 'li':
         default:
+          // For divs and containers, process their children to extract text elements
           elementType = 'container';
           elementData = {
             isContainer: true,
@@ -309,6 +314,21 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
       dispatch(addElement({ element: canvasElement, parentId }));
 
       console.log(`Created element: ${elementType} (${htmlElement.tagName}) - "${(elementData.content as string)?.substring(0, 50) || 'container'}"`);
+
+      // Process children recursively if it's a container
+      if (elementType === 'container' && htmlElement.children && htmlElement.children.length > 0) {
+        console.log(`Processing ${htmlElement.children.length} children of ${htmlElement.tagName}`);
+        
+        // Process first few children to avoid overwhelming the canvas
+        const childrenToProcess = Array.from(htmlElement.children).slice(0, 10);
+        for (const child of childrenToProcess) {
+          try {
+            await convertHTMLToElements(child, elementId);
+          } catch (childError) {
+            console.warn('Failed to process child element:', child.tagName, childError);
+          }
+        }
+      }
 
     } catch (elementError) {
       console.error('Failed to convert element:', htmlElement.tagName, elementError);
