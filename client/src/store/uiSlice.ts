@@ -71,14 +71,26 @@ const uiSlice = createSlice({
     
     setGridVisible: (state, action: PayloadAction<boolean>) => {
       state.isGridVisible = action.payload;
+      // Auto-save UI settings when grid visibility changes
+      import('../utils/persistence').then(({ persistenceManager }) => {
+        persistenceManager.saveCurrentProject();
+      });
     },
     
     toggleComponentPanel: (state) => {
       state.isComponentPanelVisible = !state.isComponentPanelVisible;
+      // Auto-save UI settings when panel visibility changes
+      import('../utils/persistence').then(({ persistenceManager }) => {
+        persistenceManager.saveCurrentProject();
+      });
     },
     
     toggleDOMTreePanel: (state) => {
       state.isDOMTreePanelVisible = !state.isDOMTreePanelVisible;
+      // Auto-save UI settings when panel visibility changes
+      import('../utils/persistence').then(({ persistenceManager }) => {
+        persistenceManager.saveCurrentProject();
+      });
     },
     
     setComponentEditorOpen: (state, action: PayloadAction<boolean>) => {
@@ -99,6 +111,10 @@ const uiSlice = createSlice({
     
     setZoomLevel: (state, action: PayloadAction<number>) => {
       state.zoomLevel = Math.max(0.25, Math.min(4, action.payload));
+      // Auto-save UI settings when zoom changes
+      import('../utils/persistence').then(({ persistenceManager }) => {
+        persistenceManager.saveCurrentProject();
+      });
     },
     
     zoomIn: (state) => {
@@ -116,6 +132,7 @@ const uiSlice = createSlice({
     
     setCanvasOffset: (state, action: PayloadAction<{ x: number; y: number }>) => {
       state.canvasOffset = action.payload;
+      // Auto-save UI settings when canvas offset changes (debounced via auto-save)
     },
     
     setDragging: (state, action: PayloadAction<boolean>) => {
@@ -159,6 +176,26 @@ const uiSlice = createSlice({
       state.hoveredElementId = action.payload.elementId;
       state.hoveredZone = action.payload.zone;
     },
+    
+    loadUISettings: (state, action: PayloadAction<Partial<UIState>>) => {
+      // Load persisted UI settings while preserving non-persistent states
+      const persistentSettings = action.payload;
+      if (persistentSettings.isComponentPanelVisible !== undefined) {
+        state.isComponentPanelVisible = persistentSettings.isComponentPanelVisible;
+      }
+      if (persistentSettings.isDOMTreePanelVisible !== undefined) {
+        state.isDOMTreePanelVisible = persistentSettings.isDOMTreePanelVisible;
+      }
+      if (persistentSettings.zoomLevel !== undefined) {
+        state.zoomLevel = persistentSettings.zoomLevel;
+      }
+      if (persistentSettings.isGridVisible !== undefined) {
+        state.isGridVisible = persistentSettings.isGridVisible;
+      }
+      if (persistentSettings.canvasOffset !== undefined) {
+        state.canvasOffset = persistentSettings.canvasOffset;
+      }
+    },
   },
 });
 
@@ -188,6 +225,7 @@ export const {
   setDraggedElement,
   setDraggingForReorder,
   setHoveredElement,
+  loadUISettings,
 } = uiSlice.actions;
 
 export default uiSlice.reducer;

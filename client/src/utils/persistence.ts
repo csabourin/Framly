@@ -2,6 +2,7 @@ import { store } from '../store';
 import { loadProject } from '../store/canvasSlice';
 import { loadComponents } from '../store/componentSlice';
 import { loadCustomClassesFromStorage, loadCategoriesFromStorage } from '../store/classSlice';
+import { loadUISettings } from '../store/uiSlice';
 import { 
   initializeDB, 
   saveProjectToIndexedDB, 
@@ -57,6 +58,9 @@ export class PersistenceManager {
       
       // Load custom classes and categories
       await this.loadCustomClasses();
+      
+      // Load UI settings
+      await this.loadUISettings();
     } catch (error) {
       console.error('Failed to load persisted data:', error);
     }
@@ -134,6 +138,20 @@ export class PersistenceManager {
     }
   }
 
+  private async loadUISettings(): Promise<void> {
+    try {
+      const uiSettings = await indexedDBManager.loadSetting('uiSettings');
+      if (uiSettings) {
+        console.log('Loading persisted UI settings');
+        store.dispatch(loadUISettings(uiSettings));
+      } else {
+        console.log('No persisted UI settings found, using defaults');
+      }
+    } catch (error) {
+      console.error('Failed to load UI settings:', error);
+    }
+  }
+
   async saveCurrentProject(): Promise<void> {
     try {
       const state = store.getState();
@@ -152,6 +170,9 @@ export class PersistenceManager {
       
       // Also save custom classes when project is saved
       await this.saveCustomClasses();
+      
+      // Also save UI settings when project is saved
+      await this.saveUISettings();
       
       this.lastSavedState = currentStateString;
       console.log('Project auto-saved');
@@ -257,6 +278,26 @@ export class PersistenceManager {
       }
     } catch (error) {
       console.error('Failed to save custom classes:', error);
+    }
+  }
+
+  private async saveUISettings(): Promise<void> {
+    try {
+      const state = store.getState();
+      const uiState = state.ui;
+      
+      // Extract only the persistent UI settings
+      const persistentUISettings = {
+        isComponentPanelVisible: uiState.isComponentPanelVisible,
+        isDOMTreePanelVisible: uiState.isDOMTreePanelVisible,
+        zoomLevel: uiState.zoomLevel,
+        isGridVisible: uiState.isGridVisible,
+        canvasOffset: uiState.canvasOffset
+      };
+      
+      await indexedDBManager.saveSetting('uiSettings', persistentUISettings);
+    } catch (error) {
+      console.error('Failed to save UI settings:', error);
     }
   }
 
