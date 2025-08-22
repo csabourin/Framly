@@ -496,32 +496,62 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
 
     // Handle all other element types with generic rendering
     if (!['text', 'heading', 'list', 'button', 'image', 'container', 'rectangle', 'element'].includes(element.type)) {
-      // For form elements and other special types, use generic element rendering
+      // Special handling for form elements that need different structure
+      if (element.type === 'checkbox' || element.type === 'radio') {
+        const inputType = element.type;
+        const labelText = element.content || 'Option';
+        
+        return (
+          <label className="w-full h-full outline-none flex items-center gap-2" style={mergedStyles}>
+            <input 
+              type={inputType} 
+              className="flex-shrink-0"
+              name={element.type === 'radio' ? `radio-group-${element.id}` : undefined}
+            />
+            <span className="text-sm">{labelText}</span>
+          </label>
+        );
+      }
+      
+      // For other form elements and special types
       const htmlTag = element.htmlTag || 'div';
       const content = element.content || '';
       
-      return React.createElement(
-        htmlTag,
-        {
-          className: 'w-full h-full outline-none',
-          style: { 
-            minHeight: 'inherit',
-            width: '100%',
-            height: '100%',
-            boxSizing: 'border-box',
-            padding: content ? '4px' : '8px',
-            display: element.isContainer ? 'flex' : 'block',
-            flexDirection: element.flexDirection || 'column',
-            justifyContent: element.justifyContent || 'flex-start',
-            alignItems: element.alignItems || 'stretch',
-            ...mergedStyles
-          },
-          dangerouslySetInnerHTML: content ? { __html: content } : undefined,
-          placeholder: element.type === 'input' ? 'Entrez votre texte...' : undefined,
-          controls: ['video', 'audio'].includes(element.type) ? true : undefined
-        },
-        !content && `${element.type.charAt(0).toUpperCase() + element.type.slice(1)} Element`
-      );
+      const elementProps: any = {
+        className: 'w-full h-full outline-none',
+        style: { 
+          minHeight: 'inherit',
+          width: '100%',
+          height: '100%',
+          boxSizing: 'border-box',
+          padding: content ? '4px' : '8px',
+          display: element.isContainer ? 'flex' : 'block',
+          flexDirection: element.flexDirection || 'column',
+          justifyContent: element.justifyContent || 'flex-start',
+          alignItems: element.alignItems || 'stretch',
+          ...mergedStyles
+        }
+      };
+
+      // Add special attributes for specific elements
+      if (element.type === 'input') {
+        elementProps.placeholder = 'Entrez votre texte...';
+        elementProps.type = 'text';
+      } else if (['video', 'audio'].includes(element.type)) {
+        elementProps.controls = true;
+      }
+
+      // Only set innerHTML OR children, never both
+      if (content) {
+        elementProps.dangerouslySetInnerHTML = { __html: content };
+        return React.createElement(htmlTag, elementProps);
+      } else {
+        return React.createElement(
+          htmlTag,
+          elementProps,
+          `${element.type.charAt(0).toUpperCase() + element.type.slice(1)} Element`
+        );
+      }
     }
 
     return (

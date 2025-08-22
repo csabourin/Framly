@@ -1,6 +1,14 @@
 export interface CanvasElement {
   id: string;
-  type: 'rectangle' | 'text' | 'image' | 'container' | 'heading' | 'list' | 'component' | 'button' | 'element';
+  type: 'rectangle' | 'text' | 'image' | 'container' | 'heading' | 'list' | 'component' | 'button' | 'element' |
+        // Form elements
+        'input' | 'textarea' | 'checkbox' | 'radio' | 'select' |
+        // Structural elements
+        'section' | 'nav' | 'header' | 'footer' | 'article' |
+        // Media elements
+        'video' | 'audio' |
+        // Content elements
+        'link' | 'code' | 'divider';
   x: number;
   y: number;
   width: number;
