@@ -15,6 +15,9 @@ export interface CanvasElement {
   alignItems?: 'flex-start' | 'center' | 'flex-end' | 'stretch';
   classes?: string[];
   
+  // HTML import properties
+  htmlTag?: string; // Original HTML tag name for imported elements
+  
   // Component-specific properties
   componentId?: string;
   instanceData?: Record<string, any>;

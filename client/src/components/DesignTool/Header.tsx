@@ -6,6 +6,7 @@ import { setExportModalOpen, setCodeModalOpen, setCSSOptimizationModalOpen, zoom
 import { Button } from '@/components/ui/button';
 import { Eye, Undo, Redo, Download, Smartphone, Laptop, Monitor, Settings, Plus, Minus, Maximize, Zap, List, Palette, Component, MousePointer2 } from 'lucide-react';
 import UndoRedoControls from './UndoRedoControls';
+import WebsiteImport from './WebsiteImport';
 
 const Header: React.FC = () => {
   const dispatch = useDispatch();
@@ -165,6 +166,9 @@ const Header: React.FC = () => {
             <Plus className="w-3 h-3" />
           </Button>
         </div>
+
+        {/* Import Tools */}
+        <WebsiteImport />
 
         {/* Advanced Tools */}
         <div className="flex items-center gap-1 bg-gray-100 rounded-lg p-1" data-testid="advanced-tools">

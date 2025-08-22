@@ -2,6 +2,7 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertProjectSchema, insertCustomClassSchema, insertCategorySchema } from "@shared/schema";
+import { websiteImportService } from "./import-service";
 import { z } from "zod";
 
 export async function registerRoutes(app: Express): Promise<Server> {
@@ -209,6 +210,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json({ message: "Category deleted successfully" });
     } catch (error) {
       res.status(500).json({ message: "Failed to delete category" });
+    }
+  });
+
+  // === Website Import API ===
+  
+  // Import website
+  app.post("/api/import-website", async (req, res) => {
+    try {
+      const { url } = req.body;
+      
+      if (!url || typeof url !== 'string') {
+        res.status(400).json({ message: "Valid URL is required" });
+        return;
+      }
+
+      console.log('Importing website:', url);
+      const result = await websiteImportService.importWebsite(url);
+      res.json(result);
+    } catch (error) {
+      console.error('Website import failed:', error);
+      res.status(500).json({ 
+        message: "Failed to import website",
+        error: error instanceof Error ? error.message : 'Unknown error'
+      });
     }
   });
 
