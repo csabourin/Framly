@@ -31,7 +31,12 @@ export interface CanvasElement {
   
   // Image-specific properties
   imageUrl?: string;
+  imageBase64?: string; // For uploaded images stored locally
+  imageAlt?: string;
+  imageTitle?: string;
   imageRatio?: 'auto' | '16:9' | '4:3' | '1:1' | '3:2';
+  objectFit?: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
+  objectPosition?: string;
   imageJustifySelf?: 'flex-start' | 'center' | 'flex-end';
   widthUnit?: 'px' | 'rem' | '%' | 'vw' | 'auto';
   heightUnit?: 'px' | 'rem' | '%' | 'vh' | 'auto';

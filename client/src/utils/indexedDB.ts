@@ -1,6 +1,15 @@
 import { CanvasElement, Project, CustomComponent, ComponentCategory } from '../types/canvas';
 import { CustomClass, Category } from '../store/classSlice';
 
+export interface SavedImage {
+  id: string;
+  filename: string;
+  data: string; // Base64 encoded
+  mimeType: string;
+  size: number;
+  createdAt: string;
+}
+
 const DB_NAME = 'DesignToolDB';
 const DB_VERSION = 2;
 
@@ -11,6 +20,7 @@ const CATEGORIES_STORE = 'categories';
 const SETTINGS_STORE = 'settings';
 const CUSTOM_CLASSES_STORE = 'customClasses';
 const CLASS_CATEGORIES_STORE = 'classCategories';
+const IMAGES_STORE = 'images';
 
 interface IndexedDBSchema {
   projects: {
@@ -41,13 +51,9 @@ interface IndexedDBSchema {
     key: string;
     value: Category & { updatedAt: string };
   };
-  customClasses: {
+  images: {
     key: string;
-    value: CustomClass & { updatedAt: string };
-  };
-  classCategories: {
-    key: string;
-    value: Category & { updatedAt: string };
+    value: SavedImage;
   };
 }
 
@@ -108,6 +114,12 @@ class IndexedDBManager {
           const classCategoryStore = db.createObjectStore(CLASS_CATEGORIES_STORE, { keyPath: 'id' });
           classCategoryStore.createIndex('type', 'type', { unique: false });
           classCategoryStore.createIndex('updatedAt', 'updatedAt', { unique: false });
+        }
+
+        if (!db.objectStoreNames.contains(IMAGES_STORE)) {
+          const imageStore = db.createObjectStore(IMAGES_STORE, { keyPath: 'id' });
+          imageStore.createIndex('filename', 'filename', { unique: false });
+          imageStore.createIndex('createdAt', 'createdAt', { unique: false });
         }
 
         console.log('IndexedDB schema created/upgraded');
@@ -406,10 +418,69 @@ class IndexedDBManager {
     });
   }
 
+  // Image operations
+  async saveImage(image: SavedImage): Promise<void> {
+    const db = await this.ensureDB();
+    const transaction = db.transaction([IMAGES_STORE], 'readwrite');
+    const store = transaction.objectStore(IMAGES_STORE);
+    
+    const imageWithTimestamp = {
+      ...image,
+      createdAt: new Date().toISOString()
+    };
+
+    await new Promise<void>((resolve, reject) => {
+      const request = store.put(imageWithTimestamp);
+      request.onsuccess = () => resolve();
+      request.onerror = () => reject(request.error);
+    });
+  }
+
+  async getImage(id: string): Promise<SavedImage | null> {
+    const db = await this.ensureDB();
+    const transaction = db.transaction([IMAGES_STORE], 'readonly');
+    const store = transaction.objectStore(IMAGES_STORE);
+
+    return new Promise((resolve, reject) => {
+      const request = store.get(id);
+      request.onsuccess = () => {
+        const result = request.result;
+        resolve(result ? result as SavedImage : null);
+      };
+      request.onerror = () => reject(request.error);
+    });
+  }
+
+  async getAllImages(): Promise<SavedImage[]> {
+    const db = await this.ensureDB();
+    const transaction = db.transaction([IMAGES_STORE], 'readonly');
+    const store = transaction.objectStore(IMAGES_STORE);
+
+    return new Promise((resolve, reject) => {
+      const request = store.getAll();
+      request.onsuccess = () => {
+        resolve(request.result as SavedImage[]);
+      };
+      request.onerror = () => reject(request.error);
+    });
+  }
+
+  async deleteImage(id: string): Promise<void> {
+    const db = await this.ensureDB();
+    const transaction = db.transaction([IMAGES_STORE], 'readwrite');
+    const store = transaction.objectStore(IMAGES_STORE);
+
+    await new Promise<void>((resolve, reject) => {
+      const request = store.delete(id);
+      request.onsuccess = () => resolve();
+      request.onerror = () => reject(request.error);
+    });
+  }
+
   // Utility methods
   async clearAll(): Promise<void> {
     const db = await this.ensureDB();
-    const transaction = db.transaction([PROJECTS_STORE, COMPONENTS_STORE, CATEGORIES_STORE, SETTINGS_STORE, CUSTOM_CLASSES_STORE, CLASS_CATEGORIES_STORE], 'readwrite');
+    const transaction = db.transaction([PROJECTS_STORE, COMPONENTS_STORE, CATEGORIES_STORE, SETTINGS_STORE, CUSTOM_CLASSES_STORE, CLASS_CATEGORIES_STORE, IMAGES_STORE], 'readwrite');
     
     await Promise.all([
       new Promise<void>((resolve, reject) => {
@@ -439,6 +510,11 @@ class IndexedDBManager {
       }),
       new Promise<void>((resolve, reject) => {
         const request = transaction.objectStore(CLASS_CATEGORIES_STORE).clear();
+        request.onsuccess = () => resolve();
+        request.onerror = () => reject(request.error);
+      }),
+      new Promise<void>((resolve, reject) => {
+        const request = transaction.objectStore(IMAGES_STORE).clear();
         request.onsuccess = () => resolve();
         request.onerror = () => reject(request.error);
       })

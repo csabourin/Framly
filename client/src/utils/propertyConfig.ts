@@ -4,8 +4,8 @@ export type ElementType = 'container' | 'rectangle' | 'text' | 'heading' | 'list
 export interface PropertyConfig {
   key: string;
   label: string;
-  type: 'text' | 'number' | 'select' | 'color' | 'range' | 'toggle' | 'unit' | 'border' | 'compound';
-  category: 'layout' | 'appearance' | 'text' | 'spacing' | 'effects' | 'advanced' | 'flex' | 'grid';
+  type: 'text' | 'number' | 'select' | 'color' | 'range' | 'toggle' | 'unit' | 'border' | 'compound' | 'imageUpload';
+  category: 'layout' | 'appearance' | 'text' | 'spacing' | 'effects' | 'advanced' | 'flex' | 'grid' | 'content';
   options?: Array<{ value: string; label: string }>;
   units?: string[];
   defaultUnit?: string;
@@ -591,6 +591,31 @@ export const elementPropertyMap: Record<ElementType, PropertyConfig[]> = {
     ...advancedProperties.filter(p => !['cursor', 'transition'].includes(p.key))
   ],
   image: [
+    // Image-specific properties first
+    {
+      key: 'imageSource',
+      label: 'Image Source',
+      type: 'imageUpload',
+      category: 'content',
+      priority: 1,
+      description: 'Upload an image or provide a URL'
+    },
+    {
+      key: 'imageAlt',
+      label: 'Alt Text',
+      type: 'text',
+      category: 'content',
+      priority: 2,
+      description: 'Alternative text for accessibility'
+    },
+    {
+      key: 'imageTitle',
+      label: 'Title',
+      type: 'text',
+      category: 'content',
+      priority: 3,
+      description: 'Image title (tooltip on hover)'
+    },
     ...layoutProperties,
     ...spacingProperties.filter(p => p.key !== 'gap'),
     ...appearanceProperties,
@@ -601,13 +626,32 @@ export const elementPropertyMap: Record<ElementType, PropertyConfig[]> = {
       category: 'appearance',
       priority: 5,
       options: [
-        { value: 'fill', label: 'Fill' },
         { value: 'contain', label: 'Contain' },
         { value: 'cover', label: 'Cover' },
+        { value: 'fill', label: 'Fill' },
         { value: 'none', label: 'None' },
         { value: 'scale-down', label: 'Scale Down' }
       ],
       description: 'How image fits in its container'
+    },
+    {
+      key: 'objectPosition',
+      label: 'Image Position',
+      type: 'select',
+      category: 'appearance',
+      priority: 6,
+      options: [
+        { value: 'center', label: 'Center' },
+        { value: 'top', label: 'Top' },
+        { value: 'bottom', label: 'Bottom' },
+        { value: 'left', label: 'Left' },
+        { value: 'right', label: 'Right' },
+        { value: 'top left', label: 'Top Left' },
+        { value: 'top right', label: 'Top Right' },
+        { value: 'bottom left', label: 'Bottom Left' },
+        { value: 'bottom right', label: 'Bottom Right' }
+      ],
+      description: 'Image position within container'
     },
     ...flexProperties,
     ...gridProperties,
@@ -640,14 +684,15 @@ export function getPropertyGroups(elementType: ElementType, element?: any): Prop
   
   // Define category metadata
   const categoryInfo: Record<string, { label: string; icon: string; order: number }> = {
-    layout: { label: 'Layout & Position', icon: '📐', order: 1 },
-    spacing: { label: 'Spacing', icon: '📏', order: 2 },
-    appearance: { label: 'Appearance', icon: '🎨', order: 3 },
-    text: { label: 'Typography', icon: '🔤', order: 4 },
-    flex: { label: 'Flexbox', icon: '📦', order: 5 },
-    grid: { label: 'Grid Layout', icon: '⚏', order: 6 },
-    effects: { label: 'Effects', icon: '✨', order: 7 },
-    advanced: { label: 'Advanced', icon: '⚙️', order: 8 }
+    content: { label: 'Content', icon: '📄', order: 1 },
+    layout: { label: 'Layout & Position', icon: '📐', order: 2 },
+    spacing: { label: 'Spacing', icon: '📏', order: 3 },
+    appearance: { label: 'Appearance', icon: '🎨', order: 4 },
+    text: { label: 'Typography', icon: '🔤', order: 5 },
+    flex: { label: 'Flexbox', icon: '📦', order: 6 },
+    grid: { label: 'Grid Layout', icon: '⚏', order: 7 },
+    effects: { label: 'Effects', icon: '✨', order: 8 },
+    advanced: { label: 'Advanced', icon: '⚙️', order: 9 }
   };
   
   // Convert to ordered array

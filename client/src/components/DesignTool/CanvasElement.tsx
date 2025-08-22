@@ -340,11 +340,36 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     }
 
     if (element.type === 'image') {
-      return (
-        <div className="w-full h-full flex items-center justify-center text-gray-500 bg-gray-100 rounded">
-          <span>Image Placeholder</span>
-        </div>
-      );
+      const imageSource = element.imageBase64 || element.imageUrl;
+      
+      if (imageSource) {
+        return (
+          <img
+            src={imageSource}
+            alt={element.imageAlt || 'Image'}
+            title={element.imageTitle}
+            className="w-full h-full"
+            style={{
+              objectFit: element.objectFit || 'contain',
+              objectPosition: element.objectPosition || 'center'
+            }}
+            onDoubleClick={(e) => {
+              e.stopPropagation();
+              // Focus on image source input in properties panel
+            }}
+          />
+        );
+      } else {
+        return (
+          <div className="w-full h-full flex items-center justify-center text-gray-500 bg-gray-100 rounded border-2 border-dashed">
+            <div className="text-center">
+              <div className="text-4xl mb-2">🖼️</div>
+              <span className="text-sm">Image Placeholder</span>
+              <div className="text-xs mt-1 opacity-75">Double-click to add image</div>
+            </div>
+          </div>
+        );
+      }
     }
 
     if ((element.type === 'container' || element.type === 'rectangle') && element.children) {

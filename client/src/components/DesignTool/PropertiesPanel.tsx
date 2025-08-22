@@ -30,7 +30,8 @@ import {
   Layout,
   Move3D as Spacing,
   Sparkles,
-  Settings as SettingsIcon
+  Settings as SettingsIcon,
+  FileText
 } from 'lucide-react';
 import ButtonStateSelector from './ButtonStateSelector';
 
@@ -368,6 +369,7 @@ const PropertiesPanel: React.FC = () => {
 
   const getCategoryIcon = (category: string) => {
     const icons: Record<string, React.ComponentType<any>> = {
+      content: FileText,
       layout: Layout,
       spacing: Spacing,
       appearance: Palette,
@@ -643,6 +645,8 @@ const PropertiesPanel: React.FC = () => {
                         config={property}
                         value={getPropertyValue(property)}
                         onChange={(value) => handlePropertyChange(property.key, value)}
+                        elementId={selectedElement.id}
+                        element={selectedElement}
                       />
                       {/* Add advanced controls right below their simple counterparts */}
                       {(() => {

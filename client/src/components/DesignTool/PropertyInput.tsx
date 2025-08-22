@@ -6,14 +6,17 @@ import { Slider } from '@/components/ui/slider';
 import { Button } from '@/components/ui/button';
 import { PropertyConfig, formatValueWithUnit, parseValueAndUnit } from '../../utils/propertyConfig';
 import { Info } from 'lucide-react';
+import { ImageUpload } from './ImageUpload';
 
 interface PropertyInputProps {
   config: PropertyConfig;
   value: any;
   onChange: (value: any) => void;
+  elementId?: string;
+  element?: any;
 }
 
-export const PropertyInput: React.FC<PropertyInputProps> = ({ config, value, onChange }) => {
+export const PropertyInput: React.FC<PropertyInputProps> = ({ config, value, onChange, elementId, element }) => {
   const [selectedUnit, setSelectedUnit] = useState(() => {
     if (config.units && config.units.length > 0) {
       const parsed = parseValueAndUnit(value);
@@ -186,10 +189,29 @@ export const PropertyInput: React.FC<PropertyInputProps> = ({ config, value, onC
                     newValue[subProp.key] = subValue;
                     onChange(newValue);
                   }}
+                  elementId={elementId}
+                  element={element}
                 />
               </div>
             ))}
           </div>
+        );
+
+      case 'imageUpload':
+        if (!elementId || !element) {
+          return <div className="text-xs text-red-500">Element context required for image upload</div>;
+        }
+        return (
+          <ImageUpload
+            elementId={elementId}
+            currentImageUrl={element.imageUrl}
+            currentImageBase64={element.imageBase64}
+            currentImageAlt={element.imageAlt}
+            onImageChange={(updates) => {
+              // Updates are handled directly by the ImageUpload component via dispatch
+              // The onChange callback here is for UI synchronization if needed
+            }}
+          />
         );
 
       default:
