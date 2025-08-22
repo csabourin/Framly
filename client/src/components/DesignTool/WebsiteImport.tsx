@@ -145,7 +145,7 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
   };
 
   const processCSS = async (css: string) => {
-    console.log('Processing CSS styles for custom classes');
+    console.log('Processing CSS styles for custom classes with scoping');
     console.log('CSS input length:', css?.length || 0);
     
     if (!css || css.trim().length === 0) {
@@ -154,23 +154,42 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
     }
 
     try {
+      // Create a unique scope for this import to prevent CSS conflicts
+      const importScope = `imported-${nanoid(8)}`;
+      console.log(`Creating CSS scope: ${importScope}`);
+      
       // Enhanced CSS parsing to extract all rules including element selectors
-      const rules: Array<{ selector: string; styles: Record<string, string> }> = [];
+      const rules: Array<{ selector: string; styles: Record<string, string>; scopedSelector: string }> = [];
       
       // Parse CSS rules - handle both class and element selectors
       const ruleRegex = /([^{}]+)\s*\{([^}]+)\}/g;
       let match;
       
       while ((match = ruleRegex.exec(css)) !== null) {
-        const selector = match[1].trim();
+        const originalSelector = match[1].trim();
         const styleBlock = match[2];
         
-        // Skip @rules, comments, and pseudo-selectors for now
-        if (selector.startsWith('@') || selector.includes('/*') || 
-            selector.includes(':hover') || selector.includes(':active') || 
-            selector.includes(':focus') || selector.includes('::')) {
+        // Skip @rules, comments, and complex selectors for now
+        if (originalSelector.startsWith('@') || originalSelector.includes('/*')) {
           continue;
         }
+        
+        // Create scoped selector to prevent conflicts with app styles
+        const scopedSelector = originalSelector
+          .split(',')
+          .map(sel => {
+            const trimmed = sel.trim();
+            // Add scope prefix to prevent conflicts
+            if (trimmed.startsWith('.')) {
+              return `.${importScope} ${trimmed}`;
+            } else if (trimmed.match(/^[a-zA-Z]/)) {
+              // Element selector
+              return `.${importScope} ${trimmed}`;
+            } else {
+              return `.${importScope} ${trimmed}`;
+            }
+          })
+          .join(', ');
         
         // Parse CSS properties
         const styleObj: Record<string, string> = {};
@@ -181,58 +200,76 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
           const property = propMatch[1].trim();
           const value = propMatch[2].trim();
           
-          // Clean up property names (convert kebab-case to camelCase for React)
-          const camelProperty = property.replace(/-([a-z])/g, (match, letter) => letter.toUpperCase());
-          styleObj[camelProperty] = value;
+          // Keep CSS property names as-is for proper CSS output
+          styleObj[property] = value;
         }
 
         if (Object.keys(styleObj).length > 0) {
-          rules.push({ selector, styles: styleObj });
+          rules.push({ 
+            selector: originalSelector, 
+            styles: styleObj,
+            scopedSelector 
+          });
         }
       }
 
-      console.log(`Extracted ${rules.length} CSS rules for import`);
+      console.log(`Extracted ${rules.length} CSS rules for scoped import`);
 
-      // Process each rule and add to custom classes
+      // Create scoped CSS classes for the custom class system
+      const scopedClasses: Record<string, any> = {};
+      
       for (const rule of rules) {
         let className: string;
         
         if (rule.selector.startsWith('.')) {
-          // Class selector - use as is
-          className = rule.selector.substring(1);
+          // Class selector - prefix with scope
+          className = `${importScope}-${rule.selector.substring(1)}`;
         } else {
-          // Element selector - create a custom class name
-          className = `imported-${rule.selector.replace(/[^a-zA-Z0-9]/g, '-')}-${nanoid(6)}`;
+          // Element selector - create a scoped class name
+          className = `${importScope}-${rule.selector.replace(/[^a-zA-Z0-9]/g, '-')}`;
         }
 
+        // Convert CSS properties to React-compatible camelCase for custom classes
+        const reactStyles: Record<string, string> = {};
+        Object.entries(rule.styles).forEach(([prop, value]) => {
+          const camelProperty = prop.replace(/-([a-z])/g, (match, letter) => letter.toUpperCase());
+          reactStyles[camelProperty] = value;
+        });
+
         // Create the custom class in the style editor
-        console.log(`Creating custom class: ${className} with ${Object.keys(rule.styles).length} properties`);
-        
         dispatch(addCustomClass({
           name: className,
-          styles: rule.styles,
-          description: `Imported from ${rule.selector}`,
+          styles: reactStyles,
+          description: `Scoped import from ${rule.selector}`,
           category: 'imported'
         }));
         
-        console.log(`✓ Added custom class "${className}" to style editor`);
+        scopedClasses[className] = reactStyles;
+        console.log(`✓ Added scoped class "${className}"`);
       }
 
-      // Also create a consolidated import stylesheet
-      const importedCSS = rules.map(rule => {
-        const className = rule.selector.startsWith('.') 
-          ? rule.selector.substring(1) 
-          : `imported-${rule.selector.replace(/[^a-zA-Z0-9]/g, '-')}-${nanoid(6)}`;
-        
+      // Create the scoped CSS stylesheet and inject it into the page
+      const scopedCSS = rules.map(rule => {
         const styleString = Object.entries(rule.styles)
           .map(([prop, value]) => `  ${prop}: ${value};`)
           .join('\n');
         
-        return `.${className} {\n${styleString}\n}`;
+        return `${rule.scopedSelector} {\n${styleString}\n}`;
       }).join('\n\n');
 
-      console.log('Complete imported CSS for Style Editor:');
-      console.log(importedCSS);
+      // Inject scoped CSS into the page
+      if (scopedCSS.trim()) {
+        const styleElement = document.createElement('style');
+        styleElement.id = `imported-styles-${importScope}`;
+        styleElement.textContent = scopedCSS;
+        document.head.appendChild(styleElement);
+        
+        console.log(`✓ Injected ${scopedCSS.length} characters of scoped CSS`);
+        console.log('Scoped CSS preview:', scopedCSS.substring(0, 500) + '...');
+      }
+
+      // Store the scope for applying to imported elements
+      (window as any).lastImportScope = importScope;
       
     } catch (error) {
       console.error('Failed to process CSS:', error);
@@ -401,6 +438,17 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
         height = 150;
       }
 
+      // Apply CSS scope to prevent conflicts with app styles
+      const importScope = (window as any).lastImportScope;
+      const scopedClasses = preservedClasses.map(cls => 
+        importScope ? `${importScope}-${cls}` : cls
+      );
+      
+      // Add the import scope class to the root container
+      if (parentId === 'root' && importScope) {
+        scopedClasses.unshift(importScope);
+      }
+
       // Create canvas element with all required properties for proper rendering
       const canvasElement: CanvasElement = {
         id: elementId,
@@ -415,7 +463,7 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
           position: 'relative',
           ...inlineStyles
         },
-        classes: preservedClasses || [],
+        classes: scopedClasses || [],
         htmlTag: htmlElement.tagName.toLowerCase(),
         parent: parentId, // Ensure parent is set
         ...elementData
@@ -433,7 +481,7 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
       // Add element to canvas
       dispatch(addElement({ element: canvasElement, parentId }));
 
-      console.log(`Created element: ${elementType} (${htmlElement.tagName}) - "${(elementData.content as string)?.substring(0, 50) || 'container'}" with classes: [${preservedClasses.join(', ')}]`);
+      console.log(`Created element: ${elementType} (${htmlElement.tagName}) - "${(elementData.content as string)?.substring(0, 50) || 'container'}" with scoped classes: [${scopedClasses.join(', ')}]`);
 
       // Process children recursively if it's a container
       if (elementType === 'container' && htmlElement.children && htmlElement.children.length > 0) {
