@@ -57,6 +57,9 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
 
       const { html, css, assets } = await response.json();
       console.log('Website content fetched successfully');
+      console.log('HTML length:', html?.length || 0);
+      console.log('CSS length:', css?.length || 0);
+      console.log('Assets count:', assets?.length || 0);
 
       try {
         // Parse HTML and convert to canvas elements
@@ -142,9 +145,10 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
 
   const processCSS = async (css: string) => {
     console.log('Processing CSS styles for custom classes');
+    console.log('CSS input length:', css?.length || 0);
     
     if (!css || css.trim().length === 0) {
-      console.log('No CSS content to process');
+      console.log('⚠️ No CSS content to process - CSS extraction may have failed');
       return;
     }
 
@@ -160,8 +164,10 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
         const selector = match[1].trim();
         const styleBlock = match[2];
         
-        // Skip @rules, comments, and complex selectors for now
-        if (selector.startsWith('@') || selector.includes('/*') || selector.includes(':')) {
+        // Skip @rules, comments, and pseudo-selectors for now
+        if (selector.startsWith('@') || selector.includes('/*') || 
+            selector.includes(':hover') || selector.includes(':active') || 
+            selector.includes(':focus') || selector.includes('::')) {
           continue;
         }
         
@@ -359,21 +365,39 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
       } else if (elementType === 'container') {
         width = 300;
         height = 100;
+      } else if (elementType === 'image') {
+        width = 200;
+        height = 150;
       }
 
-      // Create canvas element with safe defaults
+      // Create canvas element with all required properties for proper rendering
       const canvasElement: CanvasElement = {
         id: elementId,
         type: elementType,
-        x: Math.random() * 50, // Small random offset to prevent overlap
-        y: Math.random() * 50,
+        x: 0, // Use consistent positioning
+        y: 0,
         width,
         height,
-        styles: inlineStyles,
-        classes,
+        styles: {
+          // Ensure basic styles for canvas rendering
+          display: elementType === 'container' ? 'flex' : 'block',
+          position: 'relative',
+          ...inlineStyles
+        },
+        classes: classes || [],
         htmlTag: htmlElement.tagName.toLowerCase(),
+        parent: parentId, // Ensure parent is set
         ...elementData
       };
+
+      // Ensure container elements have proper flex properties
+      if (elementType === 'container') {
+        canvasElement.isContainer = true;
+        canvasElement.flexDirection = 'column';
+        canvasElement.justifyContent = 'flex-start';
+        canvasElement.alignItems = 'stretch';
+        canvasElement.children = [];
+      }
 
       // Add element to canvas
       dispatch(addElement({ element: canvasElement, parentId }));
