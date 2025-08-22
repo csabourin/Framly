@@ -1,0 +1,301 @@
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+LayoutMaster:1  The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+LayoutMaster:1  The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+LayoutMaster:1  The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+ 
+      /////////////////////
+   ///////////////////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////        Curious and driven?
+  ///////////////@@@@@@@///////        Work with us!
+  ///////////////@@@@@@@///////
+  ///////////////@@@@@@@///////        https://join.replit.com/hack.with.us
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@#//////////////
+   ///////////////////////////
+      /////////////////////
+      
+LayoutMaster:1  Tracking Prevention blocked access to storage for https://analytics.tiktok.com/i18n/pixel/events.js?sdkid=D004GE3C77U8PIVDSDJG&lib=ttq.
+LayoutMaster:1  Tracking Prevention blocked access to storage for https://analytics.tiktok.com/i18n/pixel/events.js?sdkid=D004GE3C77U8PIVDSDJG&lib=ttq.
+LayoutMaster:1  Tracking Prevention blocked access to storage for https://analytics.tiktok.com/i18n/pixel/events.js?sdkid=D004GE3C77U8PIVDSDJG&lib=ttq.
+LayoutMaster:1  Tracking Prevention blocked access to storage for https://analytics.tiktok.com/i18n/pixel/events.js?sdkid=D004GE3C77U8PIVDSDJG&lib=ttq.
+ [LaunchDarkly] LaunchDarkly client initialized
+analytics.tiktok.com/i18n/pixel/events.js?sdkid=D004GE3C77U8PIVDSDJG&lib=ttq:1   Failed to load resource: net::ERR_SSL_PROTOCOL_ERROR
+ Adding extension: Prettier - Code Formatter Object
+r.stripe.com/b:1   Failed to load resource: net::ERR_SOCKET_NOT_CONNECTED
+r.stripe.com/b:1   Failed to load resource: net::ERR_SOCKET_NOT_CONNECTED
+shared-347e261167aab…098111a7f3fe82.js:1  Uncaught (in promise) 
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+  Unrecognized feature: 'ambient-light-sensor'.
+_ @ framework-ccfe1a689624b6d6.js:1
+  Unrecognized feature: 'battery'.
+_ @ framework-ccfe1a689624b6d6.js:1
+  Unrecognized feature: 'execution-while-not-rendered'.
+_ @ framework-ccfe1a689624b6d6.js:1
+  Unrecognized feature: 'execution-while-out-of-viewport'.
+_ @ framework-ccfe1a689624b6d6.js:1
+  Unrecognized feature: 'layout-animations'.
+_ @ framework-ccfe1a689624b6d6.js:1
+  Unrecognized feature: 'legacy-image-formats'.
+_ @ framework-ccfe1a689624b6d6.js:1
+  Unrecognized feature: 'navigation-override'.
+_ @ framework-ccfe1a689624b6d6.js:1
+  Unrecognized feature: 'oversized-images'.
+_ @ framework-ccfe1a689624b6d6.js:1
+  Unrecognized feature: 'publickey-credentials'.
+_ @ framework-ccfe1a689624b6d6.js:1
+  Unrecognized feature: 'speaker-selection'.
+_ @ framework-ccfe1a689624b6d6.js:1
+  Unrecognized feature: 'unoptimized-images'.
+_ @ framework-ccfe1a689624b6d6.js:1
+  Unrecognized feature: 'unsized-media'.
+_ @ framework-ccfe1a689624b6d6.js:1
+  Unrecognized feature: 'pointer-lock'.
+_ @ framework-ccfe1a689624b6d6.js:1
+  Allow attribute will take precedence over 'allowfullscreen'.
+_ @ framework-ccfe1a689624b6d6.js:1
+  Allow attribute will take precedence over 'allowpaymentrequest'.
+_ @ framework-ccfe1a689624b6d6.js:1
+ stallwart: failed ping 1
+ stallwart: failed ping 1
+LayoutMaster:1 Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+r.stripe.com/b:1   Failed to load resource: net::ERR_NETWORK_IO_SUSPENDED
+r.stripe.com/b:1   Failed to load resource: net::ERR_NETWORK_IO_SUSPENDED
+  WebSocket connection to 'wss://eval.janeway.platform.replit.com/wsv2/v2.public.Q2dZSXE0YWh4UVlTQmdqS29xSEZCaUlIYW1GdVpYZGhlVEFBT3Z3QkNpUXhZbVF5TVdOaVpDMHdaVE0yTFRSaVpHSXRPRFEzTUMweFlUbG1NR0UwTTJWaU1qRVNBMjVwZUJvWmNtVndiR2wwTFhKbGNHd3RabWxzWlhNdGFtRnVaWGRoZVNJTVRHRjViM1YwVFdGemRHVnlLZ2xqYzJGaWIzVnlhVzVDVndvYWNtVndiR2wwTFhKbGNHd3RZbXh2WTJ0ekxXcGhibVYzWVhrU0dISmxjR3hwZEMxeVpYQnNMVzFsZEdFdGFtRnVaWGRoZVJvZmNtVndiR2wwTFcxaGNtZGhjbWx1WlMxaWJHOWphM010YW1GdVpYZGhlVW9IQ04raTFnc1FBVkFBV2dobGVIQnNiM0psY2xvYWIyNWliMkZ5WkdsdVoxOWxlSEJsY21sbGJtTmxYMmhwWjJoYUQybHVkR1Z1ZEY5d1pYSnpiMjVoYkhnQVVpTUlBUkNBZ0lDQUlCa0FBQUFBQUFBUVFDRUFBQUFBQUFBUVFDaUFnSUNBeUFFd0FtQUFhaEFJMzZMV0N4SUpZM05oWW05MWNtbHVnZ0VDS2dDYUFRb0tDREF1TUM0eE5qVXhvQUVCQ2yoPWOGHDZUUeQ_MGXSdU1EdugDROgyvPMgsZBNH0TLUIwxUByAoLPys5HYD0p1yLiOzLFAAJSX2hhDzrDGDg.Q2dad2NtOWtPak1pQ25KbGNHeHBkQzVqYjIwPQ' failed: 
+connect @ 1755-c9979fe3d0b60dcf.js:1
+  WebSocket connection to 'wss://eval.janeway.platform.replit.com/wsv2/v2.public.Q2dZSXE0YWh4UVlTQmdqS29xSEZCaUlIYW1GdVpYZGhlVEFBT3Z3QkNpUXhZbVF5TVdOaVpDMHdaVE0yTFRSaVpHSXRPRFEzTUMweFlUbG1NR0UwTTJWaU1qRVNBMjVwZUJvWmNtVndiR2wwTFhKbGNHd3RabWxzWlhNdGFtRnVaWGRoZVNJTVRHRjViM1YwVFdGemRHVnlLZ2xqYzJGaWIzVnlhVzVDVndvYWNtVndiR2wwTFhKbGNHd3RZbXh2WTJ0ekxXcGhibVYzWVhrU0dISmxjR3hwZEMxeVpYQnNMVzFsZEdFdGFtRnVaWGRoZVJvZmNtVndiR2wwTFcxaGNtZGhjbWx1WlMxaWJHOWphM010YW1GdVpYZGhlVW9IQ04raTFnc1FBVkFBV2dobGVIQnNiM0psY2xvYWIyNWliMkZ5WkdsdVoxOWxlSEJsY21sbGJtTmxYMmhwWjJoYUQybHVkR1Z1ZEY5d1pYSnpiMjVoYkhnQVVpTUlBUkNBZ0lDQUlCa0FBQUFBQUFBUVFDRUFBQUFBQUFBUVFDaUFnSUNBeUFFd0FtQUFhaEFJMzZMV0N4SUpZM05oWW05MWNtbHVnZ0VDS2dDYUFRb0tDREF1TUM0eE5qVXhvQUVCQ2yoPWOGHDZUUeQ_MGXSdU1EdugDROgyvPMgsZBNH0TLUIwxUByAoLPys5HYD0p1yLiOzLFAAJSX2hhDzrDGDg.Q2dad2NtOWtPak1pQ25KbGNHeHBkQzVqYjIwPQ' failed: WebSocket is closed before the connection is established.
+cleanupSocket @ 1755-c9979fe3d0b60dcf.js:1
+workspace_iframe.html?initialPath=%2F&id=%3Ar2v7%3A:32  Unrecognized feature: 'ambient-light-sensor'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar2v7%3A:32  Unrecognized feature: 'battery'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar2v7%3A:32  Unrecognized feature: 'execution-while-not-rendered'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar2v7%3A:32  Unrecognized feature: 'execution-while-out-of-viewport'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar2v7%3A:32  Unrecognized feature: 'layout-animations'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar2v7%3A:32  Unrecognized feature: 'legacy-image-formats'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar2v7%3A:32  Unrecognized feature: 'navigation-override'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar2v7%3A:32  Unrecognized feature: 'oversized-images'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar2v7%3A:32  Unrecognized feature: 'publickey-credentials'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar2v7%3A:32  Unrecognized feature: 'speaker-selection'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar2v7%3A:32  Unrecognized feature: 'unoptimized-images'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar2v7%3A:32  Unrecognized feature: 'unsized-media'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar2v7%3A:32  Allow attribute will take precedence over 'allowfullscreen'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar2v7%3A:32  Allow attribute will take precedence over 'allowpaymentrequest'.
+ [vite] connecting...
+ [vite] connected.
+  Selector selectHistoryStats returned a different result when called with the same parameters. This can lead to unnecessary rerenders.
+Selectors that return a new reference (such as an object or an array) should be memoized: https://redux.js.org/usage/deriving-data-selectors#optimizing-selectors-with-memoization Object
+Mt.forEach.n.<computed> @ eruda.js:2
+ CompoundPropertyInput render: Object
+ CompoundPropertyInput render: Object
+ CompoundPropertyInput render: Object
+ CompoundPropertyInput render: Object
+ IndexedDB opened successfully
+ IndexedDB initialized successfully
+ Project loaded from IndexedDB: default-project
+ Loading persisted project: Untitled Project
+  Selector unknown returned a different result when called with the same parameters. This can lead to unnecessary rerenders.
+Selectors that return a new reference (such as an object or an array) should be memoized: https://redux.js.org/usage/deriving-data-selectors#optimizing-selectors-with-memoization Object
+Mt.forEach.n.<computed> @ eruda.js:2
+ Element rectangle-1755688161061-vvrbxgmfp border styles: Array(2)
+  Selector unknown returned a different result when called with the same parameters. This can lead to unnecessary rerenders.
+Selectors that return a new reference (such as an object or an array) should be memoized: https://redux.js.org/usage/deriving-data-selectors#optimizing-selectors-with-memoization Object
+Mt.forEach.n.<computed> @ eruda.js:2
+  Selector unknown returned a different result when called with the same parameters. This can lead to unnecessary rerenders.
+Selectors that return a new reference (such as an object or an array) should be memoized: https://redux.js.org/usage/deriving-data-selectors#optimizing-selectors-with-memoization Object
+Mt.forEach.n.<computed> @ eruda.js:2
+Console.js:61 Element rectangle-6ac84195-6732-42ed-b4c9-8e0af2544986 border styles: Array(2)
+Console.js:61  Selector unknown returned a different result when called with the same parameters. This can lead to unnecessary rerenders.
+Selectors that return a new reference (such as an object or an array) should be memoized: https://redux.js.org/usage/deriving-data-selectors#optimizing-selectors-with-memoization Object
+Mt.forEach.n.<computed> @ Console.js:61
+Console.js:61 Element rectangle-2945b174-af1a-48bd-aa3d-fc904c86745c border styles: Array(2)
+Console.js:61  Selector unknown returned a different result when called with the same parameters. This can lead to unnecessary rerenders.
+Selectors that return a new reference (such as an object or an array) should be memoized: https://redux.js.org/usage/deriving-data-selectors#optimizing-selectors-with-memoization Object
+Mt.forEach.n.<computed> @ Console.js:61
+Console.js:61 Element image-3094775b-6da1-42ca-8a7a-a002b73ef54d border styles: Array(1)
+Console.js:61  Selector unknown returned a different result when called with the same parameters. This can lead to unnecessary rerenders.
+Selectors that return a new reference (such as an object or an array) should be memoized: https://redux.js.org/usage/deriving-data-selectors#optimizing-selectors-with-memoization Object
+Mt.forEach.n.<computed> @ Console.js:61
+Console.js:61 Element rectangle-c23d82af-9244-4405-ba6c-c58d462c1b69 border styles: Array(2)
+Console.js:61  Selector unknown returned a different result when called with the same parameters. This can lead to unnecessary rerenders.
+Selectors that return a new reference (such as an object or an array) should be memoized: https://redux.js.org/usage/deriving-data-selectors#optimizing-selectors-with-memoization Object
+Mt.forEach.n.<computed> @ Console.js:61
+Console.js:61 Element button-1755858278044-p8clqhety border styles: Array(1)
+Console.js:61  Selector unknown returned a different result when called with the same parameters. This can lead to unnecessary rerenders.
+Selectors that return a new reference (such as an object or an array) should be memoized: https://redux.js.org/usage/deriving-data-selectors#optimizing-selectors-with-memoization Object
+Mt.forEach.n.<computed> @ Console.js:61
+Console.js:61 Element rectangle-c65cdc80-e0dd-4454-b5a6-fccdad7311b2 border styles: Array(2)
+Console.js:61  Selector unknown returned a different result when called with the same parameters. This can lead to unnecessary rerenders.
+Selectors that return a new reference (such as an object or an array) should be memoized: https://redux.js.org/usage/deriving-data-selectors#optimizing-selectors-with-memoization Object
+Mt.forEach.n.<computed> @ Console.js:61
+Console.js:61 Element rectangle-cde9c62e-215b-45cd-935f-074884255bc7 border styles: Array(2)
+Console.js:61  Selector unknown returned a different result when called with the same parameters. This can lead to unnecessary rerenders.
+Selectors that return a new reference (such as an object or an array) should be memoized: https://redux.js.org/usage/deriving-data-selectors#optimizing-selectors-with-memoization Object
+Mt.forEach.n.<computed> @ Console.js:61
+Console.js:61 Element image-88c0610e-3225-4ea6-8131-f76ec42247df border styles: Array(1)
+Console.js:61  Selector unknown returned a different result when called with the same parameters. This can lead to unnecessary rerenders.
+Selectors that return a new reference (such as an object or an array) should be memoized: https://redux.js.org/usage/deriving-data-selectors#optimizing-selectors-with-memoization Object
+Mt.forEach.n.<computed> @ Console.js:61
+Console.js:61 Element rectangle-1755688162649-u4yal8bfg border styles: Array(2)
+Console.js:61  Selector unknown returned a different result when called with the same parameters. This can lead to unnecessary rerenders.
+Selectors that return a new reference (such as an object or an array) should be memoized: https://redux.js.org/usage/deriving-data-selectors#optimizing-selectors-with-memoization Object
+Mt.forEach.n.<computed> @ Console.js:61
+Console.js:61 Element image-1755688208168-p2ztgy69x border styles: Array(1)
+Console.js:61  Selector unknown returned a different result when called with the same parameters. This can lead to unnecessary rerenders.
+Selectors that return a new reference (such as an object or an array) should be memoized: https://redux.js.org/usage/deriving-data-selectors#optimizing-selectors-with-memoization Object
+Mt.forEach.n.<computed> @ Console.js:61
+Console.js:61 Element rectangle-1755688165956-somsff1eh border styles: Array(2)
+Console.js:61  Selector unknown returned a different result when called with the same parameters. This can lead to unnecessary rerenders.
+Selectors that return a new reference (such as an object or an array) should be memoized: https://redux.js.org/usage/deriving-data-selectors#optimizing-selectors-with-memoization Object
+Mt.forEach.n.<computed> @ Console.js:61
+Console.js:61 Element button-1755858970960-cwkpbkwdy border styles: Array(1)
+Console.js:61 CompoundPropertyInput render: Object
+Console.js:61 CompoundPropertyInput render: Object
+Console.js:61 CompoundPropertyInput render: Object
+Console.js:61 CompoundPropertyInput render: Object
+Console.js:61 CompoundPropertyInput render: Object
+Console.js:61 CompoundPropertyInput render: Object
+Console.js:61 CompoundPropertyInput render: Object
+Console.js:61 CompoundPropertyInput render: Object
+Console.js:61  SerializableStateInvariantMiddleware took 69ms, which is more than the warning threshold of 32ms. 
+If your state or actions are very large, you may want to disable the middleware as it might cause too much of a slowdown in development mode. See https://redux-toolkit.js.org/api/getDefaultMiddleware for instructions.
+It is disabled in production builds, so you don't need to worry about that.
+Mt.forEach.n.<computed> @ Console.js:61
+Console.js:61 Loaded 50 history entries from IndexedDB
+Console.js:61 History manager initialized
+Console.js:61 Components loaded from IndexedDB: 1
+Console.js:61 Categories loaded from IndexedDB: 0
+Console.js:61 Loaded 1 components in 0 categories
+Console.js:61 Loaded 4 custom classes and 0 class categories
+Console.js:61 Element rectangle-1755688161061-vvrbxgmfp border styles: Array(2)
+Console.js:61 Element rectangle-6ac84195-6732-42ed-b4c9-8e0af2544986 border styles: Array(2)
+Console.js:61 Element rectangle-2945b174-af1a-48bd-aa3d-fc904c86745c border styles: Array(2)
+Console.js:61 Element image-3094775b-6da1-42ca-8a7a-a002b73ef54d border styles: Array(1)
+Console.js:61 Element rectangle-c23d82af-9244-4405-ba6c-c58d462c1b69 border styles: Array(2)
+Console.js:61 Element button-1755858278044-p8clqhety border styles: Array(1)
+Console.js:61 Element rectangle-c65cdc80-e0dd-4454-b5a6-fccdad7311b2 border styles: Array(2)
+Console.js:61 Element rectangle-cde9c62e-215b-45cd-935f-074884255bc7 border styles: Array(2)
+Console.js:61 Element image-88c0610e-3225-4ea6-8131-f76ec42247df border styles: Array(1)
+Console.js:61 Element rectangle-1755688162649-u4yal8bfg border styles: Array(2)
+Console.js:61 Element image-1755688208168-p2ztgy69x border styles: Array(1)
+Console.js:61 Element rectangle-1755688165956-somsff1eh border styles: Array(2)
+Console.js:61 Element button-1755858970960-cwkpbkwdy border styles: Array(1)
+Console.js:61 CompoundPropertyInput render: Object
+Console.js:61 CompoundPropertyInput render: Object
+Console.js:61 CompoundPropertyInput render: Object
+Console.js:61 CompoundPropertyInput render: Object
+Console.js:61 Loading persisted UI settings
+Console.js:61 CompoundPropertyInput render: Object
+Console.js:61 CompoundPropertyInput render: Object
+Console.js:61 CompoundPropertyInput render: Object
+Console.js:61 CompoundPropertyInput render: Object
+Console.js:61 Auto-save started (interval: 5s)
+Console.js:61 Persistence manager initialized
+Console.js:61 Project saved to IndexedDB: default-project
+Console.js:61 Project auto-saved
+stallwart.build.js:1 stallwart: failed ping 1
+stallwart.build.js:1 stallwart: failed ping 1
+Console.js:61 Starting image save process: Object
+Console.js:61 Attempting to save to IndexedDB: Object
+Console.js:61 IndexedDB saveImage called with: Object
+Console.js:61 Database connection established
+Console.js:61  SaveImage failed with error: NotFoundError: Failed to execute 'transaction' on 'IDBDatabase': One of the specified object stores was not found.
+    at IndexedDBManager.saveImage (1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/utils/indexedDB.ts:328:30)
+    at async reader.onload (1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/components/DesignTool/ImageUpload.tsx:74:11)
+Mt.forEach.n.<computed> @ Console.js:61
+Console.js:61  Failed to save image - detailed error: NotFoundError: Failed to execute 'transaction' on 'IDBDatabase': One of the specified object stores was not found.
+    at IndexedDBManager.saveImage (1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/utils/indexedDB.ts:328:30)
+    at async reader.onload (1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/components/DesignTool/ImageUpload.tsx:74:11)
+Mt.forEach.n.<computed> @ Console.js:61
+Console.js:61  Error type: object
+Mt.forEach.n.<computed> @ Console.js:61
+Console.js:61  Error message: Failed to execute 'transaction' on 'IDBDatabase': One of the specified object stores was not found.
+Mt.forEach.n.<computed> @ Console.js:61
+Console.js:61  Error stack: NotFoundError: Failed to execute 'transaction' on 'IDBDatabase': One of the specified object stores was not found.
+    at IndexedDBManager.saveImage (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/utils/indexedDB.ts:328:30)
+    at async reader.onload (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/components/DesignTool/ImageUpload.tsx:74:11)
+Mt.forEach.n.<computed> @ Console.js:61
+_app-dc45261c6c86c5c5.js:1 [Violation] 'setInterval' handler took 163ms

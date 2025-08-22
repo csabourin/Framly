@@ -11,7 +11,7 @@ export interface SavedImage {
 }
 
 const DB_NAME = 'DesignToolDB';
-const DB_VERSION = 2;
+const DB_VERSION = 3;
 
 // Store names
 const PROJECTS_STORE = 'projects';
@@ -83,46 +83,56 @@ class IndexedDBManager {
       request.onupgradeneeded = (event) => {
         const db = (event.target as IDBOpenDBRequest).result;
         
+        console.log('IndexedDB upgrade triggered, version:', event.newVersion, 'from:', event.oldVersion);
+        console.log('Existing stores:', Array.from(db.objectStoreNames));
+        
         // Create object stores
         if (!db.objectStoreNames.contains(PROJECTS_STORE)) {
+          console.log('Creating projects store');
           const projectStore = db.createObjectStore(PROJECTS_STORE, { keyPath: 'id' });
           projectStore.createIndex('updatedAt', 'updatedAt', { unique: false });
         }
 
         if (!db.objectStoreNames.contains(COMPONENTS_STORE)) {
+          console.log('Creating components store');
           const componentStore = db.createObjectStore(COMPONENTS_STORE, { keyPath: 'id' });
           componentStore.createIndex('category', 'category', { unique: false });
           componentStore.createIndex('updatedAt', 'updatedAt', { unique: false });
         }
 
         if (!db.objectStoreNames.contains(CATEGORIES_STORE)) {
+          console.log('Creating categories store');
           const categoryStore = db.createObjectStore(CATEGORIES_STORE, { keyPath: 'id' });
           categoryStore.createIndex('updatedAt', 'updatedAt', { unique: false });
         }
 
         if (!db.objectStoreNames.contains(SETTINGS_STORE)) {
+          console.log('Creating settings store');
           db.createObjectStore(SETTINGS_STORE, { keyPath: 'id' });
         }
 
         if (!db.objectStoreNames.contains(CUSTOM_CLASSES_STORE)) {
+          console.log('Creating custom classes store');
           const customClassStore = db.createObjectStore(CUSTOM_CLASSES_STORE, { keyPath: 'name' });
           customClassStore.createIndex('category', 'category', { unique: false });
           customClassStore.createIndex('updatedAt', 'updatedAt', { unique: false });
         }
 
         if (!db.objectStoreNames.contains(CLASS_CATEGORIES_STORE)) {
+          console.log('Creating class categories store');
           const classCategoryStore = db.createObjectStore(CLASS_CATEGORIES_STORE, { keyPath: 'id' });
           classCategoryStore.createIndex('type', 'type', { unique: false });
           classCategoryStore.createIndex('updatedAt', 'updatedAt', { unique: false });
         }
 
         if (!db.objectStoreNames.contains(IMAGES_STORE)) {
+          console.log('Creating images store');
           const imageStore = db.createObjectStore(IMAGES_STORE, { keyPath: 'id' });
           imageStore.createIndex('filename', 'filename', { unique: false });
           imageStore.createIndex('createdAt', 'createdAt', { unique: false });
         }
 
-        console.log('IndexedDB schema created/upgraded');
+        console.log('IndexedDB schema created/upgraded. Final stores:', Array.from(db.objectStoreNames));
       };
     });
 
@@ -136,6 +146,13 @@ class IndexedDBManager {
     if (!this.db) {
       throw new Error('Failed to initialize IndexedDB');
     }
+    
+    // Verify that required stores exist
+    if (!this.db.objectStoreNames.contains(IMAGES_STORE)) {
+      console.error('Images store missing from database. Available stores:', Array.from(this.db.objectStoreNames));
+      throw new Error(`Database is missing required store: ${IMAGES_STORE}. Please refresh the page to upgrade your database.`);
+    }
+    
     return this.db;
   }
 
