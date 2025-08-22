@@ -1,5 +1,5 @@
 // Property configuration for dynamic properties panel
-export type ElementType = 'container' | 'rectangle' | 'text' | 'heading' | 'list' | 'image';
+export type ElementType = 'container' | 'rectangle' | 'text' | 'heading' | 'list' | 'image' | 'button';
 
 export interface PropertyConfig {
   key: string;
@@ -560,6 +560,35 @@ export const elementPropertyMap: Record<ElementType, PropertyConfig[]> = {
     ...appearanceProperties.filter(p => !['backgroundColor'].includes(p.key)),
     ...flexProperties,
     ...advancedProperties.filter(p => !['overflow'].includes(p.key))
+  ],
+  button: [
+    // Button-specific properties first
+    ...layoutProperties,
+    ...spacingProperties,
+    ...textProperties,
+    ...appearanceProperties,
+    {
+      key: 'cursor',
+      label: 'Cursor Style',
+      type: 'select',
+      category: 'advanced',
+      priority: 1,
+      options: [
+        { value: 'pointer', label: 'Pointer (Hand)' },
+        { value: 'default', label: 'Default' },
+        { value: 'not-allowed', label: 'Not Allowed' }
+      ],
+      description: 'Mouse cursor when hovering'
+    },
+    {
+      key: 'transition',
+      label: 'Hover Animation',
+      type: 'text',
+      category: 'effects',
+      priority: 2,
+      description: 'CSS transition for smooth state changes'
+    },
+    ...advancedProperties.filter(p => !['cursor', 'transition'].includes(p.key))
   ],
   image: [
     ...layoutProperties,

@@ -149,24 +149,38 @@ export function createDefaultElement(type: CanvasElement['type'], x: number = 0,
         width: 120,
         height: 40,
         buttonText: 'Button',
-        currentButtonState: 'default',
-        styles: {
-          backgroundColor: '#3b82f6',
-          color: '#ffffff',
-          border: 'none',
-          borderRadius: '6px',
-          padding: '8px 16px',
-          fontSize: '14px',
-          fontWeight: '500',
-          cursor: 'pointer',
-          display: 'inline-flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          transition: 'all 0.2s ease',
-          fontFamily: 'inherit',
-          textDecoration: 'none',
-          outline: 'none'
-        },
+        currentButtonState: 'default' as const,
+        styles: (() => {
+          // Try to load default button styles from localStorage
+          const defaultStyles = localStorage.getItem('defaultButtonStyles');
+          if (defaultStyles) {
+            try {
+              return JSON.parse(defaultStyles);
+            } catch (e) {
+              console.warn('Failed to parse default button styles');
+            }
+          }
+          
+          // Default professional button styles
+          return {
+            backgroundColor: '#3b82f6',
+            color: '#ffffff',
+            border: 'none',
+            borderRadius: '8px',
+            padding: '12px 24px',
+            fontSize: '16px',
+            fontWeight: '500',
+            cursor: 'pointer',
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            transition: 'all 0.2s ease-in-out',
+            textAlign: 'center',
+            lineHeight: '1.5',
+            fontFamily: 'system-ui, -apple-system, sans-serif',
+            minWidth: '100px'
+          };
+        })(),
         classes: [`button-${Date.now()}`],
       };
       

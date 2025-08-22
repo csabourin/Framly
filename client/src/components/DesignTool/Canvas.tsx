@@ -366,11 +366,17 @@ const Canvas: React.FC = () => {
         dispatch(setSelectedTool('select'));
       }
     } else {
-      // Clicked on empty area with creation tool - switch to selection tool
-      if (['rectangle', 'text', 'image', 'container', 'heading', 'list', 'button'].includes(selectedTool)) {
-        dispatch(setSelectedTool('select'));
-        dispatch(selectElement('root'));
+      // Clicked on empty area (non-recipient) with creation tool - switch to selection tool
+      const clickedElement = getElementAtPoint(x, y, project.elements, zoomLevel);
+      
+      // Only switch to select tool if clicking on truly empty area or non-recipient elements
+      if (!clickedElement || clickedElement.id === 'root' || !isValidDropTarget(clickedElement)) {
+        if (['rectangle', 'text', 'image', 'container', 'heading', 'list', 'button'].includes(selectedTool)) {
+          dispatch(setSelectedTool('select'));
+          dispatch(selectElement('root'));
+        }
       }
+      // If clicked on recipient element (like rectangle), stay in current tool mode for more creation
     }
   }, [selectedTool, zoomLevel, project.elements, dispatch, hoveredElementId, hoveredZone]);
 

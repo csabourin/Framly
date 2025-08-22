@@ -20,6 +20,8 @@ const ButtonElement: React.FC<ButtonElementProps> = ({
 }) => {
   const dispatch = useDispatch();
   const { designs } = useSelector((state: RootState) => state.button);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editText, setEditText] = useState(element.buttonText || 'Button');
   // Use element's currentButtonState for real-time state visualization from Properties panel
   const currentState = element.currentButtonState || 'default';
 
@@ -107,11 +109,61 @@ const ButtonElement: React.FC<ButtonElementProps> = ({
     }
   };
 
-  const handleTextChange = (newText: string) => {
-    onUpdate({ buttonText: newText });
+  const handleDoubleClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setIsEditing(true);
+    setEditText(element.buttonText || 'Button');
+  };
+
+  const handleTextSubmit = () => {
+    dispatch(updateElement({
+      id: element.id,
+      updates: { buttonText: editText }
+    }));
+    setIsEditing(false);
+  };
+
+  const handleTextKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      handleTextSubmit();
+    } else if (e.key === 'Escape') {
+      setEditText(element.buttonText || 'Button');
+      setIsEditing(false);
+    }
   };
 
   const buttonText = element.buttonText || 'Button';
+
+  if (isEditing) {
+    return (
+      <div
+        style={{
+          ...getButtonStyles(),
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}
+        className="font-medium focus:outline-none transition-all duration-200 ring-2 ring-blue-500 ring-offset-1"
+      >
+        <input
+          type="text"
+          value={editText}
+          onChange={(e) => setEditText(e.target.value)}
+          onBlur={handleTextSubmit}
+          onKeyDown={handleTextKeyDown}
+          className="bg-transparent text-center outline-none w-full"
+          style={{ 
+            color: 'inherit',
+            fontSize: 'inherit',
+            fontFamily: 'inherit',
+            fontWeight: 'inherit'
+          }}
+          autoFocus
+          data-testid={`button-text-editor-${element.id}`}
+        />
+      </div>
+    );
+  }
 
   return (
     <button
@@ -121,6 +173,7 @@ const ButtonElement: React.FC<ButtonElementProps> = ({
         ${isSelected ? 'ring-2 ring-blue-500 ring-offset-1' : ''}
       `}
       onClick={onSelect}
+      onDoubleClick={handleDoubleClick}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onMouseDown={handleMouseDown}

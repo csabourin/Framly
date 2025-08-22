@@ -497,22 +497,12 @@ const PropertiesPanel: React.FC = () => {
               Button Properties
             </h3>
             
-            {/* Button Text */}
+            {/* Button Properties */}
             <div className="space-y-3">
-              <div>
-                <Label className="text-sm font-medium text-gray-700">Button Text</Label>
-                <Input
-                  value={selectedElement.buttonText || 'Button'}
-                  onChange={(e) => {
-                    dispatch(updateElement({
-                      id: selectedElement.id,
-                      updates: { buttonText: e.target.value }
-                    }));
-                  }}
-                  placeholder="Enter button text..."
-                  className="mt-1"
-                  data-testid="button-text-input"
-                />
+              <div className="p-2 bg-blue-50 border border-blue-200 rounded">
+                <p className="text-xs text-blue-700">
+                  💡 <strong>Double-click</strong> the button on canvas to edit its text
+                </p>
               </div>
               
               {/* Button State Selector */}
@@ -523,10 +513,49 @@ const PropertiesPanel: React.FC = () => {
                   // Update canvas element to show selected state
                   dispatch(updateElement({
                     id: selectedElement.id,
-                    updates: { currentButtonState: state }
+                    updates: { currentButtonState: state as 'default' | 'hover' | 'active' | 'focus' | 'disabled' }
                   }));
                 }}
               />
+              
+              {/* Make Default Button */}
+              <div className="pt-2 border-t border-orange-200">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    // Save current button's applied class styles as default for new buttons
+                    if (selectedClassForEditing && customClasses[selectedClassForEditing]) {
+                      const classStyles = customClasses[selectedClassForEditing].styles;
+                      localStorage.setItem('defaultButtonStyles', JSON.stringify(classStyles));
+                      
+                      // Visual feedback
+                      const button = document.querySelector('[data-testid="make-default-button"]');
+                      if (button) {
+                        const originalText = button.textContent;
+                        button.textContent = '✓ Saved as Default!';
+                        button.classList.add('bg-green-50', 'text-green-700', 'border-green-300');
+                        setTimeout(() => {
+                          button.textContent = originalText;
+                          button.classList.remove('bg-green-50', 'text-green-700', 'border-green-300');
+                        }, 2000);
+                      }
+                    } else {
+                      // Fallback to element styles
+                      const currentStyles = selectedElement.styles;
+                      localStorage.setItem('defaultButtonStyles', JSON.stringify(currentStyles));
+                      console.log('Button styles saved as default');
+                    }
+                  }}
+                  className="w-full text-orange-700 border-orange-300 hover:bg-orange-50"
+                  data-testid="make-default-button"
+                >
+                  Make Default for New Buttons
+                </Button>
+                <p className="text-xs text-orange-600 mt-1">
+                  New buttons will use current styling as default
+                </p>
+              </div>
             </div>
           </div>
         </div>
