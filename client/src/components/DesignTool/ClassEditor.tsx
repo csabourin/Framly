@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
-import { selectCanvasProject, selectCustomClasses } from '../../store/selectors';
+import { selectSelectedElement, selectSelectedElementId, selectCurrentElements, selectCustomClasses } from '../../store/selectors';
 import { updateElementStyles, addCSSClass, removeCSSClass } from '../../store/canvasSlice';
 import { addCustomClass, updateCustomClass, deleteCustomClass } from '../../store/classSlice';
 import { Button } from '@/components/ui/button';
@@ -22,9 +22,10 @@ interface ClassEditorProps {
 
 export const ClassEditor: React.FC<ClassEditorProps> = ({ isOpen, onClose }) => {
   const dispatch = useDispatch();
-  const project = useSelector(selectCanvasProject);
+  const selectedElement = useSelector(selectSelectedElement);
+  const selectedElementId = useSelector(selectSelectedElementId);
+  const currentElements = useSelector(selectCurrentElements);
   const customClasses = useSelector(selectCustomClasses);
-  const selectedElement = project.selectedElementId ? project.elements[project.selectedElementId] : null;
   
   const [newClassName, setNewClassName] = useState('');
   const [editingClass, setEditingClass] = useState<string | null>(null);
@@ -41,7 +42,7 @@ export const ClassEditor: React.FC<ClassEditorProps> = ({ isOpen, onClose }) => 
       // Auto-start editing the first applied class for immediate access
       startEditingAppliedClass(firstClass);
     }
-  }, [isOpen, selectedElement?.id]);
+  }, [isOpen, selectedElementId]);
 
   // Extract styles from selected element into a new class
   const extractStylesToClass = () => {
@@ -75,29 +76,31 @@ export const ClassEditor: React.FC<ClassEditorProps> = ({ isOpen, onClose }) => 
     }));
 
     // Apply the class to the current element
-    dispatch(addCSSClass({ elementId: selectedElement.id, className }));
-    
-    // Clear the element's inline styles since they're now in the class
-    dispatch(updateElementStyles({
-      id: selectedElement.id,
-      styles: {}
-    }));
+    if (selectedElementId) {
+      dispatch(addCSSClass({ elementId: selectedElementId, className }));
+      
+      // Clear the element's inline styles since they're now in the class
+      dispatch(updateElementStyles({
+        id: selectedElementId,
+        styles: {}
+      }));
+    }
 
     setNewClassName('');
   };
 
   // Apply an existing class to the selected element
   const applyClassToElement = (className: string) => {
-    if (!selectedElement) return;
+    if (!selectedElement || !selectedElementId) return;
     
-    dispatch(addCSSClass({ elementId: selectedElement.id, className }));
+    dispatch(addCSSClass({ elementId: selectedElementId, className }));
   };
 
   // Remove a class from the selected element
   const removeClassFromElement = (className: string) => {
-    if (!selectedElement) return;
+    if (!selectedElement || !selectedElementId) return;
     
-    dispatch(removeCSSClass({ elementId: selectedElement.id, className }));
+    dispatch(removeCSSClass({ elementId: selectedElementId, className }));
   };
 
   // Start editing a class (either custom or applied)
@@ -234,7 +237,7 @@ export const ClassEditor: React.FC<ClassEditorProps> = ({ isOpen, onClose }) => 
     }));
 
     // Update all elements that use the old class name
-    Object.values(project.elements).forEach((element: any) => {
+    Object.values(currentElements).forEach((element: any) => {
       if (element.classes && element.classes.includes(renamingClass)) {
         // Remove old class and add new class
         dispatch(removeCSSClass({ elementId: element.id, className: renamingClass }));
