@@ -67,8 +67,10 @@ const DesignToolContent: React.FC = () => {
         {isComponentPanelVisible && <ComponentPanel />}
         <PropertiesPanel />
       </div>
-      <TabBar />
-      <StatusBar />
+      <div className="flex flex-col">
+        <TabBar />
+        <StatusBar />
+      </div>
       <ExportModal />
       <CodeModal />
       <CSSOptimizationModal />

@@ -44,7 +44,7 @@ const StatusBar: React.FC = () => {
 
   return (
     <footer 
-      className="absolute bottom-0 left-0 right-0 h-8 bg-white border-t border-gray-200 flex items-center px-4 text-xs text-gray-600 z-50 gap-4"
+      className="h-8 bg-white border-t border-gray-200 flex items-center px-4 text-xs text-gray-600 gap-4 flex-shrink-0"
       data-testid="status-bar"
     >
       {/* Current Tool */}
