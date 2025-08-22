@@ -956,7 +956,7 @@ const Canvas: React.FC = () => {
     };
   }, [isDragging, isResizing, isDraggingForReorder, handleMouseMove, handleMouseUp, selectedElement, dispatch]);
 
-  if (!rootElement || !currentElements || Object.keys(currentElements).length === 0) {
+  if (!rootElement) {
     return (
       <main className={`absolute top-12 bottom-20 bg-gray-50 flex items-center justify-center ${
         isDOMTreePanelVisible 
