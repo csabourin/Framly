@@ -39,10 +39,7 @@ const Canvas: React.FC = () => {
 
   const rootElement = currentElements.root;
   
-  // Debug logging for tab switching issues
-  console.log('Canvas render - currentElements keys:', Object.keys(currentElements));
-  console.log('Canvas render - rootElement exists:', !!rootElement);
-  console.log('Canvas render - activeTabId:', project.activeTabId);
+
   const selectedElement = selectedElementId ? currentElements[selectedElementId] : null;
 
   // Function to detect insertion zones based on mouse position
@@ -361,8 +358,7 @@ const Canvas: React.FC = () => {
         setHoveredZone(null);
         dispatch(selectElement(newElement.id));
         
-        // Switch to selection tool after creating element
-        dispatch(setSelectedTool('select'));
+        // Keep the current tool active so user can continue placing elements
       } else {
         // If no valid insertion point, create at root
         if (!canInsertInTarget) {
@@ -378,8 +374,7 @@ const Canvas: React.FC = () => {
         }));
         dispatch(selectElement(newElement.id));
         
-        // Switch to selection tool after creating element
-        dispatch(setSelectedTool('select'));
+        // Keep the current tool active so user can continue placing elements
       }
     } else {
       // Clicked on empty area (non-recipient) with creation tool - switch to selection tool

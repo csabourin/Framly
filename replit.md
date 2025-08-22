@@ -94,6 +94,13 @@ Preferred communication style: Simple, everyday language.
 - **File Validation**: Proper file size limits, type validation, and comprehensive error handling
 - **Accessibility Features**: Alt text and title support for screen readers and tooltips
 
+#### Intelligent Tool Persistence (January 22, 2025) - COMPLETED
+- **Smart Tool Behavior**: Creation tools (rectangle, text, image, etc.) now stay active after inserting elements
+- **Context-Aware Switching**: Tools automatically switch to selection only when clicking on invalid/non-recipient areas
+- **Rapid Element Placement**: Users can quickly place multiple elements of the same type without manual tool switching
+- **Improved Workflow**: Enhanced productivity by eliminating unnecessary tool switching friction
+- **User-Driven Control**: Tool behavior responds intelligently to user intent and click targets
+
 #### Revolutionary Website Import System (January 22, 2025) - COMPLETED
 - **Complete HTML Structure Import**: Imports all semantic elements (nav, header, main, footer, aside, section, article)
 - **Advanced CSS Extraction**: Server-side CSS extraction from both inline styles and external stylesheets
