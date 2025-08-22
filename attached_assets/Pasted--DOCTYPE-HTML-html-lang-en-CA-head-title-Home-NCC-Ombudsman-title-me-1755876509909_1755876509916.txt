@@ -1,0 +1,194 @@
+
+<!DOCTYPE HTML>
+<html lang="en-CA">
+	<head>
+		<title>Home |  NCC Ombudsman</title>
+		
+				<meta charset="utf-8">
+		<meta http-equiv="x-ua-compatible" content="ie=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="google-site-verification" content="HWOxWJ8bm7UBDQ8sGsDGiC9HUXndoDRJZ7mgFI3coaI" />
+		<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="96x96" href="/img/favicon-96x96.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
+
+				<link rel="stylesheet" href="//fast.fonts.net/cssapi/397680ba-3bf4-496b-b1aa-78afefc91ba6.css"  crossorigin="anonymous">
+		<link rel="stylesheet" href="//stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
+		
+				<link rel="stylesheet" href="/css/vendor.css">
+		<link rel="stylesheet" href="/css/main.css">
+
+				<style>@media (max-width: 992px) {
+	.hamburger-stack {
+		position: absolute;
+		top: 100%;
+		background-color: #013950;
+		width: 100%;
+		left: 0px;
+		padding-left: 15px;
+		box-shadow: 2px 4px 4px rgba(0,0,0,0.25);
+
+	}
+
+}
+
+</style>
+
+	</head>
+	<body>
+		
+						
+
+<nav class="container navbar navbar-expand-lg navbar-light align-items-end navbar-nudge">
+	
+				<a class="navbar-brand mr-auto" href="https://ombudsman.ncc-ccn.ca/">
+		<img style="max-height: 100px" src="/images/logo-en.png" alt="NCC Ombudsman">
+			
+			</a>
+	
+	<button class="navbar-toggler ml-auto border-primary" type="button" data-toggle="collapse" data-target="#headerToggler" aria-controls="headerToggler" aria-expanded="false" aria-label="Toggle header navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	
+	<div class="collapse navbar-collapse hamburger-stack nav-tabs" id="headerToggler">
+		<div class="navbar-nav ml-auto" >
+										<div class="nav-item ">
+					<a class="text-primary font-weight-bold nav-link nav-link-header" href="https://ombudsman.ncc-ccn.ca/about" title="About">About</a>
+				</div>
+							<div class="nav-item ">
+					<a class="text-primary font-weight-bold nav-link nav-link-header" href="https://ombudsman.ncc-ccn.ca/role-of-the-ombudsman" title="Role of the Ombudsman">Role of the Ombudsman</a>
+				</div>
+							<div class="nav-item ">
+					<a class="text-primary font-weight-bold nav-link nav-link-header" href="https://ombudsman.ncc-ccn.ca/making-a-complaint" title="Making a Complaint">Making a Complaint</a>
+				</div>
+							<div class="nav-item ">
+					<a class="text-primary font-weight-bold nav-link nav-link-header" href="https://ombudsman.ncc-ccn.ca/biography" title="Message and Biography">Message and Biography</a>
+				</div>
+							<div class="nav-item ">
+					<a class="text-primary font-weight-bold nav-link nav-link-header" href="https://ombudsman.ncc-ccn.ca/faq" title="FAQ">FAQ</a>
+				</div>
+							<div class="nav-item ">
+					<a class="text-primary font-weight-bold nav-link nav-link-header" href="https://ombudsman.ncc-ccn.ca/contact-us" title="Contact Us">Contact Us</a>
+				</div>
+						
+			<!--<div class="nav-item ">
+				<a class="text-primary font-weight-bold nav-link nav-link-header" href="https://ombudsman.ncc-ccn.ca/Search"><i class="fa fa-search hide-mobile" aria-hidden="true"></i><span class="hide-desktop">Search</span></a>
+			</div>-->
+		</div>
+	</div>	
+		<div class="nav-language-switch">
+						<a class="font-weight-bold nav-language-override" href="https://ombudsman.ccn-ncc.ca/">Français</a>
+	</div>
+</nav>
+			
+		
+
+		
+
+<nav aria-label="breadcrumb "  class="container p-0">
+  <ol class="breadcrumb mb-0 rounded-0 light-bg">
+  	<li class="breadcrumb-item"><a href="https://ombudsman.ncc-ccn.ca/" class="text-white">Home</a></li>
+
+	 
+	
+  </ol>
+</nav>		
+
+<header class="container">
+	<div class="row primary-header">
+		 
+    													<div class="col-4 col-sm-2">
+					<img class="header-card-image mw-100 mh-100" src="https://s3.ca-central-1.amazonaws.com/ncc-ombudsman/images/_430x425_crop_center-center_line/omsbudsmanPhoto.png" alt=""
+							data-srcset="https://s3.ca-central-1.amazonaws.com/ncc-ombudsman/images/_430x425_crop_center-center_line/omsbudsmanPhoto.png 430w" data-sizes="auto">
+				</div>
+			
+			<div class="col-8 col-sm-10 header-padding">
+												<img class="header-left-quote" src="https://ncc-website-2.s3.amazonaws.com/images/leftQuote.png?mtime=20210819140538&amp;focal=none"/>
+				<p class='header-text'>I will listen and ensure that your complaint or concern is treated with respect and fairly, and that it remains confidential.
+					<span><img class="header-right-quote" src="https://ncc-website-2.s3.amazonaws.com/images/rightQuote.png?mtime=20210819140537&amp;focal=none"/></span>
+				</p>
+				
+
+    												<a class="" href="https://ombudsman.ncc-ccn.ca/biography">
+						<button type="button" class="btn btn-primary header-button">
+							Message and Biography
+						</button>
+					</a>
+							</div>
+			</div>
+</header>			
+				<main class="container clearfix">			
+				
+				<div class="row">
+			<div class="col-12 col-lg-5">
+										<p>The mandate of the NCC Ombudsman is to provide members of the public with an independent, confidential, neutral, fair and equitable resource for resolving complaints, when all other redress avenues internal to the NCC have been exhausted.</p>
+<p>The mission of the NCC Ombudsman is to listen carefully and with an open mind to concerns and complaints raised by members of the public. When deemed appropriate, the NCC Ombudsman will intervene or investigate on a confidential basis with a view to resolving complaints.</p>
+<p><a href="https://ombudsman.ncc-ccn.ca/about"><u><strong>Learn more about the office of the Ombudsman &gt;&gt;</strong></u></a></p> 
+ 
+							</div>
+			<div class="col-12 col-lg-3">
+									<section class="highlight">
+		<h2>Would you like to make a complaint?</h2>
+		<hr/>
+		<p>There are 3 simple steps to take to ensure a smooth process.<br /></p>
+						<a href="https://ombudsman.ncc-ccn.ca/making-a-complaint" class="btn btn-main">
+			Complaint Process
+		</a>
+		
+	</section>
+ 
+			</div>
+			<div class="col-12 col-lg-4">
+									<section class="faq bg-primary text-white">
+
+					<h2 class="faq-title">Frequently Asked Questions</h2>
+				<hr class="light"/>
+					<div class="row faq-group faq-margin">
+				<div class="col-2 col-sm-1 col-lg-2 text-center faq-number">
+					<div class="faq-circle d-inline-block">1</div>
+				</div>
+				<div class="col-10 col-sm-11 col-lg-10 faq-pair">
+					<div class="faq-question">Q: How long will it take the NCC Ombudsman to investigate my complaint?</div>
+					<div class="faq-answer faq-margin">A: While the Ombudsman strives to respond to complaints in a timely manner, each case is unique; therefore, timelines will vary.</div>
+				</div>
+			</div>
+				
+						<div class="row faq-group faq-margin">
+			<div class="col-2 col-sm-1 col-lg-2"></div>
+			<div class="col-10 col-sm-11 col-lg-10">
+					<a class="faq-link" href="https://ombudsman.ncc-ccn.ca/faq">
+						More questions and answers
+					</a>
+			</div>
+		</div>
+		
+	</section>
+ 
+			</div>
+		</div>
+			</main>
+				
+<footer class="container p-0 pt-3">
+	<nav class='navbar navbar-dark bg-primary navbar-expand'>
+		<div class="collapse navbar-collapse navbar-nav flex-column align-items-start" id="footerToggler">
+							<a class="nav-item nav-link nav-link-footer" href="https://ombudsman.ncc-ccn.ca/reports-and-media" title="Reports and Media"><u>Reports and Media</u></a>
+							<a class="nav-item nav-link nav-link-footer" href="https://ombudsman.ncc-ccn.ca/resources" title="Resources"><u>Resources</u></a>
+							<a class="nav-item nav-link nav-link-footer" href="https://ombudsman.ncc-ccn.ca/terms-of-reference" title="Terms of Reference"><u>Terms of Reference</u></a>
+					</div>
+		
+		<div class="navbar-nav mx-auto align-items-right">
+			<a class="navbar-brand" href="https://canada.ca"><img style="height: 1.5em;" class="ml-auto" src="/images/canada.png"></a>
+		</div>
+	</nav>
+</footer>
+		<script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
+		<script src="/js/main.js" defer></script>
+
+				
+		
+	</body>
+</html>
+
+

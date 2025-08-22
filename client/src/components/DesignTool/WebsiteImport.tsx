@@ -71,22 +71,23 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
         console.log('Processing CSS...');
         await processCSS(css);
         
-        // Convert body content to canvas elements (with safe processing)
+        // Convert body content to canvas elements (comprehensive processing)
         console.log('Converting HTML to canvas elements...');
         const bodyElement = doc.body;
         if (bodyElement && bodyElement.children.length > 0) {
-          // Start with just the first few simple elements
-          const elementsToProcess = Array.from(bodyElement.children).slice(0, 3);
-          console.log(`Processing ${elementsToProcess.length} top-level elements`);
+          // Process all meaningful elements - no arbitrary limits
+          const elementsToProcess = Array.from(bodyElement.children);
+          console.log(`Processing ${elementsToProcess.length} top-level elements from body`);
           
           for (let i = 0; i < elementsToProcess.length; i++) {
             const child = elementsToProcess[i];
             try {
               console.log(`Processing element ${i + 1}/${elementsToProcess.length}: ${child.tagName}`);
+              console.log('Element classes:', Array.from(child.classList || []));
               console.log('Element content preview:', child.textContent?.substring(0, 100));
               
-              // Skip script and style tags
-              if (['script', 'style', 'meta', 'link'].includes(child.tagName.toLowerCase())) {
+              // Skip script and style tags, but process everything else
+              if (['script', 'style', 'meta', 'link', 'title'].includes(child.tagName.toLowerCase())) {
                 console.log('Skipping non-visual element:', child.tagName);
                 continue;
               }
@@ -306,11 +307,11 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
           };
           break;
           
-        case 'main':
+        case 'nav':
         case 'header':
+        case 'main':
         case 'footer':
         case 'aside':
-        case 'nav':
         case 'section':
         case 'article':
         case 'div':
@@ -321,6 +322,12 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
         case 'fieldset':
         case 'details':
         case 'summary':
+        case 'table':
+        case 'thead':
+        case 'tbody':
+        case 'tr':
+        case 'td':
+        case 'th':
         default:
           // For semantic and container elements, process their children to extract content
           elementType = 'container';
@@ -331,8 +338,15 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
           break;
       }
 
-      // Extract classes (safely)
-      const classes = htmlElement.classList ? Array.from(htmlElement.classList) : [];
+      // Extract classes (safely) and ensure they're preserved
+      const originalClasses = htmlElement.classList ? Array.from(htmlElement.classList) : [];
+      
+      // Map Bootstrap and common classes to meaningful names if they exist
+      const preservedClasses = originalClasses.filter(cls => 
+        // Keep meaningful classes, skip utility classes that might conflict
+        !cls.match(/^(mb-|mt-|ml-|mr-|p-|m-|d-|text-|bg-)\d+$/) &&
+        cls.length > 1
+      );
       
       // Extract inline styles and convert to CSS properties (safely)
       const inlineStyles: Record<string, string> = {};
@@ -354,17 +368,34 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
         }
       }
 
-      // Calculate better dimensions based on content
+      // Calculate better dimensions based on content and element type
       let width = 200;
       let height = 50;
       
       if (elementType === 'text') {
         const textLength = (elementData.content as string)?.length || 0;
-        width = Math.min(Math.max(textLength * 8, 100), 600);
-        height = Math.max(textLength > 50 ? 100 : 50, 30);
+        width = Math.min(Math.max(textLength * 6, 120), 500);
+        height = Math.max(Math.ceil(textLength / 50) * 20, 30);
       } else if (elementType === 'container') {
-        width = 300;
-        height = 100;
+        // Make containers larger to accommodate content
+        width = 600;
+        height = 200;
+        
+        // Special sizing for semantic elements
+        const tag = htmlElement.tagName.toLowerCase();
+        if (tag === 'nav') {
+          width = 800;
+          height = 60;
+        } else if (tag === 'header') {
+          width = 800;
+          height = 150;
+        } else if (tag === 'footer') {
+          width = 800;
+          height = 100;
+        } else if (tag === 'main') {
+          width = 800;
+          height = 400;
+        }
       } else if (elementType === 'image') {
         width = 200;
         height = 150;
@@ -384,7 +415,7 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
           position: 'relative',
           ...inlineStyles
         },
-        classes: classes || [],
+        classes: preservedClasses || [],
         htmlTag: htmlElement.tagName.toLowerCase(),
         parent: parentId, // Ensure parent is set
         ...elementData
@@ -402,21 +433,35 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
       // Add element to canvas
       dispatch(addElement({ element: canvasElement, parentId }));
 
-      console.log(`Created element: ${elementType} (${htmlElement.tagName}) - "${(elementData.content as string)?.substring(0, 50) || 'container'}"`);
+      console.log(`Created element: ${elementType} (${htmlElement.tagName}) - "${(elementData.content as string)?.substring(0, 50) || 'container'}" with classes: [${preservedClasses.join(', ')}]`);
 
       // Process children recursively if it's a container
       if (elementType === 'container' && htmlElement.children && htmlElement.children.length > 0) {
         console.log(`Processing ${htmlElement.children.length} children of ${htmlElement.tagName}`);
         
-        // Process first few children to avoid overwhelming the canvas
-        const childrenToProcess = Array.from(htmlElement.children).slice(0, 10);
+        // Process all children - no artificial limits, but be smart about it
+        const childrenToProcess = Array.from(htmlElement.children);
+        let processedCount = 0;
+        
         for (const child of childrenToProcess) {
           try {
-            await convertHTMLToElements(child, elementId);
+            // Skip empty text nodes and non-visual elements
+            if (child.tagName && !['script', 'style', 'meta', 'link'].includes(child.tagName.toLowerCase())) {
+              await convertHTMLToElements(child, elementId);
+              processedCount++;
+              
+              // If this is getting too deep, break to prevent infinite recursion
+              if (processedCount > 50) {
+                console.log(`Stopping child processing at ${processedCount} elements to prevent overflow`);
+                break;
+              }
+            }
           } catch (childError) {
             console.warn('Failed to process child element:', child.tagName, childError);
           }
         }
+        
+        console.log(`Successfully processed ${processedCount} children of ${htmlElement.tagName}`);
       }
 
     } catch (elementError) {
