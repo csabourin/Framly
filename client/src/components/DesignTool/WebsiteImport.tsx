@@ -471,6 +471,27 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
           };
           break;
           
+        case 'hr':
+        case 'br':
+        case 'input':
+        case 'area':
+        case 'base':
+        case 'col':
+        case 'embed':
+        case 'link':
+        case 'meta':
+        case 'param':
+        case 'source':
+        case 'track':
+        case 'wbr':
+          // Handle void elements - they cannot have children or content
+          elementType = 'element';
+          elementData = {
+            content: '', // Void elements have no content
+            isContainer: false
+          };
+          break;
+          
         case 'nav':
         case 'header':
         case 'main':

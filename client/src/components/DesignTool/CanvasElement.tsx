@@ -416,7 +416,29 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
       const htmlTag = element.htmlTag || 'div';
       const content = element.content || '';
       
-      // Use React.createElement to render the original HTML tag
+      // Define void HTML elements that cannot have children
+      const voidElements = new Set([
+        'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 
+        'link', 'meta', 'param', 'source', 'track', 'wbr'
+      ]);
+      
+      const isVoidElement = voidElements.has(htmlTag);
+      
+      // Void elements cannot be edited and cannot have content
+      if (isVoidElement) {
+        return React.createElement(htmlTag, {
+          className: 'outline-none',
+          style: { 
+            minHeight: 'inherit',
+            width: '100%',
+            height: isVoidElement ? 'auto' : '100%',
+            boxSizing: 'border-box',
+            display: 'block'
+          }
+        });
+      }
+      
+      // Use React.createElement to render the original HTML tag for non-void elements
       if (isTextEditable && content) {
         return (
           <div
@@ -439,28 +461,35 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
         );
       } else {
         // Render the original HTML element with its content
+        const elementProps: any = {
+          className: `w-full h-full outline-none ${content ? 'cursor-pointer' : ''}`,
+          style: { 
+            minHeight: 'inherit',
+            width: '100%',
+            height: '100%',
+            boxSizing: 'border-box',
+            padding: content ? '4px' : '8px',
+            display: element.isContainer ? 'flex' : 'block',
+            flexDirection: element.flexDirection || 'column',
+            justifyContent: element.justifyContent || 'flex-start',
+            alignItems: element.alignItems || 'stretch'
+          },
+          onDoubleClick: content ? (e: React.MouseEvent) => {
+            e.stopPropagation();
+            setIsEditing(true);
+          } : undefined
+        };
+        
+        // Only add innerHTML for non-void elements with content
+        if (content && !isVoidElement) {
+          elementProps.dangerouslySetInnerHTML = { __html: content };
+        }
+        
         return React.createElement(
           htmlTag,
-          {
-            className: `w-full h-full outline-none ${content ? 'cursor-pointer' : ''}`,
-            style: { 
-              minHeight: 'inherit',
-              width: '100%',
-              height: '100%',
-              boxSizing: 'border-box',
-              padding: content ? '4px' : '8px',
-              display: element.isContainer ? 'flex' : 'block',
-              flexDirection: element.flexDirection || 'column',
-              justifyContent: element.justifyContent || 'flex-start',
-              alignItems: element.alignItems || 'stretch'
-            },
-            onDoubleClick: content ? (e: React.MouseEvent) => {
-              e.stopPropagation();
-              setIsEditing(true);
-            } : undefined,
-            dangerouslySetInnerHTML: content ? { __html: content } : undefined
-          },
-          !content && `<${htmlTag}>`
+          elementProps,
+          // Only add text content for elements without dangerouslySetInnerHTML
+          !content && !isVoidElement ? `<${htmlTag}>` : undefined
         );
       }
     }
