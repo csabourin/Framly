@@ -82,7 +82,19 @@ export interface Project {
   currentBreakpoint: string;
 }
 
-export type Tool = 'select' | 'hand' | 'rectangle' | 'text' | 'heading' | 'list' | 'image' | 'container' | 'button';
+export type Tool = 'select' | 'hand' | 'rectangle' | 'text' | 'heading' | 'list' | 'image' | 'container' | 'button' | 
+  // Form elements
+  'input' | 'textarea' | 'checkbox' | 'radio' | 'select' |
+  // Structural elements  
+  'section' | 'nav' | 'header' | 'footer' | 'article' |
+  // Media elements
+  'video' | 'audio' |
+  // Interactive elements
+  'link' |
+  // Content elements
+  'code' | 'divider' |
+  // Legacy tools (for backwards compatibility)
+  'split-horizontal' | 'split-vertical' | 'merge';
 
 export interface CustomComponent {
   id: string;

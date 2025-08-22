@@ -8,7 +8,8 @@ const StatusBar: React.FC = () => {
   const { project } = useSelector((state: RootState) => state.canvas);
   const { selectedTool } = useSelector((state: RootState) => state.ui);
 
-  const elementCount = Object.keys(project.elements).length;
+  // Count only non-root elements to give users a meaningful count
+  const elementCount = Object.keys(project.elements).filter(id => id !== 'root').length;
   const rootElement = project.elements.root;
   const currentBreakpoint = project.breakpoints[project.currentBreakpoint];
 
