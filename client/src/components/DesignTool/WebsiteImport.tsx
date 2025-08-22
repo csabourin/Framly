@@ -58,21 +58,49 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
       const { html, css, assets } = await response.json();
       console.log('Website content fetched successfully');
 
-      // Parse HTML and convert to canvas elements
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(html, 'text/html');
-      
-      // Extract and process all CSS
-      await processCSS(css);
-      
-      // Convert body content to canvas elements
-      const bodyElement = doc.body;
-      if (bodyElement) {
-        await convertHTMLToElements(bodyElement, 'root');
-      }
+      try {
+        // Parse HTML and convert to canvas elements
+        console.log('Parsing HTML content...');
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        
+        // Extract and process all CSS
+        console.log('Processing CSS...');
+        await processCSS(css);
+        
+        // TEST: Create a simple test element first
+        console.log('Creating test element...');
+        try {
+          const testElement: CanvasElement = {
+            id: nanoid(),
+            type: 'text',
+            x: 50,
+            y: 50,
+            width: 200,
+            height: 50,
+            styles: {},
+            classes: [],
+            content: 'Imported website content',
+            htmlTag: 'div'
+          };
 
-      // Process assets (images)
-      await processAssets(assets);
+          console.log('Dispatching test element:', testElement);
+          dispatch(addElement({ element: testElement, parentId: 'root' }));
+          console.log('Test element added successfully');
+          
+        } catch (testError) {
+          console.error('Failed to create test element:', testError);
+          throw testError;
+        }
+
+        // Process assets (images)
+        console.log('Processing assets...');
+        await processAssets(assets);
+        
+      } catch (conversionError) {
+        console.error('HTML conversion failed:', conversionError);
+        throw new Error(`Failed to convert HTML: ${conversionError instanceof Error ? conversionError.message : 'Unknown error'}`);
+      }
 
       setIsOpen(false);
       if (onImportComplete) {
@@ -144,23 +172,21 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
   };
 
   const convertHTMLToElements = async (htmlElement: Element, parentId: string): Promise<void> => {
-    const children: string[] = [];
-
-    for (const child of Array.from(htmlElement.children)) {
+    try {
       const elementId = nanoid();
       
       // Determine element type based on HTML tag
       let elementType: CanvasElement['type'] = 'container'; // Default fallback
       let elementData: Partial<CanvasElement> = {};
 
-      switch (child.tagName.toLowerCase()) {
+      switch (htmlElement.tagName.toLowerCase()) {
         case 'img':
           elementType = 'image';
-          const imgSrc = (child as HTMLImageElement).src;
-          const imgAlt = (child as HTMLImageElement).alt;
+          const imgSrc = (htmlElement as HTMLImageElement).src;
+          const imgAlt = (htmlElement as HTMLImageElement).alt;
           elementData = {
             imageUrl: imgSrc,
-            imageAlt: imgAlt,
+            imageAlt: imgAlt || 'Imported image',
             objectFit: 'contain'
           };
           break;
@@ -173,16 +199,17 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
         case 'h5':
         case 'h6':
         case 'span':
+        case 'a':
           elementType = 'text';
           elementData = {
-            content: child.textContent || ''
+            content: htmlElement.textContent?.trim() || 'Text'
           };
           break;
           
         case 'button':
           elementType = 'button';
           elementData = {
-            content: child.textContent || 'Button'
+            content: htmlElement.textContent?.trim() || 'Button'
           };
           break;
           
@@ -192,6 +219,11 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
         case 'header':
         case 'footer':
         case 'nav':
+        case 'main':
+        case 'aside':
+        case 'ul':
+        case 'ol':
+        case 'li':
         default:
           elementType = 'container';
           elementData = {
@@ -201,53 +233,51 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
           break;
       }
 
-      // Extract classes
-      const classes = Array.from(child.classList);
+      // Extract classes (safely)
+      const classes = htmlElement.classList ? Array.from(htmlElement.classList) : [];
       
-      // Extract inline styles and convert to CSS properties
+      // Extract inline styles and convert to CSS properties (safely)
       const inlineStyles: Record<string, string> = {};
-      if (child.getAttribute('style')) {
-        const styleStr = child.getAttribute('style') || '';
-        const propertyRegex = /([^:;]+):\s*([^;]+)/g;
-        let match;
-        
-        while ((match = propertyRegex.exec(styleStr)) !== null) {
-          const property = match[1].trim();
-          const value = match[2].trim();
-          inlineStyles[property] = value;
+      const styleAttr = htmlElement.getAttribute('style');
+      if (styleAttr) {
+        try {
+          const propertyRegex = /([^:;]+):\s*([^;]+)/g;
+          let match;
+          
+          while ((match = propertyRegex.exec(styleAttr)) !== null) {
+            const property = match[1]?.trim();
+            const value = match[2]?.trim();
+            if (property && value) {
+              inlineStyles[property] = value;
+            }
+          }
+        } catch (styleError) {
+          console.warn('Failed to parse inline styles:', styleError);
         }
       }
 
-      // Create canvas element
+      // Create canvas element with safe defaults
       const canvasElement: CanvasElement = {
         id: elementId,
         type: elementType,
         x: 0,
         y: 0,
-        width: 0,
-        height: 0,
+        width: 100, // Set minimum width
+        height: 50, // Set minimum height
         styles: inlineStyles,
         classes,
-        htmlTag: child.tagName.toLowerCase(),
+        htmlTag: htmlElement.tagName.toLowerCase(),
         ...elementData
       };
 
       // Add element to canvas
       dispatch(addElement({ element: canvasElement, parentId }));
-      children.push(elementId);
 
-      // Recursively process children if it's a container
-      if (elementType === 'container' && child.children.length > 0) {
-        await convertHTMLToElements(child, elementId);
-      }
-    }
+      console.log(`Created element: ${elementType} (${htmlElement.tagName})`);
 
-    // Update parent with children
-    if (children.length > 0 && parentId !== 'root') {
-      dispatch(updateElement({
-        id: parentId,
-        updates: { children }
-      }));
+    } catch (elementError) {
+      console.error('Failed to convert element:', htmlElement.tagName, elementError);
+      throw elementError;
     }
   };
 
