@@ -98,12 +98,12 @@ const Canvas: React.FC = () => {
     const elementWidth = rect.width / zoomLevel;
     const elementHeight = rect.height / zoomLevel;
 
-    // SIMPLIFIED DETECTION LOGIC - More predictable zones
+    // PRECISE DETECTION LOGIC - Smaller, more accurate zones
     const relativeY = y - elementY;
     
-    // Larger tolerance zones for better UX
-    const BEFORE_ZONE_HEIGHT = Math.max(20, elementHeight * 0.25); // Top 25% or minimum 20px
-    const AFTER_ZONE_HEIGHT = Math.max(20, elementHeight * 0.25);  // Bottom 25% or minimum 20px
+    // Precise tolerance zones - smaller for better accuracy
+    const BEFORE_ZONE_HEIGHT = Math.min(15, elementHeight * 0.2); // Top 20% or maximum 15px
+    const AFTER_ZONE_HEIGHT = Math.min(15, elementHeight * 0.2);  // Bottom 20% or maximum 15px
     
     // Check if element is a valid drop target (container)
     const isValidContainer = isValidDropTarget(hoveredElement);
@@ -123,13 +123,13 @@ const Canvas: React.FC = () => {
         return {
           position: 'before',
           elementId: hoveredElement.id,
-          bounds: { x: elementX - 4, y: elementY - 10, width: elementWidth + 8, height: 20 } // Large visible zone
+          bounds: { x: elementX - 2, y: elementY - 6, width: elementWidth + 4, height: 12 } // Smaller, precise zone
         };
       } else if (relativeY > elementHeight - AFTER_ZONE_HEIGHT) {
         return {
           position: 'after',
           elementId: hoveredElement.id,
-          bounds: { x: elementX - 4, y: elementY + elementHeight - 10, width: elementWidth + 8, height: 20 } // Large visible zone
+          bounds: { x: elementX - 2, y: elementY + elementHeight - 6, width: elementWidth + 4, height: 12 } // Smaller, precise zone
         };
       } else {
         // Inside zone for containers
@@ -151,18 +151,18 @@ const Canvas: React.FC = () => {
         }
       }
     } else {
-      // For non-container elements - simplified zones
+      // For non-container elements - precise zones
       if (relativeY < BEFORE_ZONE_HEIGHT) {
         return {
           position: 'before',
           elementId: hoveredElement.id,
-          bounds: { x: elementX - 4, y: elementY - 10, width: elementWidth + 8, height: 20 } // Large visible zone
+          bounds: { x: elementX - 2, y: elementY - 6, width: elementWidth + 4, height: 12 } // Smaller, precise zone
         };
       } else if (relativeY > elementHeight - AFTER_ZONE_HEIGHT) {
         return {
           position: 'after',
           elementId: hoveredElement.id,
-          bounds: { x: elementX - 4, y: elementY + elementHeight - 10, width: elementWidth + 8, height: 20 } // Large visible zone
+          bounds: { x: elementX - 2, y: elementY + elementHeight - 6, width: elementWidth + 4, height: 12 } // Smaller, precise zone
         };
       } else {
         // Middle zone - no insertion feedback for non-containers
@@ -421,7 +421,21 @@ const Canvas: React.FC = () => {
     const x = (e.clientX - rect.left) / zoomLevel;
     const y = (e.clientY - rect.top) / zoomLevel;
     
-    if (isDragging && selectedElement && dragStart) {
+    // STRICT MOUSE BUTTON CHECK - Only allow drag operations if mouse button is held down
+    const isMouseButtonDown = e.buttons > 0;
+    
+    // If drag state exists but no mouse button is pressed, clear drag state
+    if ((isDragging || isDraggingForReorder || draggedElementId) && !isMouseButtonDown) {
+      console.log('DRAG DEBUG - Mouse button released, clearing drag states');
+      dispatch(setDragging(false));
+      dispatch(setDraggingForReorder(false));
+      dispatch(setDraggedElement(undefined));
+      setInsertionIndicator(null);
+      setDragThreshold({ x: 0, y: 0, exceeded: false });
+      return;
+    }
+    
+    if (isDragging && selectedElement && dragStart && isMouseButtonDown) {
       // Regular element dragging (select tool)
       const snappedPosition = calculateSnapPosition(x - dragStart.x, y - dragStart.y);
       
@@ -430,8 +444,8 @@ const Canvas: React.FC = () => {
         x: snappedPosition.x,
         y: snappedPosition.y,
       }));
-    } else if (draggedElementId) {
-      // Handle drag threshold logic first
+    } else if (draggedElementId && isMouseButtonDown) {
+      // Only proceed with drag logic if mouse button is held down
       if (!dragThreshold.exceeded) {
         const distance = Math.sqrt(
           Math.pow(x - dragThreshold.x, 2) + Math.pow(y - dragThreshold.y, 2)
@@ -1025,24 +1039,24 @@ const Canvas: React.FC = () => {
               height: insertionIndicator.bounds.height,
             }}
           >
-            {/* BEFORE/AFTER ZONES - Large blue bars */}
+            {/* BEFORE/AFTER ZONES - Smaller, precise blue bars */}
             {((insertionIndicator as any).position === 'before' || (insertionIndicator as any).position === 'after') && (
               <div 
-                className="w-full h-full rounded-lg animate-pulse"
+                className="w-full h-full rounded-md"
                 style={{
-                  backgroundColor: 'rgba(59, 130, 246, 0.8)',
-                  boxShadow: '0 0 20px rgba(59, 130, 246, 0.6), inset 0 2px 4px rgba(255, 255, 255, 0.3)',
+                  backgroundColor: 'rgba(59, 130, 246, 0.9)',
+                  boxShadow: '0 0 8px rgba(59, 130, 246, 0.8)',
                   border: '2px solid #3b82f6'
                 }}
               >
                 <div className="flex items-center justify-center h-full">
-                  <div className="bg-white text-blue-600 text-sm font-bold px-4 py-2 rounded-lg shadow-lg border border-blue-300">
-                    {(insertionIndicator as any).position === 'before' ? '⬆ DROP ABOVE ⬆' : '⬇ DROP BELOW ⬇'}
+                  <div className="bg-white text-blue-600 text-xs font-bold px-2 py-1 rounded shadow-lg">
+                    {(insertionIndicator as any).position === 'before' ? 'DROP ABOVE' : 'DROP BELOW'}
                   </div>
                 </div>
-                {/* Side indicators for extra visibility */}
-                <div className="absolute -left-2 top-1/2 w-4 h-4 bg-blue-500 rounded-full transform -translate-y-2 border-2 border-white shadow-lg" />
-                <div className="absolute -right-2 top-1/2 w-4 h-4 bg-blue-500 rounded-full transform -translate-y-2 border-2 border-white shadow-lg" />
+                {/* Side indicators */}
+                <div className="absolute -left-1 top-1/2 w-2 h-2 bg-blue-500 rounded-full transform -translate-y-1 border border-white" />
+                <div className="absolute -right-1 top-1/2 w-2 h-2 bg-blue-500 rounded-full transform -translate-y-1 border border-white" />
               </div>
             )}
 
@@ -1109,47 +1123,24 @@ const Canvas: React.FC = () => {
           </div>
         )}
 
-        {/* GHOST PREVIEW SYSTEM */}
+        {/* GHOST PREVIEW SYSTEM - Smaller, less intrusive */}
         {isDraggingForReorder && draggedElementId && insertionIndicator && (
           (() => {
             const draggedElement = currentElements[draggedElementId];
             if (!draggedElement) return null;
             
-            // Calculate ghost position based on insertion indicator
-            let ghostX = insertionIndicator.bounds.x;
-            let ghostY = insertionIndicator.bounds.y;
-            
-            if ((insertionIndicator as any).position === 'before') {
-              ghostY += 25; // Position ghost below the drop zone
-            } else if ((insertionIndicator as any).position === 'after') {
-              ghostY -= 25; // Position ghost above the drop zone  
-            } else if ((insertionIndicator as any).position === 'inside') {
-              ghostX += 10;
-              ghostY += 10;
-            }
-            
             return (
               <div
-                className="absolute pointer-events-none z-[70] transition-all duration-200 ease-out"
+                className="absolute pointer-events-none z-[70] transition-all duration-100"
                 style={{
-                  left: ghostX,
-                  top: ghostY,
-                  opacity: 0.6,
-                  transform: 'scale(0.95)',
-                  filter: 'blur(0.5px)',
+                  left: insertionIndicator.bounds.x + 20,
+                  top: insertionIndicator.bounds.y - 30,
+                  opacity: 0.8,
+                  transform: 'scale(0.7)',
                 }}
               >
-                <div 
-                  className="border-4 border-dashed border-blue-400 rounded-lg bg-blue-50 shadow-xl"
-                  style={{
-                    width: draggedElement.width || 200,
-                    height: draggedElement.height || 100,
-                    minHeight: 40
-                  }}
-                >
-                  <div className="flex items-center justify-center h-full text-blue-600 font-medium text-sm">
-                    👻 {draggedElement.type.toUpperCase()}
-                  </div>
+                <div className="bg-blue-100 border-2 border-blue-400 rounded px-2 py-1 text-xs text-blue-700 font-medium shadow-md">
+                  {draggedElement.type}
                 </div>
               </div>
             );
