@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
+import { selectCanvasProject, selectCustomClasses, selectExportModalState } from '../../store/selectors';
 import { setExportModalOpen } from '../../store/uiSlice';
 import { CodeGenerator } from '../../utils/codeGenerator';
 import { 
@@ -17,9 +18,9 @@ import { Code, Image, FileText, Download, X } from 'lucide-react';
 
 const ExportModal: React.FC = () => {
   const dispatch = useDispatch();
-  const { project } = useSelector((state: RootState) => state.canvas);
-  const customClasses = useSelector((state: RootState) => (state as any).classes?.customClasses || {});
-  const { isExportModalOpen } = useSelector((state: RootState) => state.ui);
+  const project = useSelector(selectCanvasProject);
+  const customClasses = useSelector(selectCustomClasses);
+  const { isExportModalOpen } = useSelector(selectExportModalState);
   
   const [exportSettings, setExportSettings] = useState({
     includeResponsive: true,

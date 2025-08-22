@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import type { AppDispatch } from '../../store';
 import { RootState } from '../../store';
 import { updateElement, updateElementStyles, addCSSClass, removeCSSClass, deleteElement, selectElement } from '../../store/canvasSlice';
-import { selectCurrentElements, selectSelectedElementId } from '../../store/selectors';
+import { selectCurrentElements, selectSelectedElementId, selectCustomClasses } from '../../store/selectors';
 import { addCustomClass, updateCustomClass, batchUpdateCustomClass, deleteCustomClass } from '../../store/classSlice';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -64,7 +64,7 @@ const PropertiesPanel: React.FC = () => {
       }));
     }
   }, [selectedElement?.id, selectedElement?.classes]);
-  const customClasses = useSelector((state: RootState) => (state as any).classes?.customClasses || {});
+  const customClasses = useSelector(selectCustomClasses);
   const [expandedGroups, setExpandedGroups] = useState<Record<string, boolean>>({
     content: true,
     layout: true,

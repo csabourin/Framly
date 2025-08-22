@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
+import { selectComponentsState, selectCanvasProject, selectCurrentElements, selectSelectedElementId } from '../../store/selectors';
 import { 
   selectComponent, 
   deleteComponent, 
@@ -50,8 +51,10 @@ const ComponentPanel: React.FC = () => {
     categories, 
     selectedComponent, 
     isCreatingComponent 
-  } = useSelector((state: RootState) => state.components);
-  const { project } = useSelector((state: RootState) => state.canvas);
+  } = useSelector(selectComponentsState);
+  const project = useSelector(selectCanvasProject);
+  const currentElements = useSelector(selectCurrentElements);
+  const selectedElementId = useSelector(selectSelectedElementId);
   const [searchTerm, setSearchTerm] = useState('');
   const [newCategoryName, setNewCategoryName] = useState('');
   const [isAddingCategory, setIsAddingCategory] = useState(false);
@@ -68,8 +71,8 @@ const ComponentPanel: React.FC = () => {
   };
 
   const handleAddToCanvas = (component: CustomComponent) => {
-    const selectedElementId = project.selectedElementId || 'root';
-    const selectedElement = project.elements[selectedElementId];
+    const selectedElementId = selectedElementId || 'root';
+    const selectedElement = currentElements[selectedElementId];
     
     // Determine insertion position based on selected element
     let insertX = 50;
@@ -146,7 +149,7 @@ const ComponentPanel: React.FC = () => {
   };
 
   const handleCreateComponent = () => {
-    if (project.selectedElementId && project.selectedElementId !== 'root') {
+    if (selectedElementId && selectedElementId !== 'root') {
       dispatch(setCreatingComponent(true));
     } else {
       // Show a message that they need to select an element first
@@ -193,10 +196,10 @@ const ComponentPanel: React.FC = () => {
           <Button
             size="sm"
             onClick={handleCreateComponent}
-            disabled={!project.selectedElementId || project.selectedElementId === 'root'}
+            disabled={!selectedElementId || selectedElementId === 'root'}
             className="text-xs"
             data-testid="button-create-component"
-            title={!project.selectedElementId || project.selectedElementId === 'root' 
+            title={!selectedElementId || selectedElementId === 'root' 
               ? 'Select an element to create a component' 
               : 'Create component from selected element'}
           >

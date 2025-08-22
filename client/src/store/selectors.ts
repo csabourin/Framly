@@ -156,3 +156,32 @@ export const selectCanvasUIState = createSelector(
     isComponentPanelVisible: ui.isComponentPanelVisible
   })
 );
+
+// Custom classes selector - CRITICAL: prevents browser crashes
+export const selectCustomClasses = createSelector(
+  [(state: RootState) => (state as any).classes?.customClasses],
+  (customClasses) => customClasses || {}
+);
+
+// Components state selectors - CRITICAL: prevents browser crashes
+export const selectComponentsState = createSelector(
+  [(state: RootState) => state.components],
+  (components) => components
+);
+
+// Export modal state - CRITICAL: prevents browser crashes
+export const selectExportModalState = createSelector(
+  [(state: RootState) => state.ui],
+  (ui) => ({
+    isExportModalOpen: ui.isExportModalOpen
+  })
+);
+
+// Button designer state - CRITICAL: prevents browser crashes  
+export const selectButtonDesignerState = createSelector(
+  [(state: RootState) => state.button],
+  (button) => ({
+    designs: button.designs,
+    currentDesignId: button.currentDesignId
+  })
+);

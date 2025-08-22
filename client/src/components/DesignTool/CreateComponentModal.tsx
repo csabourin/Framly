@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
+import { selectComponentsState, selectCanvasProject } from '../../store/selectors';
 import { addComponent, setCreatingComponent } from '../../store/componentSlice';
 import { selectElement } from '../../store/canvasSlice';
 import { CustomComponent, CanvasElement } from '../../types/canvas';
@@ -28,8 +29,8 @@ import { Package, AlertCircle } from 'lucide-react';
 
 const CreateComponentModal: React.FC = () => {
   const dispatch = useDispatch();
-  const { isCreatingComponent, categories } = useSelector((state: RootState) => state.components);
-  const { project } = useSelector((state: RootState) => state.canvas);
+  const { isCreatingComponent, categories } = useSelector(selectComponentsState);
+  const project = useSelector(selectCanvasProject);
   const [componentName, setComponentName] = useState('');
   const [componentCategory, setComponentCategory] = useState('custom');
   const [description, setDescription] = useState('');
