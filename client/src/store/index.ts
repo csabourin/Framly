@@ -4,7 +4,6 @@ import uiReducer from './uiSlice';
 import componentReducer from './componentSlice';
 import classReducer from './classSlice';
 import historyReducer from './historySlice';
-import { historyMiddleware } from '../utils/historyIntegration';
 
 export const store = configureStore({
   reducer: {
@@ -17,11 +16,15 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        // Ignore these action types
+        // Ignore these action types for performance
         ignoredActions: ['persist/PERSIST', 'persist/REHYDRATE'],
+        // Ignore large state objects for performance
+        ignoredPaths: ['history.entries'],
       },
-    }).concat(historyMiddleware),
+    }),
 });
+
+// Note: History tracking is initialized in DesignTool/index.tsx to avoid circular dependencies
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

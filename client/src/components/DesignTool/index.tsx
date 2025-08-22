@@ -23,9 +23,14 @@ const DesignToolContent: React.FC = () => {
   // Initialize keyboard shortcuts
   useKeyboardShortcuts();
   
-  // Initialize history manager
+  // Initialize history manager and tracking
   useEffect(() => {
     historyManager.init();
+    
+    // Initialize history tracking
+    import('../../utils/historyIntegration').then(({ addHistoryMiddleware }) => {
+      addHistoryMiddleware();
+    });
   }, []);
   const dispatch = useDispatch();
   const { 

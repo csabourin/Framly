@@ -34,7 +34,7 @@ Preferred communication style: Simple, everyday language.
 - **Responsive Design**: Multiple breakpoint support.
 - **Code Generation**: Automatic HTML/CSS and React component generation.
 - **Export Options**: HTML files and component code.
-- **Undo/Redo**: Full history management.
+- **Undo/Redo**: Full persistent history management with IndexedDB storage and smart debouncing.
 - **Class-First Styling**: All styling is class-based; inline styles are disabled. New classes are automatically generated when properties are changed on elements without classes.
 - **Text Editing**: Natural inline text editing with support for paragraphs and line breaks.
 - **Advanced CSS Management**: Isolated component editing, dynamic CSS class management with full property editing, and CSS optimization.
@@ -67,4 +67,11 @@ Preferred communication style: Simple, everyday language.
 ## Utility Libraries
 - **Date-fns**: Date manipulation.
 - **Nanoid**: Unique ID generation.
-- **CLSX/Tailwind Merge**: Dynamic className management.
+- **CLSX/Tailwind Merge**: Dynamic className management.### Recent Implementation Updates
+
+#### Persistent Undo/Redo System (January 21, 2025) - COMPLETED
+- **IndexedDB Persistence**: Full undo/redo history persists across browser sessions
+- **Smart Debouncing**: Property changes (colors, typing) are debounced to prevent creating excessive undo steps
+- **Keyboard Shortcuts**: Ctrl+Z (undo), Ctrl+Shift+Z/Ctrl+Y (redo) work globally
+- **Visual Controls**: Undo/redo buttons with proper enabled/disabled states
+- **Cross-Session Recovery**: History survives browser restarts
