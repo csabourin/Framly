@@ -78,7 +78,7 @@ const TabItem: React.FC<TabItemProps> = ({
   return (
     <div
       className={`
-        flex items-center gap-1 px-3 py-2 rounded-t-lg border border-b-0 cursor-pointer
+        flex items-center gap-1 px-3 py-2 rounded-b-lg border border-t-0 cursor-pointer
         transition-all duration-200 group relative max-w-48
         ${isActive 
           ? 'bg-white border-gray-300 shadow-sm z-10' 
@@ -87,7 +87,7 @@ const TabItem: React.FC<TabItemProps> = ({
       `}
       onClick={onSelect}
       style={{
-        borderBottomColor: isActive ? 'white' : 'transparent',
+        borderTopColor: isActive ? 'white' : 'transparent',
       }}
     >
       {/* Tab color indicator */}
@@ -267,7 +267,7 @@ const TabBar: React.FC = () => {
   }
 
   return (
-    <div className="flex items-end gap-1 bg-gray-100 px-4 pt-2 pb-0 border-b border-gray-200 min-h-[40px]">
+    <div className="flex items-start gap-1 bg-gray-100 px-4 pb-2 pt-0 border-t border-gray-200 min-h-[40px]">
       {/* Tab items */}
       {project.tabOrder.map((tabId) => {
         const tab = project.tabs[tabId];
@@ -291,7 +291,7 @@ const TabBar: React.FC = () => {
       {/* Add new tab button */}
       <button
         onClick={handleCreateTab}
-        className="flex items-center justify-center w-8 h-8 rounded-t-lg bg-gray-50 hover:bg-gray-100 border border-gray-200 border-b-0 transition-colors"
+        className="flex items-center justify-center w-8 h-8 rounded-b-lg bg-gray-50 hover:bg-gray-100 border border-gray-200 border-t-0 transition-colors"
         data-testid="button-create-tab"
         title="Create New Tab"
       >

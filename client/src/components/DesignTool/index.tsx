@@ -60,7 +60,6 @@ const DesignToolContent: React.FC = () => {
   return (
     <div className="flex flex-col h-screen relative bg-gray-50 font-inter overflow-hidden">
       <Header />
-      <TabBar />
       <div className="flex flex-1 overflow-hidden">
         <Toolbar />
         {isDOMTreePanelVisible && <DOMTreePanel />}
@@ -68,6 +67,7 @@ const DesignToolContent: React.FC = () => {
         {isComponentPanelVisible && <ComponentPanel />}
         <PropertiesPanel />
       </div>
+      <TabBar />
       <StatusBar />
       <ExportModal />
       <CodeModal />
