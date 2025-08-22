@@ -78,7 +78,9 @@ const PropertiesPanel: React.FC = () => {
     return (
       <aside className="absolute right-0 top-12 bottom-8 w-80 bg-white border-l border-gray-200 overflow-y-auto z-40">
         <div className="p-4 text-center text-gray-500">
-          Select an element to edit properties
+          <div className="mb-2 text-lg">👆</div>
+          <div className="font-medium">Click an element on the canvas</div>
+          <div className="text-sm mt-1">Select any element to start editing its properties</div>
         </div>
       </aside>
     );
@@ -423,10 +425,10 @@ const PropertiesPanel: React.FC = () => {
           
           {/* Style Editing Status */}
           {!selectedClassForEditing && (!selectedElement.classes || selectedElement.classes.length === 0) && (
-            <div className="p-3 bg-amber-50 border border-amber-200 rounded-md mb-3">
-              <p className="text-sm text-amber-800">
-                <strong>⚠️ Create a class to edit styles</strong><br/>
-                Inline styles are disabled. Create or select a class below to customize this element's appearance.
+            <div className="p-3 bg-green-50 border border-green-200 rounded-md mb-3">
+              <p className="text-sm text-green-800">
+                <strong>✅ Element Selected - Ready to Style!</strong><br/>
+                Start editing any property below and a CSS class will be automatically created for this element.
               </p>
             </div>
           )}
@@ -440,14 +442,7 @@ const PropertiesPanel: React.FC = () => {
             </div>
           )}
           
-          {!selectedClassForEditing && (!selectedElement.classes || selectedElement.classes.length === 0) && (
-            <div className="p-3 bg-green-50 border border-green-200 rounded-md mb-3">
-              <p className="text-sm text-green-800">
-                <strong>🎯 Ready to create classes</strong><br/>
-                When you edit properties, a new class will be automatically created for this element.
-              </p>
-            </div>
-          )}
+
 
           {/* Current Classes with Edit Selection */}
           {selectedElement.classes && selectedElement.classes.length > 0 ? (
