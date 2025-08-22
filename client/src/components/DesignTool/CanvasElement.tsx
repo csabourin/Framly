@@ -361,11 +361,13 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
         );
       } else {
         return (
-          <div className="w-full h-full flex items-center justify-center text-gray-500 bg-gray-100 rounded border-2 border-dashed">
-            <div className="text-center">
-              <div className="text-4xl mb-2">🖼️</div>
-              <span className="text-sm">Image Placeholder</span>
-              <div className="text-xs mt-1 opacity-75">Double-click to add image</div>
+          <div className="w-full h-full flex items-center justify-center text-gray-500 bg-gray-100 rounded border-2 border-dashed overflow-hidden">
+            <div className="text-center p-2 max-w-full max-h-full flex flex-col items-center justify-center">
+              <div className="text-2xl mb-1" style={{ fontSize: 'min(2rem, 25%)' }}>🖼️</div>
+              <span className="text-xs leading-tight" style={{ fontSize: 'max(10px, min(0.75rem, 8%))' }}>Image Placeholder</span>
+              <div className="text-xs mt-0.5 opacity-75 leading-tight" style={{ fontSize: 'max(8px, min(0.625rem, 6%))' }}>
+                Double-click to add image
+              </div>
             </div>
           </div>
         );
