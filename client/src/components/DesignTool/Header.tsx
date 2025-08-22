@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
+import { selectCanvasProject, selectExportModalState, selectUIState } from '../../store/selectors';
 import { switchBreakpoint, undo, redo, updateProjectName } from '../../store/canvasSlice';
 import { setExportModalOpen, setCodeModalOpen, setCSSOptimizationModalOpen, zoomIn, zoomOut, fitToScreen, toggleDOMTreePanel, setClassEditorOpen, setComponentEditorOpen, setButtonDesignerOpen } from '../../store/uiSlice';
 import { Button } from '@/components/ui/button';
@@ -10,8 +11,9 @@ import WebsiteImport from './WebsiteImport';
 
 const Header: React.FC = () => {
   const dispatch = useDispatch();
-  const { project } = useSelector((state: RootState) => state.canvas);
-  const { isExportModalOpen, isDOMTreePanelVisible } = useSelector((state: RootState) => state.ui);
+  const project = useSelector(selectCanvasProject);
+  const { isExportModalOpen } = useSelector(selectExportModalState);
+  const { isDOMTreePanelVisible } = useSelector(selectUIState);
 
   const breakpoints = [
     { name: 'mobile', width: 375, icon: Smartphone, label: 'Mobile' },

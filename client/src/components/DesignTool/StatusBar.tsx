@@ -1,18 +1,16 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
+import { selectCanvasProject, selectUIState, selectCurrentElements } from '../../store/selectors';
 import { MousePointer, Layers, Smartphone } from 'lucide-react';
 import PersistenceStatus from '../PersistenceStatus';
 
 const StatusBar: React.FC = () => {
-  const { project } = useSelector((state: RootState) => state.canvas);
-  const { selectedTool } = useSelector((state: RootState) => state.ui);
+  const project = useSelector(selectCanvasProject);
+  const { selectedTool } = useSelector(selectUIState);
 
-  // Use new selectors for tab-based data
-  const currentElements = useSelector((state: RootState) => {
-    const currentTab = state.canvas.project.tabs[state.canvas.project.activeTabId];
-    return currentTab ? currentTab.elements : {};
-  });
+  // Use memoized selector for current elements
+  const currentElements = useSelector(selectCurrentElements);
 
   // Count only non-root elements to give users a meaningful count
   const elementCount = Object.keys(currentElements).filter(id => id !== 'root').length;

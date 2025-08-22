@@ -124,12 +124,18 @@ export const selectElementExists = createSelector(
 export const selectUIState = createSelector(
   [(state: RootState) => state.ui],
   (ui) => ({
+    selectedTool: ui.selectedTool,
+    isDraggingForReorder: ui.isDraggingForReorder,
+    draggedElementId: ui.draggedElementId,
+    insertionIndicator: ui.insertionIndicator,
     isComponentPanelVisible: ui.isComponentPanelVisible,
     isDOMTreePanelVisible: ui.isDOMTreePanelVisible,
     isClassEditorOpen: ui.isClassEditorOpen,
     isComponentEditorOpen: ui.isComponentEditorOpen,
     editingComponentId: ui.editingComponentId,
-    isButtonDesignerOpen: ui.isButtonDesignerOpen
+    isButtonDesignerOpen: ui.isButtonDesignerOpen,
+    isCodeModalOpen: ui.isCodeModalOpen,
+    isCSSOptimizationModalOpen: ui.isCSSOptimizationModalOpen
   })
 );
 

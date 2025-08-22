@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
+import { selectUIState } from '../../store/selectors';
 import { setSelectedTool, toggleComponentPanel } from '../../store/uiSlice';
 import { Tool } from '../../types/canvas';
 import { 
@@ -37,7 +38,7 @@ import {
 
 const Toolbar: React.FC = () => {
   const dispatch = useDispatch();
-  const { selectedTool, isComponentPanelVisible } = useSelector((state: RootState) => state.ui);
+  const { selectedTool, isComponentPanelVisible } = useSelector(selectUIState);
   const [expandedCategory, setExpandedCategory] = React.useState<string | null>(null);
 
   // Essential tools shown by default

@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
+import { selectCanvasProject, selectCustomClasses, selectUIState } from '../../store/selectors';
 import { setCodeModalOpen } from '../../store/uiSlice';
 import { selectCurrentElements } from '../../store/selectors';
 import { CodeGenerator } from '../../utils/codeGenerator';
@@ -16,10 +17,10 @@ import { Copy, Download, X } from 'lucide-react';
 
 const CodeModal: React.FC = () => {
   const dispatch = useDispatch();
-  const { project } = useSelector((state: RootState) => state.canvas);
+  const project = useSelector(selectCanvasProject);
   const currentElements = useSelector(selectCurrentElements);
-  const customClasses = useSelector((state: RootState) => (state as any).classes?.customClasses || {});
-  const { isCodeModalOpen } = useSelector((state: RootState) => state.ui);
+  const customClasses = useSelector(selectCustomClasses);
+  const { isCodeModalOpen } = useSelector(selectUIState);
   
   const [activeTab, setActiveTab] = useState('html');
 

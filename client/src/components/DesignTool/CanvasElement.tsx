@@ -1,6 +1,7 @@
 import React, { useRef, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
+import { selectUIState } from '../../store/selectors';
 import { selectElement, updateElement } from '../../store/canvasSlice';
 import { setSelectedTool } from '../../store/uiSlice';
 import { CanvasElement as CanvasElementType } from '../../types/canvas';
@@ -40,7 +41,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     if (!project.activeTabId || !project.tabs[project.activeTabId]) return 'root';
     return project.tabs[project.activeTabId].viewSettings.selectedElementId;
   });
-  const { selectedTool, isDraggingForReorder, draggedElementId, insertionIndicator } = useSelector((state: RootState) => state.ui);
+  const { selectedTool, isDraggingForReorder, draggedElementId, insertionIndicator } = useSelector(selectUIState);
   const customClasses = useSelector((state: RootState) => (state as any).classes?.customClasses || {});
   const elementRef = useRef<HTMLDivElement>(null);
   const [isEditing, setIsEditing] = React.useState(false);
