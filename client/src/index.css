@@ -73,6 +73,20 @@
   background-color: hsla(203.8863, 88.2845%, 53.1373%, 0.05);
 }
 
+/* Reset heading styles within canvas elements to allow custom fontSize */
+.canvas-element h1,
+.canvas-element h2,
+.canvas-element h3,
+.canvas-element h4,
+.canvas-element h5,
+.canvas-element h6 {
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  line-height: inherit !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
 /* Canvas grid pattern */
 .canvas-grid {
   background-image: 
