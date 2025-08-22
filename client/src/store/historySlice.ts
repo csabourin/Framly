@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit';
 import { RootState } from './index';
 
 export interface HistoryEntry {
@@ -137,11 +137,19 @@ export const selectCanRedo = (state: RootState) =>
 export const selectCurrentHistoryEntry = (state: RootState) => 
   state.history.entries[state.history.currentIndex] || null;
 
-export const selectHistoryStats = (state: RootState) => ({
-  totalEntries: state.history.entries.length,
-  currentIndex: state.history.currentIndex,
-  canUndo: selectCanUndo(state),
-  canRedo: selectCanRedo(state),
-});
+export const selectHistoryStats = createSelector(
+  [
+    (state: RootState) => state.history.entries.length,
+    (state: RootState) => state.history.currentIndex,
+    selectCanUndo,
+    selectCanRedo
+  ],
+  (totalEntries, currentIndex, canUndo, canRedo) => ({
+    totalEntries,
+    currentIndex,
+    canUndo,
+    canRedo,
+  })
+);
 
 export default historySlice.reducer;

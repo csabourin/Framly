@@ -19,7 +19,7 @@ import { Project, CustomComponent, ComponentCategory } from '../types/canvas';
 
 // Constants
 const CURRENT_PROJECT_KEY = 'currentProject';
-const AUTO_SAVE_INTERVAL = 5000; // 5 seconds
+const AUTO_SAVE_INTERVAL = 10000; // 10 seconds - reduced frequency to help with performance
 const PROJECT_ID = 'default-project'; // For now, we'll use a single project
 
 export class PersistenceManager {
