@@ -30,12 +30,14 @@ interface TabItemProps {
 }
 
 const TAB_COLORS = [
-  { name: 'Blue', value: '#3b82f6' },
-  { name: 'Green', value: '#10b981' },
-  { name: 'Purple', value: '#8b5cf6' },
-  { name: 'Orange', value: '#f59e0b' },
-  { name: 'Red', value: '#ef4444' },
-  { name: 'Pink', value: '#ec4899' },
+  { name: 'Blue', value: '#dbeafe', hover: '#bfdbfe' },
+  { name: 'Green', value: '#d1fae5', hover: '#a7f3d0' },
+  { name: 'Purple', value: '#e9d5ff', hover: '#ddd6fe' },
+  { name: 'Orange', value: '#fed7aa', hover: '#fdba74' },
+  { name: 'Red', value: '#fecaca', hover: '#fca5a5' },
+  { name: 'Pink', value: '#fce7f3', hover: '#fbcfe8' },
+  { name: 'Yellow', value: '#fef3c7', hover: '#fde68a' },
+  { name: 'Indigo', value: '#e0e7ff', hover: '#c7d2fe' },
 ];
 
 const TabItem: React.FC<TabItemProps> = ({ 
@@ -60,10 +62,12 @@ const TabItem: React.FC<TabItemProps> = ({
   };
 
   const handleFinishRename = () => {
-    if (renamingValue.trim() && renamingValue !== tab.name) {
-      onRename(renamingValue.trim());
+    const trimmedValue = renamingValue.trim();
+    if (trimmedValue && trimmedValue !== tab.name) {
+      onRename(trimmedValue);
     }
     setIsRenaming(false);
+    setRenamingValue(tab.name); // Reset to original value
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -75,28 +79,47 @@ const TabItem: React.FC<TabItemProps> = ({
     }
   };
 
+  const getTabStyle = () => {
+    const colorConfig = tab.color ? TAB_COLORS.find(c => c.value === tab.color) : null;
+    
+    if (isActive && colorConfig) {
+      return {
+        backgroundColor: colorConfig.value,
+        borderTopColor: 'white',
+      };
+    } else if (!isActive && colorConfig) {
+      return {
+        backgroundColor: colorConfig.hover,
+        borderTopColor: 'transparent',
+      };
+    } else if (isActive) {
+      return {
+        backgroundColor: 'white',
+        borderTopColor: 'white',
+      };
+    } else {
+      return {
+        backgroundColor: '#f9fafb',
+        borderTopColor: 'transparent',
+      };
+    }
+  };
+
   return (
     <div
       className={`
         flex items-center gap-1 px-3 py-2 rounded-b-lg border border-t-0 cursor-pointer
         transition-all duration-200 group relative max-w-48
         ${isActive 
-          ? 'bg-white border-gray-300 shadow-sm z-10' 
-          : 'bg-gray-50 border-gray-200 hover:bg-gray-100'
+          ? 'border-gray-300 shadow-sm z-10' 
+          : 'border-gray-200'
         }
+        ${!isActive ? 'hover:brightness-95' : ''}
       `}
       onClick={onSelect}
-      style={{
-        borderTopColor: isActive ? 'white' : 'transparent',
-      }}
+      style={getTabStyle()}
     >
-      {/* Tab color indicator */}
-      {tab.color && (
-        <div
-          className="w-2 h-2 rounded-full flex-shrink-0"
-          style={{ backgroundColor: tab.color }}
-        />
-      )}
+      {/* Remove the color dot since we're using full background color */}
       
       {/* Tab name */}
       <div className="flex-1 min-w-0">
@@ -201,7 +224,7 @@ const TabItem: React.FC<TabItemProps> = ({
                       onClick={() => onSetColor(color.value)}
                     >
                       <div
-                        className="w-3 h-3 rounded-full"
+                        className="w-4 h-4 rounded border border-gray-200"
                         style={{ backgroundColor: color.value }}
                       />
                       {color.name}

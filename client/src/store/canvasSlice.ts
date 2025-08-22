@@ -93,7 +93,22 @@ const duplicateElementWithNewId = (element: CanvasElement): CanvasElement => {
   }
   
   const newId = nanoid();
-  const newElement = { ...element, id: newId };
+  // Create a deep copy to preserve all properties including image properties
+  const newElement = { 
+    ...element, 
+    id: newId,
+    // Preserve all image-specific properties
+    imageBase64: element.imageBase64,
+    imageUrl: element.imageUrl,
+    imageAlt: element.imageAlt,
+    imageTitle: element.imageTitle,
+    objectFit: element.objectFit,
+    objectPosition: element.objectPosition,
+    // Preserve styles object
+    styles: element.styles ? { ...element.styles } : {},
+    // Preserve classes array
+    classes: element.classes ? [...element.classes] : undefined
+  };
   
   // If element has children, duplicate them too with new IDs
   if (element.children) {
