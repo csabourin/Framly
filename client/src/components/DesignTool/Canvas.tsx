@@ -372,11 +372,14 @@ const Canvas: React.FC = () => {
       // Only switch to select tool if clicking on truly empty area or non-recipient elements
       if (!clickedElement || clickedElement.id === 'root' || !isValidDropTarget(clickedElement)) {
         if (['rectangle', 'text', 'image', 'container', 'heading', 'list', 'button'].includes(selectedTool)) {
+          console.log('TOOL SWITCH DEBUG - Switching to select tool (clicked non-recipient):', { clickedElement: clickedElement?.id, selectedTool });
           dispatch(setSelectedTool('select'));
           dispatch(selectElement('root'));
         }
+      } else {
+        // Clicked on recipient element (like rectangle/container) - stay in current tool mode for more creation
+        console.log('TOOL SWITCH DEBUG - Staying in current tool (clicked recipient):', { clickedElement: clickedElement?.id, selectedTool, isValidDropTarget: isValidDropTarget(clickedElement) });
       }
-      // If clicked on recipient element (like rectangle), stay in current tool mode for more creation
     }
   }, [selectedTool, zoomLevel, project.elements, dispatch, hoveredElementId, hoveredZone]);
 

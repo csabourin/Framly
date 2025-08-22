@@ -28,23 +28,46 @@ const ButtonElement: React.FC<ButtonElementProps> = ({
   // Get button design if linked to one
   const buttonDesign = element.buttonDesignId ? designs[element.buttonDesignId] : null;
 
-  // Calculate styles - use design if available, otherwise use element styles
+  // Get custom classes styles with state-specific support
+  const { customClasses = {} } = useSelector((state: RootState) => state.classes);
+  
+  // Calculate styles - prioritize custom classes with state support over design states
   const getButtonStyles = (): React.CSSProperties => {
-    if (buttonDesign && buttonDesign.states[currentState as keyof typeof buttonDesign.states]) {
+    let combinedStyles = { ...element.styles };
+    
+    // Apply styles from custom classes (including state-specific styles)
+    if (element.classes && element.classes.length > 0) {
+      element.classes.forEach((className: string) => {
+        const customClass = customClasses[className];
+        if (customClass && customClass.styles) {
+          // Apply base styles first
+          Object.keys(customClass.styles).forEach(key => {
+            if (!key.includes(':')) {
+              combinedStyles[key] = customClass.styles[key];
+            }
+          });
+          
+          // Apply state-specific styles if current state matches
+          const statePrefix = `${currentState}:`;
+          Object.keys(customClass.styles).forEach(key => {
+            if (key.startsWith(statePrefix)) {
+              const actualProperty = key.substring(statePrefix.length);
+              combinedStyles[actualProperty] = customClass.styles[key];
+            }
+          });
+        }
+      });
+    }
+    
+    // Fall back to button design if available and no custom classes applied
+    if (buttonDesign && buttonDesign.states[currentState as keyof typeof buttonDesign.states] && 
+        (!element.classes || element.classes.length === 0)) {
       const designStyles = buttonDesign.states[currentState as keyof typeof buttonDesign.states].styles;
-      return {
-        ...element.styles,
-        ...designStyles,
-        position: 'absolute',
-        left: `${element.x}px`,
-        top: `${element.y}px`,
-        width: `${element.width}px`,
-        height: `${element.height}px`,
-      } as React.CSSProperties;
+      combinedStyles = { ...combinedStyles, ...designStyles };
     }
     
     return {
-      ...element.styles,
+      ...combinedStyles,
       position: 'absolute',
       left: `${element.x}px`,
       top: `${element.y}px`,

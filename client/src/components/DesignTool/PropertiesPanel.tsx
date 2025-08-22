@@ -158,10 +158,16 @@ const PropertiesPanel: React.FC = () => {
     // ALL style properties (including width/height and flex) go through classes
     // This ensures consistent class-based styling for everything
     if (selectedClassForEditing) {
+      // For button elements with state selection, store as state-specific property
+      let actualPropertyKey = propertyKey;
+      if (selectedElement.type === 'button' && selectedButtonState !== 'default') {
+        actualPropertyKey = `${selectedButtonState}:${propertyKey}`;
+      }
+      
       // Update the selected class styles
       const existingClass = customClasses[selectedClassForEditing];
       if (existingClass) {
-        const updatedStyles = { ...existingClass.styles, [propertyKey]: value };
+        const updatedStyles = { ...existingClass.styles, [actualPropertyKey]: value };
         dispatch(updateCustomClass({
           name: selectedClassForEditing,
           styles: updatedStyles
@@ -170,7 +176,7 @@ const PropertiesPanel: React.FC = () => {
         // Class doesn't exist in customClasses store - create it first
         dispatch(addCustomClass({
           name: selectedClassForEditing,
-          styles: { [propertyKey]: value },
+          styles: { [actualPropertyKey]: value },
           description: `Auto-generated class for ${selectedElement.type}`,
           category: 'auto-generated'
         }));
@@ -183,13 +189,19 @@ const PropertiesPanel: React.FC = () => {
       // Auto-create a class for any style property
       const autoClassName = `${selectedElement.type}-${Date.now().toString(36)}`;
       
+      // For button elements with state selection, store as state-specific property
+      let actualPropertyKey = propertyKey;
+      if (selectedElement.type === 'button' && selectedButtonState !== 'default') {
+        actualPropertyKey = `${selectedButtonState}:${propertyKey}`;
+      }
+      
       // Add class to element
       dispatch(addCSSClass({ elementId: selectedElement.id, className: autoClassName }));
       
       // Create the class with the new property
       dispatch(addCustomClass({
         name: autoClassName,
-        styles: { [propertyKey]: value },
+        styles: { [actualPropertyKey]: value },
         description: `Auto-generated class for ${selectedElement.type}`,
         category: 'auto-generated'
       }));
@@ -240,6 +252,39 @@ const PropertiesPanel: React.FC = () => {
   };
 
   const getPropertyValue = (property: PropertyConfig) => {
+    // For button elements, consider the selected button state
+    if (selectedElement.type === 'button' && selectedButtonState !== 'default') {
+      // First check if we're editing a specific class with state-specific styles
+      if (selectedClassForEditing) {
+        const customClass = customClasses[selectedClassForEditing];
+        if (customClass && customClass.styles) {
+          // Look for state-specific property (e.g., 'hover:backgroundColor')
+          const stateSpecificKey = `${selectedButtonState}:${property.key}`;
+          if (customClass.styles[stateSpecificKey] !== undefined) {
+            return customClass.styles[stateSpecificKey];
+          }
+          
+          // Fall back to the base property for the class
+          if (customClass.styles[property.key] !== undefined) {
+            return customClass.styles[property.key];
+          }
+        }
+      }
+      
+      // Check element's applied classes for state-specific styles
+      if (selectedElement.classes && selectedElement.classes.length > 0) {
+        for (const className of selectedElement.classes) {
+          const customClass = customClasses[className];
+          if (customClass && customClass.styles) {
+            const stateSpecificKey = `${selectedButtonState}:${property.key}`;
+            if (customClass.styles[stateSpecificKey] !== undefined) {
+              return customClass.styles[stateSpecificKey];
+            }
+          }
+        }
+      }
+    }
+    
     // If editing a specific class, get values from the class
     if (selectedClassForEditing) {
       const customClass = customClasses[selectedClassForEditing];
