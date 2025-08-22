@@ -132,3 +132,27 @@ export const selectUIState = createSelector(
     isButtonDesignerOpen: ui.isButtonDesignerOpen
   })
 );
+
+// Canvas project selector - CRITICAL: prevents browser crashes
+export const selectCanvasProject = createSelector(
+  [(state: RootState) => state.canvas],
+  (canvas) => canvas.project
+);
+
+// Canvas UI state selector - CRITICAL: prevents browser crashes  
+export const selectCanvasUIState = createSelector(
+  [(state: RootState) => state.ui],
+  (ui) => ({
+    selectedTool: ui.selectedTool,
+    isDragging: ui.isDragging,
+    dragStart: ui.dragStart,
+    isResizing: ui.isResizing,
+    resizeHandle: ui.resizeHandle,
+    zoomLevel: ui.zoomLevel,
+    isGridVisible: ui.isGridVisible,
+    draggedElementId: ui.draggedElementId,
+    isDraggingForReorder: ui.isDraggingForReorder,
+    isDOMTreePanelVisible: ui.isDOMTreePanelVisible,
+    isComponentPanelVisible: ui.isComponentPanelVisible
+  })
+);

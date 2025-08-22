@@ -10,6 +10,7 @@ import {
   setTabColor, 
   reorderTabs 
 } from '../../store/canvasSlice';
+import { selectCanvasProject } from '../../store/selectors';
 import { Plus, MoreHorizontal, X, Edit2, Copy, Trash2 } from 'lucide-react';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 
@@ -241,7 +242,7 @@ const TabItem: React.FC<TabItemProps> = ({
 
 const TabBar: React.FC = () => {
   const dispatch = useDispatch();
-  const { project } = useSelector((state: RootState) => state.canvas);
+  const project = useSelector(selectCanvasProject);
 
   const handleCreateTab = useCallback(() => {
     dispatch(createTab({ name: 'New Tab' }));

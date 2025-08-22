@@ -5,7 +5,7 @@ import { selectElement, addElement, moveElement, resizeElement, reorderElement, 
 import { setDragging, setDragStart, setResizing, setResizeHandle, resetUI, setDraggedElement, setDraggingForReorder, setHoveredElement, setSelectedTool } from '../../store/uiSlice';
 import { createDefaultElement, getElementAtPoint, calculateSnapPosition, isValidDropTarget } from '../../utils/canvas';
 import { instantiateComponent } from '../../utils/componentGenerator';
-import { selectCurrentElements, selectSelectedElementId } from '../../store/selectors';
+import { selectCurrentElements, selectSelectedElementId, selectCanvasProject, selectCanvasUIState } from '../../store/selectors';
 import CanvasElement from './CanvasElement';
 import { Plus, Minus, Maximize } from 'lucide-react';
 
@@ -30,8 +30,8 @@ const Canvas: React.FC = () => {
   const [dragThreshold, setDragThreshold] = useState({ x: 0, y: 0, exceeded: false });
   const [dragStartPos, setDragStartPos] = useState({ x: 0, y: 0 });
   const [expandedContainerId, setExpandedContainerId] = useState<string | null>(null);
-  const { project } = useSelector((state: RootState) => state.canvas);
-  const { selectedTool, isDragging, dragStart, isResizing, resizeHandle, zoomLevel, isGridVisible, draggedElementId, isDraggingForReorder, isDOMTreePanelVisible, isComponentPanelVisible } = useSelector((state: RootState) => state.ui);
+  const project = useSelector(selectCanvasProject);
+  const { selectedTool, isDragging, dragStart, isResizing, resizeHandle, zoomLevel, isGridVisible, draggedElementId, isDraggingForReorder, isDOMTreePanelVisible, isComponentPanelVisible } = useSelector(selectCanvasUIState);
   
   // Use centralized selectors for tab-based data
   const currentElements = useSelector(selectCurrentElements);
