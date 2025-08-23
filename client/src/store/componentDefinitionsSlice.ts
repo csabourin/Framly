@@ -6,9 +6,8 @@ interface ComponentDefinitionsState {
   definitions: Record<ComponentId, ComponentDef>;
   categories: Record<CategoryId, ComponentCategory>;
   
-  // In-memory cache for performance
-  componentMap: Map<ComponentId, ComponentDef>;
-  instanceIndex: Record<ComponentId, string[]>; // Track which elements are instances of which components
+  // Track which elements are instances of which components
+  instanceIndex: Record<ComponentId, string[]>;
   
   // UI state
   isComponentEditorOpen: boolean;
@@ -22,7 +21,6 @@ interface ComponentDefinitionsState {
 const initialState: ComponentDefinitionsState = {
   definitions: {},
   categories: {},
-  componentMap: new Map(),
   instanceIndex: {},
   isComponentEditorOpen: false,
   editingComponentId: null,
@@ -38,7 +36,6 @@ const componentDefinitionsSlice = createSlice({
     addComponentDefinition: (state, action: PayloadAction<ComponentDef>) => {
       const def = action.payload;
       state.definitions[def.id] = def;
-      state.componentMap.set(def.id, def);
       if (!state.instanceIndex[def.id]) {
         state.instanceIndex[def.id] = [];
       }
@@ -47,13 +44,11 @@ const componentDefinitionsSlice = createSlice({
     updateComponentDefinition: (state, action: PayloadAction<ComponentDef>) => {
       const def = action.payload;
       state.definitions[def.id] = def;
-      state.componentMap.set(def.id, def);
     },
     
     deleteComponentDefinition: (state, action: PayloadAction<ComponentId>) => {
       const componentId = action.payload;
       delete state.definitions[componentId];
-      state.componentMap.delete(componentId);
       delete state.instanceIndex[componentId];
       
       // Close any open tabs for this component
@@ -69,7 +64,6 @@ const componentDefinitionsSlice = createSlice({
         state.definitions[componentId].name = newName;
         state.definitions[componentId].version += 1;
         state.definitions[componentId].updatedAt = Date.now();
-        state.componentMap.set(componentId, state.definitions[componentId]);
       }
     },
     
