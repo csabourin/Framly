@@ -24,18 +24,7 @@ const ComponentInstanceElement: React.FC<ComponentInstanceElementProps> = ({
 }) => {
   const dispatch = useDispatch();
   
-  // CRITICAL: Prevent crashes from invalid component instances
-  if (!isComponentInstance(element) || !element.componentRef?.componentId) {
-    console.warn('ComponentInstanceElement: invalid component instance', { elementId: element.id, componentRef: element.componentRef });
-    return null;
-  }
-
-  // Additional safety check for empty componentId
-  if (element.componentRef.componentId.trim() === '') {
-    console.warn('ComponentInstanceElement: empty componentId', { elementId: element.id });
-    return null;
-  }
-
+  // CRITICAL: Call all hooks FIRST before any conditional logic
   const componentDefinition = useSelector((state: RootState) => {
     try {
       return element.componentRef?.componentId ? selectComponentDefinition(state, element.componentRef.componentId) : null;
@@ -80,27 +69,21 @@ const ComponentInstanceElement: React.FC<ComponentInstanceElementProps> = ({
     onSelect();
   }, [onSelect]);
 
+  // NOW handle validation after all hooks are called
+  if (!isComponentInstance(element) || !element.componentRef?.componentId) {
+    console.warn('ComponentInstanceElement: invalid component instance', { elementId: element.id, componentRef: element.componentRef });
+    return null;
+  }
+
+  // Additional safety check for empty componentId
+  if (element.componentRef.componentId.trim() === '') {
+    console.warn('ComponentInstanceElement: empty componentId', { elementId: element.id });
+    return null;
+  }
+
+  // Handle missing component definition AFTER all hooks
   if (!componentDefinition) {
-    // Auto-cleanup orphaned instances to prevent crashes
-    React.useEffect(() => {
-      console.warn('Orphaned component instance detected, attempting cleanup:', {
-        elementId: element.id,
-        componentId: element.componentRef?.componentId
-      });
-      
-      // Dispatch action to remove orphaned instance from Redux
-      try {
-        // Convert back to regular element by removing componentRef
-        const cleanElement = { ...element };
-        delete cleanElement.componentRef;
-        
-        // Don't dispatch here to avoid infinite loops - just return null
-        console.log('Returning null for orphaned component to prevent crashes');
-      } catch (error) {
-        console.error('Error during orphaned component cleanup:', error);
-      }
-    }, []);
-    
+    console.warn('Component definition not found for instance:', element.componentRef?.componentId);
     // Return null instead of rendering fallback to prevent further issues
     return null;
   }
