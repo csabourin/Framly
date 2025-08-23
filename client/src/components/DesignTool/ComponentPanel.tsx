@@ -42,7 +42,7 @@ import {
 
 const ComponentPanel: React.FC = () => {
   const dispatch = useDispatch();
-  const { isCreatingComponent } = useSelector(state => state.components);
+  const { isCreatingComponent } = useSelector((state: RootState) => state.components);
   const componentDefinitions = useSelector(selectComponentDefinitions);
   const componentCategories = useSelector(selectComponentCategories);
   const project = useSelector(selectCanvasProject);
@@ -175,15 +175,7 @@ const ComponentPanel: React.FC = () => {
   const ComponentThumbnail: React.FC<{ component: ComponentDef }> = ({ component }) => {
     return (
       <div className="w-full h-16 bg-gray-100 rounded border flex items-center justify-center text-xs text-gray-500 mb-2">
-        {component.thumbnail ? (
-          <img 
-            src={component.thumbnail} 
-            alt={component.name}
-            className="w-full h-full object-cover rounded"
-          />
-        ) : (
-          <Package size={20} />
-        )}
+        <Package size={20} />
       </div>
     );
   };
@@ -243,7 +235,7 @@ const ComponentPanel: React.FC = () => {
         ) : (
           <Accordion type="multiple" defaultValue={Object.keys(filteredComponents)} className="px-2">
             {Object.entries(filteredComponents).map(([categoryId, components]) => {
-              const category = componentCategories[categoryId] || { id: categoryId, name: 'Uncategorized', sortIndex: 999 };
+              const category = componentCategories[categoryId as keyof typeof componentCategories] || { id: categoryId, name: 'Uncategorized', sortIndex: 999 };
               
               return (
                 <AccordionItem key={categoryId} value={categoryId} className="border-b-0">

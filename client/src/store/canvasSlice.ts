@@ -417,6 +417,24 @@ const canvasSlice = createSlice({
       if (isComponentTab && componentId) {
         newTab.isComponentTab = true;
         newTab.componentId = componentId;
+        
+        // CRITICAL FIX: Load component template into the tab
+        // Get component definition from componentDefinitions slice
+        const componentDef = (state as any).componentDefinitions?.definitions?.[componentId];
+        if (componentDef) {
+          // Replace root element with component template
+          newTab.elements = {
+            root: {
+              ...componentDef.template,
+              id: 'root',
+              x: 20,
+              y: 20,
+              parent: undefined // Root has no parent
+            }
+          };
+          newTab.viewSettings.selectedElementId = 'root';
+          console.log('Component tab loaded with template:', componentDef.name);
+        }
       }
       
       state.project.tabs[newTab.id] = newTab;
