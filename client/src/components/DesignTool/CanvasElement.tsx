@@ -748,53 +748,20 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
   // Check if this element can accept drops using centralized logic
   const canAcceptDrop = isValidDropTarget(element);
   
-  // Define visual feedback based on selection, hover, and drag states using outline
+  // Clean professional feedback - only show selection outlines
   const getOutlineStyle = () => {
     if (isSelected) return '2px solid #3b82f6';
-    
-    // Drag-drop visual feedback (only show for compatible drop targets)
-    if (isDraggingForReorder && isThisElementHovered && canAcceptDrop && thisElementHoveredZone === 'inside') {
-      return '4px solid #22c55e'; // Green outline for valid drop zones
-    }
-    
-    // Creation tool hover feedback (purple for inside, blue for before/after)
-    if (isThisElementHovered && thisElementHoveredZone === 'inside') return '4px solid #a855f7';
-    if (isThisElementHovered && (thisElementHoveredZone === 'before' || thisElementHoveredZone === 'after')) return '2px solid #3b82f6';
-    
     return undefined;
   };
 
   const getBackgroundColor = (mergedBgColor?: string) => {
-    // Creation tool hover feedback
-    if (isThisElementHovered && thisElementHoveredZone === 'inside') return 'rgba(168, 85, 247, 0.1)';
-    
-    // Drag-drop feedback (green for valid drop zones, red for invalid)
-    if (isDraggingForReorder && isThisElementHovered && thisElementHoveredZone === 'inside') {
-      if (canAcceptDrop) {
-        return 'rgba(34, 197, 94, 0.1)'; // Green background for valid drops
-      } else {
-        return 'rgba(239, 68, 68, 0.1)'; // Red background for invalid drops
-      }
-    }
-    
-    // Use merged styles (includes custom classes) instead of just element.styles
+    // Clean hover experience - no background overlays
     return mergedBgColor || mergedStyles.backgroundColor;
   };
 
   const getBoxShadow = () => {
+    // Clean selection shadow only
     if (isSelected) return '0 0 0 1px rgba(59, 130, 246, 0.3)';
-    
-    // Drag-drop shadow feedback
-    if (isDraggingForReorder && isThisElementHovered && thisElementHoveredZone === 'inside') {
-      if (canAcceptDrop) {
-        return '0 0 0 3px rgba(34, 197, 94, 0.5)'; // Green shadow for valid drops
-      } else {
-        return '0 0 0 3px rgba(239, 68, 68, 0.5)'; // Red shadow for invalid drops
-      }
-    }
-    
-    // Creation tool shadow
-    if (isThisElementHovered && thisElementHoveredZone === 'inside') return '0 0 0 2px #a855f7';
     return undefined;
   };
 
@@ -867,16 +834,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     zIndex: isThisElementHovered ? 1000 : (isSelected ? 100 : undefined),
   };
 
-  // Add debug logging for hover state
-  if (isThisElementHovered) {
-    console.log('Element hover state:', { 
-      elementId: element.id, 
-      isHovered: isThisElementHovered, 
-      hoveredZone: thisElementHoveredZone, 
-      outline: getOutlineStyle(),
-      backgroundColor: getBackgroundColor(mergedStyles.backgroundColor)
-    });
-  }
+  // Clean professional hover system - no debug logging needed
 
   // Determine professional selection state
   const getSelectionState = () => {
@@ -930,7 +888,14 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     >
       {/* Professional Selection Handle */}
       {isSelected && (
-        <div className="selection-handle" data-testid="selection-handle">
+        <div 
+          className="selection-handle" 
+          data-testid="selection-handle"
+          onClick={(e) => {
+            e.stopPropagation();
+            dispatch(setSelectedTool('hand'));
+          }}
+        >
           <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
             <path d="M2 2h2v2H2V2zm3 0h2v2H5V2zm3 0h2v2H8V2zM2 5h2v2H2V5zm3 0h2v2H5V5zm3 0h2v2H8V5zM2 8h2v2H2V8zm3 0h2v2H5V8zm3 0h2v2H8V8z"/>
           </svg>

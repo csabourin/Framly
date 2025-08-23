@@ -116,6 +116,185 @@
   background-color: hsla(203.8863, 88.2845%, 53.1373%, 0.05);
 }
 
+/* ============================================
+   PROFESSIONAL SELECTION SYSTEM
+   ============================================ */
+
+/* Enhanced selection tokens */
+:root {
+  --selection-primary: oklch(0.67 0.136 239.68);      /* Professional blue */
+  --selection-primary-dim: oklch(0.67 0.136 239.68 / 0.08);
+  --selection-secondary: oklch(0.75 0.201 254.99);    /* Vivid purple */
+  --selection-surface: oklch(0.98 0.004 239.68);      /* Subtle background */
+  --selection-border: oklch(0.89 0.011 239.68);       /* Light border */
+  --selection-handle-size: 28px;
+  --selection-timing-fast: 120ms;
+  --selection-timing-medium: 160ms;
+  --selection-easing: cubic-bezier(0.2, 0.7, 0, 1);
+}
+
+/* Input modality detection */
+body[data-input-modality="keyboard"] {
+  --selection-focus-visible: oklch(0.67 0.136 239.68 / 0.15);
+}
+
+body[data-input-modality="mouse"] {
+  --selection-focus-visible: transparent;
+}
+
+/* Professional selectable blocks */
+.selectable-block {
+  position: relative;
+  transition: 
+    outline-color var(--selection-timing-fast) var(--selection-easing),
+    box-shadow var(--selection-timing-fast) var(--selection-easing);
+}
+
+/* Selection states */
+.selectable-block[data-state="idle"] {
+  outline: 1px solid transparent;
+}
+
+.selectable-block[data-state="hover"] {
+  outline: 2px solid oklch(0.67 0.136 239.68 / 0.3);
+  outline-offset: -1px;
+}
+
+.selectable-block[data-state="selected"] {
+  outline: 2px solid var(--selection-primary);
+  outline-offset: -1px;
+  box-shadow: 
+    0 0 0 1px var(--selection-primary-dim),
+    0 1px 3px oklch(0.67 0.136 239.68 / 0.1);
+}
+
+.selectable-block[data-state="editing"] {
+  outline: 2px solid var(--selection-secondary);
+  outline-offset: -1px;
+  box-shadow: 
+    0 0 0 1px oklch(0.75 0.201 254.99 / 0.15),
+    0 2px 8px oklch(0.75 0.201 254.99 / 0.08);
+}
+
+.selectable-block[data-state="dragging"] {
+  outline: 2px dashed var(--selection-primary);
+  outline-offset: -1px;
+  opacity: 0.7;
+  transform: scale(1.02);
+}
+
+/* Focus-visible styling for keyboard users */
+.selectable-block:focus-visible {
+  outline: 3px solid var(--selection-focus-visible);
+  outline-offset: 2px;
+}
+
+/* Professional selection handle */
+.selection-handle {
+  position: absolute;
+  top: -14px;
+  left: -14px;
+  width: var(--selection-handle-size);
+  height: var(--selection-handle-size);
+  background: var(--selection-primary);
+  border: 2px solid white;
+  border-radius: 6px;
+  cursor: grab;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 10px;
+  line-height: 1;
+  z-index: 1000;
+  transition: 
+    transform var(--selection-timing-fast) var(--selection-easing),
+    box-shadow var(--selection-timing-fast) var(--selection-easing);
+  box-shadow: 
+    0 2px 4px oklch(0.67 0.136 239.68 / 0.2),
+    0 1px 2px oklch(0.67 0.136 239.68 / 0.1);
+}
+
+.selection-handle:hover {
+  transform: scale(1.1);
+  box-shadow: 
+    0 4px 8px oklch(0.67 0.136 239.68 / 0.25),
+    0 2px 4px oklch(0.67 0.136 239.68 / 0.15);
+}
+
+.selection-handle:active {
+  transform: scale(0.95);
+  cursor: grabbing;
+}
+
+/* Professional resize handles for editing mode */
+.resizer {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: var(--selection-secondary);
+  border: 1px solid white;
+  border-radius: 2px;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: 
+    opacity var(--selection-timing-medium) var(--selection-easing),
+    transform var(--selection-timing-medium) var(--selection-easing);
+  z-index: 999;
+  pointer-events: all;
+}
+
+.selectable-block[data-state="editing"] .resizer {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.resizer.tl { top: -4px; left: -4px; cursor: nw-resize; }
+.resizer.tr { top: -4px; right: -4px; cursor: ne-resize; }
+.resizer.bl { bottom: -4px; left: -4px; cursor: sw-resize; }
+.resizer.br { bottom: -4px; right: -4px; cursor: se-resize; }
+
+.resizer:hover {
+  transform: scale(1.2);
+  background: oklch(0.75 0.201 254.99 / 0.9);
+}
+
+/* Accessibility: Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .selectable-block,
+  .selection-handle,
+  .resizer {
+    transition: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .selectable-block[data-state="selected"] {
+    outline: 3px solid CanvasText;
+  }
+  
+  .selection-handle {
+    background: CanvasText;
+    color: Canvas;
+    border-color: Canvas;
+  }
+}
+
+/* Force colors mode support */
+@media (forced-colors: active) {
+  .selectable-block[data-state="selected"] {
+    outline: 2px solid Highlight;
+    box-shadow: none;
+  }
+  
+  .selection-handle {
+    background: Highlight;
+    color: HighlightText;
+    border-color: Canvas;
+  }
+}
+
 /* Professional drag-drop animations */
 @keyframes dnd-indicator-enter {
   from {
