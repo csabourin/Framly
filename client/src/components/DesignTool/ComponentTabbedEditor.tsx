@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
 import { selectOpenComponentTabs, selectActiveComponentTab } from '../../store/selectors';
-import { setActiveComponentTab, closeComponentTab } from '../../store/componentDefinitionsSlice';
+import { switchComponentTab, closeComponentTab } from '../../store/componentDefinitionsSlice';
 import ComponentEditorTab from './ComponentEditorTab';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';
 import { Button } from '../ui/button';
@@ -21,7 +21,7 @@ const ComponentTabbedEditor: React.FC = () => {
   }
 
   const handleTabChange = (componentId: string) => {
-    dispatch(setActiveComponentTab(componentId));
+    dispatch(switchComponentTab(componentId));
   };
 
   const handleCloseTab = (componentId: string) => {

@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
 import { selectComponentDefinition } from '../../store/selectors';
 import { openComponentTab } from '../../store/componentDefinitionsSlice';
-import { selectElement } from '../../store/canvasSlice';
+import { selectElement, createTab } from '../../store/canvasSlice';
 import { CanvasElement, ComponentId } from '../../types/canvas';
 import { isComponentInstance, renderComponentInstance } from '../../utils/componentInstances';
 
@@ -29,7 +29,7 @@ const ComponentInstanceElement: React.FC<ComponentInstanceElementProps> = ({
     return null;
   }
 
-  const componentDef = useSelector((state: RootState) => 
+  const componentDefinition = useSelector((state: RootState) => 
     element.componentRef?.componentId ? selectComponentDefinition(state, element.componentRef.componentId) : null
   );
 
@@ -37,18 +37,24 @@ const ComponentInstanceElement: React.FC<ComponentInstanceElementProps> = ({
     e.stopPropagation();
     e.preventDefault();
     
-    if (element.componentRef?.componentId) {
-      // Open component editor tab
-      dispatch(openComponentTab(element.componentRef.componentId));
+    if (element.componentRef?.componentId && componentDefinition) {
+      // Create component editing tab in main canvas system
+      const tabName = `Edit: ${componentDefinition.name}`;
+      dispatch(createTab({ 
+        name: tabName, 
+        color: '#e0e7ff',
+        isComponentTab: true,
+        componentId: element.componentRef.componentId 
+      }));
     }
-  }, [dispatch, element.componentRef]);
+  }, [dispatch, element.componentRef, componentDefinition]);
 
   const handleSingleClick = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
     onSelect();
   }, [onSelect]);
 
-  if (!componentDef) {
+  if (!componentDefinition) {
     // Component definition not found - show error state without draggable behavior
     return (
       <div
@@ -95,58 +101,58 @@ const ComponentInstanceElement: React.FC<ComponentInstanceElementProps> = ({
       {/* Render actual component template content */}
       <div 
         className="w-full h-full relative"
-        style={componentDef.template.styles}
+        style={componentDefinition.template.styles}
       >
         {/* Content based on template type */}
-        {componentDef.template.type === 'text' && (
+        {componentDefinition.template.type === 'text' && (
           <div 
             className="w-full h-full flex items-center justify-center"
-            style={componentDef.template.styles}
+            style={componentDefinition.template.styles}
           >
-            {componentDef.template.content || componentDef.template.text || 'Text'}
+            {componentDefinition.template.content || 'Text'}
           </div>
         )}
         
-        {componentDef.template.type === 'button' && (
+        {componentDefinition.template.type === 'button' && (
           <button 
             className="w-full h-full"
             disabled // Always disabled for instances
-            style={componentDef.template.styles}
+            style={componentDefinition.template.styles}
           >
-            {componentDef.template.buttonText || componentDef.template.content || 'Button'}
+            {componentDefinition.template.buttonText || componentDefinition.template.content || 'Button'}
           </button>
         )}
         
-        {componentDef.template.type === 'rectangle' && (
+        {componentDefinition.template.type === 'rectangle' && (
           <div 
             className="w-full h-full" 
-            style={componentDef.template.styles}
+            style={componentDefinition.template.styles}
           />
         )}
         
-        {componentDef.template.type === 'image' && (
+        {componentDefinition.template.type === 'image' && (
           <img 
-            src={componentDef.template.imageUrl || componentDef.template.imageBase64 || '/placeholder.png'}
-            alt={componentDef.template.imageAlt || 'Component image'}
+            src={componentDefinition.template.imageUrl || componentDefinition.template.imageBase64 || '/placeholder.png'}
+            alt={componentDefinition.template.imageAlt || 'Component image'}
             className="w-full h-full object-cover"
-            style={componentDef.template.styles}
+            style={componentDefinition.template.styles}
           />
         )}
         
-        {componentDef.template.type === 'container' && (
+        {componentDefinition.template.type === 'container' && (
           <div 
             className="w-full h-full"
             style={{
               display: 'flex',
-              flexDirection: componentDef.template.flexDirection || 'column',
-              justifyContent: componentDef.template.justifyContent || 'flex-start',
-              alignItems: componentDef.template.alignItems || 'stretch',
-              ...componentDef.template.styles
+              flexDirection: componentDefinition.template.flexDirection || 'column',
+              justifyContent: componentDefinition.template.justifyContent || 'flex-start',
+              alignItems: componentDefinition.template.alignItems || 'stretch',
+              ...componentDefinition.template.styles
             }}
           >
             {/* Container instances show placeholder content */}
             <div className="text-xs text-gray-500 p-2">
-              Container Component: {componentDef.name}
+              Container Component: {componentDefinition.name}
             </div>
           </div>
         )}
@@ -154,7 +160,7 @@ const ComponentInstanceElement: React.FC<ComponentInstanceElementProps> = ({
         {/* Small instance indicator */}
         <div 
           className="absolute top-1 right-1 w-2 h-2 bg-blue-500 rounded-full opacity-60 pointer-events-none"
-          title={`Component: ${componentDef.name}`}
+          title={`Component: ${componentDefinition.name}`}
         />
       </div>
     </div>

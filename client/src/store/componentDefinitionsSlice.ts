@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ComponentDef, ComponentCategory, ComponentId, CategoryId } from '../types/canvas';
+import { nanoid } from 'nanoid';
 
 interface ComponentDefinitionsState {
   // Component definitions (spec-compliant)
@@ -116,29 +117,34 @@ const componentDefinitionsSlice = createSlice({
       }
     },
     
-    // Component editing tabs
+    // Component tab system
     openComponentTab: (state, action: PayloadAction<ComponentId>) => {
       const componentId = action.payload;
       if (!state.openComponentTabs.includes(componentId)) {
         state.openComponentTabs.push(componentId);
       }
       state.activeComponentTabId = componentId;
-      state.isComponentEditorOpen = true;
     },
     
     closeComponentTab: (state, action: PayloadAction<ComponentId>) => {
       const componentId = action.payload;
       state.openComponentTabs = state.openComponentTabs.filter(id => id !== componentId);
-      
-      // Switch to another tab or close editor
       if (state.activeComponentTabId === componentId) {
         state.activeComponentTabId = state.openComponentTabs[0] || null;
-        state.isComponentEditorOpen = state.openComponentTabs.length > 0;
       }
     },
     
-    setActiveComponentTab: (state, action: PayloadAction<ComponentId>) => {
-      state.activeComponentTabId = action.payload;
+    switchComponentTab: (state, action: PayloadAction<ComponentId>) => {
+      const componentId = action.payload;
+      if (state.openComponentTabs.includes(componentId)) {
+        state.activeComponentTabId = componentId;
+      }
+    },
+    
+    // Component editing UI
+    setEditingComponentId: (state, action: PayloadAction<ComponentId | null>) => {
+      state.editingComponentId = action.payload;
+      state.isComponentEditorOpen = action.payload !== null;
     },
     
     // Editor state
@@ -176,7 +182,7 @@ export const {
   unregisterComponentInstance,
   openComponentTab,
   closeComponentTab,
-  setActiveComponentTab,
+  switchComponentTab,
   setComponentEditorOpen,
   setEditingComponent,
   loadComponentDefinitions

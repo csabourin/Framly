@@ -97,6 +97,9 @@ export interface DesignTab {
   viewSettings: TabViewSettings;
   createdAt: number;
   updatedAt: number;
+  // Component editing specific fields
+  isComponentTab?: boolean;
+  componentId?: ComponentId;
 }
 
 export interface Breakpoint {

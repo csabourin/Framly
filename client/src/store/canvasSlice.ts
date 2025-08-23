@@ -410,10 +410,14 @@ const canvasSlice = createSlice({
     },
 
     // Tab management actions
-    createTab: (state, action: PayloadAction<{ name?: string; color?: string }>) => {
-      const { name = 'New Tab', color } = action.payload;
+    createTab: (state, action: PayloadAction<{ name?: string; color?: string; isComponentTab?: boolean; componentId?: string }>) => {
+      const { name = 'New Tab', color, isComponentTab, componentId } = action.payload;
       const newTab = createDefaultTab(name);
       if (color) newTab.color = color;
+      if (isComponentTab && componentId) {
+        newTab.isComponentTab = true;
+        newTab.componentId = componentId;
+      }
       
       state.project.tabs[newTab.id] = newTab;
       state.project.tabOrder.push(newTab.id);
