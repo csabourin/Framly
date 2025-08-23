@@ -1035,66 +1035,64 @@ const Canvas: React.FC = () => {
               height: insertionIndicator.bounds.height,
             }}
           >
-            {/* PROFESSIONAL INDICATORS - Per acceptance criteria */}
+            {/* SUBTLE ABOVE/BELOW INDICATORS */}
             {((insertionIndicator as any).position === 'before' || (insertionIndicator as any).position === 'after') && (
               <div className="relative w-full h-full">
-                {/* 2px line spanning target width with subtle animation */}
+                {/* Subtle 2px line with gentle glow */}
                 <div 
-                  className="w-full h-full animate-pulse"
+                  className="w-full h-full"
                   style={{
-                    backgroundColor: '#3b82f6',
-                    boxShadow: '0 0 6px rgba(59, 130, 246, 0.8)',
+                    backgroundColor: '#6366f1',
+                    boxShadow: '0 0 4px rgba(99, 102, 241, 0.4)',
                   }}
                 />
-                {/* 3-icon micro hint for extra clarity */}
-                <div className="absolute -right-8 top-1/2 transform -translate-y-1/2 bg-white rounded-full border-2 border-blue-500 w-6 h-6 flex items-center justify-center text-blue-600 text-xs font-bold shadow-lg">
+                {/* Discrete micro hint */}
+                <div className="absolute -right-6 top-1/2 transform -translate-y-1/2 bg-white rounded-full border border-indigo-300 w-4 h-4 flex items-center justify-center text-indigo-600 text-xs shadow-sm">
                   {(insertionIndicator as any).position === 'before' ? '↑' : '↓'}
                 </div>
               </div>
             )}
 
-            {/* INSIDE CONTAINER - Padded rectangle highlight within container bounds */}
+            {/* SUBTLE INSIDE CONTAINER INDICATOR */}
             {(insertionIndicator as any).position === 'inside' && (
               <div className="relative w-full h-full">
-                {/* Padded rectangle highlight as per acceptance criteria */}
+                {/* Gentle padded rectangle */}
                 <div 
-                  className="w-full h-full rounded border-2 border-dashed animate-pulse"
+                  className="w-full h-full rounded border border-dashed"
                   style={{
-                    backgroundColor: 'rgba(168, 85, 247, 0.1)',
-                    borderColor: '#a855f7',
-                    boxShadow: 'inset 0 0 12px rgba(168, 85, 247, 0.2)',
+                    backgroundColor: 'rgba(139, 92, 246, 0.05)',
+                    borderColor: '#8b5cf6',
+                    boxShadow: 'inset 0 0 8px rgba(139, 92, 246, 0.1)',
                   }}
                 />
-                {/* 3-icon micro hint for inside */}
-                <div className="absolute -right-8 top-1/2 transform -translate-y-1/2 bg-white rounded-full border-2 border-purple-500 w-6 h-6 flex items-center justify-center text-purple-600 text-xs font-bold shadow-lg">
+                {/* Discrete micro hint */}
+                <div className="absolute -right-6 top-1/2 transform -translate-y-1/2 bg-white rounded-full border border-violet-300 w-4 h-4 flex items-center justify-center text-violet-600 text-xs shadow-sm">
                   ⧉
                 </div>
               </div>
             )}
 
-            {/* BETWEEN SIBLINGS - Special blue highlight */}
+            {/* SUBTLE BETWEEN SIBLINGS INDICATOR */}
             {(insertionIndicator as any).position === 'between' && (
               <div 
-                className="w-full h-full rounded-lg animate-pulse"
+                className="w-full h-full rounded"
                 style={{
-                  backgroundColor: 'rgba(59, 130, 246, 0.9)',
-                  boxShadow: '0 0 25px rgba(59, 130, 246, 0.8), inset 0 2px 4px rgba(255, 255, 255, 0.3)',
-                  border: '3px solid #2563eb'
+                  backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                  boxShadow: '0 0 8px rgba(59, 130, 246, 0.3)',
+                  border: '1px solid #60a5fa'
                 }}
               >
                 <div className="flex items-center justify-center h-full">
-                  <div className="bg-white text-blue-600 text-sm font-bold px-4 py-2 rounded-lg shadow-lg border border-blue-300">
-                    ↕ INSERT BETWEEN ELEMENTS ↕
+                  <div className="bg-white/90 text-blue-700 text-xs px-2 py-1 rounded shadow-sm border border-blue-200">
+                    ↕
                   </div>
                 </div>
-                <div className="absolute -left-3 top-1/2 w-6 h-6 bg-blue-500 rounded-full transform -translate-y-3 border-3 border-white shadow-lg" />
-                <div className="absolute -right-3 top-1/2 w-6 h-6 bg-blue-500 rounded-full transform -translate-y-3 border-3 border-white shadow-lg" />
               </div>
             )}
           </div>
         )}
 
-        {/* GHOST PREVIEW SYSTEM - Smaller, less intrusive */}
+        {/* SUBTLE GHOST PREVIEW */}
         {isDraggingForReorder && draggedElementId && insertionIndicator && (
           (() => {
             const draggedElement = currentElements[draggedElementId];
@@ -1102,15 +1100,15 @@ const Canvas: React.FC = () => {
             
             return (
               <div
-                className="absolute pointer-events-none z-[70] transition-all duration-100"
+                className="absolute pointer-events-none z-[70] transition-all duration-150"
                 style={{
-                  left: insertionIndicator.bounds.x + 20,
-                  top: insertionIndicator.bounds.y - 30,
-                  opacity: 0.8,
-                  transform: 'scale(0.7)',
+                  left: insertionIndicator.bounds.x + 15,
+                  top: insertionIndicator.bounds.y - 25,
+                  opacity: 0.7,
+                  transform: 'scale(0.8)',
                 }}
               >
-                <div className="bg-blue-100 border-2 border-blue-400 rounded px-2 py-1 text-xs text-blue-700 font-medium shadow-md">
+                <div className="bg-gray-50 border border-gray-300 rounded px-2 py-1 text-xs text-gray-600 shadow-sm">
                   {draggedElement.type}
                 </div>
               </div>
