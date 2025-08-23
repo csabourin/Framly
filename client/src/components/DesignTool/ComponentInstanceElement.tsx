@@ -69,12 +69,11 @@ const ComponentInstanceElement: React.FC<ComponentInstanceElementProps> = ({
     );
   }
 
-  // Render the component instance by expanding its template
-  const renderedElement = renderComponentInstance(element, componentDef);
-
+  // Instead of rendering as a gray box, render the actual component content
+  // The component instance should look exactly like the original element
   return (
     <div
-      className="component-instance w-full h-full cursor-pointer"
+      className="component-instance-wrapper"
       onClick={handleSingleClick}
       onDoubleClick={handleDoubleClick}
       data-testid={`component-instance-${element.id}`}
@@ -93,48 +92,70 @@ const ComponentInstanceElement: React.FC<ComponentInstanceElementProps> = ({
         zIndex: 1
       }}
     >
-      {/* Instance visual chrome */}
+      {/* Render actual component template content */}
       <div 
         className="w-full h-full relative"
-        style={renderedElement.styles}
+        style={componentDef.template.styles}
       >
-        {/* Content based on component type */}
-        {renderedElement.type === 'text' && (
+        {/* Content based on template type */}
+        {componentDef.template.type === 'text' && (
           <div 
-            className="w-full h-full"
-            dangerouslySetInnerHTML={{ __html: renderedElement.content || 'Text' }}
-          />
+            className="w-full h-full flex items-center justify-center"
+            style={componentDef.template.styles}
+          >
+            {componentDef.template.content || componentDef.template.text || 'Text'}
+          </div>
         )}
         
-        {renderedElement.type === 'button' && (
+        {componentDef.template.type === 'button' && (
           <button 
             className="w-full h-full"
             disabled // Always disabled for instances
-            style={renderedElement.styles}
+            style={componentDef.template.styles}
           >
-            {renderedElement.buttonText || renderedElement.content || 'Button'}
+            {componentDef.template.buttonText || componentDef.template.content || 'Button'}
           </button>
         )}
         
-        {renderedElement.type === 'rectangle' && (
-          <div className="w-full h-full" />
+        {componentDef.template.type === 'rectangle' && (
+          <div 
+            className="w-full h-full" 
+            style={componentDef.template.styles}
+          />
         )}
         
-        {renderedElement.type === 'container' && (
-          <div className="w-full h-full">
+        {componentDef.template.type === 'image' && (
+          <img 
+            src={componentDef.template.imageUrl || componentDef.template.imageBase64 || '/placeholder.png'}
+            alt={componentDef.template.imageAlt || 'Component image'}
+            className="w-full h-full object-cover"
+            style={componentDef.template.styles}
+          />
+        )}
+        
+        {componentDef.template.type === 'container' && (
+          <div 
+            className="w-full h-full"
+            style={{
+              display: 'flex',
+              flexDirection: componentDef.template.flexDirection || 'column',
+              justifyContent: componentDef.template.justifyContent || 'flex-start',
+              alignItems: componentDef.template.alignItems || 'stretch',
+              ...componentDef.template.styles
+            }}
+          >
             {/* Container instances show placeholder content */}
-            <div className="w-full h-full opacity-50 text-gray-500 flex items-center justify-center text-xs">
-              Container Component
+            <div className="text-xs text-gray-500 p-2">
+              Container Component: {componentDef.name}
             </div>
           </div>
         )}
         
-        {/* Instance indicator overlay */}
-        <div className="absolute top-0 right-0 pointer-events-none">
-          <div className="component-instance-badge bg-blue-600 text-white text-xs px-1 rounded-bl opacity-75">
-            {componentDef.name}
-          </div>
-        </div>
+        {/* Small instance indicator */}
+        <div 
+          className="absolute top-1 right-1 w-2 h-2 bg-blue-500 rounded-full opacity-60 pointer-events-none"
+          title={`Component: ${componentDef.name}`}
+        />
       </div>
     </div>
   );

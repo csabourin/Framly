@@ -84,6 +84,8 @@ const CreateComponentModal: React.FC = () => {
       version: 1,
       updatedAt: Date.now()
     };
+    
+    console.log('Creating component with category:', componentCategory, 'categoryId:', componentDef.categoryId);
 
     // Create or get category if needed
     if (componentCategory !== 'custom') {
