@@ -87,8 +87,8 @@ const ComponentInstanceElement: React.FC<ComponentInstanceElementProps> = ({
       data-state={isSelected ? 'selected' : 'default'}
       data-component-id={element.componentRef?.componentId}
       role="group"
-      aria-label={`Component instance: ${componentDef.name}`}
-      title={`Double-click to edit ${componentDef.name} component`}
+      aria-label={`Component instance: ${componentDefinition.name}`}
+      title={`Double-click to edit ${componentDefinition.name} component`}
       style={{
         position: 'absolute',
         left: element.x,
