@@ -1035,56 +1035,69 @@ const Canvas: React.FC = () => {
               height: insertionIndicator.bounds.height,
             }}
           >
-            {/* SUBTLE ABOVE/BELOW INDICATORS */}
+            {/* CRISP ABOVE/BELOW INDICATORS */}
             {((insertionIndicator as any).position === 'before' || (insertionIndicator as any).position === 'after') && (
               <div className="relative w-full h-full">
-                {/* Subtle 2px line with gentle glow */}
+                {/* 2px hairline with rounded endcaps */}
                 <div 
-                  className="w-full h-full"
+                  className="w-full h-full animate-in fade-in duration-150"
                   style={{
-                    backgroundColor: '#6366f1',
-                    boxShadow: '0 0 4px rgba(99, 102, 241, 0.4)',
+                    backgroundColor: 'oklch(60% 0.20 265)',
+                    borderRadius: '12px',
+                    boxShadow: '0 0 0 1px currentColor inset',
+                    animation: 'cubic-bezier(0.2, 0.7, 0, 1) 150ms'
                   }}
                 />
-                {/* Discrete micro hint */}
-                <div className="absolute -right-6 top-1/2 transform -translate-y-1/2 bg-white rounded-full border border-indigo-300 w-4 h-4 flex items-center justify-center text-indigo-600 text-xs shadow-sm">
-                  {(insertionIndicator as any).position === 'before' ? '↑' : '↓'}
+                {/* Micro-hint badge with delayed fade-in */}
+                <div 
+                  className="absolute -right-12 top-1/2 transform -translate-y-1/2 bg-white/90 backdrop-blur-sm rounded-full px-2 py-1 text-xs font-medium text-gray-700 shadow-sm border border-gray-200 animate-in fade-in duration-150 delay-120"
+                  style={{ animation: 'cubic-bezier(0.2, 0.7, 0, 1) 150ms 120ms both' }}
+                >
+                  {(insertionIndicator as any).position === 'before' ? 'Above' : 'Below'}
                 </div>
               </div>
             )}
 
-            {/* SUBTLE INSIDE CONTAINER INDICATOR */}
+            {/* CRISP INSIDE CONTAINER INDICATOR */}
             {(insertionIndicator as any).position === 'inside' && (
               <div className="relative w-full h-full">
-                {/* Gentle padded rectangle */}
+                {/* Inset mask with 8px padding, never touches edges */}
                 <div 
-                  className="w-full h-full rounded border border-dashed"
+                  className="absolute inset-2 rounded animate-in fade-in duration-150"
                   style={{
-                    backgroundColor: 'rgba(139, 92, 246, 0.05)',
-                    borderColor: '#8b5cf6',
-                    boxShadow: 'inset 0 0 8px rgba(139, 92, 246, 0.1)',
+                    backgroundColor: 'color-mix(in oklab, oklch(60% 0.20 265), transparent 85%)',
+                    border: '1px dashed oklch(60% 0.20 265)',
+                    borderRadius: 'calc(8px - 2px)', // Target's border-radius - 2px
+                    animation: 'cubic-bezier(0.2, 0.7, 0, 1) 150ms'
                   }}
                 />
-                {/* Discrete micro hint */}
-                <div className="absolute -right-6 top-1/2 transform -translate-y-1/2 bg-white rounded-full border border-violet-300 w-4 h-4 flex items-center justify-center text-violet-600 text-xs shadow-sm">
-                  ⧉
+                {/* Micro-hint badge */}
+                <div 
+                  className="absolute -right-12 top-1/2 transform -translate-y-1/2 bg-white/90 backdrop-blur-sm rounded-full px-2 py-1 text-xs font-medium text-gray-700 shadow-sm border border-gray-200 animate-in fade-in duration-150 delay-120"
+                  style={{ animation: 'cubic-bezier(0.2, 0.7, 0, 1) 150ms 120ms both' }}
+                >
+                  Inside
                 </div>
               </div>
             )}
 
-            {/* SUBTLE BETWEEN SIBLINGS INDICATOR */}
+            {/* CRISP BETWEEN SIBLINGS INDICATOR */}
             {(insertionIndicator as any).position === 'between' && (
               <div 
-                className="w-full h-full rounded"
+                className="w-full h-full rounded animate-in fade-in duration-150"
                 style={{
-                  backgroundColor: 'rgba(59, 130, 246, 0.2)',
-                  boxShadow: '0 0 8px rgba(59, 130, 246, 0.3)',
-                  border: '1px solid #60a5fa'
+                  backgroundColor: 'color-mix(in oklab, oklch(60% 0.20 265), transparent 85%)',
+                  border: '1px solid oklch(60% 0.20 265)',
+                  borderRadius: '12px',
+                  animation: 'cubic-bezier(0.2, 0.7, 0, 1) 150ms'
                 }}
               >
                 <div className="flex items-center justify-center h-full">
-                  <div className="bg-white/90 text-blue-700 text-xs px-2 py-1 rounded shadow-sm border border-blue-200">
-                    ↕
+                  <div 
+                    className="bg-white/90 backdrop-blur-sm text-gray-700 text-xs px-2 py-1 rounded shadow-sm border border-gray-200 animate-in fade-in duration-150 delay-120"
+                    style={{ animation: 'cubic-bezier(0.2, 0.7, 0, 1) 150ms 120ms both' }}
+                  >
+                    Between
                   </div>
                 </div>
               </div>
@@ -1092,7 +1105,7 @@ const Canvas: React.FC = () => {
           </div>
         )}
 
-        {/* SUBTLE GHOST PREVIEW */}
+        {/* POLISHED GHOST PREVIEW */}
         {isDraggingForReorder && draggedElementId && insertionIndicator && (
           (() => {
             const draggedElement = currentElements[draggedElementId];
@@ -1102,14 +1115,21 @@ const Canvas: React.FC = () => {
               <div
                 className="absolute pointer-events-none z-[70] transition-all duration-150"
                 style={{
-                  left: insertionIndicator.bounds.x + 15,
-                  top: insertionIndicator.bounds.y - 25,
-                  opacity: 0.7,
-                  transform: 'scale(0.8)',
+                  left: insertionIndicator.bounds.x + 12,
+                  top: insertionIndicator.bounds.y - 32,
+                  opacity: 0.85,
+                  transform: 'scale(0.98)',
+                  filter: 'drop-shadow(0 8px 24px rgba(0,0,0,0.15))',
+                  animation: 'cubic-bezier(0.2, 0.7, 0, 1) 150ms'
                 }}
               >
-                <div className="bg-gray-50 border border-gray-300 rounded px-2 py-1 text-xs text-gray-600 shadow-sm">
-                  {draggedElement.type}
+                <div className="bg-white border border-gray-200 rounded-lg px-3 py-2 text-xs text-gray-700 shadow-lg backdrop-blur-sm">
+                  <div className="font-medium">{draggedElement.type}</div>
+                  {draggedElement.content && (
+                    <div className="text-gray-500 truncate max-w-[120px]">
+                      {typeof draggedElement.content === 'string' ? draggedElement.content.slice(0, 20) : 'Content'}
+                    </div>
+                  )}
                 </div>
               </div>
             );
