@@ -16,8 +16,8 @@ const DragHandle: React.FC<DragHandleProps> = ({ onMouseDown, className = '' }) 
     <div
       className={`
         drag-handle
-        absolute -top-2 -left-2 w-6 h-6 
-        bg-blue-500 hover:bg-blue-600 active:bg-blue-700
+        absolute -top-2 -right-2 w-6 h-6 
+        bg-green-500 hover:bg-green-600 active:bg-green-700
         border-2 border-white 
         rounded-lg shadow-lg 
         flex items-center justify-center 

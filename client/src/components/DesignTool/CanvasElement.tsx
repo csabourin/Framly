@@ -32,7 +32,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
   const dispatch = useDispatch();
   const currentElements = useSelector(selectCurrentElements);
   const selectedElementId = useSelector(selectSelectedElementId);
-  const { selectedTool, isDraggingForReorder, draggedElementId, insertionIndicator } = useSelector(selectUIState);
+  const { selectedTool, isDraggingForReorder, draggedElementId, insertionIndicator, settings } = useSelector(selectUIState);
   const customClasses = useSelector(selectCustomClasses);
   const elementRef = useRef<HTMLDivElement>(null);
   const [isEditing, setIsEditing] = React.useState(false);
@@ -887,8 +887,24 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
       data-element-id={element.id}
       data-testid={`canvas-element-${element.id}`}
     >
-      {/* Professional Drag Handle - Only when hand tool is active and dragging is enabled */}
-      {isSelected && selectedTool === 'hand' && (
+      {/* Professional Selection Handle - Always visible when selected */}
+      {isSelected && (
+        <div 
+          className="selection-handle" 
+          data-testid="selection-handle"
+          onClick={(e) => {
+            e.stopPropagation();
+            dispatch(setSelectedTool('hand'));
+          }}
+        >
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
+            <path d="M2 2h2v2H2V2zm3 0h2v2H5V2zm3 0h2v2H8V2zM2 5h2v2H2V5zm3 0h2v2H5V5zm3 0h2v2H8V5zM2 8h2v2H2V8zm3 0h2v2H5V8zm3 0h2v2H8V8z"/>
+          </svg>
+        </div>
+      )}
+
+      {/* Professional Drag Handle - Additional handle when hand tool is active */}
+      {isSelected && selectedTool === 'hand' && settings.enableHandToolDragging && (
         <DragHandle
           onMouseDown={(e) => {
             console.log('DRAG HANDLE DEBUG - Mouse down on handle for:', element.id);
@@ -898,7 +914,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
             });
             window.dispatchEvent(dragEvent);
           }}
-          className="group"
+          className="drag-handle-specific"
         />
       )}
 
