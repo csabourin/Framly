@@ -25,7 +25,8 @@ export function createComponentInstance(
       version,
       overrides: {}
     },
-    children: [], // Instances don't own real children; rendering expands from template
+    // Keep existing children for now - they will be ignored during rendering
+    // but preserving them helps maintain element structure
   };
 }
 

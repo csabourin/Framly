@@ -113,6 +113,13 @@ const CreateComponentModal: React.FC = () => {
     );
     
     // Replace the original element with the component instance
+    console.log('Replacing element with component instance:', {
+      originalElement: selectedElement.id,
+      componentInstance: componentInstance.id,
+      hasComponentRef: !!componentInstance.componentRef,
+      componentId: componentInstance.componentRef?.componentId
+    });
+    
     dispatch(updateElement({
       id: selectedElement.id,
       updates: componentInstance

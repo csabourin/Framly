@@ -235,7 +235,8 @@ const ComponentPanel: React.FC = () => {
         ) : (
           <Accordion type="multiple" defaultValue={Object.keys(filteredComponents)} className="px-2">
             {Object.entries(filteredComponents).map(([categoryId, components]) => {
-              const category = componentCategories[categoryId as keyof typeof componentCategories] || { id: categoryId, name: 'Uncategorized', sortIndex: 999 };
+              const categoryList = Object.values(componentCategories);
+              const category = categoryList.find(cat => cat.id === categoryId) || { id: categoryId, name: 'Uncategorized', sortIndex: 999 };
               
               return (
                 <AccordionItem key={categoryId} value={categoryId} className="border-b-0">

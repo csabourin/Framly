@@ -32,20 +32,42 @@ const ComponentInstanceElement: React.FC<ComponentInstanceElementProps> = ({
   const componentDefinition = useSelector((state: RootState) => 
     element.componentRef?.componentId ? selectComponentDefinition(state, element.componentRef.componentId) : null
   );
+  
+  // Debug logging
+  React.useEffect(() => {
+    console.log('ComponentInstanceElement render:', {
+      elementId: element.id,
+      componentRef: element.componentRef,
+      hasDefinition: !!componentDefinition,
+      definitionName: componentDefinition?.name
+    });
+  }, [element.id, element.componentRef, componentDefinition]);
 
   const handleDoubleClick = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
     e.preventDefault();
     
+    console.log('ComponentInstanceElement double-click:', {
+      componentId: element.componentRef?.componentId,
+      hasDefinition: !!componentDefinition,
+      definitionName: componentDefinition?.name
+    });
+    
     if (element.componentRef?.componentId && componentDefinition) {
       // Create component editing tab in main canvas system
       const tabName = `Edit: ${componentDefinition.name}`;
+      console.log('Creating component tab:', tabName);
       dispatch(createTab({ 
         name: tabName, 
         color: '#e0e7ff',
         isComponentTab: true,
         componentId: element.componentRef.componentId 
       }));
+    } else {
+      console.warn('Cannot open component tab - missing definition:', {
+        componentId: element.componentRef?.componentId,
+        hasDefinition: !!componentDefinition
+      });
     }
   }, [dispatch, element.componentRef, componentDefinition]);
 
@@ -57,17 +79,24 @@ const ComponentInstanceElement: React.FC<ComponentInstanceElementProps> = ({
   }, [onSelect]);
 
   if (!componentDefinition) {
-    // Component definition not found - show error state without draggable behavior
+    console.warn('Component definition not found for instance:', element.componentRef?.componentId);
+    // Component definition not found - show error state
     return (
       <div
-        className="w-full h-full border-2 border-red-500 border-dashed bg-red-50 flex items-center justify-center text-red-600 text-sm pointer-events-none"
+        className="border-2 border-red-500 border-dashed bg-red-50 flex items-center justify-center text-red-600 text-sm"
         data-testid={`component-instance-missing-${element.id}`}
         data-component-error="true"
         style={{
-          position: 'relative',
+          position: 'absolute',
+          left: element.x,
+          top: element.y,
+          width: element.width,
+          height: element.height,
           zIndex: 1,
-          pointerEvents: 'none'
+          pointerEvents: 'all',
+          cursor: 'pointer'
         }}
+        onClick={handleSingleClick}
       >
         <div className="text-center">
           <p className="font-medium">Component Not Found</p>
