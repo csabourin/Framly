@@ -144,12 +144,13 @@ export function renderComponentInstance(
 }
 
 /**
- * Check for circular dependencies when creating components
+ * Check for circular dependencies when using components
+ * This checks if targetComponentId is used anywhere within the elementId subtree
  */
 export function hasCircularDependency(
   elementId: string,
   elements: Record<string, CanvasElement>,
-  targetComponentId?: ComponentId
+  targetComponentId: ComponentId
 ): boolean {
   const visited = new Set<string>();
   
@@ -174,4 +175,41 @@ export function hasCircularDependency(
   }
   
   return checkElement(elementId);
+}
+
+/**
+ * Check if an element tree contains any component instances
+ * Used when creating new components to warn about nested components
+ */
+export function containsComponentInstances(
+  elementId: string,
+  elements: Record<string, CanvasElement>
+): { hasInstances: boolean; instanceIds: string[] } {
+  const instanceIds: string[] = [];
+  const visited = new Set<string>();
+  
+  function checkElement(id: string): void {
+    if (visited.has(id)) return;
+    visited.add(id);
+    
+    const element = elements[id];
+    if (!element) return;
+    
+    // Check if this element is a component instance
+    if (element.componentRef?.componentId) {
+      instanceIds.push(id);
+    }
+    
+    // Check children recursively
+    if (element.children) {
+      element.children.forEach(childId => checkElement(childId));
+    }
+  }
+  
+  checkElement(elementId);
+  
+  return {
+    hasInstances: instanceIds.length > 0,
+    instanceIds
+  };
 }

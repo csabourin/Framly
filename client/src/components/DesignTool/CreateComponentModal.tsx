@@ -10,7 +10,7 @@ import { CustomComponent, CanvasElement, ComponentDef, ComponentCategory } from 
 import { nanoid } from 'nanoid';
 import { generateComponentFromElements } from '../../utils/componentGenerator';
 import { saveComponent } from '../../utils/persistence';
-import { hasCircularDependency } from '../../utils/componentInstances';
+import { containsComponentInstances } from '../../utils/componentInstances';
 import { 
   Dialog, 
   DialogContent, 
@@ -55,10 +55,16 @@ const CreateComponentModal: React.FC = () => {
   const handleSave = async () => {
     if (!selectedElement || !componentName.trim()) return;
 
-    // Check for circular dependencies
-    if (hasCircularDependency(selectedElement.id, currentElements)) {
-      alert('Cannot create component: This would create a circular dependency. Please select a different element.');
-      return;
+    // Check if the selected element contains component instances
+    // This is informational - components can contain other components
+    const { hasInstances, instanceIds } = containsComponentInstances(selectedElement.id, currentElements);
+    
+    if (hasInstances) {
+      const shouldContinue = window.confirm(
+        `The selected element contains ${instanceIds.length} component instance(s). Creating a component from this element will include these instances. Continue?`
+      );
+      
+      if (!shouldContinue) return;
     }
 
     // Create the legacy component for backward compatibility
