@@ -65,6 +65,9 @@ export class PersistenceManager {
       // Load new component definitions and categories (ONLY)
       await this.loadComponentDefinitions();
       
+      // Clean up orphaned component instances after loading
+      await this.cleanupOrphanedInstances();
+      
       // Load custom classes and categories
       await this.loadCustomClasses();
       
@@ -460,13 +463,8 @@ export class PersistenceManager {
       
       // Reset store to default state
       const state = store.getState();
-      store.dispatch(loadProject({
-        id: PROJECT_ID,
-        name: 'Untitled Project',
-        elements: { root: { id: 'root', type: 'container' as any, x: 0, y: 0, width: 800, height: 600, styles: {}, children: [] } },
-        breakpoints: { desktop: { width: 1200 } },
-        currentBreakpoint: 'desktop'
-      }));
+      // Reset will be handled by the default state - just reload
+      window.location.reload();
       
       store.dispatch(loadComponents([]));
       
@@ -474,6 +472,57 @@ export class PersistenceManager {
     } catch (error) {
       console.error('Failed to clear data:', error);
       throw error;
+    }
+  }
+
+  // CRITICAL: Clean up orphaned component instances to prevent crashes
+  private async cleanupOrphanedInstances(): Promise<void> {
+    try {
+      const state = store.getState();
+      const currentProject = state.canvas.project;
+      const componentDefinitions = state.componentDefinitions.definitions;
+      
+      let hasOrphans = false;
+      const cleanedTabs: Record<string, any> = {};
+      
+      // Check each tab for orphaned instances
+      Object.entries(currentProject.tabs).forEach(([tabId, tab]) => {
+        const cleanedElements: Record<string, any> = {};
+        let tabHasOrphans = false;
+        
+        Object.entries(tab.elements).forEach(([elementId, element]: [string, any]) => {
+          if (element.componentRef?.componentId && !componentDefinitions[element.componentRef.componentId]) {
+            // Convert orphaned instance back to regular element
+            const cleanElement = { ...element };
+            delete cleanElement.componentRef;
+            cleanedElements[elementId] = cleanElement;
+            tabHasOrphans = true;
+            hasOrphans = true;
+            console.log(`Cleaned orphaned component instance: ${elementId} (was referencing ${element.componentRef.componentId})`);
+          } else {
+            cleanedElements[elementId] = element;
+          }
+        });
+        
+        if (tabHasOrphans) {
+          cleanedTabs[tabId] = { ...tab, elements: cleanedElements };
+        } else {
+          cleanedTabs[tabId] = tab;
+        }
+      });
+      
+      if (hasOrphans) {
+        // Update Redux with cleaned elements
+        const cleanedProject = { ...currentProject, tabs: cleanedTabs };
+        store.dispatch({ type: 'canvas/setProject', payload: cleanedProject });
+        
+        // Save cleaned project back to IndexedDB
+        await this.saveCurrentProject();
+        console.log('Orphaned component instances cleaned and saved');
+      }
+      
+    } catch (error) {
+      console.error('Error cleaning up orphaned instances:', error);
     }
   }
 }

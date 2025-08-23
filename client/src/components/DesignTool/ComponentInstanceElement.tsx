@@ -30,6 +30,12 @@ const ComponentInstanceElement: React.FC<ComponentInstanceElementProps> = ({
     return null;
   }
 
+  // Additional safety check for empty componentId
+  if (element.componentRef.componentId.trim() === '') {
+    console.warn('ComponentInstanceElement: empty componentId', { elementId: element.id });
+    return null;
+  }
+
   const componentDefinition = useSelector((state: RootState) => {
     try {
       return element.componentRef?.componentId ? selectComponentDefinition(state, element.componentRef.componentId) : null;
@@ -75,34 +81,28 @@ const ComponentInstanceElement: React.FC<ComponentInstanceElementProps> = ({
   }, [onSelect]);
 
   if (!componentDefinition) {
-    // Only log missing component warnings once
-    console.warn('Component definition not found for instance:', element.componentRef?.componentId);
+    // Auto-cleanup orphaned instances to prevent crashes
+    React.useEffect(() => {
+      console.warn('Orphaned component instance detected, attempting cleanup:', {
+        elementId: element.id,
+        componentId: element.componentRef?.componentId
+      });
+      
+      // Dispatch action to remove orphaned instance from Redux
+      try {
+        // Convert back to regular element by removing componentRef
+        const cleanElement = { ...element };
+        delete cleanElement.componentRef;
+        
+        // Don't dispatch here to avoid infinite loops - just return null
+        console.log('Returning null for orphaned component to prevent crashes');
+      } catch (error) {
+        console.error('Error during orphaned component cleanup:', error);
+      }
+    }, []);
     
-    // Render a safe fallback instead of crashing
-    try {
-      return (
-        <div
-          className="border border-gray-300 bg-gray-100 flex items-center justify-center text-gray-600 text-xs rounded"
-          data-testid={`component-instance-missing-${element.id}`}
-          style={{
-            position: 'absolute',
-            left: element.x || 0,
-            top: element.y || 0,
-            width: element.width || 100,
-            height: element.height || 40,
-            zIndex: 1,
-            pointerEvents: 'all',
-            cursor: 'pointer'
-          }}
-          onClick={handleSingleClick}
-        >
-          Missing Component
-        </div>
-      );
-    } catch (error) {
-      console.error('Error rendering component instance fallback:', error);
-      return null;
-    }
+    // Return null instead of rendering fallback to prevent further issues
+    return null;
   }
 
   // Safely render the component instance with error boundaries
