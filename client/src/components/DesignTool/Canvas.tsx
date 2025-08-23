@@ -32,7 +32,7 @@ const Canvas: React.FC = () => {
   const [expandedContainerId, setExpandedContainerId] = useState<string | null>(null);
   const [inputModality, setInputModality] = useState<'mouse' | 'keyboard'>('mouse');
   const project = useSelector(selectCanvasProject);
-  const { selectedTool, isDragging, dragStart, isResizing, resizeHandle, zoomLevel, isGridVisible, draggedElementId, isDraggingForReorder, isDOMTreePanelVisible, isComponentPanelVisible } = useSelector(selectCanvasUIState);
+  const { selectedTool, isDragging, dragStart, isResizing, resizeHandle, zoomLevel, isGridVisible, draggedElementId, isDraggingForReorder, isDOMTreePanelVisible, isComponentPanelVisible, settings } = useSelector(selectCanvasUIState);
   
   // Use centralized selectors for tab-based data
   const currentElements = useSelector(selectCurrentElements);
@@ -410,16 +410,21 @@ const Canvas: React.FC = () => {
     } else if (selectedTool === 'hand') {
       const clickedElement = getElementAtPoint(x, y, currentElements, zoomLevel);
       if (clickedElement && clickedElement.id !== 'root') {
-        console.log('DRAG DEBUG - Preparing drag for:', clickedElement.id);
+        console.log('DRAG DEBUG - Hand tool clicked element:', clickedElement.id);
         dispatch(selectElement(clickedElement.id));
-        // Set up drag preparation but don't start dragging yet
-        setDragStartPos({ x, y });
-        setDragThreshold({ x, y, exceeded: false });
-        dispatch(setDraggedElement(clickedElement.id));
-        // Don't set dragging state yet - wait for threshold
+        
+        // Only set up drag preparation if hand tool dragging is enabled in settings
+        if (settings.enableHandToolDragging) {
+          console.log('DRAG DEBUG - Hand tool dragging enabled, preparing drag for:', clickedElement.id);
+          setDragStartPos({ x, y });
+          setDragThreshold({ x, y, exceeded: false });
+          dispatch(setDraggedElement(clickedElement.id));
+        } else {
+          console.log('DRAG DEBUG - Hand tool dragging disabled, only selecting element');
+        }
       }
     }
-  }, [selectedTool, selectedElement, zoomLevel, dispatch, currentElements]);
+  }, [selectedTool, selectedElement, zoomLevel, dispatch, currentElements, settings]);
 
   const handleMouseMove = useCallback((e: React.MouseEvent) => {
     const rect = canvasRef.current?.getBoundingClientRect();

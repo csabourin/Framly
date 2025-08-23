@@ -3,11 +3,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
 import { selectCanvasProject, selectExportModalState, selectUIState } from '../../store/selectors';
 import { switchBreakpoint, undo, redo, updateProjectName } from '../../store/canvasSlice';
-import { setExportModalOpen, setCodeModalOpen, setCSSOptimizationModalOpen, zoomIn, zoomOut, fitToScreen, toggleDOMTreePanel, setClassEditorOpen, setComponentEditorOpen, setButtonDesignerOpen } from '../../store/uiSlice';
+import { setExportModalOpen, setCodeModalOpen, setCSSOptimizationModalOpen, zoomIn, zoomOut, fitToScreen, toggleDOMTreePanel, setClassEditorOpen, setComponentEditorOpen, setButtonDesignerOpen, setSettingsMenuOpen } from '../../store/uiSlice';
 import { Button } from '@/components/ui/button';
 import { Eye, Undo, Redo, Download, Smartphone, Laptop, Monitor, Settings, Plus, Minus, Maximize, Zap, List, Palette, Component, MousePointer2 } from 'lucide-react';
 import UndoRedoControls from './UndoRedoControls';
 import WebsiteImport from './WebsiteImport';
+import SettingsMenu from './SettingsMenu';
 
 const Header: React.FC = () => {
   const dispatch = useDispatch();
@@ -68,6 +69,10 @@ const Header: React.FC = () => {
     dispatch(setButtonDesignerOpen(true));
   };
 
+  const handleOpenSettings = () => {
+    dispatch(setSettingsMenuOpen(true));
+  };
+
   return (
     <header 
       className="absolute top-0 left-0 right-0 h-12 bg-white border-b border-gray-200 flex items-center px-4 z-50 gap-4"
@@ -75,9 +80,13 @@ const Header: React.FC = () => {
     >
       {/* Logo */}
       <div className="flex items-center gap-2" data-testid="logo-container">
-        <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+        <button
+          onClick={handleOpenSettings}
+          className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center hover:bg-primary/90 transition-colors"
+          data-testid="settings-button"
+        >
           <Settings className="w-4 h-4 text-white" />
-        </div>
+        </button>
         <span className="font-bold text-lg text-primary">DesignLab</span>
       </div>
       
@@ -243,6 +252,9 @@ const Header: React.FC = () => {
           </Button>
         </div>
       </div>
+      
+      {/* Settings Menu */}
+      <SettingsMenu />
     </header>
   );
 };

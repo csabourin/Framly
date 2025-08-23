@@ -170,7 +170,8 @@ export const selectCanvasUIState = createSelector(
     draggedElementId: ui.draggedElementId,
     isDraggingForReorder: ui.isDraggingForReorder,
     isDOMTreePanelVisible: ui.isDOMTreePanelVisible,
-    isComponentPanelVisible: ui.isComponentPanelVisible
+    isComponentPanelVisible: ui.isComponentPanelVisible,
+    settings: ui.settings
   })
 );
 

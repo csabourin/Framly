@@ -13,6 +13,7 @@ interface UIState {
   editingComponentId: string | null;
   isButtonDesignerOpen: boolean;
   isClassEditorOpen: boolean;
+  isSettingsMenuOpen: boolean;
   zoomLevel: number;
   canvasOffset: { x: number; y: number };
   isDragging: boolean;
@@ -25,6 +26,10 @@ interface UIState {
   hoveredElementId: string | null;
   hoveredZone: 'before' | 'after' | 'inside' | null;
   insertionIndicator: any;
+  // Settings
+  settings: {
+    enableHandToolDragging: boolean;
+  };
 }
 
 const initialState: UIState = {
@@ -39,6 +44,7 @@ const initialState: UIState = {
   editingComponentId: null,
   isButtonDesignerOpen: false,
   isClassEditorOpen: false,
+  isSettingsMenuOpen: false,
   zoomLevel: 1,
   canvasOffset: { x: 0, y: 0 },
   isDragging: false,
@@ -48,6 +54,9 @@ const initialState: UIState = {
   hoveredElementId: null,
   hoveredZone: null,
   insertionIndicator: null,
+  settings: {
+    enableHandToolDragging: false, // Disabled by default
+  },
 };
 
 const uiSlice = createSlice({
@@ -107,6 +116,14 @@ const uiSlice = createSlice({
     
     setClassEditorOpen: (state, action: PayloadAction<boolean>) => {
       state.isClassEditorOpen = action.payload;
+    },
+    
+    setSettingsMenuOpen: (state, action: PayloadAction<boolean>) => {
+      state.isSettingsMenuOpen = action.payload;
+    },
+    
+    updateSettings: (state, action: PayloadAction<Partial<UIState['settings']>>) => {
+      state.settings = { ...state.settings, ...action.payload };
     },
     
     setZoomLevel: (state, action: PayloadAction<number>) => {
@@ -211,6 +228,8 @@ export const {
   setEditingComponent,
   setButtonDesignerOpen,
   setClassEditorOpen,
+  setSettingsMenuOpen,
+  updateSettings,
   setZoomLevel,
   zoomIn,
   zoomOut,
