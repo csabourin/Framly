@@ -367,13 +367,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
       }
       
       return (
-        <div 
-          onDoubleClick={(e) => {
-            e.stopPropagation();
-            setIsEditing(true);
-          }}
-          className="w-full h-full cursor-pointer"
-        >
+        <div className="w-full h-full">
           <ButtonElement
             element={element}
             isSelected={isSelected}
