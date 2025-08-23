@@ -49,14 +49,17 @@ const ComponentInstanceElement: React.FC<ComponentInstanceElementProps> = ({
   }, [onSelect]);
 
   if (!componentDef) {
-    // Component definition not found - show error state
+    // Component definition not found - show error state without draggable behavior
     return (
       <div
-        className="w-full h-full border-2 border-red-500 border-dashed bg-red-50 flex items-center justify-center text-red-600 text-sm"
-        onClick={handleSingleClick}
+        className="w-full h-full border-2 border-red-500 border-dashed bg-red-50 flex items-center justify-center text-red-600 text-sm pointer-events-none"
         data-testid={`component-instance-missing-${element.id}`}
-        data-instance="true"
-        data-state={isSelected ? 'selected' : 'default'}
+        data-component-error="true"
+        style={{
+          position: 'relative',
+          zIndex: 1,
+          pointerEvents: 'none'
+        }}
       >
         <div className="text-center">
           <p className="font-medium">Component Not Found</p>
