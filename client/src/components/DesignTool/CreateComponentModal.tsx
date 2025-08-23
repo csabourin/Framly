@@ -67,15 +67,7 @@ const CreateComponentModal: React.FC = () => {
       if (!shouldContinue) return;
     }
 
-    // Create the legacy component for backward compatibility
-    const newComponent = generateComponentFromElements(
-      selectedElement.id,
-      currentElements,
-      componentName.trim(),
-      componentCategory
-    );
-
-    // Create spec-compliant ComponentDef
+    // Create spec-compliant ComponentDef (NEW SYSTEM ONLY)
     const componentDef: ComponentDef = {
       id: nanoid(),
       name: componentName.trim(),
@@ -110,8 +102,7 @@ const CreateComponentModal: React.FC = () => {
       }
     }
 
-    // Add to Redux stores (both legacy and new)
-    dispatch(addComponent(newComponent));
+    // Add to NEW component definitions store ONLY
     dispatch(addComponentDefinition(componentDef));
     
     // CRITICAL: Create a new instance at the original location
@@ -127,11 +118,10 @@ const CreateComponentModal: React.FC = () => {
       updates: componentInstance
     }));
     
-    // Save to IndexedDB
+    // Save to IndexedDB (NEW system only)
     try {
-      await saveComponent(newComponent);
       await saveComponentDefinition(componentDef);
-      console.log('Component saved to IndexedDB:', newComponent.name, 'v' + componentDef.version);
+      console.log('Component definition saved:', componentDef.name, 'v' + componentDef.version);
       console.log('Component instance created at original location:', selectedElement.id);
     } catch (error) {
       console.error('Failed to save component to IndexedDB:', error);

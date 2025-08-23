@@ -1,9 +1,9 @@
+/* Component Instance Interaction Prevention */
+@import './styles/component-instances.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* Component Instance Interaction Prevention */
-@import './styles/component-instances.css';
 
 :root {
   --background: hsl(0, 0%, 100%);

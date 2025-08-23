@@ -1,21 +1,15 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
-import { selectComponentsState, selectCanvasProject, selectCurrentElements, selectSelectedElementId } from '../../store/selectors';
-import { 
-  selectComponent, 
-  deleteComponent, 
-  setCreatingComponent,
-  addCategory 
-} from '../../store/componentSlice';
-import { deleteComponent as deleteComponentFromDB } from '../../utils/persistence';
+import { selectCanvasProject, selectCurrentElements, selectSelectedElementId, selectComponentDefinitions, selectComponentCategories } from '../../store/selectors';
+import { setCreatingComponent } from '../../store/componentSlice';
 import { 
   selectElement, 
   addElement 
 } from '../../store/canvasSlice';
 import { setSelectedTool } from '../../store/uiSlice';
-import { CustomComponent, CanvasElement } from '../../types/canvas';
-import { instantiateComponent } from '../../utils/componentGenerator';
+import { ComponentDef, ComponentCategory, CanvasElement } from '../../types/canvas';
+import { createComponentInstance } from '../../utils/componentInstances';
 import { createDefaultElement } from '../../utils/canvas';
 import { 
   Package, 
@@ -48,30 +42,57 @@ import {
 
 const ComponentPanel: React.FC = () => {
   const dispatch = useDispatch();
-  const { 
-    categories, 
-    selectedComponent, 
-    isCreatingComponent 
-  } = useSelector(selectComponentsState);
+  const { isCreatingComponent } = useSelector(state => state.components);
+  const componentDefinitions = useSelector(selectComponentDefinitions);
+  const componentCategories = useSelector(selectComponentCategories);
   const project = useSelector(selectCanvasProject);
   const currentElements = useSelector(selectCurrentElements);
   const selectedElementId = useSelector(selectSelectedElementId);
   const [searchTerm, setSearchTerm] = useState('');
-  const [newCategoryName, setNewCategoryName] = useState('');
-  const [isAddingCategory, setIsAddingCategory] = useState(false);
 
-  const filteredCategories = categories.map(category => ({
-    ...category,
-    components: category.components.filter(comp =>
-      comp.name.toLowerCase().includes(searchTerm.toLowerCase())
-    )
-  })).filter(category => category.components.length > 0 || searchTerm === '');
+  // Group components by category
+  const groupedComponents = React.useMemo(() => {
+    const groups: Record<string, ComponentDef[]> = {
+      'uncategorized': []
+    };
 
-  const handleComponentClick = (component: CustomComponent) => {
-    dispatch(selectComponent(component));
+    // Initialize category groups
+    Object.values(componentCategories).forEach(cat => {
+      groups[cat.id] = [];
+    });
+
+    // Group components
+    Object.values(componentDefinitions).forEach(comp => {
+      const categoryId = comp.categoryId || 'uncategorized';
+      if (!groups[categoryId]) groups[categoryId] = [];
+      groups[categoryId].push(comp);
+    });
+
+    return groups;
+  }, [componentDefinitions, componentCategories]);
+
+  // Filter by search term
+  const filteredComponents = React.useMemo(() => {
+    if (!searchTerm) return groupedComponents;
+
+    const filtered: Record<string, ComponentDef[]> = {};
+    Object.entries(groupedComponents).forEach(([categoryId, components]) => {
+      const matchingComponents = components.filter(comp =>
+        comp.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      if (matchingComponents.length > 0) {
+        filtered[categoryId] = matchingComponents;
+      }
+    });
+
+    return filtered;
+  }, [groupedComponents, searchTerm]);
+
+  const handleComponentClick = (component: ComponentDef) => {
+    console.log('Component selected:', component.name);
   };
 
-  const handleAddToCanvas = (component: CustomComponent) => {
+  const handleAddToCanvas = (component: ComponentDef) => {
     const currentSelectedElementId = selectedElementId || 'root';
     const selectedElement = currentElements[currentSelectedElementId];
     
@@ -97,36 +118,32 @@ const ComponentPanel: React.FC = () => {
       }
     }
     
-    // Use the componentGenerator utility
-    const { elements: newElements, rootElementId } = instantiateComponent(component, insertX, insertY);
+    // Create a component instance from the component definition
+    const instanceElement = createComponentInstance(
+      {
+        ...component.template,
+        id: `instance-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+        x: insertX,
+        y: insertY,
+        parent: parentId
+      },
+      component.id,
+      component.version
+    );
     
-    // Add the root element with proper positioning
-    const rootElement = newElements[rootElementId];
-    if (rootElement) {
-      dispatch(addElement({ 
-        element: { ...rootElement, parent: parentId },
-        parentId,
-        insertPosition,
-        referenceElementId: insertPosition !== 'inside' ? currentSelectedElementId : undefined
-      }));
-      
-      // Add child elements
-      Object.values(newElements).forEach(element => {
-        if (element.id !== rootElementId) {
-          dispatch(addElement({ 
-            element, 
-            parentId: element.parent || rootElementId,
-            insertPosition: 'inside'
-          }));
-        }
-      });
-    }
+    // Add the component instance to canvas
+    dispatch(addElement({ 
+      element: instanceElement,
+      parentId,
+      insertPosition,
+      referenceElementId: insertPosition !== 'inside' ? currentSelectedElementId : undefined
+    }));
     
-    // Select the root element
-    dispatch(selectElement(rootElementId));
+    // Select the instance element
+    dispatch(selectElement(instanceElement.id));
   };
 
-  const handleDragStart = (e: React.DragEvent, component: CustomComponent) => {
+  const handleDragStart = (e: React.DragEvent, component: ComponentDef) => {
     console.log('Component drag start:', component.id);
     e.dataTransfer.setData('application/json', JSON.stringify({
       type: 'component',
@@ -137,16 +154,8 @@ const ComponentPanel: React.FC = () => {
   };
 
   const handleDeleteComponent = async (componentId: string) => {
-    // Delete from Redux store
-    dispatch(deleteComponent(componentId));
-    
-    // Delete from IndexedDB
-    try {
-      await deleteComponentFromDB(componentId);
-      console.log('Component deleted from IndexedDB:', componentId);
-    } catch (error) {
-      console.error('Failed to delete component from IndexedDB:', error);
-    }
+    // TODO: Implement proper component definition deletion
+    console.log('Delete component:', componentId);
   };
 
   const handleCreateComponent = () => {
@@ -159,15 +168,11 @@ const ComponentPanel: React.FC = () => {
   };
 
   const handleAddCategory = () => {
-    if (newCategoryName.trim()) {
-      const categoryId = newCategoryName.toLowerCase().replace(/\s+/g, '-');
-      dispatch(addCategory({ id: categoryId, name: newCategoryName }));
-      setNewCategoryName('');
-      setIsAddingCategory(false);
-    }
+    // TODO: Implement new category creation
+    console.log('Add category functionality not implemented yet');
   };
 
-  const ComponentThumbnail: React.FC<{ component: CustomComponent }> = ({ component }) => {
+  const ComponentThumbnail: React.FC<{ component: ComponentDef }> = ({ component }) => {
     return (
       <div className="w-full h-16 bg-gray-100 rounded border flex items-center justify-center text-xs text-gray-500 mb-2">
         {component.thumbnail ? (
@@ -210,7 +215,7 @@ const ComponentPanel: React.FC = () => {
         </div>
         
         {/* Instructions for users when components exist */}
-        {categories.some(cat => cat.components.length > 0) && (
+        {Object.values(componentDefinitions).length > 0 && (
           <div className="mb-3 p-2 bg-blue-50 border border-blue-200 rounded text-xs text-blue-700">
             💡 Drag components to canvas or click the + button to add them
           </div>
@@ -231,128 +236,91 @@ const ComponentPanel: React.FC = () => {
 
       {/* Component Categories */}
       <div className="flex-1 overflow-y-auto">
-        <Accordion type="multiple" defaultValue={['custom', 'ui']} className="px-2">
-          {filteredCategories.map((category) => (
-            <AccordionItem key={category.id} value={category.id} className="border-b-0">
-              <AccordionTrigger className="py-2 px-2 text-sm hover:no-underline">
-                <div className="flex items-center gap-2">
-                  <Folder size={14} />
-                  {category.name}
-                  <span className="text-xs text-gray-500">({category.components.length})</span>
-                </div>
-              </AccordionTrigger>
-              <AccordionContent className="pb-2">
-                <div className="space-y-2 px-2">
-                  {category.components.map((component) => (
-                    <ComponentContextMenu key={component.id} component={component}>
-                      <Card 
-                        className="cursor-pointer hover:shadow-md transition-shadow group"
-                        onClick={() => handleComponentClick(component)}
-                        draggable
-                        onDragStart={(e) => handleDragStart(e, component)}
-                        data-testid={`card-component-${component.id}`}
-                      >
-                      <CardContent className="p-3">
-                        <ComponentThumbnail component={component} />
-                        <div className="flex items-start justify-between">
-                          <div className="flex-1 min-w-0">
-                            <h4 className="text-xs font-medium text-gray-900 truncate" title={component.name}>
-                              {component.name}
-                            </h4>
-                            <p className="text-xs text-gray-500 mt-1">
-                              {Object.keys(component.elements).length} elements
-                            </p>
-                          </div>
-                          <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <Button
-                              size="sm"
-                              variant="ghost"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                handleAddToCanvas(component);
-                              }}
-                              className="h-6 w-6 p-0"
-                              title="Add to canvas"
-                              data-testid={`button-add-component-${component.id}`}
-                            >
-                              <Plus size={10} />
-                            </Button>
-                            <Button
-                              size="sm"
-                              variant="ghost"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                handleDeleteComponent(component.id);
-                              }}
-                              className="h-6 w-6 p-0 text-red-500 hover:text-red-700"
-                              title="Delete component"
-                              data-testid={`button-delete-component-${component.id}`}
-                            >
-                              <Trash2 size={10} />
-                            </Button>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                    </ComponentContextMenu>
-                  ))}
-                  
-                  {category.components.length === 0 && searchTerm === '' && (
-                    <div className="text-xs text-gray-500 text-center py-4">
-                      No components yet
+        {Object.keys(filteredComponents).length === 0 ? (
+          <div className="p-4 text-center text-gray-500 text-sm">
+            {searchTerm ? 'No components match your search.' : 'No components yet. Create your first component by selecting an element and clicking "Create".'}
+          </div>
+        ) : (
+          <Accordion type="multiple" defaultValue={Object.keys(filteredComponents)} className="px-2">
+            {Object.entries(filteredComponents).map(([categoryId, components]) => {
+              const category = componentCategories[categoryId] || { id: categoryId, name: 'Uncategorized', sortIndex: 999 };
+              
+              return (
+                <AccordionItem key={categoryId} value={categoryId} className="border-b-0">
+                  <AccordionTrigger className="py-2 px-2 text-sm hover:no-underline">
+                    <div className="flex items-center gap-2">
+                      <Folder size={14} />
+                      {category.name}
+                      <span className="text-xs text-gray-500">({components.length})</span>
                     </div>
-                  )}
-                </div>
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
-        
-        {/* Add Category Button */}
-        <div className="p-2 border-t border-gray-100">
-          <Dialog open={isAddingCategory} onOpenChange={setIsAddingCategory}>
-            <DialogTrigger asChild>
-              <Button
-                variant="ghost"
-                size="sm"
-                className="w-full justify-start text-xs"
-                data-testid="button-add-category"
-              >
-                <FolderPlus size={14} className="mr-2" />
-                Add Category
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-md">
-              <DialogHeader>
-                <DialogTitle>Create New Category</DialogTitle>
-              </DialogHeader>
-              <div className="py-4">
-                <Input
-                  placeholder="Category name"
-                  value={newCategoryName}
-                  onChange={(e) => setNewCategoryName(e.target.value)}
-                  onKeyDown={(e) => e.key === 'Enter' && handleAddCategory()}
-                  data-testid="input-category-name"
-                />
-              </div>
-              <DialogFooter className="flex gap-2">
-                <Button 
-                  variant="outline" 
-                  onClick={() => setIsAddingCategory(false)}
-                  data-testid="button-cancel-category"
-                >
-                  Cancel
-                </Button>
-                <Button 
-                  onClick={handleAddCategory}
-                  disabled={!newCategoryName.trim()}
-                  data-testid="button-save-category"
-                >
-                  Create
-                </Button>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
+                  </AccordionTrigger>
+                  <AccordionContent className="pb-2">
+                    <div className="space-y-2 px-2">
+                      {components.map((component) => (
+                        <Card 
+                          key={component.id}
+                          className="cursor-pointer hover:shadow-md transition-shadow group"
+                          onClick={() => handleComponentClick(component)}
+                          draggable
+                          onDragStart={(e) => handleDragStart(e, component)}
+                          data-testid={`card-component-${component.id}`}
+                        >
+                          <CardContent className="p-3">
+                            <ComponentThumbnail component={component} />
+                            <div className="flex items-start justify-between">
+                              <div className="flex-1">
+                                <h3 className="font-medium text-sm text-gray-900 truncate mb-1">
+                                  {component.name}
+                                </h3>
+                                <p className="text-xs text-gray-500">
+                                  v{component.version} • {component.template.type}
+                                </p>
+                              </div>
+                              <div className="flex items-center gap-1">
+                                <Button
+                                  size="sm"
+                                  variant="ghost"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleAddToCanvas(component);
+                                  }}
+                                  className="h-6 w-6 p-0 opacity-0 group-hover:opacity-100 transition-opacity"
+                                  title={`Add ${component.name} to canvas`}
+                                  data-testid={`button-add-${component.id}`}
+                                >
+                                  <Plus size={12} />
+                                </Button>
+                                <Button
+                                  size="sm"
+                                  variant="ghost"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleDeleteComponent(component.id);
+                                  }}
+                                  className="h-6 w-6 p-0 opacity-0 group-hover:opacity-100 transition-opacity text-red-500 hover:text-red-700"
+                                  title={`Delete ${component.name}`}
+                                  data-testid={`button-delete-${component.id}`}
+                                >
+                                  <Trash2 size={12} />
+                                </Button>
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      ))}
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              );
+            })}
+          </Accordion>
+        )}
+      </div>
+      
+      {/* Component system status */}
+      <div className="p-2 border-t border-gray-100">
+        <div className="text-xs text-gray-400 text-center">
+          Component system ready
         </div>
       </div>
       

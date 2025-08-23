@@ -62,10 +62,7 @@ export class PersistenceManager {
       // Load current project
       await this.loadCurrentProject();
       
-      // Load legacy components and categories
-      await this.loadComponents();
-      
-      // Load new component definitions and categories
+      // Load new component definitions and categories (ONLY)
       await this.loadComponentDefinitions();
       
       // Load custom classes and categories
