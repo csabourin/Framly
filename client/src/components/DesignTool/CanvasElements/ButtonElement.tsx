@@ -24,10 +24,13 @@ const ButtonElement: React.FC<ButtonElementProps> = ({
   const [isEditing, setIsEditing] = useState(false);
   const [editText, setEditText] = useState(element.buttonText || 'Button');
   
-  // Sync editText with element.buttonText when it changes
+  // Sync editText with element.buttonText when it changes (but not during editing)
   useEffect(() => {
-    setEditText(element.buttonText || 'Button');
-  }, [element.buttonText]);
+    if (!isEditing) {
+      console.log('BUTTON DEBUG - Syncing editText with element.buttonText:', element.buttonText);
+      setEditText(element.buttonText || 'Button');
+    }
+  }, [element.buttonText, isEditing]);
   // Use element's currentButtonState for real-time state visualization from Properties panel
   const currentState = element.currentButtonState || 'default';
 
@@ -137,16 +140,20 @@ const ButtonElement: React.FC<ButtonElementProps> = ({
 
   const handleDoubleClick = (e: React.MouseEvent) => {
     e.stopPropagation();
+    e.preventDefault();
+    console.log('BUTTON DEBUG - Double click, entering edit mode');
     setIsEditing(true);
     setEditText(element.buttonText || 'Button');
   };
 
   const handleTextSubmit = () => {
+    console.log('BUTTON DEBUG - Submitting text:', { elementId: element.id, oldText: element.buttonText, newText: editText });
     dispatch(updateElement({
       id: element.id,
       updates: { buttonText: editText }
     }));
     setIsEditing(false);
+    console.log('BUTTON DEBUG - After dispatch, isEditing set to false');
   };
 
   const handleTextKeyDown = (e: React.KeyboardEvent) => {
@@ -159,6 +166,7 @@ const ButtonElement: React.FC<ButtonElementProps> = ({
   };
 
   const buttonText = element.buttonText || 'Button';
+  console.log('BUTTON DEBUG - Render:', { elementId: element.id, buttonText, isEditing, editText });
 
   if (isEditing) {
     return (
@@ -174,9 +182,20 @@ const ButtonElement: React.FC<ButtonElementProps> = ({
         <input
           type="text"
           value={editText}
-          onChange={(e) => setEditText(e.target.value)}
-          onBlur={handleTextSubmit}
-          onKeyDown={handleTextKeyDown}
+          onChange={(e) => {
+            console.log('BUTTON DEBUG - Text changed:', e.target.value);
+            setEditText(e.target.value);
+          }}
+          onBlur={(e) => {
+            console.log('BUTTON DEBUG - Input blur triggered');
+            e.stopPropagation();
+            handleTextSubmit();
+          }}
+          onKeyDown={(e) => {
+            console.log('BUTTON DEBUG - Key pressed:', e.key);
+            e.stopPropagation();
+            handleTextKeyDown(e);
+          }}
           className="bg-transparent text-center outline-none w-full"
           style={{ 
             color: 'inherit',
