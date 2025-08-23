@@ -427,21 +427,10 @@ const Canvas: React.FC = () => {
     const x = (e.clientX - rect.left) / zoomLevel;
     const y = (e.clientY - rect.top) / zoomLevel;
     
-    // STRICT MOUSE BUTTON CHECK - Only allow drag operations if mouse button is held down
+    // Check if mouse button is down (only for real React events, not synthetic ones)
     const isMouseButtonDown = e.buttons > 0;
     
-    // If drag state exists but no mouse button is pressed, clear drag state
-    if ((isDragging || isDraggingForReorder || draggedElementId) && !isMouseButtonDown) {
-      console.log('DRAG DEBUG - Mouse button released, clearing drag states');
-      dispatch(setDragging(false));
-      dispatch(setDraggingForReorder(false));
-      dispatch(setDraggedElement(undefined));
-      setInsertionIndicator(null);
-      setDragThreshold({ x: 0, y: 0, exceeded: false });
-      return;
-    }
-    
-    if (isDragging && selectedElement && dragStart && isMouseButtonDown) {
+    if (isDragging && selectedElement && dragStart) {
       // Regular element dragging (select tool)
       const snappedPosition = calculateSnapPosition(x - dragStart.x, y - dragStart.y);
       
@@ -450,8 +439,8 @@ const Canvas: React.FC = () => {
         x: snappedPosition.x,
         y: snappedPosition.y,
       }));
-    } else if (draggedElementId && isMouseButtonDown) {
-      // Only proceed with drag logic if mouse button is held down
+    } else if (draggedElementId) {
+      // Handle drag threshold and reordering logic
       if (!dragThreshold.exceeded) {
         const distance = Math.sqrt(
           Math.pow(x - dragThreshold.x, 2) + Math.pow(y - dragThreshold.y, 2)
@@ -919,10 +908,11 @@ const Canvas: React.FC = () => {
       if (isDragging || isDraggingForReorder) {
         console.log('DRAG DEBUG - Global mouse move triggered');
         
-        // Create a synthetic React event for consistency
+        // Create a synthetic React event for consistency with proper buttons property
         const syntheticEvent = {
           clientX: e.clientX,
           clientY: e.clientY,
+          buttons: 1, // Indicate button is pressed during global move
           preventDefault: () => {},
           stopPropagation: () => {}
         } as React.MouseEvent;
