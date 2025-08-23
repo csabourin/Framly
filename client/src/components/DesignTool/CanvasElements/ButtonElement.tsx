@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../../store';
 import { selectButtonDesignerState, selectCustomClasses } from '../../../store/selectors';
@@ -23,6 +23,11 @@ const ButtonElement: React.FC<ButtonElementProps> = ({
   const { designs } = useSelector(selectButtonDesignerState);
   const [isEditing, setIsEditing] = useState(false);
   const [editText, setEditText] = useState(element.buttonText || 'Button');
+  
+  // Sync editText with element.buttonText when it changes
+  useEffect(() => {
+    setEditText(element.buttonText || 'Button');
+  }, [element.buttonText]);
   // Use element's currentButtonState for real-time state visualization from Properties panel
   const currentState = element.currentButtonState || 'default';
 
