@@ -44,6 +44,34 @@ const Canvas: React.FC = () => {
 
   const selectedElement = selectedElementId ? currentElements[selectedElementId] : null;
 
+  // Professional hit-testing that skips overlay elements during drag
+  const deepestDroppableAt = useCallback((clientX: number, clientY: number): string | null => {
+    const stack = document.elementsFromPoint(clientX, clientY);
+    for (const el of stack) {
+      if (!(el instanceof HTMLElement)) continue;
+      
+      // Skip overlay elements that should be click-through
+      if (el.closest('[data-dnd-overlay="true"]')) continue;
+      if (el.classList.contains('dnd-ghost') || 
+          el.classList.contains('dnd-indicator') ||
+          el.classList.contains('dnd-line') ||
+          el.classList.contains('insertion-indicator') ||
+          el.classList.contains('selection-overlay')) continue;
+      
+      // Find the closest droppable element
+      const droppable = el.closest('[data-element-id]');
+      if (droppable instanceof HTMLElement) {
+        const elementId = droppable.dataset.elementId;
+        if (elementId && elementId !== draggedElementId) {
+          return elementId;
+        }
+      }
+    }
+    return 'root'; // Fallback to root
+  }, [draggedElementId]);
+
+  // Update the detectInsertionZone dependency array to include the new function
+
   // Function to detect insertion zones based on mouse position
   const detectInsertionZone = useCallback((x: number, y: number, forDrag = false, forComponentDrag = false): InsertionIndicator | null => {
     // Allow insertion zone detection for:
@@ -60,7 +88,18 @@ const Canvas: React.FC = () => {
       return null;
     }
 
-    const hoveredElement = getElementAtPoint(x, y, currentElements, zoomLevel, draggedElementId);
+    // Use professional hit-testing for drag operations
+    let hoveredElement;
+    if (forDrag && canvasRef.current) {
+      const canvasRect = canvasRef.current.getBoundingClientRect();
+      const clientX = canvasRect.left + (x * zoomLevel);
+      const clientY = canvasRect.top + (y * zoomLevel);
+      const elementId = deepestDroppableAt(clientX, clientY);
+      hoveredElement = elementId ? currentElements[elementId] : null;
+    } else {
+      hoveredElement = getElementAtPoint(x, y, currentElements, zoomLevel, draggedElementId);
+    }
+    
     console.log('detectInsertionZone - hoveredElement:', hoveredElement?.id);
     
     // Skip the dragged element itself during drag operations

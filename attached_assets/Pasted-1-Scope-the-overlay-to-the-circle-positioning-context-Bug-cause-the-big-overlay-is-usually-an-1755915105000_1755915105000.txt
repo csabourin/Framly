@@ -1,0 +1,138 @@
+1) Scope the overlay to the circle (positioning context)
+
+Bug cause: the “big overlay” is usually an absolutely positioned highlight that’s anchoring to the wrong ancestor (e.g., the page), so it stretches across everything.
+
+Patch
+
+/* Every selectable/droppable block, including the circle, must be a positioning context */
+.block,
+.circle {
+  position: relative;           /* so ::after overlays position against the block, not the viewport */
+  border-radius: 50%;           /* your circle */
+  overflow: clip;               /* clip overlay to round shape (fallback to hidden below) */
+}
+@supports not (overflow: clip) {
+  .block, .circle { overflow: hidden; }
+}
+
+2) Make all DnD visuals click-through
+
+Bug cause: the overlay sits above the circle and steals hit-tests.
+
+Patch
+
+/* Any drag-only visual must not intercept events */
+.dnd-ghost,
+.dnd-indicator,
+.dnd-line,
+.dnd-inside-overlay,
+.selection-overlay,
+[data-dnd-overlay="true"],
+.block::after {                 /* our per-block overlay pseudo-element */
+  pointer-events: none !important;
+}
+
+3) Match the overlay shape to the circle
+
+If your “inside” highlight is a rectangle, it will look like a big mask over nearby content. Clip and round it.
+
+Patch
+
+/* Neutral selection overlay base (no layout shift) */
+.block::after {
+  content: "";
+  position: absolute;
+  inset: 8px;                   /* inner padding from the circle edge */
+  border-radius: inherit;       /* match the circle's 50% rounding */
+  opacity: 0;
+  box-shadow: none;
+  transition: opacity 120ms cubic-bezier(.2,.7,0,1);
+}
+
+/* When this block is the active INSIDE drop target */
+.block[data-drop-target="inside"]::after {
+  opacity: 1;
+  background: color-mix(in oklab, oklch(60% 0.20 265), transparent 85%);
+  box-shadow: 0 0 0 2px oklch(60% 0.20 265);
+}
+
+/* Optional: Above/Below line indicators (still click-through) */
+.dnd-line {
+  position: absolute;
+  left: 0; right: 0; height: 2px;
+  background: oklch(60% 0.20 265);
+  border-radius: 999px;
+  z-index: 2;                   /* visible but non-interactive */
+}
+
+4) Don’t use a full-viewport mask for “inside”
+
+If you currently render a full-screen <div class="dnd-drop-mask"> to show the inside target, remove it or tag it as an overlay.
+
+Patch
+
+.dnd-drop-mask { pointer-events: none !important; }
+
+
+Implementation change: instead of a page-level mask, render the highlight as ::after on the target block (as above). That guarantees correct size/shape and prevents blocking.
+
+5) Hit-test correctly during drag
+
+Because you likely use setPointerCapture, e.target stays as the handle. Find the deepest droppable element under the cursor, skipping overlays.
+
+Patch
+
+function deepestDroppableAt(x: number, y: number): HTMLElement | null {
+  const stack = document.elementsFromPoint(x, y);
+  for (const el of stack) {
+    if (!(el instanceof HTMLElement)) continue;
+    if (el.closest('[data-dnd-overlay="true"]')) continue;
+    if (el.classList.contains('dnd-ghost') || el.classList.contains('dnd-indicator')) continue;
+
+    const block = el.closest('.block, .circle, .dropzone');
+    if (block) return block as HTMLElement;
+  }
+  return null;
+}
+
+
+Use this in your pointermove while dragging to compute the drop proposal.
+
+6) Mark the rounded div as a valid container (if it should accept children)
+
+If the circle is meant to contain the image, mark it as a container and allow the image type.
+
+Patch
+
+<div class="block circle"
+     data-id="circle1"
+     data-container="true"
+     data-accepts="image"
+     aria-label="Circle container"></div>
+
+isContainer = (id) => getBlock(id).dataset.container === 'true';
+accepts = (parentId, childType) =>
+  (getBlock(parentId).dataset.accepts?.split(',') || []).includes(childType);
+
+7) Z-index sanity (visible but harmless)
+
+Keep overlays visible above content but harmless to input.
+
+Patch
+
+.block::after,
+.dnd-indicator,
+.dnd-ghost { z-index: 3; pointer-events: none; }
+.circle { z-index: 1; } /* content */
+
+Quick QA checklist
+
+Drag the image over the rounded div: the inside highlight is a circular inset (not a giant rectangle).
+
+You can now drop inside; the circle is recognized as the target in your hit-test.
+
+No element on the page steals pointer events while dragging (DevTools: elementsFromPoint shows the circle at the top of the stack under the cursor).
+
+Removing the full-screen mask (or making it click-through) eliminates the “big overlay” blocker.
+
+Apply these patches and the “can’t drop inside the circle div” issue should disappear without changing your existing drag logic.

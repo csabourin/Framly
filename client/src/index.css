@@ -117,6 +117,83 @@
 }
 
 /* ============================================
+   PROFESSIONAL DRAG & DROP SYSTEM
+   ============================================ */
+
+/* 1. Every droppable element must be a positioning context */
+.canvas-element,
+.block,
+.circle {
+  position: relative !important;           /* so ::after overlays position against the element, not viewport */
+  overflow: clip;                          /* clip overlay to element shape */
+}
+@supports not (overflow: clip) {
+  .canvas-element, .block, .circle { overflow: hidden; }
+}
+
+/* 2. Make all DnD visuals click-through */
+.dnd-ghost,
+.dnd-indicator,
+.dnd-line,
+.dnd-inside-overlay,
+.selection-overlay,
+.insertion-indicator,
+.drag-preview,
+[data-dnd-overlay="true"],
+.canvas-element::after {                 /* per-element overlay pseudo-element */
+  pointer-events: none !important;
+}
+
+/* 3. Professional insertion indicators using ::after pseudo-elements */
+.canvas-element::after {
+  content: "";
+  position: absolute;
+  inset: 4px;                             /* inner padding from element edge */
+  border-radius: inherit;                 /* match the element's rounding */
+  opacity: 0;
+  box-shadow: none;
+  transition: opacity var(--t-fast) var(--ease);
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* When element is the active INSIDE drop target */
+.canvas-element[data-drop-target="inside"]::after {
+  opacity: 1;
+  background: var(--dnd-inside-bg);
+  box-shadow: 0 0 0 2px var(--dnd-indicator);
+}
+
+/* Professional line indicators for before/after drops */
+.dnd-line {
+  position: absolute;
+  left: 0; 
+  right: 0; 
+  height: 2px;
+  background: var(--dnd-indicator);
+  border-radius: 999px;
+  z-index: 3;                             /* visible but non-interactive */
+  pointer-events: none !important;
+}
+
+/* Z-index management for proper layering */
+.canvas-element::after,
+.dnd-indicator,
+.dnd-ghost { 
+  z-index: 3; 
+  pointer-events: none; 
+}
+
+.canvas-element { 
+  z-index: 1; 
+}
+
+/* Selection handle positioning */
+.selection-handle {
+  z-index: 4;                             /* above overlays but interactive */
+}
+
+/* ============================================
    PROFESSIONAL SELECTION SYSTEM
    ============================================ */
 

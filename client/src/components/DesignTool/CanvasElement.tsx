@@ -885,6 +885,9 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
         WebkitUserSelect: selectedTool !== 'text' ? 'none' : 'auto',
       }}
       data-element-id={element.id}
+      data-container={element.isContainer ? 'true' : 'false'}
+      data-accepts={element.isContainer ? 'text,image,button,rectangle,heading,container' : ''}
+      data-element-type={element.type}
       data-testid={`canvas-element-${element.id}`}
     >
       {/* Professional Selection/Drag Handle - Always visible when selected */}
