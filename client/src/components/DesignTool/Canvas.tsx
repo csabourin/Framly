@@ -30,6 +30,7 @@ const Canvas: React.FC = () => {
   const [dragThreshold, setDragThreshold] = useState({ x: 0, y: 0, exceeded: false });
   const [dragStartPos, setDragStartPos] = useState({ x: 0, y: 0 });
   const [expandedContainerId, setExpandedContainerId] = useState<string | null>(null);
+  const [inputModality, setInputModality] = useState<'mouse' | 'keyboard'>('mouse');
   const project = useSelector(selectCanvasProject);
   const { selectedTool, isDragging, dragStart, isResizing, resizeHandle, zoomLevel, isGridVisible, draggedElementId, isDraggingForReorder, isDOMTreePanelVisible, isComponentPanelVisible } = useSelector(selectCanvasUIState);
   
@@ -902,6 +903,34 @@ const Canvas: React.FC = () => {
   const handleFitToScreen = () => {
     // Fit to screen functionality would be implemented here
   };
+
+  // Input modality detection for professional selection styling
+  useEffect(() => {
+    const handleMouseMove = () => {
+      if (inputModality !== 'mouse') {
+        setInputModality('mouse');
+        document.body.setAttribute('data-input-modality', 'mouse');
+      }
+    };
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Tab' && inputModality !== 'keyboard') {
+        setInputModality('keyboard');
+        document.body.setAttribute('data-input-modality', 'keyboard');
+      }
+    };
+
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('keydown', handleKeyDown);
+    
+    // Set initial modality
+    document.body.setAttribute('data-input-modality', inputModality);
+
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [inputModality]);
 
   useEffect(() => {
     const handleGlobalMouseMove = (e: MouseEvent) => {

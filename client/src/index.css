@@ -32,6 +32,32 @@
   --dnd-inside-bg: color-mix(in oklab, var(--dnd-indicator), transparent 85%);
   --dnd-ghost-shadow: 0 8px 24px rgba(0,0,0,.15);
   --dnd-focus: oklch(70% 0.15 265);
+  
+  /* Professional selection tool tokens */
+  --sel-radius: 10px;
+  --sel-pad: 8px;
+  --sel-outline: 2px;
+  --sel-gap: 6px;
+  
+  /* Selection colors (OKLCH for vibrancy) */
+  --c-accent: oklch(60% 0.20 265);
+  --c-accent-soft: color-mix(in oklab, var(--c-accent), transparent 82%);
+  --c-hover: oklch(75% 0.08 265);
+  --c-focus: oklch(80% 0.15 265);
+  --c-invalid: oklch(60% 0.20 25);
+  --c-locked: oklch(55% 0.05 265);
+  --c-bg-mask: color-mix(in oklab, var(--c-accent), transparent 90%);
+  --c-handle: oklch(40% 0.05 265);
+  
+  /* Selection effects */
+  --e-ring: 0 0 0 2px var(--c-focus), 0 0 0 6px color-mix(in oklab, var(--c-focus), transparent 75%);
+  --e-selected: 0 0 0 1px color-mix(in oklab, var(--c-accent), transparent 10%) inset, 0 1px 8px rgba(0,0,0,.12);
+  --e-hover: 0 0 0 1px color-mix(in oklab, var(--c-hover), transparent 10%) inset;
+  
+  /* Motion tokens */
+  --t-fast: 120ms;
+  --t-med: 160ms;
+  --ease: cubic-bezier(.2,.7,0,1);
 }
 
 .dark {
@@ -60,6 +86,11 @@
   --dnd-inside-bg: color-mix(in oklab, var(--dnd-indicator), transparent 90%);
   --dnd-ghost-shadow: 0 8px 24px rgba(0,0,0,.4);
   --dnd-focus: oklch(75% 0.12 265);
+  
+  /* Selection tokens for dark theme */
+  --c-accent: oklch(70% 0.15 265);
+  --c-hover: oklch(80% 0.08 265);
+  --c-focus: oklch(85% 0.12 265);
 }
 
 @layer base {
@@ -151,6 +182,206 @@
     animation: none;
     transition: opacity 0.15s ease;
   }
+  :root { 
+    --t-fast: 0ms; 
+    --t-med: 0ms; 
+    --ease: linear; 
+  }
+}
+
+/* High contrast mode support */
+@media (forced-colors: active) {
+  :root {
+    --c-accent: CanvasText;
+    --c-accent-soft: transparent;
+    --c-hover: Highlight;
+    --c-focus: Highlight;
+    --c-invalid: GrayText;
+    --c-locked: GrayText;
+  }
+}
+
+/* Professional Selection Tool Styles */
+
+/* Base selectable block with overlay system */
+.selectable-block {
+  position: relative;
+  border-radius: var(--sel-radius);
+  transition: box-shadow var(--t-fast) var(--ease), transform var(--t-fast) var(--ease);
+}
+
+/* Selection overlay (no pointer capture) */
+.selectable-block::after {
+  content: "";
+  position: absolute;
+  inset: var(--sel-gap);
+  border-radius: calc(var(--sel-radius) - 2px);
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(.995);
+  box-shadow: none;
+  transition: opacity var(--t-fast) var(--ease), transform var(--t-fast) var(--ease), box-shadow var(--t-fast) var(--ease);
+}
+
+/* Hover state (mouse-only polite affordance) */
+body[data-input-modality="mouse"] .selectable-block[data-state="hover"]::after {
+  opacity: 1;
+  box-shadow: var(--e-hover);
+  outline: 1px solid var(--c-hover);
+  transform: scale(1);
+}
+
+/* Focus state (keyboard) */
+.selectable-block[data-state="focus"] { 
+  outline: none; 
+}
+
+.selectable-block[data-state="focus"]::after {
+  opacity: 1;
+  box-shadow: var(--e-ring);
+  transform: scale(1);
+}
+
+/* Selected state (single) */
+.selectable-block[data-state="selected"]::after,
+.selectable-block[aria-selected="true"]::after {
+  opacity: 1;
+  box-shadow: 0 0 0 var(--sel-outline) var(--c-accent), var(--e-selected);
+  background: var(--c-accent-soft);
+  transform: scale(1);
+}
+
+/* Multi-selected state (stacked emphasis) */
+.selectable-block[data-state="multiselected"]::after {
+  opacity: 1;
+  box-shadow:
+    0 0 0 var(--sel-outline) var(--c-accent),
+    0 0 0 calc(var(--sel-outline) + 2px) color-mix(in oklab, var(--c-accent), transparent 70%),
+    var(--e-selected);
+  background: color-mix(in oklab, var(--c-accent), transparent 88%);
+}
+
+/* Editing mode (content editing or resizing) */
+.selectable-block[data-state="editing"]::after {
+  opacity: 1;
+  box-shadow: 0 0 0 2px var(--c-focus), 0 0 0 6px color-mix(in oklab, var(--c-focus), transparent 70%);
+  background: var(--c-bg-mask);
+}
+
+/* Dragging state (selected origin) */
+.selectable-block[data-state="dragging"] {
+  transform: translateZ(0) scale(.995);
+  box-shadow: 0 10px 24px rgba(0,0,0,.18);
+  cursor: grabbing;
+}
+
+body .selectable-block[data-state="dragging"]::after { 
+  opacity: 0; 
+}
+
+/* Invalid/Forbidden state */
+.selectable-block[data-invalid="true"]::after {
+  opacity: 1;
+  box-shadow: 0 0 0 2px var(--c-invalid), 0 0 0 6px color-mix(in oklab, var(--c-invalid), transparent 70%);
+  background: color-mix(in oklab, var(--c-invalid), transparent 88%);
+}
+
+.selectable-block[data-invalid="true"] { 
+  cursor: not-allowed; 
+}
+
+/* Locked state */
+.selectable-block[data-locked="true"]::after {
+  opacity: 1;
+  background:
+    repeating-linear-gradient(45deg,
+      color-mix(in oklab, var(--c-locked), transparent 85%) 0 8px,
+      color-mix(in oklab, var(--c-locked), transparent 70%) 8px 16px);
+  box-shadow: 0 0 0 1px var(--c-locked) inset;
+}
+
+.selectable-block[data-locked="true"] { 
+  cursor: default; 
+}
+
+/* Selection handle */
+.selection-handle {
+  position: absolute;
+  top: var(--sel-gap);
+  left: var(--sel-gap);
+  width: 28px; 
+  height: 28px;
+  display: grid; 
+  place-items: center;
+  border-radius: 8px;
+  cursor: grab;
+  color: var(--c-handle);
+  background: color-mix(in oklab, var(--c-handle), transparent 92%);
+  transition: background var(--t-fast) var(--ease), transform var(--t-fast) var(--ease);
+  z-index: 10;
+}
+
+.selection-handle:active { 
+  cursor: grabbing; 
+  transform: scale(.97); 
+}
+
+.selectable-block[data-state="selected"] .selection-handle { 
+  background: color-mix(in oklab, var(--c-accent), transparent 85%); 
+  color: var(--c-accent); 
+}
+
+/* Resize handles for editing mode */
+.selectable-block[data-state="editing"] .resizer {
+  position: absolute; 
+  width: 10px; 
+  height: 10px;
+  background: var(--c-accent); 
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px #fff;
+  z-index: 15;
+}
+
+.selectable-block[data-state="editing"] .resizer.br { 
+  right: -5px; 
+  bottom: -5px; 
+  cursor: nwse-resize; 
+}
+
+.selectable-block[data-state="editing"] .resizer.bl { 
+  left: -5px; 
+  bottom: -5px; 
+  cursor: nesw-resize; 
+}
+
+.selectable-block[data-state="editing"] .resizer.tr { 
+  right: -5px; 
+  top: -5px; 
+  cursor: nesw-resize; 
+}
+
+.selectable-block[data-state="editing"] .resizer.tl { 
+  left: -5px; 
+  top: -5px; 
+  cursor: nwse-resize; 
+}
+
+/* Drop target helper */
+.selectable-block[data-drop-target="inside"]::after {
+  opacity: 1;
+  background: color-mix(in oklab, var(--c-accent), transparent 88%);
+  box-shadow: 0 0 0 2px var(--c-accent);
+}
+
+/* Keyboard-first focus styling */
+body[data-input-modality="keyboard"] .selectable-block:focus-visible::after {
+  opacity: 1; 
+  box-shadow: var(--e-ring); 
+  transform: scale(1);
+}
+
+body[data-input-modality="mouse"] .selectable-block:focus-visible::after {
+  box-shadow: 0 0 0 1px var(--c-hover);
 }
 
 /* Reset heading styles within canvas elements to allow custom fontSize */

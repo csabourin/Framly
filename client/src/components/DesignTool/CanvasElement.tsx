@@ -36,6 +36,9 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
   const elementRef = useRef<HTMLDivElement>(null);
   const [isEditing, setIsEditing] = React.useState(false);
   const textEditRef = useRef<HTMLDivElement>(null);
+  const buttonEditRef = useRef<HTMLButtonElement>(null);
+  const preEditRef = useRef<HTMLPreElement>(null);
+  const textareaEditRef = useRef<HTMLTextAreaElement>(null);
   
   // Get hover state from Redux if not provided via props
   const reduxHoverState = useSelector(selectHoverState);
@@ -344,15 +347,15 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
         const buttonText = element.content || 'Bouton';
         return (
           <button
-            ref={textEditRef}
+            ref={buttonEditRef}
             className="w-full h-full outline-none cursor-text"
             style={mergedStyles}
           >
             <span
               contentEditable={true}
               suppressContentEditableWarning
-              onBlur={handleTextPropertyEdit('content')}
-              onKeyDown={handleKeyDown}
+              onBlur={(e) => handleTextPropertyEdit('content')(e as any)}
+              onKeyDown={handleKeyDown as any}
               className="outline-none"
               autoFocus
             >
@@ -552,11 +555,10 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
                 name={element.type === 'radio' ? `radio-group-${element.id}` : undefined}
               />
               <span
-                ref={textEditRef}
                 contentEditable={true}
                 suppressContentEditableWarning
-                onBlur={handleTextPropertyEdit('content')}
-                onKeyDown={handleKeyDown}
+                onBlur={(e) => handleTextPropertyEdit('content')(e as any)}
+                onKeyDown={handleKeyDown as any}
                 className="text-sm outline-none cursor-text flex-1"
                 autoFocus
               >
@@ -594,11 +596,10 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
         if (isTextEditable) {
           return (
             <span
-              ref={textEditRef}
               contentEditable={true}
               suppressContentEditableWarning
-              onBlur={handleTextPropertyEdit('content')}
-              onKeyDown={handleKeyDown}
+              onBlur={(e) => handleTextPropertyEdit('content')(e as any)}
+              onKeyDown={handleKeyDown as any}
               className="w-full h-full outline-none cursor-text"
               style={mergedStyles}
               autoFocus
@@ -630,11 +631,11 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
         if (isTextEditable) {
           return (
             <pre
-              ref={textEditRef}
+              ref={preEditRef}
               contentEditable={true}
               suppressContentEditableWarning
-              onBlur={handleTextPropertyEdit('content')}
-              onKeyDown={handleKeyDown}
+              onBlur={(e) => handleTextPropertyEdit('content')(e as any)}
+              onKeyDown={handleKeyDown as any}
               className="w-full h-full outline-none cursor-text"
               style={mergedStyles}
               autoFocus
@@ -669,8 +670,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
       if (isTextEditable && element.type === 'textarea') {
         return (
           <textarea
-            ref={textEditRef}
-            contentEditable={false}
+            ref={textareaEditRef}
             value={content}
             onChange={(e) => {
               dispatch(updateElement({
@@ -878,18 +878,33 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     });
   }
 
+  // Determine professional selection state
+  const getSelectionState = () => {
+    if (isDraggingForReorder && draggedElementId === element.id) return 'dragging';
+    if (isEditing) return 'editing';
+    if (isSelected) return 'selected';
+    if (isThisElementHovered) return 'hover';
+    return 'idle';
+  };
+
+  const selectionState = getSelectionState();
+
   return (
     <div
       ref={elementRef}
       className={`
+        selectable-block
         canvas-element
-        ${isSelected ? 'selected' : ''}
         ${element.classes?.join(' ') || ''}
         ${getSiblingSpacingClass()}
         ${isDragActive ? 'drag-transition-padding' : ''}
         ${isExpandedContainer ? 'drag-expand-padding' : ''}
       `}
-
+      data-state={selectionState}
+      data-locked="false"
+      data-invalid="false"
+      aria-selected={isSelected}
+      tabIndex={0}
       onClick={handleClick}
       onMouseDown={(e) => {
         // Prevent mouse down from interfering with canvas click detection
@@ -913,15 +928,24 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
       data-element-id={element.id}
       data-testid={`canvas-element-${element.id}`}
     >
+      {/* Professional Selection Handle */}
+      {isSelected && (
+        <div className="selection-handle" data-testid="selection-handle">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
+            <path d="M2 2h2v2H2V2zm3 0h2v2H5V2zm3 0h2v2H8V2zM2 5h2v2H2V5zm3 0h2v2H5V5zm3 0h2v2H8V5zM2 8h2v2H2V8zm3 0h2v2H5V8zm3 0h2v2H8V8z"/>
+          </svg>
+        </div>
+      )}
+
       {renderContent()}
       
-      {/* Resize Handles */}
-      {isSelected && (
+      {/* Professional Resize Handles for Editing Mode */}
+      {selectionState === 'editing' && (
         <>
-          <div className="resize-handle top" data-testid="resize-handle-top" />
-          <div className="resize-handle bottom" data-testid="resize-handle-bottom" />
-          <div className="resize-handle left" data-testid="resize-handle-left" />
-          <div className="resize-handle right" data-testid="resize-handle-right" />
+          <div className="resizer tl" data-testid="resize-handle-tl" />
+          <div className="resizer tr" data-testid="resize-handle-tr" />
+          <div className="resizer bl" data-testid="resize-handle-bl" />
+          <div className="resizer br" data-testid="resize-handle-br" />
         </>
       )}
     </div>
