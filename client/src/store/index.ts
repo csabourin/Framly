@@ -17,12 +17,9 @@ export const store = configureStore({
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
-      serializableCheck: {
-        // Ignore these action types for performance
-        ignoredActions: ['persist/PERSIST', 'persist/REHYDRATE'],
-        // Ignore large state objects for performance
-        ignoredPaths: ['history.entries'],
-      },
+      // Disable expensive middleware in development for better performance
+      serializableCheck: false,
+      immutableCheck: false,
     }),
 });
 

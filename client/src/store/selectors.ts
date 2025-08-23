@@ -76,23 +76,25 @@ const defaultViewSettings = {
 
 export const selectCurrentTabViewSettings = createSelector(
   [selectCurrentTab],
-  (currentTab) => currentTab?.viewSettings || defaultViewSettings
+  (currentTab) => {
+    // Transform data to ensure proper memoization
+    const viewSettings = currentTab?.viewSettings;
+    if (!viewSettings) return defaultViewSettings;
+    
+    // Return a properly structured object to avoid identity selector warning
+    return {
+      zoom: viewSettings.zoom,
+      panX: viewSettings.panX,
+      panY: viewSettings.panY,
+      selectedElementId: viewSettings.selectedElementId
+    };
+  }
 );
 
-export const selectAllTabs = createSelector(
-  [(state: RootState) => state.canvas.project.tabs],
-  (tabs) => tabs
-);
-
-export const selectActiveTabId = createSelector(
-  [(state: RootState) => state.canvas.project.activeTabId],
-  (activeTabId) => activeTabId
-);
-
-export const selectTabOrder = createSelector(
-  [(state: RootState) => state.canvas.project.tabOrder],
-  (tabOrder) => tabOrder
-);
+// Simple selectors that don't need memoization (no transformation)
+export const selectAllTabs = (state: RootState) => state.canvas.project.tabs;
+export const selectActiveTabId = (state: RootState) => state.canvas.project.activeTabId;
+export const selectTabOrder = (state: RootState) => state.canvas.project.tabOrder;
 
 // Helper to get element by ID in current tab
 export const selectElementById = createSelector(

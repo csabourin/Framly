@@ -20,6 +20,30 @@ interface SideConfig {
 }
 
 // Enhanced border input component with unit dropdown and value persistence
+// Optimize border value parsing - pure function for better performance
+const parseBorderValue = (borderValue: any) => {
+  // Handle empty, null, or undefined values
+  if (!borderValue || borderValue === '') return { width: '', unit: 'px', style: 'solid', color: '#000000' };
+  
+  // Convert to string if it's not already
+  const borderStr = typeof borderValue === 'string' ? borderValue : String(borderValue);
+  
+  const parts = borderStr.trim().split(/\s+/);
+  const widthWithUnit = parts[0] || '';
+  
+  // Extract numeric value and unit
+  const match = widthWithUnit.match(/^(\d*\.?\d*)(.*)$/);
+  const numericWidth = match ? match[1] : '';
+  const unit = match && match[2] ? match[2] : 'px';
+  
+  return {
+    width: numericWidth,
+    unit: unit || 'px',
+    style: parts[1] || 'solid',
+    color: parts[2] || '#000000'
+  };
+};
+
 const BorderInput = React.memo(({ 
   sideKey, 
   label, 
@@ -31,31 +55,9 @@ const BorderInput = React.memo(({
   currentValue: any;
   onSideChange: (sideKey: string, value: string) => void;
 }) => {
-  // Parse current value to preserve state
-  const parseBorderValue = (borderValue: any) => {
-    // Handle empty, null, or undefined values
-    if (!borderValue || borderValue === '') return { width: '', unit: 'px', style: 'solid', color: '#000000' };
-    
-    // Convert to string if it's not already
-    const borderStr = typeof borderValue === 'string' ? borderValue : String(borderValue);
-    
-    const parts = borderStr.trim().split(/\s+/);
-    const widthWithUnit = parts[0] || '';
-    
-    // Extract numeric value and unit
-    const match = widthWithUnit.match(/^(\d*\.?\d*)(.*)$/);
-    const numericWidth = match ? match[1] : '';
-    const unit = match && match[2] ? match[2] : 'px';
-    
-    return {
-      width: numericWidth,
-      unit: unit || 'px',
-      style: parts[1] || 'solid',
-      color: parts[2] || '#000000'
-    };
-  };
-
-  const parsedValue = parseBorderValue(currentValue);
+  // Memoize parsed value to prevent re-parsing on every render
+  const parsedValue = React.useMemo(() => parseBorderValue(currentValue), [currentValue]);
+  
   const [width, setWidth] = React.useState(parsedValue.width);
   const [unit, setUnit] = React.useState(parsedValue.unit);
   const [style, setStyle] = React.useState(parsedValue.style);
@@ -63,18 +65,15 @@ const BorderInput = React.memo(({
 
   // Update local state when currentValue changes (for persistence)
   React.useEffect(() => {
-    const newParsed = parseBorderValue(currentValue);
-    setWidth(newParsed.width);
-    setUnit(newParsed.unit);
-    setStyle(newParsed.style);
-    setColor(newParsed.color);
-  }, [currentValue]);
+    setWidth(parsedValue.width);
+    setUnit(parsedValue.unit);
+    setStyle(parsedValue.style);
+    setColor(parsedValue.color);
+  }, [parsedValue]);
 
   const updateValue = React.useCallback((newWidth: string, newUnit: string, newStyle: string, newColor: string) => {
     const fullWidth = newWidth.trim() && newWidth !== '0' ? `${newWidth.trim()}${newUnit}` : '';
     const newValue = fullWidth ? `${fullWidth} ${newStyle} ${newColor}` : '';
-    console.log(`🟦 BorderInput updateValue: ${sideKey} -> "${newValue}"`);
-    console.log('🟦 Calling onSideChange with:', { sideKey, newValue });
     onSideChange(sideKey, newValue);
   }, [sideKey, onSideChange]);
 
@@ -243,13 +242,11 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
   const config = getConfig();
   
   // Debug logging
-  console.log('CompoundPropertyInput render:', { propertyType, hasConfig: !!getConfig() });
+  // Removed console.log for better performance
 
   const handleShortcutChange = (shortcutKey: string, value: string) => {
-    console.log(`handleShortcutChange: ${shortcutKey} = ${value}`);
     const shortcut = config.shortcuts.find(s => s.key === shortcutKey);
     if (!shortcut) {
-      console.log(`No shortcut found for ${shortcutKey}`);
       return;
     }
 
@@ -360,17 +357,12 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
             currentValue={globalBorderValue}
             onSideChange={(sideKey, value) => {
               // Apply to all individual sides when using global input
-              console.log('🔴 Global border input changed:', { sideKey, value });
-              
               // Update the local state to prevent reverting
               setGlobalBorderValue(value);
               
               if (value && value.trim()) {
-                console.log('🔴 Using batch update for all sides:', value);
-                
                 // Use batch update to apply all borders in a single Redux action
                 if (onBatchChange) {
-                  console.log('🔴 Batch updating all border sides');
                   onBatchChange({
                     'border': '', // Clear conflicting shorthand first
                     'border-top': value,
@@ -380,7 +372,6 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
                   });
                 } else {
                   // Fallback to individual calls if no batch handler
-                  console.log('🔴 Fallback to individual onChange calls');
                   onChange('border', '');
                   setTimeout(() => {
                     onChange('border-top', value);
@@ -389,7 +380,6 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
                     onChange('border-left', value);
                   }, 10);
                 }
-                console.log(`🔴 Applied global border "${value}" to all sides`);
               } else {
                 // Clear all borders if value is empty
                 console.log('🔴 Clearing all border sides');
