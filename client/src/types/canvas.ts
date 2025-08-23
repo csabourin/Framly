@@ -56,6 +56,12 @@ export interface CanvasElement {
   buttonText?: string;
   buttonDesignId?: string; // Links to component design
   currentButtonState?: 'default' | 'hover' | 'active' | 'focus' | 'disabled';
+  
+  // Component instance properties (spec-compliant)
+  componentRef?: {
+    componentId: string;
+    overrides?: Record<string, any>; // Future: per-instance prop overrides
+  };
 }
 
 export interface CSSProperties {
@@ -122,6 +128,7 @@ export type Tool = 'select' | 'hand' | 'rectangle' | 'text' | 'heading' | 'list'
   // Legacy tools (for backwards compatibility)
   'split-horizontal' | 'split-vertical' | 'merge';
 
+// Legacy interface for backward compatibility
 export interface CustomComponent {
   id: string;
   name: string;
@@ -133,8 +140,24 @@ export interface CustomComponent {
   updatedAt?: string;
 }
 
-export interface ComponentCategory {
-  id: string;
+// Spec-compliant types
+export type NodeId = string;
+export type ComponentId = string;
+export type CategoryId = string;
+
+export interface ComponentDef {
+  id: ComponentId;
   name: string;
-  components: CustomComponent[];
+  categoryId: CategoryId | null;
+  template: CanvasElement; // normalized root node (full subtree)
+  version: number;
+  updatedAt: number;
+}
+
+export interface ComponentCategory {
+  id: CategoryId;
+  name: string;
+  sortIndex: number;
+  createdAt: number;
+  components: CustomComponent[]; // For backward compatibility
 }

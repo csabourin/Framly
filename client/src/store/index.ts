@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import canvasReducer from './canvasSlice';
 import uiReducer from './uiSlice';
 import componentReducer from './componentSlice';
+import componentDefinitionsReducer from './componentDefinitionsSlice';
 import classReducer from './classSlice';
 import historyReducer from './historySlice';
 import buttonReducer from './buttonSlice';
@@ -11,6 +12,7 @@ export const store = configureStore({
     canvas: canvasReducer,
     ui: uiReducer,
     components: componentReducer,
+    componentDefinitions: componentDefinitionsReducer,
     classes: classReducer,
     history: historyReducer,
     button: buttonReducer,

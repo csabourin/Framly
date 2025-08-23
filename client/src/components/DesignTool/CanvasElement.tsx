@@ -8,6 +8,8 @@ import { CanvasElement as CanvasElementType } from '../../types/canvas';
 import ButtonElement from './CanvasElements/ButtonElement';
 import { isValidDropTarget } from '../../utils/canvas';
 import { selectCurrentElements } from '../../store/selectors';
+import { isComponentInstance } from '../../utils/componentInstances';
+import ComponentInstanceElement from './ComponentInstanceElement';
 
 
 interface CanvasElementProps {
@@ -30,6 +32,18 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
   expandedContainerId = null
 }) => {
   const dispatch = useDispatch();
+  
+  // Check if this is a component instance and render using ComponentInstanceElement
+  if (isComponentInstance(element)) {
+    return (
+      <ComponentInstanceElement
+        element={element}
+        isSelected={isSelected}
+        onSelect={() => dispatch(selectElement(element.id))}
+      />
+    );
+  }
+  
   const currentElements = useSelector(selectCurrentElements);
   const selectedElementId = useSelector(selectSelectedElementId);
   const { selectedTool, isDraggingForReorder, draggedElementId, insertionIndicator, settings } = useSelector(selectUIState);

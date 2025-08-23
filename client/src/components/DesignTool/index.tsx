@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { useSelector, useDispatch } from 'react-redux';
 import { store, RootState } from '../../store';
 import { setClassEditorOpen, setComponentEditorOpen, setEditingComponent, setButtonDesignerOpen } from '../../store/uiSlice';
-import { selectUIState } from '../../store/selectors';
+import { selectUIState, selectComponentDefinitionsState } from '../../store/selectors';
 import { historyManager } from '../../utils/historyManager';
 import { useKeyboardShortcuts } from '../../hooks/useKeyboardShortcuts';
 import Header from './Header';
@@ -20,6 +20,7 @@ import CodeModal from './CodeModal';
 import CSSOptimizationModal from './CSSOptimizationModal';
 import ClassEditor from './ClassEditor';
 import ComponentEditor from './ComponentEditor';
+import ComponentTabbedEditor from './ComponentTabbedEditor';
 import ButtonDesigner from './ButtonDesigner';
 
 const DesignToolContent: React.FC = () => {
@@ -46,6 +47,9 @@ const DesignToolContent: React.FC = () => {
     editingComponentId,
     isButtonDesignerOpen
   } = uiState;
+
+  const componentDefinitionsState = useSelector(selectComponentDefinitionsState);
+  const { isComponentEditorOpen: isComponentTabbedEditorOpen } = componentDefinitionsState;
 
   const handleCloseClassEditor = () => {
     dispatch(setClassEditorOpen(false));
@@ -97,6 +101,9 @@ const DesignToolContent: React.FC = () => {
         isOpen={isButtonDesignerOpen}
         onClose={handleCloseButtonDesigner}
       />
+
+      {/* Component Tabbed Editor */}
+      {isComponentTabbedEditorOpen && <ComponentTabbedEditor />}
     </div>
   );
 };

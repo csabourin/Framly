@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
-import { selectComponentsState, selectCanvasProject } from '../../store/selectors';
+import { selectComponentsState, selectCanvasProject, selectCurrentElements, selectSelectedElementId } from '../../store/selectors';
 import { addComponent, setCreatingComponent } from '../../store/componentSlice';
+import { addComponentDefinition, addComponentCategory } from '../../store/componentDefinitionsSlice';
+import { saveComponentDefinition, saveComponentCategory } from '../../utils/componentPersistence';
 import { selectElement } from '../../store/canvasSlice';
-import { CustomComponent, CanvasElement } from '../../types/canvas';
+import { CustomComponent, CanvasElement, ComponentDef, ComponentCategory } from '../../types/canvas';
+import { nanoid } from 'nanoid';
 import { generateComponentFromElements } from '../../utils/componentGenerator';
 import { saveComponent } from '../../utils/persistence';
+import { hasCircularDependency } from '../../utils/componentInstances';
 import { 
   Dialog, 
   DialogContent, 
@@ -31,12 +35,14 @@ const CreateComponentModal: React.FC = () => {
   const dispatch = useDispatch();
   const { isCreatingComponent, categories } = useSelector(selectComponentsState);
   const project = useSelector(selectCanvasProject);
+  const currentElements = useSelector(selectCurrentElements);
+  const selectedElementId = useSelector(selectSelectedElementId);
   const [componentName, setComponentName] = useState('');
   const [componentCategory, setComponentCategory] = useState('custom');
   const [description, setDescription] = useState('');
   const [isValid, setIsValid] = useState(false);
 
-  const selectedElement = project.selectedElementId ? project.elements[project.selectedElementId] : null;
+  const selectedElement = selectedElementId ? currentElements[selectedElementId] : null;
 
   useEffect(() => {
     setIsValid(componentName.trim().length > 0 && selectedElement !== null);
@@ -49,21 +55,62 @@ const CreateComponentModal: React.FC = () => {
   const handleSave = async () => {
     if (!selectedElement || !componentName.trim()) return;
 
-    // Create the component using the utility function
+    // Check for circular dependencies
+    if (hasCircularDependency(selectedElement.id, currentElements)) {
+      alert('Cannot create component: This would create a circular dependency. Please select a different element.');
+      return;
+    }
+
+    // Create the legacy component for backward compatibility
     const newComponent = generateComponentFromElements(
       selectedElement.id,
-      project.elements,
+      currentElements,
       componentName.trim(),
       componentCategory
     );
 
-    // Add to Redux store
+    // Create spec-compliant ComponentDef
+    const componentDef: ComponentDef = {
+      id: nanoid(),
+      name: componentName.trim(),
+      categoryId: componentCategory === 'custom' ? null : componentCategory,
+      template: currentElements[selectedElement.id], // Use the full element as template
+      version: 1,
+      updatedAt: Date.now()
+    };
+
+    // Create or get category if needed
+    if (componentCategory !== 'custom') {
+      const existingCategories = categories.find(cat => cat.id === componentCategory);
+      if (!existingCategories) {
+        const newCategory: ComponentCategory = {
+          id: componentCategory,
+          name: componentCategory.charAt(0).toUpperCase() + componentCategory.slice(1),
+          sortIndex: categories.length,
+          createdAt: Date.now(),
+          components: [] // Legacy field
+        };
+        
+        dispatch(addComponentCategory(newCategory));
+        
+        try {
+          await saveComponentCategory(newCategory);
+          console.log('Component category saved:', newCategory.name);
+        } catch (error) {
+          console.error('Failed to save component category:', error);
+        }
+      }
+    }
+
+    // Add to Redux stores (both legacy and new)
     dispatch(addComponent(newComponent));
+    dispatch(addComponentDefinition(componentDef));
     
     // Save to IndexedDB
     try {
       await saveComponent(newComponent);
-      console.log('Component saved to IndexedDB:', newComponent.name);
+      await saveComponentDefinition(componentDef);
+      console.log('Component saved to IndexedDB:', newComponent.name, 'v' + componentDef.version);
     } catch (error) {
       console.error('Failed to save component to IndexedDB:', error);
     }

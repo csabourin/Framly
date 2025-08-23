@@ -190,6 +190,42 @@ export const selectComponentsState = createSelector(
   (components) => components
 );
 
+// Component definitions selectors (spec-compliant)
+export const selectComponentDefinitionsState = createSelector(
+  [(state: RootState) => state.componentDefinitions],
+  (componentDefinitions) => componentDefinitions
+);
+
+export const selectComponentDefinitions = createSelector(
+  [selectComponentDefinitionsState],
+  (state) => state.definitions
+);
+
+export const selectComponentCategories = createSelector(
+  [selectComponentDefinitionsState],
+  (state) => Object.values(state.categories).sort((a, b) => a.sortIndex - b.sortIndex)
+);
+
+export const selectComponentDefinition = createSelector(
+  [selectComponentDefinitions, (state: RootState, componentId: string) => componentId],
+  (definitions, componentId) => definitions[componentId]
+);
+
+export const selectComponentInstances = createSelector(
+  [selectComponentDefinitionsState, (state: RootState, componentId: string) => componentId],
+  (state, componentId) => state.instanceIndex[componentId] || []
+);
+
+export const selectOpenComponentTabs = createSelector(
+  [selectComponentDefinitionsState],
+  (state) => state.openComponentTabs
+);
+
+export const selectActiveComponentTab = createSelector(
+  [selectComponentDefinitionsState],
+  (state) => state.activeComponentTabId
+);
+
 // Export modal state - CRITICAL: prevents browser crashes
 export const selectExportModalState = createSelector(
   [(state: RootState) => state.ui],

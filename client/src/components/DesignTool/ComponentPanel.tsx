@@ -27,6 +27,7 @@ import {
   Folder,
   FolderPlus
 } from 'lucide-react';
+import ComponentContextMenu from './ComponentContextMenu';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
@@ -71,8 +72,8 @@ const ComponentPanel: React.FC = () => {
   };
 
   const handleAddToCanvas = (component: CustomComponent) => {
-    const selectedElementId = selectedElementId || 'root';
-    const selectedElement = currentElements[selectedElementId];
+    const currentSelectedElementId = selectedElementId || 'root';
+    const selectedElement = currentElements[currentSelectedElementId];
     
     // Determine insertion position based on selected element
     let insertX = 50;
@@ -80,10 +81,10 @@ const ComponentPanel: React.FC = () => {
     let parentId = 'root';
     let insertPosition: 'before' | 'after' | 'inside' = 'inside';
     
-    if (selectedElement && selectedElementId !== 'root') {
+    if (selectedElement && currentSelectedElementId !== 'root') {
       // If a container/rectangle is selected, add inside it
       if (selectedElement.type === 'container' || selectedElement.type === 'rectangle') {
-        parentId = selectedElementId;
+        parentId = currentSelectedElementId;
         insertX = selectedElement.x + 20;
         insertY = selectedElement.y + 20;
         insertPosition = 'inside';
@@ -106,7 +107,7 @@ const ComponentPanel: React.FC = () => {
         element: { ...rootElement, parent: parentId },
         parentId,
         insertPosition,
-        referenceElementId: insertPosition !== 'inside' ? selectedElementId : undefined
+        referenceElementId: insertPosition !== 'inside' ? currentSelectedElementId : undefined
       }));
       
       // Add child elements
@@ -187,7 +188,7 @@ const ComponentPanel: React.FC = () => {
       data-testid="component-panel-main"
     >
       {/* Header */}
-      <div className="p-4 border-b border-gray-200">
+      <div className="components-header relative overflow-visible p-4 border-b border-gray-200">
         <div className="flex items-center justify-between mb-3">
           <h2 className="text-sm font-semibold text-gray-900 flex items-center gap-2">
             <Package size={16} />
@@ -197,7 +198,7 @@ const ComponentPanel: React.FC = () => {
             size="sm"
             onClick={handleCreateComponent}
             disabled={!selectedElementId || selectedElementId === 'root'}
-            className="text-xs"
+            className="create-component-btn absolute right-3 top-2 z-10 text-xs"
             data-testid="button-create-component"
             title={!selectedElementId || selectedElementId === 'root' 
               ? 'Select an element to create a component' 
@@ -243,14 +244,14 @@ const ComponentPanel: React.FC = () => {
               <AccordionContent className="pb-2">
                 <div className="space-y-2 px-2">
                   {category.components.map((component) => (
-                    <Card 
-                      key={component.id} 
-                      className="cursor-pointer hover:shadow-md transition-shadow group"
-                      onClick={() => handleComponentClick(component)}
-                      draggable
-                      onDragStart={(e) => handleDragStart(e, component)}
-                      data-testid={`card-component-${component.id}`}
-                    >
+                    <ComponentContextMenu key={component.id} component={component}>
+                      <Card 
+                        className="cursor-pointer hover:shadow-md transition-shadow group"
+                        onClick={() => handleComponentClick(component)}
+                        draggable
+                        onDragStart={(e) => handleDragStart(e, component)}
+                        data-testid={`card-component-${component.id}`}
+                      >
                       <CardContent className="p-3">
                         <ComponentThumbnail component={component} />
                         <div className="flex items-start justify-between">
@@ -293,6 +294,7 @@ const ComponentPanel: React.FC = () => {
                         </div>
                       </CardContent>
                     </Card>
+                    </ComponentContextMenu>
                   ))}
                   
                   {category.components.length === 0 && searchTerm === '' && (
