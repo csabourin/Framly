@@ -5,12 +5,12 @@ import { selectComponentsState, selectCanvasProject, selectCurrentElements, sele
 import { addComponent, setCreatingComponent } from '../../store/componentSlice';
 import { addComponentDefinition, addComponentCategory } from '../../store/componentDefinitionsSlice';
 import { saveComponentDefinition, saveComponentCategory } from '../../utils/componentPersistence';
-import { selectElement, updateElement } from '../../store/canvasSlice';
+import { selectElement, updateElement, addElement } from '../../store/canvasSlice';
 import { CustomComponent, CanvasElement, ComponentDef, ComponentCategory } from '../../types/canvas';
 import { nanoid } from 'nanoid';
 import { generateComponentFromElements } from '../../utils/componentGenerator';
 import { saveComponent } from '../../utils/persistence';
-import { containsComponentInstances } from '../../utils/componentInstances';
+import { containsComponentInstances, createComponentInstance } from '../../utils/componentInstances';
 import { 
   Dialog, 
   DialogContent, 
@@ -112,15 +112,17 @@ const CreateComponentModal: React.FC = () => {
     dispatch(addComponent(newComponent));
     dispatch(addComponentDefinition(componentDef));
     
-    // CRITICAL: Convert the original element to a component instance
+    // CRITICAL: Create a new instance at the original location
+    const componentInstance = createComponentInstance(
+      selectedElement, 
+      componentDef.id, 
+      componentDef.version
+    );
+    
+    // Replace the original element with the component instance
     dispatch(updateElement({
       id: selectedElement.id,
-      updates: {
-        componentRef: {
-          componentId: componentDef.id,
-          version: componentDef.version
-        }
-      }
+      updates: componentInstance
     }));
     
     // Save to IndexedDB
@@ -128,7 +130,7 @@ const CreateComponentModal: React.FC = () => {
       await saveComponent(newComponent);
       await saveComponentDefinition(componentDef);
       console.log('Component saved to IndexedDB:', newComponent.name, 'v' + componentDef.version);
-      console.log('Original element converted to component instance:', selectedElement.id);
+      console.log('Component instance created at original location:', selectedElement.id);
     } catch (error) {
       console.error('Failed to save component to IndexedDB:', error);
     }

@@ -56,7 +56,8 @@ export const componentPersistenceMiddleware: Middleware = () => (next) => async 
         id: legacyCategory.id,
         name: legacyCategory.name,
         sortIndex: 0,
-        createdAt: Date.now()
+        createdAt: Date.now(),
+        components: [] // Required by ComponentCategory interface
       };
       await saveComponentCategory(newCategory);
     }
