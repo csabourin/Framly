@@ -15,12 +15,14 @@ export function isComponentInstance(element: CanvasElement): boolean {
  */
 export function createComponentInstance(
   element: CanvasElement, 
-  componentId: ComponentId
+  componentId: ComponentId,
+  version: number = 1
 ): CanvasElement {
   return {
     ...element,
     componentRef: {
       componentId,
+      version,
       overrides: {}
     },
     children: [], // Instances don't own real children; rendering expands from template

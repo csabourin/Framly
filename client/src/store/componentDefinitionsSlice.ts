@@ -159,12 +159,6 @@ const componentDefinitionsSlice = createSlice({
       const { definitions, categories } = action.payload;
       state.definitions = definitions;
       state.categories = categories;
-      
-      // Rebuild component map
-      state.componentMap.clear();
-      Object.values(definitions).forEach(def => {
-        state.componentMap.set(def.id, def);
-      });
     },
   }
 });

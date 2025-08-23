@@ -5,7 +5,7 @@ import { selectComponentsState, selectCanvasProject, selectCurrentElements, sele
 import { addComponent, setCreatingComponent } from '../../store/componentSlice';
 import { addComponentDefinition, addComponentCategory } from '../../store/componentDefinitionsSlice';
 import { saveComponentDefinition, saveComponentCategory } from '../../utils/componentPersistence';
-import { selectElement } from '../../store/canvasSlice';
+import { selectElement, updateElement } from '../../store/canvasSlice';
 import { CustomComponent, CanvasElement, ComponentDef, ComponentCategory } from '../../types/canvas';
 import { nanoid } from 'nanoid';
 import { generateComponentFromElements } from '../../utils/componentGenerator';
@@ -112,11 +112,23 @@ const CreateComponentModal: React.FC = () => {
     dispatch(addComponent(newComponent));
     dispatch(addComponentDefinition(componentDef));
     
+    // CRITICAL: Convert the original element to a component instance
+    dispatch(updateElement({
+      id: selectedElement.id,
+      updates: {
+        componentRef: {
+          componentId: componentDef.id,
+          version: componentDef.version
+        }
+      }
+    }));
+    
     // Save to IndexedDB
     try {
       await saveComponent(newComponent);
       await saveComponentDefinition(componentDef);
       console.log('Component saved to IndexedDB:', newComponent.name, 'v' + componentDef.version);
+      console.log('Original element converted to component instance:', selectedElement.id);
     } catch (error) {
       console.error('Failed to save component to IndexedDB:', error);
     }

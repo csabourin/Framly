@@ -60,6 +60,7 @@ export interface CanvasElement {
   // Component instance properties (spec-compliant)
   componentRef?: {
     componentId: string;
+    version: number; // Track component version for updates
     overrides?: Record<string, any>; // Future: per-instance prop overrides
   };
 }

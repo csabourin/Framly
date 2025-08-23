@@ -6,6 +6,7 @@ import { setClassEditorOpen, setComponentEditorOpen, setEditingComponent, setBut
 import { selectUIState, selectComponentDefinitionsState } from '../../store/selectors';
 import { historyManager } from '../../utils/historyManager';
 import { useKeyboardShortcuts } from '../../hooks/useKeyboardShortcuts';
+import { useComponentPropagation } from '../../hooks/useComponentPropagation';
 import Header from './Header';
 import TabBar from './TabBar';
 import Toolbar from './Toolbar';
@@ -26,6 +27,9 @@ import ButtonDesigner from './ButtonDesigner';
 const DesignToolContent: React.FC = () => {
   // Initialize keyboard shortcuts
   useKeyboardShortcuts();
+  
+  // Initialize component propagation
+  useComponentPropagation();
   
   // Initialize history manager and tracking
   useEffect(() => {
