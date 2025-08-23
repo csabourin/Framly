@@ -31,6 +31,7 @@ const Canvas: React.FC = () => {
   const [dragStartPos, setDragStartPos] = useState({ x: 0, y: 0 });
   const [expandedContainerId, setExpandedContainerId] = useState<string | null>(null);
   const [inputModality, setInputModality] = useState<'mouse' | 'keyboard'>('mouse');
+  const [isDragFromHandle, setIsDragFromHandle] = useState(false);
   const project = useSelector(selectCanvasProject);
   const { selectedTool, isDragging, dragStart, isResizing, resizeHandle, zoomLevel, isGridVisible, draggedElementId, isDraggingForReorder, isDOMTreePanelVisible, isComponentPanelVisible, settings } = useSelector(selectCanvasUIState);
   
@@ -408,23 +409,52 @@ const Canvas: React.FC = () => {
       dispatch(setDragStart({ x: x - selectedElement.x, y: y - selectedElement.y }));
       dispatch(setDragging(true));
     } else if (selectedTool === 'hand') {
+      // With new drag handle system, regular clicks on elements should only select
+      // Dragging only happens from drag handles (handled by dragHandleMouseDown event)
       const clickedElement = getElementAtPoint(x, y, currentElements, zoomLevel);
       if (clickedElement && clickedElement.id !== 'root') {
-        console.log('DRAG DEBUG - Hand tool clicked element:', clickedElement.id);
+        console.log('DRAG DEBUG - Hand tool clicked element (selection only):', clickedElement.id);
         dispatch(selectElement(clickedElement.id));
         
-        // Only set up drag preparation if hand tool dragging is enabled in settings
-        if (settings.enableHandToolDragging) {
-          console.log('DRAG DEBUG - Hand tool dragging enabled, preparing drag for:', clickedElement.id);
-          setDragStartPos({ x, y });
-          setDragThreshold({ x, y, exceeded: false });
-          dispatch(setDraggedElement(clickedElement.id));
-        } else {
-          console.log('DRAG DEBUG - Hand tool dragging disabled, only selecting element');
+        // Click-to-move behavior (if enabled in settings)
+        if (settings.enableClickToMove) {
+          console.log('DRAG DEBUG - Click-to-move enabled - implement later');
+          // TODO: Implement click-to-move behavior
         }
       }
     }
   }, [selectedTool, selectedElement, zoomLevel, dispatch, currentElements, settings]);
+
+  // Handle drag handle mouse down events
+  useEffect(() => {
+    const handleDragHandleMouseDown = (e: CustomEvent) => {
+      const { elementId, originalEvent } = e.detail;
+      console.log('DRAG HANDLE DEBUG - Received drag handle event for:', elementId);
+      
+      if (settings.enableHandToolDragging && selectedTool === 'hand') {
+        console.log('DRAG HANDLE DEBUG - Starting drag from handle for:', elementId);
+        
+        // Get canvas rect for coordinate calculation
+        const rect = canvasRef.current?.getBoundingClientRect();
+        if (!rect) return;
+        
+        const x = (originalEvent.clientX - rect.left) / zoomLevel;
+        const y = (originalEvent.clientY - rect.top) / zoomLevel;
+        
+        // Select the element and prepare for dragging
+        dispatch(selectElement(elementId));
+        setDragStartPos({ x, y });
+        setDragThreshold({ x, y, exceeded: false });
+        dispatch(setDraggedElement(elementId));
+        setIsDragFromHandle(true);
+        
+        console.log('DRAG HANDLE DEBUG - Drag preparation complete');
+      }
+    };
+
+    window.addEventListener('dragHandleMouseDown', handleDragHandleMouseDown as EventListener);
+    return () => window.removeEventListener('dragHandleMouseDown', handleDragHandleMouseDown as EventListener);
+  }, [settings.enableHandToolDragging, selectedTool, zoomLevel, dispatch]);
 
   const handleMouseMove = useCallback((e: React.MouseEvent) => {
     const rect = canvasRef.current?.getBoundingClientRect();
@@ -679,7 +709,14 @@ const Canvas: React.FC = () => {
     // Reset drag threshold and expanded container
     setDragThreshold({ x: 0, y: 0, exceeded: false });
     setExpandedContainerId(null);
-  }, [dispatch, isDraggingForReorder, draggedElementId, hoveredElementId, hoveredZone, insertionIndicator, currentElements, dragThreshold, setDragThreshold]);
+    
+    // Auto-switch to selection tool after successful drag from handle
+    if (isDragFromHandle && isDraggingForReorder && draggedElementId) {
+      console.log('DRAG HANDLE DEBUG - Auto-switching to selection tool after drag completion');
+      dispatch(setSelectedTool('select'));
+    }
+    setIsDragFromHandle(false);
+  }, [dispatch, isDraggingForReorder, draggedElementId, hoveredElementId, hoveredZone, insertionIndicator, currentElements, dragThreshold, setDragThreshold, isDragFromHandle]);
 
   // Handle drop events for components
   const handleDragOver = useCallback((e: React.DragEvent) => {
@@ -970,7 +1007,28 @@ const Canvas: React.FC = () => {
                          target.contentEditable === 'true' ||
                          target.isContentEditable;
       
-      if ((e.key === 'Delete' || e.key === 'Backspace') && !isTextInput) {
+      if (e.key === 'Escape') {
+        // Cancel drag operation and return focus to moved element
+        if (isDraggingForReorder && draggedElementId) {
+          console.log('DRAG HANDLE DEBUG - Escape pressed, canceling drag');
+          dispatch(setDraggingForReorder(false));
+          dispatch(setDraggedElement(undefined));
+          setInsertionIndicator(null);
+          setDragThreshold({ x: 0, y: 0, exceeded: false });
+          
+          // Return focus to the element that was being dragged
+          const elementToFocus = document.querySelector(`[data-element-id="${draggedElementId}"]`) as HTMLElement;
+          if (elementToFocus) {
+            elementToFocus.focus();
+          }
+          
+          // If drag was from handle, auto-switch back to selection tool
+          if (isDragFromHandle) {
+            dispatch(setSelectedTool('select'));
+            setIsDragFromHandle(false);
+          }
+        }
+      } else if ((e.key === 'Delete' || e.key === 'Backspace') && !isTextInput) {
         if (selectedElement && selectedElement.id !== 'root') {
           e.preventDefault();
           dispatch(deleteElement(selectedElement.id));

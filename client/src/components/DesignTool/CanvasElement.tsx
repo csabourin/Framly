@@ -8,6 +8,7 @@ import { CanvasElement as CanvasElementType } from '../../types/canvas';
 import ButtonElement from './CanvasElements/ButtonElement';
 import { isValidDropTarget } from '../../utils/canvas';
 import { selectCurrentElements } from '../../store/selectors';
+import DragHandle from './DragHandle';
 
 interface CanvasElementProps {
   element: CanvasElementType;
@@ -886,20 +887,19 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
       data-element-id={element.id}
       data-testid={`canvas-element-${element.id}`}
     >
-      {/* Professional Selection Handle */}
-      {isSelected && (
-        <div 
-          className="selection-handle" 
-          data-testid="selection-handle"
-          onClick={(e) => {
-            e.stopPropagation();
-            dispatch(setSelectedTool('hand'));
+      {/* Professional Drag Handle - Only when hand tool is active and dragging is enabled */}
+      {isSelected && selectedTool === 'hand' && (
+        <DragHandle
+          onMouseDown={(e) => {
+            console.log('DRAG HANDLE DEBUG - Mouse down on handle for:', element.id);
+            // This will be passed to Canvas component via custom event
+            const dragEvent = new CustomEvent('dragHandleMouseDown', {
+              detail: { elementId: element.id, originalEvent: e }
+            });
+            window.dispatchEvent(dragEvent);
           }}
-        >
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
-            <path d="M2 2h2v2H2V2zm3 0h2v2H5V2zm3 0h2v2H8V2zM2 5h2v2H2V5zm3 0h2v2H5V5zm3 0h2v2H8V5zM2 8h2v2H2V8zm3 0h2v2H5V8zm3 0h2v2H8V8z"/>
-          </svg>
-        </div>
+          className="group"
+        />
       )}
 
       {renderContent()}

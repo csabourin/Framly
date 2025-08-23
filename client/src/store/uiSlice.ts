@@ -29,6 +29,7 @@ interface UIState {
   // Settings
   settings: {
     enableHandToolDragging: boolean;
+    enableClickToMove: boolean;
   };
 }
 
@@ -56,6 +57,7 @@ const initialState: UIState = {
   insertionIndicator: null,
   settings: {
     enableHandToolDragging: false, // Disabled by default
+    enableClickToMove: false, // Disabled by default
   },
 };
 

@@ -22,6 +22,10 @@ const SettingsMenu: React.FC = () => {
     dispatch(updateSettings({ enableHandToolDragging: enabled }));
   };
 
+  const handleToggleClickToMove = (enabled: boolean) => {
+    dispatch(updateSettings({ enableClickToMove: enabled }));
+  };
+
   return (
     <div className="fixed inset-0 z-50 flex items-start justify-start">
       {/* Backdrop */}
@@ -56,10 +60,10 @@ const SettingsMenu: React.FC = () => {
             <div className="flex items-center justify-between">
               <div className="space-y-1">
                 <Label htmlFor="hand-tool-dragging" className="text-sm font-normal">
-                  Enable dragging
+                  Enable handle dragging
                 </Label>
                 <p className="text-xs text-gray-500 dark:text-gray-400">
-                  Allow dragging elements with the hand tool
+                  Allow dragging elements from their drag handles
                 </p>
               </div>
               <Switch
@@ -67,6 +71,23 @@ const SettingsMenu: React.FC = () => {
                 checked={settings.enableHandToolDragging}
                 onCheckedChange={handleToggleHandToolDragging}
                 data-testid="hand-tool-dragging-toggle"
+              />
+            </div>
+            
+            <div className="flex items-center justify-between">
+              <div className="space-y-1">
+                <Label htmlFor="click-to-move" className="text-sm font-normal">
+                  Enable click-to-move
+                </Label>
+                <p className="text-xs text-gray-500 dark:text-gray-400">
+                  Click element, then click destination to move
+                </p>
+              </div>
+              <Switch
+                id="click-to-move"
+                checked={settings.enableClickToMove}
+                onCheckedChange={handleToggleClickToMove}
+                data-testid="click-to-move-toggle"
               />
             </div>
           </div>
