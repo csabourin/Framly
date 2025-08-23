@@ -8,7 +8,7 @@ import { CanvasElement as CanvasElementType } from '../../types/canvas';
 import ButtonElement from './CanvasElements/ButtonElement';
 import { isValidDropTarget } from '../../utils/canvas';
 import { selectCurrentElements } from '../../store/selectors';
-import DragHandle from './DragHandle';
+
 
 interface CanvasElementProps {
   element: CanvasElementType;
@@ -887,7 +887,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
       data-element-id={element.id}
       data-testid={`canvas-element-${element.id}`}
     >
-      {/* Professional Selection Handle - Always visible when selected */}
+      {/* Professional Selection/Drag Handle - Always visible when selected */}
       {isSelected && (
         <div 
           className="selection-handle" 
@@ -896,26 +896,24 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
             e.stopPropagation();
             dispatch(setSelectedTool('hand'));
           }}
-        >
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
-            <path d="M2 2h2v2H2V2zm3 0h2v2H5V2zm3 0h2v2H8V2zM2 5h2v2H2V5zm3 0h2v2H5V5zm3 0h2v2H8V5zM2 8h2v2H2V8zm3 0h2v2H5V8zm3 0h2v2H8V8z"/>
-          </svg>
-        </div>
-      )}
-
-      {/* Professional Drag Handle - When hand tool is active */}
-      {isSelected && selectedTool === 'hand' && (
-        <DragHandle
           onMouseDown={(e) => {
-            console.log('DRAG HANDLE DEBUG - Mouse down on handle for:', element.id);
-            // This will be passed to Canvas component via custom event
+            e.stopPropagation();
+            console.log('DRAG HANDLE DEBUG - Mouse down on selection handle for:', element.id);
+            
+            // Auto-switch to hand tool and initiate drag
+            dispatch(setSelectedTool('hand'));
+            
+            // Trigger drag from handle
             const dragEvent = new CustomEvent('dragHandleMouseDown', {
               detail: { elementId: element.id, originalEvent: e }
             });
             window.dispatchEvent(dragEvent);
           }}
-          className="drag-handle-specific"
-        />
+        >
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
+            <path d="M2 2h2v2H2V2zm3 0h2v2H5V2zm3 0h2v2H8V2zM2 5h2v2H2V5zm3 0h2v2H5V5zm3 0h2v2H8V5zM2 8h2v2H2V8zm3 0h2v2H5V8zm3 0h2v2H8V8z"/>
+          </svg>
+        </div>
       )}
 
       {renderContent()}
