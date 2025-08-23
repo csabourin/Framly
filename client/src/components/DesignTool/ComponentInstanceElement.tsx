@@ -132,50 +132,58 @@ const ComponentInstanceElement: React.FC<ComponentInstanceElementProps> = ({
         onClick={(e) => e.preventDefault()}
         onDoubleClick={(e) => e.preventDefault()}
       >
-        {/* Content based on template type - ALL INTERACTIONS DISABLED */}
-        {componentDefinition.template.type === 'text' && (
+        {/* CRITICAL: Always render visible content for component instances */}
+        {componentDefinition.template && componentDefinition.template.type === 'text' && (
           <div 
-            className="w-full h-full flex items-center justify-center"
+            className="w-full h-full flex items-center justify-center text-sm"
             style={{
               ...componentDefinition.template.styles,
               pointerEvents: 'none',
               userSelect: 'none'
             }}
           >
-            {componentDefinition.template.content || 'Text'}
+            {componentDefinition.template.content || componentDefinition.name}
           </div>
         )}
         
-        {componentDefinition.template.type === 'button' && (
+        {componentDefinition.template && componentDefinition.template.type === 'button' && (
           <button 
-            className="w-full h-full"
-            disabled // Always disabled for instances
-            style={{
-              ...componentDefinition.template.styles,
-              pointerEvents: 'none', // Completely disable button interactions
-              cursor: 'inherit'
-            }}
-            tabIndex={-1}
-          >
-            {componentDefinition.template.buttonText || componentDefinition.template.content || 'Button'}
-          </button>
-        )}
-        
-        {componentDefinition.template.type === 'rectangle' && (
-          <div 
-            className="w-full h-full" 
+            className="w-full h-full text-sm"
+            disabled
             style={{
               ...componentDefinition.template.styles,
               pointerEvents: 'none',
-              userSelect: 'none'
+              cursor: 'inherit',
+              border: componentDefinition.template.styles?.border || '1px solid #d1d5db',
+              borderRadius: componentDefinition.template.styles?.borderRadius || '4px',
+              backgroundColor: componentDefinition.template.styles?.backgroundColor || '#f9fafb'
             }}
-          />
+            tabIndex={-1}
+          >
+            {componentDefinition.template.buttonText || componentDefinition.template.content || componentDefinition.name}
+          </button>
         )}
         
-        {componentDefinition.template.type === 'image' && (
+        {componentDefinition.template && componentDefinition.template.type === 'rectangle' && (
+          <div 
+            className="w-full h-full flex items-center justify-center text-xs text-gray-600" 
+            style={{
+              ...componentDefinition.template.styles,
+              pointerEvents: 'none',
+              userSelect: 'none',
+              border: componentDefinition.template.styles?.border || '1px solid #d1d5db',
+              borderRadius: componentDefinition.template.styles?.borderRadius || '4px',
+              backgroundColor: componentDefinition.template.styles?.backgroundColor || '#f9fafb'
+            }}
+          >
+            {componentDefinition.name}
+          </div>
+        )}
+        
+        {componentDefinition.template && componentDefinition.template.type === 'image' && (
           <img 
             src={componentDefinition.template.imageUrl || componentDefinition.template.imageBase64 || '/placeholder.png'}
-            alt={componentDefinition.template.imageAlt || 'Component image'}
+            alt={componentDefinition.template.imageAlt || componentDefinition.name}
             className="w-full h-full object-cover"
             style={{
               ...componentDefinition.template.styles,
@@ -186,26 +194,33 @@ const ComponentInstanceElement: React.FC<ComponentInstanceElementProps> = ({
           />
         )}
         
-        {componentDefinition.template.type === 'container' && (
+        {componentDefinition.template && componentDefinition.template.type === 'container' && (
           <div 
-            className="w-full h-full"
+            className="w-full h-full flex items-center justify-center text-xs text-blue-600 border-2 border-dashed border-blue-300 bg-blue-50"
             style={{
               display: 'flex',
-              flexDirection: componentDefinition.template.flexDirection || 'column',
-              justifyContent: componentDefinition.template.justifyContent || 'flex-start',
-              alignItems: componentDefinition.template.alignItems || 'stretch',
+              flexDirection: 'row', // Override for display 
+              justifyContent: 'center',
+              alignItems: 'center',
               ...componentDefinition.template.styles,
               pointerEvents: 'none',
               userSelect: 'none'
             }}
           >
-            {/* Container instances show placeholder content */}
-            <div 
-              className="text-xs text-gray-500 p-2"
-              style={{ pointerEvents: 'none', userSelect: 'none' }}
-            >
-              Container Component: {componentDefinition.name}
-            </div>
+            {componentDefinition.name}
+          </div>
+        )}
+        
+        {/* CRITICAL: Always show fallback for components without proper template */}
+        {(!componentDefinition.template || !['text', 'button', 'rectangle', 'image', 'container'].includes(componentDefinition.template.type)) && (
+          <div 
+            className="w-full h-full flex items-center justify-center text-xs text-purple-600 border-2 border-dashed border-purple-300 bg-purple-50"
+            style={{ 
+              pointerEvents: 'none', 
+              userSelect: 'none'
+            }}
+          >
+            {componentDefinition.name}
           </div>
         )}
         

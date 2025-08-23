@@ -32,6 +32,7 @@ export class PersistenceManager {
   private autoSaveTimer: NodeJS.Timeout | null = null;
   private isInitialized = false;
   private lastSavedState: string = '';
+  private componentDb: IDBDatabase | null = null;
 
   async initialize(): Promise<void> {
     if (this.isInitialized) return;
@@ -459,19 +460,56 @@ export class PersistenceManager {
 
   async clearAllData(): Promise<void> {
     try {
+      console.log('Starting complete database clear...');
+      
+      // Clear main IndexedDB
       await indexedDBManager.clearAll();
       
-      // Reset store to default state
-      const state = store.getState();
-      // Reset will be handled by the default state - just reload
-      window.location.reload();
+      // Clear component definitions database completely
+      if (this.componentDb) {
+        this.componentDb.close();
+        this.componentDb = null;
+      }
       
-      store.dispatch(loadComponents([]));
+      // Clear component definitions IndexedDB
+      try {
+        const deleteRequest = indexedDB.deleteDatabase('ComponentDefinitions');
+        await new Promise((resolve, reject) => {
+          deleteRequest.onsuccess = () => resolve(true);
+          deleteRequest.onerror = () => reject(deleteRequest.error);
+        });
+        console.log('Component definitions database deleted');
+      } catch (error) {
+        console.error('Error deleting component definitions database:', error);
+      }
       
-      console.log('All data cleared');
+      // Clear local storage
+      try {
+        localStorage.clear();
+        console.log('Local storage cleared');
+      } catch (error) {
+        console.error('Error clearing local storage:', error);
+      }
+      
+      // Clear session storage
+      try {
+        sessionStorage.clear();
+        console.log('Session storage cleared');
+      } catch (error) {
+        console.error('Error clearing session storage:', error);
+      }
+      
+      console.log('Complete database clear finished - reloading page...');
+      
+      // Force complete page reload to reset all state
+      setTimeout(() => {
+        window.location.href = window.location.href;
+      }, 100);
+      
     } catch (error) {
-      console.error('Failed to clear data:', error);
-      throw error;
+      console.error('Failed to clear all data:', error);
+      // Force reload even if clearing failed
+      window.location.reload();
     }
   }
 
