@@ -1,6 +1,7 @@
 import { store } from '../store';
 import { loadProject } from '../store/canvasSlice';
 import { loadComponents } from '../store/componentSlice';
+import { loadComponentDefinitions } from '../store/componentDefinitionsSlice';
 import { loadCustomClassesFromStorage, loadCategoriesFromStorage } from '../store/classSlice';
 import { loadUISettings } from '../store/uiSlice';
 import { 
@@ -15,6 +16,11 @@ import {
   loadClassCategoriesFromIndexedDB,
   indexedDBManager
 } from './indexedDB';
+import { 
+  initializeComponentDefinitionsDB,
+  loadComponentDefinitions as loadComponentDefsFromDB,
+  loadComponentCategories
+} from './componentPersistence';
 import { Project, CustomComponent, ComponentCategory } from '../types/canvas';
 
 // Constants
@@ -31,8 +37,11 @@ export class PersistenceManager {
     if (this.isInitialized) return;
 
     try {
-      // Initialize IndexedDB
+      // Initialize IndexedDB for main data
       await initializeDB();
+      
+      // Initialize IndexedDB for component definitions
+      await initializeComponentDefinitionsDB();
       
       // Load persisted data
       await this.loadPersistedData();
@@ -53,8 +62,11 @@ export class PersistenceManager {
       // Load current project
       await this.loadCurrentProject();
       
-      // Load components and categories
+      // Load legacy components and categories
       await this.loadComponents();
+      
+      // Load new component definitions and categories
+      await this.loadComponentDefinitions();
       
       // Load custom classes and categories
       await this.loadCustomClasses();
@@ -171,6 +183,8 @@ export class PersistenceManager {
         categoriesWithComponents.push({
           id: 'uncategorized',
           name: 'Uncategorized',
+          sortIndex: 999,
+          createdAt: Date.now(),
           components: uncategorizedComponents
         });
       }
@@ -181,6 +195,35 @@ export class PersistenceManager {
       console.log(`Loaded ${components.length} components in ${categories.length} categories`);
     } catch (error) {
       console.error('Failed to load components:', error);
+    }
+  }
+
+  private async loadComponentDefinitions(): Promise<void> {
+    try {
+      const [componentDefs, categories] = await Promise.all([
+        loadComponentDefsFromDB(),
+        loadComponentCategories()
+      ]);
+      
+      // Transform to the expected structure for the Redux store
+      const definitionsRecord: Record<string, any> = {};
+      componentDefs.forEach(def => {
+        definitionsRecord[def.id] = def;
+      });
+      
+      const categoriesRecord: Record<string, any> = {};
+      categories.forEach(cat => {
+        categoriesRecord[cat.id] = cat;
+      });
+      
+      store.dispatch(loadComponentDefinitions({
+        definitions: definitionsRecord,
+        categories: categoriesRecord
+      }));
+      
+      console.log(`Loaded ${componentDefs.length} component definitions in ${categories.length} categories`);
+    } catch (error) {
+      console.error('Failed to load component definitions:', error);
     }
   }
 
