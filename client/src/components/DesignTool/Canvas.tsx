@@ -431,7 +431,7 @@ const Canvas: React.FC = () => {
       const { elementId, originalEvent } = e.detail;
       console.log('DRAG HANDLE DEBUG - Received drag handle event for:', elementId);
       
-      if (settings.enableHandToolDragging && selectedTool === 'hand') {
+      if (selectedTool === 'hand') {
         console.log('DRAG HANDLE DEBUG - Starting drag from handle for:', elementId);
         
         // Get canvas rect for coordinate calculation

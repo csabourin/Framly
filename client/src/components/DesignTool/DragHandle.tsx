@@ -1,5 +1,4 @@
 import React from 'react';
-import { Move } from 'lucide-react';
 
 interface DragHandleProps {
   onMouseDown: (e: React.MouseEvent) => void;
@@ -16,8 +15,8 @@ const DragHandle: React.FC<DragHandleProps> = ({ onMouseDown, className = '' }) 
     <div
       className={`
         drag-handle
-        absolute -top-2 -right-2 w-6 h-6 
-        bg-green-500 hover:bg-green-600 active:bg-green-700
+        absolute -top-2 left-6 w-6 h-6 
+        bg-blue-500 hover:bg-blue-600 active:bg-blue-700
         border-2 border-white 
         rounded-lg shadow-lg 
         flex items-center justify-center 
@@ -31,7 +30,11 @@ const DragHandle: React.FC<DragHandleProps> = ({ onMouseDown, className = '' }) 
       data-testid="drag-handle"
       title="Drag to move"
     >
-      <Move className="w-3 h-3 text-white" />
+      {/* Move icon with four arrows */}
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" className="text-white">
+        <path d="M6 0L4 2h4L6 0zM6 12l2-2H4l2 2zM0 6l2-2v4L0 6zM12 6l-2 2V4l2 2z"/>
+        <circle cx="6" cy="6" r="1"/>
+      </svg>
     </div>
   );
 };

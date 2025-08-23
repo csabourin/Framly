@@ -903,8 +903,8 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
         </div>
       )}
 
-      {/* Professional Drag Handle - Additional handle when hand tool is active */}
-      {isSelected && selectedTool === 'hand' && settings?.enableHandToolDragging && (
+      {/* Professional Drag Handle - When hand tool is active */}
+      {isSelected && selectedTool === 'hand' && (
         <DragHandle
           onMouseDown={(e) => {
             console.log('DRAG HANDLE DEBUG - Mouse down on handle for:', element.id);
