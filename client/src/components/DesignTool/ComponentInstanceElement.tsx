@@ -24,24 +24,20 @@ const ComponentInstanceElement: React.FC<ComponentInstanceElementProps> = ({
 }) => {
   const dispatch = useDispatch();
   
-  if (!isComponentInstance(element) || !element.componentRef) {
-    console.warn('ComponentInstanceElement: element is not a component instance');
+  // CRITICAL: Prevent crashes from invalid component instances
+  if (!isComponentInstance(element) || !element.componentRef?.componentId) {
+    console.warn('ComponentInstanceElement: invalid component instance', { elementId: element.id, componentRef: element.componentRef });
     return null;
   }
 
-  const componentDefinition = useSelector((state: RootState) => 
-    element.componentRef?.componentId ? selectComponentDefinition(state, element.componentRef.componentId) : null
-  );
-  
-  // Debug logging
-  React.useEffect(() => {
-    console.log('ComponentInstanceElement render:', {
-      elementId: element.id,
-      componentRef: element.componentRef,
-      hasDefinition: !!componentDefinition,
-      definitionName: componentDefinition?.name
-    });
-  }, [element.id, element.componentRef, componentDefinition]);
+  const componentDefinition = useSelector((state: RootState) => {
+    try {
+      return element.componentRef?.componentId ? selectComponentDefinition(state, element.componentRef.componentId) : null;
+    } catch (error) {
+      console.error('Error selecting component definition:', error);
+      return null;
+    }
+  });
 
   const handleDoubleClick = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
@@ -79,61 +75,64 @@ const ComponentInstanceElement: React.FC<ComponentInstanceElementProps> = ({
   }, [onSelect]);
 
   if (!componentDefinition) {
+    // Only log missing component warnings once
     console.warn('Component definition not found for instance:', element.componentRef?.componentId);
-    // Component definition not found - show error state
+    
+    // Render a safe fallback instead of crashing
+    try {
+      return (
+        <div
+          className="border border-gray-300 bg-gray-100 flex items-center justify-center text-gray-600 text-xs rounded"
+          data-testid={`component-instance-missing-${element.id}`}
+          style={{
+            position: 'absolute',
+            left: element.x || 0,
+            top: element.y || 0,
+            width: element.width || 100,
+            height: element.height || 40,
+            zIndex: 1,
+            pointerEvents: 'all',
+            cursor: 'pointer'
+          }}
+          onClick={handleSingleClick}
+        >
+          Missing Component
+        </div>
+      );
+    } catch (error) {
+      console.error('Error rendering component instance fallback:', error);
+      return null;
+    }
+  }
+
+  // Safely render the component instance with error boundaries
+  try {
     return (
       <div
-        className="border-2 border-red-500 border-dashed bg-red-50 flex items-center justify-center text-red-600 text-sm"
-        data-testid={`component-instance-missing-${element.id}`}
-        data-component-error="true"
+        className="component-instance-wrapper"
+        onClick={handleSingleClick}
+        onDoubleClick={handleDoubleClick}
+        data-testid={`component-instance-${element.id}`}
+        data-instance="true"
+        data-state={isSelected ? 'selected' : 'default'}
+        data-component-id={element.componentRef?.componentId}
+        role="group"
+        aria-label={`Component instance: ${componentDefinition.name}`}
+        title={`Double-click to edit ${componentDefinition.name} component`}
         style={{
           position: 'absolute',
-          left: element.x,
-          top: element.y,
-          width: element.width,
-          height: element.height,
+          left: element.x || 0,
+          top: element.y || 0,
+          width: element.width || 100,
+          height: element.height || 40,
           zIndex: 1,
           pointerEvents: 'all',
           cursor: 'pointer'
         }}
-        onClick={handleSingleClick}
+        onMouseDown={(e) => e.stopPropagation()}
+        onMouseUp={(e) => e.stopPropagation()}
+        onMouseMove={(e) => e.stopPropagation()}
       >
-        <div className="text-center">
-          <p className="font-medium">Component Not Found</p>
-          <p className="text-xs mt-1">ID: {element.componentRef?.componentId}</p>
-        </div>
-      </div>
-    );
-  }
-
-  // Instead of rendering as a gray box, render the actual component content
-  // The component instance should look exactly like the original element
-  return (
-    <div
-      className="component-instance-wrapper"
-      onClick={handleSingleClick}
-      onDoubleClick={handleDoubleClick}
-      data-testid={`component-instance-${element.id}`}
-      data-instance="true"
-      data-state={isSelected ? 'selected' : 'default'}
-      data-component-id={element.componentRef?.componentId}
-      role="group"
-      aria-label={`Component instance: ${componentDefinition.name}`}
-      title={`Double-click to edit ${componentDefinition.name} component`}
-      style={{
-        position: 'absolute',
-        left: element.x,
-        top: element.y,
-        width: element.width,
-        height: element.height,
-        zIndex: 1,
-        pointerEvents: 'all', // Capture all interactions
-        cursor: 'pointer'
-      }}
-      onMouseDown={(e) => e.stopPropagation()}
-      onMouseUp={(e) => e.stopPropagation()}
-      onMouseMove={(e) => e.stopPropagation()}
-    >
       {/* Render actual component template content - COMPLETELY LOCKED */}
       <div 
         className="w-full h-full relative component-instance-content"
@@ -239,6 +238,29 @@ const ComponentInstanceElement: React.FC<ComponentInstanceElementProps> = ({
       </div>
     </div>
   );
+  } catch (error) {
+    console.error('Error rendering component instance:', error, { elementId: element.id, componentId: element.componentRef?.componentId });
+    return (
+      <div
+        style={{
+          position: 'absolute',
+          left: element.x || 0,
+          top: element.y || 0,
+          width: element.width || 100,
+          height: element.height || 40,
+          backgroundColor: '#fee2e2',
+          border: '1px solid #fca5a5',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: '10px',
+          color: '#dc2626'
+        }}
+      >
+        Error
+      </div>
+    );
+  }
 };
 
 export default ComponentInstanceElement;
