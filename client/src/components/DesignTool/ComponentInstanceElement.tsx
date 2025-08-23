@@ -51,6 +51,8 @@ const ComponentInstanceElement: React.FC<ComponentInstanceElementProps> = ({
 
   const handleSingleClick = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
+    e.preventDefault();
+    // Prevent any child interactions
     onSelect();
   }, [onSelect]);
 
@@ -95,19 +97,39 @@ const ComponentInstanceElement: React.FC<ComponentInstanceElementProps> = ({
         top: element.y,
         width: element.width,
         height: element.height,
-        zIndex: 1
+        zIndex: 1,
+        pointerEvents: 'all', // Capture all interactions
+        cursor: 'pointer'
       }}
+      onMouseDown={(e) => e.stopPropagation()}
+      onMouseUp={(e) => e.stopPropagation()}
+      onMouseMove={(e) => e.stopPropagation()}
     >
-      {/* Render actual component template content */}
+      {/* Render actual component template content - COMPLETELY LOCKED */}
       <div 
-        className="w-full h-full relative"
-        style={componentDefinition.template.styles}
+        className="w-full h-full relative component-instance-content"
+        style={{
+          ...componentDefinition.template.styles,
+          pointerEvents: 'none', // Disable all interactions on child content
+          userSelect: 'none',    // Prevent text selection
+          WebkitUserSelect: 'none',
+          MozUserSelect: 'none',
+          msUserSelect: 'none'
+        }}
+        onMouseDown={(e) => e.preventDefault()}
+        onMouseUp={(e) => e.preventDefault()}
+        onClick={(e) => e.preventDefault()}
+        onDoubleClick={(e) => e.preventDefault()}
       >
-        {/* Content based on template type */}
+        {/* Content based on template type - ALL INTERACTIONS DISABLED */}
         {componentDefinition.template.type === 'text' && (
           <div 
             className="w-full h-full flex items-center justify-center"
-            style={componentDefinition.template.styles}
+            style={{
+              ...componentDefinition.template.styles,
+              pointerEvents: 'none',
+              userSelect: 'none'
+            }}
           >
             {componentDefinition.template.content || 'Text'}
           </div>
@@ -117,7 +139,12 @@ const ComponentInstanceElement: React.FC<ComponentInstanceElementProps> = ({
           <button 
             className="w-full h-full"
             disabled // Always disabled for instances
-            style={componentDefinition.template.styles}
+            style={{
+              ...componentDefinition.template.styles,
+              pointerEvents: 'none', // Completely disable button interactions
+              cursor: 'inherit'
+            }}
+            tabIndex={-1}
           >
             {componentDefinition.template.buttonText || componentDefinition.template.content || 'Button'}
           </button>
@@ -126,7 +153,11 @@ const ComponentInstanceElement: React.FC<ComponentInstanceElementProps> = ({
         {componentDefinition.template.type === 'rectangle' && (
           <div 
             className="w-full h-full" 
-            style={componentDefinition.template.styles}
+            style={{
+              ...componentDefinition.template.styles,
+              pointerEvents: 'none',
+              userSelect: 'none'
+            }}
           />
         )}
         
@@ -135,7 +166,12 @@ const ComponentInstanceElement: React.FC<ComponentInstanceElementProps> = ({
             src={componentDefinition.template.imageUrl || componentDefinition.template.imageBase64 || '/placeholder.png'}
             alt={componentDefinition.template.imageAlt || 'Component image'}
             className="w-full h-full object-cover"
-            style={componentDefinition.template.styles}
+            style={{
+              ...componentDefinition.template.styles,
+              pointerEvents: 'none',
+              userSelect: 'none'
+            }}
+            draggable={false}
           />
         )}
         
@@ -147,19 +183,28 @@ const ComponentInstanceElement: React.FC<ComponentInstanceElementProps> = ({
               flexDirection: componentDefinition.template.flexDirection || 'column',
               justifyContent: componentDefinition.template.justifyContent || 'flex-start',
               alignItems: componentDefinition.template.alignItems || 'stretch',
-              ...componentDefinition.template.styles
+              ...componentDefinition.template.styles,
+              pointerEvents: 'none',
+              userSelect: 'none'
             }}
           >
             {/* Container instances show placeholder content */}
-            <div className="text-xs text-gray-500 p-2">
+            <div 
+              className="text-xs text-gray-500 p-2"
+              style={{ pointerEvents: 'none', userSelect: 'none' }}
+            >
               Container Component: {componentDefinition.name}
             </div>
           </div>
         )}
         
-        {/* Small instance indicator */}
+        {/* Component instance indicator overlay */}
         <div 
-          className="absolute top-1 right-1 w-2 h-2 bg-blue-500 rounded-full opacity-60 pointer-events-none"
+          className="absolute top-0 right-0 w-4 h-4 bg-blue-500 opacity-70 pointer-events-none"
+          style={{ 
+            clipPath: 'polygon(100% 0%, 0% 0%, 100% 100%)',
+            borderRadius: '0 4px 0 0'
+          }}
           title={`Component: ${componentDefinition.name}`}
         />
       </div>

@@ -1,0 +1,42 @@
+/* Component Instance Styles - Prevent all child interactions */
+
+.component-instance-wrapper {
+  /* Force capture all mouse events */
+  cursor: pointer !important;
+}
+
+.component-instance-wrapper * {
+  /* Disable all interactions on children */
+  pointer-events: none !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  cursor: inherit !important;
+}
+
+.component-instance-wrapper button,
+.component-instance-wrapper input,
+.component-instance-wrapper textarea,
+.component-instance-wrapper select,
+.component-instance-wrapper a,
+.component-instance-wrapper [onclick],
+.component-instance-wrapper [onmousedown],
+.component-instance-wrapper [onmouseup] {
+  /* Extra security for interactive elements */
+  pointer-events: none !important;
+  cursor: inherit !important;
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.component-instance-wrapper:hover {
+  /* Visual feedback that entire instance is selectable */
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5) !important;
+}
+
+.component-instance-wrapper[data-state="selected"] {
+  /* Selected state styling */
+  box-shadow: 0 0 0 2px #3b82f6 !important;
+}
