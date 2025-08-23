@@ -431,30 +431,27 @@ const Canvas: React.FC = () => {
       const { elementId, originalEvent } = e.detail;
       console.log('DRAG HANDLE DEBUG - Received drag handle event for:', elementId);
       
-      if (selectedTool === 'hand') {
-        console.log('DRAG HANDLE DEBUG - Starting drag from handle for:', elementId);
-        
-        // Get canvas rect for coordinate calculation
-        const rect = canvasRef.current?.getBoundingClientRect();
-        if (!rect) return;
-        
-        const x = (originalEvent.clientX - rect.left) / zoomLevel;
-        const y = (originalEvent.clientY - rect.top) / zoomLevel;
-        
-        // Select the element and prepare for dragging
-        dispatch(selectElement(elementId));
-        setDragStartPos({ x, y });
-        setDragThreshold({ x, y, exceeded: false });
-        dispatch(setDraggedElement(elementId));
-        setIsDragFromHandle(true);
-        
-        console.log('DRAG HANDLE DEBUG - Drag preparation complete');
-      }
+      // Get canvas rect for coordinate calculation
+      const rect = canvasRef.current?.getBoundingClientRect();
+      if (!rect) return;
+      
+      const x = (originalEvent.clientX - rect.left) / zoomLevel;
+      const y = (originalEvent.clientY - rect.top) / zoomLevel;
+      
+      // Select the element and immediately start dragging
+      dispatch(selectElement(elementId));
+      setDragStartPos({ x, y });
+      setDragThreshold({ x, y, exceeded: true }); // Immediately mark as exceeded
+      dispatch(setDraggedElement(elementId));
+      dispatch(setDraggingForReorder(true)); // Start dragging immediately
+      setIsDragFromHandle(true);
+      
+      console.log('DRAG HANDLE DEBUG - Drag started immediately on mousedown');
     };
 
     window.addEventListener('dragHandleMouseDown', handleDragHandleMouseDown as EventListener);
     return () => window.removeEventListener('dragHandleMouseDown', handleDragHandleMouseDown as EventListener);
-  }, [settings.enableHandToolDragging, selectedTool, zoomLevel, dispatch]);
+  }, [zoomLevel, dispatch]);
 
   const handleMouseMove = useCallback((e: React.MouseEvent) => {
     const rect = canvasRef.current?.getBoundingClientRect();
