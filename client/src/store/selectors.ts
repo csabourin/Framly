@@ -137,7 +137,8 @@ export const selectUIState = createSelector(
     isCodeModalOpen: ui.isCodeModalOpen,
     isCSSOptimizationModalOpen: ui.isCSSOptimizationModalOpen,
     hoveredElementId: ui.hoveredElementId || null,
-    hoveredZone: ui.hoveredZone || null
+    hoveredZone: ui.hoveredZone || null,
+    settings: ui.settings || { enableHandToolDragging: false, enableClickToMove: false }
   })
 );
 
