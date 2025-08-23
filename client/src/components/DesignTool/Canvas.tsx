@@ -98,12 +98,16 @@ const Canvas: React.FC = () => {
     const elementWidth = rect.width / zoomLevel;
     const elementHeight = rect.height / zoomLevel;
 
-    // PRECISE DETECTION LOGIC - Smaller, more accurate zones
+    // PROFESSIONAL BAND DETECTION - Per acceptance criteria
     const relativeY = y - elementY;
+    const relativePercent = relativeY / elementHeight;
     
-    // Precise tolerance zones - smaller for better accuracy
-    const BEFORE_ZONE_HEIGHT = Math.min(15, elementHeight * 0.2); // Top 20% or maximum 15px
-    const AFTER_ZONE_HEIGHT = Math.min(15, elementHeight * 0.2);  // Bottom 20% or maximum 15px
+    // Band detection as per specs: Top 0-25%, Middle 25-75%, Bottom 75-100%
+    const TOP_BAND_END = 0.25;      // 25% from top
+    const BOTTOM_BAND_START = 0.75; // 75% from top
+    
+    // Hysteresis to prevent flicker (6-10px movement required)
+    const HYSTERESIS_PX = 8;
     
     // Check if element is a valid drop target (container)
     const isValidContainer = isValidDropTarget(hoveredElement);
@@ -119,53 +123,55 @@ const Canvas: React.FC = () => {
         }
       }
       
-      if (relativeY < BEFORE_ZONE_HEIGHT) {
+      if (relativePercent < TOP_BAND_END) {
+        // TOP BAND (0-25%): Above indicator
         return {
           position: 'before',
           elementId: hoveredElement.id,
-          bounds: { x: elementX - 2, y: elementY - 6, width: elementWidth + 4, height: 12 } // Smaller, precise zone
+          bounds: { x: elementX, y: elementY - 1, width: elementWidth, height: 2 } // 2px line as per specs
         };
-      } else if (relativeY > elementHeight - AFTER_ZONE_HEIGHT) {
+      } else if (relativePercent > BOTTOM_BAND_START) {
+        // BOTTOM BAND (75-100%): Below indicator  
         return {
           position: 'after',
           elementId: hoveredElement.id,
-          bounds: { x: elementX - 2, y: elementY + elementHeight - 6, width: elementWidth + 4, height: 12 } // Smaller, precise zone
+          bounds: { x: elementX, y: elementY + elementHeight - 1, width: elementWidth, height: 2 } // 2px line as per specs
         };
       } else {
-        // Inside zone for containers
+        // MIDDLE BAND (25-75%): Inside zone for containers - padded rectangle as per specs
         if (children.length === 0) {
           return {
             position: 'inside',
             elementId: hoveredElement.id,
-            bounds: { x: elementX + 2, y: elementY + 2, width: elementWidth - 4, height: elementHeight - 4 },
+            bounds: { x: elementX + 4, y: elementY + 4, width: elementWidth - 8, height: elementHeight - 8 },
             isEmpty: true,
-            insertAtBeginning: relativeY < elementHeight / 2
+            insertAtBeginning: relativePercent < 0.5
           };
         } else {
           return {
             position: 'inside',
             elementId: hoveredElement.id,
-            bounds: { x: elementX + 2, y: elementY + 2, width: elementWidth - 4, height: elementHeight - 4 },
+            bounds: { x: elementX + 4, y: elementY + 4, width: elementWidth - 8, height: elementHeight - 8 },
             isEmpty: false
           };
         }
       }
     } else {
-      // For non-container elements - precise zones
-      if (relativeY < BEFORE_ZONE_HEIGHT) {
+      // For non-container elements - band detection (no inside option)
+      if (relativePercent < TOP_BAND_END) {
         return {
           position: 'before',
           elementId: hoveredElement.id,
-          bounds: { x: elementX - 2, y: elementY - 6, width: elementWidth + 4, height: 12 } // Smaller, precise zone
+          bounds: { x: elementX, y: elementY - 1, width: elementWidth, height: 2 } // 2px line as per specs
         };
-      } else if (relativeY > elementHeight - AFTER_ZONE_HEIGHT) {
+      } else if (relativePercent > BOTTOM_BAND_START) {
         return {
           position: 'after',
           elementId: hoveredElement.id,
-          bounds: { x: elementX - 2, y: elementY + elementHeight - 6, width: elementWidth + 4, height: 12 } // Smaller, precise zone
+          bounds: { x: elementX, y: elementY + elementHeight - 1, width: elementWidth, height: 2 } // 2px line as per specs
         };
       } else {
-        // Middle zone - no insertion feedback for non-containers
+        // MIDDLE BAND (25-75%): No insertion feedback for non-containers
         return null;
       }
     }
@@ -1039,64 +1045,39 @@ const Canvas: React.FC = () => {
               height: insertionIndicator.bounds.height,
             }}
           >
-            {/* BEFORE/AFTER ZONES - Smaller, precise blue bars */}
+            {/* PROFESSIONAL INDICATORS - Per acceptance criteria */}
             {((insertionIndicator as any).position === 'before' || (insertionIndicator as any).position === 'after') && (
-              <div 
-                className="w-full h-full rounded-md"
-                style={{
-                  backgroundColor: 'rgba(59, 130, 246, 0.9)',
-                  boxShadow: '0 0 8px rgba(59, 130, 246, 0.8)',
-                  border: '2px solid #3b82f6'
-                }}
-              >
-                <div className="flex items-center justify-center h-full">
-                  <div className="bg-white text-blue-600 text-xs font-bold px-2 py-1 rounded shadow-lg">
-                    {(insertionIndicator as any).position === 'before' ? 'DROP ABOVE' : 'DROP BELOW'}
-                  </div>
-                </div>
-                {/* Side indicators */}
-                <div className="absolute -left-1 top-1/2 w-2 h-2 bg-blue-500 rounded-full transform -translate-y-1 border border-white" />
-                <div className="absolute -right-1 top-1/2 w-2 h-2 bg-blue-500 rounded-full transform -translate-y-1 border border-white" />
-              </div>
-            )}
-
-            {/* INSIDE EMPTY CONTAINER - Green highlight */}
-            {(insertionIndicator as any).position === 'inside' && (insertionIndicator as any).isEmpty && (
-              <div 
-                className="w-full h-full rounded-lg border-4 border-dashed animate-pulse"
-                style={{
-                  backgroundColor: 'rgba(34, 197, 94, 0.15)',
-                  borderColor: '#22c55e',
-                  boxShadow: '0 0 20px rgba(34, 197, 94, 0.4)'
-                }}
-              >
-                <div className="flex items-center justify-center h-full">
-                  <div className="text-green-700 text-lg font-bold bg-white px-6 py-3 rounded-lg shadow-lg border-2 border-green-300">
-                    📦 DROP INSIDE CONTAINER
-                  </div>
-                </div>
+              <div className="relative w-full h-full">
+                {/* 2px line spanning target width with subtle animation */}
                 <div 
-                  className={`absolute w-3 h-3 bg-green-500 rounded-full border-2 border-white shadow-lg ${
-                    (insertionIndicator as any).insertAtBeginning ? 'top-4 left-1/2 transform -translate-x-1/2' : 'bottom-4 left-1/2 transform -translate-x-1/2'
-                  }`}
+                  className="w-full h-full animate-pulse"
+                  style={{
+                    backgroundColor: '#3b82f6',
+                    boxShadow: '0 0 6px rgba(59, 130, 246, 0.8)',
+                  }}
                 />
+                {/* 3-icon micro hint for extra clarity */}
+                <div className="absolute -right-8 top-1/2 transform -translate-y-1/2 bg-white rounded-full border-2 border-blue-500 w-6 h-6 flex items-center justify-center text-blue-600 text-xs font-bold shadow-lg">
+                  {(insertionIndicator as any).position === 'before' ? '↑' : '↓'}
+                </div>
               </div>
             )}
 
-            {/* INSIDE NON-EMPTY CONTAINER - Purple highlight */}
-            {(insertionIndicator as any).position === 'inside' && !(insertionIndicator as any).isEmpty && (
-              <div 
-                className="w-full h-full rounded-lg border-4 border-dashed animate-pulse"
-                style={{
-                  backgroundColor: 'rgba(168, 85, 247, 0.15)',
-                  borderColor: '#a855f7',
-                  boxShadow: '0 0 20px rgba(168, 85, 247, 0.4)'
-                }}
-              >
-                <div className="flex items-center justify-center h-full">
-                  <div className="text-purple-700 text-lg font-bold bg-white px-6 py-3 rounded-lg shadow-lg border-2 border-purple-300">
-                    🎯 ADD TO CONTAINER
-                  </div>
+            {/* INSIDE CONTAINER - Padded rectangle highlight within container bounds */}
+            {(insertionIndicator as any).position === 'inside' && (
+              <div className="relative w-full h-full">
+                {/* Padded rectangle highlight as per acceptance criteria */}
+                <div 
+                  className="w-full h-full rounded border-2 border-dashed animate-pulse"
+                  style={{
+                    backgroundColor: 'rgba(168, 85, 247, 0.1)',
+                    borderColor: '#a855f7',
+                    boxShadow: 'inset 0 0 12px rgba(168, 85, 247, 0.2)',
+                  }}
+                />
+                {/* 3-icon micro hint for inside */}
+                <div className="absolute -right-8 top-1/2 transform -translate-y-1/2 bg-white rounded-full border-2 border-purple-500 w-6 h-6 flex items-center justify-center text-purple-600 text-xs font-bold shadow-lg">
+                  ⧉
                 </div>
               </div>
             )}

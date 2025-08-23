@@ -1,0 +1,103 @@
+UI behaviors
+
+Start drag
+
+Mouse/touch: press on block handle (≙ grab zone) → long-press 120ms on touch.
+
+Keyboard: Space on focused block toggles “reorder mode” (aria-grabbed).
+
+While dragging
+
+Show a ghost of the block under cursor; original spot collapses with a placeholder size.
+
+As the pointer crosses band thresholds on other blocks, update dropProposal.
+
+Auto-scroll when near container/page edges.
+
+Disallow invalid drops (e.g., moving parent into descendant, or type not accepted) → show “forbidden” cursor and no indicator.
+
+Indicators
+
+Above/Below → 2px line spanning the target width with subtle animation.
+
+Inside → padded rectangle highlight within the container bounds.
+
+Show a 3-icon micro hint (↑ ⧉ ↓) next to the indicator for extra clarity.
+
+Drop
+
+Commit operation that exactly matches indicator.
+
+Merge small animations: line → expands briefly to confirm.
+
+Keyboard reordering
+
+In reorder mode:
+
+ArrowUp/ArrowDown cycles Above/Below proposals inside the current parent.
+
+ArrowRight tries Inside (if valid). ArrowLeft escapes to parent.
+
+Enter to drop, Esc to cancel.
+
+Undo/redo
+
+Ctrl/Cmd+Z undo, Ctrl/Cmd+Shift+Z redo.
+
+Geometry → drop relation mapping
+
+Compute client rect for the target block: {top, height}.
+
+Define bands (percent of height):
+
+Top band: 0% – 25% → above
+
+Middle band: 25% – 75% → inside if container accepts; else fallback to nearest of above/below with hysteresis.
+
+Bottom band: 75% – 100% → below
+
+Hysteresis: require 6–10px movement before flipping relations to prevent flicker.
+
+Hit precedence (Z-order): prefer the deepest visible block under the pointer.
+
+Validity rules
+
+Cannot drop before/after itself with no position change.
+
+Cannot drop into descendant of itself (cycle).
+
+Respect locked, and accepts filters.
+
+For root, only “Above/Below” relative to its list.
+
+Performance strategy
+
+Maintain a flat index of visible blocks with bounding boxes cached per animation frame (rAF).
+
+Pointer-driven search: binary search over Y positions to find candidate quickly.
+
+Recompute rects on layout mutation or viewport resize.
+
+Virtualize long lists (if needed).
+
+Accessibility (WCAG 2.1 AA)
+
+Roles/props:
+
+Tree: role="tree"; items: role="treeitem"; groups: role="group".
+
+Reorder handle: aria-label="Move block"; aria-grabbed while active.
+
+Live region aria-live="polite" announces proposals:
+
+“Move ‘Text’ inside ‘Section’ at position 2.”
+
+“Move ‘Image’ below ‘Row’.”
+
+Keyboard parity with mouse/touch.
+
+Focus management: return focus to moved block after drop.
+
+Target sizes: min 44×44 px for handles.
+
+Reduced motion: respect prefers-reduced-motion.
