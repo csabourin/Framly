@@ -852,11 +852,24 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
   const parentElement = element.parent && element.parent !== 'root' ? currentElements[element.parent] : null;
   const isInFlexContainer = parentElement?.styles?.display === 'flex' || parentElement?.isContainer;
   
+  // Debug logging for flex detection
+  if (['text', 'heading', 'list'].includes(element.type)) {
+    console.log('Flex detection for', element.type, element.id.substring(0, 20), {
+      parentId: element.parent,
+      parentDisplay: parentElement?.styles?.display,
+      parentIsContainer: parentElement?.isContainer,
+      isInFlexContainer,
+      parentElement: parentElement ? 'exists' : 'null'
+    });
+  }
+  
   // Determine width based on element type and flex context
   const getElementWidth = () => {
     if (['text', 'heading', 'list'].includes(element.type)) {
       // For text-based elements, use auto width in flex containers to respect justification
-      return isInFlexContainer ? 'auto' : '100%';
+      const width = isInFlexContainer ? 'auto' : '100%';
+      console.log('Width decision for', element.type, ':', width);
+      return width;
     }
     if (element.type === 'image') {
       // Images already handled with auto width in their specific rendering
