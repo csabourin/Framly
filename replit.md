@@ -6,6 +6,11 @@ This is a WYSIWYG (What You See Is What You Get) web design tool, allowing users
 
 Preferred communication style: Simple, everyday language.
 
+## Design Tool Principles
+- **DOM Flow Integrity**: Elements must position exactly like real HTML elements, respecting DOM order unless explicitly positioned (dragged)
+- **No Artificial Offsets**: Copy/paste and duplicate operations should never apply position offsets - elements appear in their natural DOM flow position
+- **HTML-First Approach**: All positioning and layout must follow standard HTML/CSS behavior
+
 # System Architecture
 
 ## Frontend Architecture

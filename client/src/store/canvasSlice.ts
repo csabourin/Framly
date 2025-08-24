@@ -303,12 +303,6 @@ const canvasSlice = createSlice({
             ...element,
             id: uniqueId,
             parent: parentId,
-            // Only apply position offset to explicitly positioned root-level elements
-            ...(element.isExplicitlyPositioned && parentId === 'root' && element.x !== undefined && element.y !== undefined
-              ? { x: element.x + 20, y: element.y + 20 } 
-              : element.isExplicitlyPositioned && element.x !== undefined && element.y !== undefined
-              ? { x: element.x + 10, y: element.y + 10 } // Smaller offset for nested positioned elements
-              : {}),
           };
           
           // Remove childrenData if it exists (it's temporary storage)
@@ -790,12 +784,6 @@ const canvasSlice = createSlice({
           ...element,
           id: uniqueId,
           parent: parentId,
-          // Only apply position offset to explicitly positioned root-level elements
-          ...(element.isExplicitlyPositioned && parentId === 'root' && element.x !== undefined && element.y !== undefined
-            ? { x: element.x + 20, y: element.y + 20 } 
-            : element.isExplicitlyPositioned && element.x !== undefined && element.y !== undefined
-            ? { x: element.x + 10, y: element.y + 10 } // Smaller offset for nested positioned elements
-            : {}),
         };
         
         // Remove childrenData if it exists (it's temporary storage)
