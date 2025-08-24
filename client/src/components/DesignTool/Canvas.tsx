@@ -36,6 +36,8 @@ const Canvas: React.FC = () => {
   const [isDragFromHandle, setIsDragFromHandle] = useState(false);
   const project = useSelector(selectCanvasProject);
   const { selectedTool, isDragging, dragStart, isResizing, resizeHandle, zoomLevel, isGridVisible, draggedElementId, isDraggingForReorder, isDOMTreePanelVisible, isComponentPanelVisible, settings } = useSelector(selectCanvasUIState);
+  const currentBreakpoint = useSelector((state: RootState) => state.canvas.project.currentBreakpoint);
+  const breakpoints = useSelector((state: RootState) => state.canvas.project.breakpoints);
   
   // Use centralized selectors for tab-based data
   const rawElements = useSelector(selectCurrentElements);
@@ -45,6 +47,9 @@ const Canvas: React.FC = () => {
   const currentElements = useExpandedElements(rawElements);
 
   const rootElement = currentElements.root;
+  
+  // Override root width based on current breakpoint
+  const canvasWidth = breakpoints[currentBreakpoint]?.width || rootElement?.width || 375;
   
 
   const selectedElement = selectedElementId ? currentElements[selectedElementId] : null;
@@ -1198,7 +1203,7 @@ const Canvas: React.FC = () => {
           ${isGridVisible ? 'canvas-grid' : ''}
         `}
         style={{ 
-          width: rootElement.width, 
+          width: canvasWidth, 
           minHeight: rootElement.height,
           transform: `scale(${zoomLevel})`,
         }}
