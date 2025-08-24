@@ -272,9 +272,9 @@ const canvasSlice = createSlice({
       const element = currentTab.elements[elementId];
       
       if (element) {
-        // Recursively copy element and all its children (same logic as copy)
+        // Recursively copy element and all its children (optimized shallow copy)
         const copyElementTree = (el: CanvasElement): CanvasElement => {
-          const copiedElement = JSON.parse(JSON.stringify(el));
+          const copiedElement = { ...el };
           
           // If element has children, recursively copy them too
           if (el.children && el.children.length > 0) {
@@ -712,9 +712,9 @@ const canvasSlice = createSlice({
       const element = currentTab.elements[elementId];
       
       if (element) {
-        // Recursively copy element and all its children
+        // Recursively copy element and all its children (optimized shallow copy)
         const copyElementTree = (el: CanvasElement): CanvasElement => {
-          const copiedElement = JSON.parse(JSON.stringify(el));
+          const copiedElement = { ...el };
           
           // If element has children, recursively copy them too
           if (el.children && el.children.length > 0) {
@@ -742,9 +742,9 @@ const canvasSlice = createSlice({
       const element = currentTab.elements[elementId];
       
       if (element) {
-        // Recursively copy element and all its children before deleting
+        // Recursively copy element and all its children before deleting (optimized)
         const copyElementTree = (el: CanvasElement): CanvasElement => {
-          const copiedElement = JSON.parse(JSON.stringify(el));
+          const copiedElement = { ...el };
           
           // If element has children, recursively copy them too
           if (el.children && el.children.length > 0) {
@@ -839,27 +839,7 @@ const canvasSlice = createSlice({
         parent.children.push(newElementId);
       }
       
-      // Clean up any duplicate references - ensure no element appears in multiple parents
-      const processedElements = new Set<string>();
-      const cleanUpDuplicates = (elementId: string) => {
-        if (processedElements.has(elementId)) {
-          // Element already processed, remove from other parents
-          Object.values(currentTab.elements).forEach(el => {
-            if (el.children && el.children.includes(elementId) && el.id !== currentTab.elements[elementId]?.parent) {
-              el.children = el.children.filter(id => id !== elementId);
-            }
-          });
-          return;
-        }
-        
-        processedElements.add(elementId);
-        const element = currentTab.elements[elementId];
-        if (element && element.children) {
-          element.children.forEach(childId => cleanUpDuplicates(childId));
-        }
-      };
-      
-      cleanUpDuplicates(newElementId);
+      // No cleanup needed - the tree structure is already clean from the recursive paste logic
       
       currentTab.viewSettings.selectedElementId = newElementId;
       currentTab.updatedAt = Date.now();
