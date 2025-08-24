@@ -657,7 +657,7 @@ const Canvas: React.FC = () => {
       }
       } // Close isDraggingForReorder check
     } else if (selectedTool === 'select' || selectedTool === 'hand') {
-      // Handle selection/hand tool hover detection
+      // Handle selection/hand tool hover detection - NO insertion indicators
       const hoveredElement = getElementAtPoint(x, y, currentElements, zoomLevel, draggedElementId);
       
       if (hoveredElement && hoveredElement.id !== 'root') {
@@ -668,13 +668,15 @@ const Canvas: React.FC = () => {
         setHoveredElementId(null);
         setHoveredZone(null);
         dispatch(setHoveredElement({ elementId: null, zone: null }));
-        setInsertionIndicator(null);
       }
+      // Always clear insertion indicators for selection tools
+      setInsertionIndicator(null);
     } else {
-      // Clear hover state for other tools
+      // Clear hover state and insertion indicators for other tools
       setHoveredElementId(null);
       setHoveredZone(null);
       dispatch(setHoveredElement({ elementId: null, zone: null }));
+      setInsertionIndicator(null);
     }
   }, [isDragging, isDraggingForReorder, selectedElement, draggedElementId, dragStart, zoomLevel, dispatch, selectedTool, currentElements, dragThreshold]);
 
