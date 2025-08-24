@@ -456,28 +456,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
       }
     }
 
-    // CRITICAL: Containers and component roots must render their children
-    if ((element.type === 'container' || element.type === 'rectangle' || element.isContainer || isComponentRoot) && element.children) {
-      console.log('Rendering container with children:', element.id, 'childCount:', element.children.length, 'isComponentRoot:', isComponentRoot);
-      return (
-        <>
-          {element.children.map(childId => {
-            const child = currentElements[childId];
-            return child ? (
-              <CanvasElement 
-                key={child.id} 
-                element={child}
-                isSelected={child.id === selectedElementId}
-                isHovered={child.id === actualHoveredElementId}
-                hoveredZone={child.id === actualHoveredElementId ? actualHoveredZone : null}
-                hoveredElementId={actualHoveredElementId}
-                expandedContainerId={expandedContainerId}
-              />
-            ) : null;
-          })}
-        </>
-      );
-    }
+    // CRITICAL: This is handled in the main render return - don't return children here
     
     // Handle generic HTML element type
     if (element.type === 'element') {
@@ -958,6 +937,24 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
       )}
 
       {renderContent()}
+      
+      {/* CRITICAL: Render container children inside the container */}
+      {((element.type === 'container' || element.type === 'rectangle' || element.isContainer || isComponentRoot) && element.children) && (
+        element.children.map(childId => {
+          const child = currentElements[childId];
+          return child ? (
+            <CanvasElement 
+              key={child.id} 
+              element={child}
+              isSelected={child.id === selectedElementId}
+              isHovered={child.id === actualHoveredElementId}
+              hoveredZone={child.id === actualHoveredElementId ? actualHoveredZone : null}
+              hoveredElementId={actualHoveredElementId}
+              expandedContainerId={expandedContainerId}
+            />
+          ) : null;
+        })
+      )}
       
       {/* Professional Resize Handles for Editing Mode */}
       {selectionState === 'editing' && (

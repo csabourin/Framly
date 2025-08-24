@@ -653,8 +653,14 @@ export function canDropInside(elementType: string, targetElement: CanvasElement)
 }
 
 // Check if a drop operation is valid
-export function isValidDropTarget(targetElement: CanvasElement | null): boolean {
+export function isValidDropTarget(targetElement: CanvasElement | null, draggedElement?: CanvasElement | null): boolean {
   if (!targetElement) return false;
+  
+  // CRITICAL: Prevent component instances from being dropped into other component instances
+  if (targetElement.componentRef && draggedElement?.componentRef) {
+    console.log('VALIDATION: Rejecting component instance drop into another component instance');
+    return false;
+  }
   
   // Container types that can accept dropped elements
   const validDropTargets = [

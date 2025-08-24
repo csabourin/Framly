@@ -789,11 +789,23 @@ const Canvas: React.FC = () => {
             if ((insertionZone as any).position === 'inside' || (insertionZone as any).position === 'between') {
               // For inside/between positions, the target must be a container
               canDropHere = targetElement ? isValidDropTarget(targetElement) : false;
+              
+              // CRITICAL: Additional check for component drops - prevent dropping into component instances
+              if (canDropHere && targetElement?.componentRef) {
+                console.log('COMPONENT DRAG - Rejecting drop into component instance');
+                canDropHere = false;
+              }
             } else {
               // For before/after positions (sibling insertion), check if the parent can accept children
               const parentId = targetElement?.parent || 'root';
               const parentElement = currentElements[parentId];
               canDropHere = parentElement ? isValidDropTarget(parentElement) : false;
+              
+              // CRITICAL: Additional check for component drops - prevent dropping into component instances
+              if (canDropHere && parentElement?.componentRef) {
+                console.log('COMPONENT DRAG - Rejecting drop into component instance parent');
+                canDropHere = false;
+              }
             }
             
             console.log('COMPONENT DRAG - Drop validation:', { 
@@ -888,11 +900,23 @@ const Canvas: React.FC = () => {
           if ((insertionZone as any).position === 'inside' || (insertionZone as any).position === 'between') {
             // For inside/between positions, the target must be a container
             canDropHere = targetElement ? isValidDropTarget(targetElement) : false;
+            
+            // CRITICAL: Additional check for component drops - prevent dropping into component instances
+            if (canDropHere && targetElement?.componentRef) {
+              console.log('COMPONENT DROP - Rejecting drop into component instance');
+              canDropHere = false;
+            }
           } else {
             // For before/after positions (sibling insertion), check if the parent can accept children
             const targetParentId = targetElement?.parent || 'root';
             const parentElement = currentElements[targetParentId];
             canDropHere = parentElement ? isValidDropTarget(parentElement) : false;
+            
+            // CRITICAL: Additional check for component drops - prevent dropping into component instances
+            if (canDropHere && parentElement?.componentRef) {
+              console.log('COMPONENT DROP - Rejecting drop into component instance parent');
+              canDropHere = false;
+            }
           }
           
           console.log('Component drop validation:', { 
