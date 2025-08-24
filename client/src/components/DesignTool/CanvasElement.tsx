@@ -842,17 +842,15 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     return baseStyles;
   }, [element.styles, element.classes, customClasses]);
 
+  // CRITICAL: Use original positioning logic for all elements EXCEPT component children
+  const basePosition = mergedStyles.position === 'absolute' ? 'absolute' : 'relative';
+  const baseLeft = mergedStyles.position === 'absolute' ? element.x : undefined;
+  const baseTop = mergedStyles.position === 'absolute' ? element.y : undefined;
+
   const combinedStyles: React.CSSProperties = {
-    // CRITICAL: Component children use absolute positioning within their parent container
-    position: isComponentChild && element.parent !== 'root' 
-      ? 'absolute'  // Children positioned absolutely within parent container
-      : 'absolute', // Root elements positioned absolutely on canvas
-    left: isComponentChild && element.parent !== 'root' 
-      ? `${element.x || 0}px`   // Position children relative to their parent container
-      : element.x,  // Absolute positioning for root elements
-    top: isComponentChild && element.parent !== 'root' 
-      ? `${element.y || 0}px`
-      : element.y,
+    position: basePosition,
+    left: baseLeft,
+    top: baseTop,
     width: (['text', 'heading', 'list'].includes(element.type)) ? '100%' : (mergedStyles.width || (element.width === 0 ? '100%' : element.width)),
     height: (['text', 'heading', 'list'].includes(element.type)) ? 'auto' : (mergedStyles.minHeight ? undefined : element.height),
     minHeight: (['text', 'heading', 'list'].includes(element.type)) ? '1.2em' : undefined,
@@ -914,8 +912,15 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
         ...combinedStyles,
         userSelect: selectedTool !== 'text' ? 'none' : 'auto',
         WebkitUserSelect: selectedTool !== 'text' ? 'none' : 'auto',
-        // CRITICAL: Component roots must be positioned containers for their children
-        position: isComponentRoot ? 'relative' : combinedStyles.position,
+        // CRITICAL: Component positioning fixes
+        ...(isComponentChild && element.parent !== 'root' ? {
+          position: 'absolute',
+          left: `${element.x || 0}px`,
+          top: `${element.y || 0}px`,
+        } : {}),
+        ...(isComponentRoot ? {
+          position: 'relative',
+        } : {}),
       }}
       data-element-id={element.id}
       data-container={element.isContainer ? 'true' : 'false'}
