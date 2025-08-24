@@ -39,7 +39,7 @@ export function createDefaultElement(type: CanvasElement['type'], x?: number, y?
           minHeight: '80px',
           display: 'flex',
           flexDirection: 'column',
-          gap: '8px',
+          gap: '0px',
         },
         classes: [`rectangle-${Date.now()}`],
       };
@@ -132,8 +132,8 @@ export function createDefaultElement(type: CanvasElement['type'], x?: number, y?
         styles: {
           display: 'flex',
           flexDirection: 'column',
-          gap: '8px',
-          padding: '16px',
+          gap: '0px',
+          padding: '0px',
           backgroundColor: '#ffffff',
           border: '1px solid #d1d5db',
           borderRadius: '6px',

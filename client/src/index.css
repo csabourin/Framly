@@ -699,12 +699,18 @@ body[data-input-modality="mouse"] .selectable-block:focus-visible::after {
 /* Animated padding expansion for better drag targeting */
 .drag-expand-padding {
   transition: padding 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
-  padding: 8px !important;
+  padding: 0px !important;
 }
 
 /* Ensure smooth transitions for all padding changes during drag */
 .drag-transition-padding {
   transition: padding 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* CRITICAL FIX: Override any existing padding/gap in flex containers */
+.canvas-element[data-container="true"] {
+  padding: 0px !important;
+  gap: 0px !important;
 }
 
 .canvas-element.selected {
