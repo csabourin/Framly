@@ -339,8 +339,11 @@ const canvasSlice = createSlice({
       const currentTab = getCurrentTab(state);
       if (breakpoint && currentTab?.elements.root) {
         currentTab.elements.root.width = breakpoint.width;
+        // Force immediate update by updating timestamp
         currentTab.updatedAt = Date.now();
       }
+      // Save to history for viewport changes
+      canvasSlice.caseReducers.saveToHistory(state);
     },
     
     updateProjectName: (state, action: PayloadAction<string>) => {

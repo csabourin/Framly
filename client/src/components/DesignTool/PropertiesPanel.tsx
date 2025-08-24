@@ -46,7 +46,7 @@ const PropertiesPanel: React.FC = () => {
   const selectedElement = selectedElementId ? currentElements[selectedElementId] : null;
   
   // Check if selected element is a component instance
-  const isComponentInstance = selectedElement?.isComponentInstance || selectedElement?.componentRef;
+  const isComponentInstance = selectedElement?.componentRef;
   const [newClassName, setNewClassName] = useState('');
   const [selectedClassForEditing, setSelectedClassForEditing] = useState<string | null>(null);
   const [selectedButtonState, setSelectedButtonState] = useState<string>('default');
@@ -278,7 +278,9 @@ const PropertiesPanel: React.FC = () => {
       const processedValue = propertyKey === 'headingLevel' ? parseInt(value, 10) : value;
       dispatch(updateElement({
         id: selectedElement.id,
-        updates: { [propertyKey]: processedValue }
+        updates: { 
+          [propertyKey]: processedValue
+        }
       }));
       return;
     }
@@ -299,7 +301,9 @@ const PropertiesPanel: React.FC = () => {
       // Update element property with the processed value
       dispatch(updateElement({
         id: selectedElement.id,
-        updates: { [propertyKey]: elementValue }
+        updates: { 
+          [propertyKey]: elementValue
+        }
       }));
     }
 
@@ -308,7 +312,9 @@ const PropertiesPanel: React.FC = () => {
       // Update element property for internal logic
       dispatch(updateElement({
         id: selectedElement.id,
-        updates: { [propertyKey]: value }
+        updates: { 
+          [propertyKey]: value
+        }
       }));
     }
     
