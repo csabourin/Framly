@@ -1177,8 +1177,8 @@ const Canvas: React.FC = () => {
         }}
         data-testid="canvas-container"
       >
-        {/* Render Canvas Elements */}
-        {rootElement.children?.filter((childId, index, arr) => arr.indexOf(childId) === index).map(childId => {
+        {/* Render ALL Canvas Elements - including expanded component children */}
+        {rootElement.children?.filter((childId: string, index: number, arr: string[]) => arr.indexOf(childId) === index).map((childId: string) => {
           const element = currentElements[childId];
           return element ? (
             <CanvasElement 
@@ -1190,6 +1190,29 @@ const Canvas: React.FC = () => {
               expandedContainerId={expandedContainerId}
             />
           ) : null;
+        })}
+        
+        {/* CRITICAL: Render expanded component children that aren't in root.children */}
+        {Object.values(currentElements).map(element => {
+          // Only render elements that aren't already rendered as root children
+          // and aren't the root element itself
+          if (element.id !== 'root' && 
+              element.parent !== 'root' && 
+              element.parent !== null && 
+              currentElements[element.parent] &&
+              !rootElement.children?.includes(element.id)) {
+            return (
+              <CanvasElement 
+                key={element.id} 
+                element={element}
+                isSelected={element.id === selectedElementId}
+                isHovered={element.id === hoveredElementId}
+                hoveredZone={element.id === hoveredElementId ? hoveredZone : null}
+                expandedContainerId={expandedContainerId}
+              />
+            );
+          }
+          return null;
         })}
         
         {/* LARGE, OBVIOUS DROP ZONES */}
