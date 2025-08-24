@@ -626,7 +626,7 @@ const Canvas: React.FC = () => {
       const hoveredElement = getElementAtPoint(x, y, currentElements, zoomLevel, draggedElementId);
       
       if (!hoveredElement) {
-        console.log('No element found at point');
+        // console.log('No element found at point');
         setHoveredElementId(null);
         setHoveredZone(null);
         return;
@@ -682,7 +682,7 @@ const Canvas: React.FC = () => {
   }, [isDragging, isDraggingForReorder, selectedElement, draggedElementId, dragStart, zoomLevel, dispatch, selectedTool, currentElements, dragThreshold]);
 
   const handleMouseUp = useCallback((e?: MouseEvent) => {
-    console.log('DRAG DEBUG - Mouse up:', { isDraggingForReorder, draggedElementId, hoveredElementId, hoveredZone, insertionIndicator });
+    // console.log('DRAG DEBUG - Mouse up:', { isDraggingForReorder, draggedElementId, hoveredElementId, hoveredZone, insertionIndicator });
     
     if (isDraggingForReorder && draggedElementId && insertionIndicator) {
       const targetElement = currentElements[insertionIndicator.elementId];
@@ -699,18 +699,18 @@ const Canvas: React.FC = () => {
         canDropHere = parentElement ? isValidDropTarget(parentElement) : false;
       }
       
-      console.log('DRAG DEBUG - Drop validation:', { 
-        targetElement: targetElement?.type, 
-        canDropHere, 
-        insertionPosition: (insertionIndicator as any).position,
-        parentId: targetElement?.parent,
-        parentType: currentElements[targetElement?.parent || 'root']?.type
-      });
+      // console.log('DRAG DEBUG - Drop validation:', { 
+      //   targetElement: targetElement?.type, 
+      //   canDropHere, 
+      //   insertionPosition: (insertionIndicator as any).position,
+      //   parentId: targetElement?.parent,
+      //   parentType: currentElements[targetElement?.parent || 'root']?.type
+      // });
       
       if (canDropHere) {
         // Complete the reorder operation only for valid targets
         if ((insertionIndicator as any).position === 'inside') {
-          console.log('DRAG DEBUG - Reordering inside:', insertionIndicator.elementId);
+          // console.log('DRAG DEBUG - Reordering inside:', insertionIndicator.elementId);
           dispatch(reorderElement({
             elementId: draggedElementId,
             newParentId: insertionIndicator.elementId,
@@ -718,11 +718,11 @@ const Canvas: React.FC = () => {
           }));
         } else if ((insertionIndicator as any).position === 'between') {
           // Precise insertion between siblings using the container and reference element
-          console.log('DRAG DEBUG - Reordering between siblings:', { 
-            containerId: insertionIndicator.elementId,
-            insertPosition: (insertionIndicator as any).insertPosition,
-            referenceElementId: (insertionIndicator as any).referenceElementId
-          });
+          // console.log('DRAG DEBUG - Reordering between siblings:', { 
+          //   containerId: insertionIndicator.elementId,
+          //   insertPosition: (insertionIndicator as any).insertPosition,
+          //   referenceElementId: (insertionIndicator as any).referenceElementId
+          // });
           
           dispatch(reorderElement({
             elementId: draggedElementId,
@@ -735,11 +735,11 @@ const Canvas: React.FC = () => {
           const hoveredElement = currentElements[insertionIndicator.elementId];
           const parentId = hoveredElement?.parent || 'root';
           
-          console.log('DRAG DEBUG - Reordering as sibling:', { 
-            hoveredElementId: insertionIndicator.elementId,
-            parentId, 
-            position: (insertionIndicator as any).position 
-          });
+          // console.log('DRAG DEBUG - Reordering as sibling:', { 
+          //   hoveredElementId: insertionIndicator.elementId,
+          //   parentId, 
+          //   position: (insertionIndicator as any).position 
+          // });
           
           dispatch(reorderElement({
             elementId: draggedElementId,
@@ -749,12 +749,12 @@ const Canvas: React.FC = () => {
           }));
         }
       } else {
-        console.log('DRAG DEBUG - Invalid drop target, canceling reorder');
+        // console.log('DRAG DEBUG - Invalid drop target, canceling reorder');
       }
     }
     
     // Reset all drag states
-    console.log('DRAG DEBUG - Resetting all drag states');
+    // console.log('DRAG DEBUG - Resetting all drag states');
     dispatch(setDragging(false));
     dispatch(setResizing(false));
     dispatch(setDraggingForReorder(false));
@@ -771,7 +771,7 @@ const Canvas: React.FC = () => {
     
     // Auto-switch to selection tool after successful drag from handle
     if (isDragFromHandle && isDraggingForReorder && draggedElementId) {
-      console.log('DRAG HANDLE DEBUG - Auto-switching to selection tool after drag completion');
+      // console.log('DRAG HANDLE DEBUG - Auto-switching to selection tool after drag completion');
       dispatch(setSelectedTool('select'));
     }
     setIsDragFromHandle(false);
@@ -1256,11 +1256,11 @@ const Canvas: React.FC = () => {
         data-testid="canvas-container"
       >
         {/* Render ALL Canvas Elements - including expanded component children */}
-        {/* First, ensure we have unique children and filter out any missing elements */}
-        {Array.from(new Set(rootElement.children || [])).map((childId: string) => {
+        {/* Render child elements efficiently */}
+        {(rootElement.children || []).map((childId: string) => {
           const element = currentElements[childId];
           if (!element) {
-            console.warn('Missing element in currentElements:', childId);
+            // console.warn('Missing element in currentElements:', childId);
             return null;
           }
           return (

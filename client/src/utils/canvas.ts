@@ -546,7 +546,7 @@ export function getElementAtPoint(x: number, y: number, elements: Record<string,
     // Return the element with the smallest depth (deepest in DOM)
     if (foundElements.length > 0) {
       foundElements.sort((a, b) => a.depth - b.depth);
-      console.log('DOM detection found:', foundElements[0].element.id);
+      // console.log('DOM detection found:', foundElements[0].element.id);
       return foundElements[0].element;
     }
     
