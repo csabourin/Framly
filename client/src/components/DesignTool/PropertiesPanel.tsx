@@ -479,12 +479,26 @@ const PropertiesPanel: React.FC = () => {
     
     // For numeric and unit fields, check if there are element dimension properties to use as defaults
     if (property.type === 'number' || property.type === 'unit') {
-      // For width/height, check element dimensions first
-      if (property.key === 'width' && selectedElement.width !== undefined) {
-        return property.type === 'unit' ? `${selectedElement.width}px` : selectedElement.width;
+      // For width/height, check styles first (which may have units), then element dimensions
+      if (property.key === 'width') {
+        // Check if there's a styled width with units first
+        if (selectedElement.styles && selectedElement.styles.width !== undefined) {
+          return selectedElement.styles.width;
+        }
+        // Fall back to element width with px
+        if (selectedElement.width !== undefined) {
+          return property.type === 'unit' ? `${selectedElement.width}px` : selectedElement.width;
+        }
       }
-      if (property.key === 'height' && selectedElement.height !== undefined) {
-        return property.type === 'unit' ? `${selectedElement.height}px` : selectedElement.height;
+      if (property.key === 'height') {
+        // Check if there's a styled height with units first
+        if (selectedElement.styles && selectedElement.styles.height !== undefined) {
+          return selectedElement.styles.height;
+        }
+        // Fall back to element height with px
+        if (selectedElement.height !== undefined) {
+          return property.type === 'unit' ? `${selectedElement.height}px` : selectedElement.height;
+        }
       }
       // Default to 0 for other numeric fields
       return property.type === 'unit' ? `0${property.defaultUnit || property.units?.[0] || 'px'}` : 0;

@@ -294,7 +294,11 @@ const canvasSlice = createSlice({
       // Remove element from current parent
       const currentParent = currentTab.elements[element.parent || 'root'];
       if (currentParent && currentParent.children) {
-        currentParent.children = currentParent.children.filter((id: string) => id !== elementId);
+        // Create a new array to avoid mutation issues
+        currentTab.elements[element.parent || 'root'] = {
+          ...currentParent,
+          children: currentParent.children.filter((id: string) => id !== elementId)
+        };
       }
 
       // Add element to new parent at specified position
@@ -302,20 +306,43 @@ const canvasSlice = createSlice({
         newParent.children = [];
       }
 
+      // Create a new children array for the new parent
+      const newChildren = [...(newParent.children || [])];
+
       if (insertPosition === 'inside' || !referenceElementId) {
-        newParent.children.push(elementId);
+        // Only add if not already present
+        if (!newChildren.includes(elementId)) {
+          newChildren.push(elementId);
+        }
       } else {
-        const referenceIndex = newParent.children.indexOf(referenceElementId);
+        const referenceIndex = newChildren.indexOf(referenceElementId);
         if (referenceIndex !== -1) {
           const insertIndex = insertPosition === 'before' ? referenceIndex : referenceIndex + 1;
-          newParent.children.splice(insertIndex, 0, elementId);
+          // Remove the element if it's already in the array
+          const existingIndex = newChildren.indexOf(elementId);
+          if (existingIndex !== -1) {
+            newChildren.splice(existingIndex, 1);
+          }
+          newChildren.splice(insertIndex, 0, elementId);
         } else {
-          newParent.children.push(elementId);
+          // Only add if not already present
+          if (!newChildren.includes(elementId)) {
+            newChildren.push(elementId);
+          }
         }
       }
 
+      // Update the new parent with the new children array
+      currentTab.elements[newParentId] = {
+        ...newParent,
+        children: newChildren
+      };
+
       // Update element's parent reference
-      element.parent = newParentId;
+      currentTab.elements[elementId] = {
+        ...element,
+        parent: newParentId
+      };
       
       currentTab.updatedAt = Date.now();
       canvasSlice.caseReducers.saveToHistory(state);
