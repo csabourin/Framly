@@ -74,7 +74,27 @@ const ButtonElement: React.FC<ButtonElementProps> = ({
       combinedStyles = { ...combinedStyles, ...designStyles };
     }
     
+    // Add default button styling if no custom styles applied
+    const defaultButtonStyles = {
+      padding: '8px 16px',
+      borderRadius: '6px',
+      border: '1px solid #d1d5db',
+      backgroundColor: '#ffffff',
+      color: '#374151',
+      fontSize: '14px',
+      fontWeight: '500',
+      cursor: 'pointer',
+      outline: 'none',
+      transition: 'all 0.2s ease-in-out',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      textAlign: 'center' as const,
+      boxSizing: 'border-box' as const,
+    };
+
     return {
+      ...defaultButtonStyles,
       ...combinedStyles,
       width: '100%',
       height: '100%',

@@ -407,7 +407,15 @@ const Canvas: React.FC = () => {
         
         // Keep the current tool active so user can continue placing elements
       } else {
-        // If no valid insertion point, create at root
+        // If no valid insertion point, check if we clicked on a non-container element
+        if (!canInsertInTarget && targetElementId && targetElementId !== 'root') {
+          console.log('CLICK DEBUG - Non-container clicked with creation tool - switching to select tool');
+          dispatch(setSelectedTool('select'));
+          dispatch(selectElement(targetElementId));
+          return;
+        }
+        
+        // Otherwise create at root
         if (!canInsertInTarget) {
           console.log('CLICK DEBUG - Target cannot accept elements, creating at root instead');
         } else {

@@ -369,7 +369,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     if (element.type === 'button') {
       // Check if button is in text editing mode
       if (isSelected && isEditing) {
-        const buttonText = element.content || 'Bouton';
+        const buttonText = element.buttonText || 'Button';
         return (
           <button
             ref={buttonEditRef}
@@ -379,7 +379,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
             <span
               contentEditable={true}
               suppressContentEditableWarning
-              onBlur={(e) => handleTextPropertyEdit('content')(e as any)}
+              onBlur={(e) => handleTextPropertyEdit('buttonText')(e as any)}
               onKeyDown={handleKeyDown as any}
               className="outline-none"
               autoFocus
