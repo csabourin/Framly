@@ -1193,28 +1193,7 @@ const Canvas: React.FC = () => {
           ) : null;
         })}
         
-        {/* CRITICAL: Render ONLY component children that aren't in root.children */}
-        {Object.values(currentElements).map(element => {
-          // Only render actual component children that are not direct root children
-          if (element.id !== 'root' && 
-              element.isComponentChild && // CRITICAL: Only render component children
-              element.parent !== 'root' && 
-              element.parent !== null && 
-              currentElements[element.parent] &&
-              !rootElement.children?.includes(element.id)) {
-            return (
-              <CanvasElement 
-                key={element.id} 
-                element={element}
-                isSelected={element.id === selectedElementId}
-                isHovered={element.id === hoveredElementId}
-                hoveredZone={element.id === hoveredElementId ? hoveredZone : null}
-                expandedContainerId={expandedContainerId}
-              />
-            );
-          }
-          return null;
-        })}
+        {/* Component children are now rendered by their parent elements - no separate rendering needed */}
         
 
         

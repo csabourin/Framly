@@ -89,9 +89,9 @@ export function captureElementTree(
       // Deep copy all style properties
       styles: element.styles ? { ...element.styles } : {},
       
-      // Preserve all element-specific properties
-      content: element.content,
-      buttonText: element.buttonText,
+      // CRITICAL: Preserve all content and text properties
+      content: element.content || '',
+      buttonText: element.buttonText || '',
       
       // Image properties
       imageUrl: element.imageUrl,

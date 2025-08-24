@@ -64,11 +64,12 @@ export function useExpandedElements(elements: Record<string, CanvasElement>): Re
         if ((template as any).children && Array.isArray((template as any).children)) {
           const expandedChildIds: string[] = [];
           
-          // CRITICAL: Expand the template's root element which contains the hierarchy
+          // CRITICAL: Expand the template's root element which contains the hierarchy  
           for (const templateChild of (template as any).children) {
             if (typeof templateChild === 'object' && templateChild.id) {
               console.log('Expanding ghost root child:', templateChild.id, templateChild.type);
-              const expandedChild = expandTemplateElement(templateChild, instance.id, instance);
+              // Position template root relative to component instance
+              const expandedChild = expandTemplateElement(templateChild, instance.id, instance, true);
               if (expandedChild) {
                 expandedChildIds.push(expandedChild.id);
               }
@@ -121,7 +122,8 @@ export function useExpandedElements(elements: Record<string, CanvasElement>): Re
     function expandTemplateElement(
       templateElement: any,
       parentId: string,
-      rootInstance: CanvasElement
+      rootInstance: CanvasElement,
+      isRootTemplateElement: boolean = false
     ): CanvasElement | null {
       if (!templateElement || typeof templateElement !== 'object') {
         return null;
@@ -136,18 +138,22 @@ export function useExpandedElements(elements: Record<string, CanvasElement>): Re
         id: expandedId,
         parent: parentId,
         
-        // CRITICAL: Position relative to component instance while preserving hierarchy
-        x: rootInstance.x + (templateElement.x || 0),
-        y: rootInstance.y + (templateElement.y || 0),
+        // CRITICAL: Position correctly based on hierarchy level
+        x: isRootTemplateElement 
+          ? rootInstance.x + (templateElement.x || 0)  // Root template positioned relative to component
+          : (templateElement.x || 0),  // Children positioned relative to their parent
+        y: isRootTemplateElement 
+          ? rootInstance.y + (templateElement.y || 0)
+          : (templateElement.y || 0),
         
         // CRITICAL: Preserve ALL template properties and styling exactly
         styles: templateElement.styles ? { ...templateElement.styles } : {},
         classes: templateElement.classes ? [...templateElement.classes] : [],
         children: [],
         
-        // Preserve all template properties
-        content: templateElement.content,
-        buttonText: templateElement.buttonText,
+        // CRITICAL: Preserve all content and text properties exactly
+        content: templateElement.content || '',
+        buttonText: templateElement.buttonText || '',
         imageUrl: templateElement.imageUrl,
         imageBase64: templateElement.imageBase64,
         imageAlt: templateElement.imageAlt,

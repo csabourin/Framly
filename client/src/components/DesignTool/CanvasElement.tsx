@@ -841,9 +841,16 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
   }, [element.styles, element.classes, customClasses]);
 
   const combinedStyles: React.CSSProperties = {
-    position: mergedStyles.position === 'absolute' ? 'absolute' : 'relative',
-    left: mergedStyles.position === 'absolute' ? element.x : undefined,
-    top: mergedStyles.position === 'absolute' ? element.y : undefined,
+    // CRITICAL: Component children use relative positioning to maintain hierarchy
+    position: isComponentChild && element.parent !== 'root' 
+      ? 'relative'  // Children positioned relative to their parent container
+      : 'absolute', // Root elements positioned absolutely on canvas
+    left: isComponentChild && element.parent !== 'root' 
+      ? undefined   // Let CSS handle relative positioning for children
+      : element.x,  // Absolute positioning for root elements
+    top: isComponentChild && element.parent !== 'root' 
+      ? undefined
+      : element.y,
     width: (['text', 'heading', 'list'].includes(element.type)) ? '100%' : (mergedStyles.width || (element.width === 0 ? '100%' : element.width)),
     height: (['text', 'heading', 'list'].includes(element.type)) ? 'auto' : (mergedStyles.minHeight ? undefined : element.height),
     minHeight: (['text', 'heading', 'list'].includes(element.type)) ? '1.2em' : undefined,
