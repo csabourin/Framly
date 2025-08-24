@@ -11,6 +11,7 @@ import { nanoid } from 'nanoid';
 import { generateComponentFromElements } from '../../utils/componentGenerator';
 import { saveComponent } from '../../utils/persistence';
 import { containsComponentInstances, createComponentInstance } from '../../utils/componentInstances';
+import { captureElementTree } from '../../utils/componentTreeCapture';
 import { 
   Dialog, 
   DialogContent, 
@@ -67,12 +68,16 @@ const CreateComponentModal: React.FC = () => {
       if (!shouldContinue) return;
     }
 
-    // Create spec-compliant ComponentDef (NEW SYSTEM ONLY)
+    // CRITICAL: Capture the complete element tree with all children and properties
+    console.log('Capturing complete element tree for component:', selectedElement.id);
+    const completeTemplate = captureElementTree(selectedElement.id, currentElements);
+    
+    // Create spec-compliant ComponentDef with COMPLETE TREE
     const componentDef: ComponentDef = {
       id: nanoid(),
       name: componentName.trim(),
       categoryId: componentCategory === 'custom' ? null : componentCategory,
-      template: currentElements[selectedElement.id], // Use the full element as template
+      template: completeTemplate, // COMPLETE tree with all children preserved
       version: 1,
       updatedAt: Date.now()
     };
