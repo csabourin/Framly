@@ -661,6 +661,9 @@ const canvasSlice = createSlice({
               const child = currentTab.elements[childId];
               return child ? copyElementTree(child) : null;
             }).filter(Boolean);
+            
+            // Clear the original children array to prevent duplication
+            copiedElement.children = [];
           }
           
           return copiedElement;
@@ -688,6 +691,9 @@ const canvasSlice = createSlice({
               const child = currentTab.elements[childId];
               return child ? copyElementTree(child) : null;
             }).filter(Boolean);
+            
+            // Clear the original children array to prevent duplication
+            copiedElement.children = [];
           }
           
           return copiedElement;
@@ -708,10 +714,14 @@ const canvasSlice = createSlice({
       if (!currentTab || !state.clipboard) return;
       
       // Recursively generate new IDs and paste the entire element tree
-      const pasteElementTree = (element: CanvasElement, parentId: string): string => {
+      const pasteElementTree = (element: CanvasElement, parentId: string, timestamp?: number): string => {
+        // Use a unique timestamp for each element to ensure no ID collisions
+        const uniqueTimestamp = timestamp || Date.now();
+        const uniqueId = `${element.type}-${uniqueTimestamp}-${nanoid(9)}`;
+        
         const newElement: CanvasElement = {
           ...element,
-          id: `${element.type}-${Date.now()}-${nanoid(9)}`,
+          id: uniqueId,
           parent: parentId,
           // Offset position slightly so it's visible as a new element
           ...(element.x !== undefined && element.y !== undefined 
@@ -722,31 +732,22 @@ const canvasSlice = createSlice({
         // Remove childrenData if it exists (it's temporary storage)
         delete (newElement as any).childrenData;
         
+        // Initialize children array
+        newElement.children = [];
+        
         // Add the new element to the state
         currentTab.elements[newElement.id] = newElement;
         
-        // Handle children recursively
+        // Handle children recursively - only process childrenData
         if ((element as any).childrenData && (element as any).childrenData.length > 0) {
-          newElement.children = [];
-          
-          (element as any).childrenData.forEach((childData: CanvasElement) => {
-            const childId = pasteElementTree(childData, newElement.id);
+          (element as any).childrenData.forEach((childData: CanvasElement, index: number) => {
+            // Use a unique timestamp for each child to prevent ID collisions
+            const childTimestamp = uniqueTimestamp + index + 1;
+            const childId = pasteElementTree(childData, newElement.id, childTimestamp);
             if (childId && newElement.children) {
               newElement.children.push(childId);
             }
           });
-        } else if (element.children && element.children.length > 0) {
-          // If no childrenData but has children array (shouldn't happen with new copy logic)
-          newElement.children = [];
-        }
-        
-        // Add to parent's children array
-        const parent = currentTab.elements[parentId];
-        if (parent) {
-          if (!parent.children) {
-            parent.children = [];
-          }
-          parent.children.push(newElement.id);
         }
         
         return newElement.id;
@@ -768,8 +769,41 @@ const canvasSlice = createSlice({
         }
       }
       
-      // Paste the element tree and select the root of the pasted tree
-      const newElementId = pasteElementTree(state.clipboard, parentId);
+      // Paste the element tree and select the root of the pasted tree  
+      const baseTimestamp = Date.now();
+      const newElementId = pasteElementTree(state.clipboard, parentId, baseTimestamp);
+      
+      // Add the root element to its parent's children array
+      const parent = currentTab.elements[parentId];
+      if (parent) {
+        if (!parent.children) {
+          parent.children = [];
+        }
+        parent.children.push(newElementId);
+      }
+      
+      // Clean up any duplicate references - ensure no element appears in multiple parents
+      const processedElements = new Set<string>();
+      const cleanUpDuplicates = (elementId: string) => {
+        if (processedElements.has(elementId)) {
+          // Element already processed, remove from other parents
+          Object.values(currentTab.elements).forEach(el => {
+            if (el.children && el.children.includes(elementId) && el.id !== currentTab.elements[elementId]?.parent) {
+              el.children = el.children.filter(id => id !== elementId);
+            }
+          });
+          return;
+        }
+        
+        processedElements.add(elementId);
+        const element = currentTab.elements[elementId];
+        if (element && element.children) {
+          element.children.forEach(childId => cleanUpDuplicates(childId));
+        }
+      };
+      
+      cleanUpDuplicates(newElementId);
+      
       currentTab.viewSettings.selectedElementId = newElementId;
       currentTab.updatedAt = Date.now();
       canvasSlice.caseReducers.saveToHistory(state);
