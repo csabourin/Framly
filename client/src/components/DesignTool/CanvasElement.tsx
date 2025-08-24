@@ -829,21 +829,17 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     basePosition = 'relative';
     baseLeft = undefined;
     baseTop = undefined;
-  } else if ((element.isExplicitlyPositioned || (element.x !== undefined && element.y !== undefined && element.parent === 'root')) && element.x !== undefined && element.y !== undefined) {
-    // Use absolute positioning for:
-    // 1. Elements explicitly marked as positioned (new behavior)
-    // 2. Root-level elements with coordinates (legacy behavior for existing elements)
+  } else if (element.isExplicitlyPositioned && element.x !== undefined && element.y !== undefined) {
+    // Only use absolute positioning for elements that were explicitly dragged
     basePosition = 'absolute';
     baseLeft = element.x;
     baseTop = element.y;
-    console.log('POSITIONING DEBUG - Absolute positioned element:', {
+    console.log('POSITIONING DEBUG - Explicitly positioned element:', {
       id: element.id.substring(0, 15) + '...',
       x: element.x,
       y: element.y,
       left: baseLeft,
-      top: baseTop,
-      isExplicit: element.isExplicitlyPositioned,
-      isLegacy: !element.isExplicitlyPositioned && element.parent === 'root'
+      top: baseTop
     });
   } else {
     // ALL other elements follow normal document flow
