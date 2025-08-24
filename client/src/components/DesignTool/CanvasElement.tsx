@@ -1,4 +1,4 @@
-import React, { useRef, useCallback } from 'react';
+import React, { useRef, useCallback, memo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
 import { selectUIState, selectHoverState, selectSelectedElementId, selectCustomClasses } from '../../store/selectors';
@@ -60,15 +60,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
   const isGhostRoot = element.isGhostRoot;
   
   // Component children are non-interactive (but still render normally)
-  if (isComponentChild) {
-    // Component children render normally but with restricted interaction
-    console.log('Rendering component child (non-interactive):', element.id);
-  }
-  
   // Component roots get special chrome but children render as normal elements
-  if (isComponentRoot) {
-    console.log('Rendering component root with expanded children:', element.id);
-  }
   
   // Check if this element is hovered
   const isThisElementHovered = actualHoveredElementId === element.id;
@@ -988,4 +980,15 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
   );
 };
 
-export default CanvasElement;
+// Memoize to prevent unnecessary re-renders on hover state changes
+export default memo(CanvasElement, (prevProps, nextProps) => {
+  // Only re-render if meaningful props changed
+  return (
+    prevProps.element.id === nextProps.element.id &&
+    prevProps.isSelected === nextProps.isSelected &&
+    prevProps.hoveredElementId === nextProps.hoveredElementId &&
+    prevProps.hoveredZone === nextProps.hoveredZone &&
+    prevProps.expandedContainerId === nextProps.expandedContainerId &&
+    JSON.stringify(prevProps.element) === JSON.stringify(nextProps.element)
+  );
+});
