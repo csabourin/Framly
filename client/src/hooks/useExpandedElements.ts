@@ -13,6 +13,19 @@ export function useExpandedElements(elements: Record<string, CanvasElement>): Re
   const componentDefinitionsState = useSelector(selectComponentDefinitions);
   const componentDefinitions = Array.isArray(componentDefinitionsState) ? componentDefinitionsState : Object.values(componentDefinitionsState || {});
   
+  // Create stable keys that only change when structure actually changes
+  const elementsStructureKey = useMemo(() => {
+    return Object.entries(elements)
+      .map(([id, el]) => `${id}:${el.type}:${el.componentRef?.componentId || 'none'}:${el.parent}:${(el.children || []).join(',')}`)
+      .join('|');
+  }, [elements]);
+  
+  const componentDefsKey = useMemo(() => {
+    return componentDefinitions
+      .map(def => `${def.id}:${def.version}:${def.updatedAt}`)
+      .join('|');
+  }, [componentDefinitions]);
+  
   return useMemo(() => {
     const expandedElements: Record<string, CanvasElement> = {};
     const processedComponents = new Set<string>();
@@ -247,12 +260,13 @@ export function useExpandedElements(elements: Record<string, CanvasElement>): Re
       }
     }
     
-    console.log('Element expansion complete:', {
+    console.log('🔧 Component expansion executed:', {
       original: Object.keys(elements).length,
       expanded: Object.keys(expandedElements).length,
-      componentInstances: Object.values(elements).filter(e => e.componentRef).length
+      componentInstances: Object.values(elements).filter(e => e.componentRef).length,
+      trigger: 'structure-change'
     });
     
     return expandedElements;
-  }, [elements, componentDefinitions]);
+  }, [elementsStructureKey, componentDefsKey]);
 }
