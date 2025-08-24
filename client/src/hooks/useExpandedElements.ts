@@ -49,7 +49,7 @@ export function useExpandedElements(elements: Record<string, CanvasElement>): Re
       
       // CRITICAL: Handle ghost root properly - preserve hierarchy structure
       if (template?.isGhostRoot) {
-        console.log('Expanding ghost root component:', instance.id, componentDef.name);
+        // Expanding ghost root component
         
         // Instance becomes the ghost root container (invisible wrapper)
         expandedInstance = {
@@ -95,7 +95,7 @@ export function useExpandedElements(elements: Record<string, CanvasElement>): Re
           // CRITICAL: Expand the template's root element which contains the hierarchy  
           for (const templateChild of (template as any).children) {
             if (typeof templateChild === 'object' && templateChild.id) {
-              console.log('Expanding ghost root child:', templateChild.id, templateChild.type);
+              // Expanding ghost root child
               // Position template root relative to component instance
               const expandedChild = expandTemplateElement(templateChild, instance.id, instance, true);
               if (expandedChild) {
@@ -135,13 +135,7 @@ export function useExpandedElements(elements: Record<string, CanvasElement>): Re
         }
       }
       
-      console.log('Expanded component instance with ghost root:', {
-        componentName: componentDef.name,
-        instanceId: instance.id,
-        childrenCount: expandedInstance.children?.length || 0,
-        hasTemplate: !!(template as any).children,
-        isGhostRoot: template?.isGhostRoot
-      });
+      // Expanded component instance with ghost root
     }
     
     /**
@@ -211,7 +205,7 @@ export function useExpandedElements(elements: Record<string, CanvasElement>): Re
         
         for (const child of templateElement.children) {
           if (typeof child === 'object' && child.id) {
-            console.log('Expanding template child:', child.id, 'parent:', expandedId);
+            // Expanding template child
             const expandedChild = expandTemplateElement(child, expandedId, rootInstance);
             if (expandedChild) {
               childIds.push(expandedChild.id);
@@ -220,7 +214,7 @@ export function useExpandedElements(elements: Record<string, CanvasElement>): Re
         }
         
         expandedElement.children = childIds;
-        console.log('Template element expanded with children:', expandedElement.id, 'childCount:', childIds.length);
+        // Template element expanded with children
       }
       
       return expandedElement;
@@ -260,12 +254,7 @@ export function useExpandedElements(elements: Record<string, CanvasElement>): Re
       }
     }
     
-    console.log('🔧 Component expansion executed:', {
-      original: Object.keys(elements).length,
-      expanded: Object.keys(expandedElements).length,
-      componentInstances: Object.values(elements).filter(e => e.componentRef).length,
-      trigger: 'structure-change'
-    });
+    // Removed excessive logging for performance
     
     return expandedElements;
   }, [elementsStructureKey, componentDefsKey]);

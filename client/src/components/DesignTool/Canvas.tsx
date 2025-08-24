@@ -486,7 +486,7 @@ const Canvas: React.FC = () => {
   useEffect(() => {
     const handleDragHandleMouseDown = (e: CustomEvent) => {
       const { elementId, originalEvent } = e.detail;
-      console.log('DRAG HANDLE DEBUG - Received drag handle event for:', elementId);
+      // Received drag handle event
       
       // Get canvas rect for coordinate calculation
       const rect = canvasRef.current?.getBoundingClientRect();
@@ -503,7 +503,7 @@ const Canvas: React.FC = () => {
       dispatch(setDraggingForReorder(true)); // Start dragging immediately
       setIsDragFromHandle(true);
       
-      console.log('DRAG HANDLE DEBUG - Drag started immediately on mousedown');
+      // Drag started immediately on mousedown
     };
 
     window.addEventListener('dragHandleMouseDown', handleDragHandleMouseDown as EventListener);
@@ -539,7 +539,7 @@ const Canvas: React.FC = () => {
         const DRAG_THRESHOLD = 8; // pixels - require actual drag movement
         
         if (distance > DRAG_THRESHOLD) {
-          console.log('DRAG DEBUG - Threshold exceeded, starting drag for:', draggedElementId);
+          // Threshold exceeded, starting drag
           setDragThreshold(prev => ({ ...prev, exceeded: true }));
           dispatch(setDraggingForReorder(true));
           dispatch(setDragStart({ x: dragThreshold.x, y: dragThreshold.y }));
@@ -550,7 +550,7 @@ const Canvas: React.FC = () => {
       }
       
       // Element reordering (hand tool) - show precise insertion feedback
-      console.log('DRAG DEBUG - Mouse move during reorder:', { 
+      console.log('DRAG DEBUG - Mouse move during drag:', {
         draggedElementId, 
         x, y, 
         thresholdExceeded: dragThreshold.exceeded
@@ -616,7 +616,7 @@ const Canvas: React.FC = () => {
               'section', 'nav', 'header', 'footer', 'article',
               'video', 'audio', 'link', 'code', 'divider'].includes(selectedTool)) {
       // Creation tool hover detection for insertion feedback
-      console.log('Mouse move triggered, selectedTool:', selectedTool);
+      
       
       const hoveredElement = getElementAtPoint(x, y, currentElements, zoomLevel, draggedElementId);
       
@@ -627,7 +627,7 @@ const Canvas: React.FC = () => {
         return;
       }
 
-      console.log('Mouse move - hoveredElement:', hoveredElement.id);
+      
       setHoveredElementId(hoveredElement.id);
       
       // Also update Redux state for nested elements
@@ -652,21 +652,21 @@ const Canvas: React.FC = () => {
           if (relativeY < beforeZone) {
             setHoveredZone('before');
             dispatch(setHoveredElement({ elementId: hoveredElement.id, zone: 'before' }));
-            console.log('Hover zone: before');
+            
           } else if (relativeY > afterZone) {
             setHoveredZone('after');
             dispatch(setHoveredElement({ elementId: hoveredElement.id, zone: 'after' }));
-            console.log('Hover zone: after');
+            
           } else {
             setHoveredZone('inside');
             dispatch(setHoveredElement({ elementId: hoveredElement.id, zone: 'inside' }));
-            console.log('Hover zone: inside');
+            
           }
         }
       } else {
         setHoveredZone('inside');
         dispatch(setHoveredElement({ elementId: hoveredElement.id, zone: 'inside' }));
-        console.log('Hover zone: inside (default)');
+        
       }
     } else {
       // Clear hover state for other tools

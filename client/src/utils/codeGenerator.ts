@@ -175,9 +175,9 @@ ${styles}
     const classToElementMap = new Map<string, CanvasElement>();
     
     // Map classes to their first element to avoid duplicates
-    elements.forEach(element => {
+    elements.forEach((element: CanvasElement) => {
       if (element.classes && element.classes.length > 0) {
-        element.classes.forEach(className => {
+        element.classes.forEach((className: string) => {
           if (!processedClasses.has(className)) {
             processedClasses.add(className);
             classToElementMap.set(className, element);
@@ -200,8 +200,8 @@ ${styles}
     // Generate responsive breakpoints
     const breakpoints = Object.entries(this.project.breakpoints);
     breakpoints.forEach(([name, config]) => {
-      if (name !== 'mobile') {
-        cssRules.push(`@media (min-width: ${config.width}px) {
+      if (name !== 'mobile' && (config as any).width) {
+        cssRules.push(`@media (min-width: ${(config as any).width}px) {
     /* ${name} styles */
 }`);
       }

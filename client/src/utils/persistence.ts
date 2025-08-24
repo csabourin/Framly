@@ -334,7 +334,7 @@ export class PersistenceManager {
       this.saveCurrentProject();
     }, AUTO_SAVE_INTERVAL);
 
-    console.log('Auto-save ENABLED - every', AUTO_SAVE_INTERVAL / 1000, 'seconds');
+    // Auto-save enabled
   }
 
   stopAutoSave(): void {

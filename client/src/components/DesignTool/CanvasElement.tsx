@@ -803,7 +803,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     // Debug: Log border-related styles
     const borderStyles = Object.entries(baseStyles).filter(([key]) => key.includes('border'));
     if (borderStyles.length > 0) {
-      console.log(`Element ${element.id} border styles:`, borderStyles);
+      
     }
     
     return baseStyles;

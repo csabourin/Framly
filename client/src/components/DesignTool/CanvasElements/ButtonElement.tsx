@@ -76,8 +76,8 @@ const ButtonElement: React.FC<ButtonElementProps> = ({
     
     // Add default button styling if no custom styles applied
     const defaultButtonStyles = {
-      padding: '8px 16px',
-      borderRadius: '6px',
+      padding: '2px 2px',
+      borderRadius: '0px',
       border: '1px solid #d1d5db',
       backgroundColor: '#ffffff',
       color: '#374151',
@@ -86,7 +86,7 @@ const ButtonElement: React.FC<ButtonElementProps> = ({
       cursor: 'pointer',
       outline: 'none',
       transition: 'all 0.2s ease-in-out',
-      display: 'flex',
+      display: 'block',
       alignItems: 'center',
       justifyContent: 'center',
       textAlign: 'center' as const,
@@ -165,7 +165,7 @@ const ButtonElement: React.FC<ButtonElementProps> = ({
   };
 
   const handleTextSubmit = () => {
-    console.log('Button text submit:', { elementId: element.id, newText: editText, oldText: element.buttonText });
+    // Button text submit
     dispatch(updateElement({
       id: element.id,
       updates: { buttonText: editText }

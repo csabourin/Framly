@@ -82,10 +82,7 @@ const uiSlice = createSlice({
     
     setGridVisible: (state, action: PayloadAction<boolean>) => {
       state.isGridVisible = action.payload;
-      // Auto-save UI settings when grid visibility changes
-      import('../utils/persistence').then(({ persistenceManager }) => {
-        persistenceManager.saveCurrentProject();
-      });
+      // Note: Auto-save should be handled by middleware or effects, not in reducers
     },
     
     toggleComponentPanel: (state) => {
@@ -130,10 +127,7 @@ const uiSlice = createSlice({
     
     setZoomLevel: (state, action: PayloadAction<number>) => {
       state.zoomLevel = Math.max(0.25, Math.min(4, action.payload));
-      // Auto-save UI settings when zoom changes
-      import('../utils/persistence').then(({ persistenceManager }) => {
-        persistenceManager.saveCurrentProject();
-      });
+      // Note: Auto-save should be handled by middleware or effects, not in reducers
     },
     
     zoomIn: (state) => {
