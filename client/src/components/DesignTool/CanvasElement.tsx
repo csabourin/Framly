@@ -19,6 +19,7 @@ interface CanvasElementProps {
   hoveredZone?: 'before' | 'after' | 'inside' | null;
   hoveredElementId?: string | null;
   expandedContainerId?: string | null;
+  currentElements?: Record<string, CanvasElementType>; // Pass expanded elements from Canvas
 }
 
 // REMOVED: useHoverState hook - now using memoized selector
@@ -29,12 +30,15 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
   isHovered = false, 
   hoveredZone = null,
   hoveredElementId,
-  expandedContainerId = null
+  expandedContainerId = null,
+  currentElements: passedCurrentElements
 }) => {
   const dispatch = useDispatch();
   
   // CRITICAL: All hooks must be called FIRST for consistent hook order
-  const currentElements = useSelector(selectCurrentElements);
+  const rawCurrentElements = useSelector(selectCurrentElements);
+  // Use passed expanded elements if available, otherwise use raw elements
+  const currentElements = passedCurrentElements || rawCurrentElements;
   const selectedElementId = useSelector(selectSelectedElementId);
   const { selectedTool, isDraggingForReorder, draggedElementId, insertionIndicator, settings } = useSelector(selectUIState);
   const customClasses = useSelector(selectCustomClasses);
@@ -734,19 +738,11 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
         elementProps.dangerouslySetInnerHTML = { __html: content };
         return React.createElement(htmlTag, elementProps);
       } else {
-        return React.createElement(
-          htmlTag,
-          elementProps,
-          `${element.type.charAt(0).toUpperCase() + element.type.slice(1)} Element`
-        );
+        return React.createElement(htmlTag, elementProps);
       }
     }
 
-    return (
-      <div className="w-full h-full flex items-center justify-center text-gray-400">
-        {element.type}
-      </div>
-    );
+    return <div className="w-full h-full" />;
   };
 
   // Check if this element can accept drops using centralized logic
@@ -942,7 +938,11 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
       {((element.type === 'container' || element.type === 'rectangle' || element.isContainer || isComponentRoot) && element.children) && (
         element.children.map(childId => {
           const child = currentElements[childId];
-          return child ? (
+          if (!child) {
+            console.log('Child not found in currentElements:', childId, 'available:', Object.keys(currentElements).length);
+            return null;
+          }
+          return (
             <CanvasElement 
               key={child.id} 
               element={child}
@@ -951,8 +951,9 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
               hoveredZone={child.id === actualHoveredElementId ? actualHoveredZone : null}
               hoveredElementId={actualHoveredElementId}
               expandedContainerId={expandedContainerId}
+              currentElements={currentElements}
             />
-          ) : null;
+          );
         })
       )}
       

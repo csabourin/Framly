@@ -1213,6 +1213,7 @@ const Canvas: React.FC = () => {
               isHovered={element.id === hoveredElementId}
               hoveredZone={element.id === hoveredElementId ? hoveredZone : null}
               expandedContainerId={expandedContainerId}
+              currentElements={currentElements}
             />
           ) : null;
         })}

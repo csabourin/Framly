@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
 import { selectElement } from '../../store/canvasSlice';
 import { selectCurrentElements, selectSelectedElementId } from '../../store/selectors';
+import { useExpandedElements } from '../../hooks/useExpandedElements';
 import { CanvasElement } from '../../types/canvas';
 import { ChevronRight, ChevronDown, Eye, EyeOff, Square, Type, Image as ImageIcon, Box } from 'lucide-react';
 
@@ -112,8 +113,11 @@ const DOMTreeNode: React.FC<DOMTreeNodeProps> = ({ element, level, selectedEleme
 
 const DOMTreePanel: React.FC = () => {
   // Use new selectors for tab-based data
-  const currentElements = useSelector(selectCurrentElements);
+  const rawElements = useSelector(selectCurrentElements);
   const selectedElementId = useSelector(selectSelectedElementId);
+  
+  // CRITICAL: Use expanded elements to show component instance children in Element Tree
+  const currentElements = useExpandedElements(rawElements);
   const rootElement = currentElements.root;
   
   return (

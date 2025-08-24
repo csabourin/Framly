@@ -12,15 +12,19 @@ export class CodeGenerator {
   private project: Project;
   private cssOptimizer: CSSOptimizer;
   private customClasses: Record<string, CustomClass>;
+  private expandedElements?: Record<string, CanvasElement>; // CRITICAL: Support expanded elements
   
-  constructor(project: Project, customClasses: Record<string, CustomClass> = {}) {
+  constructor(project: Project, customClasses: Record<string, CustomClass> = {}, expandedElements?: Record<string, CanvasElement>) {
     this.project = project;
     this.cssOptimizer = new CSSOptimizer();
     this.customClasses = customClasses;
+    this.expandedElements = expandedElements; // Use expanded elements if provided
   }
   
   generateHTML(): string {
-    const rootElement = this.project.elements.root;
+    // CRITICAL: Use expanded elements when available to include component instance children
+    const elements = this.expandedElements || this.project.elements;
+    const rootElement = elements.root;
     if (!rootElement) return '';
     
     const html = `<!DOCTYPE html>
@@ -59,9 +63,11 @@ ${this.generateElementHTML(rootElement, 1)}
     } else if (element.type === 'image') {
       return `${indent}<img class="${classes}" src="placeholder.jpg" alt="Image placeholder" />`;
     } else if (element.children && element.children.length > 0) {
+      // CRITICAL: Use expanded elements when available for child lookup
+      const elements = this.expandedElements || this.project.elements;
       content = element.children
         .map(childId => {
-          const child = this.project.elements[childId];
+          const child = elements[childId];
           return child ? this.generateElementHTML(child, depth + 1) : '';
         })
         .join('\n');
@@ -125,7 +131,9 @@ ${styles}
     });
     
     // Generate element-specific styles for elements without classes
-    const elements = Object.values(this.project.elements);
+    // CRITICAL: Use expanded elements when available to include component instance children
+    const elementsRecord = this.expandedElements || this.project.elements;
+    const elements = Object.values(elementsRecord);
     elements.forEach(element => {
       // Only generate element styles if no custom classes are applied
       if (!element.classes || element.classes.length === 0) {
@@ -260,9 +268,11 @@ export default ${this.project.name.replace(/\s+/g, '')};`;
     } else if (element.type === 'image') {
       return `${indent}<img className="${classes}" src="placeholder.jpg" alt="Image placeholder" />`;
     } else if (element.children && element.children.length > 0) {
+      // CRITICAL: Use expanded elements when available for child lookup
+      const elements = this.expandedElements || this.project.elements;
       content = element.children
         .map(childId => {
-          const child = this.project.elements[childId];
+          const child = elements[childId];
           return child ? this.generateReactElementJSX(child, depth + 1) : '';
         })
         .join('\n');

@@ -43,10 +43,7 @@ const ComponentInstanceElement: React.FC<ComponentInstanceElementProps> = ({
     
     if (element.componentRef?.componentId && componentDefinition) {
       // Open component editor tab
-      dispatch(openComponentTab({
-        componentId: element.componentRef.componentId,
-        tabName: `Edit: ${componentDefinition.name}`
-      }));
+      dispatch(openComponentTab(element.componentRef.componentId));
     }
   }, [element.componentRef?.componentId, componentDefinition, dispatch]);
 
