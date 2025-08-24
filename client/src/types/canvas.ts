@@ -63,6 +63,10 @@ export interface CanvasElement {
     version: number; // Track component version for updates
     overrides?: Record<string, any>; // Future: per-instance prop overrides
   };
+  
+  // Component child markers (for expanded template children)
+  isComponentChild?: boolean;
+  componentRootId?: string;
 }
 
 export interface CSSProperties {

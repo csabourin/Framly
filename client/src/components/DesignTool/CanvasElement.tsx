@@ -50,15 +50,19 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
   const actualHoveredElementId = hoveredElementId !== undefined ? hoveredElementId : reduxHoverState.hoveredElementId;
   const actualHoveredZone = hoveredZone !== undefined ? hoveredZone : reduxHoverState.hoveredZone;
   
-  // CRITICAL: Component instances must render as read-only clones (not interactive children)
-  if (isComponentInstance(element)) {
-    return (
-      <ComponentInstanceElement
-        element={element}
-        isSelected={isSelected}
-        onSelect={() => dispatch(selectElement(element.id))}
-      />
-    );
+  // CRITICAL: Component instances are now expanded - check for component children
+  const isComponentChild = element.isComponentChild;
+  const isComponentRoot = isComponentInstance(element);
+  
+  // Component children are non-interactive (but still render normally)
+  if (isComponentChild) {
+    // Component children render normally but with restricted interaction
+    console.log('Rendering component child (non-interactive):', element.id);
+  }
+  
+  // Component roots get special chrome but children render as normal elements
+  if (isComponentRoot) {
+    console.log('Rendering component root with expanded children:', element.id);
   }
   
   // Check if this element is hovered
@@ -101,7 +105,15 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
   }, [isDraggingForReorder, insertionIndicator, draggedElementId, element.id, currentElements]);
 
   const handleClick = useCallback((e: React.MouseEvent) => {
-    console.log('CanvasElement click - selectedTool:', selectedTool, 'elementId:', element.id);
+    console.log('CanvasElement click - selectedTool:', selectedTool, 'elementId:', element.id, 'isComponentChild:', isComponentChild);
+    
+    // CRITICAL: Component children are not selectable - redirect to component root
+    if (isComponentChild && element.componentRootId) {
+      console.log('Component child clicked - selecting component root:', element.componentRootId);
+      e.stopPropagation();
+      dispatch(selectElement(element.componentRootId));
+      return;
+    }
     
     // Define non-container elements that cannot have children
     const nonContainerElements = ['text', 'heading', 'list', 'image'];

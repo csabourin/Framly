@@ -93,7 +93,11 @@ export function useExpandedElements(elements: Record<string, CanvasElement>): Re
         // Preserve all template properties
         styles: templateElement.styles ? { ...templateElement.styles } : {},
         classes: templateElement.classes ? [...templateElement.classes] : [],
-        children: []
+        children: [],
+        
+        // CRITICAL: Mark as component child (non-interactive)
+        isComponentChild: true,
+        componentRootId: rootInstance.id
       };
       
       // Add to expanded elements
