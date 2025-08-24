@@ -16,10 +16,10 @@ export function useExpandedElements(elements: Record<string, CanvasElement>): Re
   // Simplified dependencies to avoid expensive stringification
   const elementsLength = Object.keys(elements).length;
   const componentDefsLength = componentDefinitions.length;
+  const hasComponentInstances = Object.values(elements).some(el => el.componentRef?.componentId);
   
   return useMemo(() => {
-    // Performance optimization: if no component instances exist, return original elements
-    const hasComponentInstances = Object.values(elements).some(el => el.componentRef?.componentId);
+    // Performance optimization: if no component instances exist, return original elements immediately
     if (!hasComponentInstances) {
       return elements;
     }
@@ -254,5 +254,5 @@ export function useExpandedElements(elements: Record<string, CanvasElement>): Re
     // Removed excessive logging for performance
     
     return expandedElements;
-  }, [elements, componentDefinitions, elementsLength, componentDefsLength]);
+  }, [elements, componentDefinitions, elementsLength, componentDefsLength, hasComponentInstances]);
 }
