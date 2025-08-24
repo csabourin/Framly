@@ -68,9 +68,18 @@ const CreateComponentModal: React.FC = () => {
       if (!shouldContinue) return;
     }
 
-    // CRITICAL: Capture the complete element tree with all children and properties
-    console.log('Capturing complete element tree for component:', selectedElement.id);
+    // CRITICAL: Create component with ghost root that preserves element hierarchy
+    console.log('Creating component with ghost root wrapper for element hierarchy:', selectedElement.id);
     const completeTemplate = captureElementTree(selectedElement.id, currentElements);
+    
+    console.log('Component template created with ghost root hierarchy:', {
+      rootId: selectedElement.id,
+      templateId: completeTemplate.id,
+      templateType: completeTemplate.type,
+      isGhostRoot: completeTemplate.isGhostRoot,
+      hasChildren: !!(completeTemplate as any).children?.length,
+      ghostRootSize: `${completeTemplate.width}x${completeTemplate.height}`
+    });
     
     // Create spec-compliant ComponentDef with COMPLETE TREE
     const componentDef: ComponentDef = {

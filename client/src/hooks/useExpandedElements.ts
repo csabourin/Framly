@@ -31,36 +31,83 @@ export function useExpandedElements(elements: Record<string, CanvasElement>): Re
       }
       processedComponents.add(instance.id);
       
-      // Create the component instance root element
-      const instanceRoot: CanvasElement = {
-        ...instance,
-        parent: parentId || instance.parent,
-        children: [] // Will be populated with template children
-      };
-      
-      expandedElements[instance.id] = instanceRoot;
-      
-      // Expand template children if they exist
       const template = componentDef.template;
-      if ((template as any).children && Array.isArray((template as any).children)) {
-        const expandedChildIds: string[] = [];
+      let expandedInstance: CanvasElement;
+      
+      // CRITICAL: Handle ghost root properly - preserve hierarchy structure
+      if (template?.isGhostRoot) {
+        console.log('Expanding ghost root component:', instance.id, componentDef.name);
         
-        for (const templateChild of (template as any).children) {
-          if (typeof templateChild === 'object' && templateChild.id) {
-            const expandedChild = expandTemplateElement(templateChild, instance.id, instance);
-            if (expandedChild) {
-              expandedChildIds.push(expandedChild.id);
+        // Instance becomes the ghost root container (invisible wrapper)
+        expandedInstance = {
+          ...instance,
+          parent: parentId || instance.parent,
+          children: [], // Will contain template children
+          
+          // Ghost root styling - invisible container
+          styles: {
+            ...instance.styles,
+            backgroundColor: 'transparent',
+            border: 'none',
+            position: 'relative',
+            overflow: 'visible'
+          },
+          
+          // Mark as component root
+          isComponentRoot: true,
+          isGhostRoot: true
+        };
+        
+        expandedElements[instance.id] = expandedInstance;
+        
+        // Expand ghost root's children (the actual template content)
+        if ((template as any).children && Array.isArray((template as any).children)) {
+          const expandedChildIds: string[] = [];
+          
+          for (const templateChild of (template as any).children) {
+            if (typeof templateChild === 'object' && templateChild.id) {
+              const expandedChild = expandTemplateElement(templateChild, instance.id, instance);
+              if (expandedChild) {
+                expandedChildIds.push(expandedChild.id);
+              }
             }
           }
+          
+          expandedInstance.children = expandedChildIds;
         }
         
-        instanceRoot.children = expandedChildIds;
+      } else {
+        // Legacy template without ghost root
+        expandedInstance = {
+          ...instance,
+          parent: parentId || instance.parent,
+          children: [],
+          isComponentRoot: true
+        };
+        
+        expandedElements[instance.id] = expandedInstance;
+        
+        // Expand template children if they exist
+        if ((template as any).children && Array.isArray((template as any).children)) {
+          const expandedChildIds: string[] = [];
+          
+          for (const templateChild of (template as any).children) {
+            if (typeof templateChild === 'object' && templateChild.id) {
+              const expandedChild = expandTemplateElement(templateChild, instance.id, instance);
+              if (expandedChild) {
+                expandedChildIds.push(expandedChild.id);
+              }
+            }
+          }
+          
+          expandedInstance.children = expandedChildIds;
+        }
       }
       
       console.log('Expanded component instance with ghost root:', {
         componentName: componentDef.name,
         instanceId: instance.id,
-        childrenCount: instanceRoot.children?.length || 0,
+        childrenCount: expandedInstance.children?.length || 0,
         hasTemplate: !!(template as any).children,
         isGhostRoot: template?.isGhostRoot
       });
@@ -81,22 +128,31 @@ export function useExpandedElements(elements: Record<string, CanvasElement>): Re
       // Generate a unique ID for the expanded element
       const expandedId = `${rootInstance.id}-${templateElement.id}-${nanoid()}`;
       
-      // Create the expanded element with position relative to root instance
+      // CRITICAL: Preserve hierarchical positioning - don't stack elements
       const expandedElement: CanvasElement = {
         ...templateElement,
         id: expandedId,
         parent: parentId,
         
-        // Adjust position relative to component instance
+        // CRITICAL: Position relative to root instance, maintaining hierarchy
         x: rootInstance.x + (templateElement.x || 0),
         y: rootInstance.y + (templateElement.y || 0),
         
-        // Preserve all template properties
+        // Preserve all template properties exactly
         styles: templateElement.styles ? { ...templateElement.styles } : {},
         classes: templateElement.classes ? [...templateElement.classes] : [],
         children: [],
         
-        // CRITICAL: Mark as component child (non-interactive)
+        // Template properties
+        content: templateElement.content,
+        buttonText: templateElement.buttonText,
+        imageUrl: templateElement.imageUrl,
+        imageBase64: templateElement.imageBase64,
+        imageAlt: templateElement.imageAlt,
+        objectFit: templateElement.objectFit,
+        objectPosition: templateElement.objectPosition,
+        
+        // CRITICAL: Mark as component child (non-interactive) but preserve hierarchy
         isComponentChild: true,
         componentRootId: rootInstance.id
       };
