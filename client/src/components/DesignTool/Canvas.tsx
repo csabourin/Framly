@@ -456,31 +456,36 @@ const Canvas: React.FC = () => {
   }, [selectedTool, zoomLevel, currentElements, dispatch, hoveredElementId, hoveredZone]);
 
   const handleMouseDown = useCallback((e: React.MouseEvent) => {
+    // Only handle mouse down for selection and hand tools
+    if (!['select', 'hand'].includes(selectedTool)) {
+      return;
+    }
     const rect = canvasRef.current?.getBoundingClientRect();
     if (!rect) return;
     
     const x = (e.clientX - rect.left) / zoomLevel;
     const y = (e.clientY - rect.top) / zoomLevel;
     
-    console.log('DRAG DEBUG - Mouse down:', { selectedTool, selectedElementId: selectedElement?.id });
+    // console.log('DRAG DEBUG - Mouse down:', { selectedTool, selectedElementId: selectedElement?.id });
     
     if (selectedTool === 'select' && selectedElement) {
-      // Handle optional coordinates for drag calculation
-      const elementX = selectedElement.x || 0;
-      const elementY = selectedElement.y || 0;
-      dispatch(setDragStart({ x: x - elementX, y: y - elementY }));
-      dispatch(setDragging(true));
+      // FIXED: Don't automatically start dragging on mouse down - only select the element
+      // Dragging should only happen via drag handles
+      const clickedElement = getElementAtPoint(x, y, currentElements, zoomLevel);
+      if (clickedElement && clickedElement.id !== 'root') {
+        dispatch(selectElement(clickedElement.id));
+      }
     } else if (selectedTool === 'hand') {
       // With new drag handle system, regular clicks on elements should only select
       // Dragging only happens from drag handles (handled by dragHandleMouseDown event)
       const clickedElement = getElementAtPoint(x, y, currentElements, zoomLevel);
       if (clickedElement && clickedElement.id !== 'root') {
-        console.log('DRAG DEBUG - Hand tool clicked element (selection only):', clickedElement.id);
+        // console.log('DRAG DEBUG - Hand tool clicked element (selection only):', clickedElement.id);
         dispatch(selectElement(clickedElement.id));
         
         // Click-to-move behavior (if enabled in settings)
         if (settings.enableClickToMove) {
-          console.log('DRAG DEBUG - Click-to-move enabled - implement later');
+          // console.log('DRAG DEBUG - Click-to-move enabled - implement later');
           // TODO: Implement click-to-move behavior
         }
       }
@@ -555,11 +560,11 @@ const Canvas: React.FC = () => {
       }
       
       // Element reordering (hand tool) - show precise insertion feedback
-      console.log('DRAG DEBUG - Mouse move during drag:', {
-        draggedElementId, 
-        x, y, 
-        thresholdExceeded: dragThreshold.exceeded
-      });
+      // console.log('DRAG DEBUG - Mouse move during drag:', {
+      //   draggedElementId, 
+      //   x, y, 
+      //   thresholdExceeded: dragThreshold.exceeded
+      // });
       
       // Only show insertion feedback if we're actually dragging
       if (isDraggingForReorder) {
@@ -567,7 +572,7 @@ const Canvas: React.FC = () => {
         const insertionZone = detectInsertionZone(x, y, true);
       
       if (insertionZone) {
-        console.log('DRAG DEBUG - Insertion zone detected:', insertionZone);
+        // console.log('DRAG DEBUG - Insertion zone detected:', insertionZone);
         
         const targetElement = currentElements[insertionZone.elementId];
         // Different validation logic based on insertion type
@@ -582,14 +587,14 @@ const Canvas: React.FC = () => {
           canDropHere = parentElement ? isValidDropTarget(parentElement) : false;
         }
         
-        console.log('DRAG DEBUG - Drop validation during move:', { 
-          targetType: targetElement?.type, 
-          targetId: targetElement?.id,
-          canDropHere,
-          position: (insertionZone as any).position,
-          parentId: targetElement?.parent,
-          parentType: currentElements[targetElement?.parent || 'root']?.type
-        });
+        // console.log('DRAG DEBUG - Drop validation during move:', { 
+        //   targetType: targetElement?.type, 
+        //   targetId: targetElement?.id,
+        //   canDropHere,
+        //   position: (insertionZone as any).position,
+        //   parentId: targetElement?.parent,
+        //   parentType: currentElements[targetElement?.parent || 'root']?.type
+        // });
         
         setHoveredElementId(insertionZone.elementId);
         setHoveredZone((insertionZone as any).position === 'between' ? 'inside' : (insertionZone as any).position);
@@ -1131,7 +1136,7 @@ const Canvas: React.FC = () => {
   useEffect(() => {
     const handleGlobalMouseMove = (e: MouseEvent) => {
       if (isDragging || isDraggingForReorder) {
-        console.log('DRAG DEBUG - Global mouse move triggered');
+        // console.log('DRAG DEBUG - Global mouse move triggered');
         
         // Create a synthetic React event for consistency with proper buttons property
         const syntheticEvent = {
@@ -1148,7 +1153,7 @@ const Canvas: React.FC = () => {
 
     const handleGlobalMouseUp = () => {
       if (isDragging || isResizing || isDraggingForReorder) {
-        console.log('DRAG DEBUG - Global mouse up triggered');
+        // console.log('DRAG DEBUG - Global mouse up triggered');
         handleMouseUp();
       }
     };

@@ -552,20 +552,17 @@ export function getElementAtPoint(x: number, y: number, elements: Record<string,
     
     // Fallback to bounds-based detection if DOM detection fails
     if (!elements) {
-      console.log('No elements provided, falling back to root');
       return null;
     }
     const nonRootElements = Object.values(elements).filter(el => el.id !== 'root' && el.id !== draggedElementId);
     
     for (const element of nonRootElements) {
       if (isPointInElement(x, y, element, 4)) {
-        console.log('Bounds detection found:', element.id);
         return element;
       }
     }
     
     // Return root as final fallback
-    console.log('Falling back to root');
     return elements.root || null;
   } finally {
     // Restore the dragged element

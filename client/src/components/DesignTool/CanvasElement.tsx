@@ -926,7 +926,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
           }}
           onMouseDown={(e) => {
             e.stopPropagation();
-            console.log('DRAG HANDLE DEBUG - Mouse down on selection handle for:', element.id);
+            // console.log('DRAG HANDLE DEBUG - Mouse down on selection handle for:', element.id);
             
             // Auto-switch to hand tool and initiate drag
             dispatch(setSelectedTool('hand'));
