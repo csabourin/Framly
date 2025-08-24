@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
-import { selectCanvasProject, selectCustomClasses, selectExportModalState } from '../../store/selectors';
+import { selectCanvasProject, selectCustomClasses, selectExportModalState, selectCurrentElements } from '../../store/selectors';
 import { setExportModalOpen } from '../../store/uiSlice';
 import { CodeGenerator } from '../../utils/codeGenerator';
+import { useExpandedElements } from '../../hooks/useExpandedElements';
 import { 
   Dialog, 
   DialogContent, 
@@ -19,8 +20,12 @@ import { Code, Image, FileText, Download, X } from 'lucide-react';
 const ExportModal: React.FC = () => {
   const dispatch = useDispatch();
   const project = useSelector(selectCanvasProject);
+  const rawElements = useSelector(selectCurrentElements);
   const customClasses = useSelector(selectCustomClasses);
   const { isExportModalOpen } = useSelector(selectExportModalState);
+  
+  // CRITICAL: Use expanded elements for proper component instance code generation
+  const currentElements = useExpandedElements(rawElements);
   
   const [exportSettings, setExportSettings] = useState({
     includeResponsive: true,
@@ -35,7 +40,12 @@ const ExportModal: React.FC = () => {
   };
 
   const handleExport = () => {
-    const generator = new CodeGenerator(project, customClasses);
+    // CRITICAL: Pass expanded elements to CodeGenerator for proper component instance export
+    const projectForGeneration = {
+      ...project,
+      elements: rawElements // Use raw elements for project structure
+    };
+    const generator = new CodeGenerator(projectForGeneration, customClasses, currentElements);
     const { html, css, react } = generator.exportProject();
     
     switch (selectedFormat) {

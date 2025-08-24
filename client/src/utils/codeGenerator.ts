@@ -9,12 +9,12 @@ interface CustomClass {
 }
 
 export class CodeGenerator {
-  private project: Project;
+  private project: any; // Use any for now to handle dynamic project structure  
   private cssOptimizer: CSSOptimizer;
   private customClasses: Record<string, CustomClass>;
   private expandedElements?: Record<string, CanvasElement>; // CRITICAL: Support expanded elements
   
-  constructor(project: Project, customClasses: Record<string, CustomClass> = {}, expandedElements?: Record<string, CanvasElement>) {
+  constructor(project: any, customClasses: Record<string, CustomClass> = {}, expandedElements?: Record<string, CanvasElement>) {
     this.project = project;
     this.cssOptimizer = new CSSOptimizer();
     this.customClasses = customClasses;
@@ -23,7 +23,7 @@ export class CodeGenerator {
   
   generateHTML(): string {
     // CRITICAL: Use expanded elements when available to include component instance children
-    const elements = this.expandedElements || this.project.elements;
+    const elements = this.expandedElements || this.project.elements || {};
     const rootElement = elements.root;
     if (!rootElement) return '';
     
@@ -64,7 +64,7 @@ ${this.generateElementHTML(rootElement, 1)}
       return `${indent}<img class="${classes}" src="placeholder.jpg" alt="Image placeholder" />`;
     } else if (element.children && element.children.length > 0) {
       // CRITICAL: Use expanded elements when available for child lookup
-      const elements = this.expandedElements || this.project.elements;
+      const elements = this.expandedElements || this.project.elements || {};
       content = element.children
         .map(childId => {
           const child = elements[childId];
@@ -132,9 +132,9 @@ ${styles}
     
     // Generate element-specific styles for elements without classes
     // CRITICAL: Use expanded elements when available to include component instance children
-    const elementsRecord = this.expandedElements || this.project.elements;
+    const elementsRecord = this.expandedElements || this.project.elements || {};
     const elements = Object.values(elementsRecord);
-    elements.forEach(element => {
+    elements.forEach((element: any) => {
       // Only generate element styles if no custom classes are applied
       if (!element.classes || element.classes.length === 0) {
         const elementSelector = `[data-element-id="${element.id}"]`;
@@ -239,7 +239,7 @@ ${styles}
   
   generateReactComponent(): string {
     // CRITICAL: Use expanded elements when available for React generation too
-    const elements = this.expandedElements || this.project.elements;
+    const elements = this.expandedElements || this.project.elements || {};
     const rootElement = elements.root;
     if (!rootElement) return '';
     
@@ -271,7 +271,7 @@ export default ${this.project.name.replace(/\s+/g, '')};`;
       return `${indent}<img className="${classes}" src="placeholder.jpg" alt="Image placeholder" />`;
     } else if (element.children && element.children.length > 0) {
       // CRITICAL: Use expanded elements when available for child lookup
-      const elements = this.expandedElements || this.project.elements;
+      const elements = this.expandedElements || this.project.elements || {};
       content = element.children
         .map(childId => {
           const child = elements[childId];
@@ -336,7 +336,7 @@ ${indent}</${tag}>`;
   } {
     try {
       // CRITICAL: Use expanded elements for CSS optimization too
-      const elements = this.expandedElements || this.project.elements;
+      const elements = this.expandedElements || this.project.elements || {};
       const optimizedCSS = this.cssOptimizer.optimizeCSS(elements);
       
       return {

@@ -5,6 +5,7 @@ import { selectCanvasProject, selectCustomClasses, selectUIState } from '../../s
 import { setCodeModalOpen } from '../../store/uiSlice';
 import { selectCurrentElements } from '../../store/selectors';
 import { CodeGenerator } from '../../utils/codeGenerator';
+import { useExpandedElements } from '../../hooks/useExpandedElements';
 import { 
   Dialog, 
   DialogContent, 
@@ -18,9 +19,12 @@ import { Copy, Download, X } from 'lucide-react';
 const CodeModal: React.FC = () => {
   const dispatch = useDispatch();
   const project = useSelector(selectCanvasProject);
-  const currentElements = useSelector(selectCurrentElements);
+  const rawElements = useSelector(selectCurrentElements);
   const customClasses = useSelector(selectCustomClasses);
   const { isCodeModalOpen } = useSelector(selectUIState);
+  
+  // CRITICAL: Use expanded elements for proper component instance code generation
+  const currentElements = useExpandedElements(rawElements);
   
   const [activeTab, setActiveTab] = useState('html');
 
@@ -35,12 +39,12 @@ const CodeModal: React.FC = () => {
     }
     
     try {
-      // Create a project-like object with current elements for the code generator
+      // CRITICAL: Pass expanded elements to CodeGenerator for proper component instance code generation
       const projectForGeneration = {
         ...project,
-        elements: currentElements
+        elements: rawElements // Use raw elements for project structure
       };
-      const generator = new CodeGenerator(projectForGeneration, customClasses);
+      const generator = new CodeGenerator(projectForGeneration, customClasses, currentElements);
       return generator.exportProject();
     } catch (error) {
       console.error('Error generating code:', error);
@@ -50,7 +54,7 @@ const CodeModal: React.FC = () => {
         react: '// Error generating React component'
       };
     }
-  }, [project, currentElements, customClasses]);
+  }, [project, rawElements, currentElements, customClasses]);
 
   const handleClose = () => {
     dispatch(setCodeModalOpen(false));

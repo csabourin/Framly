@@ -44,14 +44,29 @@ export function useExpandedElements(elements: Record<string, CanvasElement>): Re
           parent: parentId || instance.parent,
           children: [], // Will contain template children
           
-          // Ghost root styling - invisible container
+          // CRITICAL: Ghost root should act like a container for proper layout
+          isContainer: true,
+          type: 'container',
+          
+          // CRITICAL: Default dimensions for ghost container
+          width: instance.width || template?.width || 200,
+          height: instance.height || template?.height || 100,
+          
+          // CRITICAL: Default styles for ghost container - inherit from instance but add container defaults
           styles: {
-            ...instance.styles,
+            display: 'flex',
+            flexDirection: 'column',
+            position: 'relative',
+            overflow: 'visible',
+            minWidth: '100px',
+            minHeight: '50px',
             backgroundColor: 'transparent',
             border: 'none',
-            position: 'relative',
-            overflow: 'visible'
+            ...instance.styles, // Apply any custom styles from the instance
           },
+          
+          // CRITICAL: Inherit classes from instance  
+          classes: instance.classes || [],
           
           // Mark as component root
           isComponentRoot: true,
@@ -132,7 +147,7 @@ export function useExpandedElements(elements: Record<string, CanvasElement>): Re
       // Generate a unique ID for the expanded element
       const expandedId = `${rootInstance.id}-${templateElement.id}-${nanoid()}`;
       
-      // CRITICAL: Component children should be positioned relative to their parent, not absolutely
+      // CRITICAL: Component children inherit properties from ghost root and template
       const expandedElement: CanvasElement = {
         ...templateElement,
         id: expandedId,

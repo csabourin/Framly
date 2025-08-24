@@ -32,7 +32,10 @@ import {
   Move3D as Spacing,
   Sparkles,
   Settings as SettingsIcon,
-  FileText
+  FileText,
+  Edit3,
+  Unlink,
+  Component
 } from 'lucide-react';
 import ButtonStateSelector from './ButtonStateSelector';
 
@@ -41,6 +44,9 @@ const PropertiesPanel: React.FC = () => {
   const currentElements = useSelector(selectCurrentElements);
   const selectedElementId = useSelector(selectSelectedElementId);
   const selectedElement = selectedElementId ? currentElements[selectedElementId] : null;
+  
+  // Check if selected element is a component instance
+  const isComponentInstance = selectedElement?.isComponentInstance || selectedElement?.componentRef;
   const [newClassName, setNewClassName] = useState('');
   const [selectedClassForEditing, setSelectedClassForEditing] = useState<string | null>(null);
   const [selectedButtonState, setSelectedButtonState] = useState<string>('default');
@@ -81,6 +87,151 @@ const PropertiesPanel: React.FC = () => {
           <div className="mb-2 text-lg">👆</div>
           <div className="font-medium">Click an element on the canvas</div>
           <div className="text-sm mt-1">Select any element to start editing its properties</div>
+        </div>
+      </aside>
+    );
+  }
+
+  // CRITICAL: Special Properties Panel for Component Instances
+  if (isComponentInstance) {
+    return (
+      <aside className="absolute right-0 top-12 bottom-8 w-80 bg-white border-l border-gray-200 overflow-y-auto z-40" data-testid="properties-panel">
+        <div className="p-4">
+          <div className="flex items-center gap-2 mb-4">
+            <Component className="w-5 h-5 text-blue-600" />
+            <h3 className="font-medium text-gray-900">Component Instance</h3>
+          </div>
+
+          <div className="space-y-4">
+            {/* Component Info */}
+            <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+              <div className="flex items-center gap-2 mb-2">
+                <Info className="w-4 h-4 text-blue-600" />
+                <span className="text-sm font-medium text-blue-900">Component Info</span>
+              </div>
+              <p className="text-sm text-blue-700">
+                This is an instance of a component. Changes to the component template will update all instances.
+              </p>
+              <div className="mt-2 text-xs text-blue-600">
+                ID: {selectedElement.id}
+              </div>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="space-y-3">
+              <Button 
+                onClick={() => {
+                  // TODO: Open component editor in new tab
+                  console.log('Edit component:', selectedElement.componentRef);
+                }}
+                className="w-full flex items-center gap-2"
+                variant="default"
+                data-testid="edit-component-button"
+              >
+                <Edit3 className="w-4 h-4" />
+                Edit Component Template
+              </Button>
+
+              <Button 
+                onClick={() => {
+                  // TODO: Release from component (create independent elements)
+                  console.log('Release from component:', selectedElement.id);
+                }}
+                className="w-full flex items-center gap-2"
+                variant="outline"
+                data-testid="release-component-button"
+              >
+                <Unlink className="w-4 h-4" />
+                Release from Component
+              </Button>
+            </div>
+
+            {/* Instance Properties */}
+            <div className="pt-4 border-t border-gray-200">
+              <h4 className="text-sm font-medium text-gray-900 mb-3">Instance Properties</h4>
+              <div className="space-y-3">
+                {/* Position */}
+                <div className="grid grid-cols-2 gap-2">
+                  <div>
+                    <Label htmlFor="x-position" className="text-xs">X Position</Label>
+                    <Input
+                      id="x-position"
+                      type="number"
+                      value={selectedElement.x || 0}
+                      onChange={(e) => {
+                        const newX = parseInt(e.target.value) || 0;
+                        dispatch(updateElement({ id: selectedElement.id, updates: { x: newX } }));
+                      }}
+                      className="h-8 text-xs"
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="y-position" className="text-xs">Y Position</Label>
+                    <Input
+                      id="y-position"
+                      type="number"
+                      value={selectedElement.y || 0}
+                      onChange={(e) => {
+                        const newY = parseInt(e.target.value) || 0;
+                        dispatch(updateElement({ id: selectedElement.id, updates: { y: newY } }));
+                      }}
+                      className="h-8 text-xs"
+                    />
+                  </div>
+                </div>
+
+                {/* Size */}
+                <div className="grid grid-cols-2 gap-2">
+                  <div>
+                    <Label htmlFor="width" className="text-xs">Width</Label>
+                    <Input
+                      id="width"
+                      type="number"
+                      value={selectedElement.width || ''}
+                      onChange={(e) => {
+                        const newWidth = parseInt(e.target.value) || undefined;
+                        dispatch(updateElement({ id: selectedElement.id, updates: { width: newWidth } }));
+                      }}
+                      className="h-8 text-xs"
+                      placeholder="Auto"
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="height" className="text-xs">Height</Label>
+                    <Input
+                      id="height"
+                      type="number"
+                      value={selectedElement.height || ''}
+                      onChange={(e) => {
+                        const newHeight = parseInt(e.target.value) || undefined;
+                        dispatch(updateElement({ id: selectedElement.id, updates: { height: newHeight } }));
+                      }}
+                      className="h-8 text-xs"
+                      placeholder="Auto"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Delete Button */}
+            <div className="pt-4 border-t border-gray-200">
+              <Button
+                onClick={() => {
+                  if (confirm('Are you sure you want to delete this component instance?')) {
+                    dispatch(deleteElement(selectedElement.id));
+                  }
+                }}
+                variant="destructive"
+                size="sm"
+                className="w-full flex items-center gap-2"
+                data-testid="delete-element-button"
+              >
+                <Trash2 className="w-4 h-4" />
+                Delete Instance
+              </Button>
+            </div>
+          </div>
         </div>
       </aside>
     );
