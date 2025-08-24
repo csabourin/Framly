@@ -960,7 +960,7 @@ const Canvas: React.FC = () => {
         console.log('Component dropped successfully:', data.component.name, 'at position:', insertPosition, 'in parent:', parentId);
       }
     } catch (error) {
-      console.error('Error handling drop:', error, data);
+      console.error('Error handling drop:', error);
       // Ensure we clear dragging state even on error
       setIsDraggingComponent(false);
       setHoveredElementId(null);
