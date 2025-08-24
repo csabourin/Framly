@@ -34,7 +34,7 @@ export function createDefaultElement(type: CanvasElement['type'], x?: number, y?
           backgroundColor: '#f3f4f6',
           border: '1px solid #d1d5db',
           borderRadius: '6px',
-          padding: '16px',
+          padding: '0px',
           width: '100%',
           minHeight: '80px',
           display: 'flex',
