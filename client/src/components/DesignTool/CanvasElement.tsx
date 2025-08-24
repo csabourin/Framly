@@ -817,10 +817,11 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     return baseStyles;
   }, [element.styles, element.classes, customClasses]);
 
-  // CRITICAL: Use original positioning logic for all elements EXCEPT component children
-  const basePosition = mergedStyles.position === 'absolute' ? 'absolute' : 'relative';
-  const baseLeft = mergedStyles.position === 'absolute' ? element.x : undefined;
-  const baseTop = mergedStyles.position === 'absolute' ? element.y : undefined;
+  // CRITICAL: Component children use relative positioning, everything else uses absolute
+  const useRelativePositioning = isComponentChild || isComponentRoot;
+  const basePosition = useRelativePositioning ? 'relative' : 'absolute';
+  const baseLeft = useRelativePositioning ? undefined : element.x;
+  const baseTop = useRelativePositioning ? undefined : element.y;
 
   const combinedStyles: React.CSSProperties = {
     position: basePosition,
@@ -887,15 +888,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
         ...combinedStyles,
         userSelect: selectedTool !== 'text' ? 'none' : 'auto',
         WebkitUserSelect: selectedTool !== 'text' ? 'none' : 'auto',
-        // CRITICAL: Component positioning fixes
-        ...(isComponentChild && element.parent !== 'root' ? {
-          position: 'absolute',
-          left: `${element.x || 0}px`,
-          top: `${element.y || 0}px`,
-        } : {}),
-        ...(isComponentRoot ? {
-          position: 'relative',
-        } : {}),
+        // CRITICAL: No additional positioning needed - combinedStyles handles it correctly
       }}
       data-element-id={element.id}
       data-container={element.isContainer ? 'true' : 'false'}

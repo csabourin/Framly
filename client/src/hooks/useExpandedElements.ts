@@ -132,19 +132,15 @@ export function useExpandedElements(elements: Record<string, CanvasElement>): Re
       // Generate a unique ID for the expanded element
       const expandedId = `${rootInstance.id}-${templateElement.id}-${nanoid()}`;
       
-      // CRITICAL: Preserve hierarchical positioning - don't stack elements
+      // CRITICAL: Component children should be positioned relative to their parent, not absolutely
       const expandedElement: CanvasElement = {
         ...templateElement,
         id: expandedId,
         parent: parentId,
         
-        // CRITICAL: Position correctly based on hierarchy level
-        x: isRootTemplateElement 
-          ? rootInstance.x + (templateElement.x || 0)  // Root template positioned relative to component
-          : (templateElement.x || 0),  // Children positioned relative to their parent
-        y: isRootTemplateElement 
-          ? rootInstance.y + (templateElement.y || 0)
-          : (templateElement.y || 0),
+        // CRITICAL: All component children use original template positions (relative positioning)
+        x: templateElement.x || 0,
+        y: templateElement.y || 0,
         
         // CRITICAL: Preserve ALL template properties and styling exactly
         styles: templateElement.styles ? { ...templateElement.styles } : {},

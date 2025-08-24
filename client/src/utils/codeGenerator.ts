@@ -238,7 +238,9 @@ ${styles}
   }
   
   generateReactComponent(): string {
-    const rootElement = this.project.elements.root;
+    // CRITICAL: Use expanded elements when available for React generation too
+    const elements = this.expandedElements || this.project.elements;
+    const rootElement = elements.root;
     if (!rootElement) return '';
     
     return `import React from 'react';
@@ -333,7 +335,9 @@ ${indent}</${tag}>`;
     cssAnalysis?: any;
   } {
     try {
-      const optimizedCSS = this.cssOptimizer.optimizeCSS(this.project.elements);
+      // CRITICAL: Use expanded elements for CSS optimization too
+      const elements = this.expandedElements || this.project.elements;
+      const optimizedCSS = this.cssOptimizer.optimizeCSS(elements);
       
       return {
         html: this.generateHTML(),
