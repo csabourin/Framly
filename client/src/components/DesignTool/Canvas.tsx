@@ -540,7 +540,7 @@ const Canvas: React.FC = () => {
     
     // Show insertion indicators for creation tools FIRST
     if (['rectangle', 'text', 'image', 'container', 'heading', 'list', 'button',
-         'input', 'textarea', 'checkbox', 'radio', 'select',
+         'input', 'textarea', 'checkbox', 'radio',
          'section', 'nav', 'header', 'footer', 'article',
          'video', 'audio', 'link', 'code', 'divider'].includes(selectedTool)) {
       const zone = detectInsertionZone(x, y, false, false);
