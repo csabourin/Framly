@@ -261,7 +261,8 @@ const canvasSlice = createSlice({
         currentTab.elements[id] = {
           ...currentTab.elements[id],
           x,
-          y
+          y,
+          isExplicitlyPositioned: true // Mark as explicitly positioned when dragged
         };
         currentTab.updatedAt = Date.now();
       }

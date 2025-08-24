@@ -73,6 +73,9 @@ export interface CanvasElement {
   
   // Component root marker (for expanded instances)
   isComponentRoot?: boolean;
+  
+  // Positioning flag - true when element has been explicitly dragged/positioned
+  isExplicitlyPositioned?: boolean;
 }
 
 export interface CSSProperties {
