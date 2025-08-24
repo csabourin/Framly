@@ -239,8 +239,10 @@ const canvasSlice = createSlice({
         const newElement: CanvasElement = {
           ...element,
           id: `${element.type}-${Date.now()}`,
-          x: element.x + 20,
-          y: element.y + 20,
+          // Only add coordinates if original element was positioned and at root level
+          ...(element.parent === 'root' && element.x !== undefined && element.y !== undefined 
+              ? { x: element.x + 20, y: element.y + 20 } 
+              : {}),
         };
         
         canvasSlice.caseReducers.addElement(state, { 
@@ -256,8 +258,11 @@ const canvasSlice = createSlice({
       
       const { id, x, y } = action.payload;
       if (currentTab.elements[id]) {
-        currentTab.elements[id].x = x;
-        currentTab.elements[id].y = y;
+        currentTab.elements[id] = {
+          ...currentTab.elements[id],
+          x,
+          y
+        };
         currentTab.updatedAt = Date.now();
       }
     },

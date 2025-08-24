@@ -819,10 +819,13 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
 
   // CRITICAL: Proper HTML positioning logic
   // 1. Component children always use relative positioning within their ghost container
-  // 2. Regular elements use absolute positioning ONLY if they have explicit x,y coordinates
-  // 3. Otherwise, regular elements follow normal document flow (static/relative)
+  // 2. Regular elements follow normal document flow UNLESS they have been explicitly dragged
+  // 3. Check if element has been explicitly positioned (not just created with coordinates)
   
-  const hasExplicitPosition = element.x !== undefined && element.y !== undefined;
+  // For regular elements: only use absolute positioning if they've been explicitly moved/dragged
+  // Elements created inside containers should NEVER be positioned absolutely
+  const wasExplicitlyPositioned = element.x !== undefined && element.y !== undefined && 
+                                  element.parent !== undefined && element.parent !== 'root';
   
   let basePosition: string;
   let baseLeft: number | undefined;
@@ -833,16 +836,29 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     basePosition = 'relative';
     baseLeft = undefined;
     baseTop = undefined;
-  } else if (hasExplicitPosition) {
-    // Regular elements that have been explicitly positioned (dragged)
+  } else if (element.parent === 'root' && element.x !== undefined && element.y !== undefined) {
+    // Only root-level elements that were explicitly placed get absolute positioning
     basePosition = 'absolute';
     baseLeft = element.x;
     baseTop = element.y;
   } else {
-    // Regular elements follow normal document flow
+    // ALL other regular elements follow normal document flow
     basePosition = 'static';
     baseLeft = undefined;
     baseTop = undefined;
+  }
+  
+  // DEBUG: Log positioning decisions
+  if (!isComponentChild && !isComponentRoot && !element.componentRef) {
+    console.log('Element positioning decision:', {
+      id: element.id.substring(0, 15) + '...',
+      type: element.type,
+      parent: element.parent,
+      hasCoords: element.x !== undefined && element.y !== undefined,
+      position: basePosition,
+      reasoning: basePosition === 'absolute' ? 'root-level with coords' : 
+                basePosition === 'static' ? 'document flow' : 'component child'
+    });
   }
 
   const combinedStyles: React.CSSProperties = {
