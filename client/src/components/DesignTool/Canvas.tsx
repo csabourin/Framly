@@ -452,7 +452,10 @@ const Canvas: React.FC = () => {
     console.log('DRAG DEBUG - Mouse down:', { selectedTool, selectedElementId: selectedElement?.id });
     
     if (selectedTool === 'select' && selectedElement) {
-      dispatch(setDragStart({ x: x - selectedElement.x, y: y - selectedElement.y }));
+      // Handle optional coordinates for drag calculation
+      const elementX = selectedElement.x || 0;
+      const elementY = selectedElement.y || 0;
+      dispatch(setDragStart({ x: x - elementX, y: y - elementY }));
       dispatch(setDragging(true));
     } else if (selectedTool === 'hand') {
       // With new drag handle system, regular clicks on elements should only select
