@@ -827,13 +827,13 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     basePosition = 'absolute';
     baseLeft = element.x;
     baseTop = element.y;
-    console.log('POSITIONING DEBUG - Explicitly positioned element:', {
-      id: element.id.substring(0, 15) + '...',
-      x: element.x,
-      y: element.y,
-      left: baseLeft,
-      top: baseTop
-    });
+    // console.log('POSITIONING DEBUG - Explicitly positioned element:', {
+    //   id: element.id.substring(0, 15) + '...',
+    //   x: element.x,
+    //   y: element.y,
+    //   left: baseLeft,
+    //   top: baseTop
+    // });
   } else {
     // ALL other elements follow normal document flow
     basePosition = element.parent && element.parent !== 'root' ? 'static' : 'relative';

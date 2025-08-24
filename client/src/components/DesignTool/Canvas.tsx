@@ -110,7 +110,7 @@ const Canvas: React.FC = () => {
       hoveredElement = getElementAtPoint(x, y, currentElements, zoomLevel, draggedElementId);
     }
     
-    console.log('detectInsertionZone - hoveredElement:', hoveredElement?.id);
+    // console.log('detectInsertionZone - hoveredElement:', hoveredElement?.id);
     
     // Skip the dragged element itself during drag operations
     if (forDrag && draggedElementId && hoveredElement?.id === draggedElementId) {
@@ -327,7 +327,7 @@ const Canvas: React.FC = () => {
 
 
   const handleCanvasClick = useCallback((e: React.MouseEvent) => {
-    console.log('Canvas click triggered - selectedTool:', selectedTool);
+    // console.log('Canvas click triggered - selectedTool:', selectedTool);
     e.preventDefault();
     e.stopPropagation();
     
@@ -362,31 +362,31 @@ const Canvas: React.FC = () => {
       let targetElementId = hoveredElementId;
       let targetZone = hoveredZone;
       
-      console.log('CLICK DEBUG - hoveredElementId:', hoveredElementId, 'hoveredZone:', hoveredZone);
-      console.log('CLICK DEBUG - clickedElement:', clickedElement?.id);
+      // console.log('CLICK DEBUG - hoveredElementId:', hoveredElementId, 'hoveredZone:', hoveredZone);
+      // console.log('CLICK DEBUG - clickedElement:', clickedElement?.id);
       
       // If hover state was lost, re-detect it
       if (!targetElementId && clickedElement) {
         targetElementId = clickedElement.id;
         targetZone = 'inside'; // Default to inside for direct clicks
-        console.log('CLICK DEBUG - Using clicked element:', targetElementId);
+        // console.log('CLICK DEBUG - Using clicked element:', targetElementId);
       }
       
       // Validate the target element can accept new elements
       const targetElement = targetElementId ? currentElements[targetElementId] : null;
       const canInsertInTarget = targetElement ? isValidDropTarget(targetElement) : true;
       
-      console.log('CLICK DEBUG - Final target:', targetElementId, 'zone:', targetZone, 'canInsert:', canInsertInTarget);
+      // console.log('CLICK DEBUG - Final target:', targetElementId, 'zone:', targetZone, 'canInsert:', canInsertInTarget);
       
       if (targetElementId && targetZone && targetElementId !== 'root' && canInsertInTarget) {
-        console.log('CLICK DEBUG - Creating element inside:', targetElementId);
+        // console.log('CLICK DEBUG - Creating element inside:', targetElementId);
         
         // Create element without explicit coordinates for document flow
         const newElement = createDefaultElement(selectedTool as any);
         
         if (targetZone === 'inside') {
           // Insert inside the target element
-          console.log('CLICK DEBUG - Dispatching addElement with parentId:', targetElementId);
+          // console.log('CLICK DEBUG - Dispatching addElement with parentId:', targetElementId);
           dispatch(addElement({ 
             element: newElement, 
             parentId: targetElementId,
@@ -397,7 +397,7 @@ const Canvas: React.FC = () => {
           const targetElement = currentElements[targetElementId];
           const parentId = targetElement?.parent || 'root';
           
-          console.log('CLICK DEBUG - Dispatching addElement as sibling, parentId:', parentId);
+          // console.log('CLICK DEBUG - Dispatching addElement as sibling, parentId:', parentId);
           dispatch(addElement({ 
             element: newElement, 
             parentId: parentId,

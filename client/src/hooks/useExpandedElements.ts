@@ -13,20 +13,17 @@ export function useExpandedElements(elements: Record<string, CanvasElement>): Re
   const componentDefinitionsState = useSelector(selectComponentDefinitions);
   const componentDefinitions = Array.isArray(componentDefinitionsState) ? componentDefinitionsState : Object.values(componentDefinitionsState || {});
   
-  // Create stable keys that only change when structure actually changes
-  const elementsStructureKey = useMemo(() => {
-    return Object.entries(elements)
-      .map(([id, el]) => `${id}:${el.type}:${el.componentRef?.componentId || 'none'}:${el.parent}:${(el.children || []).join(',')}`)
-      .join('|');
-  }, [elements]);
-  
-  const componentDefsKey = useMemo(() => {
-    return componentDefinitions
-      .map(def => `${def.id}:${def.version}:${def.updatedAt}`)
-      .join('|');
-  }, [componentDefinitions]);
+  // Simplified dependencies to avoid expensive stringification
+  const elementsLength = Object.keys(elements).length;
+  const componentDefsLength = componentDefinitions.length;
   
   return useMemo(() => {
+    // Performance optimization: if no component instances exist, return original elements
+    const hasComponentInstances = Object.values(elements).some(el => el.componentRef?.componentId);
+    if (!hasComponentInstances) {
+      return elements;
+    }
+    
     const expandedElements: Record<string, CanvasElement> = {};
     const processedComponents = new Set<string>();
     
@@ -257,5 +254,5 @@ export function useExpandedElements(elements: Record<string, CanvasElement>): Re
     // Removed excessive logging for performance
     
     return expandedElements;
-  }, [elementsStructureKey, componentDefsKey]);
+  }, [elements, componentDefinitions, elementsLength, componentDefsLength]);
 }
