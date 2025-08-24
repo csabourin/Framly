@@ -538,6 +538,30 @@ const Canvas: React.FC = () => {
     const x = (e.clientX - rect.left) / zoomLevel;
     const y = (e.clientY - rect.top) / zoomLevel;
     
+    // Show insertion indicators for creation tools FIRST
+    if (['rectangle', 'text', 'image', 'container', 'heading', 'list', 'button',
+         'input', 'textarea', 'checkbox', 'radio', 'select',
+         'section', 'nav', 'header', 'footer', 'article',
+         'video', 'audio', 'link', 'code', 'divider'].includes(selectedTool)) {
+      const zone = detectInsertionZone(x, y, false, false);
+      setInsertionIndicator(zone);
+      
+      // Also set hover state for better visual feedback
+      if (zone) {
+        setHoveredElementId(zone.elementId);
+        setHoveredZone((zone as any).position === 'between' ? 'inside' : (zone as any).position);
+        dispatch(setHoveredElement({ 
+          elementId: zone.elementId, 
+          zone: (zone as any).position === 'between' ? 'inside' : (zone as any).position
+        }));
+      } else {
+        setHoveredElementId(null);
+        setHoveredZone(null);
+        dispatch(setHoveredElement({ elementId: null, zone: null }));
+      }
+      return; // Early return to avoid processing other hover logic
+    }
+    
     // Check if mouse button is down (only for real React events, not synthetic ones)
     const isMouseButtonDown = e.buttons > 0;
     
@@ -632,62 +656,19 @@ const Canvas: React.FC = () => {
         setExpandedContainerId(null);
       }
       } // Close isDraggingForReorder check
-    } else if (['rectangle', 'text', 'image', 'container', 'heading', 'list', 'button',
-              'input', 'textarea', 'checkbox', 'radio', 'select',
-              'section', 'nav', 'header', 'footer', 'article',
-              'video', 'audio', 'link', 'code', 'divider'].includes(selectedTool)) {
-      // Creation tool hover detection for insertion feedback
-      
-      
+    } else if (selectedTool === 'select' || selectedTool === 'hand') {
+      // Handle selection/hand tool hover detection
       const hoveredElement = getElementAtPoint(x, y, currentElements, zoomLevel, draggedElementId);
       
-      if (!hoveredElement) {
-        // console.log('No element found at point');
+      if (hoveredElement && hoveredElement.id !== 'root') {
+        setHoveredElementId(hoveredElement.id);
+        setHoveredZone(null);
+        dispatch(setHoveredElement({ elementId: hoveredElement.id, zone: null }));
+      } else {
         setHoveredElementId(null);
         setHoveredZone(null);
-        return;
-      }
-
-      
-      setHoveredElementId(hoveredElement.id);
-      
-      // Also update Redux state for nested elements
-      dispatch(setHoveredElement({ elementId: hoveredElement.id, zone: null }));
-
-      // Determine insertion zone for non-root elements
-      if (hoveredElement.id !== 'root' && (hoveredElement.isContainer || hoveredElement.type === 'container' || hoveredElement.type === 'rectangle')) {
-        const elementDiv = document.querySelector(`[data-element-id="${hoveredElement.id}"]`) as HTMLElement;
-        if (elementDiv) {
-          const elementRect = elementDiv.getBoundingClientRect();
-          const canvasRect = canvasRef.current?.getBoundingClientRect();
-          if (!canvasRect) return;
-          
-          const elementX = (elementRect.left - canvasRect.left) / zoomLevel;
-          const elementY = (elementRect.top - canvasRect.top) / zoomLevel;
-          const elementHeight = elementRect.height / zoomLevel;
-          
-          const relativeY = y - elementY;
-          const beforeZone = 8;
-          const afterZone = elementHeight - 8;
-          
-          if (relativeY < beforeZone) {
-            setHoveredZone('before');
-            dispatch(setHoveredElement({ elementId: hoveredElement.id, zone: 'before' }));
-            
-          } else if (relativeY > afterZone) {
-            setHoveredZone('after');
-            dispatch(setHoveredElement({ elementId: hoveredElement.id, zone: 'after' }));
-            
-          } else {
-            setHoveredZone('inside');
-            dispatch(setHoveredElement({ elementId: hoveredElement.id, zone: 'inside' }));
-            
-          }
-        }
-      } else {
-        setHoveredZone('inside');
-        dispatch(setHoveredElement({ elementId: hoveredElement.id, zone: 'inside' }));
-        
+        dispatch(setHoveredElement({ elementId: null, zone: null }));
+        setInsertionIndicator(null);
       }
     } else {
       // Clear hover state for other tools
