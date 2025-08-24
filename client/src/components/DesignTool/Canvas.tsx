@@ -1,7 +1,7 @@
 import React, { useRef, useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
-import { selectElement, addElement, moveElement, resizeElement, reorderElement, deleteElement } from '../../store/canvasSlice';
+import { selectElement, addElement, moveElement, resizeElement, reorderElement, deleteElement, copyElement, cutElement, pasteElement } from '../../store/canvasSlice';
 import { setDragging, setDragStart, setResizing, setResizeHandle, resetUI, setDraggedElement, setDraggingForReorder, setHoveredElement, setSelectedTool } from '../../store/uiSlice';
 import { createDefaultElement, getElementAtPoint, calculateSnapPosition, isValidDropTarget } from '../../utils/canvas';
 import { selectCurrentElements, selectSelectedElementId, selectCanvasProject, selectCanvasUIState } from '../../store/selectors';
@@ -776,6 +776,41 @@ const Canvas: React.FC = () => {
     }
     setIsDragFromHandle(false);
   }, [dispatch, isDraggingForReorder, draggedElementId, hoveredElementId, hoveredZone, insertionIndicator, currentElements, dragThreshold, setDragThreshold, isDragFromHandle]);
+
+  // Keyboard shortcuts for copy/cut/paste
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Ignore keyboard shortcuts when typing in input fields
+      const target = e.target as HTMLElement;
+      if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.contentEditable === 'true') {
+        return;
+      }
+      
+      const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+      const ctrlKey = isMac ? e.metaKey : e.ctrlKey;
+      
+      if (ctrlKey && selectedElementId && selectedElementId !== 'root') {
+        if (e.key === 'c' || e.key === 'C') {
+          e.preventDefault();
+          console.log('Copy element:', selectedElementId);
+          dispatch(copyElement(selectedElementId));
+        } else if (e.key === 'x' || e.key === 'X') {
+          e.preventDefault();
+          console.log('Cut element:', selectedElementId);
+          dispatch(cutElement(selectedElementId));
+        }
+      }
+      
+      if (ctrlKey && (e.key === 'v' || e.key === 'V')) {
+        e.preventDefault();
+        console.log('Paste element');
+        dispatch(pasteElement());
+      }
+    };
+    
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [dispatch, selectedElementId]);
 
   // Handle drop events for components
   const handleDragOver = useCallback((e: React.DragEvent) => {

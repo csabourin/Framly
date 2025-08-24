@@ -10,6 +10,7 @@ import { isValidDropTarget } from '../../utils/canvas';
 import { selectCurrentElements } from '../../store/selectors';
 import { isComponentInstance } from '../../utils/componentInstances';
 import ComponentInstanceElement from './ComponentInstanceElement';
+import ElementContextMenu from './ElementContextMenu';
 
 
 interface CanvasElementProps {
@@ -871,48 +872,49 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
   const selectionState = getSelectionState();
 
   return (
-    <div
-      ref={elementRef}
-      className={`
-        selectable-block
-        canvas-element
-        ${element.classes?.join(' ') || ''}
-        ${getSiblingSpacingClass()}
-        ${isDragActive ? 'drag-transition-padding' : ''}
-        ${isExpandedContainer ? 'drag-expand-padding' : ''}
-      `}
-      data-state={selectionState}
-      data-locked="false"
-      data-invalid="false"
-      aria-selected={isSelected}
-      tabIndex={0}
-      onClick={handleClick}
-      onMouseDown={(e) => {
-        // Prevent mouse down from interfering with canvas click detection
-        if (!['select', 'hand'].includes(selectedTool)) {
+    <ElementContextMenu elementId={element.id}>
+      <div
+        ref={elementRef}
+        className={`
+          selectable-block
+          canvas-element
+          ${element.classes?.join(' ') || ''}
+          ${getSiblingSpacingClass()}
+          ${isDragActive ? 'drag-transition-padding' : ''}
+          ${isExpandedContainer ? 'drag-expand-padding' : ''}
+        `}
+        data-state={selectionState}
+        data-locked="false"
+        data-invalid="false"
+        aria-selected={isSelected}
+        tabIndex={0}
+        onClick={handleClick}
+        onMouseDown={(e) => {
+          // Prevent mouse down from interfering with canvas click detection
+          if (!['select', 'hand'].includes(selectedTool)) {
+            e.preventDefault();
+          }
+          // Prevent text selection during drag operations
+          if (selectedTool === 'hand') {
+            e.preventDefault();
+          }
+        }}
+        onDragStart={(e) => {
+          // Prevent default drag behavior that interferes with our custom drag
           e.preventDefault();
-        }
-        // Prevent text selection during drag operations
-        if (selectedTool === 'hand') {
-          e.preventDefault();
-        }
-      }}
-      onDragStart={(e) => {
-        // Prevent default drag behavior that interferes with our custom drag
-        e.preventDefault();
-      }}
-      style={{
-        ...combinedStyles,
-        userSelect: selectedTool !== 'text' ? 'none' : 'auto',
-        WebkitUserSelect: selectedTool !== 'text' ? 'none' : 'auto',
-        // CRITICAL: No additional positioning needed - combinedStyles handles it correctly
-      }}
-      data-element-id={element.id}
-      data-container={element.isContainer ? 'true' : 'false'}
-      data-accepts={element.isContainer ? 'text,image,button,rectangle,heading,container' : ''}
-      data-element-type={element.type}
-      data-testid={`canvas-element-${element.id}`}
-    >
+        }}
+        style={{
+          ...combinedStyles,
+          userSelect: selectedTool !== 'text' ? 'none' : 'auto',
+          WebkitUserSelect: selectedTool !== 'text' ? 'none' : 'auto',
+          // CRITICAL: No additional positioning needed - combinedStyles handles it correctly
+        }}
+        data-element-id={element.id}
+        data-container={element.isContainer ? 'true' : 'false'}
+        data-accepts={element.isContainer ? 'text,image,button,rectangle,heading,container' : ''}
+        data-element-type={element.type}
+        data-testid={`canvas-element-${element.id}`}
+      >
       {/* Professional Selection/Drag Handle - Always visible when selected */}
       {isSelected && (
         <div 
@@ -977,6 +979,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
         </>
       )}
     </div>
+    </ElementContextMenu>
   );
 };
 
