@@ -412,10 +412,12 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
             src={imageSource}
             alt={element.imageAlt || 'Image'}
             title={element.imageTitle}
-            className="w-full h-full"
+            className="h-full"
             style={{
               objectFit: element.objectFit || 'contain',
-              objectPosition: element.objectPosition || 'center'
+              objectPosition: element.objectPosition || 'center',
+              width: 'auto',
+              maxWidth: '100%'
             }}
             onDoubleClick={(e) => {
               e.stopPropagation();
@@ -426,7 +428,12 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
       } else {
         return (
           <div 
-            className="w-full h-full flex items-center justify-center text-gray-500 bg-gray-100 rounded border-2 border-dashed overflow-hidden cursor-pointer hover:bg-gray-200 transition-colors"
+            className="h-full flex items-center justify-center text-gray-500 bg-gray-100 rounded border-2 border-dashed overflow-hidden cursor-pointer hover:bg-gray-200 transition-colors"
+            style={{ 
+              width: 'auto',
+              maxWidth: '100%',
+              minWidth: '120px'
+            }}
             onDoubleClick={(e) => {
               e.stopPropagation();
               // Focus on the image upload section in properties panel
