@@ -165,6 +165,7 @@ const ButtonElement: React.FC<ButtonElementProps> = ({
   };
 
   const handleTextSubmit = () => {
+    console.log('Button text submit:', { elementId: element.id, newText: editText, oldText: element.buttonText });
     dispatch(updateElement({
       id: element.id,
       updates: { buttonText: editText }

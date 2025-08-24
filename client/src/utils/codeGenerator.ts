@@ -57,6 +57,8 @@ ${this.generateElementHTML(rootElement, 1)}
       content = element.content;
     } else if (element.type === 'heading' && element.content) {
       content = element.content;
+    } else if (element.type === 'button' && element.buttonText) {
+      content = element.buttonText;
     } else if (element.type === 'list' && element.listItems) {
       const listItems = element.listItems.map(item => `${indent}    <li>${item}</li>`).join('\n');
       content = '\n' + listItems + '\n' + indent;
@@ -89,6 +91,8 @@ ${indent}</${tag}>`;
       case 'heading':
         const headingLevel = element.headingLevel || 1;
         return `h${headingLevel}`;
+      case 'button':
+        return 'button';
       case 'list':
         const listType = element.listType || 'unordered';
         return listType === 'ordered' ? 'ol' : 'ul';
@@ -267,6 +271,8 @@ export default ${this.project.name.replace(/\s+/g, '')};`;
     
     if (element.type === 'text' && element.content) {
       content = element.content;
+    } else if (element.type === 'button' && element.buttonText) {
+      content = element.buttonText;
     } else if (element.type === 'image') {
       return `${indent}<img className="${classes}" src="placeholder.jpg" alt="Image placeholder" />`;
     } else if (element.children && element.children.length > 0) {
