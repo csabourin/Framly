@@ -1193,11 +1193,11 @@ const Canvas: React.FC = () => {
           ) : null;
         })}
         
-        {/* CRITICAL: Render expanded component children that aren't in root.children */}
+        {/* CRITICAL: Render ONLY component children that aren't in root.children */}
         {Object.values(currentElements).map(element => {
-          // Only render elements that aren't already rendered as root children
-          // and aren't the root element itself
+          // Only render actual component children that are not direct root children
           if (element.id !== 'root' && 
+              element.isComponentChild && // CRITICAL: Only render component children
               element.parent !== 'root' && 
               element.parent !== null && 
               currentElements[element.parent] &&
