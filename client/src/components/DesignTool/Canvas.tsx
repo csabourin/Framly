@@ -536,7 +536,7 @@ const Canvas: React.FC = () => {
       }));
     } else if (draggedElementId) {
       // Handle drag threshold and reordering logic
-      if (!dragThreshold.exceeded) {
+      if (!dragThreshold.exceeded && !isDragFromHandle) {
         const distance = Math.sqrt(
           Math.pow(x - dragThreshold.x, 2) + Math.pow(y - dragThreshold.y, 2)
         );
@@ -1221,9 +1221,9 @@ const Canvas: React.FC = () => {
         data-testid="canvas-container"
       >
         {/* Render ALL Canvas Elements - including expanded component children */}
-        {rootElement.children?.map((childId: string) => {
+        {/* First, ensure we have unique children and filter out any missing elements */}
+        {Array.from(new Set(rootElement.children || [])).map((childId: string) => {
           const element = currentElements[childId];
-          // Log missing elements for debugging
           if (!element) {
             console.warn('Missing element in currentElements:', childId);
             return null;
