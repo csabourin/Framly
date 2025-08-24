@@ -272,19 +272,84 @@ const canvasSlice = createSlice({
       const element = currentTab.elements[elementId];
       
       if (element) {
-        const newElement: CanvasElement = {
-          ...element,
-          id: `${element.type}-${Date.now()}`,
-          // Only add coordinates if original element was positioned and at root level
-          ...(element.parent === 'root' && element.x !== undefined && element.y !== undefined 
-              ? { x: element.x + 20, y: element.y + 20 } 
-              : {}),
+        // Recursively copy element and all its children (same logic as copy)
+        const copyElementTree = (el: CanvasElement): CanvasElement => {
+          const copiedElement = JSON.parse(JSON.stringify(el));
+          
+          // If element has children, recursively copy them too
+          if (el.children && el.children.length > 0) {
+            copiedElement.childrenData = el.children.map(childId => {
+              const child = currentTab.elements[childId];
+              return child ? copyElementTree(child) : null;
+            }).filter(Boolean);
+            
+            // Clear the original children array to prevent duplication
+            copiedElement.children = [];
+          }
+          
+          return copiedElement;
         };
         
-        canvasSlice.caseReducers.addElement(state, { 
-          payload: { element: newElement, parentId: element.parent },
-          type: 'canvas/addElement'
-        });
+        // Create clipboard data for the element tree
+        const clipboardData = copyElementTree(element);
+        
+        // Recursively generate new IDs and create the duplicated element tree
+        const duplicateElementTree = (element: CanvasElement, parentId: string, timestamp?: number): string => {
+          // Use a unique timestamp for each element to ensure no ID collisions
+          const uniqueTimestamp = timestamp || Date.now();
+          const uniqueId = `${element.type}-${uniqueTimestamp}-${nanoid(9)}`;
+          
+          const newElement: CanvasElement = {
+            ...element,
+            id: uniqueId,
+            parent: parentId,
+            // Offset position slightly so it's visible as a new element
+            ...(element.x !== undefined && element.y !== undefined 
+              ? { x: element.x + 20, y: element.y + 20 } 
+              : {}),
+          };
+          
+          // Remove childrenData if it exists (it's temporary storage)
+          delete (newElement as any).childrenData;
+          
+          // Initialize children array
+          newElement.children = [];
+          
+          // Add the new element to the state
+          currentTab.elements[newElement.id] = newElement;
+          
+          // Handle children recursively - only process childrenData
+          if ((element as any).childrenData && (element as any).childrenData.length > 0) {
+            (element as any).childrenData.forEach((childData: CanvasElement, index: number) => {
+              // Use a unique timestamp for each child to prevent ID collisions
+              const childTimestamp = uniqueTimestamp + index + 1;
+              const childId = duplicateElementTree(childData, newElement.id, childTimestamp);
+              if (childId && newElement.children) {
+                newElement.children.push(childId);
+              }
+            });
+          }
+          
+          return newElement.id;
+        };
+        
+        // Create the duplicated element tree
+        const baseTimestamp = Date.now();
+        const newElementId = duplicateElementTree(clipboardData, element.parent || 'root', baseTimestamp);
+        
+        // Add the root element to its parent's children array
+        const parent = currentTab.elements[element.parent || 'root'];
+        if (parent) {
+          if (!parent.children) {
+            parent.children = [];
+          }
+          parent.children.push(newElementId);
+        }
+        
+        // Select the new element
+        currentTab.viewSettings.selectedElementId = newElementId;
+        currentTab.updatedAt = Date.now();
+        canvasSlice.caseReducers.saveToHistory(state);
       }
     },
     
