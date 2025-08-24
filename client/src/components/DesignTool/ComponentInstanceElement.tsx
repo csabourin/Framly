@@ -109,7 +109,11 @@ const ComponentInstanceElement: React.FC<ComponentInstanceElementProps> = ({
         {/* Render element content based on type */}
         {element.type === 'text' && (
           <span style={{ color: '#1f2937', fontSize: '14px' }}>
-            {element.content || 'Text Component'}
+            {/* Strip HTML tags for clean text display */}
+            {(element.content || 'Text Component')
+              .replace(/<[^>]*>/g, '') // Remove all HTML tags
+              .replace(/&nbsp;/g, ' ') // Convert &nbsp; to regular spaces
+              .trim()}
           </span>
         )}
         {element.type === 'button' && (
@@ -230,7 +234,11 @@ const ComponentInstanceElement: React.FC<ComponentInstanceElementProps> = ({
                 )
               ))
             }}>
-              {template.content || element.content || 'Text Content'}
+              {/* Strip HTML tags and render clean text */}
+              {(template.content || element.content || 'Text Content')
+                .replace(/<[^>]*>/g, '') // Remove all HTML tags
+                .replace(/&nbsp;/g, ' ') // Convert &nbsp; to regular spaces
+                .trim()}
             </span>
           )}
           

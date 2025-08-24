@@ -932,12 +932,13 @@ const Canvas: React.FC = () => {
         
         const componentDef: ComponentDef = data.component;
         
-        // Create instance element with proper positioning and referencing
+        // Create instance element with proper insertion positioning (NO free x,y coordinates)
         const instanceElement: CanvasElementType = {
           id: `component-instance-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
           type: componentDef.template.type,
-          x: x,
-          y: y,
+          // CRITICAL: Use template size but NO absolute positioning - let insertion system handle placement
+          x: 0, // Will be set by insertion system
+          y: 0, // Will be set by insertion system  
           width: componentDef.template.width || 100,
           height: componentDef.template.height || 40,
           styles: { ...componentDef.template.styles },
@@ -967,15 +968,16 @@ const Canvas: React.FC = () => {
           })
         };
         
-        console.log('Adding component instance:', {
+        console.log('Adding component instance via insertion system:', {
           componentName: componentDef.name,
           instanceId: instanceElement.id,
           templateType: componentDef.template.type,
-          position: { x, y },
-          parent: parentId
+          parentId,
+          insertPosition,
+          referenceElementId
         });
         
-        // Add the component instance
+        // Add the component instance using proper insertion system
         dispatch(addElement({ 
           element: instanceElement,
           parentId,
