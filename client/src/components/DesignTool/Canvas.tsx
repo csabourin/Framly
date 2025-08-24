@@ -376,7 +376,8 @@ const Canvas: React.FC = () => {
       if (targetElementId && targetZone && targetElementId !== 'root' && canInsertInTarget) {
         console.log('CLICK DEBUG - Creating element inside:', targetElementId);
         
-        const newElement = createDefaultElement(selectedTool as any, 0, 0);
+        // Create element without explicit coordinates for document flow
+        const newElement = createDefaultElement(selectedTool as any);
         
         if (targetZone === 'inside') {
           // Insert inside the target element
@@ -412,6 +413,7 @@ const Canvas: React.FC = () => {
         } else {
           console.log('CLICK DEBUG - Creating element at root, targetElementId was:', targetElementId);
         }
+        // Create element with explicit positioning only when dropped on root
         const newElement = createDefaultElement(selectedTool as any, x, y);
         dispatch(addElement({ 
           element: newElement, 

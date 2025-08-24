@@ -817,30 +817,36 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     return baseStyles;
   }, [element.styles, element.classes, customClasses]);
 
-  // CRITICAL: Component children use relative positioning, everything else uses absolute
-  const useRelativePositioning = isComponentChild || isComponentRoot;
-  const basePosition = useRelativePositioning ? 'relative' : 'absolute';
-  const baseLeft = useRelativePositioning ? undefined : element.x;
-  const baseTop = useRelativePositioning ? undefined : element.y;
-
-  // DEBUG: Log positioning info for regular elements that might be positioned incorrectly
-  if (!isComponentChild && !isComponentRoot && !element.componentRef) {
-    console.log('Regular element positioning:', {
-      id: element.id.substring(0, 20) + '...',
-      type: element.type,
-      isComponentChild,
-      isComponentRoot,
-      useRelativePositioning,
-      position: basePosition,
-      x: element.x,
-      y: element.y,
-      left: baseLeft,
-      top: baseTop
-    });
+  // CRITICAL: Proper HTML positioning logic
+  // 1. Component children always use relative positioning within their ghost container
+  // 2. Regular elements use absolute positioning ONLY if they have explicit x,y coordinates
+  // 3. Otherwise, regular elements follow normal document flow (static/relative)
+  
+  const hasExplicitPosition = element.x !== undefined && element.y !== undefined;
+  
+  let basePosition: string;
+  let baseLeft: number | undefined;
+  let baseTop: number | undefined;
+  
+  if (isComponentChild || isComponentRoot) {
+    // Component elements use relative positioning within containers
+    basePosition = 'relative';
+    baseLeft = undefined;
+    baseTop = undefined;
+  } else if (hasExplicitPosition) {
+    // Regular elements that have been explicitly positioned (dragged)
+    basePosition = 'absolute';
+    baseLeft = element.x;
+    baseTop = element.y;
+  } else {
+    // Regular elements follow normal document flow
+    basePosition = 'static';
+    baseLeft = undefined;
+    baseTop = undefined;
   }
 
   const combinedStyles: React.CSSProperties = {
-    position: basePosition,
+    position: basePosition as any,
     left: baseLeft,
     top: baseTop,
     width: (['text', 'heading', 'list'].includes(element.type)) ? '100%' : (mergedStyles.width || (element.width === 0 ? '100%' : element.width)),

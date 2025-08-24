@@ -4,14 +4,15 @@ export function generateUniqueId(type: string): string {
   return `${type}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
 }
 
-export function createDefaultElement(type: CanvasElement['type'], x: number = 0, y: number = 0): CanvasElement {
+export function createDefaultElement(type: CanvasElement['type'], x?: number, y?: number): CanvasElement {
   const id = generateUniqueId(type);
   
   const baseElement: CanvasElement = {
     id,
     type,
-    x,
-    y,
+    // Only set x,y if explicitly provided (for positioned elements)
+    // Otherwise, leave undefined for document flow
+    ...(x !== undefined && y !== undefined ? { x, y } : {}),
     width: 200,
     height: 100,
     styles: {},

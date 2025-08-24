@@ -9,8 +9,8 @@ export interface CanvasElement {
         'video' | 'audio' |
         // Content elements
         'link' | 'code' | 'divider';
-  x: number;
-  y: number;
+  x?: number; // Optional for document flow elements
+  y?: number; // Optional for document flow elements
   width: number;
   height: number;
   styles: CSSProperties;
