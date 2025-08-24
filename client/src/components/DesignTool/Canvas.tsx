@@ -4,8 +4,8 @@ import { RootState } from '../../store';
 import { selectElement, addElement, moveElement, resizeElement, reorderElement, deleteElement } from '../../store/canvasSlice';
 import { setDragging, setDragStart, setResizing, setResizeHandle, resetUI, setDraggedElement, setDraggingForReorder, setHoveredElement, setSelectedTool } from '../../store/uiSlice';
 import { createDefaultElement, getElementAtPoint, calculateSnapPosition, isValidDropTarget } from '../../utils/canvas';
-import { instantiateComponent } from '../../utils/componentGenerator';
 import { selectCurrentElements, selectSelectedElementId, selectCanvasProject, selectCanvasUIState } from '../../store/selectors';
+import { ComponentDef, CanvasElement as CanvasElementType } from '../../types/canvas';
 import CanvasElement from './CanvasElement';
 import { Plus, Minus, Maximize } from 'lucide-react';
 
@@ -927,35 +927,64 @@ const Canvas: React.FC = () => {
           console.log('No insertion zone detected, using root as default');
         }
         
-        // Instantiate the component at the drop position
-        const { elements: newElements, rootElementId } = instantiateComponent(data.component, x, y);
+        // CRITICAL: Create component instance using proper ComponentDef structure
+        console.log('Creating component instance from:', data.component);
         
-        // Add the root element first with proper targeting
-        const rootElement = newElements[rootElementId];
-        if (rootElement) {
-          
-          // Add the root element with proper parent relationship
-          dispatch(addElement({ 
-            element: { ...rootElement, parent: parentId },
-            parentId,
-            insertPosition,
-            referenceElementId
-          }));
-          
-          // Add child elements (excluding the root which we already added)
-          Object.values(newElements).forEach(element => {
-            if (element.id !== rootElementId) {
-              dispatch(addElement({ 
-                element, 
-                parentId: element.parent || rootElementId,
-                insertPosition: 'inside'
-              }));
-            }
-          });
-        }
+        const componentDef: ComponentDef = data.component;
         
-        // Select the root element
-        dispatch(selectElement(rootElementId));
+        // Create instance element with proper positioning and referencing
+        const instanceElement: CanvasElementType = {
+          id: `component-instance-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+          type: componentDef.template.type,
+          x: x,
+          y: y,
+          width: componentDef.template.width || 100,
+          height: componentDef.template.height || 40,
+          styles: { ...componentDef.template.styles },
+          parent: parentId,
+          children: [],
+          componentRef: {
+            componentId: componentDef.id,
+            version: componentDef.version,
+            overrides: {}
+          },
+          
+          // Preserve template content for rendering
+          ...(componentDef.template.type === 'text' && {
+            content: componentDef.template.content,
+            textContent: componentDef.template.textContent
+          }),
+          ...(componentDef.template.type === 'button' && {
+            buttonText: componentDef.template.buttonText || componentDef.template.content,
+            content: componentDef.template.content
+          }),
+          ...(componentDef.template.type === 'image' && {
+            imageUrl: componentDef.template.imageUrl,
+            imageBase64: componentDef.template.imageBase64,
+            imageAlt: componentDef.template.imageAlt,
+            objectFit: componentDef.template.objectFit,
+            objectPosition: componentDef.template.objectPosition
+          })
+        };
+        
+        console.log('Adding component instance:', {
+          componentName: componentDef.name,
+          instanceId: instanceElement.id,
+          templateType: componentDef.template.type,
+          position: { x, y },
+          parent: parentId
+        });
+        
+        // Add the component instance
+        dispatch(addElement({ 
+          element: instanceElement,
+          parentId,
+          insertPosition,
+          referenceElementId
+        }));
+        
+        // Select the instance element
+        dispatch(selectElement(instanceElement.id));
         
         console.log('Component dropped successfully:', data.component.name, 'at position:', insertPosition, 'in parent:', parentId);
       }
