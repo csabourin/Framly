@@ -845,7 +845,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     position: basePosition as any,
     left: baseLeft,
     top: baseTop,
-    width: (['text', 'heading', 'list'].includes(element.type)) ? '100%' : (mergedStyles.width || (element.width === 0 ? '100%' : element.width)),
+    width: (['text', 'heading', 'list'].includes(element.type)) ? '100%' : (mergedStyles.width || (element.width === 0 && element.type !== 'image' ? '100%' : element.width)),
     height: (['text', 'heading', 'list'].includes(element.type)) ? 'auto' : (mergedStyles.minHeight ? undefined : element.height),
     minHeight: (['text', 'heading', 'list'].includes(element.type)) ? '1.2em' : undefined,
     ...convertCSSPropertiesToCamelCase(mergedStyles),

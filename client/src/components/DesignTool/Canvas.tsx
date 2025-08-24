@@ -881,11 +881,33 @@ const Canvas: React.FC = () => {
               // Store the insertion indicator for visual feedback
               setInsertionIndicator(insertionZone);
             } else {
-              // Clear visual feedback if invalid drop target
-              setHoveredElementId(null);
-              setHoveredZone(null);
-              dispatch(setHoveredElement({ elementId: null, zone: null }));
-              setInsertionIndicator(null);
+              // Try sibling placement if invalid drop target
+              const parentId = targetElement?.parent || 'root';
+              const parentElement = currentElements[parentId];
+              const canDropAssibling = parentElement ? isValidDropTarget(parentElement) : true; // root always accepts
+              
+              if (canDropAssibling && !parentElement?.componentRef) {
+                // Create sibling insertion zone (prefer 'after' for better UX)
+                const siblingZone = {
+                  position: 'after' as const,
+                  elementId: insertionZone.elementId,
+                  bounds: insertionZone.bounds
+                };
+                
+                setHoveredElementId(insertionZone.elementId);
+                setHoveredZone('after');
+                dispatch(setHoveredElement({ 
+                  elementId: insertionZone.elementId, 
+                  zone: 'after'
+                }));
+                setInsertionIndicator(siblingZone);
+              } else {
+                // Clear visual feedback if sibling placement also fails
+                setHoveredElementId(null);
+                setHoveredZone(null);
+                dispatch(setHoveredElement({ elementId: null, zone: null }));
+                setInsertionIndicator(null);
+              }
             }
           } else {
             // Clear visual feedback if no insertion zone
