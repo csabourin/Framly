@@ -823,6 +823,22 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
   const baseLeft = useRelativePositioning ? undefined : element.x;
   const baseTop = useRelativePositioning ? undefined : element.y;
 
+  // DEBUG: Log positioning info for regular elements that might be positioned incorrectly
+  if (!isComponentChild && !isComponentRoot && !element.componentRef) {
+    console.log('Regular element positioning:', {
+      id: element.id.substring(0, 20) + '...',
+      type: element.type,
+      isComponentChild,
+      isComponentRoot,
+      useRelativePositioning,
+      position: basePosition,
+      x: element.x,
+      y: element.y,
+      left: baseLeft,
+      top: baseTop
+    });
+  }
+
   const combinedStyles: React.CSSProperties = {
     position: basePosition,
     left: baseLeft,

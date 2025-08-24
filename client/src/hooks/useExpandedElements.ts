@@ -212,10 +212,16 @@ export function useExpandedElements(elements: Record<string, CanvasElement>): Re
       return expandedElement;
     }
     
-    // First pass: copy all non-component elements
+    // First pass: copy all non-component elements - CRITICAL: Ensure they keep their regular properties
     for (const [id, element] of Object.entries(elements)) {
       if (!element.componentRef) {
-        expandedElements[id] = { ...element };
+        expandedElements[id] = { 
+          ...element,
+          // CRITICAL: Ensure regular elements are NOT marked as component children
+          isComponentChild: false,
+          isComponentRoot: false,
+          isGhostRoot: false
+        };
       }
     }
     
