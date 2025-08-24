@@ -456,7 +456,9 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
       }
     }
 
-    if ((element.type === 'container' || element.type === 'rectangle' || element.isContainer) && element.children) {
+    // CRITICAL: Containers and component roots must render their children
+    if ((element.type === 'container' || element.type === 'rectangle' || element.isContainer || isComponentRoot) && element.children) {
+      console.log('Rendering container with children:', element.id, 'childCount:', element.children.length, 'isComponentRoot:', isComponentRoot);
       return (
         <>
           {element.children.map(childId => {
@@ -841,15 +843,15 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
   }, [element.styles, element.classes, customClasses]);
 
   const combinedStyles: React.CSSProperties = {
-    // CRITICAL: Component children use relative positioning to maintain hierarchy
+    // CRITICAL: Component children use absolute positioning within their parent container
     position: isComponentChild && element.parent !== 'root' 
-      ? 'relative'  // Children positioned relative to their parent container
+      ? 'absolute'  // Children positioned absolutely within parent container
       : 'absolute', // Root elements positioned absolutely on canvas
     left: isComponentChild && element.parent !== 'root' 
-      ? undefined   // Let CSS handle relative positioning for children
+      ? `${element.x || 0}px`   // Position children relative to their parent container
       : element.x,  // Absolute positioning for root elements
     top: isComponentChild && element.parent !== 'root' 
-      ? undefined
+      ? `${element.y || 0}px`
       : element.y,
     width: (['text', 'heading', 'list'].includes(element.type)) ? '100%' : (mergedStyles.width || (element.width === 0 ? '100%' : element.width)),
     height: (['text', 'heading', 'list'].includes(element.type)) ? 'auto' : (mergedStyles.minHeight ? undefined : element.height),
@@ -912,6 +914,8 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
         ...combinedStyles,
         userSelect: selectedTool !== 'text' ? 'none' : 'auto',
         WebkitUserSelect: selectedTool !== 'text' ? 'none' : 'auto',
+        // CRITICAL: Component roots must be positioned containers for their children
+        position: isComponentRoot ? 'relative' : combinedStyles.position,
       }}
       data-element-id={element.id}
       data-container={element.isContainer ? 'true' : 'false'}
