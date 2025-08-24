@@ -214,9 +214,24 @@ const canvasSlice = createSlice({
       if (element && element.parent) {
         const parent = currentTab.elements[element.parent];
         if (parent && parent.children) {
-          parent.children = parent.children.filter((id: string) => id !== elementId);
+          // Create new parent object to avoid mutation
+          currentTab.elements[element.parent] = {
+            ...parent,
+            children: parent.children.filter((id: string) => id !== elementId)
+          };
         }
       }
+      
+      // Also remove from any other parents that might have this child (cleanup duplicates)
+      Object.keys(currentTab.elements).forEach(key => {
+        const el = currentTab.elements[key];
+        if (el.children && el.children.includes(elementId)) {
+          currentTab.elements[key] = {
+            ...el,
+            children: el.children.filter((id: string) => id !== elementId)
+          };
+        }
+      });
       
       delete currentTab.elements[elementId];
       
@@ -291,50 +306,42 @@ const canvasSlice = createSlice({
       // Prevent moving element to itself or its children
       if (elementId === newParentId) return;
 
-      // Remove element from current parent
-      const currentParent = currentTab.elements[element.parent || 'root'];
-      if (currentParent && currentParent.children) {
-        // Create a new array to avoid mutation issues
-        currentTab.elements[element.parent || 'root'] = {
-          ...currentParent,
-          children: currentParent.children.filter((id: string) => id !== elementId)
-        };
-      }
+      // First, clean up any duplicate references to this element from ALL parents
+      Object.keys(currentTab.elements).forEach(key => {
+        const el = currentTab.elements[key];
+        if (el.children && el.children.includes(elementId)) {
+          const cleanedChildren = el.children.filter((id: string) => id !== elementId);
+          if (cleanedChildren.length !== el.children.length) {
+            currentTab.elements[key] = {
+              ...el,
+              children: cleanedChildren
+            };
+          }
+        }
+      });
 
-      // Add element to new parent at specified position
-      if (!newParent.children) {
-        newParent.children = [];
-      }
+      // Now add element to new parent at specified position
+      const updatedNewParent = currentTab.elements[newParentId];
+      if (!updatedNewParent) return;
 
       // Create a new children array for the new parent
-      const newChildren = [...(newParent.children || [])];
+      const newChildren = [...(updatedNewParent.children || [])];
 
       if (insertPosition === 'inside' || !referenceElementId) {
-        // Only add if not already present
-        if (!newChildren.includes(elementId)) {
-          newChildren.push(elementId);
-        }
+        newChildren.push(elementId);
       } else {
         const referenceIndex = newChildren.indexOf(referenceElementId);
         if (referenceIndex !== -1) {
           const insertIndex = insertPosition === 'before' ? referenceIndex : referenceIndex + 1;
-          // Remove the element if it's already in the array
-          const existingIndex = newChildren.indexOf(elementId);
-          if (existingIndex !== -1) {
-            newChildren.splice(existingIndex, 1);
-          }
           newChildren.splice(insertIndex, 0, elementId);
         } else {
-          // Only add if not already present
-          if (!newChildren.includes(elementId)) {
-            newChildren.push(elementId);
-          }
+          newChildren.push(elementId);
         }
       }
 
       // Update the new parent with the new children array
       currentTab.elements[newParentId] = {
-        ...newParent,
+        ...updatedNewParent,
         children: newChildren
       };
 

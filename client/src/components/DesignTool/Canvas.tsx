@@ -1221,9 +1221,14 @@ const Canvas: React.FC = () => {
         data-testid="canvas-container"
       >
         {/* Render ALL Canvas Elements - including expanded component children */}
-        {rootElement.children?.filter((childId: string, index: number, arr: string[]) => arr.indexOf(childId) === index).map((childId: string) => {
+        {rootElement.children?.map((childId: string) => {
           const element = currentElements[childId];
-          return element ? (
+          // Log missing elements for debugging
+          if (!element) {
+            console.warn('Missing element in currentElements:', childId);
+            return null;
+          }
+          return (
             <CanvasElement 
               key={element.id} 
               element={element}
@@ -1233,7 +1238,7 @@ const Canvas: React.FC = () => {
               expandedContainerId={expandedContainerId}
               currentElements={currentElements}
             />
-          ) : null;
+          );
         })}
         
         {/* Component children are now rendered by their parent elements - no separate rendering needed */}
