@@ -1,11 +1,10 @@
 import React, { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
+import { CanvasElement } from '../../types/canvas';
 import { selectComponentDefinition } from '../../store/selectors';
-import { openComponentTab } from '../../store/componentDefinitionsSlice';
-import { selectElement, createTab } from '../../store/canvasSlice';
-import { CanvasElement, ComponentId } from '../../types/canvas';
-import { isComponentInstance, renderComponentInstance } from '../../utils/componentInstances';
+import { isComponentInstance } from '../../utils/componentInstances';
+import { createTab } from '../../store/canvasSlice';
 
 interface ComponentInstanceElementProps {
   element: CanvasElement;
@@ -13,10 +12,6 @@ interface ComponentInstanceElementProps {
   onSelect: () => void;
 }
 
-/**
- * Component that renders a component instance with read-only behavior
- * and double-click to edit functionality
- */
 const ComponentInstanceElement: React.FC<ComponentInstanceElementProps> = ({
   element,
   isSelected,
@@ -65,7 +60,6 @@ const ComponentInstanceElement: React.FC<ComponentInstanceElementProps> = ({
   const handleSingleClick = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
     e.preventDefault();
-    // Prevent any child interactions
     onSelect();
   }, [onSelect]);
 
@@ -81,15 +75,95 @@ const ComponentInstanceElement: React.FC<ComponentInstanceElementProps> = ({
     return null;
   }
 
-  // Handle missing component definition AFTER all hooks
+  // Handle missing component definition AFTER all hooks - RENDER CONTENT ANYWAY
   if (!componentDefinition) {
     console.warn('Component definition not found for instance:', element.componentRef?.componentId);
-    // Return null instead of rendering fallback to prevent further issues
-    return null;
+    console.log('Rendering fallback content for component instance:', element.id, 'content:', element.content);
+    
+    // CRITICAL: Render the element content even without definition
+    return (
+      <div
+        className="component-instance-wrapper component-instance-fallback"
+        onClick={handleSingleClick}
+        onDoubleClick={handleDoubleClick}
+        data-testid={`component-instance-${element.id}`}
+        data-instance="true"
+        data-state={isSelected ? 'selected' : 'default'}
+        style={{
+          position: 'absolute',
+          left: element.x,
+          top: element.y,
+          width: element.width,
+          height: element.height,
+          border: isSelected ? '2px solid #3b82f6' : '1px dashed #e5e7eb',
+          borderRadius: '4px',
+          backgroundColor: '#f9fafb',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: '14px',
+          color: '#6b7280',
+          cursor: 'pointer'
+        }}
+      >
+        {/* Render element content based on type */}
+        {element.type === 'text' && (
+          <span style={{ color: '#1f2937', fontSize: '14px' }}>
+            {element.content || 'Text Component'}
+          </span>
+        )}
+        {element.type === 'button' && (
+          <button 
+            style={{ 
+              padding: '8px 16px', 
+              backgroundColor: '#3b82f6', 
+              color: 'white', 
+              border: 'none', 
+              borderRadius: '4px',
+              cursor: 'pointer'
+            }}
+          >
+            {element.buttonText || element.content || 'Button Component'}
+          </button>
+        )}
+        {element.type === 'image' && (
+          <div style={{ 
+            width: '100%', 
+            height: '100%', 
+            backgroundImage: element.imageBase64 ? `url(${element.imageBase64})` : 
+                            element.imageUrl ? `url(${element.imageUrl})` : 'none',
+            backgroundSize: element.objectFit || 'cover',
+            backgroundPosition: element.objectPosition || 'center',
+            backgroundColor: '#f3f4f6',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#9ca3af'
+          }}>
+            {!element.imageBase64 && !element.imageUrl && 'Image Component'}
+          </div>
+        )}
+        {(element.type === 'rectangle' || element.type === 'container') && (
+          <span>
+            {element.type === 'container' ? 'Container Component' : 'Rectangle Component'}
+          </span>
+        )}
+      </div>
+    );
   }
 
-  // Safely render the component instance with error boundaries
+  // Safely render the component instance with ACTUAL TEMPLATE CONTENT
   try {
+    const template = componentDefinition.template;
+    console.log('Rendering component instance with template:', {
+      componentName: componentDefinition.name,
+      templateType: template?.type,
+      templateContent: template?.content,
+      templateButtonText: template?.buttonText,
+      elementContent: element.content,
+      elementButtonText: element.buttonText
+    });
+
     return (
       <div
         className="component-instance-wrapper"
@@ -98,164 +172,162 @@ const ComponentInstanceElement: React.FC<ComponentInstanceElementProps> = ({
         data-testid={`component-instance-${element.id}`}
         data-instance="true"
         data-state={isSelected ? 'selected' : 'default'}
-        data-component-id={element.componentRef?.componentId}
-        role="group"
-        aria-label={`Component instance: ${componentDefinition.name}`}
-        title={`Double-click to edit ${componentDefinition.name} component`}
         style={{
           position: 'absolute',
-          left: element.x || 0,
-          top: element.y || 0,
-          width: element.width || 100,
-          height: element.height || 40,
-          zIndex: 1,
-          pointerEvents: 'all',
-          cursor: 'pointer'
+          left: element.x,
+          top: element.y,
+          width: element.width,
+          height: element.height,
+          // Component instance visual styling
+          outline: isSelected ? '2px solid #3b82f6' : '1px dashed rgba(59, 130, 246, 0.3)',
+          outlineOffset: '-1px',
+          borderRadius: '4px',
+          backgroundColor: isSelected ? 'rgba(59, 130, 246, 0.05)' : 'rgba(59, 130, 246, 0.02)',
+          cursor: 'pointer',
+          transition: 'all 0.15s ease',
         }}
-        onMouseDown={(e) => e.stopPropagation()}
-        onMouseUp={(e) => e.stopPropagation()}
-        onMouseMove={(e) => e.stopPropagation()}
       >
-      {/* Render actual component template content - COMPLETELY LOCKED */}
-      <div 
-        className="w-full h-full relative component-instance-content"
-        style={{
-          ...componentDefinition.template.styles,
-          pointerEvents: 'none', // Disable all interactions on child content
-          userSelect: 'none',    // Prevent text selection
-          WebkitUserSelect: 'none',
-          MozUserSelect: 'none',
-          msUserSelect: 'none'
-        }}
-        onMouseDown={(e) => e.preventDefault()}
-        onMouseUp={(e) => e.preventDefault()}
-        onClick={(e) => e.preventDefault()}
-        onDoubleClick={(e) => e.preventDefault()}
-      >
-        {/* CRITICAL: Always render visible content for component instances */}
-        {componentDefinition.template && componentDefinition.template.type === 'text' && (
-          <div 
-            className="w-full h-full flex items-center justify-center text-sm"
-            style={{
-              ...componentDefinition.template.styles,
-              pointerEvents: 'none',
-              userSelect: 'none'
-            }}
-          >
-            {componentDefinition.template.content || componentDefinition.name}
-          </div>
-        )}
+        {/* Chrome overlay for component instances */}
+        <div className="component-chrome" style={{
+          position: 'absolute',
+          top: '-20px',
+          left: '0',
+          height: '18px',
+          backgroundColor: '#3b82f6',
+          color: 'white',
+          fontSize: '10px',
+          padding: '2px 6px',
+          borderRadius: '3px 3px 0 0',
+          fontWeight: '500',
+          lineHeight: '14px',
+          zIndex: 10,
+          whiteSpace: 'nowrap',
+          opacity: isSelected ? 1 : 0.7
+        }}>
+          {componentDefinition.name} v{element.componentRef.version}
+        </div>
         
-        {componentDefinition.template && componentDefinition.template.type === 'button' && (
-          <button 
-            className="w-full h-full text-sm"
-            disabled
-            style={{
-              ...componentDefinition.template.styles,
-              pointerEvents: 'none',
-              cursor: 'inherit',
-              border: componentDefinition.template.styles?.border || '1px solid #d1d5db',
-              borderRadius: componentDefinition.template.styles?.borderRadius || '4px',
-              backgroundColor: componentDefinition.template.styles?.backgroundColor || '#f9fafb'
-            }}
-            tabIndex={-1}
-          >
-            {componentDefinition.template.buttonText || componentDefinition.template.content || componentDefinition.name}
-          </button>
-        )}
-        
-        {componentDefinition.template && componentDefinition.template.type === 'rectangle' && (
-          <div 
-            className="w-full h-full flex items-center justify-center text-xs text-gray-600" 
-            style={{
-              ...componentDefinition.template.styles,
-              pointerEvents: 'none',
-              userSelect: 'none',
-              border: componentDefinition.template.styles?.border || '1px solid #d1d5db',
-              borderRadius: componentDefinition.template.styles?.borderRadius || '4px',
-              backgroundColor: componentDefinition.template.styles?.backgroundColor || '#f9fafb'
-            }}
-          >
-            {componentDefinition.name}
-          </div>
-        )}
-        
-        {componentDefinition.template && componentDefinition.template.type === 'image' && (
-          <img 
-            src={componentDefinition.template.imageUrl || componentDefinition.template.imageBase64 || '/placeholder.png'}
-            alt={componentDefinition.template.imageAlt || componentDefinition.name}
-            className="w-full h-full object-cover"
-            style={{
-              ...componentDefinition.template.styles,
-              pointerEvents: 'none',
-              userSelect: 'none'
-            }}
-            draggable={false}
-          />
-        )}
-        
-        {componentDefinition.template && componentDefinition.template.type === 'container' && (
-          <div 
-            className="w-full h-full flex items-center justify-center text-xs text-blue-600 border-2 border-dashed border-blue-300 bg-blue-50"
-            style={{
+        {/* CRITICAL: Render actual template content based on element type */}
+        <div style={{
+          width: '100%',
+          height: '100%',
+          overflow: 'hidden',
+          display: 'flex',
+          alignItems: template?.type === 'text' ? 'flex-start' : 'center',
+          justifyContent: template?.type === 'text' ? 'flex-start' : 'center',
+          padding: template?.type === 'text' ? '4px' : '0'
+        }}>
+          {/* TEXT COMPONENT RENDERING */}
+          {template?.type === 'text' && (
+            <span style={{
+              fontSize: '14px',
+              color: '#1f2937',
+              lineHeight: '1.4',
+              whiteSpace: 'pre-wrap',
+              ...(template.styles && Object.fromEntries(
+                Object.entries(template.styles).filter(([key]) => 
+                  ['color', 'fontSize', 'fontWeight', 'fontStyle', 'textAlign'].includes(key)
+                )
+              ))
+            }}>
+              {template.content || element.content || 'Text Content'}
+            </span>
+          )}
+          
+          {/* BUTTON COMPONENT RENDERING */}
+          {template?.type === 'button' && (
+            <button style={{
+              padding: '8px 16px',
+              backgroundColor: '#3b82f6',
+              color: 'white',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: 'pointer',
+              fontSize: '14px',
+              fontWeight: '500',
+              ...(template.styles && Object.fromEntries(
+                Object.entries(template.styles).filter(([key]) => 
+                  ['backgroundColor', 'color', 'fontSize', 'fontWeight', 'borderRadius', 'padding'].includes(key)
+                )
+              ))
+            }}>
+              {template.buttonText || template.content || element.buttonText || element.content || 'Button'}
+            </button>
+          )}
+          
+          {/* IMAGE COMPONENT RENDERING */}
+          {template?.type === 'image' && (
+            <div style={{
+              width: '100%',
+              height: '100%',
+              backgroundImage: template.imageBase64 ? `url(${template.imageBase64})` : 
+                              template.imageUrl ? `url(${template.imageUrl})` : 
+                              element.imageBase64 ? `url(${element.imageBase64})` :
+                              element.imageUrl ? `url(${element.imageUrl})` : 'none',
+              backgroundSize: template.objectFit || element.objectFit || 'cover',
+              backgroundPosition: template.objectPosition || element.objectPosition || 'center',
+              backgroundColor: '#f3f4f6',
               display: 'flex',
-              flexDirection: 'row', // Override for display 
-              justifyContent: 'center',
               alignItems: 'center',
-              ...componentDefinition.template.styles,
-              pointerEvents: 'none',
-              userSelect: 'none'
-            }}
-          >
-            {componentDefinition.name}
-          </div>
-        )}
-        
-        {/* CRITICAL: Always show fallback for components without proper template */}
-        {(!componentDefinition.template || !['text', 'button', 'rectangle', 'image', 'container'].includes(componentDefinition.template.type)) && (
-          <div 
-            className="w-full h-full flex items-center justify-center text-xs text-purple-600 border-2 border-dashed border-purple-300 bg-purple-50"
-            style={{ 
-              pointerEvents: 'none', 
-              userSelect: 'none'
-            }}
-          >
-            {componentDefinition.name}
-          </div>
-        )}
-        
-        {/* Component instance indicator overlay */}
-        <div 
-          className="absolute top-0 right-0 w-4 h-4 bg-blue-500 opacity-70 pointer-events-none"
-          style={{ 
-            clipPath: 'polygon(100% 0%, 0% 0%, 100% 100%)',
-            borderRadius: '0 4px 0 0'
-          }}
-          title={`Component: ${componentDefinition.name}`}
-        />
+              justifyContent: 'center',
+              color: '#9ca3af',
+              fontSize: '12px'
+            }}>
+              {!template.imageBase64 && !template.imageUrl && !element.imageBase64 && !element.imageUrl && 
+                (template.imageAlt || element.imageAlt || 'Image')
+              }
+            </div>
+          )}
+          
+          {/* CONTAINER/RECTANGLE COMPONENT RENDERING */}
+          {(template?.type === 'container' || template?.type === 'rectangle') && (
+            <div style={{
+              width: '100%',
+              height: '100%',
+              backgroundColor: template?.styles?.backgroundColor || '#f9fafb',
+              border: template?.styles?.border || '1px solid #e5e7eb',
+              borderRadius: template?.styles?.borderRadius || '4px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: '12px',
+              color: '#6b7280'
+            }}>
+              {template?.type === 'container' ? 'Container' : 'Rectangle'}
+            </div>
+          )}
+        </div>
       </div>
-    </div>
-  );
+    );
   } catch (error) {
-    console.error('Error rendering component instance:', error, { elementId: element.id, componentId: element.componentRef?.componentId });
+    console.error('Error rendering component instance:', error);
+    
+    // Enhanced fallback UI showing element content
     return (
       <div
+        className="component-instance-error"
         style={{
           position: 'absolute',
-          left: element.x || 0,
-          top: element.y || 0,
-          width: element.width || 100,
-          height: element.height || 40,
-          backgroundColor: '#fee2e2',
-          border: '1px solid #fca5a5',
+          left: element.x,
+          top: element.y,
+          width: element.width,
+          height: element.height,
+          border: '2px dashed #ef4444',
+          borderRadius: '4px',
+          backgroundColor: '#fef2f2',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          fontSize: '10px',
-          color: '#dc2626'
+          fontSize: '12px',
+          color: '#ef4444',
+          flexDirection: 'column',
+          gap: '4px'
         }}
       >
-        Error
+        <span>Component Error</span>
+        <span style={{ fontSize: '10px' }}>
+          {element.content || element.buttonText || 'No content'}
+        </span>
       </div>
     );
   }
