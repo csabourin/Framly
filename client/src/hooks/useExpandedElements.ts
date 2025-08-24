@@ -64,8 +64,10 @@ export function useExpandedElements(elements: Record<string, CanvasElement>): Re
         if ((template as any).children && Array.isArray((template as any).children)) {
           const expandedChildIds: string[] = [];
           
+          // CRITICAL: Expand the template's root element which contains the hierarchy
           for (const templateChild of (template as any).children) {
             if (typeof templateChild === 'object' && templateChild.id) {
+              console.log('Expanding ghost root child:', templateChild.id, templateChild.type);
               const expandedChild = expandTemplateElement(templateChild, instance.id, instance);
               if (expandedChild) {
                 expandedChildIds.push(expandedChild.id);
@@ -134,23 +136,35 @@ export function useExpandedElements(elements: Record<string, CanvasElement>): Re
         id: expandedId,
         parent: parentId,
         
-        // CRITICAL: Position relative to root instance, maintaining hierarchy
+        // CRITICAL: Position relative to component instance while preserving hierarchy
         x: rootInstance.x + (templateElement.x || 0),
         y: rootInstance.y + (templateElement.y || 0),
         
-        // Preserve all template properties exactly
+        // CRITICAL: Preserve ALL template properties and styling exactly
         styles: templateElement.styles ? { ...templateElement.styles } : {},
         classes: templateElement.classes ? [...templateElement.classes] : [],
         children: [],
         
-        // Template properties
+        // Preserve all template properties
         content: templateElement.content,
         buttonText: templateElement.buttonText,
         imageUrl: templateElement.imageUrl,
         imageBase64: templateElement.imageBase64,
         imageAlt: templateElement.imageAlt,
+        imageTitle: templateElement.imageTitle,
         objectFit: templateElement.objectFit,
         objectPosition: templateElement.objectPosition,
+        
+        // Layout properties
+        flexDirection: templateElement.flexDirection,
+        justifyContent: templateElement.justifyContent,
+        alignItems: templateElement.alignItems,
+        gap: templateElement.gap,
+        
+        // All other properties
+        type: templateElement.type,
+        width: templateElement.width,
+        height: templateElement.height,
         
         // CRITICAL: Mark as component child (non-interactive) but preserve hierarchy
         isComponentChild: true,
@@ -160,18 +174,22 @@ export function useExpandedElements(elements: Record<string, CanvasElement>): Re
       // Add to expanded elements
       expandedElements[expandedId] = expandedElement;
       
-      // Recursively expand children
+      // CRITICAL: Recursively expand children while preserving hierarchy
       if (templateElement.children && Array.isArray(templateElement.children)) {
         const childIds: string[] = [];
         
         for (const child of templateElement.children) {
-          const expandedChild = expandTemplateElement(child, expandedId, rootInstance);
-          if (expandedChild) {
-            childIds.push(expandedChild.id);
+          if (typeof child === 'object' && child.id) {
+            console.log('Expanding template child:', child.id, 'parent:', expandedId);
+            const expandedChild = expandTemplateElement(child, expandedId, rootInstance);
+            if (expandedChild) {
+              childIds.push(expandedChild.id);
+            }
           }
         }
         
         expandedElement.children = childIds;
+        console.log('Template element expanded with children:', expandedElement.id, 'childCount:', childIds.length);
       }
       
       return expandedElement;

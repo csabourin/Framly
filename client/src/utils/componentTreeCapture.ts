@@ -118,44 +118,52 @@ export function captureElementTree(
       width: element.width,
       height: element.height,
       
-      // Reset parent - will be set during instantiation
+      // Preserve parent relationship for proper hierarchy
       parent: element.parent,
       
       // Initialize children array (will store child element objects for tree, converted to IDs later)
       children: [] as any
     };
 
-    // Recursively process children if they exist
+    // CRITICAL: Recursively process children preserving complete hierarchy
     if (element.children && element.children.length > 0) {
       const childElements: CanvasElement[] = [];
       for (const childId of element.children) {
         const childElement = allElements[childId];
         if (childElement) {
-          childElements.push(deepCloneElement(childElement));
+          console.log('Cloning child element for template:', childId, childElement.type);
+          const clonedChild = deepCloneElement(childElement);
+          // Adjust child position relative to parent (maintain relative positioning)
+          clonedChild.x = (childElement.x || 0) - (element.x || 0);
+          clonedChild.y = (childElement.y || 0) - (element.y || 0);
+          clonedChild.parent = element.id; // Maintain parent relationship
+          childElements.push(clonedChild);
         } else {
           console.warn(`Child element ${childId} not found for parent ${element.id}`);
         }
       }
       (clonedElement as any).children = childElements;
+      console.log('Element cloned with children:', element.id, 'childCount:', childElements.length);
     }
 
     return clonedElement;
   }
 
-  // Start cloning from the selected element, but adjust its position relative to ghost root
-  const adjustedRootElement = {
-    ...rootElement,
-    x: 0, // Position relative to ghost root
+  // CRITICAL: Clone the complete element tree starting from selected element
+  const clonedTemplate = deepCloneElement(rootElement);
+  
+  // Adjust the cloned template to be positioned relative to ghost root (0,0)
+  const adjustedTemplate = {
+    ...clonedTemplate,
+    x: 0, // Position template at ghost root origin
     y: 0,
     parent: 'ghost-root'
   };
   
-  const clonedTemplate = deepCloneElement(adjustedRootElement);
-  
   // Create the final ghost root with the cloned template as child
   const ghostRootWithTemplate: CanvasElement = {
     ...ghostRoot,
-    children: [clonedTemplate] as any // Store actual element object for tree processing
+    children: [adjustedTemplate] as any // Store actual element object for tree processing
   };
   
   console.log('Captured component tree with ghost root:', {
