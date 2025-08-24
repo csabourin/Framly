@@ -482,7 +482,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
           className: 'outline-none',
           style: { 
             minHeight: 'inherit',
-            width: '100%',
+            width: getElementWidth(),
             height: isVoidElement ? 'auto' : '100%',
             boxSizing: 'border-box',
             display: 'block'
@@ -499,11 +499,11 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
             suppressContentEditableWarning
             onBlur={handleContentEdit}
             onKeyDown={handleKeyDown}
-            className="w-full h-full outline-none cursor-text text-editing"
+            className="h-full outline-none cursor-text text-editing"
             style={{ 
               minHeight: 'inherit',
               padding: '4px',
-              width: '100%',
+              width: getElementWidth(),
               height: '100%',
               boxSizing: 'border-box'
             }}
@@ -514,10 +514,10 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
       } else {
         // Render the original HTML element with its content
         const elementProps: any = {
-          className: `w-full h-full outline-none ${content ? 'cursor-pointer' : ''}`,
+          className: `h-full outline-none ${content ? 'cursor-pointer' : ''}`,
           style: { 
             minHeight: 'inherit',
-            width: '100%',
+            width: getElementWidth(),
             height: '100%',
             boxSizing: 'border-box',
             padding: content ? '4px' : '8px',
@@ -608,8 +608,8 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
               suppressContentEditableWarning
               onBlur={(e) => handleTextPropertyEdit('content')(e as any)}
               onKeyDown={handleKeyDown as any}
-              className="w-full h-full outline-none cursor-text"
-              style={mergedStyles}
+              className="h-full outline-none cursor-text"
+              style={{...mergedStyles, width: getElementWidth()}}
               autoFocus
             >
               {linkText}
@@ -623,8 +623,8 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
               e.stopPropagation();
               setIsEditing(true);
             }}
-            className="w-full h-full outline-none cursor-pointer"
-            style={mergedStyles}
+            className="h-full outline-none cursor-pointer"
+            style={{...mergedStyles, width: getElementWidth()}}
           >
             {linkText}
           </a>
@@ -644,8 +644,8 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
               suppressContentEditableWarning
               onBlur={(e) => handleTextPropertyEdit('content')(e as any)}
               onKeyDown={handleKeyDown as any}
-              className="w-full h-full outline-none cursor-text"
-              style={mergedStyles}
+              className="h-full outline-none cursor-text"
+              style={{...mergedStyles, width: getElementWidth()}}
               autoFocus
             >
               {codeContent}
@@ -659,8 +659,8 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
               e.stopPropagation();
               setIsEditing(true);
             }}
-            className="w-full h-full outline-none cursor-pointer"
-            style={mergedStyles}
+            className="h-full outline-none cursor-pointer"
+            style={{...mergedStyles, width: getElementWidth()}}
           >
             {codeContent}
           </pre>
@@ -692,8 +692,8 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
                 setIsEditing(false);
               }
             }}
-            className="w-full h-full outline-none cursor-text resize-none"
-            style={mergedStyles}
+            className="h-full outline-none cursor-text resize-none"
+            style={{...mergedStyles, width: getElementWidth()}}
             autoFocus
             placeholder="Entrez votre texte..."
           />
@@ -701,10 +701,10 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
       }
       
       const elementProps: any = {
-        className: 'w-full h-full outline-none',
+        className: 'h-full outline-none',
         style: { 
           minHeight: 'inherit',
-          width: '100%',
+          width: getElementWidth(),
           height: '100%',
           boxSizing: 'border-box',
           padding: content ? '4px' : '8px',
@@ -742,7 +742,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
       }
     }
 
-    return <div className="w-full h-full" />;
+    return <div className="h-full" style={{width: getElementWidth()}} />;
   };
 
   // Check if this element can accept drops using centralized logic
