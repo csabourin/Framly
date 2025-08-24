@@ -1,4 +1,4 @@
-import React, { useRef, useCallback, memo } from 'react';
+import React, { useRef, useCallback, memo, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
 import { selectUIState, selectHoverState, selectSelectedElementId, selectCustomClasses } from '../../store/selectors';
@@ -983,15 +983,5 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
   );
 };
 
-// Memoize to prevent unnecessary re-renders on hover state changes
-export default memo(CanvasElement, (prevProps, nextProps) => {
-  // Only re-render if meaningful props changed
-  return (
-    prevProps.element.id === nextProps.element.id &&
-    prevProps.isSelected === nextProps.isSelected &&
-    prevProps.hoveredElementId === nextProps.hoveredElementId &&
-    prevProps.hoveredZone === nextProps.hoveredZone &&
-    prevProps.expandedContainerId === nextProps.expandedContainerId &&
-    JSON.stringify(prevProps.element) === JSON.stringify(nextProps.element)
-  );
-});
+// Export with memo to prevent unnecessary re-renders
+export default memo(CanvasElement);
