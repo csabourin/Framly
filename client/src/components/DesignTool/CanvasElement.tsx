@@ -33,16 +33,12 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
 }) => {
   const dispatch = useDispatch();
   
-  // CRITICAL: All hooks must be called before any conditional logic to maintain hook order
+  // CRITICAL: All hooks must be called FIRST for consistent hook order
   const currentElements = useSelector(selectCurrentElements);
   const selectedElementId = useSelector(selectSelectedElementId);
   const { selectedTool, isDraggingForReorder, draggedElementId, insertionIndicator, settings } = useSelector(selectUIState);
   const customClasses = useSelector(selectCustomClasses);
   const reduxHoverState = useSelector(selectHoverState);
-  
-  // DISABLED: Component instances are now handled by the expansion system
-  // The useExpandedElements hook already expands component templates into individual elements
-  // Component instances now render like regular elements with their expanded children
   const elementRef = useRef<HTMLDivElement>(null);
   const [isEditing, setIsEditing] = React.useState(false);
   const textEditRef = useRef<HTMLDivElement>(null);
@@ -53,6 +49,17 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
   // Get hover state from Redux if not provided via props (already called above)
   const actualHoveredElementId = hoveredElementId !== undefined ? hoveredElementId : reduxHoverState.hoveredElementId;
   const actualHoveredZone = hoveredZone !== undefined ? hoveredZone : reduxHoverState.hoveredZone;
+  
+  // CRITICAL: Component instances must render as read-only clones (not interactive children)
+  if (isComponentInstance(element)) {
+    return (
+      <ComponentInstanceElement
+        element={element}
+        isSelected={isSelected}
+        onSelect={() => dispatch(selectElement(element.id))}
+      />
+    );
+  }
   
   // Check if this element is hovered
   const isThisElementHovered = actualHoveredElementId === element.id;

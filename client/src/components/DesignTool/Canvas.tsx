@@ -7,7 +7,7 @@ import { createDefaultElement, getElementAtPoint, calculateSnapPosition, isValid
 import { selectCurrentElements, selectSelectedElementId, selectCanvasProject, selectCanvasUIState } from '../../store/selectors';
 import { ComponentDef, CanvasElement as CanvasElementType } from '../../types/canvas';
 import CanvasElement from './CanvasElement';
-import { useExpandedElements } from '../../hooks/useExpandedElements';
+
 import { Plus, Minus, Maximize } from 'lucide-react';
 
 interface InsertionIndicator {
@@ -40,8 +40,8 @@ const Canvas: React.FC = () => {
   const rawElements = useSelector(selectCurrentElements);
   const selectedElementId = useSelector(selectSelectedElementId);
   
-  // CRITICAL: Expand component instances to show their template children
-  const currentElements = useExpandedElements(rawElements);
+  // Use raw elements - component instances render as single units (not expanded)
+  const currentElements = rawElements;
 
   const rootElement = currentElements.root;
   
@@ -1192,28 +1192,7 @@ const Canvas: React.FC = () => {
           ) : null;
         })}
         
-        {/* CRITICAL: Render expanded component children that aren't in root.children */}
-        {Object.values(currentElements).map(element => {
-          // Only render elements that aren't already rendered as root children
-          // and aren't the root element itself
-          if (element.id !== 'root' && 
-              element.parent !== 'root' && 
-              element.parent !== null && 
-              currentElements[element.parent] &&
-              !rootElement.children?.includes(element.id)) {
-            return (
-              <CanvasElement 
-                key={element.id} 
-                element={element}
-                isSelected={element.id === selectedElementId}
-                isHovered={element.id === hoveredElementId}
-                hoveredZone={element.id === hoveredElementId ? hoveredZone : null}
-                expandedContainerId={expandedContainerId}
-              />
-            );
-          }
-          return null;
-        })}
+
         
         {/* LARGE, OBVIOUS DROP ZONES */}
         {insertionIndicator && (
