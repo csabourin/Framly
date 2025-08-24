@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { CanvasElement, Project, CSSProperties, DesignTab, TabViewSettings } from '../types/canvas';
 import { nanoid } from 'nanoid';
+import { expandComponentTemplate } from '../utils/componentTemplateExpansion';
 
 interface CanvasState {
   project: Project;

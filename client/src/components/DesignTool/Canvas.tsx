@@ -7,6 +7,7 @@ import { createDefaultElement, getElementAtPoint, calculateSnapPosition, isValid
 import { selectCurrentElements, selectSelectedElementId, selectCanvasProject, selectCanvasUIState } from '../../store/selectors';
 import { ComponentDef, CanvasElement as CanvasElementType } from '../../types/canvas';
 import CanvasElement from './CanvasElement';
+import { useExpandedElements } from '../../hooks/useExpandedElements';
 import { Plus, Minus, Maximize } from 'lucide-react';
 
 interface InsertionIndicator {
@@ -36,8 +37,11 @@ const Canvas: React.FC = () => {
   const { selectedTool, isDragging, dragStart, isResizing, resizeHandle, zoomLevel, isGridVisible, draggedElementId, isDraggingForReorder, isDOMTreePanelVisible, isComponentPanelVisible, settings } = useSelector(selectCanvasUIState);
   
   // Use centralized selectors for tab-based data
-  const currentElements = useSelector(selectCurrentElements);
+  const rawElements = useSelector(selectCurrentElements);
   const selectedElementId = useSelector(selectSelectedElementId);
+  
+  // CRITICAL: Expand component instances to show their template children
+  const currentElements = useExpandedElements(rawElements);
 
   const rootElement = currentElements.root;
   
@@ -952,8 +956,7 @@ const Canvas: React.FC = () => {
           
           // Preserve template content for rendering
           ...(componentDef.template.type === 'text' && {
-            content: componentDef.template.content,
-            textContent: componentDef.template.textContent
+            content: componentDef.template.content
           }),
           ...(componentDef.template.type === 'button' && {
             buttonText: componentDef.template.buttonText || componentDef.template.content,
