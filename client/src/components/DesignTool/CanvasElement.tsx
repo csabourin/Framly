@@ -50,9 +50,10 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
   const actualHoveredElementId = hoveredElementId !== undefined ? hoveredElementId : reduxHoverState.hoveredElementId;
   const actualHoveredZone = hoveredZone !== undefined ? hoveredZone : reduxHoverState.hoveredZone;
   
-  // CRITICAL: Component instances are now expanded - check for component children
+  // CRITICAL: Component instances are now expanded - check for component children and roots
   const isComponentChild = element.isComponentChild;
-  const isComponentRoot = isComponentInstance(element);
+  const isComponentRoot = element.isComponentRoot || isComponentInstance(element);
+  const isGhostRoot = element.isGhostRoot;
   
   // Component children are non-interactive (but still render normally)
   if (isComponentChild) {

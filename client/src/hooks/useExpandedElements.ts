@@ -57,11 +57,12 @@ export function useExpandedElements(elements: Record<string, CanvasElement>): Re
         instanceRoot.children = expandedChildIds;
       }
       
-      console.log('Expanded component instance:', {
+      console.log('Expanded component instance with ghost root:', {
         componentName: componentDef.name,
         instanceId: instance.id,
         childrenCount: instanceRoot.children?.length || 0,
-        hasTemplate: !!(template as any).children
+        hasTemplate: !!(template as any).children,
+        isGhostRoot: template?.isGhostRoot
       });
     }
     

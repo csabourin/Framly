@@ -2,13 +2,76 @@ import { CanvasElement } from '../types/canvas';
 import { nanoid } from 'nanoid';
 
 /**
+ * Create a ghost root wrapper for component templates
+ * This ensures component instances are selectable as single units
+ */
+export function createGhostRootWrapper(
+  selectedElementId: string,
+  allElements: Record<string, CanvasElement>
+): CanvasElement {
+  const selectedElement = allElements[selectedElementId];
+  if (!selectedElement) {
+    throw new Error(`Element ${selectedElementId} not found`);
+  }
+
+  console.log('Creating ghost root wrapper for component template:', selectedElementId);
+
+  // Calculate bounds for ghost root (could span multiple elements in future)
+  const bounds = {
+    x: selectedElement.x,
+    y: selectedElement.y,
+    width: selectedElement.width,
+    height: selectedElement.height
+  };
+
+  // Create ghost root that wraps the selected element
+  const ghostRoot: CanvasElement = {
+    id: 'ghost-root',
+    type: 'container',
+    x: 0, // Template coordinates start at 0,0
+    y: 0,
+    width: bounds.width,
+    height: bounds.height,
+    parent: undefined,
+    children: [selectedElementId],
+    
+    // Ghost root is invisible container
+    styles: {
+      backgroundColor: 'transparent',
+      border: 'none',
+      padding: '0px',
+      margin: '0px',
+      display: 'block',
+      position: 'relative'
+    },
+    classes: [],
+    content: '',
+    
+    // Mark as ghost root for special handling
+    isGhostRoot: true
+  };
+
+  console.log('Ghost root wrapper created:', {
+    ghostRootSize: `${bounds.width}x${bounds.height}`,
+    wrappedElement: selectedElementId,
+    wrappedElementType: selectedElement.type
+  });
+
+  return ghostRoot;
+}
+
+/**
  * Recursively capture a complete element tree with all children and properties
+ * Now creates a ghost root wrapper for proper component boundaries
  */
 export function captureElementTree(
   rootElementId: string,
   allElements: Record<string, CanvasElement>
 ): CanvasElement {
+  // CRITICAL: Create ghost root wrapper instead of using selected element directly
+  const ghostRoot = createGhostRootWrapper(rootElementId, allElements);
   const rootElement = allElements[rootElementId];
+  
   if (!rootElement) {
     throw new Error(`Element ${rootElementId} not found`);
   }
@@ -79,18 +142,31 @@ export function captureElementTree(
     return clonedElement;
   }
 
-  // Start the recursive cloning from the root element
-  const clonedTree = deepCloneElement(rootElement);
+  // Start cloning from the selected element, but adjust its position relative to ghost root
+  const adjustedRootElement = {
+    ...rootElement,
+    x: 0, // Position relative to ghost root
+    y: 0,
+    parent: 'ghost-root'
+  };
   
-  console.log('Captured complete element tree:', {
-    rootId: rootElementId,
-    rootType: rootElement.type,
-    totalChildren: countElementsInTree(clonedTree),
-    hasStyles: Object.keys(clonedTree.styles || {}).length > 0,
-    hasContent: !!(clonedTree.content || clonedTree.buttonText)
+  const clonedTemplate = deepCloneElement(adjustedRootElement);
+  
+  // Create the final ghost root with the cloned template as child
+  const ghostRootWithTemplate: CanvasElement = {
+    ...ghostRoot,
+    children: [clonedTemplate] as any // Store actual element object for tree processing
+  };
+  
+  console.log('Captured component tree with ghost root:', {
+    ghostRootId: 'ghost-root',
+    templateId: rootElementId,
+    templateType: rootElement.type,
+    totalChildren: countElementsInTree(ghostRootWithTemplate),
+    ghostRootSize: `${ghostRoot.width}x${ghostRoot.height}`
   });
 
-  return clonedTree;
+  return ghostRootWithTemplate;
 }
 
 /**

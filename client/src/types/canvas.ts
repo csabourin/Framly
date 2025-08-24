@@ -67,6 +67,12 @@ export interface CanvasElement {
   // Component child markers (for expanded template children)
   isComponentChild?: boolean;
   componentRootId?: string;
+  
+  // Ghost root marker (for component template boundaries)
+  isGhostRoot?: boolean;
+  
+  // Component root marker (for expanded instances)
+  isComponentRoot?: boolean;
 }
 
 export interface CSSProperties {
