@@ -144,8 +144,9 @@ export function useExpandedElements(elements: Record<string, CanvasElement>): Re
         return null;
       }
       
-      // Generate a unique ID for the expanded element
-      const expandedId = `${rootInstance.id}-${templateElement.id}-${nanoid()}`;
+      // Generate a stable, deterministic ID for the expanded element
+      // This ensures component children maintain consistent IDs across re-renders
+      const expandedId = `${rootInstance.id}-${templateElement.id}`;
       
       // CRITICAL: Component children inherit properties from ghost root and template
       const expandedElement: CanvasElement = {
@@ -154,8 +155,8 @@ export function useExpandedElements(elements: Record<string, CanvasElement>): Re
         parent: parentId,
         
         // CRITICAL: All component children use original template positions (relative positioning)
-        x: templateElement.x || 0,
-        y: templateElement.y || 0,
+        x: templateElement.x,
+        y: templateElement.y,
         
         // CRITICAL: Preserve ALL template properties and styling exactly
         styles: templateElement.styles ? { ...templateElement.styles } : {},
@@ -163,8 +164,8 @@ export function useExpandedElements(elements: Record<string, CanvasElement>): Re
         children: [],
         
         // CRITICAL: Preserve all content and text properties exactly
-        content: templateElement.content || '',
-        buttonText: templateElement.buttonText || '',
+        content: templateElement.content,
+        buttonText: templateElement.buttonText,
         imageUrl: templateElement.imageUrl,
         imageBase64: templateElement.imageBase64,
         imageAlt: templateElement.imageAlt,
