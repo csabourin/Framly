@@ -233,11 +233,11 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
             suppressContentEditableWarning
             onBlur={handleContentEdit}
             onKeyDown={handleKeyDown}
-            className="w-full h-full outline-none cursor-text text-editing"
+            className="h-full outline-none cursor-text text-editing"
             style={{ 
               minHeight: 'inherit',
               padding: '4px',
-              width: '100%',
+              width: getElementWidth(),
               height: '100%',
               boxSizing: 'border-box'
             }}
@@ -253,11 +253,11 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
               // Enable text editing without changing tool
               setIsEditing(true);
             }}
-            className="w-full h-full outline-none cursor-pointer text-element"
+            className="h-full outline-none cursor-pointer text-element"
             style={{ 
               minHeight: 'inherit',
               padding: '4px',
-              width: '100%',
+              width: getElementWidth(),
               height: '100%',
               boxSizing: 'border-box'
             }}
@@ -283,11 +283,11 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
             suppressContentEditableWarning
             onBlur={handleContentEdit}
             onKeyDown={handleKeyDown}
-            className="w-full h-full outline-none cursor-text text-editing"
+            className="h-full outline-none cursor-text text-editing"
             style={{ 
               minHeight: 'inherit',
               padding: '4px',
-              width: '100%',
+              width: getElementWidth(),
               height: '100%',
               boxSizing: 'border-box'
             }}
@@ -302,11 +302,11 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
               e.stopPropagation();
               setIsEditing(true);
             }}
-            className="w-full h-full outline-none cursor-pointer text-element"
+            className="h-full outline-none cursor-pointer text-element"
             style={{ 
               minHeight: 'inherit',
               padding: '4px',
-              width: '100%',
+              width: getElementWidth(),
               height: '100%',
               boxSizing: 'border-box',
               margin: 0
@@ -333,11 +333,11 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
             suppressContentEditableWarning
             onBlur={handleListContentEdit}
             onKeyDown={handleKeyDown}
-            className="w-full h-full outline-none cursor-text text-editing"
+            className="h-full outline-none cursor-text text-editing"
             style={{ 
               minHeight: 'inherit',
               padding: '4px',
-              width: '100%',
+              width: getElementWidth(),
               height: '100%',
               boxSizing: 'border-box'
             }}
@@ -352,11 +352,11 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
               e.stopPropagation();
               setIsEditing(true);
             }}
-            className="w-full h-full outline-none cursor-pointer text-element"
+            className="h-full outline-none cursor-pointer text-element"
             style={{ 
               minHeight: 'inherit',
               padding: '4px',
-              width: '100%',
+              width: getElementWidth(),
               height: '100%',
               boxSizing: 'border-box',
               margin: 0
@@ -852,24 +852,11 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
   const parentElement = element.parent && element.parent !== 'root' ? currentElements[element.parent] : null;
   const isInFlexContainer = parentElement?.styles?.display === 'flex' || parentElement?.isContainer;
   
-  // Debug logging for flex detection
-  if (['text', 'heading', 'list'].includes(element.type)) {
-    console.log('Flex detection for', element.type, element.id.substring(0, 20), {
-      parentId: element.parent,
-      parentDisplay: parentElement?.styles?.display,
-      parentIsContainer: parentElement?.isContainer,
-      isInFlexContainer,
-      parentElement: parentElement ? 'exists' : 'null'
-    });
-  }
-  
   // Determine width based on element type and flex context
   const getElementWidth = () => {
     if (['text', 'heading', 'list'].includes(element.type)) {
       // For text-based elements, use auto width in flex containers to respect justification
-      const width = isInFlexContainer ? 'auto' : '100%';
-      console.log('Width decision for', element.type, ':', width);
-      return width;
+      return isInFlexContainer ? 'auto' : '100%';
     }
     if (element.type === 'image') {
       // Images already handled with auto width in their specific rendering
