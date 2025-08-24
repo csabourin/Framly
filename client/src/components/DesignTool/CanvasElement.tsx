@@ -951,7 +951,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
         element.children.map(childId => {
           const child = currentElements[childId];
           if (!child) {
-            console.log('Child not found in currentElements:', childId, 'available:', Object.keys(currentElements).length);
+            // console.log('Child not found in currentElements:', childId, 'available:', Object.keys(currentElements).length);
             return null;
           }
           return (

@@ -119,7 +119,7 @@ export class HistoryManager {
       classState,
     }));
 
-    console.log(`History recorded: ${description}`);
+    // console.log(`History recorded: ${description}`);
 
     // Save to IndexedDB (debounced)
     this.debouncedSave();

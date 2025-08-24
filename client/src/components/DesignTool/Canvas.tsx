@@ -444,13 +444,13 @@ const Canvas: React.FC = () => {
       // Only switch to select tool if clicking on truly empty area or non-recipient elements
       if (!clickedElement || clickedElement.id === 'root' || !isValidDropTarget(clickedElement)) {
         if (['rectangle', 'text', 'image', 'container', 'heading', 'list', 'button'].includes(selectedTool)) {
-          console.log('TOOL SWITCH DEBUG - Switching to select tool (clicked non-recipient):', { clickedElement: clickedElement?.id, selectedTool });
+          // console.log('TOOL SWITCH DEBUG - Switching to select tool (clicked non-recipient):', { clickedElement: clickedElement?.id, selectedTool });
           dispatch(setSelectedTool('select'));
           dispatch(selectElement('root'));
         }
       } else {
         // Clicked on recipient element (like rectangle/container) - stay in current tool mode for more creation
-        console.log('TOOL SWITCH DEBUG - Staying in current tool (clicked recipient):', { clickedElement: clickedElement?.id, selectedTool, isValidDropTarget: isValidDropTarget(clickedElement) });
+        // console.log('TOOL SWITCH DEBUG - Staying in current tool (clicked recipient):', { clickedElement: clickedElement?.id, selectedTool, isValidDropTarget: isValidDropTarget(clickedElement) });
       }
     }
   }, [selectedTool, zoomLevel, currentElements, dispatch, hoveredElementId, hoveredZone]);
@@ -797,18 +797,18 @@ const Canvas: React.FC = () => {
       if (ctrlKey && selectedElementId && selectedElementId !== 'root') {
         if (e.key === 'c' || e.key === 'C') {
           e.preventDefault();
-          console.log('Copy element:', selectedElementId);
+          // console.log('Copy element:', selectedElementId);
           dispatch(copyElement(selectedElementId));
         } else if (e.key === 'x' || e.key === 'X') {
           e.preventDefault();
-          console.log('Cut element:', selectedElementId);
+          // console.log('Cut element:', selectedElementId);
           dispatch(cutElement(selectedElementId));
         }
       }
       
       if (ctrlKey && (e.key === 'v' || e.key === 'V')) {
         e.preventDefault();
-        console.log('Paste element');
+        // console.log('Paste element');
         dispatch(pasteElement());
       }
     };
