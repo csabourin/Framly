@@ -1,4 +1,5 @@
 import React, { useRef, useCallback, useEffect, useState } from 'react';
+import { flushSync } from 'react-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
 import { selectElement, addElement, moveElement, resizeElement, reorderElement, deleteElement, copyElement, cutElement, pasteElement } from '../../store/canvasSlice';
@@ -410,8 +411,8 @@ const Canvas: React.FC = () => {
         setHoveredZone(null);
         dispatch(selectElement(newElement.id));
         
-        // Force immediate re-render to show the new element
-        requestAnimationFrame(() => {
+        // Force immediate synchronous re-render to show the new element
+        flushSync(() => {
           dispatch(setHoveredElement({ elementId: null, zone: null }));
         });
         
@@ -440,8 +441,8 @@ const Canvas: React.FC = () => {
         }));
         dispatch(selectElement(newElement.id));
         
-        // Force immediate re-render to show the new element  
-        requestAnimationFrame(() => {
+        // Force immediate synchronous re-render to show the new element  
+        flushSync(() => {
           dispatch(setHoveredElement({ elementId: null, zone: null }));
         });
         
@@ -1200,8 +1201,11 @@ const Canvas: React.FC = () => {
       } else if ((e.key === 'Delete' || e.key === 'Backspace') && !isTextInput) {
         if (selectedElement && selectedElement.id !== 'root') {
           e.preventDefault();
-          dispatch(deleteElement(selectedElement.id));
-          dispatch(selectElement('root'));
+          // Force synchronous delete rendering
+          flushSync(() => {
+            dispatch(deleteElement(selectedElement.id));
+            dispatch(selectElement('root'));
+          });
         }
       }
     };
