@@ -848,11 +848,29 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     baseTop = undefined;
   }
 
+  // Check if element is inside a flex container to determine width behavior
+  const parentElement = element.parent && element.parent !== 'root' ? currentElements[element.parent] : null;
+  const isInFlexContainer = parentElement?.styles?.display === 'flex' || parentElement?.isContainer;
+  
+  // Determine width based on element type and flex context
+  const getElementWidth = () => {
+    if (['text', 'heading', 'list'].includes(element.type)) {
+      // For text-based elements, use auto width in flex containers to respect justification
+      return isInFlexContainer ? 'auto' : '100%';
+    }
+    if (element.type === 'image') {
+      // Images already handled with auto width in their specific rendering
+      return mergedStyles.width || element.width;
+    }
+    // For other elements, use specified width or 100% if width is 0
+    return mergedStyles.width || (element.width === 0 ? '100%' : element.width);
+  };
+
   const combinedStyles: React.CSSProperties = {
     position: basePosition as any,
     left: baseLeft,
     top: baseTop,
-    width: (['text', 'heading', 'list'].includes(element.type)) ? '100%' : (mergedStyles.width || (element.width === 0 && element.type !== 'image' ? '100%' : element.width)),
+    width: getElementWidth(),
     height: (['text', 'heading', 'list'].includes(element.type)) ? 'auto' : (mergedStyles.minHeight ? undefined : element.height),
     minHeight: (['text', 'heading', 'list'].includes(element.type)) ? '1.2em' : undefined,
     ...convertCSSPropertiesToCamelCase(mergedStyles),
