@@ -410,6 +410,11 @@ const Canvas: React.FC = () => {
         setHoveredZone(null);
         dispatch(selectElement(newElement.id));
         
+        // Force immediate re-render to show the new element
+        requestAnimationFrame(() => {
+          dispatch(setHoveredElement({ elementId: null, zone: null }));
+        });
+        
         // Keep the current tool active so user can continue placing elements
       } else {
         // If no valid insertion point, check if we clicked on a non-container element
@@ -434,6 +439,11 @@ const Canvas: React.FC = () => {
           insertPosition: 'inside'
         }));
         dispatch(selectElement(newElement.id));
+        
+        // Force immediate re-render to show the new element  
+        requestAnimationFrame(() => {
+          dispatch(setHoveredElement({ elementId: null, zone: null }));
+        });
         
         // Keep the current tool active so user can continue placing elements
       }
