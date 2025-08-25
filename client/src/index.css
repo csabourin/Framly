@@ -4,6 +4,9 @@
 /* CSS Variables-based Dynamic Styling System */
 @import './styles/element-variables.css';
 
+/* Dark Mode Enhancements */
+@import './styles/dark-mode-enhancements.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -77,6 +80,24 @@
   --card-foreground: hsl(210, 40%, 98%);
   --popover: hsl(222.2, 84%, 4.9%);
   --popover-foreground: hsl(210, 40%, 98%);
+  --primary: hsl(203.8863, 88.2845%, 53.1373%);
+  --primary-foreground: hsl(0, 0%, 100%);
+  --secondary: hsl(217.2, 32.6%, 17.5%);
+  --secondary-foreground: hsl(210, 40%, 98%);
+  --muted: hsl(217.2, 32.6%, 17.5%);
+  --muted-foreground: hsl(215, 20.2%, 65.1%);
+  --accent: hsl(217.2, 32.6%, 17.5%);
+  --accent-foreground: hsl(210, 40%, 98%);
+  --destructive: hsl(0, 62.8%, 30.6%);
+  --destructive-foreground: hsl(210, 40%, 98%);
+  --border: hsl(217.2, 32.6%, 17.5%);
+  --input: hsl(217.2, 32.6%, 17.5%);
+  --ring: hsl(203.8863, 88.2845%, 53.1373%);
+  --success: hsl(142.1, 70.6%, 45.3%);
+  --warning: hsl(32.4, 95.5%, 44.1%);
+  
+  /* Enhanced contrast multiplier for dark mode */
+  --contrast-multiplier: 1.2;
   --primary: hsl(203.8863, 88.2845%, 53.1373%);
   --primary-foreground: hsl(0, 0%, 100%);
   --secondary: hsl(217.2, 32.6%, 17.5%);

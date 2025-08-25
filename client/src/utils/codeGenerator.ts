@@ -138,8 +138,8 @@ ${styles}
     // Generate element-specific styles for elements without classes
     // CRITICAL: Use expanded elements when available to include component instance children
     const elementsRecord = this.expandedElements || this.project.elements || {};
-    const elements = Object.values(elementsRecord);
-    elements.forEach((element: any) => {
+    const elements = Object.values(elementsRecord) as CanvasElement[];
+    elements.forEach((element) => {
       // Only generate element styles if no custom classes are applied
       if (!element.classes || element.classes.length === 0) {
         const elementSelector = `[data-element-id="${element.id}"]`;
@@ -156,7 +156,7 @@ ${styles}
   }
 
   generateLegacyCSS(): string {
-    const elements = Object.values(this.project.elements);
+    const elements = Object.values(this.project.elements) as CanvasElement[];
     const cssRules: string[] = [];
     
     // Reset styles
@@ -176,7 +176,7 @@ ${styles}
     const classToElementMap = new Map<string, CanvasElement>();
     
     // Map classes to their first element to avoid duplicates
-    elements.forEach((element: CanvasElement) => {
+    elements.forEach((element) => {
       if (element.classes && element.classes.length > 0) {
         element.classes.forEach((className: string) => {
           if (!processedClasses.has(className)) {
