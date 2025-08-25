@@ -38,8 +38,8 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
-    <!-- PWA Service Worker Registration -->
-    <script>
+    <!-- PWA Service Worker Registration - Temporarily disabled to fix CSP errors -->
+    <!-- <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
           navigator.serviceWorker.register('/sw.js')
@@ -51,8 +51,8 @@
             });
         });
       }
-    </script>
-    <!-- This is a replit script which adds a banner on the top of the page when opened in development mode outside the replit environment -->
-    <script type="text/javascript" src="https://replit.com/public/js/replit-dev-banner.js"></script>
+    </script> -->
+    <!-- Replit dev banner disabled to prevent CSP conflicts -->
+    <!-- <script type="text/javascript" src="https://replit.com/public/js/replit-dev-banner.js"></script> -->
   </body>
 </html>

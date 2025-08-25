@@ -6,6 +6,24 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// Set proper Content Security Policy to prevent CSP errors
+app.use((req, res, next) => {
+  // Set a secure but functional CSP policy
+  const csp = [
+    "default-src 'self'",
+    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://fonts.googleapis.com https://fonts.gstatic.com",
+    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.gstatic.com",
+    "img-src 'self' data: blob: https:",
+    "font-src 'self' https://fonts.gstatic.com https://fonts.googleapis.com",
+    "connect-src 'self' ws: wss:",
+    "worker-src 'self' blob:",
+    "manifest-src 'self'"
+  ].join('; ');
+  
+  res.setHeader('Content-Security-Policy', csp);
+  next();
+});
+
 app.use((req, res, next) => {
   const start = Date.now();
   const path = req.path;
