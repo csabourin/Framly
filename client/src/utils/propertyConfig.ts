@@ -25,6 +25,8 @@ export interface PropertyConfig {
   priority: number; // 1 = most important, higher = less important
   condition?: (element: any) => boolean; // Function to determine if property should be shown
   subProperties?: PropertyConfig[]; // For compound properties like border
+  responsive?: boolean; // Indicates if property supports different values per breakpoint
+  placeholder?: string; // Placeholder text for inputs
 }
 
 export interface PropertyGroup {
@@ -75,7 +77,8 @@ const layoutProperties: PropertyConfig[] = [
     priority: 3,
     units: ['px', '%', 'vw', 'em', 'rem', 'auto'],
     defaultUnit: 'px',
-    description: 'Element width'
+    description: 'Element width',
+    responsive: true
   },
   {
     key: 'height',
@@ -85,7 +88,8 @@ const layoutProperties: PropertyConfig[] = [
     priority: 4,
     units: ['px', '%', 'vh', 'em', 'rem', 'auto'],
     defaultUnit: 'px',
-    description: 'Element height'
+    description: 'Element height',
+    responsive: true
   },
   {
     key: 'top',
@@ -154,7 +158,8 @@ const spacingProperties: PropertyConfig[] = [
     priority: 1,
     units: ['px', '%', 'em', 'rem', 'auto'],
     defaultUnit: 'px',
-    description: 'Space outside the element'
+    description: 'Space outside the element',
+    responsive: true
   },
   {
     key: 'padding',
@@ -164,7 +169,8 @@ const spacingProperties: PropertyConfig[] = [
     priority: 2,
     units: ['px', '%', 'em', 'rem'],
     defaultUnit: 'px',
-    description: 'Space inside the element'
+    description: 'Space inside the element',
+    responsive: true
   },
   {
     key: 'gap',
@@ -250,7 +256,8 @@ const textProperties: PropertyConfig[] = [
     defaultUnit: 'px',
     min: 8,
     max: 120,
-    description: 'Size of the text'
+    description: 'Size of the text',
+    responsive: true
   },
   {
     key: 'fontWeight',

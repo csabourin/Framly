@@ -14,6 +14,7 @@ export interface CanvasElement {
   width: number;
   height: number;
   styles: CSSProperties;
+  responsiveStyles?: ResponsiveValue<CSSProperties>; // Breakpoint-specific styles
   children?: string[];
   parent?: string;
   content?: string;
@@ -118,7 +119,17 @@ export interface DesignTab {
 export interface Breakpoint {
   name: string;
   width: number;
-  icon: string;
+  label: string;
+  minWidth?: number;
+  maxWidth?: number;
+  isDefault?: boolean;
+}
+
+export interface ResponsiveValue<T = any> {
+  mobile?: T;
+  tablet?: T;
+  desktop?: T;
+  large?: T;
 }
 
 export interface Project {
@@ -127,7 +138,7 @@ export interface Project {
   tabs: Record<string, DesignTab>;
   activeTabId: string;
   tabOrder: string[];
-  breakpoints: Record<string, any>;
+  breakpoints: Record<string, Breakpoint>;
   currentBreakpoint: string;
 }
 

@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
 import { selectCanvasProject, selectExportModalState, selectUIState } from '../../store/selectors';
 import { switchBreakpoint, undo, redo, updateProjectName } from '../../store/canvasSlice';
-import { setExportModalOpen, setCodeModalOpen, setCSSOptimizationModalOpen, zoomIn, zoomOut, fitToScreen, toggleDOMTreePanel, setClassEditorOpen, setComponentEditorOpen, setButtonDesignerOpen, setSettingsMenuOpen } from '../../store/uiSlice';
+import { setExportModalOpen, setCodeModalOpen, setCSSOptimizationModalOpen, zoomIn, zoomOut, fitToScreen, setClassEditorOpen, setComponentEditorOpen, setButtonDesignerOpen, setSettingsMenuOpen } from '../../store/uiSlice';
 import { Button } from '@/components/ui/button';
 import { Eye, Undo, Redo, Download, Smartphone, Laptop, Monitor, Settings, Plus, Minus, Maximize, Zap, List, Palette, Component, MousePointer2 } from 'lucide-react';
 import UndoRedoControls from './UndoRedoControls';
@@ -14,13 +14,19 @@ const Header: React.FC = () => {
   const dispatch = useDispatch();
   const project = useSelector(selectCanvasProject);
   const { isExportModalOpen } = useSelector(selectExportModalState);
-  const { isDOMTreePanelVisible } = useSelector(selectUIState);
 
-  const breakpoints = [
-    { name: 'mobile', width: 375, icon: Smartphone, label: 'Mobile' },
-    { name: 'desktop', width: 768, icon: Laptop, label: 'Desktop' },
-    { name: 'large', width: 1024, icon: Monitor, label: 'Large' },
-  ];
+  // Icon mapping for breakpoints
+  const breakpointIcons: Record<string, React.ComponentType<any>> = {
+    mobile: Smartphone,
+    tablet: Laptop,  // Use Laptop icon for tablet
+    desktop: Monitor,
+    large: Monitor,
+  };
+
+  // Get breakpoints from Redux state
+  const stateBreakpoints = Object.values(project.breakpoints);
+  // Filter to only show the ones we want in the UI (mobile, desktop, large for now)
+  const breakpoints = stateBreakpoints.filter(bp => ['mobile', 'desktop', 'large'].includes(bp.name));
 
   const handleBreakpointChange = (breakpointName: string) => {
     dispatch(switchBreakpoint(breakpointName));
@@ -52,9 +58,6 @@ const Header: React.FC = () => {
     dispatch(fitToScreen());
   };
 
-  const handleToggleDOMTree = () => {
-    dispatch(toggleDOMTreePanel());
-  };
 
   const handleOpenClassEditor = () => {
     dispatch(setClassEditorOpen(true));
@@ -111,7 +114,7 @@ const Header: React.FC = () => {
         {/* Breakpoint Switcher */}
         <div className="flex bg-gray-100 rounded-lg p-1" data-testid="breakpoint-switcher">
           {breakpoints.map((breakpoint) => {
-            const Icon = breakpoint.icon;
+            const Icon = breakpointIcons[breakpoint.name] || Monitor;
             const isActive = project.currentBreakpoint === breakpoint.name;
             
             return (
@@ -132,17 +135,6 @@ const Header: React.FC = () => {
           })}
         </div>
         
-        {/* DOM Tree Toggle */}
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={handleToggleDOMTree}
-          className={`p-2 hover:bg-gray-100 ${isDOMTreePanelVisible ? 'bg-gray-100 text-blue-600' : 'text-gray-600'}`}
-          data-testid="button-toggle-dom-tree"
-          title="Toggle Element Tree"
-        >
-          <List className="w-4 h-4" />
-        </Button>
 
         {/* Zoom Controls */}
         <div className="flex items-center gap-1 bg-gray-100 rounded-lg p-1" data-testid="zoom-controls">

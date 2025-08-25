@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
 import { selectUIState } from '../../store/selectors';
-import { setSelectedTool, toggleComponentPanel } from '../../store/uiSlice';
+import { setSelectedTool, toggleComponentPanel, toggleDOMTreePanel } from '../../store/uiSlice';
 import { Tool } from '../../types/canvas';
 import { 
   MousePointer, 
@@ -38,7 +38,7 @@ import {
 
 const Toolbar: React.FC = () => {
   const dispatch = useDispatch();
-  const { selectedTool, isComponentPanelVisible } = useSelector(selectUIState);
+  const { selectedTool, isComponentPanelVisible, isDOMTreePanelVisible } = useSelector(selectUIState);
   const [expandedCategory, setExpandedCategory] = React.useState<string | null>(null);
 
   // Essential tools shown by default
@@ -120,6 +120,10 @@ const Toolbar: React.FC = () => {
 
   const handleComponentToggle = () => {
     dispatch(toggleComponentPanel());
+  };
+
+  const handleDOMTreeToggle = () => {
+    dispatch(toggleDOMTreePanel());
   };
 
   const toggleCategory = (categoryId: string) => {
@@ -235,6 +239,27 @@ const Toolbar: React.FC = () => {
       <div className="flex-1" />
       <div className="w-6 h-px bg-gray-200 mx-auto my-2" data-testid="toolbar-divider-bottom" />
       
+      {/* Element Tree Toggle */}
+      <button
+        onClick={handleDOMTreeToggle}
+        className={`
+          w-10 h-10 mx-1 rounded-lg flex items-center justify-center transition-colors group relative
+          ${isDOMTreePanelVisible 
+            ? 'bg-primary text-white' 
+            : 'hover:bg-gray-100 text-gray-600'
+          }
+        `}
+        title="Element Tree"
+        data-testid="button-toggle-dom-tree"
+      >
+        <List className="w-4 h-4" />
+        
+        {/* Tooltip */}
+        <div className="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-xs rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50">
+          Element Tree
+        </div>
+      </button>
+
       {/* Component Panel Toggle */}
       <button
         onClick={handleComponentToggle}

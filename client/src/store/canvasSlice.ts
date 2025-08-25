@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { CanvasElement, Project, CSSProperties, DesignTab, TabViewSettings } from '../types/canvas';
+import { CanvasElement, Project, CSSProperties, DesignTab, TabViewSettings, Breakpoint } from '../types/canvas';
 import { nanoid } from 'nanoid';
 import { expandComponentTemplate } from '../utils/componentTemplateExpansion';
 
@@ -63,9 +63,33 @@ const initialProject: Project = {
   activeTabId: defaultTab.id,
   tabOrder: [defaultTab.id],
   breakpoints: {
-    mobile: { width: 375 },
-    desktop: { width: 768 },
-    large: { width: 1024 },
+    mobile: { 
+      name: 'mobile', 
+      width: 375, 
+      label: 'Mobile',
+      maxWidth: 767,
+      isDefault: true
+    },
+    tablet: { 
+      name: 'tablet', 
+      width: 768, 
+      label: 'Tablet',
+      minWidth: 768,
+      maxWidth: 1023
+    },
+    desktop: { 
+      name: 'desktop', 
+      width: 1024, 
+      label: 'Desktop',
+      minWidth: 1024,
+      maxWidth: 1439
+    },
+    large: { 
+      name: 'large', 
+      width: 1440, 
+      label: 'Large Desktop',
+      minWidth: 1440
+    }
   },
   currentBreakpoint: 'mobile',
 };

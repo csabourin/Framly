@@ -136,7 +136,13 @@ const TabItem: React.FC<TabItemProps> = ({
             onClick={(e) => e.stopPropagation()}
           />
         ) : (
-          <span className="text-sm font-medium truncate block">
+          <span 
+            className="text-sm font-medium truncate block"
+            onDoubleClick={(e) => {
+              e.stopPropagation();
+              handleStartRename();
+            }}
+          >
             {tab.name}
           </span>
         )}
