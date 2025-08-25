@@ -68,7 +68,9 @@ const StatusBar: React.FC = () => {
       {/* Current Breakpoint */}
       <div className="flex items-center gap-1" data-testid="status-breakpoint">
         <span>
-          {project.currentBreakpoint.charAt(0).toUpperCase() + project.currentBreakpoint.slice(1)} 
+          {project.currentBreakpoint ? (
+            project.currentBreakpoint.charAt(0).toUpperCase() + project.currentBreakpoint.slice(1)
+          ) : 'Mobile'} 
           ({currentBreakpoint?.width || 0}px)
         </span>
       </div>

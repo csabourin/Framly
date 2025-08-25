@@ -23,10 +23,10 @@ const Header: React.FC = () => {
     large: Monitor,
   };
 
-  // Get breakpoints from Redux state
-  const stateBreakpoints = Object.values(project.breakpoints);
-  // Filter to only show the ones we want in the UI (mobile, desktop, large for now)
-  const breakpoints = stateBreakpoints.filter(bp => ['mobile', 'desktop', 'large'].includes(bp.name));
+  // Get breakpoints from Redux state - use all available breakpoints
+  const allBreakpoints = Object.values(project.breakpoints);
+  const breakpoints = allBreakpoints;
+  
 
   const handleBreakpointChange = (breakpointName: string) => {
     dispatch(switchBreakpoint(breakpointName));
