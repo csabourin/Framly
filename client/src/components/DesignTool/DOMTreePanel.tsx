@@ -497,7 +497,7 @@ const DOMTreePanel: React.FC = () => {
   return (
     <div 
       ref={panelRef}
-      className="absolute left-16 top-12 bottom-8 w-64 bg-white border-r border-gray-200 z-40" 
+      className="absolute left-16 top-12 bottom-8 w-64 bg-white border-r border-gray-200 z-30" 
       data-testid="dom-tree-panel"
       role="tree"
       aria-label="Element hierarchy tree"

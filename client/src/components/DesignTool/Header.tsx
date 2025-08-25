@@ -120,10 +120,6 @@ const Header: React.FC = () => {
           data-testid="input-project-name"
         />
         <span className="w-1 h-1 bg-gray-400 rounded-full"></span>
-        <span className="text-green-600 flex items-center gap-1">
-          <div className="w-2 h-2 bg-green-600 rounded-full"></div>
-          Saved
-        </span>
       </div>
       
       {/* Header Actions */}
