@@ -17,17 +17,7 @@ export function ColorModeToggle() {
   
   // Simple toggle handler
   const handleToggleDesignMode = () => {
-    console.log('🎯 handleToggleDesignMode called!');
-    console.log('🎯 Design Mode clicked. Current state:', isColorModeDesignEnabled);
-    console.log('🎯 Function available:', typeof setColorModeDesignEnabled);
-    
-    if (typeof setColorModeDesignEnabled === 'function') {
-      console.log('🎯 About to toggle...');
-      setColorModeDesignEnabled(!isColorModeDesignEnabled);
-      console.log('🎯 Toggled to:', !isColorModeDesignEnabled);
-    } else {
-      console.log('🎯 Function not available');
-    }
+    setColorModeDesignEnabled(!isColorModeDesignEnabled);
   };
 
   const modeOptions: { value: ColorMode; label: string; icon: React.ComponentType<{ className?: string }>; description: string }[] = [

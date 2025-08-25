@@ -1,4 +1,4 @@
-import { ColorModeValues } from '@/components/ColorModePropertyInput';
+import { ColorModeValues } from '../components/ColorModePropertyInput';
 
 export interface ColorModeCSS {
   baseCSS: string;
