@@ -17,8 +17,14 @@ export function ColorModeToggle() {
   
   // Simple toggle handler
   const handleToggleDesignMode = () => {
+    console.log('Design Mode clicked. Current state:', isColorModeDesignEnabled);
+    console.log('Function available:', typeof setColorModeDesignEnabled);
+    
     if (typeof setColorModeDesignEnabled === 'function') {
       setColorModeDesignEnabled(!isColorModeDesignEnabled);
+      console.log('Toggled to:', !isColorModeDesignEnabled);
+    } else {
+      console.log('Function not available');
     }
   };
 

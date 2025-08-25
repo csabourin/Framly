@@ -29,6 +29,8 @@ export interface ColorModePropertyInputProps {
 export function ColorModePropertyInput({ config, value, onChange }: ColorModePropertyInputProps) {
   const { t } = useTranslation();
   const { resolvedMode, isColorModeDesignEnabled } = useColorMode();
+  
+  console.log('ColorModePropertyInput - isColorModeDesignEnabled:', isColorModeDesignEnabled);
   const [previewMode, setPreviewMode] = useState<'light' | 'dark' | 'high-contrast' | null>(null);
   const [showModeSelector, setShowModeSelector] = useState(false);
 
