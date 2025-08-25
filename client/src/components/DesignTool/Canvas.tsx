@@ -429,6 +429,50 @@ const Canvas: React.FC = () => {
       } else {
         // If no valid insertion point, check if we clicked on a non-container element
         if (!canInsertInTarget && targetElementId && targetElementId !== 'root') {
+          // Instead of switching to select tool, try inserting above or below the target
+          const targetElement = currentElements[targetElementId];
+          if (targetElement && targetElement.parent) {
+            // Get the DOM element to determine click position relative to element bounds
+            const targetDOMElement = document.querySelector(`[data-element-id="${targetElementId}"]`) as HTMLElement;
+            if (targetDOMElement) {
+              const rect = targetDOMElement.getBoundingClientRect();
+              const canvasRect = canvasRef.current?.getBoundingClientRect();
+              
+              if (canvasRect) {
+                // Convert click coordinates to canvas-relative position
+                const clickY = (e.clientY - canvasRect.top) / zoomLevel;
+                const elementTop = (rect.top - canvasRect.top) / zoomLevel;
+                const elementBottom = (rect.bottom - canvasRect.top) / zoomLevel;
+                const elementMiddle = (elementTop + elementBottom) / 2;
+                
+                // Determine if click was in upper or lower half
+                const insertPosition = clickY < elementMiddle ? 'before' : 'after';
+                
+                console.log('CLICK DEBUG - Non-container clicked, inserting as sibling:', {
+                  clickY, elementMiddle, insertPosition, targetElement: targetElementId
+                });
+                
+                // Create new element and insert as sibling
+                const newElement = createDefaultElement(selectedTool as any);
+                dispatch(addElement({
+                  element: newElement,
+                  parentId: targetElement.parent,
+                  insertPosition: insertPosition,
+                  referenceElementId: targetElementId
+                }));
+                dispatch(selectElement(newElement.id));
+                
+                // Force immediate synchronous re-render to show the new element
+                flushSync(() => {
+                  dispatch(setHoveredElement({ elementId: null, zone: null }));
+                });
+                
+                return;
+              }
+            }
+          }
+          
+          // Fallback to original behavior if we can't determine position
           console.log('CLICK DEBUG - Non-container clicked with creation tool - switching to select tool');
           dispatch(setSelectedTool('select'));
           dispatch(selectElement(targetElementId));
