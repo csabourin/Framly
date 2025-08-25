@@ -488,10 +488,12 @@ export function createDefaultElement(type: CanvasElement['type'], x?: number, y?
 }
 
 export function isPointInElement(x: number, y: number, element: CanvasElement, tolerance: number = 3): boolean {
-  return x >= element.x - tolerance && 
-         x <= element.x + element.width + tolerance && 
-         y >= element.y - tolerance && 
-         y <= element.y + element.height + tolerance;
+  const elementX = element.x || 0;
+  const elementY = element.y || 0;
+  return x >= elementX - tolerance && 
+         x <= elementX + element.width + tolerance && 
+         y >= elementY - tolerance && 
+         y <= elementY + element.height + tolerance;
 }
 
 export function getElementAtPoint(x: number, y: number, elements: Record<string, CanvasElement>, zoomLevel: number = 1, draggedElementId?: string): CanvasElement | null {
@@ -590,10 +592,12 @@ export function getBoundingRect(elements: CanvasElement[]): { x: number; y: numb
   let maxY = -Infinity;
   
   elements.forEach(element => {
-    minX = Math.min(minX, element.x);
-    minY = Math.min(minY, element.y);
-    maxX = Math.max(maxX, element.x + element.width);
-    maxY = Math.max(maxY, element.y + element.height);
+    const elementX = element.x || 0;
+    const elementY = element.y || 0;
+    minX = Math.min(minX, elementX);
+    minY = Math.min(minY, elementY);
+    maxX = Math.max(maxX, elementX + element.width);
+    maxY = Math.max(maxY, elementY + element.height);
   });
   
   return {
@@ -667,4 +671,62 @@ export function isValidDropTarget(targetElement: CanvasElement | null, draggedEl
   ];
   
   return validDropTargets.includes(targetElement.type) || targetElement.isContainer === true;
+}
+
+// Check if moving an element would create a circular dependency
+export function wouldCreateCircularDependency(
+  draggedElementId: string, 
+  targetElementId: string, 
+  elements: Record<string, CanvasElement>
+): boolean {
+  if (draggedElementId === targetElementId) return true;
+  
+  // Check if target is a descendant of dragged element
+  const isDescendant = (parentId: string, childId: string): boolean => {
+    const parent = elements[parentId];
+    if (!parent || !parent.children) return false;
+    
+    if (parent.children.includes(childId)) return true;
+    
+    return parent.children.some(childElementId => isDescendant(childElementId, childId));
+  };
+  
+  return isDescendant(draggedElementId, targetElementId);
+}
+
+// Detect drop zone based on mouse position within element
+export function detectDropZone(
+  mouseY: number, 
+  elementRect: DOMRect, 
+  canAcceptChildren: boolean = true
+): 'before' | 'after' | 'inside' | null {
+  const relativeY = mouseY - elementRect.top;
+  const height = elementRect.height;
+  
+  const beforeThreshold = height * 0.3; // Top 30%
+  const afterThreshold = height * 0.7;  // Bottom 30%
+  
+  if (relativeY <= beforeThreshold) {
+    return 'before';
+  } else if (relativeY >= afterThreshold) {
+    return 'after';
+  } else if (canAcceptChildren) {
+    return 'inside'; // Middle 40%
+  } else {
+    // For non-containers, split middle area between before/after
+    return relativeY < height / 2 ? 'before' : 'after';
+  }
+}
+
+// Check if element can accept children
+export function canAcceptChildren(element: CanvasElement): boolean {
+  const nonContainerTypes = [
+    'text', 'heading', 'list', 'image', 'button',
+    'input', 'textarea', 'checkbox', 'radio', 'select',
+    'video', 'audio', 'link', 'code', 'divider'
+  ];
+  
+  return !nonContainerTypes.includes(element.type) && 
+         (element.isContainer === true || 
+          ['container', 'rectangle', 'section', 'nav', 'header', 'footer', 'article'].includes(element.type));
 }

@@ -26,6 +26,12 @@ interface UIState {
   hoveredElementId: string | null;
   hoveredZone: 'before' | 'after' | 'inside' | null;
   insertionIndicator: any;
+  // Tree drag state
+  isTreeDragActive: boolean;
+  treeDraggedElementId: string | null;
+  treeHoveredElementId: string | null;
+  treeHoveredZone: 'before' | 'after' | 'inside' | null;
+  autoExpandTimer: NodeJS.Timeout | null;
   // Settings
   settings: {
     enableHandToolDragging: boolean;
@@ -55,6 +61,12 @@ const initialState: UIState = {
   hoveredElementId: null,
   hoveredZone: null,
   insertionIndicator: null,
+  // Tree drag state
+  isTreeDragActive: false,
+  treeDraggedElementId: null,
+  treeHoveredElementId: null,
+  treeHoveredZone: null,
+  autoExpandTimer: null,
   settings: {
     enableHandToolDragging: false, // Disabled by default
     enableClickToMove: false, // Disabled by default
@@ -175,6 +187,15 @@ const uiSlice = createSlice({
       state.resizeHandle = undefined;
       state.isDraggingForReorder = false;
       state.draggedElementId = undefined;
+      // Reset tree drag state
+      state.isTreeDragActive = false;
+      state.treeDraggedElementId = null;
+      state.treeHoveredElementId = null;
+      state.treeHoveredZone = null;
+      if (state.autoExpandTimer) {
+        clearTimeout(state.autoExpandTimer);
+        state.autoExpandTimer = null;
+      }
     },
 
     setDraggedElement: (state, action: PayloadAction<string | undefined>) => {
@@ -188,6 +209,37 @@ const uiSlice = createSlice({
     setHoveredElement: (state, action: PayloadAction<{ elementId: string | null; zone: 'before' | 'after' | 'inside' | null }>) => {
       state.hoveredElementId = action.payload.elementId;
       state.hoveredZone = action.payload.zone;
+    },
+
+    // Tree drag actions
+    setTreeDragActive: (state, action: PayloadAction<boolean>) => {
+      state.isTreeDragActive = action.payload;
+      if (!action.payload) {
+        // Clear tree drag state when drag ends
+        state.treeDraggedElementId = null;
+        state.treeHoveredElementId = null;
+        state.treeHoveredZone = null;
+        if (state.autoExpandTimer) {
+          clearTimeout(state.autoExpandTimer);
+          state.autoExpandTimer = null;
+        }
+      }
+    },
+
+    setTreeDraggedElement: (state, action: PayloadAction<string | null>) => {
+      state.treeDraggedElementId = action.payload;
+    },
+
+    setTreeHoveredElement: (state, action: PayloadAction<{ elementId: string | null; zone: 'before' | 'after' | 'inside' | null }>) => {
+      state.treeHoveredElementId = action.payload.elementId;
+      state.treeHoveredZone = action.payload.zone;
+    },
+
+    setAutoExpandTimer: (state, action: PayloadAction<NodeJS.Timeout | null>) => {
+      if (state.autoExpandTimer) {
+        clearTimeout(state.autoExpandTimer);
+      }
+      state.autoExpandTimer = action.payload;
     },
     
     loadUISettings: (state, action: PayloadAction<Partial<UIState>>) => {
@@ -240,6 +292,10 @@ export const {
   setDraggedElement,
   setDraggingForReorder,
   setHoveredElement,
+  setTreeDragActive,
+  setTreeDraggedElement,
+  setTreeHoveredElement,
+  setAutoExpandTimer,
   loadUISettings,
 } = uiSlice.actions;
 
