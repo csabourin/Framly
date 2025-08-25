@@ -12,9 +12,13 @@ import { Palette, Sun, Moon, Monitor, Contrast } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 export function ColorModeToggle() {
+  console.log('🎨 ColorModeToggle rendering...');
+  
   try {
     const { mode, resolvedMode, setMode, supportsHighContrast } = useColorMode();
     const { t } = useTranslation();
+    
+    console.log('🎨 ColorMode values:', { mode, resolvedMode, supportsHighContrast });
 
   const modeOptions: { value: ColorMode; label: string; icon: React.ComponentType<{ className?: string }>; description: string }[] = [
     {
@@ -101,17 +105,17 @@ export function ColorModeToggle() {
     </DropdownMenu>
   );
   } catch (error) {
-    console.error('ColorModeToggle error:', error);
+    console.error('🎨 ColorModeToggle error:', error);
     // Fallback UI
     return (
       <Button
         variant="ghost"
         size="sm"
-        className="h-8 w-8 p-0"
+        className="h-8 w-8 p-0 bg-red-100 border border-red-300"
         title="Color mode (error)"
         data-testid="color-mode-toggle-fallback"
       >
-        <Sun className="h-4 w-4" />
+        <Sun className="h-4 w-4 text-red-600" />
       </Button>
     );
   }
