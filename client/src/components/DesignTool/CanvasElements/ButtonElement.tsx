@@ -5,6 +5,8 @@ import { selectButtonDesignerState, selectCustomClasses } from '../../../store/s
 import { updateElement, selectElement } from '../../../store/canvasSlice';
 import { CanvasElement } from '../../../types/canvas';
 import { ButtonStyles } from '../../../types/button';
+import { useColorMode } from '../../../contexts/ColorModeContext';
+import { isColorModeValues } from '../../../utils/colorModeHelper';
 
 interface ButtonElementProps {
   element: CanvasElement;
@@ -21,6 +23,7 @@ const ButtonElement: React.FC<ButtonElementProps> = ({
 }) => {
   const dispatch = useDispatch();
   const { designs } = useSelector(selectButtonDesignerState);
+  const { resolvedMode } = useColorMode(); // Add color mode support
   const [isEditing, setIsEditing] = useState(false);
   const [editText, setEditText] = useState(element.buttonText || 'Button');
   
@@ -38,6 +41,18 @@ const ButtonElement: React.FC<ButtonElementProps> = ({
 
   // Get custom classes styles with state-specific support
   const customClasses = useSelector(selectCustomClasses);
+  
+  // Helper function to resolve color mode values
+  const resolveColorModeValue = (value: any) => {
+    if (isColorModeValues(value)) {
+      const colorModeValue = value as any;
+      return colorModeValue[resolvedMode] || 
+             colorModeValue.light || 
+             colorModeValue.dark || 
+             colorModeValue['high-contrast'];
+    }
+    return value;
+  };
   
   // Calculate styles - prioritize custom classes with state support over design states
   const getButtonStyles = (): React.CSSProperties => {
@@ -74,6 +89,12 @@ const ButtonElement: React.FC<ButtonElementProps> = ({
       combinedStyles = { ...combinedStyles, ...designStyles };
     }
     
+    // CRITICAL: Resolve color mode values to actual colors
+    const resolvedStyles = { ...combinedStyles };
+    Object.keys(resolvedStyles).forEach(key => {
+      resolvedStyles[key] = resolveColorModeValue(resolvedStyles[key]);
+    });
+    
     // Add default button styling if no custom styles applied
     const defaultButtonStyles = {
       padding: '2px 2px',
@@ -95,7 +116,7 @@ const ButtonElement: React.FC<ButtonElementProps> = ({
 
     return {
       ...defaultButtonStyles,
-      ...combinedStyles,
+      ...resolvedStyles,
       width: '100%',
       height: '100%',
     } as React.CSSProperties;
