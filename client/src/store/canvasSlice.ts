@@ -507,16 +507,16 @@ const canvasSlice = createSlice({
       const breakpointName = action.payload;
       state.project.currentBreakpoint = breakpointName;
       
-      // Ensure breakpoint exists in project state
+      // Ensure breakpoint exists in project state with full properties
       const defaultBreakpoints = {
-        mobile: { width: 375 },
-        tablet: { width: 768 },
-        desktop: { width: 1024 },
-        large: { width: 1440 }
+        mobile: { name: 'mobile', label: 'Mobile', width: 375 },
+        tablet: { name: 'tablet', label: 'Tablet', width: 768 },
+        desktop: { name: 'desktop', label: 'Desktop', width: 1024 },
+        large: { name: 'large', label: 'Large', width: 1440 }
       };
       
       if (!state.project.breakpoints[breakpointName]) {
-        state.project.breakpoints[breakpointName] = defaultBreakpoints[breakpointName as keyof typeof defaultBreakpoints] || { width: 1024 };
+        state.project.breakpoints[breakpointName] = defaultBreakpoints[breakpointName as keyof typeof defaultBreakpoints] || { name: 'desktop', label: 'Desktop', width: 1024 };
       }
       
       const breakpoint = state.project.breakpoints[breakpointName];

@@ -801,7 +801,10 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     return cssVariables;
   };
 
-  // Compute merged styles including custom classes
+  // Get current breakpoint from Redux for breakpoint-aware styling
+  const currentBreakpoint = useSelector((state: RootState) => state.canvas.project.currentBreakpoint);
+  
+  // Compute merged styles including custom classes and breakpoint-aware values
   const mergedStyles = React.useMemo(() => {
     const baseStyles = { ...element.styles };
     
@@ -816,14 +819,21 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
       });
     }
     
-    // Debug: Log border-related styles
-    const borderStyles = Object.entries(baseStyles).filter(([key]) => key.includes('border'));
-    if (borderStyles.length > 0) {
-      
-    }
+    // Apply breakpoint-specific values for responsive properties
+    const responsiveProps = ['width', 'height', 'padding', 'margin', 'fontSize'];
+    responsiveProps.forEach(prop => {
+      const value = baseStyles[prop];
+      if (value && typeof value === 'object' && !Array.isArray(value) && value[currentBreakpoint]) {
+        // Use breakpoint-specific value if available
+        baseStyles[prop] = value[currentBreakpoint];
+      } else if (value && typeof value === 'object' && !Array.isArray(value)) {
+        // Fallback to mobile value if current breakpoint not available
+        baseStyles[prop] = value.mobile || value[Object.keys(value)[0]];
+      }
+    });
     
     return baseStyles;
-  }, [element.styles, element.classes, customClasses]);
+  }, [element.styles, element.classes, customClasses, currentBreakpoint]);
 
   // CRITICAL: FIXED HTML positioning logic - exactly like real HTML
   // Elements follow normal document flow unless explicitly positioned by dragging
