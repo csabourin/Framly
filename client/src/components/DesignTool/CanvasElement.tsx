@@ -772,9 +772,9 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     for (const [key, value] of Object.entries(styles)) {
       if (value === undefined || value === null || value === '') continue;
       
-      // Skip width for text elements in flex containers - let CSS/JS handle it
-      // EXCEPT for row containers where we want to force auto width via inline styles
-      if (key === 'width' && ['text', 'heading', 'list'].includes(element.type) && isInFlexContainer && parentFlexDirection !== 'row') {
+      // For text elements in flex containers, only skip width if it's not explicitly set
+      // Always generate CSS variables for explicit width values to prevent overflow
+      if (key === 'width' && ['text', 'heading', 'list'].includes(element.type) && isInFlexContainer && parentFlexDirection !== 'row' && (value === '100%' || value === 'auto')) {
         continue;
       }
       

@@ -21,6 +21,10 @@
   /* Border */
   border: var(--element-border, none);
   border-radius: var(--element-border-radius, 0);
+  border-top-left-radius: var(--element-border-top-left-radius, var(--element-border-radius, 0));
+  border-top-right-radius: var(--element-border-top-right-radius, var(--element-border-radius, 0));
+  border-bottom-right-radius: var(--element-border-bottom-right-radius, var(--element-border-radius, 0));
+  border-bottom-left-radius: var(--element-border-bottom-left-radius, var(--element-border-radius, 0));
   
   /* Flexbox and Grid */
   display: var(--element-display, block);
