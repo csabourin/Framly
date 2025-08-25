@@ -146,6 +146,58 @@
     "colorPlaceholder": "#000000"
   },
   
+  "toolbar": {
+    "elementTree": "Arbre des éléments",
+    "components": "Composants"
+  },
+  
+  "elements": {
+    "select": "Sélectionner",
+    "hand": "Main",
+    "rectangle": "Rectangle",
+    "text": "Texte",
+    "heading": "Titre",
+    "button": "Bouton",
+    "image": "Image",
+    "formElements": "Éléments de formulaire",
+    "inputField": "Champ de saisie",
+    "textArea": "Zone de texte",
+    "checkbox": "Case à cocher",
+    "radioButton": "Bouton radio",
+    "selectDropdown": "Menu déroulant",
+    "structure": "Structure",
+    "section": "Section",
+    "navigation": "Navigation",
+    "header": "En-tête",
+    "footer": "Pied de page",
+    "article": "Article",
+    "content": "Contenu",
+    "list": "Liste",
+    "codeBlock": "Bloc de code",
+    "divider": "Séparateur",
+    "link": "Lien",
+    "media": "Média",
+    "video": "Vidéo",
+    "audio": "Audio"
+  },
+  
+  "propertiesPanel": {
+    "properties": "Propriétés",
+    "classEditing": "Édition de classe",
+    "elementSelectedReady": "✅ Élément sélectionné - Prêt à styliser !",
+    "startEditingHint": "Commencez à modifier n'importe quelle propriété ci-dessous et une classe CSS sera automatiquement créée pour cet élément.",
+    "clickClassHint": "💡 Cliquez sur une classe ci-dessous pour modifier ses styles",
+    "selectClassHint": "Sélectionnez une classe pour personnaliser son apparence ou créez-en une nouvelle.",
+    "appliedClasses": "Classes appliquées (Cliquer pour modifier)",
+    "editing": "Modification :",
+    "propertyChangesApply": "Les modifications de propriétés s'appliqueront à cette classe",
+    "addNewClass": "Ajouter une nouvelle classe",
+    "classNamePlaceholder": "nom-de-classe",
+    "suggestions": "Suggestions :",
+    "buttonProperties": "Propriétés du bouton",
+    "buttonDoubleClickHint": "💡 Double-cliquez sur le bouton dans le canevas pour modifier son texte"
+  },
+  
   "components": {
     "createComponent": "Créer Composant",
     "editComponent": "Modifier Composant",

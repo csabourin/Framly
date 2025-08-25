@@ -571,7 +571,7 @@ const PropertiesPanel: React.FC = () => {
       <div className="p-4 border-b border-gray-200" data-testid="panel-header">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="font-semibold text-gray-900">Properties</h2>
+            <h2 className="font-semibold text-gray-900">{t('propertiesPanel.properties')}</h2>
             <p className="text-sm text-gray-600 mt-1 capitalize">
               {selectedElement.type.replace(/([A-Z])/g, ' $1').trim()}
             </p>
@@ -595,15 +595,15 @@ const PropertiesPanel: React.FC = () => {
         <div className="p-4">
           <h3 className="font-medium text-gray-900 mb-3 flex items-center gap-2">
             <Palette className="w-4 h-4 text-blue-600" />
-            Class Editing
+{t('propertiesPanel.classEditing')}
           </h3>
           
           {/* Style Editing Status */}
           {!selectedClassForEditing && (!selectedElement.classes || selectedElement.classes.length === 0) && (
             <div className="p-3 bg-green-50 border border-green-200 rounded-md mb-3">
               <p className="text-sm text-green-800">
-                <strong>✅ Element Selected - Ready to Style!</strong><br/>
-                Start editing any property below and a CSS class will be automatically created for this element.
+                <strong>{t('propertiesPanel.elementSelectedReady')}</strong><br/>
+{t('propertiesPanel.startEditingHint')}
               </p>
             </div>
           )}
@@ -611,8 +611,8 @@ const PropertiesPanel: React.FC = () => {
           {!selectedClassForEditing && selectedElement.classes && selectedElement.classes.length > 1 && (
             <div className="p-3 bg-blue-50 border border-blue-200 rounded-md mb-3">
               <p className="text-sm text-blue-800">
-                <strong>💡 Click a class below to edit its styles</strong><br/>
-                Select a class to customize its appearance, or create a new one.
+                <strong>{t('propertiesPanel.clickClassHint')}</strong><br/>
+{t('propertiesPanel.selectClassHint')}
               </p>
             </div>
           )}
@@ -623,7 +623,7 @@ const PropertiesPanel: React.FC = () => {
           {selectedElement.classes && selectedElement.classes.length > 0 ? (
             <div className="space-y-3">
               <div>
-                <Label className="text-sm font-medium text-gray-700 mb-2">Applied Classes (Click to Edit)</Label>
+                <Label className="text-sm font-medium text-gray-700 mb-2">{t('propertiesPanel.appliedClasses')}</Label>
                 <div className="flex flex-wrap gap-2">
                   {selectedElement.classes.map((className) => (
                     <button
@@ -650,11 +650,11 @@ const PropertiesPanel: React.FC = () => {
                 <div className="p-2 bg-white rounded border-l-4 border-blue-400">
                   <div className="text-sm font-medium">
                     <span className="text-blue-700">
-                      Editing: <span className="font-mono">.{selectedClassForEditing}</span>
+                      {t('propertiesPanel.editing')} <span className="font-mono">.{selectedClassForEditing}</span>
                     </span>
                   </div>
                   <div className="text-xs text-gray-500 mt-1">
-                    Property changes will apply to this class
+{t('propertiesPanel.propertyChangesApply')}
                   </div>
                 </div>
               )}
@@ -663,11 +663,11 @@ const PropertiesPanel: React.FC = () => {
           
           {/* Add New Class */}
           <div className="mt-4 p-3 bg-white rounded border">
-            <Label className="text-sm font-medium text-gray-700 mb-2">Add New Class</Label>
+            <Label className="text-sm font-medium text-gray-700 mb-2">{t('propertiesPanel.addNewClass')}</Label>
             <div className="flex gap-2">
               <Input
                 type="text"
-                placeholder="class-name"
+                placeholder={t('propertiesPanel.classNamePlaceholder')}
                 value={newClassName}
                 onChange={(e) => setNewClassName(e.target.value)}
                 className="flex-1 font-mono"
@@ -687,7 +687,7 @@ const PropertiesPanel: React.FC = () => {
             
             {/* Class Suggestions */}
             <div className="space-y-2 mt-2">
-              <div className="text-xs font-medium text-gray-600">Suggestions:</div>
+              <div className="text-xs font-medium text-gray-600">{t('propertiesPanel.suggestions')}</div>
               <div className="flex flex-wrap gap-1">
                 {cssClassGenerator.generateCSSClassSuggestions(selectedElement.type).slice(0, 6).map(suggestion => (
                   <Button
@@ -714,14 +714,14 @@ const PropertiesPanel: React.FC = () => {
           <div className="p-4">
             <h3 className="font-medium text-gray-900 mb-3 flex items-center gap-2">
               <Type className="w-4 h-4 text-orange-600" />
-              Button Properties
+{t('propertiesPanel.buttonProperties')}
             </h3>
             
             {/* Button Properties */}
             <div className="space-y-3">
               <div className="p-2 bg-blue-50 border border-blue-200 rounded">
                 <p className="text-xs text-blue-700">
-                  💡 <strong>Double-click</strong> the button on canvas to edit its text
+{t('propertiesPanel.buttonDoubleClickHint')}
                 </p>
               </div>
               

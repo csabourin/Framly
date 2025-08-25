@@ -146,6 +146,58 @@
     "colorPlaceholder": "#000000"
   },
   
+  "toolbar": {
+    "elementTree": "Element Tree",
+    "components": "Components"
+  },
+  
+  "elements": {
+    "select": "Select",
+    "hand": "Hand",
+    "rectangle": "Rectangle",
+    "text": "Text",
+    "heading": "Heading",
+    "button": "Button",
+    "image": "Image",
+    "formElements": "Form Elements",
+    "inputField": "Input Field",
+    "textArea": "Text Area",
+    "checkbox": "Checkbox",
+    "radioButton": "Radio Button",
+    "selectDropdown": "Select Dropdown",
+    "structure": "Structure",
+    "section": "Section",
+    "navigation": "Navigation",
+    "header": "Header",
+    "footer": "Footer",
+    "article": "Article",
+    "content": "Content",
+    "list": "List",
+    "codeBlock": "Code Block",
+    "divider": "Divider",
+    "link": "Link",
+    "media": "Media",
+    "video": "Video",
+    "audio": "Audio"
+  },
+  
+  "propertiesPanel": {
+    "properties": "Properties",
+    "classEditing": "Class Editing",
+    "elementSelectedReady": "✅ Element Selected - Ready to Style!",
+    "startEditingHint": "Start editing any property below and a CSS class will be automatically created for this element.",
+    "clickClassHint": "💡 Click a class below to edit its styles",
+    "selectClassHint": "Select a class to customize its appearance, or create a new one.",
+    "appliedClasses": "Applied Classes (Click to Edit)",
+    "editing": "Editing:",
+    "propertyChangesApply": "Property changes will apply to this class",
+    "addNewClass": "Add New Class",
+    "classNamePlaceholder": "class-name",
+    "suggestions": "Suggestions:",
+    "buttonProperties": "Button Properties",
+    "buttonDoubleClickHint": "💡 Double-click the button on canvas to edit its text"
+  },
+  
   "components": {
     "createComponent": "Create Component",
     "editComponent": "Edit Component",

@@ -251,14 +251,14 @@ const Toolbar: React.FC = () => {
             : 'hover:bg-gray-100 text-gray-600'
           }
         `}
-        title="Element Tree"
+        title={t('toolbar.elementTree')}
         data-testid="button-toggle-dom-tree"
       >
         <List className="w-4 h-4" />
         
         {/* Tooltip */}
         <div className="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-xs rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50">
-          Element Tree
+{t('toolbar.elementTree')}
         </div>
       </button>
 
@@ -279,7 +279,7 @@ const Toolbar: React.FC = () => {
         
         {/* Tooltip */}
         <div className="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-xs rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50">
-          Components <span className="ml-1 text-gray-400">(C)</span>
+{t('toolbar.components')} <span className="ml-1 text-gray-400">(C)</span>
         </div>
       </button>
     </aside>
