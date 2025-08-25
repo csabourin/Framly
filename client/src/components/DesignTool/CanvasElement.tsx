@@ -797,24 +797,6 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
       }
     }
     
-    // Debug flex-direction:row specifically
-    if (['text', 'heading', 'list'].includes(element.type) && isInFlexContainer && parentFlexDirection === 'row') {
-      console.log('ROW FLEX DEBUG:', {
-        elementId: element.id.substring(0, 15) + '...',
-        elementType: element.type,
-        parentFlexDirection,
-        parentJustifyContent: parentElement?.styles?.justifyContent,
-        hasWidthInStyles: 'width' in styles,
-        styles: {
-          width: styles.width,
-          display: styles.display,
-        },
-        cssVariables: {
-          '--element-width': cssVariables['--element-width'],
-          '--element-display': cssVariables['--element-display'],
-        }
-      });
-    }
     
     return cssVariables;
   };
@@ -921,22 +903,6 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     ...cssVariables,
   };
 
-  // DEBUG: Log EVERY property update to see if changes reach CanvasElement
-  if (selectedElementId === element.id) {
-    console.log('SELECTED ELEMENT RENDER DEBUG:', {
-      elementId: element.id.substring(0, 15) + '...',
-      elementType: element.type,
-      height: element.height,
-      width: element.width,
-      styles: element.styles,
-      minimalInlineStyles: {
-        width: minimalInlineStyles.width,
-        height: minimalInlineStyles.height,
-        ...Object.fromEntries(Object.entries(minimalInlineStyles).filter(([k]) => k.startsWith('--element')))
-      },
-      renderedAt: Date.now()
-    });
-  }
 
   // Clean professional hover system - no debug logging needed
 

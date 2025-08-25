@@ -468,7 +468,10 @@ body[data-input-modality="mouse"] {
 /* Base selectable block with overlay system */
 .selectable-block {
   position: relative;
-  border-radius: var(--sel-radius);
+  border-top-left-radius: var(--element-border-top-left-radius, var(--element-border-radius, var(--sel-radius, 0)));
+  border-top-right-radius: var(--element-border-top-right-radius, var(--element-border-radius, var(--sel-radius, 0)));
+  border-bottom-right-radius: var(--element-border-bottom-right-radius, var(--element-border-radius, var(--sel-radius, 0)));
+  border-bottom-left-radius: var(--element-border-bottom-left-radius, var(--element-border-radius, var(--sel-radius, 0)));
   transition: box-shadow var(--t-fast) var(--ease), transform var(--t-fast) var(--ease);
 }
 
