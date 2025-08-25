@@ -8,6 +8,8 @@ export interface ColorModeContextValue {
   setMode: (mode: ColorMode) => void;
   systemPreference: 'light' | 'dark';
   supportsHighContrast: boolean;
+  isColorModeDesignEnabled: boolean;
+  setColorModeDesignEnabled: (enabled: boolean) => void;
 }
 
 const ColorModeContext = createContext<ColorModeContextValue | null>(null);
@@ -38,6 +40,12 @@ export function ColorModeProvider({ children, defaultMode = 'auto' }: ColorModeP
   const [supportsHighContrast] = useState(() => {
     if (typeof window === 'undefined') return false;
     return window.matchMedia('(prefers-contrast: more)').media !== 'not all';
+  });
+
+  const [isColorModeDesignEnabled, setColorModeDesignEnabledState] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    const saved = localStorage.getItem('design-tool-color-mode-design-enabled');
+    return saved === 'true';
   });
 
   // Resolve the actual mode based on system preferences
@@ -94,12 +102,20 @@ export function ColorModeProvider({ children, defaultMode = 'auto' }: ColorModeP
     localStorage.setItem('design-tool-color-mode', newMode);
   }, []);
 
+  // Save color mode design enabled state
+  const setColorModeDesignEnabled = useCallback((enabled: boolean) => {
+    setColorModeDesignEnabledState(enabled);
+    localStorage.setItem('design-tool-color-mode-design-enabled', enabled.toString());
+  }, []);
+
   const value: ColorModeContextValue = {
     mode,
     resolvedMode,
     setMode,
     systemPreference,
     supportsHighContrast,
+    isColorModeDesignEnabled,
+    setColorModeDesignEnabled,
   };
 
   return (

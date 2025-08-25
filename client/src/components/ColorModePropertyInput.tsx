@@ -28,13 +28,13 @@ export interface ColorModePropertyInputProps {
 
 export function ColorModePropertyInput({ config, value, onChange }: ColorModePropertyInputProps) {
   const { t } = useTranslation();
-  const { resolvedMode } = useColorMode();
+  const { resolvedMode, isColorModeDesignEnabled } = useColorMode();
   const [previewMode, setPreviewMode] = useState<'light' | 'dark' | 'high-contrast' | null>(null);
   const [showModeSelector, setShowModeSelector] = useState(false);
 
   // Determine if we're working with mode-specific values
-  const isModeSpecific = typeof value === 'object' && value !== null;
-  const modeValues = isModeSpecific ? value as ColorModeValues : { light: value as string };
+  const isModeSpecific = (typeof value === 'object' && value !== null) || isColorModeDesignEnabled;
+  const modeValues = isModeSpecific ? (typeof value === 'object' ? value as ColorModeValues : { light: value as string }) : { light: value as string };
   
   // Get the current value for the active/preview mode
   const activeMode = previewMode || resolvedMode;
@@ -49,7 +49,7 @@ export function ColorModePropertyInput({ config, value, onChange }: ColorModePro
   };
 
   const handleColorChange = (newColor: string) => {
-    if (isModeSpecific || showModeSelector) {
+    if (isModeSpecific || showModeSelector || isColorModeDesignEnabled) {
       const updatedValues = {
         ...modeValues,
         [activeMode]: newColor
@@ -142,30 +142,32 @@ export function ColorModePropertyInput({ config, value, onChange }: ColorModePro
             </DropdownMenu>
           )}
           
-          {/* Enable/disable mode-specific colors */}
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={isModeSpecific || showModeSelector ? handleDisableModeSpecific : handleEnableModeSpecific}
-            className={`h-6 px-2 text-xs border ${
-              isModeSpecific || showModeSelector 
-                ? 'bg-blue-50 border-blue-200 text-blue-600' 
-                : 'border-gray-200 hover:border-blue-300'
-            }`}
-            title={isModeSpecific || showModeSelector ? 'Disable color modes' : 'Enable color modes'}
-          >
-            {isModeSpecific || showModeSelector ? (
-              <>
-                <EyeOff className="w-3 h-3 mr-1" />
-                <span className="text-xs">Multi</span>
-              </>
-            ) : (
-              <>
-                <Palette className="w-3 h-3 mr-1" />
-                <span className="text-xs">Single</span>
-              </>
-            )}
-          </Button>
+          {/* Enable/disable mode-specific colors - only show if global design mode is off */}
+          {!isColorModeDesignEnabled && (
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={isModeSpecific || showModeSelector ? handleDisableModeSpecific : handleEnableModeSpecific}
+              className={`h-6 px-2 text-xs border ${
+                isModeSpecific || showModeSelector 
+                  ? 'bg-blue-50 border-blue-200 text-blue-600' 
+                  : 'border-gray-200 hover:border-blue-300'
+              }`}
+              title={isModeSpecific || showModeSelector ? 'Disable color modes' : 'Enable color modes'}
+            >
+              {isModeSpecific || showModeSelector ? (
+                <>
+                  <EyeOff className="w-3 h-3 mr-1" />
+                  <span className="text-xs">Multi</span>
+                </>
+              ) : (
+                <>
+                  <Palette className="w-3 h-3 mr-1" />
+                  <span className="text-xs">Single</span>
+                </>
+              )}
+            </Button>
+          )}
         </div>
       </div>
 

@@ -6,13 +6,14 @@ import {
   DropdownMenuContent, 
   DropdownMenuItem, 
   DropdownMenuTrigger,
-  DropdownMenuSeparator
+  DropdownMenuSeparator,
+  DropdownMenuCheckboxItem
 } from '@/components/ui/dropdown-menu';
 import { Palette, Sun, Moon, Monitor, Contrast } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 export function ColorModeToggle() {
-  const { mode, resolvedMode, setMode, supportsHighContrast } = useColorMode();
+  const { mode, resolvedMode, setMode, supportsHighContrast, isColorModeDesignEnabled, setColorModeDesignEnabled } = useColorMode();
   const { t } = useTranslation();
 
   const modeOptions: { value: ColorMode; label: string; icon: React.ComponentType<{ className?: string }>; description: string }[] = [
@@ -109,6 +110,23 @@ export function ColorModeToggle() {
             </DropdownMenuItem>
           );
         })}
+        <DropdownMenuSeparator className="bg-gray-200 dark:bg-gray-700" />
+        <DropdownMenuCheckboxItem
+          checked={isColorModeDesignEnabled}
+          onCheckedChange={setColorModeDesignEnabled}
+          className="flex items-center gap-2"
+          data-testid="color-mode-design-toggle"
+        >
+          <Palette className="h-4 w-4" />
+          <div className="flex-1">
+            <div className="font-medium text-gray-900 dark:text-gray-100">
+              {t('colorMode.designMode', 'Design Mode')}
+            </div>
+            <div className="text-xs text-gray-600 dark:text-gray-400">
+              {t('colorMode.designModeDesc', 'Enable color mode support for all properties')}
+            </div>
+          </div>
+        </DropdownMenuCheckboxItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
