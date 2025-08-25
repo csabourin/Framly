@@ -68,21 +68,31 @@ export function ColorModeToggle() {
         <Button
           variant="outline"
           size="sm"
-          className="h-8 w-8 p-1 border-2 border-gray-400 dark:border-gray-500 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 shadow-sm"
+          className="h-10 w-10 p-2 border-2 border-blue-500 bg-white hover:bg-blue-50 shadow-lg"
           title={t('colorMode.toggle', 'Toggle color mode')}
           data-testid="color-mode-toggle"
           style={{ 
-            minWidth: '32px', 
-            minHeight: '32px',
+            minWidth: '40px', 
+            minHeight: '40px',
+            backgroundColor: '#ffffff',
+            borderColor: '#3b82f6',
+            borderWidth: '2px',
+            borderStyle: 'solid',
             position: 'relative',
-            zIndex: 10
+            zIndex: 999,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
           }}
         >
           <CurrentIcon 
-            className="h-4 w-4 text-gray-700 dark:text-gray-300" 
+            className="h-5 w-5" 
             style={{ 
+              color: '#1f2937',
               strokeWidth: 2,
-              filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.3))'
+              filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.5))',
+              width: '20px',
+              height: '20px'
             }}
           />
           <span className="sr-only">{t('colorMode.toggle', 'Toggle color mode')}</span>
