@@ -23,13 +23,26 @@ const Header: React.FC = () => {
     large: MonitorSpeaker,  // Distinct icon for large screens
   };
 
-  // Get breakpoints from Redux state - use all available breakpoints
-  const allBreakpoints = Object.values(project.breakpoints);
-  const breakpoints = allBreakpoints;
+  // Ensure all 4 breakpoints are present with proper defaults
+  const defaultBreakpoints = {
+    mobile: { name: 'mobile', label: 'Mobile', width: 375 },
+    tablet: { name: 'tablet', label: 'Tablet', width: 768 }, 
+    desktop: { name: 'desktop', label: 'Desktop', width: 1024 },
+    large: { name: 'large', label: 'Large', width: 1440 }
+  };
   
-
+  // Merge existing breakpoints with defaults, ensuring all properties are present
+  const breakpoints = Object.entries(defaultBreakpoints).map(([key, defaultBp]) => {
+    const existingBp = project.breakpoints[key];
+    return {
+      ...defaultBp,
+      ...(existingBp || {}),
+      name: key,
+      label: defaultBp.label
+    };
+  });
+  
   const handleBreakpointChange = (breakpointName: string) => {
-    console.log('Switching to breakpoint:', breakpointName);
     dispatch(switchBreakpoint(breakpointName));
   };
 
@@ -122,15 +135,16 @@ const Header: React.FC = () => {
               <button
                 key={breakpoint.name}
                 onClick={() => handleBreakpointChange(breakpoint.name)}
-                className={`px-3 py-1 text-sm font-medium rounded flex items-center gap-1 transition-colors ${
+                className={`px-2 py-1 text-xs font-medium rounded flex items-center gap-1 transition-colors ${
                   isActive
                     ? 'bg-white shadow-sm border border-gray-200 text-gray-900'
                     : 'text-gray-600 hover:text-gray-900'
                 }`}
                 data-testid={`button-breakpoint-${breakpoint.name}`}
+                title={`${breakpoint.label} (${breakpoint.width}px)`}
               >
-                <Icon className="w-3 h-3" />
-                {breakpoint.label}
+                <Icon className="w-4 h-4" />
+                <span className="hidden md:inline text-xs">{breakpoint.label}</span>
               </button>
             );
           })}
