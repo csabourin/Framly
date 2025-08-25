@@ -239,7 +239,9 @@ const Header: React.FC = () => {
           <UndoRedoControls />
           
           {/* Color Mode Toggle */}
-          <ColorModeToggle />
+          <div className="flex items-center justify-center relative z-50" style={{ minWidth: '40px', minHeight: '40px' }}>
+            <ColorModeToggle />
+          </div>
           
           <Button
             variant="ghost"

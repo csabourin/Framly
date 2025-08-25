@@ -62,14 +62,14 @@ export function ColorModeToggle() {
         <Button
           variant="ghost"
           size="sm"
-          className="h-8 w-8 p-1 hover:bg-gray-100 dark:hover:bg-gray-700 border-2 border-gray-400 dark:border-gray-500 bg-white dark:bg-gray-800 shadow-sm"
+          className="h-8 w-8 p-1 hover:bg-gray-100 dark:hover:bg-gray-700 border-2 border-gray-400 dark:border-gray-500 bg-white dark:bg-gray-800 shadow-sm relative z-50 !flex !opacity-100 !visible"
           title={t('colorMode.toggle', 'Toggle color mode')}
           data-testid="color-mode-toggle"
           style={{ 
             minWidth: '32px', 
             minHeight: '32px',
-            opacity: 1,
-            visibility: 'visible'
+            position: 'relative',
+            zIndex: 9999
           }}
         >
           <CurrentIcon 
