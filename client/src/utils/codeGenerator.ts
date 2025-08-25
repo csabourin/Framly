@@ -1,5 +1,6 @@
 import { CanvasElement, Project } from '../types/canvas';
 import { CSSOptimizer } from './cssOptimizer';
+import { generateColorModeCSS, combineColorModeCSS, isColorModeValues, ColorModeCSS } from './colorModeHelper';
 
 interface CustomClass {
   name: string;

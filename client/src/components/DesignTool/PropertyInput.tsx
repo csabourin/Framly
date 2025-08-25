@@ -14,6 +14,7 @@ import {
 import { Info } from 'lucide-react';
 import { ImageUpload } from './ImageUpload';
 import { BackgroundInput } from './BackgroundInput';
+import { ColorModePropertyInput } from '../ColorModePropertyInput';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { RootState } from '../../store';
@@ -155,35 +156,11 @@ export const PropertyInput: React.FC<PropertyInputProps> = ({ config, value, onC
 
       case 'color':
         return (
-          <div className="flex gap-2">
-            <Input
-              type="color"
-              value={value === 'transparent' ? '#000000' : (value || '#000000')}
-              onChange={(e) => onChange(e.target.value)}
-              className="w-12 h-9 p-1 border rounded"
-              data-testid={`color-${config.key}`}
-            />
-            <Input
-              type="text"
-              value={value || '#000000'}
-              onChange={(e) => onChange(e.target.value)}
-              placeholder={t('breakpoints.colorPlaceholder')}
-              className="flex-1 font-mono text-sm"
-              data-testid={`input-${config.key}`}
-            />
-            <button
-              onClick={() => onChange('transparent')}
-              className={`px-2 py-1 text-xs rounded border transition-colors ${
-                value === 'transparent' 
-                  ? 'bg-blue-100 border-blue-300 text-blue-700' 
-                  : 'bg-gray-50 border-gray-200 text-gray-600 hover:bg-gray-100'
-              }`}
-              data-testid={`transparent-${config.key}`}
-              title={t('properties.setTransparent')}
-            >
-{t('common.clear')}
-            </button>
-          </div>
+          <ColorModePropertyInput
+            config={config}
+            value={value}
+            onChange={onChange}
+          />
         );
 
       case 'range':

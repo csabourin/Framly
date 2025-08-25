@@ -11,6 +11,7 @@ import UndoRedoControls from './UndoRedoControls';
 import WebsiteImport from './WebsiteImport';
 import SettingsMenu from './SettingsMenu';
 import LanguageSwitcher from '@/components/ui/language-switcher';
+import { ColorModeToggle } from '@/components/ColorModeToggle';
 
 const Header: React.FC = () => {
   const { t } = useTranslation();
@@ -236,6 +237,10 @@ const Header: React.FC = () => {
           
           {/* Undo/Redo Controls with History Management */}
           <UndoRedoControls />
+          
+          {/* Color Mode Toggle */}
+          <ColorModeToggle />
+          
           <Button
             variant="ghost"
             size="sm"

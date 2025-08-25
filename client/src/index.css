@@ -55,6 +55,10 @@
   --c-bg-mask: color-mix(in oklab, var(--c-accent), transparent 90%);
   --c-handle: oklch(40% 0.05 265);
   
+  /* Color mode tokens */
+  --contrast-multiplier: 1;
+  --border-contrast: 1px solid;
+  
   /* Selection effects */
   --e-ring: 0 0 0 2px var(--c-focus), 0 0 0 6px color-mix(in oklab, var(--c-focus), transparent 75%);
   --e-selected: 0 0 0 1px color-mix(in oklab, var(--c-accent), transparent 10%) inset, 0 1px 8px rgba(0,0,0,.12);
@@ -97,6 +101,42 @@
   --c-accent: oklch(70% 0.15 265);
   --c-hover: oklch(80% 0.08 265);
   --c-focus: oklch(85% 0.12 265);
+}
+
+.high-contrast {
+  /* High contrast color overrides */
+  --background: hsl(0, 0%, 0%);
+  --foreground: hsl(0, 0%, 100%);
+  --card: hsl(0, 0%, 0%);
+  --card-foreground: hsl(0, 0%, 100%);
+  --popover: hsl(0, 0%, 0%);
+  --popover-foreground: hsl(0, 0%, 100%);
+  --primary: hsl(210, 100%, 70%);
+  --primary-foreground: hsl(0, 0%, 0%);
+  --secondary: hsl(0, 0%, 100%);
+  --secondary-foreground: hsl(0, 0%, 0%);
+  --muted: hsl(0, 0%, 15%);
+  --muted-foreground: hsl(0, 0%, 85%);
+  --accent: hsl(0, 0%, 15%);
+  --accent-foreground: hsl(0, 0%, 100%);
+  --destructive: hsl(0, 100%, 70%);
+  --destructive-foreground: hsl(0, 0%, 0%);
+  --border: hsl(0, 0%, 50%);
+  --input: hsl(0, 0%, 15%);
+  --ring: hsl(210, 100%, 70%);
+  --success: hsl(120, 100%, 70%);
+  --warning: hsl(45, 100%, 70%);
+  
+  /* Enhanced contrast tokens */
+  --contrast-multiplier: 2;
+  --border-contrast: 2px solid;
+  
+  /* Selection tokens for high contrast */
+  --c-accent: hsl(210, 100%, 70%);
+  --c-hover: hsl(210, 100%, 80%);
+  --c-focus: hsl(210, 100%, 85%);
+  --c-invalid: hsl(0, 100%, 70%);
+  --c-locked: hsl(0, 0%, 70%);
 }
 
 @layer base {
