@@ -428,23 +428,25 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
         elementClasses.push('_imported-element');
       }
 
-      // Create canvas element with all required properties for proper rendering
+      // Create canvas element with preserved CSS layout
       const canvasElement: CanvasElement = {
         id: elementId,
         type: elementType,
-        x: 0, // Use consistent positioning
-        y: 0,
+        x: 0, // Let CSS handle positioning
+        y: 0, 
         width,
         height,
         styles: {
-          // Ensure basic styles for canvas rendering
-          display: elementData.isContainer ? 'flex' : 'block',
-          position: 'relative',
-          ...inlineStyles
+          // Preserve original layout system - don't override display unless necessary
+          position: (inlineStyles.position as 'fixed' | 'absolute' | 'relative' | 'static') || (elementData.isContainer ? 'relative' : undefined),
+          // Keep all inline styles to preserve layout
+          ...inlineStyles,
+          // Only set display if not already specified and element is a container
+          ...(inlineStyles.display ? {} : elementData.isContainer ? { display: 'block' } : {})
         },
         classes: elementClasses || [],
         htmlTag: htmlElement.tagName.toLowerCase(),
-        parent: parentId, // Ensure parent is set
+        parent: parentId,
         ...elementData
       };
 

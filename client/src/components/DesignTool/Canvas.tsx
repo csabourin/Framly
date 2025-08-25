@@ -1292,6 +1292,14 @@ const Canvas: React.FC = () => {
         <div 
           className={hasImportedElements && importScope ? importScope : ''}
           data-canvas={hasImportedElements && importScope ? importScope : undefined}
+          style={{
+            // For imported elements, use CSS-based layout instead of canvas positioning
+            ...(hasImportedElements ? {
+              position: 'relative',
+              width: '100%',
+              minHeight: '100%'
+            } : {})
+          }}
         >
           {/* Render child elements efficiently */}
           {(rootElement.children || []).map((childId: string) => {

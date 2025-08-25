@@ -878,29 +878,47 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     return cssVariables['--element-width'] || (element.width === 0 ? '100%' : element.width);
   };
   
+  // Check if this is an imported element that needs CSS-based layout
+  const isImportedElement = element.classes?.includes('_imported-element');
+  
   // Only use inline styles for essential behavior and positioning
   const minimalInlineStyles: React.CSSProperties = {
-    // Positioning - only when explicitly positioned by dragging
-    position: basePosition as any,
-    left: baseLeft,
-    top: baseTop,
+    // For imported elements, let CSS handle positioning; for canvas elements use explicit positioning
+    ...(isImportedElement ? {
+      // Let CSS handle positioning for imported elements to preserve original layout
+      position: (mergedStyles.position as any) || 'relative',
+      // Don't override width/height for imported elements - let CSS control them
+      width: mergedStyles.width || 'auto',
+      height: mergedStyles.height || 'auto',
+    } : {
+      // Canvas element positioning
+      position: basePosition as any,
+      left: baseLeft,
+      top: baseTop,
+      // Essential width behavior - FORCE auto width for text elements in row containers
+      ...((['text', 'heading', 'list'].includes(element.type) && isInFlexContainer && parentFlexDirection === 'row') 
+          ? { width: 'auto' } // FORCE auto width for text elements in row flex containers
+          : (['text', 'heading', 'list'].includes(element.type) && isInFlexContainer) 
+            ? {} // Let CSS handle width for text elements in other flex containers
+            : { width: getElementWidth() } // Explicit width for other elements
+      ),
+      // Essential height behavior for text elements
+      height: (['text', 'heading', 'list'].includes(element.type)) ? 'auto' : 
+             (cssVariables['--element-min-height'] ? undefined : element.height),
+    }),
+    
+    // Common styles for all elements
     // Selection and interaction feedback
     outline: getOutlineStyle(),
     boxShadow: getBoxShadow(),
     zIndex: isThisElementHovered ? 1000 : (isSelected ? 100 : undefined),
-    // Essential width behavior - FORCE auto width for text elements in row containers
-    ...((['text', 'heading', 'list'].includes(element.type) && isInFlexContainer && parentFlexDirection === 'row') 
-        ? { width: 'auto' } // FORCE auto width for text elements in row flex containers
-        : (['text', 'heading', 'list'].includes(element.type) && isInFlexContainer) 
-          ? {} // Let CSS handle width for text elements in other flex containers
-          : { width: getElementWidth() } // Explicit width for other elements
-    ),
-    // Essential height behavior for text elements
-    height: (['text', 'heading', 'list'].includes(element.type)) ? 'auto' : 
-           (cssVariables['--element-min-height'] ? undefined : element.height),
     minHeight: (['text', 'heading', 'list'].includes(element.type)) ? '1.2em' : undefined,
-    // CSS Variables for dynamic styling
-    ...cssVariables,
+    
+    // Apply merged styles from custom classes and inline styles (including imported CSS)
+    ...mergedStyles,
+    
+    // CSS Variables for dynamic styling (only for non-imported elements)
+    ...(isImportedElement ? {} : cssVariables),
   };
 
 
