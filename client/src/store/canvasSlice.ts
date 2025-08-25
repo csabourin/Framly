@@ -504,8 +504,22 @@ const canvasSlice = createSlice({
     },
     
     switchBreakpoint: (state, action: PayloadAction<string>) => {
-      state.project.currentBreakpoint = action.payload;
-      const breakpoint = state.project.breakpoints[action.payload];
+      const breakpointName = action.payload;
+      state.project.currentBreakpoint = breakpointName;
+      
+      // Ensure breakpoint exists in project state
+      const defaultBreakpoints = {
+        mobile: { width: 375 },
+        tablet: { width: 768 },
+        desktop: { width: 1024 },
+        large: { width: 1440 }
+      };
+      
+      if (!state.project.breakpoints[breakpointName]) {
+        state.project.breakpoints[breakpointName] = defaultBreakpoints[breakpointName as keyof typeof defaultBreakpoints] || { width: 1024 };
+      }
+      
+      const breakpoint = state.project.breakpoints[breakpointName];
       const currentTab = getCurrentTab(state);
       if (breakpoint && currentTab?.elements.root) {
         currentTab.elements.root.width = breakpoint.width;

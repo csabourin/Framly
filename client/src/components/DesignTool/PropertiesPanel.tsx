@@ -15,6 +15,7 @@ import { cssClassGenerator } from '../../utils/cssClassGenerator';
 import { getPropertyGroups, getCSSPropertyKey, formatValueWithUnit, PropertyConfig, ElementType } from '../../utils/propertyConfig';
 import { PropertyInput } from './PropertyInput';
 import CompoundPropertyInput from './CompoundPropertyInput';
+import ResponsivePropertyInput from './ResponsivePropertyInput';
 import { 
   AlignLeft, 
   AlignCenter, 
@@ -811,13 +812,22 @@ const PropertiesPanel: React.FC = () => {
                 <div className="px-4 pb-4 space-y-4" data-testid={`group-content-${group.category}`}>
                   {group.properties.map((property) => (
                     <div key={property.key}>
-                      <PropertyInput
-                        config={property}
-                        value={getPropertyValue(property)}
-                        onChange={(value) => handlePropertyChange(property.key, value)}
-                        elementId={selectedElement.id}
-                        element={selectedElement}
-                      />
+                      {property.responsive ? (
+                        <ResponsivePropertyInput
+                          config={property}
+                          element={selectedElement}
+                          value={getPropertyValue(property)}
+                          onChange={handlePropertyChange}
+                        />
+                      ) : (
+                        <PropertyInput
+                          config={property}
+                          value={getPropertyValue(property)}
+                          onChange={(value) => handlePropertyChange(property.key, value)}
+                          elementId={selectedElement.id}
+                          element={selectedElement}
+                        />
+                      )}
                       {/* Add advanced controls right below their simple counterparts */}
                       {(() => {
                         const compoundType = getCompoundPropertyType(property.key);
