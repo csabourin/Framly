@@ -156,6 +156,7 @@ body {
   }
 
   generateLegacyCSS(): string {
+    console.log(`🔧 Using generateLegacyCSS method`);
     const elements = Object.values(this.project.elements) as CanvasElement[];
     const cssRules: string[] = [];
     
@@ -219,15 +220,33 @@ ${styles}
   }
   
   private generateCSSProperties(element: CanvasElement): string {
-    // Use color mode helper to generate proper CSS with color modes
-    const colorModeCSS = generateColorModeCSS('', element.styles);
+    console.log(`🔧 generateCSSProperties called for element styles:`, element.styles);
+    
     const styles: string[] = [];
     
-    // Extract base CSS properties (remove selector wrapper)
-    if (colorModeCSS.baseCSS) {
-      const baseLines = colorModeCSS.baseCSS.split('\n').slice(1, -1); // Remove wrapper lines
-      styles.push(...baseLines);
+    if (!element.styles || typeof element.styles !== 'object') {
+      return '';
     }
+    
+    Object.entries(element.styles).forEach(([property, value]) => {
+      console.log(`🔧 Processing property: ${property}, value:`, value, `type:`, typeof value);
+      
+      if (isColorModeValues(value)) {
+        console.log(`✅ ColorModeValues detected:`, value);
+        // Use light mode as default, fallback to dark or high-contrast
+        const defaultValue = value.light || value.dark || value['high-contrast'];
+        if (defaultValue) {
+          const cssProperty = this.camelToKebab(property);
+          styles.push(`    ${cssProperty}: ${defaultValue};`);
+        }
+      } else if (value !== undefined && value !== null && value !== '' && typeof value !== 'object') {
+        // Only process primitive values, skip objects that aren't ColorModeValues
+        const cssProperty = this.camelToKebab(property);
+        styles.push(`    ${cssProperty}: ${value};`);
+      } else if (typeof value === 'object') {
+        console.log(`❌ Skipping object value that's not ColorModeValues:`, value);
+      }
+    });
     
     return styles.join('\n');
   }

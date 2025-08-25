@@ -61,8 +61,10 @@ export function generateColorModeCSS(
       }
     } else {
       // Regular property - add to base CSS
-      if (value !== undefined && value !== null && value !== '') {
+      if (value !== undefined && value !== null && value !== '' && typeof value !== 'object') {
         baseCSS.push(`  ${property}: ${value};`);
+      } else if (typeof value === 'object') {
+        console.log(`❌ colorModeHelper: Skipping object value that's not ColorModeValues:`, value);
       }
     }
   });
