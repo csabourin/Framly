@@ -8,6 +8,7 @@ import { createDefaultElement, getElementAtPoint, calculateSnapPosition, isValid
 import { selectCurrentElements, selectSelectedElementId, selectCanvasProject, selectCanvasUIState } from '../../store/selectors';
 import { ComponentDef, CanvasElement as CanvasElementType } from '../../types/canvas';
 import CanvasElement from './CanvasElement';
+import ShadowCanvas from './ShadowCanvas';
 import { useExpandedElements } from '../../hooks/useExpandedElements';
 
 import { Plus, Minus, Maximize } from 'lucide-react';
@@ -54,6 +55,15 @@ const Canvas: React.FC = () => {
   
 
   const selectedElement = selectedElementId ? currentElements[selectedElementId] : null;
+
+  // Check if we have imported elements that need Shadow DOM isolation
+  const hasImportedElements = Object.values(currentElements).some(element => 
+    element?.classes?.includes('_imported-element')
+  );
+  
+  // Get imported CSS for Shadow DOM if available
+  const importedCSS = (window as any).lastImportedCSS;
+  const importScope = (window as any).lastImportScope;
 
   // Professional hit-testing that skips overlay elements during drag
   const deepestDroppableAt = useCallback((clientX: number, clientY: number): string | null => {
@@ -1279,26 +1289,37 @@ const Canvas: React.FC = () => {
         }}
         data-testid="canvas-container"
       >
-        {/* Render ALL Canvas Elements - including expanded component children */}
-        {/* Render child elements efficiently */}
-        {(rootElement.children || []).map((childId: string) => {
-          const element = currentElements[childId];
-          if (!element) {
-            // console.warn('Missing element in currentElements:', childId);
-            return null;
-          }
-          return (
-            <CanvasElement 
-              key={element.id} 
-              element={element}
-              isSelected={element.id === selectedElementId}
-              isHovered={element.id === hoveredElementId}
-              hoveredZone={element.id === hoveredElementId ? hoveredZone : null}
-              expandedContainerId={expandedContainerId}
-              currentElements={currentElements}
-            />
-          );
-        })}
+        {/* Conditional rendering: Shadow DOM for imported elements, regular Canvas otherwise */}
+        {hasImportedElements && importedCSS ? (
+          // Use Shadow DOM Canvas for imported content with complete CSS isolation
+          <ShadowCanvas 
+            canvasId={importScope}
+            importedCSS={importedCSS}
+          />
+        ) : (
+          // Regular canvas rendering for standard elements
+          <>
+            {/* Render child elements efficiently */}
+            {(rootElement.children || []).map((childId: string) => {
+              const element = currentElements[childId];
+              if (!element) {
+                // console.warn('Missing element in currentElements:', childId);
+                return null;
+              }
+              return (
+                <CanvasElement 
+                  key={element.id} 
+                  element={element}
+                  isSelected={element.id === selectedElementId}
+                  isHovered={element.id === hoveredElementId}
+                  hoveredZone={element.id === hoveredElementId ? hoveredZone : null}
+                  expandedContainerId={expandedContainerId}
+                  currentElements={currentElements}
+                />
+              );
+            })}
+          </>
+        )}
         
         {/* Component children are now rendered by their parent elements - no separate rendering needed */}
         

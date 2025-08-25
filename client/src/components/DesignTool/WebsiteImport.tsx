@@ -11,6 +11,7 @@ import { addCustomClass } from '@/store/classSlice';
 import { indexedDBManager } from '@/utils/indexedDB';
 import { nanoid } from 'nanoid';
 import type { CanvasElement } from '@/types/canvas';
+import { CSSRewriter } from '@/utils/cssRewriter';
 
 interface WebsiteImportProps {
   onImportComplete?: () => void;
@@ -206,7 +207,7 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
   };
 
   const processCSS = async (css: string, usedClasses: Set<string>) => {
-    console.log('🎨 Processing CSS styles with selective import and scoping');
+    console.log('🎨 Processing CSS with advanced Shadow DOM rewriting');
     console.log('📊 Input - CSS length:', css?.length || 0, 'characters');
     console.log('📊 Input - Classes to match:', usedClasses.size);
     
@@ -214,185 +215,30 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
       console.error('⚠️ No CSS content to process - CSS extraction may have failed');
       return;
     }
-    
-    if (usedClasses.size === 0) {
-      console.warn('⚠️ No CSS classes found in HTML - skipping CSS processing');
-      return;
-    }
 
     try {
-      // Create a unique scope for this import to prevent CSS conflicts
-      const importScope = `imported-${nanoid(8)}`;
-      console.log(`Creating CSS scope: ${importScope}`);
+      // Use the new CSS rewriter for Shadow DOM isolation
+      const rewriter = new CSSRewriter();
+      const rewritten = await rewriter.rewrite(css);
       
-      // Enhanced CSS parsing - only extract rules for classes actually used
-      const rules: Array<{ selector: string; styles: Record<string, string>; scopedSelector: string }> = [];
-      const skippedRules = { total: 0, unused: 0, invalid: 0, atRule: 0 };
+      console.log(`✅ CSS rewritten for Shadow DOM isolation`);
+      console.log(`🆔 Canvas ID: ${rewritten.canvasId}`);
+      console.log(`📊 Rewritten CSS length: ${rewritten.cssText.length} characters`);
+      console.log(`🎭 Keyframes renamed: ${rewritten.renamedKeyframes.size}`);
+      console.log(`🔤 Fonts renamed: ${rewritten.renamedFonts.size}`);
+
+      // Store the rewritten CSS and canvas ID for the Shadow DOM
+      (window as any).lastImportScope = rewritten.canvasId;
+      (window as any).lastImportedCSS = rewritten.cssText;
       
-      // Parse CSS rules - handle both class and element selectors
-      console.log('🔍 Parsing CSS rules...');
-      const ruleRegex = /([^{}]+)\s*\{([^}]+)\}/g;
-      let match;
-      let totalRules = 0;
-      
-      while ((match = ruleRegex.exec(css)) !== null) {
-        totalRules++;
-        const originalSelector = match[1].trim();
-        const styleBlock = match[2];
-        
-        // Skip @rules, comments, and complex selectors for now
-        if (originalSelector.startsWith('@')) {
-          skippedRules.atRule++;
-          continue;
-        }
-        
-        if (originalSelector.includes('/*')) {
-          skippedRules.invalid++;
-          continue;
-        }
-        
-        // Check if this rule is for a class we actually use
-        let isRelevant = false;
-        
-        if (originalSelector.startsWith('.')) {
-          // Class selector - check if we use this class
-          const className = originalSelector.substring(1).split(/[:\s,]/)[0]; // Get base class name
-          if (usedClasses.has(className)) {
-            isRelevant = true;
-          }
-        } else if (originalSelector.match(/^[a-zA-Z]/)) {
-          // Element selector (body, div, etc.) - always include these
-          isRelevant = true;
-        }
-        
-        if (!isRelevant) {
-          skippedRules.unused++;
-          continue;
-        }
-        
-        // Create scoped selector by prefixing with import scope class
-        const scopedSelector = originalSelector
-          .split(',')
-          .map(sel => {
-            const trimmed = sel.trim();
-            // Scope all selectors under the import scope class
-            return `.${importScope} ${trimmed}`;
-          })
-          .join(', ');
-        
-        // Parse CSS properties
-        const styleObj: Record<string, string> = {};
-        const propertyRegex = /([^:;]+):\s*([^;]+)/g;
-        let propMatch;
-        
-        while ((propMatch = propertyRegex.exec(styleBlock)) !== null) {
-          const property = propMatch[1].trim();
-          const value = propMatch[2].trim();
-          
-          // Keep CSS property names as-is for proper CSS output
-          styleObj[property] = value;
-        }
-
-        if (Object.keys(styleObj).length > 0) {
-          rules.push({ 
-            selector: originalSelector, 
-            styles: styleObj,
-            scopedSelector 
-          });
-        }
-      }
-
-      console.log('📊 CSS PARSING RESULTS:');
-      console.log(`  Total rules found: ${totalRules}`);
-      console.log(`  Rules imported: ${rules.length}`);
-      console.log(`  Rules skipped: ${skippedRules.total = skippedRules.unused + skippedRules.invalid + skippedRules.atRule}`);
-      console.log(`    - Unused classes: ${skippedRules.unused}`);
-      console.log(`    - @rules/@media: ${skippedRules.atRule}`);
-      console.log(`    - Invalid/comments: ${skippedRules.invalid}`);
-      console.log(`  Compression ratio: ${((1 - rules.length / totalRules) * 100).toFixed(1)}% reduction`);
-      
-      if (rules.length === 0) {
-        console.warn('⚠️ No relevant CSS rules found - styles may not apply correctly');
-        return;
-      }
-
-      // Create scoped CSS classes for the custom class system
-      const scopedClasses: Record<string, any> = {};
-      
-      for (const rule of rules) {
-        let className: string;
-        
-        if (rule.selector.startsWith('.')) {
-          // Keep original class name - scoping happens via CSS selector
-          className = rule.selector.substring(1);
-        } else {
-          // Element selector - create a meaningful class name
-          className = `${rule.selector.replace(/[^a-zA-Z0-9]/g, '-')}`;
-        }
-
-        // Convert CSS properties to React-compatible camelCase for custom classes
-        const reactStyles: Record<string, string> = {};
-        Object.entries(rule.styles).forEach(([prop, value]) => {
-          const camelProperty = prop.replace(/-([a-z])/g, (match, letter) => letter.toUpperCase());
-          reactStyles[camelProperty] = value;
-        });
-
-        // Create the custom class in the style editor
-        try {
-          dispatch(addCustomClass({
-            name: className,
-            styles: reactStyles,
-            description: `Scoped import from ${rule.selector}`,
-            category: 'imported'
-          }));
-          
-          scopedClasses[className] = reactStyles;
-          
-          // Only log first 10 to avoid spam
-          if (Object.keys(scopedClasses).length <= 10) {
-            console.log(`✓ Added scoped class "${className}"`);
-          }
-        } catch (classError) {
-          console.error(`❌ Failed to create custom class "${className}":`, classError);
-        }
-      }
-
-      // Create the scoped CSS stylesheet and inject it into the page
-      const scopedCSS = rules.map(rule => {
-        const styleString = Object.entries(rule.styles)
-          .map(([prop, value]) => `  ${prop}: ${value};`)
-          .join('\n');
-        
-        return `${rule.scopedSelector} {\n${styleString}\n}`;
-      }).join('\n\n');
-
-      // Inject scoped CSS into the page
-      if (scopedCSS.trim()) {
-        try {
-          // Remove any existing imported styles first
-          const existingStyle = document.getElementById(`imported-styles-${importScope}`);
-          if (existingStyle) {
-            existingStyle.remove();
-          }
-          
-          const styleElement = document.createElement('style');
-          styleElement.id = `imported-styles-${importScope}`;
-          styleElement.textContent = scopedCSS;
-          document.head.appendChild(styleElement);
-          
-          console.log(`✅ Injected ${scopedCSS.length} characters of scoped CSS`);
-          console.log('📄 CSS Preview:', scopedCSS.substring(0, 300) + '...');
-        } catch (styleError) {
-          console.error('❌ Failed to inject CSS styles:', styleError);
-        }
-      }
-
-      // Store the scope for applying to imported elements
-      (window as any).lastImportScope = importScope;
       console.log(`✅ STEP 4 COMPLETE: CSS processing finished successfully`);
       
     } catch (error) {
       console.error('Failed to process CSS:', error);
+      // Fallback to basic scoping if rewriter fails
+      const importScope = `imported-${nanoid(8)}`;
+      (window as any).lastImportScope = importScope;
+      console.warn('⚠️ Using fallback CSS scoping');
     }
   };
 
@@ -595,13 +441,13 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
         height = 150;
       }
 
-      // Apply import scope to all elements for proper CSS specificity
+      // For Shadow DOM, we keep original class names - scoping happens via data-canvas attribute
       const importScope = (window as any).lastImportScope;
       const elementClasses = [...preservedClasses];
       
-      // Add the import scope class to all imported elements to ensure CSS specificity
+      // Mark this as an imported element for identification
       if (importScope) {
-        elementClasses.unshift(importScope);
+        elementClasses.push('_imported-element');
       }
 
       // Create canvas element with all required properties for proper rendering
