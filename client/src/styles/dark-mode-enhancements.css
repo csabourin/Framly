@@ -6,8 +6,22 @@
 }
 
 .dark body {
-  background-color: hsl(var(--background));
-  color: hsl(var(--foreground));
+  background-color: hsl(var(--background)) !important;
+  color: hsl(var(--foreground)) !important;
+}
+
+/* Main application container */
+.dark #root,
+.dark .app-container,
+.dark .design-tool-container {
+  background-color: hsl(var(--background)) !important;
+  color: hsl(var(--foreground)) !important;
+}
+
+/* Main layout areas */
+.dark .main-layout,
+.dark .design-tool-layout {
+  background-color: hsl(var(--background)) !important;
 }
 
 /* Header and navigation */
@@ -19,10 +33,28 @@
 /* Panels and sidebars */
 .dark .properties-panel,
 .dark .element-tree,
-.dark .canvas-panel {
-  background-color: hsl(var(--card));
-  color: hsl(var(--card-foreground));
-  border: 1px solid hsl(var(--border));
+.dark .canvas-panel,
+.dark .sidebar,
+.dark .panel,
+.dark .bg-white {
+  background-color: hsl(var(--card)) !important;
+  color: hsl(var(--card-foreground)) !important;
+  border-color: hsl(var(--border)) !important;
+}
+
+/* Force override white backgrounds */
+.dark .bg-white,
+.dark .bg-gray-50,
+.dark .bg-gray-100 {
+  background-color: hsl(var(--card)) !important;
+}
+
+/* Override light text colors */
+.dark .text-gray-900,
+.dark .text-gray-800,
+.dark .text-gray-700,
+.dark .text-black {
+  color: hsl(var(--foreground)) !important;
 }
 
 /* Input fields and form controls */
@@ -125,6 +157,30 @@
 .dark .border-gray-200,
 .dark .border-gray-300 {
   border-color: hsl(var(--border));
+}
+
+/* Layout grids and containers */
+.dark .grid,
+.dark .flex,
+.dark .design-tool-layout,
+.dark .main-content,
+.dark .canvas-container,
+.dark .properties-container {
+  background-color: transparent !important;
+}
+
+/* Specific DesignTool layout areas */
+.dark .min-h-screen {
+  background-color: hsl(var(--background)) !important;
+}
+
+/* Override any remaining light backgrounds */
+.dark [class*="bg-white"],
+.dark [class*="bg-gray"],
+.dark .bg-slate-50,
+.dark .bg-slate-100 {
+  background-color: hsl(var(--card)) !important;
+  color: hsl(var(--card-foreground)) !important;
 }
 
 /* High contrast mode */

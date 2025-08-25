@@ -239,10 +239,7 @@ const Header: React.FC = () => {
           <UndoRedoControls />
           
           {/* Color Mode Toggle */}
-          <div style={{ border: '2px solid blue', padding: '4px', backgroundColor: 'yellow', minWidth: '50px', minHeight: '30px' }}>
-            <span style={{ color: 'black' }}>Toggle:</span>
-            <ColorModeToggle />
-          </div>
+          <ColorModeToggle />
           
           <Button
             variant="ghost"

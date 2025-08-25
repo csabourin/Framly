@@ -12,24 +12,8 @@ import { Palette, Sun, Moon, Monitor, Contrast } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 export function ColorModeToggle() {
-  console.log('ColorModeToggle component started rendering');
-  
-  const colorModeContext = useColorMode();
+  const { mode, resolvedMode, setMode, supportsHighContrast } = useColorMode();
   const { t } = useTranslation();
-  
-  console.log('ColorModeToggle context:', colorModeContext);
-  
-  // Add safety check for context
-  if (!colorModeContext) {
-    console.warn('ColorModeToggle: ColorModeContext not found');
-    return (
-      <div style={{ background: 'purple', color: 'white', padding: '8px' }}>
-        No Context
-      </div>
-    );
-  }
-  
-  const { mode, resolvedMode, setMode, supportsHighContrast } = colorModeContext;
 
   const modeOptions: { value: ColorMode; label: string; icon: React.ComponentType<{ className?: string }>; description: string }[] = [
     {
@@ -71,18 +55,15 @@ export function ColorModeToggle() {
 
   const CurrentIcon = getCurrentIcon();
 
-  console.log('ColorModeToggle rendering:', { mode, resolvedMode });
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"
           size="sm"
-          className="h-8 w-8 p-0 border border-red-500"
+          className="h-8 w-8 p-0"
           title={t('colorMode.toggle', 'Toggle color mode')}
           data-testid="color-mode-toggle"
-          style={{ backgroundColor: 'red', opacity: 0.5 }}
         >
           <CurrentIcon className="h-4 w-4" />
           <span className="sr-only">{t('colorMode.toggle', 'Toggle color mode')}</span>
