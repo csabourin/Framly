@@ -17,7 +17,14 @@ import { useColorMode } from '../../contexts/ColorModeContext';
 const Header: React.FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const { isColorModeDesignEnabled, setColorModeDesignEnabled } = useColorMode();
+  const colorModeContext = useColorMode();
+  const { isColorModeDesignEnabled, setColorModeDesignEnabled } = colorModeContext;
+  
+  console.log('🎯 Header received context:', {
+    fullContext: colorModeContext,
+    isColorModeDesignEnabled,
+    setColorModeDesignEnabled: typeof setColorModeDesignEnabled
+  });
   const project = useSelector(selectCanvasProject);
   const { isExportModalOpen } = useSelector(selectExportModalState);
 
