@@ -20,7 +20,10 @@ export interface ColorModeProviderProps {
 }
 
 export function ColorModeProvider({ children, defaultMode = 'auto' }: ColorModeProviderProps) {
+  console.log('🚀 ColorModeProvider: Starting render...');
+  
   const [mode, setModeState] = useState<ColorMode>(() => {
+    console.log('🚀 ColorModeProvider: Initializing mode state...');
     if (typeof window === 'undefined') return defaultMode;
     
     // Try to load from localStorage
@@ -42,16 +45,27 @@ export function ColorModeProvider({ children, defaultMode = 'auto' }: ColorModeP
     return window.matchMedia('(prefers-contrast: more)').media !== 'not all';
   });
 
+  console.log('🚀 ColorModeProvider: About to create design enabled state...');
+  
   const [isColorModeDesignEnabled, setColorModeDesignEnabledState] = useState<boolean>(() => {
-    if (typeof window === 'undefined') return false;
+    console.log('🚀 ColorModeProvider: Initializing design enabled state...');
+    if (typeof window === 'undefined') {
+      console.log('🚀 ColorModeProvider: Window undefined, returning false');
+      return false;
+    }
     try {
       const saved = localStorage.getItem('design-tool-color-mode-design-enabled');
-      return saved === 'true';
+      console.log('🚀 ColorModeProvider: Loaded from localStorage:', saved);
+      const result = saved === 'true';
+      console.log('🚀 ColorModeProvider: Parsed result:', result);
+      return result;
     } catch (error) {
       console.warn('Failed to load color mode design enabled state:', error);
       return false;
     }
   });
+  
+  console.log('🚀 ColorModeProvider: Created state isColorModeDesignEnabled:', isColorModeDesignEnabled);
 
   // Resolve the actual mode based on system preferences
   const resolvedMode: 'light' | 'dark' | 'high-contrast' = React.useMemo(() => {
@@ -108,14 +122,20 @@ export function ColorModeProvider({ children, defaultMode = 'auto' }: ColorModeP
   }, []);
 
   // Save color mode design enabled state
+  console.log('🚀 ColorModeProvider: Creating setColorModeDesignEnabled function...');
+  
   const setColorModeDesignEnabled = useCallback((enabled: boolean) => {
+    console.log('🚀 setColorModeDesignEnabled called with:', enabled);
     setColorModeDesignEnabledState(enabled);
     try {
       localStorage.setItem('design-tool-color-mode-design-enabled', enabled.toString());
+      console.log('🚀 Saved to localStorage:', enabled);
     } catch (error) {
       console.warn('Failed to save color mode design enabled state:', error);
     }
   }, []);
+  
+  console.log('🚀 ColorModeProvider: Function created, type:', typeof setColorModeDesignEnabled);
 
   const value: ColorModeContextValue = {
     mode,
