@@ -856,13 +856,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
                              colorModeValue.light || 
                              colorModeValue.dark || 
                              colorModeValue['high-contrast'];
-        console.log('🔧 Color mode resolution:', { 
-          element: element.id.substring(0, 8), 
-          key, 
-          original: value, 
-          resolved: resolvedValue, 
-          mode: resolvedMode 
-        });
+        // Color mode value resolved successfully
         if (resolvedValue) {
           resolvedStyles[key] = resolvedValue;
         }

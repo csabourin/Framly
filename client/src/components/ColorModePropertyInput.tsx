@@ -147,12 +147,23 @@ export function ColorModePropertyInput({ config, value, onChange }: ColorModePro
             variant="ghost"
             size="sm"
             onClick={isModeSpecific || showModeSelector ? handleDisableModeSpecific : handleEnableModeSpecific}
-            className="h-6 px-2 text-xs"
+            className={`h-6 px-2 text-xs border ${
+              isModeSpecific || showModeSelector 
+                ? 'bg-blue-50 border-blue-200 text-blue-600' 
+                : 'border-gray-200 hover:border-blue-300'
+            }`}
+            title={isModeSpecific || showModeSelector ? 'Disable color modes' : 'Enable color modes'}
           >
             {isModeSpecific || showModeSelector ? (
-              <EyeOff className="w-3 h-3" />
+              <>
+                <EyeOff className="w-3 h-3 mr-1" />
+                <span className="text-xs">Multi</span>
+              </>
             ) : (
-              <Palette className="w-3 h-3" />
+              <>
+                <Palette className="w-3 h-3 mr-1" />
+                <span className="text-xs">Single</span>
+              </>
             )}
           </Button>
         </div>
