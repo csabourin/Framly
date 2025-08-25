@@ -270,22 +270,13 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
           continue;
         }
         
-        // Create scoped selector to match the actual class names applied to elements
+        // Create scoped selector by prefixing with import scope class
         const scopedSelector = originalSelector
           .split(',')
           .map(sel => {
             const trimmed = sel.trim();
-            // Create direct class selector that matches the hyphenated class names
-            if (trimmed.startsWith('.')) {
-              const className = trimmed.substring(1);
-              return `.${importScope}-${className}`;
-            } else if (trimmed.match(/^[a-zA-Z]/)) {
-              // Element selector - create scoped class
-              return `.${importScope}-${trimmed.replace(/[^a-zA-Z0-9]/g, '-')}`;
-            } else {
-              // Complex selector - create scoped class
-              return `.${importScope}-${trimmed.replace(/[^a-zA-Z0-9]/g, '-')}`;
-            }
+            // Scope all selectors under the import scope class
+            return `.${importScope} ${trimmed}`;
           })
           .join(', ');
         
@@ -332,11 +323,11 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
         let className: string;
         
         if (rule.selector.startsWith('.')) {
-          // Class selector - prefix with scope
-          className = `${importScope}-${rule.selector.substring(1)}`;
+          // Keep original class name - scoping happens via CSS selector
+          className = rule.selector.substring(1);
         } else {
-          // Element selector - create a scoped class name
-          className = `${importScope}-${rule.selector.replace(/[^a-zA-Z0-9]/g, '-')}`;
+          // Element selector - create a meaningful class name
+          className = `${rule.selector.replace(/[^a-zA-Z0-9]/g, '-')}`;
         }
 
         // Convert CSS properties to React-compatible camelCase for custom classes
@@ -604,16 +595,13 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
         height = 150;
       }
 
-      // Apply CSS scope to prevent conflicts with app styles
+      // Keep original class names - scoping happens via CSS wrapper
       const importScope = (window as any).lastImportScope;
-      const scopedClasses = preservedClasses.map(cls => 
-        importScope ? `${importScope}-${cls}` : cls
-      );
+      const elementClasses = [...preservedClasses];
       
-      // Add the import scope as a wrapper class for all imported elements
-      // This ensures CSS rules can target imported elements specifically
-      if (importScope) {
-        scopedClasses.unshift(importScope);
+      // Add the import scope class only to root elements to create the scoping wrapper
+      if (parentId === 'root' && importScope) {
+        elementClasses.unshift(importScope);
       }
 
       // Create canvas element with all required properties for proper rendering
@@ -630,7 +618,7 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
           position: 'relative',
           ...inlineStyles
         },
-        classes: scopedClasses || [],
+        classes: elementClasses || [],
         htmlTag: htmlElement.tagName.toLowerCase(),
         parent: parentId, // Ensure parent is set
         ...elementData
@@ -647,7 +635,7 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
       // Add element to canvas
       dispatch(addElement({ element: canvasElement, parentId }));
 
-      console.log(`Created element: ${elementType} (${htmlElement.tagName}) - "${(elementData.content as string)?.substring(0, 50) || 'container'}" with scoped classes: [${scopedClasses.join(', ')}]`);
+      console.log(`Created element: ${elementType} (${htmlElement.tagName}) - "${(elementData.content as string)?.substring(0, 50) || 'container'}" with classes: [${elementClasses.join(', ')}]`);
 
       // Process children recursively if it's a container
       if (canvasElement.isContainer && htmlElement.children && htmlElement.children.length > 0) {
