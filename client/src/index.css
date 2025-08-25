@@ -1,6 +1,9 @@
 /* Component Instance Interaction Prevention */
 @import './styles/component-instances.css';
 
+/* CSS Variables-based Dynamic Styling System */
+@import './styles/element-variables.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

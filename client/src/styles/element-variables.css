@@ -1,0 +1,122 @@
+/* CSS Variables-based Dynamic Styling System */
+/* This replaces inline styles with CSS custom properties for better class-first architecture */
+
+/* Base Canvas Element with CSS Variables Support */
+.canvas-element {
+  /* Use CSS variables for dynamic properties */
+  background-color: var(--element-background-color, transparent);
+  color: var(--element-color, inherit);
+  
+  /* Typography */
+  font-size: var(--element-font-size, inherit);
+  font-weight: var(--element-font-weight, inherit);
+  font-family: var(--element-font-family, inherit);
+  line-height: var(--element-line-height, inherit);
+  text-align: var(--element-text-align, inherit);
+  
+  /* Spacing */
+  padding: var(--element-padding, 0);
+  margin: var(--element-margin, 0);
+  
+  /* Border */
+  border: var(--element-border, none);
+  border-radius: var(--element-border-radius, 0);
+  
+  /* Flexbox and Grid */
+  display: var(--element-display, block);
+  flex-direction: var(--element-flex-direction, row);
+  justify-content: var(--element-justify-content, flex-start);
+  align-items: var(--element-align-items, stretch);
+  flex-wrap: var(--element-flex-wrap, nowrap);
+  gap: var(--element-gap, 0);
+  
+  /* Grid */
+  grid-template-columns: var(--element-grid-template-columns, none);
+  grid-template-rows: var(--element-grid-template-rows, none);
+  grid-gap: var(--element-grid-gap, 0);
+  
+  /* Dimensions - let classes and flexbox control these naturally */
+  max-width: var(--element-max-width, none);
+  min-width: var(--element-min-width, 0);
+  max-height: var(--element-max-height, none);
+  min-height: var(--element-min-height, 0);
+  
+  /* Transform and effects */
+  transform: var(--element-transform, none);
+  opacity: var(--element-opacity, 1);
+  box-shadow: var(--element-box-shadow, none);
+  
+  /* Overflow */
+  overflow: var(--element-overflow, visible);
+  overflow-x: var(--element-overflow-x, visible);
+  overflow-y: var(--element-overflow-y, visible);
+}
+
+/* Container elements should use flex by default but can be overridden */
+.canvas-element[data-container="true"] {
+  display: var(--element-display, flex);
+  flex-direction: var(--element-flex-direction, column);
+}
+
+/* Text elements should size naturally in flex containers */
+.canvas-element[data-element-type="text"],
+.canvas-element[data-element-type="heading"],
+.canvas-element[data-element-type="list"] {
+  width: auto; /* Let flexbox determine width */
+  flex-shrink: 0; /* Prevent shrinking below content size */
+}
+
+/* Image elements should respect object-fit and sizing */
+.canvas-element[data-element-type="image"] img {
+  object-fit: var(--element-object-fit, contain);
+  object-position: var(--element-object-position, center);
+}
+
+/* Button elements */
+.canvas-element[data-element-type="button"] button {
+  background-color: var(--element-background-color, #f3f4f6);
+  color: var(--element-color, #374151);
+  border: var(--element-border, 1px solid #d1d5db);
+  border-radius: var(--element-border-radius, 0.375rem);
+  padding: var(--element-padding, 0.5rem 1rem);
+  font-size: var(--element-font-size, 0.875rem);
+  font-weight: var(--element-font-weight, 500);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.canvas-element[data-element-type="button"] button:hover {
+  background-color: var(--element-hover-background-color, var(--element-background-color, #e5e7eb));
+}
+
+/* Form elements */
+.canvas-element[data-element-type="input"] input,
+.canvas-element[data-element-type="textarea"] textarea {
+  background-color: var(--element-background-color, white);
+  color: var(--element-color, #374151);
+  border: var(--element-border, 1px solid #d1d5db);
+  border-radius: var(--element-border-radius, 0.375rem);
+  padding: var(--element-padding, 0.5rem);
+  font-size: var(--element-font-size, 0.875rem);
+}
+
+/* Code elements */
+.canvas-element[data-element-type="code"] pre {
+  background-color: var(--element-background-color, #f8fafc);
+  color: var(--element-color, #374151);
+  border: var(--element-border, 1px solid #e2e8f0);
+  border-radius: var(--element-border-radius, 0.375rem);
+  padding: var(--element-padding, 1rem);
+  font-family: var(--element-font-family, 'Monaco, Consolas, monospace');
+  overflow-x: auto;
+}
+
+/* Link elements */
+.canvas-element[data-element-type="link"] a {
+  color: var(--element-color, #3b82f6);
+  text-decoration: var(--element-text-decoration, underline);
+}
+
+.canvas-element[data-element-type="link"] a:hover {
+  color: var(--element-hover-color, var(--element-color, #1d4ed8));
+}

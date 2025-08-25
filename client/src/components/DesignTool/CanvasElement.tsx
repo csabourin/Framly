@@ -375,7 +375,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
           <button
             ref={buttonEditRef}
             className="w-full h-full outline-none cursor-text"
-            style={mergedStyles}
+            style={cssVariables}
           >
             <span
               contentEditable={true}
@@ -556,7 +556,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
         
         if (isTextEditable) {
           return (
-            <label className="w-full h-full outline-none flex items-center gap-2" style={mergedStyles}>
+            <label className="w-full h-full outline-none flex items-center gap-2" style={cssVariables}>
               <input 
                 type={inputType} 
                 className="flex-shrink-0"
@@ -577,7 +577,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
         }
         
         return (
-          <label className="w-full h-full outline-none flex items-center gap-2 cursor-pointer" style={mergedStyles}>
+          <label className="w-full h-full outline-none flex items-center gap-2 cursor-pointer" style={cssVariables}>
             <input 
               type={inputType} 
               className="flex-shrink-0"
@@ -609,7 +609,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
               onBlur={(e) => handleTextPropertyEdit('content')(e as any)}
               onKeyDown={handleKeyDown as any}
               className="h-full outline-none cursor-text"
-              style={{...mergedStyles, width: getElementWidth()}}
+              style={{...cssVariables, width: getElementWidth()}}
               autoFocus
             >
               {linkText}
@@ -624,7 +624,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
               setIsEditing(true);
             }}
             className="h-full outline-none cursor-pointer"
-            style={{...mergedStyles, width: getElementWidth()}}
+            style={{...cssVariables, width: getElementWidth()}}
           >
             {linkText}
           </a>
@@ -645,7 +645,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
               onBlur={(e) => handleTextPropertyEdit('content')(e as any)}
               onKeyDown={handleKeyDown as any}
               className="h-full outline-none cursor-text"
-              style={{...mergedStyles, width: getElementWidth()}}
+              style={{...cssVariables, width: getElementWidth()}}
               autoFocus
             >
               {codeContent}
@@ -660,7 +660,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
               setIsEditing(true);
             }}
             className="h-full outline-none cursor-pointer"
-            style={{...mergedStyles, width: getElementWidth()}}
+            style={{...cssVariables, width: getElementWidth()}}
           >
             {codeContent}
           </pre>
@@ -693,7 +693,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
               }
             }}
             className="h-full outline-none cursor-text resize-none"
-            style={{...mergedStyles, width: getElementWidth()}}
+            style={{...cssVariables, width: getElementWidth()}}
             autoFocus
             placeholder="Entrez votre texte..."
           />
@@ -712,7 +712,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
           flexDirection: element.flexDirection || 'column',
           justifyContent: element.justifyContent || 'flex-start',
           alignItems: element.alignItems || 'stretch',
-          ...mergedStyles
+          ...cssVariables
         }
       };
 
@@ -756,7 +756,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
 
   const getBackgroundColor = (mergedBgColor?: string) => {
     // Clean hover experience - no background overlays
-    return mergedBgColor || mergedStyles.backgroundColor;
+    return mergedBgColor || cssVariables['--element-background-color'];
   };
 
   const getBoxShadow = () => {
@@ -765,32 +765,33 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     return undefined;
   };
 
-  // Convert kebab-case CSS properties to camelCase for React
-  const convertCSSPropertiesToCamelCase = (styles: any): React.CSSProperties => {
-    const camelCaseStyles: any = {};
+  // Generate CSS custom properties from merged styles
+  const generateCSSVariables = (styles: Record<string, any>): Record<string, string> => {
+    const cssVariables: Record<string, string> = {};
     
     for (const [key, value] of Object.entries(styles)) {
-      // Convert kebab-case to camelCase
-      const camelKey = key.replace(/-([a-z])/g, (match, letter) => letter.toUpperCase());
+      if (value === undefined || value === null || value === '') continue;
+      
+      // Convert property to CSS variable name (--element-width, --element-color, etc.)
+      const varName = `--element-${key.replace(/([A-Z])/g, '-$1').toLowerCase()}`;
       
       // Handle complex objects that need to be converted to CSS strings
       if (typeof value === 'object' && value !== null) {
-        // Convert object to CSS string representation
         if (Array.isArray(value)) {
-          camelCaseStyles[camelKey] = value.join(' ');
+          cssVariables[varName] = value.join(' ');
         } else {
           // For objects like border shorthand, convert to string
           const cssString = Object.entries(value)
             .map(([k, v]) => `${v}`)
             .join(' ');
-          camelCaseStyles[camelKey] = cssString || undefined;
+          if (cssString) cssVariables[varName] = cssString;
         }
       } else {
-        camelCaseStyles[camelKey] = value;
+        cssVariables[varName] = String(value);
       }
     }
     
-    return camelCaseStyles;
+    return cssVariables;
   };
 
   // Compute merged styles including custom classes
@@ -852,6 +853,9 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
   const parentElement = element.parent && element.parent !== 'root' ? currentElements[element.parent] : null;
   const isInFlexContainer = parentElement?.styles?.display === 'flex' || parentElement?.isContainer;
   
+  // Generate CSS variables for dynamic styling
+  const cssVariables = generateCSSVariables(mergedStyles);
+  
   // Determine width based on element type and flex context
   const getElementWidth = () => {
     if (['text', 'heading', 'list'].includes(element.type)) {
@@ -860,27 +864,30 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     }
     if (element.type === 'image') {
       // Images already handled with auto width in their specific rendering
-      return mergedStyles.width || element.width;
+      return cssVariables['--element-width'] || element.width;
     }
     // For other elements, use specified width or 100% if width is 0
-    return mergedStyles.width || (element.width === 0 ? '100%' : element.width);
+    return cssVariables['--element-width'] || (element.width === 0 ? '100%' : element.width);
   };
-
-  const combinedStyles: React.CSSProperties = {
+  
+  // Only use inline styles for essential behavior and positioning
+  const minimalInlineStyles: React.CSSProperties = {
+    // Positioning - only when explicitly positioned by dragging
     position: basePosition as any,
     left: baseLeft,
     top: baseTop,
-    width: getElementWidth(),
-    height: (['text', 'heading', 'list'].includes(element.type)) ? 'auto' : (mergedStyles.minHeight ? undefined : element.height),
-    minHeight: (['text', 'heading', 'list'].includes(element.type)) ? '1.2em' : undefined,
-    ...convertCSSPropertiesToCamelCase(mergedStyles),
-    // Custom class styles are now fully preserved for border
-    backgroundColor: getBackgroundColor(mergedStyles.backgroundColor),
-    // Use outline for selection/hover feedback instead of border
+    // Selection and interaction feedback
     outline: getOutlineStyle(),
     boxShadow: getBoxShadow(),
-    // Ensure the visual feedback is always visible
     zIndex: isThisElementHovered ? 1000 : (isSelected ? 100 : undefined),
+    // Essential width behavior for flexbox
+    width: getElementWidth(),
+    // Essential height behavior for text elements
+    height: (['text', 'heading', 'list'].includes(element.type)) ? 'auto' : 
+           (cssVariables['--element-min-height'] ? undefined : element.height),
+    minHeight: (['text', 'heading', 'list'].includes(element.type)) ? '1.2em' : undefined,
+    // CSS Variables for dynamic styling
+    ...cssVariables,
   };
 
   // Clean professional hover system - no debug logging needed
@@ -929,10 +936,9 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
           e.preventDefault();
         }}
         style={{
-          ...combinedStyles,
+          ...minimalInlineStyles,
           userSelect: selectedTool !== 'text' ? 'none' : 'auto',
           WebkitUserSelect: selectedTool !== 'text' ? 'none' : 'auto',
-          // CRITICAL: No additional positioning needed - combinedStyles handles it correctly
         }}
         data-element-id={element.id}
         data-container={element.isContainer ? 'true' : 'false'}
