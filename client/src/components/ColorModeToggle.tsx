@@ -12,7 +12,14 @@ import { Palette, Sun, Moon, Monitor, Contrast } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 export function ColorModeToggle() {
-  const { mode, resolvedMode, setMode, supportsHighContrast, isColorModeDesignEnabled, setColorModeDesignEnabled } = useColorMode();
+  console.log('ColorModeToggle rendering...');
+  const colorModeContext = useColorMode();
+  console.log('Context received:', { 
+    hasContext: !!colorModeContext,
+    isColorModeDesignEnabled: colorModeContext?.isColorModeDesignEnabled,
+    setColorModeDesignEnabled: typeof colorModeContext?.setColorModeDesignEnabled
+  });
+  const { mode, resolvedMode, setMode, supportsHighContrast, isColorModeDesignEnabled, setColorModeDesignEnabled } = colorModeContext;
   const { t } = useTranslation();
   
   // Simple toggle handler
