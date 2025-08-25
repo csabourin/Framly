@@ -772,8 +772,9 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     for (const [key, value] of Object.entries(styles)) {
       if (value === undefined || value === null || value === '') continue;
       
-      // Skip width for text elements in flex containers - let CSS handle it
-      if (key === 'width' && ['text', 'heading', 'list'].includes(element.type) && isInFlexContainer) {
+      // Skip width for text elements in flex containers - let CSS/JS handle it
+      // EXCEPT for row containers where we want to force auto width via inline styles
+      if (key === 'width' && ['text', 'heading', 'list'].includes(element.type) && isInFlexContainer && parentFlexDirection !== 'row') {
         continue;
       }
       
@@ -906,10 +907,12 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     outline: getOutlineStyle(),
     boxShadow: getBoxShadow(),
     zIndex: isThisElementHovered ? 1000 : (isSelected ? 100 : undefined),
-    // Essential width behavior - let CSS handle text elements in flex containers
-    ...((['text', 'heading', 'list'].includes(element.type) && isInFlexContainer) 
-        ? {} // Let CSS handle width for text elements in flex containers
-        : { width: getElementWidth() } // Explicit width for other elements
+    // Essential width behavior - FORCE auto width for text elements in row containers
+    ...((['text', 'heading', 'list'].includes(element.type) && isInFlexContainer && parentFlexDirection === 'row') 
+        ? { width: 'auto' } // FORCE auto width for text elements in row flex containers
+        : (['text', 'heading', 'list'].includes(element.type) && isInFlexContainer) 
+          ? {} // Let CSS handle width for text elements in other flex containers
+          : { width: getElementWidth() } // Explicit width for other elements
     ),
     // Essential height behavior for text elements
     height: (['text', 'heading', 'list'].includes(element.type)) ? 'auto' : 
@@ -920,12 +923,19 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
   };
 
   // Debug row flex specifically
-  if (['text', 'heading', 'list'].includes(element.type) && isInFlexContainer && parentElement?.styles?.flexDirection === 'row') {
-    console.log('ROW FLEX INLINE STYLES:', {
+  if (['text', 'heading', 'list'].includes(element.type) && isInFlexContainer && parentFlexDirection === 'row') {
+    console.log('ROW FLEX FINAL DEBUG:', {
       elementId: element.id.substring(0, 15) + '...',
+      elementType: element.type,
+      parentFlexDirection,
+      parentJustifyContent: parentElement?.styles?.justifyContent,
       hasInlineWidth: 'width' in minimalInlineStyles,
       inlineWidth: minimalInlineStyles.width,
-      allInlineStyles: Object.keys(minimalInlineStyles).filter(key => key.startsWith('--element') || ['width', 'height'].includes(key))
+      forcedAutoWidth: minimalInlineStyles.width === 'auto',
+      cssVariables: Object.keys(minimalInlineStyles).filter(key => key.startsWith('--element')).reduce((acc, key) => {
+        acc[key] = minimalInlineStyles[key];
+        return acc;
+      }, {} as Record<string, any>)
     });
   }
 

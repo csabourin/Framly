@@ -75,6 +75,21 @@
   flex: 0 0 auto !important; /* Don't grow, don't shrink, natural size */
 }
 
+/* Ultra-specific targeting for row flex containers */
+.canvas-element[data-container="true"][style*="flex-direction: row"] > .canvas-element[data-element-type="text"],
+.canvas-element[data-container="true"][style*="flex-direction: row"] > .canvas-element[data-element-type="heading"],
+.canvas-element[data-container="true"][style*="flex-direction: row"] > .canvas-element[data-element-type="list"],
+.canvas-element[data-container="true"] > .canvas-element[data-element-type="text"][style*="width"],
+.canvas-element[data-container="true"] > .canvas-element[data-element-type="heading"][style*="width"],
+.canvas-element[data-container="true"] > .canvas-element[data-element-type="list"][style*="width"] {
+  width: auto !important;
+  max-width: max-content !important;
+  flex: 0 0 auto !important;
+  flex-shrink: 0 !important;
+  flex-grow: 0 !important;
+  flex-basis: auto !important;
+}
+
 /* Image elements should respect object-fit and sizing */
 .canvas-element[data-element-type="image"] img {
   object-fit: var(--element-object-fit, contain);
