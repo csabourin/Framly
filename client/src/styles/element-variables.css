@@ -67,6 +67,14 @@
   max-width: 100%; /* Prevent overflow */
 }
 
+/* Extra specificity for text elements in row containers */
+.canvas-element[data-container="true"] > .canvas-element[data-element-type="text"],
+.canvas-element[data-container="true"] > .canvas-element[data-element-type="heading"],
+.canvas-element[data-container="true"] > .canvas-element[data-element-type="list"] {
+  width: auto !important;
+  flex: 0 0 auto !important; /* Don't grow, don't shrink, natural size */
+}
+
 /* Image elements should respect object-fit and sizing */
 .canvas-element[data-element-type="image"] img {
   object-fit: var(--element-object-fit, contain);

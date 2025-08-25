@@ -796,11 +796,25 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
       }
     }
     
-    // Debug can be enabled if needed
-    // if ((element.isContainer && (styles.justifyContent || styles.alignItems || styles.display)) ||
-    //     (['text', 'heading', 'list'].includes(element.type) && isInFlexContainer)) {
-    //   console.log('FLEXBOX DEBUG:', ...);
-    // }
+    // Debug flex-direction:row specifically
+    if (['text', 'heading', 'list'].includes(element.type) && isInFlexContainer && parentFlexDirection === 'row') {
+      console.log('ROW FLEX DEBUG:', {
+        elementId: element.id.substring(0, 15) + '...',
+        elementType: element.type,
+        parentFlexDirection,
+        parentJustifyContent: parentElement?.styles?.justifyContent,
+        hasWidthInStyles: 'width' in styles,
+        styles: {
+          width: styles.width,
+          display: styles.display,
+        },
+        willSkipWidth: key === 'width' && ['text', 'heading', 'list'].includes(element.type) && isInFlexContainer,
+        cssVariables: {
+          '--element-width': cssVariables['--element-width'],
+          '--element-display': cssVariables['--element-display'],
+        }
+      });
+    }
     
     return cssVariables;
   };
@@ -863,6 +877,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
   // Check if element is inside a flex container to determine width behavior
   const parentElement = element.parent && element.parent !== 'root' ? currentElements[element.parent] : null;
   const isInFlexContainer = parentElement?.styles?.display === 'flex' || parentElement?.isContainer;
+  const parentFlexDirection = parentElement?.styles?.flexDirection;
   
   // Generate CSS variables for dynamic styling
   const cssVariables = generateCSSVariables(mergedStyles);
@@ -903,6 +918,16 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     // CSS Variables for dynamic styling
     ...cssVariables,
   };
+
+  // Debug row flex specifically
+  if (['text', 'heading', 'list'].includes(element.type) && isInFlexContainer && parentElement?.styles?.flexDirection === 'row') {
+    console.log('ROW FLEX INLINE STYLES:', {
+      elementId: element.id.substring(0, 15) + '...',
+      hasInlineWidth: 'width' in minimalInlineStyles,
+      inlineWidth: minimalInlineStyles.width,
+      allInlineStyles: Object.keys(minimalInlineStyles).filter(key => key.startsWith('--element') || ['width', 'height'].includes(key))
+    });
+  }
 
   // Clean professional hover system - no debug logging needed
 
