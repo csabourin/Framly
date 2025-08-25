@@ -47,7 +47,7 @@ export function createDefaultElement(type: CanvasElement['type'], x?: number, y?
     case 'text':
       return {
         ...baseElement,
-        width: 0, // Will be set to 100% in styles
+        width: 0, // Auto-width based on content and container
         height: 40,
         content: 'Edit this text',
         textDisplay: 'block',
@@ -57,7 +57,7 @@ export function createDefaultElement(type: CanvasElement['type'], x?: number, y?
           color: '#1f2937',
           padding: '8px',
           display: 'block',
-          width: '100%',
+          // No width - let CSS and flexbox handle it
         },
         classes: [`text-${Date.now()}`],
       };
@@ -65,7 +65,7 @@ export function createDefaultElement(type: CanvasElement['type'], x?: number, y?
     case 'heading':
       return {
         ...baseElement,
-        width: 0, // Will be set to 100% in styles
+        width: 0, // Auto-width based on content and container
         height: 50,
         content: 'Edit this heading',
         headingLevel: 1,
@@ -75,7 +75,7 @@ export function createDefaultElement(type: CanvasElement['type'], x?: number, y?
           color: '#111827',
           padding: '8px',
           display: 'block',
-          width: '100%',
+          // No width - let CSS and flexbox handle it
           lineHeight: '1.2',
           marginBottom: '16px',
         },
@@ -85,7 +85,7 @@ export function createDefaultElement(type: CanvasElement['type'], x?: number, y?
     case 'list':
       return {
         ...baseElement,
-        width: 0, // Will be set to 100% in styles
+        width: 0, // Auto-width based on content and container
         height: 120,
         listType: 'unordered',
         listItems: ['List item 1', 'List item 2', 'List item 3'],
@@ -95,7 +95,7 @@ export function createDefaultElement(type: CanvasElement['type'], x?: number, y?
           color: '#374151',
           padding: '8px',
           display: 'block',
-          width: '100%',
+          // No width - let CSS and flexbox handle it
           lineHeight: '1.6',
         },
         classes: [`list-${Date.now()}`],

@@ -772,6 +772,11 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     for (const [key, value] of Object.entries(styles)) {
       if (value === undefined || value === null || value === '') continue;
       
+      // Skip width for text elements in flex containers - let CSS handle it
+      if (key === 'width' && ['text', 'heading', 'list'].includes(element.type) && isInFlexContainer) {
+        continue;
+      }
+      
       // Convert property to CSS variable name (--element-width, --element-color, etc.)
       const varName = `--element-${key.replace(/([A-Z])/g, '-$1').toLowerCase()}`;
       
@@ -790,6 +795,12 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
         cssVariables[varName] = String(value);
       }
     }
+    
+    // Debug can be enabled if needed
+    // if ((element.isContainer && (styles.justifyContent || styles.alignItems || styles.display)) ||
+    //     (['text', 'heading', 'list'].includes(element.type) && isInFlexContainer)) {
+    //   console.log('FLEXBOX DEBUG:', ...);
+    // }
     
     return cssVariables;
   };
@@ -880,8 +891,11 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     outline: getOutlineStyle(),
     boxShadow: getBoxShadow(),
     zIndex: isThisElementHovered ? 1000 : (isSelected ? 100 : undefined),
-    // Essential width behavior for flexbox
-    width: getElementWidth(),
+    // Essential width behavior - let CSS handle text elements in flex containers
+    ...((['text', 'heading', 'list'].includes(element.type) && isInFlexContainer) 
+        ? {} // Let CSS handle width for text elements in flex containers
+        : { width: getElementWidth() } // Explicit width for other elements
+    ),
     // Essential height behavior for text elements
     height: (['text', 'heading', 'list'].includes(element.type)) ? 'auto' : 
            (cssVariables['--element-min-height'] ? undefined : element.height),
