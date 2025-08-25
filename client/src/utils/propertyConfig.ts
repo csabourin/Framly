@@ -1291,7 +1291,7 @@ export function getCSSPropertyKey(key: string): string {
   return cssKeyMap[key] || key;
 }
 
-// Helper function to format value with unit
+// Helper function to format value with unit (DEPRECATED - use unitPersistence.ts)
 export function formatValueWithUnit(value: string | number, unit?: string): string {
   if (!value && value !== 0) return '';
   if (!unit) return String(value);
@@ -1305,7 +1305,7 @@ export function formatValueWithUnit(value: string | number, unit?: string): stri
   return `${value}${unit}`;
 }
 
-// Helper function to parse value and unit from a CSS value
+// Helper function to parse value and unit from a CSS value (DEPRECATED - use unitPersistence.ts)
 export function parseValueAndUnit(cssValue: string): { value: string; unit: string } {
   if (!cssValue) return { value: '', unit: 'px' };
   

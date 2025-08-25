@@ -718,6 +718,19 @@ export function detectDropZone(
   }
 }
 
+// Enhanced drop zone detection for invalid recipients
+export function detectInvalidRecipientPlacement(
+  mouseY: number,
+  elementRect: DOMRect
+): 'before' | 'after' {
+  const relativeY = mouseY - elementRect.top;
+  const height = elementRect.height;
+  const midpoint = height / 2;
+  
+  // Simple midpoint-based detection: upper half = before, lower half = after
+  return relativeY < midpoint ? 'before' : 'after';
+}
+
 // Check if element can accept children
 export function canAcceptChildren(element: CanvasElement): boolean {
   const nonContainerTypes = [

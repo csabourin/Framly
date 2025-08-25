@@ -151,7 +151,7 @@ const canvasSlice = createSlice({
     addElement: (state, action: PayloadAction<{ 
       element: CanvasElement; 
       parentId?: string; 
-      insertPosition?: 'before' | 'after' | 'inside';
+      insertPosition?: 'before' | 'after' | 'inside' | 'canvas-start' | 'canvas-end';
       referenceElementId?: string;
     }>) => {
       const currentTab = getCurrentTab(state);
@@ -164,7 +164,14 @@ const canvasSlice = createSlice({
       const parent = currentTab.elements[parentId];
       if (parent && parent.children) {
         if (!parent.children.includes(element.id)) {
-          if (insertPosition === 'inside' || !referenceElementId) {
+          // ENHANCED: Handle canvas padding insertion (document start/end)
+          if (insertPosition === 'canvas-start') {
+            // Insert at the beginning of root children (index 0)
+            parent.children.unshift(element.id);
+          } else if (insertPosition === 'canvas-end') {
+            // Append to the end of root children
+            parent.children.push(element.id);
+          } else if (insertPosition === 'inside' || !referenceElementId) {
             parent.children.push(element.id);
           } else {
             const referenceIndex = parent.children.indexOf(referenceElementId);

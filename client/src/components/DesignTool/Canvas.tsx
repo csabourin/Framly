@@ -134,6 +134,51 @@ const Canvas: React.FC = () => {
       return null;
     }
 
+    // ENHANCED: Check for canvas padding areas first (top/bottom document insertion)
+    const canvasContainer = canvasRef.current?.getBoundingClientRect();
+    if (canvasContainer) {
+      const canvasY = (y * zoomLevel);
+      const paddingTop = contentBounds.minY < 0 ? Math.abs(contentBounds.minY) + 50 : 50;
+      const paddingBottom = 50;
+      const canvasHeight = Math.max(rootElement.height, contentBounds.maxY - contentBounds.minY + 100);
+      
+      // Check if mouse is in top padding area (document start)
+      if (canvasY < paddingTop) {
+        return {
+          position: 'canvas-top' as any,
+          elementId: 'root',
+          bounds: { x: 0, y: 0, width: rootElement.width, height: 12 } // Thin line at top
+        };
+      }
+      
+      // Check if mouse is in bottom padding area (document end)  
+      if (canvasY > (canvasHeight - paddingBottom)) {
+        const rootChildren = rootElement.children || [];
+        let insertionY = 0;
+        
+        if (rootChildren.length > 0) {
+          // Find the bottom of the last element
+          const lastChildId = rootChildren[rootChildren.length - 1];
+          const lastChild = currentElements[lastChildId];
+          if (lastChild) {
+            const lastChildDiv = document.querySelector(`[data-element-id="${lastChildId}"]`) as HTMLElement;
+            if (lastChildDiv) {
+              const lastChildRect = lastChildDiv.getBoundingClientRect();
+              insertionY = ((lastChildRect.bottom - canvasContainer.top) / zoomLevel) + 20; // 20px gap after last element
+            }
+          }
+        } else {
+          insertionY = paddingTop + 20; // Default position if no children
+        }
+        
+        return {
+          position: 'canvas-bottom' as any,
+          elementId: 'root',
+          bounds: { x: 0, y: insertionY, width: rootElement.width, height: 12 } // Thin line at bottom
+        };
+      }
+    }
+
     // Use professional hit-testing for drag operations
     let hoveredElement;
     if (forDrag && canvasRef.current) {
@@ -414,7 +459,16 @@ const Canvas: React.FC = () => {
       
       // console.log('CLICK DEBUG - Final target:', targetElementId, 'zone:', targetZone, 'canInsert:', canInsertInTarget);
       
-      if (targetElementId && targetZone && targetElementId !== 'root' && canInsertInTarget) {
+      // ENHANCED: Handle canvas padding insertion (document start/end)
+      if (targetZone === 'canvas-top' || targetZone === 'canvas-bottom') {
+        const newElement = createDefaultElement(selectedTool as any);
+        
+        dispatch(addElement({ 
+          element: newElement, 
+          parentId: 'root',
+          insertPosition: targetZone === 'canvas-top' ? 'canvas-start' as any : 'canvas-end' as any
+        }));
+      } else if (targetElementId && targetZone && targetElementId !== 'root' && canInsertInTarget) {
         // console.log('CLICK DEBUG - Creating element inside:', targetElementId);
         
         // Create element without explicit coordinates for document flow
@@ -701,31 +755,82 @@ const Canvas: React.FC = () => {
           canDropHere = parentElement ? isValidDropTarget(parentElement) : false;
         }
         
-        // console.log('DRAG DEBUG - Drop validation during move:', { 
-        //   targetType: targetElement?.type, 
-        //   targetId: targetElement?.id,
-        //   canDropHere,
-        //   position: (insertionZone as any).position,
-        //   parentId: targetElement?.parent,
-        //   parentType: currentElements[targetElement?.parent || 'root']?.type
-        // });
-        
-        setHoveredElementId(insertionZone.elementId);
-        setHoveredZone((insertionZone as any).position === 'between' ? 'inside' : (insertionZone as any).position);
-        
-        // Update Redux state for visual feedback 
-        dispatch(setHoveredElement({ 
-          elementId: insertionZone.elementId, 
-          zone: (insertionZone as any).position === 'between' ? 'inside' : (insertionZone as any).position
-        }));
-        
-        // Store the insertion indicator for visual feedback
-        setInsertionIndicator(insertionZone);
-        
-        // Apply padding expansion for better targeting
-        const hoveredContainerElement = currentElements[insertionZone.elementId];
-        if (hoveredContainerElement && (hoveredContainerElement.isContainer || hoveredContainerElement.type === 'container' || hoveredContainerElement.type === 'rectangle')) {
-          setExpandedContainerId(insertionZone.elementId);
+        if (canDropHere) {
+          setHoveredElementId(insertionZone.elementId);
+          setHoveredZone((insertionZone as any).position === 'between' ? 'inside' : (insertionZone as any).position);
+          
+          // Update Redux state for visual feedback 
+          dispatch(setHoveredElement({ 
+            elementId: insertionZone.elementId, 
+            zone: (insertionZone as any).position === 'between' ? 'inside' : (insertionZone as any).position
+          }));
+          
+          // Store the insertion indicator for visual feedback
+          setInsertionIndicator(insertionZone);
+          
+          // Apply padding expansion for better targeting
+          const hoveredContainerElement = currentElements[insertionZone.elementId];
+          if (hoveredContainerElement && (hoveredContainerElement.isContainer || hoveredContainerElement.type === 'container' || hoveredContainerElement.type === 'rectangle')) {
+            setExpandedContainerId(insertionZone.elementId);
+          }
+        } else {
+          // Enhanced sibling placement logic for invalid drop targets (element reordering)
+          const parentId = targetElement?.parent || 'root';
+          const parentElement = currentElements[parentId];
+          const canDropAsSibling = parentElement ? isValidDropTarget(parentElement) : true; // root always accepts
+          
+          if (canDropAsSibling && !parentElement?.componentRef) {
+            // Use mouse position to determine before/after placement
+            const targetElementDiv = document.querySelector(`[data-element-id="${insertionZone.elementId}"]`) as HTMLElement;
+            if (targetElementDiv) {
+              const targetRect = targetElementDiv.getBoundingClientRect();
+              const canvasRect = canvasRef.current?.getBoundingClientRect();
+              
+              if (canvasRect) {
+                // Convert canvas coordinates to screen coordinates for comparison
+                const canvasY = canvasRect.top + (y * zoomLevel);
+                const placementPosition = canvasY < (targetRect.top + targetRect.height / 2) ? 'before' : 'after';
+                
+                const siblingZone = {
+                  position: placementPosition,
+                  elementId: insertionZone.elementId,
+                  bounds: insertionZone.bounds
+                };
+                
+                console.log('ELEMENT REORDERING - Invalid recipient, using mouse-based placement:', placementPosition, 'canvas y:', canvasY, 'element midpoint:', targetRect.top + targetRect.height / 2);
+                
+                setHoveredElementId(insertionZone.elementId);
+                setHoveredZone(placementPosition);
+                dispatch(setHoveredElement({ 
+                  elementId: insertionZone.elementId, 
+                  zone: placementPosition
+                }));
+                setInsertionIndicator(siblingZone);
+              }
+            } else {
+              // Fallback to 'after' if we can't get element rect
+              const siblingZone = {
+                position: 'after',
+                elementId: insertionZone.elementId,
+                bounds: insertionZone.bounds
+              };
+              
+              setHoveredElementId(insertionZone.elementId);
+              setHoveredZone('after');
+              dispatch(setHoveredElement({ 
+                elementId: insertionZone.elementId, 
+                zone: 'after'
+              }));
+              setInsertionIndicator(siblingZone);
+            }
+          } else {
+            // Clear visual feedback if sibling placement also fails
+            setHoveredElementId(null);
+            setHoveredZone(null);
+            dispatch(setHoveredElement({ elementId: null, zone: null }));
+            setInsertionIndicator(null);
+            setExpandedContainerId(null);
+          }
         }
       } else {
         setHoveredElementId(null);
@@ -960,26 +1065,55 @@ const Canvas: React.FC = () => {
               // Store the insertion indicator for visual feedback
               setInsertionIndicator(insertionZone);
             } else {
-              // Try sibling placement if invalid drop target
+              // Enhanced sibling placement logic for invalid drop targets
               const parentId = targetElement?.parent || 'root';
               const parentElement = currentElements[parentId];
-              const canDropAssibling = parentElement ? isValidDropTarget(parentElement) : true; // root always accepts
+              const canDropAsSibling = parentElement ? isValidDropTarget(parentElement) : true; // root always accepts
               
-              if (canDropAssibling && !parentElement?.componentRef) {
-                // Create sibling insertion zone (prefer 'after' for better UX)
-                const siblingZone = {
-                  position: 'after' as const,
-                  elementId: insertionZone.elementId,
-                  bounds: insertionZone.bounds
-                };
-                
-                setHoveredElementId(insertionZone.elementId);
-                setHoveredZone('after');
-                dispatch(setHoveredElement({ 
-                  elementId: insertionZone.elementId, 
-                  zone: 'after'
-                }));
-                setInsertionIndicator(siblingZone);
+              if (canDropAsSibling && !parentElement?.componentRef) {
+                // Use mouse position to determine before/after placement
+                const targetElementDiv = document.querySelector(`[data-element-id="${insertionZone.elementId}"]`) as HTMLElement;
+                if (targetElementDiv) {
+                  const targetRect = targetElementDiv.getBoundingClientRect();
+                  const canvasRect = canvasRef.current?.getBoundingClientRect();
+                  
+                  if (canvasRect) {
+                    // Convert mouse coordinates to element-relative coordinates
+                    const mouseYRelative = e.clientY;
+                    const placementPosition = mouseYRelative < (targetRect.top + targetRect.height / 2) ? 'before' : 'after';
+                    
+                    const siblingZone = {
+                      position: placementPosition,
+                      elementId: insertionZone.elementId,
+                      bounds: insertionZone.bounds
+                    };
+                    
+                    console.log('INVALID RECIPIENT - Using mouse-based placement:', placementPosition, 'at y:', mouseYRelative, 'element midpoint:', targetRect.top + targetRect.height / 2);
+                    
+                    setHoveredElementId(insertionZone.elementId);
+                    setHoveredZone(placementPosition);
+                    dispatch(setHoveredElement({ 
+                      elementId: insertionZone.elementId, 
+                      zone: placementPosition
+                    }));
+                    setInsertionIndicator(siblingZone);
+                  }
+                } else {
+                  // Fallback to 'after' if we can't get element rect
+                  const siblingZone = {
+                    position: 'after' as const,
+                    elementId: insertionZone.elementId,
+                    bounds: insertionZone.bounds
+                  };
+                  
+                  setHoveredElementId(insertionZone.elementId);
+                  setHoveredZone('after');
+                  dispatch(setHoveredElement({ 
+                    elementId: insertionZone.elementId, 
+                    zone: 'after'
+                  }));
+                  setInsertionIndicator(siblingZone);
+                }
               } else {
                 // Clear visual feedback if sibling placement also fails
                 setHoveredElementId(null);
@@ -1080,7 +1214,12 @@ const Canvas: React.FC = () => {
             parentType: currentElements[targetElement?.parent || 'root']?.type
           });
           
-          if (canDropHere) {
+          // ENHANCED: Handle canvas padding insertion for component drops
+          if ((insertionZone as any).position === 'canvas-top' || (insertionZone as any).position === 'canvas-bottom') {
+            parentId = 'root';
+            insertPosition = (insertionZone as any).position === 'canvas-top' ? 'canvas-start' as any : 'canvas-end' as any;
+            console.log('Component canvas padding insertion:', { parentId, insertPosition });
+          } else if (canDropHere) {
             if ((insertionZone as any).position === 'inside') {
               parentId = insertionZone.elementId;
               // For empty containers, respect the spatial positioning
@@ -1337,7 +1476,7 @@ const Canvas: React.FC = () => {
       <div 
         ref={canvasRef}
         className={`
-          bg-white shadow-lg rounded-lg relative cursor-crosshair
+          bg-background text-foreground font-sans antialiased shadow-lg rounded-lg relative cursor-crosshair
           ${isGridVisible ? 'canvas-grid' : ''}
         `}
         style={{ 
@@ -1348,6 +1487,8 @@ const Canvas: React.FC = () => {
           paddingTop: contentBounds.minY < 0 ? Math.abs(contentBounds.minY) + 50 : 50,
           paddingBottom: 50,
           marginTop: contentBounds.minY < 0 ? -(Math.abs(contentBounds.minY) + 50) : -50,
+          // Mirror body font-family for consistency
+          fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif",
         }}
         onClick={handleCanvasClick}
         onMouseDown={handleMouseDown}
@@ -1362,9 +1503,9 @@ const Canvas: React.FC = () => {
         }}
         data-testid="canvas-container"
       >
-        {/* Enhanced Canvas with CSS isolation wrapper */}
+        {/* Enhanced Canvas with CSS isolation wrapper - inherits body styling */}
         <div 
-          className={hasImportedElements && importScope ? importScope : ''}
+          className={`${hasImportedElements && importScope ? importScope : ''} bg-background text-foreground`}
           data-canvas={hasImportedElements && importScope ? importScope : undefined}
           style={{
             // For imported elements, use CSS-based layout instead of canvas positioning
@@ -1373,6 +1514,8 @@ const Canvas: React.FC = () => {
               width: '100%',
               minHeight: '100%'
             } : {}),
+            // Mirror body styling for consistency
+            fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif",
             // Offset content to account for negative positioned elements
             position: 'relative',
             top: contentBounds.minY < 0 ? Math.abs(contentBounds.minY) : 0,
@@ -1433,6 +1576,29 @@ const Canvas: React.FC = () => {
                   style={{ animation: 'cubic-bezier(0.2, 0.7, 0, 1) 150ms 120ms both' }}
                 >
                   {(insertionIndicator as any).position === 'before' ? 'Above' : 'Below'}
+                </div>
+              </div>
+            )}
+
+            {/* CANVAS PADDING INDICATORS - Document Start/End */}
+            {((insertionIndicator as any).position === 'canvas-top' || (insertionIndicator as any).position === 'canvas-bottom') && (
+              <div className="relative w-full h-full">
+                {/* Wide insertion line with glow effect */}
+                <div 
+                  className="w-full h-full animate-in fade-in duration-150"
+                  style={{
+                    backgroundColor: 'oklch(60% 0.20 265)',
+                    borderRadius: '6px',
+                    boxShadow: '0 0 0 1px currentColor inset, 0 0 12px rgba(135, 80, 255, 0.3)',
+                    animation: 'cubic-bezier(0.2, 0.7, 0, 1) 150ms'
+                  }}
+                />
+                {/* Enhanced hint badge for document positioning */}
+                <div 
+                  className="absolute -right-16 top-1/2 transform -translate-y-1/2 bg-purple-50 border-purple-200 rounded-full px-3 py-1 text-xs font-medium text-purple-700 shadow-sm border animate-in fade-in duration-150 delay-120"
+                  style={{ animation: 'cubic-bezier(0.2, 0.7, 0, 1) 150ms 120ms both' }}
+                >
+                  {(insertionIndicator as any).position === 'canvas-top' ? 'Document Start' : 'Document End'}
                 </div>
               </div>
             )}

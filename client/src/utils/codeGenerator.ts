@@ -33,7 +33,7 @@ export class CodeGenerator {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>${this.project.name}</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="${this.project.name.replace(/\s+/g, '-').toLowerCase()}.css">
 </head>
 <body>
 ${this.generateElementHTML(rootElement, 1)}

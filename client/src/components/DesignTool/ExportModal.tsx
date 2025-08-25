@@ -61,11 +61,11 @@ const ExportModal: React.FC = () => {
         htmlLink.download = `${project.name.replace(/\s+/g, '-').toLowerCase()}.html`;
         htmlLink.click();
         
-        // Download CSS file
+        // Download CSS file with project name
         const cssUrl = URL.createObjectURL(cssBlob);
         const cssLink = document.createElement('a');
         cssLink.href = cssUrl;
-        cssLink.download = 'styles.css';
+        cssLink.download = `${project.name.replace(/\s+/g, '-').toLowerCase()}.css`;
         cssLink.click();
         
         URL.revokeObjectURL(htmlUrl);

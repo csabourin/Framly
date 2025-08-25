@@ -1,13 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Slider } from '@/components/ui/slider';
 import { Button } from '@/components/ui/button';
 import { PropertyConfig, formatValueWithUnit, parseValueAndUnit } from '../../utils/propertyConfig';
+import { 
+  getActiveUnit, 
+  setElementUnitPreference, 
+  parseValueAndUnit as parseUnit, 
+  formatValueWithUnit as formatUnit 
+} from '../../utils/unitPersistence';
 import { Info } from 'lucide-react';
 import { ImageUpload } from './ImageUpload';
 import { BackgroundInput } from './BackgroundInput';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
 
 interface PropertyInputProps {
   config: PropertyConfig;
@@ -18,13 +26,32 @@ interface PropertyInputProps {
 }
 
 export const PropertyInput: React.FC<PropertyInputProps> = ({ config, value, onChange, elementId, element }) => {
-  const [selectedUnit, setSelectedUnit] = useState(() => {
-    if (config.units && config.units.length > 0) {
-      const parsed = parseValueAndUnit(value);
-      return parsed.unit || config.defaultUnit || config.units[0];
-    }
-    return config.unit || 'px';
-  });
+  // Get custom classes from Redux store
+  const customClasses = useSelector((state: RootState) => (state as any).classes?.customClasses || {});
+  
+  // Get the active unit for this property using persistent unit system
+  const activeUnit = getActiveUnit(
+    config.key,
+    elementId || '',
+    element,
+    customClasses,
+    config.units
+  );
+  
+  // Local state for selected unit (persisted via unitPersistence)
+  const [selectedUnit, setSelectedUnit] = useState(activeUnit);
+  
+  // Update selectedUnit when element or property changes
+  useEffect(() => {
+    const newActiveUnit = getActiveUnit(
+      config.key,
+      elementId || '',
+      element,
+      customClasses,
+      config.units
+    );
+    setSelectedUnit(newActiveUnit);
+  }, [config.key, elementId, element, customClasses, config.units]);
 
   const renderInput = () => {
     switch (config.type) {
@@ -55,7 +82,7 @@ export const PropertyInput: React.FC<PropertyInputProps> = ({ config, value, onC
         );
 
       case 'unit':
-        const parsed = parseValueAndUnit(value);
+        const parsed = parseUnit(value);
         const numValue = parsed.value !== undefined && parsed.value !== null ? parseFloat(parsed.value) : 0;
         
         return (
@@ -65,7 +92,7 @@ export const PropertyInput: React.FC<PropertyInputProps> = ({ config, value, onC
               value={numValue === null || numValue === undefined || isNaN(numValue) ? '' : numValue}
               onChange={(e) => {
                 const newValue = parseFloat(e.target.value) || 0;
-                onChange(formatValueWithUnit(newValue, selectedUnit));
+                onChange(formatUnit(newValue, selectedUnit));
               }}
               min={config.min}
               max={config.max}
@@ -78,8 +105,12 @@ export const PropertyInput: React.FC<PropertyInputProps> = ({ config, value, onC
                 value={selectedUnit}
                 onValueChange={(unit) => {
                   setSelectedUnit(unit);
+                  // Persist the unit preference for this element and property
+                  if (elementId) {
+                    setElementUnitPreference(elementId, config.key, unit);
+                  }
                   // Always apply the unit change, even if numValue is 0
-                  onChange(formatValueWithUnit(numValue, unit));
+                  onChange(formatUnit(numValue, unit));
                 }}
               >
                 <SelectTrigger className="w-20">
