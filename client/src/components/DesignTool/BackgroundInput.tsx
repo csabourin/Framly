@@ -10,6 +10,7 @@ import { ImageIcon, Palette, Zap, Upload, Link, Plus, Minus, RotateCcw } from 'l
 import { useDispatch } from 'react-redux';
 import { updateElementStyles } from '@/store/canvasSlice';
 import { indexedDBManager } from '@/utils/indexedDB';
+import { ColorModePropertyInput } from '../ColorModePropertyInput';
 
 interface GradientStop {
   color: string;
@@ -262,38 +263,20 @@ export const BackgroundInput: React.FC<BackgroundInputProps> = ({
 
           {/* Color Tab */}
           <TabsContent value="color" className="space-y-3">
-            <div className="flex gap-2">
-              <Input
-                type="color"
-                value={backgroundColor === 'transparent' ? '#000000' : (backgroundColor || '#ffffff')}
-                onChange={(e) => {
-                  setBackgroundColor(e.target.value);
-                  updateBackgroundProperty('backgroundColor', e.target.value);
-                }}
-                className="w-12 h-9 p-1 border rounded"
-              />
-              <Input
-                type="text"
-                value={backgroundColor || '#ffffff'}
-                onChange={(e) => {
-                  setBackgroundColor(e.target.value);
-                  updateBackgroundProperty('backgroundColor', e.target.value);
-                }}
-                placeholder="#ffffff"
-                className="flex-1 font-mono text-sm"
-              />
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => {
-                  setBackgroundColor('transparent');
-                  updateBackgroundProperty('backgroundColor', 'transparent');
-                }}
-                className="px-3"
-              >
-                Clear
-              </Button>
-            </div>
+            <ColorModePropertyInput
+              config={{
+                key: 'backgroundColor',
+                label: 'Background Color',
+                type: 'color',
+                category: 'appearance',
+                priority: 1
+              }}
+              value={backgroundColor}
+              onChange={(newValue) => {
+                setBackgroundColor(newValue as any);
+                updateBackgroundProperty('backgroundColor', newValue);
+              }}
+            />
           </TabsContent>
 
           {/* Image Tab */}
