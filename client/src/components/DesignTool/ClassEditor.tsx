@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { RootState } from '../../store';
 import { selectSelectedElement, selectSelectedElementId, selectCurrentElements, selectCustomClasses } from '../../store/selectors';
 import { updateElementStyles, addCSSClass, removeCSSClass } from '../../store/canvasSlice';
@@ -21,6 +22,7 @@ interface ClassEditorProps {
 }
 
 export const ClassEditor: React.FC<ClassEditorProps> = ({ isOpen, onClose }) => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const selectedElement = useSelector(selectSelectedElement);
   const selectedElementId = useSelector(selectSelectedElementId);
@@ -290,11 +292,11 @@ export const ClassEditor: React.FC<ClassEditorProps> = ({ isOpen, onClose }) => 
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
       <div className="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
         <div className="p-6 border-b border-gray-200 flex items-center justify-between">
-          <h2 className="text-xl font-semibold">Class Editor</h2>
+          <h2 className="text-xl font-semibold">{t('classEditor.classEditor')}</h2>
           <div className="flex gap-2">
             <Button variant="outline" onClick={exportCSS}>
               <Download className="w-4 h-4 mr-2" />
-              Export CSS
+{t('classEditor.exportCSS')}
             </Button>
             <Button variant="ghost" onClick={onClose}>
               <X className="w-4 h-4" />

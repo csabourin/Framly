@@ -359,6 +359,69 @@
     "openProject": "Ctrl+O"
   },
   
+  "breakpoints": {
+    "mobile": "Mobile",
+    "tablet": "Tablette", 
+    "desktop": "Ordinateur",
+    "large": "Grand écran",
+    "mobileFirst": "Design responsive mobile-first : les valeurs héritent vers le haut",
+    "baseValue": "Valeur de base",
+    "inheritFromMobile": "Hériter du mobile",
+    "hideBreakpoints": "Masquer les points de rupture",
+    "showBreakpoints": "Afficher les points de rupture",
+    "enterValue": "Saisir une valeur"
+  },
+
+  "classEditor": {
+    "classEditor": "Éditeur de Classes",
+    "elementClasses": "Classes d'Élément",
+    "noClassesYet": "Cet élément n'a pas encore de classes",
+    "createClassToStart": "Créez une classe pour commencer à styliser cet élément",
+    "createNewClass": "Créer une Nouvelle Classe",
+    "enterClassName": "Entrez le nom de la classe...",
+    "saveClass": "Enregistrer la Classe",
+    "customClasses": "Classes Personnalisées",
+    "noCustomClasses": "Aucune classe personnalisée créée encore",
+    "selectElementToManage": "Sélectionnez un élément sur le canevas pour gérer ses classes",
+    "newClassWillBeCreated": "Cette classe sera créée comme une nouvelle classe personnalisée. En commençant par les styles actuels de l'élément.",
+    "editClassStyles": "Modifiez les styles de cette classe. Les changements s'appliqueront à tous les éléments utilisant cette classe.",
+    "addNewProperty": "Ajouter une Nouvelle Propriété",
+    "propertyName": "Nom de Propriété",
+    "propertyValue": "Valeur de Propriété",
+    "addProperty": "Ajouter Propriété",
+    "propertiesCount": "{{count}} propriétés",
+    "exportCSS": "Exporter CSS",
+    "saveChanges": "Enregistrer les Modifications",
+    "renamingClass": "Renommage de la classe :",
+    "newClassName": "Nouveau Nom de Classe",
+    "enterNewClassName": "Entrez le nouveau nom de classe...",
+    "updateAllElements": "Ceci mettra à jour tous les éléments utilisant cette classe",
+    "renameClass": "Renommer la Classe",
+    "deleteClass": "Supprimer la Classe"
+  },
+
+  "elementTree": {
+    "elementTree": "Arbre des Éléments", 
+    "dropToReorder": "Déposer pour réorganiser les éléments",
+    "dragToReorderClick": "Glisser pour réorganiser • Cliquer pour sélectionner",
+    "rootContainer": "Conteneur Racine",
+    "textElement": "Texte : \"{{content}}\"",
+    "loadingTree": "Chargement de l'arbre des éléments..."
+  },
+
+  "componentPanel": {
+    "componentPanel": "Composants",
+    "dragComponentsHint": "💡 Glissez les composants vers le canevas ou cliquez sur le bouton + pour les ajouter",
+    "searchComponents": "Rechercher des composants...",
+    "noMatchingComponents": "Aucun composant ne correspond à votre recherche.",
+    "noComponentsYet": "Pas encore de composants. Créez votre premier composant en sélectionnant un élément et en cliquant sur \"Créer\".",
+    "deleteComponent": "Supprimer {{name}}",
+    "componentSystemReady": "Système de composants prêt",
+    "creatingComponent": "Création de Composant",
+    "selectElementsToSave": "Sélectionnez des éléments sur le canevas et enregistrez-les comme composant réutilisable",
+    "uncategorized": "Non catégorisé"
+  },
+
   "units": {
     "px": "Pixels",
     "rem": "Root Em",

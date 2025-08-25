@@ -359,6 +359,69 @@
     "openProject": "Ctrl+O"
   },
   
+  "breakpoints": {
+    "mobile": "Mobile",
+    "tablet": "Tablet", 
+    "desktop": "Desktop",
+    "large": "Large",
+    "mobileFirst": "Mobile-first responsive design: values inherit upward",
+    "baseValue": "Base value",
+    "inheritFromMobile": "Inherit from mobile",
+    "hideBreakpoints": "Hide breakpoints",
+    "showBreakpoints": "Show breakpoints",
+    "enterValue": "Enter value"
+  },
+
+  "classEditor": {
+    "classEditor": "Class Editor",
+    "elementClasses": "Element Classes",
+    "noClassesYet": "This element has no classes yet",
+    "createClassToStart": "Create a class to start styling this element",
+    "createNewClass": "Create New Class",
+    "enterClassName": "Enter class name...",
+    "saveClass": "Save Class",
+    "customClasses": "Custom Classes",
+    "noCustomClasses": "No custom classes created yet",
+    "selectElementToManage": "Select an element on the canvas to manage its classes",
+    "newClassWillBeCreated": "This class will be created as a new custom class. Starting with current element styles.",
+    "editClassStyles": "Edit the styles for this class. Changes will apply to all elements using this class.",
+    "addNewProperty": "Add New Property",
+    "propertyName": "Property Name",
+    "propertyValue": "Property Value",
+    "addProperty": "Add Property",
+    "propertiesCount": "{{count}} properties",
+    "exportCSS": "Export CSS",
+    "saveChanges": "Save Changes",
+    "renamingClass": "Renaming class:",
+    "newClassName": "New Class Name",
+    "enterNewClassName": "Enter new class name...",
+    "updateAllElements": "This will update all elements using this class",
+    "renameClass": "Rename Class",
+    "deleteClass": "Delete Class"
+  },
+
+  "elementTree": {
+    "elementTree": "Element Tree", 
+    "dropToReorder": "Drop to reorder elements",
+    "dragToReorderClick": "Drag to reorder • Click to select",
+    "rootContainer": "Root Container",
+    "textElement": "Text: \"{{content}}\"",
+    "loadingTree": "Loading element tree..."
+  },
+
+  "componentPanel": {
+    "componentPanel": "Components",
+    "dragComponentsHint": "💡 Drag components to canvas or click the + button to add them",
+    "searchComponents": "Search components...",
+    "noMatchingComponents": "No components match your search.",
+    "noComponentsYet": "No components yet. Create your first component by selecting an element and clicking \"Create\".",
+    "deleteComponent": "Delete {{name}}",
+    "componentSystemReady": "Component system ready",
+    "creatingComponent": "Creating Component",
+    "selectElementsToSave": "Select elements on canvas and save them as a reusable component",
+    "uncategorized": "Uncategorized"
+  },
+
   "units": {
     "px": "Pixels",
     "rem": "Root Em",
