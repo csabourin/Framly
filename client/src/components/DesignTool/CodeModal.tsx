@@ -72,8 +72,11 @@ const CodeModal: React.FC = () => {
   };
 
   const handleDownloadCode = () => {
+    // Use project name for CSS filename (same as HTML link)
+    const cssFilename = project.name ? `${project.name.replace(/\s+/g, '-').toLowerCase()}.css` : 'styles.css';
+    
     const filename = activeTab === 'html' ? 'index.html' : 
-                    activeTab === 'css' ? 'styles.css' : 
+                    activeTab === 'css' ? cssFilename : 
                     'Component.jsx';
     
     const code = activeTab === 'html' ? generatedCode.html : 
