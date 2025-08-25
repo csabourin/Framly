@@ -274,7 +274,10 @@ const PropertiesPanel: React.FC = () => {
   };
 
   const handlePropertyChange = (propertyKey: string, value: any) => {
-    // Removed debug logging to improve performance
+    // DEBUG: Log color mode values
+    if (propertyKey === 'color' || propertyKey === 'backgroundColor') {
+      console.log('🎨 Color property change:', { propertyKey, value, type: typeof value });
+    }
 
     // Handle special element-specific properties (not CSS styles)
     if (['headingLevel', 'listType'].includes(propertyKey)) {
