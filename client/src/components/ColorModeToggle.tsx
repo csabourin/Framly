@@ -12,13 +12,21 @@ import { Palette, Sun, Moon, Monitor, Contrast } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 export function ColorModeToggle() {
+  console.log('ColorModeToggle component started rendering');
+  
   const colorModeContext = useColorMode();
   const { t } = useTranslation();
+  
+  console.log('ColorModeToggle context:', colorModeContext);
   
   // Add safety check for context
   if (!colorModeContext) {
     console.warn('ColorModeToggle: ColorModeContext not found');
-    return null;
+    return (
+      <div style={{ background: 'purple', color: 'white', padding: '8px' }}>
+        No Context
+      </div>
+    );
   }
   
   const { mode, resolvedMode, setMode, supportsHighContrast } = colorModeContext;
