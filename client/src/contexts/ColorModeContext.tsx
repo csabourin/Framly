@@ -42,10 +42,15 @@ export function ColorModeProvider({ children, defaultMode = 'auto' }: ColorModeP
     return window.matchMedia('(prefers-contrast: more)').media !== 'not all';
   });
 
-  const [isColorModeDesignEnabled, setColorModeDesignEnabledState] = useState(() => {
+  const [isColorModeDesignEnabled, setColorModeDesignEnabledState] = useState<boolean>(() => {
     if (typeof window === 'undefined') return false;
-    const saved = localStorage.getItem('design-tool-color-mode-design-enabled');
-    return saved === 'true';
+    try {
+      const saved = localStorage.getItem('design-tool-color-mode-design-enabled');
+      return saved === 'true';
+    } catch (error) {
+      console.warn('Failed to load color mode design enabled state:', error);
+      return false;
+    }
   });
 
   // Resolve the actual mode based on system preferences
@@ -104,8 +109,13 @@ export function ColorModeProvider({ children, defaultMode = 'auto' }: ColorModeP
 
   // Save color mode design enabled state
   const setColorModeDesignEnabled = useCallback((enabled: boolean) => {
+    console.log('🔧 Setting color mode design enabled:', enabled);
     setColorModeDesignEnabledState(enabled);
-    localStorage.setItem('design-tool-color-mode-design-enabled', enabled.toString());
+    try {
+      localStorage.setItem('design-tool-color-mode-design-enabled', enabled.toString());
+    } catch (error) {
+      console.warn('Failed to save color mode design enabled state:', error);
+    }
   }, []);
 
   const value: ColorModeContextValue = {
@@ -118,7 +128,12 @@ export function ColorModeProvider({ children, defaultMode = 'auto' }: ColorModeP
     setColorModeDesignEnabled,
   };
   
-  console.log('🎯 ColorModeContext providing:', { isColorModeDesignEnabled, setColorModeDesignEnabled: typeof setColorModeDesignEnabled });
+  console.log('🎯 ColorModeContext providing:', { 
+    isColorModeDesignEnabled, 
+    setColorModeDesignEnabled: typeof setColorModeDesignEnabled,
+    hasFunction: !!setColorModeDesignEnabled,
+    fullValue: value
+  });
   
   // Debug: Log when state changes
   console.log('🎯 ColorMode design enabled state:', isColorModeDesignEnabled);

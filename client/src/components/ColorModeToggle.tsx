@@ -19,10 +19,29 @@ export function ColorModeToggle() {
   
   // Fallback if context is not providing the function
   const handleToggleDesignMode = () => {
+    console.log('🔧 Attempting to toggle design mode. Current state:', isColorModeDesignEnabled);
+    console.log('🔧 Function type:', typeof setColorModeDesignEnabled);
+    console.log('🔧 Function value:', setColorModeDesignEnabled);
+    
     if (typeof setColorModeDesignEnabled === 'function') {
-      setColorModeDesignEnabled(!isColorModeDesignEnabled);
+      try {
+        setColorModeDesignEnabled(!isColorModeDesignEnabled);
+        console.log('🔧 Successfully toggled to:', !isColorModeDesignEnabled);
+      } catch (error) {
+        console.error('🔧 Error calling setColorModeDesignEnabled:', error);
+      }
     } else {
-      console.error('setColorModeDesignEnabled is not a function:', setColorModeDesignEnabled);
+      console.error('🔧 setColorModeDesignEnabled is not a function:', setColorModeDesignEnabled);
+      // Fallback: try to set it in localStorage directly
+      try {
+        const newValue = !isColorModeDesignEnabled;
+        localStorage.setItem('design-tool-color-mode-design-enabled', newValue.toString());
+        console.log('🔧 Fallback: Set value in localStorage:', newValue);
+        // Force a page reload to pick up the new value
+        window.location.reload();
+      } catch (error) {
+        console.error('🔧 Fallback failed:', error);
+      }
     }
   };
 

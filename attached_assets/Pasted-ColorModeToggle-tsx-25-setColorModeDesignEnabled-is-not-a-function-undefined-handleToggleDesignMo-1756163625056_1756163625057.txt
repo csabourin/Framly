@@ -1,0 +1,475 @@
+ColorModeToggle.tsx:25  setColorModeDesignEnabled is not a function: undefined
+handleToggleDesignMode @ ColorModeToggle.tsx:25
+handleEvent @ primitive.tsx:7
+callCallback2 @ react-dom.development.js:4164
+invokeGuardedCallbackDev @ react-dom.development.js:4213
+invokeGuardedCallback @ react-dom.development.js:4277
+invokeGuardedCallbackAndCatchFirstError @ react-dom.development.js:4291
+executeDispatch @ react-dom.development.js:9041
+processDispatchQueueItemsInOrder @ react-dom.development.js:9073
+processDispatchQueue @ react-dom.development.js:9086
+dispatchEventsForPlugins @ react-dom.development.js:9097
+(anonymous) @ react-dom.development.js:9288
+batchedUpdates$1 @ react-dom.development.js:26179
+batchedUpdates @ react-dom.development.js:3991
+dispatchEventForPluginEventSystem @ react-dom.development.js:9287
+dispatchEventWithEnableCapturePhaseSelectiveHydrationWithoutDiscreteEventReplay @ react-dom.development.js:6465
+dispatchEvent @ react-dom.development.js:6457
+dispatchDiscreteEvent @ react-dom.development.js:6430
+Fetch finished loading: POST "<URL>".
+Fetch finished loading: POST "<URL>".
+Fetch finished loading: POST "<URL>".
+Fetch finished loading: POST "<URL>".
+Fetch finished loading: POST "<URL>".
+Fetch finished loading: POST "<URL>".
+Fetch finished loading: POST "<URL>".
+Fetch finished loading: POST "<URL>".
+_app-41a6a28c2887ca83.js:38 Fetch failed loading: POST "https://analytics.google.com/g/collect?v=2&tid=G-MPJY3F1YEL&gtm=45je58m1v9135634466za200&_p=1756161803549&gcd=13l3l3l3l2l1&npa=0&dma=0&tag_exp=101509157~103116026~103200004~103233427~104527906~104528500~104573694~104684208~104684211~104948812~104948813~105399921~105399923&ul=fr-ca&sr=2560x1440&cid=1280382135.1756161793&ecid=404491333&ir=1&uaa=x86&uab=64&uafvl=Not%253BA%253DBrand%3B99.0.0.0%7CMicrosoft%2520Edge%3B139.0.3405.111%7CChromium%3B139.0.7258.139&uamb=0&uam=&uap=Windows&uapv=19.0.0&uaw=0&are=1&frm=0&pscdl=noapi&_eu=EBAIAAQ&_s=60&dl=https%3A%2F%2Freplit.com%2F%40csabourin%2FLayoutMaster&dp=%2F%40csabourin%2FLayoutMaster&dt=replEnvironmentDesktop&sid=1756141441&sct=83&seg=1&_tu=wAQ&en=Agent%20Used&_ee=1&ep.event_category=All&ep.value=0&_et=4114&tfd=1737933".
+(anonymous) @ _app-41a6a28c2887ca83.js:38
+$c @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:247
+rm @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:426
+RM @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:887
+k.flush @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:894
+(anonymous) @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:892
+n @ _app-41a6a28c2887ca83.js:38
+setTimeout
+(anonymous) @ _app-41a6a28c2887ca83.js:38
+k.Ib @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:892
+k.add @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:894
+k.El @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:909
+k.Pp @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:909
+(anonymous) @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:906
+mn @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:442
+pp @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:462
+(anonymous) @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:906
+c @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:842
+gJ @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:842
+k.Op @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:906
+c @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:920
+v @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:481
+vn @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:444
+Uq @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:481
+Tq.flush @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:485
+Tq.push @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:483
+Kq @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:478
+event @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:739
+fD @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:745
+b.push @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:751
+bD @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:751
+jD @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:751
+ND @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:764
+OD.b.push @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:765
+Sa @ analytics.js:51
+(anonymous) @ analytics.js:83
+Ha.D @ analytics.js:47
+pc.send @ analytics.js:87
+X.b.<computed> @ analytics.js:68
+Z.v @ analytics.js:102
+Z.D @ analytics.js:101
+N @ analytics.js:103
+w.track @ index.js:360
+track @ protos.js:372
+e.invoke @ protos.js:178
+(anonymous) @ index.ts:270
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+s @ tslib.es6.js:73
+Promise.then
+a @ tslib.es6.js:76
+(anonymous) @ tslib.es6.js:76
+u @ tslib.es6.js:72
+t.send @ ajs-destination.bundle.8e6b895db75187c55313.js:1
+(anonymous) @ index.ts:286
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+t.track @ ajs-destination.bundle.8e6b895db75187c55313.js:1
+(anonymous) @ delivery.js:28
+(anonymous) @ delivery.js:11
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+(anonymous) @ delivery.js:4
+o @ delivery.js:27
+(anonymous) @ event-queue.js:325
+(anonymous) @ event-queue.js:323
+n @ _app-41a6a28c2887ca83.js:38
+setTimeout
+(anonymous) @ _app-41a6a28c2887ca83.js:38
+(anonymous) @ event-queue.js:321
+(anonymous) @ event-queue.js:320
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+s @ tslib.es6.js:73
+Promise.then
+a @ tslib.es6.js:76
+s @ tslib.es6.js:73
+Promise.then
+a @ tslib.es6.js:76
+(anonymous) @ tslib.es6.js:76
+u @ tslib.es6.js:72
+n.flushOne @ event-queue.js:273
+(anonymous) @ event-queue.js:181
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+s @ tslib.es6.js:73
+Promise.then
+a @ tslib.es6.js:76
+(anonymous) @ tslib.es6.js:76
+u @ tslib.es6.js:72
+n.deliver @ event-queue.js:169
+(anonymous) @ event-queue.js:135
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+n.dispatchSingle @ event-queue.js:128
+(anonymous) @ dispatch.js:25
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+p @ dispatch.js:18
+(anonymous) @ index.ts:460
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+n._dispatch @ index.ts:454
+(anonymous) @ index.ts:253
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+n.track @ index.ts:241
+A @ _app-41a6a28c2887ca83.js:1
+p @ 8179-9a6c8f02b51cc781.js:1
+(anonymous) @ 1065-81f0ff8b72f22ab2.js:1
+(anonymous) @ main-55a202a4490af33d.js:1
+n @ main-55a202a4490af33d.js:1
+u @ main-55a202a4490af33d.js:1
+Promise.then
+n @ main-55a202a4490af33d.js:1
+u @ main-55a202a4490af33d.js:1
+(anonymous) @ main-55a202a4490af33d.js:1
+(anonymous) @ main-55a202a4490af33d.js:1
+(anonymous) @ 1065-81f0ff8b72f22ab2.js:1
+(anonymous) @ 1065-81f0ff8b72f22ab2.js:1
+(anonymous) @ 1065-81f0ff8b72f22ab2.js:1
+(anonymous) @ main-55a202a4490af33d.js:1
+n @ main-55a202a4490af33d.js:1
+u @ main-55a202a4490af33d.js:1
+(anonymous) @ main-55a202a4490af33d.js:1
+(anonymous) @ main-55a202a4490af33d.js:1
+(anonymous) @ 1065-81f0ff8b72f22ab2.js:1
+(anonymous) @ 1065-81f0ff8b72f22ab2.js:1
+(anonymous) @ 1065-81f0ff8b72f22ab2.js:1
+keydown @ 1065-81f0ff8b72f22ab2.js:1
+(anonymous) @ 275e5802-745b92445d44dc02.js:1
+runHandlers @ 275e5802-745b92445d44dc02.js:1
+handleEvent @ 275e5802-745b92445d44dc02.js:1
+n @ _app-41a6a28c2887ca83.js:38
+indexedDB.ts:591 Project saved to IndexedDB: default-project
+persistence.ts:291 Project auto-saved
+ColorModeToggle.tsx:18 🔥 ColorMode values: {mode: 'dark', resolvedMode: 'dark', isColorModeDesignEnabled: undefined, setColorModeDesignEnabled: 'undefined'}
+ColorModeToggle.tsx:18 🔥 ColorMode values: {mode: 'dark', resolvedMode: 'dark', isColorModeDesignEnabled: undefined, setColorModeDesignEnabled: 'undefined'}
+ColorModeToggle.tsx:18 🔥 ColorMode values: {mode: 'dark', resolvedMode: 'dark', isColorModeDesignEnabled: undefined, setColorModeDesignEnabled: 'undefined'}
+ColorModeToggle.tsx:18 🔥 ColorMode values: {mode: 'dark', resolvedMode: 'dark', isColorModeDesignEnabled: undefined, setColorModeDesignEnabled: 'undefined'}
+ColorModeToggle.tsx:18 🔥 ColorMode values: {mode: 'dark', resolvedMode: 'dark', isColorModeDesignEnabled: undefined, setColorModeDesignEnabled: 'undefined'}
+ColorModeToggle.tsx:18 🔥 ColorMode values: {mode: 'dark', resolvedMode: 'dark', isColorModeDesignEnabled: undefined, setColorModeDesignEnabled: 'undefined'}
+ColorModeToggle.tsx:18 🔥 ColorMode values: {mode: 'dark', resolvedMode: 'dark', isColorModeDesignEnabled: undefined, setColorModeDesignEnabled: 'undefined'}
+ColorModeToggle.tsx:18 🔥 ColorMode values: {mode: 'dark', resolvedMode: 'dark', isColorModeDesignEnabled: undefined, setColorModeDesignEnabled: 'undefined'}
+ColorModeToggle.tsx:18 🔥 ColorMode values: {mode: 'dark', resolvedMode: 'dark', isColorModeDesignEnabled: undefined, setColorModeDesignEnabled: 'undefined'}
+ColorModeToggle.tsx:18 🔥 ColorMode values: {mode: 'dark', resolvedMode: 'dark', isColorModeDesignEnabled: undefined, setColorModeDesignEnabled: 'undefined'}
+ColorModeToggle.tsx:18 🔥 ColorMode values: {mode: 'dark', resolvedMode: 'dark', isColorModeDesignEnabled: undefined, setColorModeDesignEnabled: 'undefined'}
+ColorModeToggle.tsx:18 🔥 ColorMode values: {mode: 'dark', resolvedMode: 'dark', isColorModeDesignEnabled: undefined, setColorModeDesignEnabled: 'undefined'}
+ColorModeToggle.tsx:18 🔥 ColorMode values: {mode: 'dark', resolvedMode: 'dark', isColorModeDesignEnabled: undefined, setColorModeDesignEnabled: 'undefined'}
+ColorModeToggle.tsx:18 🔥 ColorMode values: {mode: 'dark', resolvedMode: 'dark', isColorModeDesignEnabled: undefined, setColorModeDesignEnabled: 'undefined'}
+ColorModeToggle.tsx:18 🔥 ColorMode values: {mode: 'dark', resolvedMode: 'dark', isColorModeDesignEnabled: undefined, setColorModeDesignEnabled: 'undefined'}
+ColorModeToggle.tsx:18 🔥 ColorMode values: {mode: 'dark', resolvedMode: 'dark', isColorModeDesignEnabled: undefined, setColorModeDesignEnabled: 'undefined'}
+ColorModeToggle.tsx:18 🔥 ColorMode values: {mode: 'dark', resolvedMode: 'dark', isColorModeDesignEnabled: undefined, setColorModeDesignEnabled: 'undefined'}
+ColorModeToggle.tsx:18 🔥 ColorMode values: {mode: 'dark', resolvedMode: 'dark', isColorModeDesignEnabled: undefined, setColorModeDesignEnabled: 'undefined'}
+ColorModeToggle.tsx:18 🔥 ColorMode values: {mode: 'dark', resolvedMode: 'dark', isColorModeDesignEnabled: undefined, setColorModeDesignEnabled: 'undefined'}
+ColorModeToggle.tsx:18 🔥 ColorMode values: {mode: 'dark', resolvedMode: 'dark', isColorModeDesignEnabled: undefined, setColorModeDesignEnabled: 'undefined'}
+ColorModeToggle.tsx:18 🔥 ColorMode values: {mode: 'dark', resolvedMode: 'dark', isColorModeDesignEnabled: undefined, setColorModeDesignEnabled: 'undefined'}
+ColorModeToggle.tsx:18 🔥 ColorMode values: {mode: 'dark', resolvedMode: 'dark', isColorModeDesignEnabled: undefined, setColorModeDesignEnabled: 'undefined'}
+_app-41a6a28c2887ca83.js:38 Fetch failed loading: POST "https://analytics.google.com/g/collect?v=2&tid=G-MPJY3F1YEL&gtm=45je58m1v9135634466za200&_p=1756161803549&_gaz=1&gcd=13l3l3l3l2l1&npa=0&dma=0&tag_exp=101509157~103116026~103200004~103233427~104527906~104528500~104573694~104684208~104684211~104948812~104948813~105399921~105399923&ul=fr-ca&sr=2560x1440&cid=1280382135.1756161793&ecid=404491333&ir=1&uaa=x86&uab=64&uafvl=Not%253BA%253DBrand%3B99.0.0.0%7CMicrosoft%2520Edge%3B139.0.3405.111%7CChromium%3B139.0.7258.139&uamb=0&uam=&uap=Windows&uapv=19.0.0&uaw=0&are=1&frm=0&pscdl=noapi&_eu=EBAIAAQ&_s=61&dl=https%3A%2F%2Freplit.com%2F%40csabourin%2FLayoutMaster&dp=%2F%40csabourin%2FLayoutMaster&dt=replEnvironmentDesktop&sid=1756141441&sct=83&seg=1&_tu=wAQ&en=Git%20Feature%20Used&_ee=1&ep.event_category=All&ep.value=0&_et=44269&tfd=1781163".
+(anonymous) @ _app-41a6a28c2887ca83.js:38
+$c @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:247
+rm @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:426
+RM @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:887
+k.Ib @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:892
+k.add @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:894
+k.El @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:909
+k.Pp @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:909
+(anonymous) @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:906
+mn @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:442
+pp @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:462
+(anonymous) @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:906
+c @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:842
+gJ @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:842
+k.Op @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:906
+c @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:920
+v @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:481
+vn @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:444
+Uq @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:481
+Tq.flush @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:485
+Tq.push @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:483
+Kq @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:478
+event @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:739
+fD @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:745
+b.push @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:751
+bD @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:751
+jD @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:751
+ND @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:764
+OD.b.push @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:765
+Sa @ analytics.js:51
+(anonymous) @ analytics.js:83
+Ha.D @ analytics.js:47
+pc.send @ analytics.js:87
+X.b.<computed> @ analytics.js:68
+Z.v @ analytics.js:102
+Z.D @ analytics.js:101
+N @ analytics.js:103
+w.track @ index.js:360
+track @ protos.js:372
+e.invoke @ protos.js:178
+(anonymous) @ index.ts:270
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+s @ tslib.es6.js:73
+Promise.then
+a @ tslib.es6.js:76
+(anonymous) @ tslib.es6.js:76
+u @ tslib.es6.js:72
+t.send @ ajs-destination.bundle.8e6b895db75187c55313.js:1
+(anonymous) @ index.ts:286
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+t.track @ ajs-destination.bundle.8e6b895db75187c55313.js:1
+(anonymous) @ delivery.js:28
+(anonymous) @ delivery.js:11
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+(anonymous) @ delivery.js:4
+o @ delivery.js:27
+(anonymous) @ event-queue.js:325
+(anonymous) @ event-queue.js:323
+n @ _app-41a6a28c2887ca83.js:38
+setTimeout
+(anonymous) @ _app-41a6a28c2887ca83.js:38
+(anonymous) @ event-queue.js:321
+(anonymous) @ event-queue.js:320
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+s @ tslib.es6.js:73
+Promise.then
+a @ tslib.es6.js:76
+s @ tslib.es6.js:73
+Promise.then
+a @ tslib.es6.js:76
+(anonymous) @ tslib.es6.js:76
+u @ tslib.es6.js:72
+n.flushOne @ event-queue.js:273
+(anonymous) @ event-queue.js:181
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+s @ tslib.es6.js:73
+Promise.then
+a @ tslib.es6.js:76
+(anonymous) @ tslib.es6.js:76
+u @ tslib.es6.js:72
+n.deliver @ event-queue.js:169
+(anonymous) @ event-queue.js:135
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+n.dispatchSingle @ event-queue.js:128
+(anonymous) @ dispatch.js:25
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+p @ dispatch.js:18
+(anonymous) @ index.ts:460
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+n._dispatch @ index.ts:454
+(anonymous) @ index.ts:253
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+n.track @ index.ts:241
+A @ _app-41a6a28c2887ca83.js:1
+dv @ 1065-81f0ff8b72f22ab2.js:1
+(anonymous) @ 1065-81f0ff8b72f22ab2.js:1
+n @ 1065-81f0ff8b72f22ab2.js:1
+(anonymous) @ 1065-81f0ff8b72f22ab2.js:1
+(anonymous) @ 1065-81f0ff8b72f22ab2.js:1
+oO @ framework-455357667e71dda3.js:1
+uB @ framework-455357667e71dda3.js:1
+(anonymous) @ framework-455357667e71dda3.js:1
+C @ framework-455357667e71dda3.js:1
+z @ framework-455357667e71dda3.js:1
+_app-41a6a28c2887ca83.js:38 XHR finished loading: POST "https://stats.g.doubleclick.net/j/collect?t=dc&aip=1&_r=3&v=1&_v=j102&tid=UA-25629695-1&cid=1280382135.1756161793&jid=563865357&gjid=794897421&_gid=1323205256.1756161793&_u=SCCAgEAjQAAAAGgCIAD~&z=694103260".
+(anonymous) @ _app-41a6a28c2887ca83.js:38
+(anonymous) @ _app-41a6a28c2887ca83.js:38
+wd @ analytics.js:46
+pe @ analytics.js:44
+(anonymous) @ analytics.js:83
+Ha.D @ analytics.js:47
+pc.send @ analytics.js:87
+X.b.<computed> @ analytics.js:68
+Z.v @ analytics.js:102
+Z.D @ analytics.js:101
+N @ analytics.js:103
+w.track @ index.js:360
+track @ protos.js:372
+e.invoke @ protos.js:178
+(anonymous) @ index.ts:270
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+s @ tslib.es6.js:73
+Promise.then
+a @ tslib.es6.js:76
+(anonymous) @ tslib.es6.js:76
+u @ tslib.es6.js:72
+t.send @ ajs-destination.bundle.8e6b895db75187c55313.js:1
+(anonymous) @ index.ts:286
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+t.track @ ajs-destination.bundle.8e6b895db75187c55313.js:1
+(anonymous) @ delivery.js:28
+(anonymous) @ delivery.js:11
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+(anonymous) @ delivery.js:4
+o @ delivery.js:27
+(anonymous) @ event-queue.js:325
+(anonymous) @ event-queue.js:323
+n @ _app-41a6a28c2887ca83.js:38
+setTimeout
+(anonymous) @ _app-41a6a28c2887ca83.js:38
+(anonymous) @ event-queue.js:321
+(anonymous) @ event-queue.js:320
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+s @ tslib.es6.js:73
+Promise.then
+a @ tslib.es6.js:76
+s @ tslib.es6.js:73
+Promise.then
+a @ tslib.es6.js:76
+(anonymous) @ tslib.es6.js:76
+u @ tslib.es6.js:72
+n.flushOne @ event-queue.js:273
+(anonymous) @ event-queue.js:181
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+s @ tslib.es6.js:73
+Promise.then
+a @ tslib.es6.js:76
+(anonymous) @ tslib.es6.js:76
+u @ tslib.es6.js:72
+n.deliver @ event-queue.js:169
+(anonymous) @ event-queue.js:135
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+n.dispatchSingle @ event-queue.js:128
+(anonymous) @ dispatch.js:25
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+p @ dispatch.js:18
+(anonymous) @ index.ts:460
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+n._dispatch @ index.ts:454
+(anonymous) @ index.ts:253
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+n.track @ index.ts:241
+A @ _app-41a6a28c2887ca83.js:1
+dv @ 1065-81f0ff8b72f22ab2.js:1
+(anonymous) @ 1065-81f0ff8b72f22ab2.js:1
+n @ 1065-81f0ff8b72f22ab2.js:1
+(anonymous) @ 1065-81f0ff8b72f22ab2.js:1
+(anonymous) @ 1065-81f0ff8b72f22ab2.js:1
+oO @ framework-455357667e71dda3.js:1
+uB @ framework-455357667e71dda3.js:1
+(anonymous) @ framework-455357667e71dda3.js:1
+C @ framework-455357667e71dda3.js:1
+z @ framework-455357667e71dda3.js:1
+ColorModeToggle.tsx:18 🔥 ColorMode values: {mode: 'dark', resolvedMode: 'dark', isColorModeDesignEnabled: undefined, setColorModeDesignEnabled: 'undefined'}
+ColorModeToggle.tsx:18 🔥 ColorMode values: {mode: 'light', resolvedMode: 'light', isColorModeDesignEnabled: undefined, setColorModeDesignEnabled: 'undefined'}
+_app-41a6a28c2887ca83.js:38 Fetch finished loading: GET "https://api.sorryapp.com/v1/pages/27c7b5fc".
+(anonymous) @ _app-41a6a28c2887ca83.js:38
+(anonymous) @ 8179-9a6c8f02b51cc781.js:1
+(anonymous) @ main-55a202a4490af33d.js:1
+n @ main-55a202a4490af33d.js:1
+u @ main-55a202a4490af33d.js:1
+(anonymous) @ main-55a202a4490af33d.js:1
+(anonymous) @ main-55a202a4490af33d.js:1
+n @ 8179-9a6c8f02b51cc781.js:1
+n @ _app-41a6a28c2887ca83.js:38
+_app-41a6a28c2887ca83.js:38 XHR finished loading: POST "https://events.launchdarkly.com/events/diagnostic/62b35a865152ab14c5942820".
+(anonymous) @ _app-41a6a28c2887ca83.js:38
+(anonymous) @ _app-41a6a28c2887ca83.js:38
+promise @ _app-41a6a28c2887ca83.js:40
+(anonymous) @ _app-41a6a28c2887ca83.js:40
+r.httpRequest @ _app-41a6a28c2887ca83.js:40
+t @ _app-41a6a28c2887ca83.js:40
+a.sendChunk @ _app-41a6a28c2887ca83.js:40
+a.sendEvents @ _app-41a6a28c2887ca83.js:40
+m @ _app-41a6a28c2887ca83.js:40
+b @ _app-41a6a28c2887ca83.js:40
+n @ _app-41a6a28c2887ca83.js:38
+_app-41a6a28c2887ca83.js:38 Fetch finished loading: GET "https://api.sorryapp.com/v1/pages/27c7b5fc".
+(anonymous) @ _app-41a6a28c2887ca83.js:38
+(anonymous) @ 8179-9a6c8f02b51cc781.js:1
+(anonymous) @ main-55a202a4490af33d.js:1
+n @ main-55a202a4490af33d.js:1
+u @ main-55a202a4490af33d.js:1
+(anonymous) @ main-55a202a4490af33d.js:1
+(anonymous) @ main-55a202a4490af33d.js:1
+n @ 8179-9a6c8f02b51cc781.js:1
+n @ _app-41a6a28c2887ca83.js:38
+ColorModeToggle.tsx:25  setColorModeDesignEnabled is not a function: undefined
+handleToggleDesignMode @ ColorModeToggle.tsx:25
+handleEvent @ primitive.tsx:7
+callCallback2 @ react-dom.development.js:4164
+invokeGuardedCallbackDev @ react-dom.development.js:4213
+invokeGuardedCallback @ react-dom.development.js:4277
+invokeGuardedCallbackAndCatchFirstError @ react-dom.development.js:4291
+executeDispatch @ react-dom.development.js:9041
+processDispatchQueueItemsInOrder @ react-dom.development.js:9073
+processDispatchQueue @ react-dom.development.js:9086
+dispatchEventsForPlugins @ react-dom.development.js:9097
+(anonymous) @ react-dom.development.js:9288
+batchedUpdates$1 @ react-dom.development.js:26179
+batchedUpdates @ react-dom.development.js:3991
+dispatchEventForPluginEventSystem @ react-dom.development.js:9287
+dispatchEventWithEnableCapturePhaseSelectiveHydrationWithoutDiscreteEventReplay @ react-dom.development.js:6465
+dispatchEvent @ react-dom.development.js:6457
+dispatchDiscreteEvent @ react-dom.development.js:6430
