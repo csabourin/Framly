@@ -62,7 +62,7 @@ export const BackgroundInput: React.FC<BackgroundInputProps> = ({
   const [imageUrl, setImageUrl] = useState('');
   const [isUploading, setIsUploading] = useState(false);
 
-  // Determine current background type
+  // Determine current background type - use string comparison to avoid unnecessary re-renders
   useEffect(() => {
     if (value.backgroundImage) {
       if (value.backgroundImage.includes('gradient')) {
@@ -77,7 +77,7 @@ export const BackgroundInput: React.FC<BackgroundInputProps> = ({
       setBackgroundType('color');
       setBackgroundColor(value.backgroundColor);
     }
-  }, [value]);
+  }, [value?.backgroundImage, value?.backgroundColor]);
 
   const parseExistingGradient = (gradientString: string) => {
     try {
@@ -146,10 +146,11 @@ export const BackgroundInput: React.FC<BackgroundInputProps> = ({
 
       // Store image in IndexedDB
       const imageId = `bg-${elementId}-${Date.now()}`;
-      await indexedDBManager.setAsset(imageId, {
-        type: 'image',
+      await indexedDBManager.saveImage({
+        id: imageId,
         data: base64,
-        originalName: file.name,
+        filename: file.name,
+        mimeType: file.type,
         size: file.size
       });
 

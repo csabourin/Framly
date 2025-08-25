@@ -1238,7 +1238,7 @@ const Canvas: React.FC = () => {
       if (e.key === 'Escape') {
         // Cancel drag operation and return focus to moved element
         if (isDraggingForReorder && draggedElementId) {
-          console.log('DRAG HANDLE DEBUG - Escape pressed, canceling drag');
+          // Escape pressed, canceling drag
           dispatch(setDraggingForReorder(false));
           dispatch(setDraggedElement(undefined));
           setInsertionIndicator(null);

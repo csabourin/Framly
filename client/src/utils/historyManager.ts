@@ -244,7 +244,7 @@ export class HistoryManager {
     
     this.saveTimeout = setTimeout(() => {
       this.saveHistoryToStorage();
-    }, 1000); // Save 1 second after last action
+    }, 3000); // Save 3 seconds after last action to reduce IndexedDB writes
   }
 }
 

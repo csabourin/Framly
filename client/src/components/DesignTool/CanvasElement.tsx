@@ -103,7 +103,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
   }, [isDraggingForReorder, insertionIndicator, draggedElementId, element.id, currentElements]);
 
   const handleClick = useCallback((e: React.MouseEvent) => {
-    console.log('CanvasElement click - selectedTool:', selectedTool, 'elementId:', element.id, 'isComponentChild:', isComponentChild);
+    // Removed debug logging to improve performance
     
     // CRITICAL: Component children are not selectable - redirect to component root
     if (isComponentChild && element.componentRootId) {
@@ -128,7 +128,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
       dispatch(setSelectedTool('select'));
       dispatch(selectElement(element.id));
     } else {
-      console.log('Creation tool - NOT stopping propagation, letting canvas handle it');
+      // Creation tool - NOT stopping propagation, letting canvas handle it
       // Don't stop propagation for creation tools on containers - let canvas handle it
     }
   }, [element.id, element.type, dispatch, selectedTool]);
@@ -202,16 +202,16 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
 
   // Handle clicking outside to stop text editing
   React.useEffect(() => {
+    if (!isEditing) return;
+
     const handleClickOutside = (event: MouseEvent) => {
-      if (isEditing && textEditRef.current && !textEditRef.current.contains(event.target as Node)) {
+      if (textEditRef.current && !textEditRef.current.contains(event.target as Node)) {
         setIsEditing(false);
       }
     };
 
-    if (isEditing) {
-      document.addEventListener('mousedown', handleClickOutside);
-      return () => document.removeEventListener('mousedown', handleClickOutside);
-    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [isEditing]);
 
   const renderContent = () => {
