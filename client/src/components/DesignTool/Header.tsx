@@ -17,14 +17,7 @@ import { useColorMode } from '../../contexts/ColorModeContext';
 const Header: React.FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const colorModeContext = useColorMode();
-  const { isColorModeDesignEnabled, setColorModeDesignEnabled } = colorModeContext;
-  
-  console.log('🎯 Header received context:', {
-    fullContext: colorModeContext,
-    isColorModeDesignEnabled,
-    setColorModeDesignEnabled: typeof setColorModeDesignEnabled
-  });
+  const { isColorModeDesignEnabled, setColorModeDesignEnabled } = useColorMode();
   const project = useSelector(selectCanvasProject);
   const { isExportModalOpen } = useSelector(selectExportModalState);
 
@@ -250,25 +243,6 @@ const Header: React.FC = () => {
           {/* Color Mode Toggle */}
           <ColorModeToggle />
           
-          {/* Temporary Design Mode Button */}
-          <Button
-            variant={isColorModeDesignEnabled ? "default" : "outline"}
-            size="sm"
-            onClick={() => {
-              console.log('🔥 TEMP BUTTON: Design Mode clicked!');
-              console.log('🔥 TEMP BUTTON: Current state:', isColorModeDesignEnabled);
-              console.log('🔥 TEMP BUTTON: Function type:', typeof setColorModeDesignEnabled);
-              if (typeof setColorModeDesignEnabled === 'function') {
-                setColorModeDesignEnabled(!isColorModeDesignEnabled);
-                console.log('🔥 TEMP BUTTON: Toggled to:', !isColorModeDesignEnabled);
-              }
-            }}
-            className="p-2"
-            data-testid="temp-design-mode"
-            title="Design Mode (Temp)"
-          >
-            <Palette className="w-4 h-4" />
-          </Button>
           
           <Button
             variant="ghost"
