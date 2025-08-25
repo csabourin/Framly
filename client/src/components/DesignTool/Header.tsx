@@ -12,7 +12,7 @@ import WebsiteImport from './WebsiteImport';
 import SettingsMenu from './SettingsMenu';
 import LanguageSwitcher from '@/components/ui/language-switcher';
 import { ColorModeToggle } from '@/components/ColorModeToggle';
-import { useColorMode } from '@/contexts/ColorModeContext';
+import { useColorMode } from '../../contexts/ColorModeContext';
 
 const Header: React.FC = () => {
   const { t } = useTranslation();

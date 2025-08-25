@@ -1,5 +1,5 @@
 import React from 'react';
-import { useColorMode, ColorMode } from '@/contexts/ColorModeContext';
+import { useColorMode, ColorMode } from '../contexts/ColorModeContext';
 import { Button } from '@/components/ui/button';
 import { 
   DropdownMenu, 
