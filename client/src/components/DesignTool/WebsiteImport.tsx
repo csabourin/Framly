@@ -595,12 +595,12 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
         height = 150;
       }
 
-      // Keep original class names - scoping happens via CSS wrapper
+      // Apply import scope to all elements for proper CSS specificity
       const importScope = (window as any).lastImportScope;
       const elementClasses = [...preservedClasses];
       
-      // Add the import scope class only to root elements to create the scoping wrapper
-      if (parentId === 'root' && importScope) {
+      // Add the import scope class to all imported elements to ensure CSS specificity
+      if (importScope) {
         elementClasses.unshift(importScope);
       }
 
