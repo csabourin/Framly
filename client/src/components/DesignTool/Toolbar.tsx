@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { RootState } from '../../store';
 import { selectUIState } from '../../store/selectors';
 import { setSelectedTool, toggleComponentPanel, toggleDOMTreePanel } from '../../store/uiSlice';
@@ -37,6 +38,7 @@ import {
 } from 'lucide-react';
 
 const Toolbar: React.FC = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const { selectedTool, isComponentPanelVisible, isDOMTreePanelVisible } = useSelector(selectUIState);
   const [expandedCategory, setExpandedCategory] = React.useState<string | null>(null);
@@ -48,13 +50,13 @@ const Toolbar: React.FC = () => {
     label: string; 
     shortcut?: string;
   }> = [
-    { id: 'select', icon: MousePointer, label: 'Select', shortcut: 'V' },
-    { id: 'hand', icon: Hand, label: 'Hand', shortcut: 'H' },
-    { id: 'rectangle', icon: Square, label: 'Rectangle', shortcut: 'R' },
-    { id: 'text', icon: Type, label: 'Text', shortcut: 'T' },
-    { id: 'heading', icon: Heading, label: 'Heading', shortcut: 'Shift+H' },
-    { id: 'button', icon: MousePointer2, label: 'Button', shortcut: 'B' },
-    { id: 'image', icon: Image, label: 'Image', shortcut: 'I' },
+    { id: 'select', icon: MousePointer, label: t('elements.select'), shortcut: 'V' },
+    { id: 'hand', icon: Hand, label: t('elements.hand'), shortcut: 'H' },
+    { id: 'rectangle', icon: Square, label: t('elements.rectangle'), shortcut: 'R' },
+    { id: 'text', icon: Type, label: t('elements.text'), shortcut: 'T' },
+    { id: 'heading', icon: Heading, label: t('elements.heading'), shortcut: 'Shift+H' },
+    { id: 'button', icon: MousePointer2, label: t('elements.button'), shortcut: 'B' },
+    { id: 'image', icon: Image, label: t('elements.image'), shortcut: 'I' },
   ];
 
   // Tool categories with their tools
@@ -70,46 +72,46 @@ const Toolbar: React.FC = () => {
   }> = [
     {
       id: 'form',
-      label: 'Form Elements',
+      label: t('elements.formElements'),
       icon: FormInput,
       tools: [
-        { id: 'input', icon: FormInput, label: 'Input Field' },
-        { id: 'textarea', icon: TextCursorInput, label: 'Text Area' },
-        { id: 'checkbox', icon: CheckSquare, label: 'Checkbox' },
-        { id: 'radio', icon: Circle, label: 'Radio Button' },
-        { id: 'select', icon: ChevronDown, label: 'Select Dropdown' },
+        { id: 'input', icon: FormInput, label: t('elements.inputField') },
+        { id: 'textarea', icon: TextCursorInput, label: t('elements.textArea') },
+        { id: 'checkbox', icon: CheckSquare, label: t('elements.checkbox') },
+        { id: 'radio', icon: Circle, label: t('elements.radioButton') },
+        { id: 'select', icon: ChevronDown, label: t('elements.selectDropdown') },
       ]
     },
     {
       id: 'structure',
-      label: 'Structure',
+      label: t('elements.structure'),
       icon: Box,
       tools: [
-        { id: 'section', icon: Box, label: 'Section' },
-        { id: 'nav', icon: Navigation, label: 'Navigation' },
-        { id: 'header', icon: Layout, label: 'Header' },
-        { id: 'footer', icon: AlignEndHorizontal, label: 'Footer' },
-        { id: 'article', icon: FileText, label: 'Article' },
+        { id: 'section', icon: Box, label: t('elements.section') },
+        { id: 'nav', icon: Navigation, label: t('elements.navigation') },
+        { id: 'header', icon: Layout, label: t('elements.header') },
+        { id: 'footer', icon: AlignEndHorizontal, label: t('elements.footer') },
+        { id: 'article', icon: FileText, label: t('elements.article') },
       ]
     },
     {
       id: 'content',
-      label: 'Content',
+      label: t('elements.content'),
       icon: List,
       tools: [
-        { id: 'list', icon: List, label: 'List' },
-        { id: 'code', icon: Code, label: 'Code Block' },
-        { id: 'divider', icon: Minus, label: 'Divider' },
-        { id: 'link', icon: Link, label: 'Link' },
+        { id: 'list', icon: List, label: t('elements.list') },
+        { id: 'code', icon: Code, label: t('elements.codeBlock') },
+        { id: 'divider', icon: Minus, label: t('elements.divider') },
+        { id: 'link', icon: Link, label: t('elements.link') },
       ]
     },
     {
       id: 'media',
-      label: 'Media',
+      label: t('elements.media'),
       icon: Video,
       tools: [
-        { id: 'video', icon: Video, label: 'Video' },
-        { id: 'audio', icon: Volume2, label: 'Audio' },
+        { id: 'video', icon: Video, label: t('elements.video') },
+        { id: 'audio', icon: Volume2, label: t('elements.audio') },
       ]
     },
   ];

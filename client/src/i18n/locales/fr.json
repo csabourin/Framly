@@ -73,6 +73,8 @@
     "effects": "Effets",
     "responsive": "Responsive",
     "content": "Contenu",
+    "clickElement": "Cliquez sur un élément du canvas",
+    "selectElementToEdit": "Sélectionnez un élément pour commencer à modifier ses propriétés",
     
     "width": "Largeur",
     "height": "Hauteur",
@@ -118,7 +120,15 @@
     "opacity": "Opacité",
     "transform": "Transformation",
     "transition": "Transition",
-    "zIndex": "Index Z"
+    "zIndex": "Index Z",
+    "editComponentTemplate": "Modifier Modèle de Composant",
+    "releaseFromComponent": "Libérer du Composant",
+    "instanceProperties": "Propriétés d'Instance",
+    "xPosition": "Position X",
+    "yPosition": "Position Y",
+    "deleteInstance": "Supprimer Instance",
+    "deleteInstanceConfirm": "Êtes-vous sûr de vouloir supprimer cette instance de composant ?",
+    "auto": "Auto"
   },
   
   "breakpoints": {
@@ -131,7 +141,9 @@
     "mobileFirst": "Mobile d'abord : Définissez le mobile comme design de base. Les écrans plus grands héritent des valeurs mobiles sauf si modifiées.",
     "inheritFromMobile": "Hériter du mobile",
     "baseValue": "Valeur de base",
-    "clearValue": "Effacer valeur {{breakpoint}}"
+    "clearValue": "Effacer valeur {{breakpoint}}",
+    "enterValue": "Saisir {{label}}",
+    "colorPlaceholder": "#000000"
   },
   
   "components": {
@@ -146,7 +158,10 @@
     "createCategory": "Créer Catégorie",
     "noComponents": "Aucun composant encore. Créez votre premier composant réutilisable.",
     "propagateUpdates": "Propager Mises à Jour",
-    "detachInstance": "Détacher Instance"
+    "detachInstance": "Détacher Instance",
+    "componentInstance": "Instance de Composant",
+    "componentInfo": "Info Composant",
+    "instanceDescription": "Ceci est une instance d'un composant. Les modifications du modèle de composant mettront à jour toutes les instances."
   },
   
   "customClasses": {

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { RootState } from '../../store';
 import { updateElement } from '../../store/canvasSlice';
 import { switchBreakpoint } from '../../store/canvasSlice';
@@ -22,6 +23,7 @@ const ResponsivePropertyInput: React.FC<ResponsivePropertyInputProps> = ({
   value,
   onChange
 }) => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const project = useSelector((state: RootState) => state.canvas.project);
   const currentBreakpoint = project.currentBreakpoint;
@@ -122,7 +124,7 @@ const ResponsivePropertyInput: React.FC<ResponsivePropertyInputProps> = ({
           className="h-6 px-2 text-xs"
           data-testid={`button-responsive-toggle-${config.key}`}
         >
-          {showResponsiveControls ? 'Hide' : 'Show'} Breakpoints
+{showResponsiveControls ? t('breakpoints.hideBreakpoints') : t('breakpoints.showBreakpoints')}
         </Button>
       </div>
 
@@ -143,7 +145,7 @@ const ResponsivePropertyInput: React.FC<ResponsivePropertyInputProps> = ({
       {showResponsiveControls && (
         <div className="space-y-2 pt-2 border-t border-gray-200">
           <p className="text-xs text-gray-500">
-            Set different values for each screen size (mobile-first approach)
+{t('breakpoints.mobileFirst')}
           </p>
           
           {availableBreakpoints.map((breakpoint) => {
@@ -174,7 +176,7 @@ const ResponsivePropertyInput: React.FC<ResponsivePropertyInputProps> = ({
                       onClick={() => handleResponsiveChange(breakpoint, undefined)}
                       className="h-6 w-6 p-0 text-gray-400 hover:text-red-600 flex-shrink-0"
                       data-testid={`button-clear-${breakpoint}-${config.key}`}
-                      title={`Clear ${breakpoint} value`}
+                      title={t('breakpoints.clearValue', { breakpoint })}
                     >
                       ×
                     </Button>
@@ -184,7 +186,7 @@ const ResponsivePropertyInput: React.FC<ResponsivePropertyInputProps> = ({
                   <PropertyInput
                     config={{
                       ...config,
-                      placeholder: breakpoint === 'mobile' ? 'Base value' : 'Inherit from mobile'
+                      placeholder: breakpoint === 'mobile' ? t('breakpoints.baseValue') : t('breakpoints.inheritFromMobile')
                     }}
                     value={breakpointValue ?? ''}
                     onChange={(newValue) => handleResponsiveChange(breakpoint, newValue)}

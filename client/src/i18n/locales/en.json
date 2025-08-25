@@ -73,6 +73,8 @@
     "effects": "Effects",
     "responsive": "Responsive",
     "content": "Content",
+    "clickElement": "Click an element on the canvas",
+    "selectElementToEdit": "Select any element to start editing its properties",
     
     "width": "Width",
     "height": "Height",
@@ -118,7 +120,15 @@
     "opacity": "Opacity",
     "transform": "Transform",
     "transition": "Transition",
-    "zIndex": "Z-Index"
+    "zIndex": "Z-Index",
+    "editComponentTemplate": "Edit Component Template",
+    "releaseFromComponent": "Release from Component",
+    "instanceProperties": "Instance Properties",
+    "xPosition": "X Position",
+    "yPosition": "Y Position",
+    "deleteInstance": "Delete Instance",
+    "deleteInstanceConfirm": "Are you sure you want to delete this component instance?",
+    "auto": "Auto"
   },
   
   "breakpoints": {
@@ -131,7 +141,9 @@
     "mobileFirst": "Mobile-first: Set mobile as your base design. Larger screens inherit mobile values unless overridden.",
     "inheritFromMobile": "Inherit from mobile",
     "baseValue": "Base value",
-    "clearValue": "Clear {{breakpoint}} value"
+    "clearValue": "Clear {{breakpoint}} value",
+    "enterValue": "Enter {{label}}",
+    "colorPlaceholder": "#000000"
   },
   
   "components": {
@@ -146,7 +158,10 @@
     "createCategory": "Create Category",
     "noComponents": "No components yet. Create your first reusable component.",
     "propagateUpdates": "Propagate Updates",
-    "detachInstance": "Detach Instance"
+    "detachInstance": "Detach Instance",
+    "componentInstance": "Component Instance",
+    "componentInfo": "Component Info",
+    "instanceDescription": "This is an instance of a component. Changes to the component template will update all instances."
   },
   
   "customClasses": {

@@ -15,7 +15,8 @@ import { Info } from 'lucide-react';
 import { ImageUpload } from './ImageUpload';
 import { BackgroundInput } from './BackgroundInput';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../store/store';
+import { useTranslation } from 'react-i18next';
+import { RootState } from '../../store';
 
 interface PropertyInputProps {
   config: PropertyConfig;
@@ -26,6 +27,7 @@ interface PropertyInputProps {
 }
 
 export const PropertyInput: React.FC<PropertyInputProps> = ({ config, value, onChange, elementId, element }) => {
+  const { t } = useTranslation();
   // Get custom classes from Redux store
   const customClasses = useSelector((state: RootState) => (state as any).classes?.customClasses || {});
   
@@ -61,7 +63,7 @@ export const PropertyInput: React.FC<PropertyInputProps> = ({ config, value, onC
             type="text"
             value={value || ''}
             onChange={(e) => onChange(e.target.value)}
-            placeholder={`Enter ${config.label.toLowerCase()}`}
+            placeholder={t('breakpoints.enterValue', { label: config.label.toLowerCase() })}
             className="w-full"
             data-testid={`input-${config.key}`}
           />
@@ -165,7 +167,7 @@ export const PropertyInput: React.FC<PropertyInputProps> = ({ config, value, onC
               type="text"
               value={value || '#000000'}
               onChange={(e) => onChange(e.target.value)}
-              placeholder="#000000"
+              placeholder={t('breakpoints.colorPlaceholder')}
               className="flex-1 font-mono text-sm"
               data-testid={`input-${config.key}`}
             />
@@ -177,9 +179,9 @@ export const PropertyInput: React.FC<PropertyInputProps> = ({ config, value, onC
                   : 'bg-gray-50 border-gray-200 text-gray-600 hover:bg-gray-100'
               }`}
               data-testid={`transparent-${config.key}`}
-              title="Set to transparent"
+              title={t('properties.setTransparent')}
             >
-              Clear
+{t('common.clear')}
             </button>
           </div>
         );

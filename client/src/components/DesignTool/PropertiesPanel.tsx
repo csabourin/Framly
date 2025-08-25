@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import type { AppDispatch } from '../../store';
 import { RootState } from '../../store';
 import { updateElement, updateElementStyles, addCSSClass, removeCSSClass, deleteElement, selectElement } from '../../store/canvasSlice';
@@ -41,6 +42,7 @@ import {
 import ButtonStateSelector from './ButtonStateSelector';
 
 const PropertiesPanel: React.FC = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch<AppDispatch>();
   const currentElements = useSelector(selectCurrentElements);
   const selectedElementId = useSelector(selectSelectedElementId);
@@ -86,8 +88,8 @@ const PropertiesPanel: React.FC = () => {
       <aside className="absolute right-0 top-12 bottom-8 w-80 bg-white border-l border-gray-200 overflow-y-auto z-40">
         <div className="p-4 text-center text-gray-500">
           <div className="mb-2 text-lg">👆</div>
-          <div className="font-medium">Click an element on the canvas</div>
-          <div className="text-sm mt-1">Select any element to start editing its properties</div>
+          <div className="font-medium">{t('properties.clickElement')}</div>
+          <div className="text-sm mt-1">{t('properties.selectElementToEdit')}</div>
         </div>
       </aside>
     );
@@ -100,7 +102,7 @@ const PropertiesPanel: React.FC = () => {
         <div className="p-4">
           <div className="flex items-center gap-2 mb-4">
             <Component className="w-5 h-5 text-blue-600" />
-            <h3 className="font-medium text-gray-900">Component Instance</h3>
+            <h3 className="font-medium text-gray-900">{t('components.componentInstance')}</h3>
           </div>
 
           <div className="space-y-4">
@@ -108,10 +110,10 @@ const PropertiesPanel: React.FC = () => {
             <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
               <div className="flex items-center gap-2 mb-2">
                 <Info className="w-4 h-4 text-blue-600" />
-                <span className="text-sm font-medium text-blue-900">Component Info</span>
+                <span className="text-sm font-medium text-blue-900">{t('components.componentInfo')}</span>
               </div>
               <p className="text-sm text-blue-700">
-                This is an instance of a component. Changes to the component template will update all instances.
+{t('components.instanceDescription')}
               </p>
               <div className="mt-2 text-xs text-blue-600">
                 ID: {selectedElement.id}
