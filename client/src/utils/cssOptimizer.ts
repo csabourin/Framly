@@ -413,7 +413,7 @@ export class CSSOptimizer {
 
   private isAboveFold(element: CanvasElement): boolean {
     // Simple heuristic: elements positioned in the top 600px are likely above the fold
-    return element.y < 600;
+    return (element.y || 0) < 600;
   }
 
   public generateOptimizedCSS(optimized: OptimizedCSS): string {
@@ -527,9 +527,32 @@ input, button, textarea, select {
   }
 
   private formatCSSRule(rule: CSSRule, indent: string = ''): string {
+    console.log(`🔧 formatCSSRule called with properties:`, rule.properties);
     const properties = this.sortProperties(rule.properties);
     const formattedProperties = Object.entries(properties)
-      .map(([prop, value]) => `${indent}  ${this.camelToKebab(prop)}: ${value};`)
+      .map(([prop, value]) => {
+        console.log(`🔧 Processing CSS property: ${prop}, value:`, value, `type:`, typeof value);
+        
+        // Handle ColorModeValues objects
+        if (typeof value === 'object' && value !== null && 'light' in value) {
+          console.log(`✅ ColorModeValues detected in CSS optimizer:`, value);
+          // Use light mode as default, fallback to dark or high-contrast
+          const colorModeValue = value as any;
+          const defaultValue = colorModeValue.light || colorModeValue.dark || colorModeValue['high-contrast'];
+          if (defaultValue) {
+            return `${indent}  ${this.camelToKebab(prop)}: ${defaultValue};`;
+          } else {
+            console.log(`❌ No valid color mode value found for property ${prop}`);
+            return ''; // Skip this property
+          }
+        } else if (typeof value === 'object') {
+          console.log(`❌ Skipping object value that's not ColorModeValues:`, value);
+          return ''; // Skip non-ColorModeValues objects
+        } else {
+          return `${indent}  ${this.camelToKebab(prop)}: ${value};`;
+        }
+      })
+      .filter(Boolean) // Remove empty strings
       .join('\n');
 
     return `${indent}${rule.selector} {

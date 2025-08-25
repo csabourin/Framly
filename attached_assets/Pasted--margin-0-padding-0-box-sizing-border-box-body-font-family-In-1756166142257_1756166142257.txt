@@ -1,0 +1,358 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+}
+
+.Custom {
+    background-color: #ff6694;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    padding: 16px;
+    width: 100%;
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.button-1756047715188 {
+    background-color: #2a4c84;
+    display: block;
+}
+
+.button-1756048269932 {
+    hover:background-color: #99baf0;
+    active:background-color: #d83bf7;
+}
+
+.button-1756138468065 {
+    background-color: #e7bb5f;
+    border-radius: 0px;
+    color: #000000;
+    font-size: 20px;
+}
+
+.container-mepyae9d {
+    width: 1400px;
+}
+
+.container-merbakuh {
+    background: [object Object];
+}
+
+.heading-1756077884496 {
+    color: [object Object];
+}
+
+.heading-1756078922746 {
+    background: [object Object];
+}
+
+.heading-1756080842312 {
+    color: #ffffff;
+    border-top-left-radius: 1;
+    border-bottom-right-radius: 1;
+    border-bottom-left-radius: 1;
+    border-top-right-radius: 1;
+    padding: 10px;
+}
+
+.image-1756046681410 {
+    border-radius: 0px;
+    object-position: left;
+}
+
+.image-1756077908410 {
+    height: 200px;
+    width: 200px;
+}
+
+.image-1756078196201 {
+    width: 450px;
+    height: 300px;
+}
+
+.image-1756078525384 {
+    background: [object Object];
+}
+
+.image-1756079180537 {
+    background: [object Object];
+}
+
+.image-1756080829775 {
+    height: 100%;
+    width: 200px;
+}
+
+.image-1756082220246 {
+    display: flex;
+}
+
+.image-1756141996052 {
+    border-radius: 0%;
+}
+
+.list-1756079130381 {
+    display: inline;
+}
+
+.rectangle-1756045612617 {
+    position: relative;
+}
+
+.rectangle-1756045644543 {
+    position: absolute;
+    height: 100px;
+}
+
+.rectangle-1756046635922 {
+    padding: 0px;
+    gap: 0px;
+}
+
+.rectangle-1756046638231 {
+    gap: 0px;
+    padding: 0px;
+    border-top-left-radius: 100px;
+    border-bottom-left-radius: 100px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2e57a8;
+}
+
+.rectangle-1756047513925 {
+    gap: 0px;
+    padding: 0px;
+    border-radius: 0px;
+    background-color: #55b127;
+    flex-direction: row;
+    width: 100%;
+    border-top-left-radius: 1px;
+    border-top-right-radius: 1px;
+    border-bottom-right-radius: 1px;
+    border-bottom-left-radius: 1px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.rectangle-1756048506745 {
+    background-color: #578fff;
+    flex-direction: row;
+}
+
+.rectangle-1756056616808 {
+    background-color: #fef5c8;
+    flex-direction: row;
+    padding: 0px;
+    gap: 0px;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.rectangle-1756056635342 {
+    height: 100%;
+}
+
+.rectangle-1756056638432 {
+    height: 100%;
+}
+
+.rectangle-1756056641507 {
+    height: 100%;
+}
+
+.rectangle-1756057968640 {
+    background-color: #697386;
+}
+
+.rectangle-1756057969298 {
+    background-color: #82a8f2;
+}
+
+.rectangle-1756057970325 {
+    background-color: #73ce85;
+}
+
+.rectangle-1756058047772 {
+    background-color: #000000;
+}
+
+.rectangle-1756058048770 {
+    flex-direction: column;
+    margin: 5px;
+    align-items: center;
+    justify-content: center;
+}
+
+.rectangle-1756058049472 {
+    background-color: #8cff75;
+}
+
+.rectangle-1756058050480 {
+    background-color: #6b9cff;
+}
+
+.rectangle-1756058051157 {
+    background-color: #c3d7fe;
+}
+
+.rectangle-1756058051922 {
+    background-color: #ffd6f5;
+}
+
+.rectangle-1756058520806 {
+    background-color: #ff0000;
+}
+
+.rectangle-1756063835970 {
+    flex-direction: row;
+}
+
+.rectangle-1756063838903 {
+    flex-direction: row;
+    justify-content: center;
+}
+
+.rectangle-1756063839546 {
+    background-color: #7999d7;
+    height: 100%;
+}
+
+.rectangle-1756063840312 {
+    background-color: #5788ea;
+    height: 100%;
+}
+
+.rectangle-1756063840998 {
+    background-color: #0055ff;
+}
+
+.rectangle-1756064633091 {
+    background-color: #bd8b7a;
+    height: 100%;
+}
+
+.rectangle-1756066129328 {
+    background-color: #ffbb00;
+}
+
+.rectangle-1756066131870 {
+    background-color: #9fbffe;
+}
+
+.rectangle-1756066133522 {
+    background-color: #7aa7ff;
+}
+
+.rectangle-1756066134114 {
+    background-color: #3477fe;
+}
+
+.rectangle-1756067930949 {
+    flex-direction: row;
+    width: 99%;
+    align-items: center;
+    justify-content: center;
+}
+
+.rectangle-1756077855313 {
+    flex-direction: row;
+}
+
+.rectangle-1756077863910 {
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: nowrap;
+    width: 100%;
+    background: [object Object];
+}
+
+.rectangle-1756077865814 {
+    flex-direction: row;
+}
+
+.rectangle-1756077873538 {
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    background: [object Object];
+}
+
+.rectangle-1756078193436 {
+    flex-direction: row;
+    width: 100%;
+}
+
+.rectangle-1756080818680 {
+    flex-direction: row;
+    background-color: #2e57a8;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 50px;
+    border-top-left-radius: 50px;
+    border-radius: 100px;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.rectangle-1756082338089 {
+    flex-direction: row;
+    height: 300px;
+}
+
+.rectangle-1756082513123 {
+    height: 400px;
+}
+
+.rectangle-1756082517556 {
+    height: 200px;
+}
+
+.text-1756046690809 {
+    font-size: 34px;
+    color: #ffffff;
+}
+
+.text-1756047516193 {
+    border: none;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    display: flex;
+    font-size: 20px;
+    padding: 15%;
+}
+
+.text-1756048519273 {
+    display: block;
+    background: [object Object];
+}
+
+.text-1756080835977 {
+    border-top-left-radius: 1;
+    border-bottom-right-radius: 1;
+    border-bottom-left-radius: 1;
+    border-top-right-radius: 1;
+}
+
+.text-1756138043952 {
+    font-size: 22px;
+    color: #303030;
+    background: [object Object];
+}
+
+.text-1756142156496 {
+    color: #61a3ff;
+    display: inline-block;
+}
