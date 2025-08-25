@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
 import { selectComponentsState, selectCanvasProject, selectCurrentElements, selectSelectedElementId } from '../../store/selectors';
@@ -33,6 +34,7 @@ import { Textarea } from '../ui/textarea';
 import { Package, AlertCircle } from 'lucide-react';
 
 const CreateComponentModal: React.FC = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const { isCreatingComponent, categories } = useSelector(selectComponentsState);
   const project = useSelector(selectCanvasProject);
@@ -62,7 +64,7 @@ const CreateComponentModal: React.FC = () => {
     
     if (hasInstances) {
       const shouldContinue = window.confirm(
-        `The selected element contains ${instanceIds.length} component instance(s). Creating a component from this element will include these instances. Continue?`
+t('components.containsInstancesConfirm', { count: instanceIds.length })
       );
       
       if (!shouldContinue) return;
@@ -181,23 +183,23 @@ const CreateComponentModal: React.FC = () => {
             <div className="flex items-center gap-2 p-3 bg-amber-50 border border-amber-200 rounded-md">
               <AlertCircle size={16} className="text-amber-600" />
               <span className="text-sm text-amber-800">
-                Please select an element on the canvas to create a component
+{t('components.selectElementFirst')}
               </span>
             </div>
           ) : (
             <div className="flex items-center gap-2 p-3 bg-blue-50 border border-blue-200 rounded-md">
               <Package size={16} className="text-blue-600" />
               <span className="text-sm text-blue-800">
-                Creating component from: <strong>{selectedElement.type}</strong> element
+{t('components.creatingFromElement', { type: selectedElement.type })}
               </span>
             </div>
           )}
           
           <div className="space-y-2">
-            <Label htmlFor="component-name">Component Name</Label>
+            <Label htmlFor="component-name">{t('components.componentName')}</Label>
             <Input
               id="component-name"
-              placeholder="Enter component name..."
+              placeholder={t('components.enterComponentName')}
               value={componentName}
               onChange={(e) => setComponentName(e.target.value)}
               data-testid="input-component-name"
@@ -205,10 +207,10 @@ const CreateComponentModal: React.FC = () => {
           </div>
           
           <div className="space-y-2">
-            <Label htmlFor="component-category">Category</Label>
+            <Label htmlFor="component-category">{t('components.componentCategory')}</Label>
             <Select value={componentCategory} onValueChange={setComponentCategory}>
               <SelectTrigger data-testid="select-component-category">
-                <SelectValue placeholder="Select category" />
+                <SelectValue placeholder={t('components.selectCategory')} />
               </SelectTrigger>
               <SelectContent>
                 {categories.map((category) => (
@@ -221,10 +223,10 @@ const CreateComponentModal: React.FC = () => {
           </div>
           
           <div className="space-y-2">
-            <Label htmlFor="component-description">Description (Optional)</Label>
+            <Label htmlFor="component-description">{t('components.descriptionOptional')}</Label>
             <Textarea
               id="component-description"
-              placeholder="Describe what this component does..."
+              placeholder={t('components.describeComponent')}
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               rows={3}

@@ -195,7 +195,10 @@
     "classNamePlaceholder": "class-name",
     "suggestions": "Suggestions:",
     "buttonProperties": "Button Properties",
-    "buttonDoubleClickHint": "💡 Double-click the button on canvas to edit its text"
+    "buttonDoubleClickHint": "💡 Double-click the button on canvas to edit its text",
+    "makeDefaultButton": "Make Default for New Buttons",
+    "savedAsDefault": "✓ Saved as Default!",
+    "newButtonsUseDefault": "New buttons will use current styling as default"
   },
   
   "components": {
@@ -213,7 +216,14 @@
     "detachInstance": "Detach Instance",
     "componentInstance": "Component Instance",
     "componentInfo": "Component Info",
-    "instanceDescription": "This is an instance of a component. Changes to the component template will update all instances."
+    "instanceDescription": "This is an instance of a component. Changes to the component template will update all instances.",
+    "containsInstancesConfirm": "The selected element contains {{count}} component instance(s). Creating a component from this element will include these instances. Continue?",
+    "selectElementFirst": "Please select an element on the canvas to create a component",
+    "creatingFromElement": "Creating component from: <strong>{{type}}</strong> element",
+    "enterComponentName": "Enter component name...",
+    "selectCategory": "Select category",
+    "descriptionOptional": "Description (Optional)",
+    "describeComponent": "Describe what this component does..."
   },
   
   "customClasses": {
@@ -232,7 +242,19 @@
     "exportAsReact": "Export as React",
     "exportAsCSS": "Export as CSS",
     "downloadFiles": "Download Files",
-    "copyToClipboard": "Copy to Clipboard"
+    "copyToClipboard": "Copy to Clipboard",
+    "exportProject": "Export Project",
+    "chooseFormatSettings": "Choose your export format and settings",
+    "htmlCssPackage": "HTML/CSS Package",
+    "productionReady": "Production-ready code files",
+    "pngImage": "PNG Image",
+    "staticImageExport": "Static image export",
+    "pdfDocument": "PDF Document",
+    "printableLayout": "Printable layout",
+    "exportSettings": "Export Settings",
+    "includeResponsive": "Include responsive breakpoints",
+    "minifyCSS": "Minify CSS",
+    "includeComments": "Include source comments"
   },
   
   "import": {

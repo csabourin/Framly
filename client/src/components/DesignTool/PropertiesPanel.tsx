@@ -753,7 +753,7 @@ const PropertiesPanel: React.FC = () => {
                       const button = document.querySelector('[data-testid="make-default-button"]');
                       if (button) {
                         const originalText = button.textContent;
-                        button.textContent = '✓ Saved as Default!';
+                        button.textContent = t('propertiesPanel.savedAsDefault');
                         button.classList.add('bg-green-50', 'text-green-700', 'border-green-300');
                         setTimeout(() => {
                           button.textContent = originalText;
@@ -770,10 +770,10 @@ const PropertiesPanel: React.FC = () => {
                   className="w-full text-orange-700 border-orange-300 hover:bg-orange-50"
                   data-testid="make-default-button"
                 >
-                  Make Default for New Buttons
+{t('propertiesPanel.makeDefaultButton')}
                 </Button>
                 <p className="text-xs text-orange-600 mt-1">
-                  New buttons will use current styling as default
+{t('propertiesPanel.newButtonsUseDefault')}
                 </p>
               </div>
             </div>

@@ -195,7 +195,10 @@
     "classNamePlaceholder": "nom-de-classe",
     "suggestions": "Suggestions :",
     "buttonProperties": "Propriétés du bouton",
-    "buttonDoubleClickHint": "💡 Double-cliquez sur le bouton dans le canevas pour modifier son texte"
+    "buttonDoubleClickHint": "💡 Double-cliquez sur le bouton dans le canevas pour modifier son texte",
+    "makeDefaultButton": "Définir par défaut pour nouveaux boutons",
+    "savedAsDefault": "✓ Sauvegardé comme défaut !",
+    "newButtonsUseDefault": "Les nouveaux boutons utiliseront le style actuel par défaut"
   },
   
   "components": {
@@ -213,7 +216,14 @@
     "detachInstance": "Détacher Instance",
     "componentInstance": "Instance de Composant",
     "componentInfo": "Info Composant",
-    "instanceDescription": "Ceci est une instance d'un composant. Les modifications du modèle de composant mettront à jour toutes les instances."
+    "instanceDescription": "Ceci est une instance d'un composant. Les modifications du modèle de composant mettront à jour toutes les instances.",
+    "containsInstancesConfirm": "L'élément sélectionné contient {{count}} instance(s) de composant. Créer un composant à partir de cet élément inclura ces instances. Continuer ?",
+    "selectElementFirst": "Veuillez sélectionner un élément sur le canevas pour créer un composant",
+    "creatingFromElement": "Création de composant à partir de : élément <strong>{{type}}</strong>",
+    "enterComponentName": "Entrez le nom du composant...",
+    "selectCategory": "Sélectionner une catégorie",
+    "descriptionOptional": "Description (Facultative)",
+    "describeComponent": "Décrivez ce que fait ce composant..."
   },
   
   "customClasses": {
@@ -232,7 +242,19 @@
     "exportAsReact": "Exporter en React",
     "exportAsCSS": "Exporter en CSS",
     "downloadFiles": "Télécharger Fichiers",
-    "copyToClipboard": "Copier dans Presse-papiers"
+    "copyToClipboard": "Copier dans Presse-papiers",
+    "exportProject": "Exporter le Projet",
+    "chooseFormatSettings": "Choisissez votre format d'exportation et paramètres",
+    "htmlCssPackage": "Package HTML/CSS",
+    "productionReady": "Fichiers de code prêts pour la production",
+    "pngImage": "Image PNG",
+    "staticImageExport": "Exportation d'image statique",
+    "pdfDocument": "Document PDF",
+    "printableLayout": "Mise en page imprimable",
+    "exportSettings": "Paramètres d'Exportation",
+    "includeResponsive": "Inclure les points de rupture responsives",
+    "minifyCSS": "Minifier CSS",
+    "includeComments": "Inclure les commentaires source"
   },
   
   "import": {

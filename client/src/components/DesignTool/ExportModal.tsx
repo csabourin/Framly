@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
 import { selectCanvasProject, selectCustomClasses, selectExportModalState, selectCurrentElements } from '../../store/selectors';
@@ -18,6 +19,7 @@ import { Label } from '@/components/ui/label';
 import { Code, Image, FileText, Download, X } from 'lucide-react';
 
 const ExportModal: React.FC = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const project = useSelector(selectCanvasProject);
   const rawElements = useSelector(selectCurrentElements);
@@ -90,22 +92,22 @@ const ExportModal: React.FC = () => {
     {
       id: 'html',
       icon: Code,
-      title: 'HTML/CSS Package',
-      description: 'Production-ready code files',
+      title: t('export.htmlCssPackage'),
+      description: t('export.productionReady'),
       color: 'bg-blue-50 text-blue-600',
     },
     {
       id: 'png',
       icon: Image,
-      title: 'PNG Image',
-      description: 'Static image export',
+      title: t('export.pngImage'),
+      description: t('export.staticImageExport'),
       color: 'bg-green-50 text-green-600',
     },
     {
       id: 'pdf',
       icon: FileText,
-      title: 'PDF Document',
-      description: 'Printable layout',
+      title: t('export.pdfDocument'),
+      description: t('export.printableLayout'),
       color: 'bg-red-50 text-red-600',
     },
   ];
@@ -115,7 +117,7 @@ const ExportModal: React.FC = () => {
       <DialogContent className="max-w-lg" data-testid="export-modal">
         <DialogHeader>
           <div className="flex items-center justify-between">
-            <DialogTitle>Export Project</DialogTitle>
+            <DialogTitle>{t('export.exportProject')}</DialogTitle>
             <Button
               variant="ghost"
               size="sm"
@@ -127,7 +129,7 @@ const ExportModal: React.FC = () => {
             </Button>
           </div>
           <DialogDescription>
-            Choose your export format and settings
+{t('export.chooseFormatSettings')}
           </DialogDescription>
         </DialogHeader>
         
@@ -167,7 +169,7 @@ const ExportModal: React.FC = () => {
         {/* Export Settings */}
         {selectedFormat === 'html' && (
           <div className="mb-6" data-testid="export-settings">
-            <h3 className="font-medium text-gray-900 mb-3">Export Settings</h3>
+            <h3 className="font-medium text-gray-900 mb-3">{t('export.exportSettings')}</h3>
             <div className="space-y-3">
               <div className="flex items-center space-x-2">
                 <Checkbox
@@ -179,7 +181,7 @@ const ExportModal: React.FC = () => {
                   data-testid="checkbox-responsive"
                 />
                 <Label htmlFor="includeResponsive" className="text-sm">
-                  Include responsive breakpoints
+{t('export.includeResponsive')}
                 </Label>
               </div>
               <div className="flex items-center space-x-2">
@@ -192,7 +194,7 @@ const ExportModal: React.FC = () => {
                   data-testid="checkbox-minify"
                 />
                 <Label htmlFor="minifyCSS" className="text-sm">
-                  Minify CSS
+{t('export.minifyCSS')}
                 </Label>
               </div>
               <div className="flex items-center space-x-2">
@@ -205,7 +207,7 @@ const ExportModal: React.FC = () => {
                   data-testid="checkbox-comments"
                 />
                 <Label htmlFor="includeComments" className="text-sm">
-                  Include source comments
+{t('export.includeComments')}
                 </Label>
               </div>
             </div>
@@ -220,7 +222,7 @@ const ExportModal: React.FC = () => {
             className="flex-1"
             data-testid="button-cancel-export"
           >
-            Cancel
+{t('common.cancel')}
           </Button>
           <Button
             onClick={handleExport}
@@ -228,7 +230,7 @@ const ExportModal: React.FC = () => {
             data-testid="button-start-export"
           >
             <Download className="w-4 h-4 mr-2" />
-            Export
+{t('common.export')}
           </Button>
         </div>
       </DialogContent>
