@@ -238,8 +238,8 @@ const Header: React.FC = () => {
           {/* Undo/Redo Controls with History Management */}
           <UndoRedoControls />
           
-          {/* Color Mode Toggle */}
-          <div className="flex items-center justify-center relative z-50" style={{ minWidth: '40px', minHeight: '40px' }}>
+          {/* Color Mode Toggle - BRIGHT BLUE FOR VISIBILITY */}
+          <div className="flex items-center justify-center relative z-50 bg-red-500 p-2 rounded" style={{ minWidth: '50px', minHeight: '50px' }}>
             <ColorModeToggle />
           </div>
           

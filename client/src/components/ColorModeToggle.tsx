@@ -6,15 +6,17 @@ import {
   DropdownMenuContent, 
   DropdownMenuItem, 
   DropdownMenuTrigger,
-  DropdownMenuSeparator,
-  DropdownMenuCheckboxItem
+  DropdownMenuSeparator
 } from '@/components/ui/dropdown-menu';
 import { Palette, Sun, Moon, Monitor, Contrast } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 export function ColorModeToggle() {
+  console.log('🔥 ColorModeToggle rendering...');
   const { mode, resolvedMode, setMode, supportsHighContrast, isColorModeDesignEnabled, setColorModeDesignEnabled } = useColorMode();
   const { t } = useTranslation();
+  
+  console.log('🔥 ColorMode values:', { mode, resolvedMode, isColorModeDesignEnabled });
 
   const modeOptions: { value: ColorMode; label: string; icon: React.ComponentType<{ className?: string }>; description: string }[] = [
     {
@@ -60,24 +62,26 @@ export function ColorModeToggle() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
-          variant="ghost"
+          variant="outline"
           size="sm"
-          className="h-8 w-8 p-1 hover:bg-gray-100 dark:hover:bg-gray-700 border-2 border-gray-400 dark:border-gray-500 bg-white dark:bg-gray-800 shadow-sm relative z-50 !flex !opacity-100 !visible"
+          className="h-10 w-10 p-1 border-2 border-blue-500 bg-blue-100 hover:bg-blue-200 shadow-lg"
           title={t('colorMode.toggle', 'Toggle color mode')}
           data-testid="color-mode-toggle"
           style={{ 
-            minWidth: '32px', 
-            minHeight: '32px',
-            position: 'relative',
-            zIndex: 9999
+            minWidth: '40px', 
+            minHeight: '40px',
+            backgroundColor: '#3b82f6',
+            color: 'white',
+            border: '2px solid #1d4ed8'
           }}
         >
           <CurrentIcon 
-            className="h-4 w-4 text-black dark:text-white" 
+            className="h-6 w-6 text-white" 
             style={{ 
               opacity: 1,
-              stroke: 'currentColor',
-              strokeWidth: 2
+              stroke: 'white',
+              strokeWidth: 3,
+              filter: 'drop-shadow(0 0 2px rgba(0,0,0,0.5))'
             }}
           />
           <span className="sr-only">{t('colorMode.toggle', 'Toggle color mode')}</span>
@@ -111,22 +115,30 @@ export function ColorModeToggle() {
           );
         })}
         <DropdownMenuSeparator className="bg-gray-200 dark:bg-gray-700" />
-        <DropdownMenuCheckboxItem
-          checked={isColorModeDesignEnabled}
-          onCheckedChange={setColorModeDesignEnabled}
+        <DropdownMenuItem
+          onClick={() => setColorModeDesignEnabled(!isColorModeDesignEnabled)}
           className="flex items-center gap-2"
           data-testid="color-mode-design-toggle"
         >
-          <Palette className="h-4 w-4" />
-          <div className="flex-1">
-            <div className="font-medium text-gray-900 dark:text-gray-100">
-              {t('colorMode.designMode', 'Design Mode')}
+          <div className="flex items-center gap-2 w-full">
+            <Palette className="h-4 w-4" />
+            <div className="flex-1">
+              <div className="font-medium text-gray-900 dark:text-gray-100">
+                {t('colorMode.designMode', 'Design Mode')}
+              </div>
+              <div className="text-xs text-gray-600 dark:text-gray-400">
+                {t('colorMode.designModeDesc', 'Enable color mode support for all properties')}
+              </div>
             </div>
-            <div className="text-xs text-gray-600 dark:text-gray-400">
-              {t('colorMode.designModeDesc', 'Enable color mode support for all properties')}
+            <div className="ml-auto">
+              {isColorModeDesignEnabled ? (
+                <div className="h-2 w-2 rounded-full bg-blue-500" />
+              ) : (
+                <div className="h-2 w-2 rounded-full border border-gray-300" />
+              )}
             </div>
           </div>
-        </DropdownMenuCheckboxItem>
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
