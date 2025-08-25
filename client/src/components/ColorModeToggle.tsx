@@ -16,6 +16,15 @@ export function ColorModeToggle() {
   const { t } = useTranslation();
   
   console.log('🔥 ColorMode values:', { mode, resolvedMode, isColorModeDesignEnabled, setColorModeDesignEnabled: typeof setColorModeDesignEnabled });
+  
+  // Fallback if context is not providing the function
+  const handleToggleDesignMode = () => {
+    if (typeof setColorModeDesignEnabled === 'function') {
+      setColorModeDesignEnabled(!isColorModeDesignEnabled);
+    } else {
+      console.error('setColorModeDesignEnabled is not a function:', setColorModeDesignEnabled);
+    }
+  };
 
   const modeOptions: { value: ColorMode; label: string; icon: React.ComponentType<{ className?: string }>; description: string }[] = [
     {
@@ -61,29 +70,13 @@ export function ColorModeToggle() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
-          variant="outline"
+          variant="ghost"
           size="sm"
-          className="h-12 w-12 p-2 border-4 border-red-500 bg-yellow-400 hover:bg-yellow-500 shadow-2xl"
+          className="h-8 w-8 p-1 hover:bg-gray-100 dark:hover:bg-gray-700"
           title={t('colorMode.toggle', 'Toggle color mode')}
           data-testid="color-mode-toggle"
-          style={{ 
-            minWidth: '48px', 
-            minHeight: '48px',
-            backgroundColor: '#facc15',
-            borderColor: '#ef4444',
-            borderWidth: '4px',
-            position: 'relative',
-            zIndex: 99999
-          }}
         >
-          <CurrentIcon 
-            className="h-6 w-6 text-black" 
-            style={{ 
-              stroke: 'black',
-              strokeWidth: 3,
-              filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.7))'
-            }}
-          />
+          <CurrentIcon className="h-4 w-4" />
           <span className="sr-only">{t('colorMode.toggle', 'Toggle color mode')}</span>
         </Button>
       </DropdownMenuTrigger>
@@ -116,7 +109,7 @@ export function ColorModeToggle() {
         })}
         <DropdownMenuSeparator className="bg-gray-200 dark:bg-gray-700" />
         <DropdownMenuItem
-          onClick={() => setColorModeDesignEnabled(!isColorModeDesignEnabled)}
+          onClick={handleToggleDesignMode}
           className="flex items-center gap-2"
           data-testid="color-mode-design-toggle"
         >
