@@ -12,7 +12,7 @@ export type ElementType = 'container' | 'rectangle' | 'text' | 'heading' | 'list
 export interface PropertyConfig {
   key: string;
   label: string;
-  type: 'text' | 'number' | 'select' | 'color' | 'range' | 'toggle' | 'unit' | 'border' | 'compound' | 'imageUpload';
+  type: 'text' | 'number' | 'select' | 'color' | 'range' | 'toggle' | 'unit' | 'border' | 'compound' | 'imageUpload' | 'background';
   category: 'layout' | 'appearance' | 'text' | 'spacing' | 'effects' | 'advanced' | 'flex' | 'grid' | 'content';
   options?: Array<{ value: string; label: string }>;
   units?: string[];
@@ -182,11 +182,19 @@ const spacingProperties: PropertyConfig[] = [
 // Appearance properties
 const appearanceProperties: PropertyConfig[] = [
   {
+    key: 'background',
+    label: 'Background',
+    type: 'background',
+    category: 'appearance',
+    priority: 1,
+    description: 'Background color, image, and gradients'
+  },
+  {
     key: 'backgroundColor',
     label: 'Background Color',
     type: 'color',
     category: 'appearance',
-    priority: 1,
+    priority: 2,
     description: 'Fill color of the element'
   },
   {

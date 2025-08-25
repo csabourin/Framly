@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { PropertyConfig, formatValueWithUnit, parseValueAndUnit } from '../../utils/propertyConfig';
 import { Info } from 'lucide-react';
 import { ImageUpload } from './ImageUpload';
+import { BackgroundInput } from './BackgroundInput';
 
 interface PropertyInputProps {
   config: PropertyConfig;
@@ -222,6 +223,21 @@ export const PropertyInput: React.FC<PropertyInputProps> = ({ config, value, onC
             onImageChange={(updates) => {
               // Updates are handled directly by the ImageUpload component via dispatch
               // The onChange callback here is for UI synchronization if needed
+            }}
+          />
+        );
+
+      case 'background':
+        if (!elementId) {
+          return <div className="text-xs text-red-500">Element ID required for background</div>;
+        }
+        return (
+          <BackgroundInput
+            elementId={elementId}
+            value={value}
+            onChange={(backgroundStyles) => {
+              // Apply all background styles
+              onChange(backgroundStyles);
             }}
           />
         );
