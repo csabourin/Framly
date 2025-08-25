@@ -89,13 +89,25 @@ export function ColorModeToggle() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
-          variant="ghost"
+          variant="outline"
           size="sm"
-          className="h-8 w-8 p-1 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800"
+          className="h-8 w-8 p-1 border-2 border-gray-400 dark:border-gray-500 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 shadow-sm"
           title={t('colorMode.toggle', 'Toggle color mode')}
           data-testid="color-mode-toggle"
+          style={{ 
+            minWidth: '32px', 
+            minHeight: '32px',
+            position: 'relative',
+            zIndex: 10
+          }}
         >
-          <CurrentIcon className="h-4 w-4" />
+          <CurrentIcon 
+            className="h-4 w-4 text-gray-700 dark:text-gray-300" 
+            style={{ 
+              strokeWidth: 2,
+              filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.3))'
+            }}
+          />
           <span className="sr-only">{t('colorMode.toggle', 'Toggle color mode')}</span>
         </Button>
       </DropdownMenuTrigger>
