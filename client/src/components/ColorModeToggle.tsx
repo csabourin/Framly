@@ -17,14 +17,16 @@ export function ColorModeToggle() {
   
   // Simple toggle handler
   const handleToggleDesignMode = () => {
-    console.log('Design Mode clicked. Current state:', isColorModeDesignEnabled);
-    console.log('Function available:', typeof setColorModeDesignEnabled);
+    console.log('🎯 handleToggleDesignMode called!');
+    console.log('🎯 Design Mode clicked. Current state:', isColorModeDesignEnabled);
+    console.log('🎯 Function available:', typeof setColorModeDesignEnabled);
     
     if (typeof setColorModeDesignEnabled === 'function') {
+      console.log('🎯 About to toggle...');
       setColorModeDesignEnabled(!isColorModeDesignEnabled);
-      console.log('Toggled to:', !isColorModeDesignEnabled);
+      console.log('🎯 Toggled to:', !isColorModeDesignEnabled);
     } else {
-      console.log('Function not available');
+      console.log('🎯 Function not available');
     }
   };
 
@@ -133,8 +135,13 @@ export function ColorModeToggle() {
         })}
         <DropdownMenuSeparator className="bg-gray-200 dark:bg-gray-700" />
         <DropdownMenuItem
-          onClick={handleToggleDesignMode}
-          className="flex items-center gap-2"
+          onClick={(e) => {
+            console.log('Dropdown item clicked!');
+            e.preventDefault();
+            e.stopPropagation();
+            handleToggleDesignMode();
+          }}
+          className="flex items-center gap-2 cursor-pointer"
           data-testid="color-mode-design-toggle"
         >
           <div className="flex items-center gap-2 w-full">
