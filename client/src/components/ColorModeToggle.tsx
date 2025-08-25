@@ -12,11 +12,10 @@ import { Palette, Sun, Moon, Monitor, Contrast } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 export function ColorModeToggle() {
-  console.log('🔥 ColorModeToggle rendering...');
   const { mode, resolvedMode, setMode, supportsHighContrast, isColorModeDesignEnabled, setColorModeDesignEnabled } = useColorMode();
   const { t } = useTranslation();
   
-  console.log('🔥 ColorMode values:', { mode, resolvedMode, isColorModeDesignEnabled });
+  console.log('🔥 ColorMode values:', { mode, resolvedMode, isColorModeDesignEnabled, setColorModeDesignEnabled: typeof setColorModeDesignEnabled });
 
   const modeOptions: { value: ColorMode; label: string; icon: React.ComponentType<{ className?: string }>; description: string }[] = [
     {
@@ -62,28 +61,13 @@ export function ColorModeToggle() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
-          variant="outline"
+          variant="ghost"
           size="sm"
-          className="h-10 w-10 p-1 border-2 border-blue-500 bg-blue-100 hover:bg-blue-200 shadow-lg"
+          className="h-8 w-8 p-1 hover:bg-gray-100 dark:hover:bg-gray-700"
           title={t('colorMode.toggle', 'Toggle color mode')}
           data-testid="color-mode-toggle"
-          style={{ 
-            minWidth: '40px', 
-            minHeight: '40px',
-            backgroundColor: '#3b82f6',
-            color: 'white',
-            border: '2px solid #1d4ed8'
-          }}
         >
-          <CurrentIcon 
-            className="h-6 w-6 text-white" 
-            style={{ 
-              opacity: 1,
-              stroke: 'white',
-              strokeWidth: 3,
-              filter: 'drop-shadow(0 0 2px rgba(0,0,0,0.5))'
-            }}
-          />
+          <CurrentIcon className="h-4 w-4" />
           <span className="sr-only">{t('colorMode.toggle', 'Toggle color mode')}</span>
         </Button>
       </DropdownMenuTrigger>

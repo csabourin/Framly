@@ -1,0 +1,90 @@
+ColorModeToggle.tsx:119  Uncaught TypeError: setColorModeDesignEnabled is not a function
+    at onClick (ColorModeToggle.tsx:119:26)
+    at handleEvent (primitive.tsx:7:5)
+    at HTMLUnknownElement.callCallback2 (react-dom.development.js:4164:14)
+    at Object.invokeGuardedCallbackDev (react-dom.development.js:4213:16)
+    at invokeGuardedCallback (react-dom.development.js:4277:31)
+    at invokeGuardedCallbackAndCatchFirstError (react-dom.development.js:4291:25)
+    at executeDispatch (react-dom.development.js:9041:3)
+    at processDispatchQueueItemsInOrder (react-dom.development.js:9073:7)
+    at processDispatchQueue (react-dom.development.js:9086:5)
+    at dispatchEventsForPlugins (react-dom.development.js:9097:3)
+onClick @ ColorModeToggle.tsx:119
+handleEvent @ primitive.tsx:7
+callCallback2 @ react-dom.development.js:4164
+invokeGuardedCallbackDev @ react-dom.development.js:4213
+invokeGuardedCallback @ react-dom.development.js:4277
+invokeGuardedCallbackAndCatchFirstError @ react-dom.development.js:4291
+executeDispatch @ react-dom.development.js:9041
+processDispatchQueueItemsInOrder @ react-dom.development.js:9073
+processDispatchQueue @ react-dom.development.js:9086
+dispatchEventsForPlugins @ react-dom.development.js:9097
+(anonymous) @ react-dom.development.js:9288
+batchedUpdates$1 @ react-dom.development.js:26179
+batchedUpdates @ react-dom.development.js:3991
+dispatchEventForPluginEventSystem @ react-dom.development.js:9287
+dispatchEventWithEnableCapturePhaseSelectiveHydrationWithoutDiscreteEventReplay @ react-dom.development.js:6465
+dispatchEvent @ react-dom.development.js:6457
+dispatchDiscreteEvent @ react-dom.development.js:6430
+react-dom.development.js:4312  Uncaught TypeError: setColorModeDesignEnabled is not a function
+    at onClick (ColorModeToggle.tsx:119:26)
+    at handleEvent (primitive.tsx:7:5)
+    at HTMLUnknownElement.callCallback2 (react-dom.development.js:4164:14)
+    at Object.invokeGuardedCallbackDev (react-dom.development.js:4213:16)
+    at invokeGuardedCallback (react-dom.development.js:4277:31)
+    at invokeGuardedCallbackAndCatchFirstError (react-dom.development.js:4291:25)
+    at executeDispatch (react-dom.development.js:9041:3)
+    at processDispatchQueueItemsInOrder (react-dom.development.js:9073:7)
+    at processDispatchQueue (react-dom.development.js:9086:5)
+    at dispatchEventsForPlugins (react-dom.development.js:9097:3)
+onClick @ ColorModeToggle.tsx:119
+handleEvent @ primitive.tsx:7
+callCallback2 @ react-dom.development.js:4164
+invokeGuardedCallbackDev @ react-dom.development.js:4213
+invokeGuardedCallback @ react-dom.development.js:4277
+invokeGuardedCallbackAndCatchFirstError @ react-dom.development.js:4291
+executeDispatch @ react-dom.development.js:9041
+processDispatchQueueItemsInOrder @ react-dom.development.js:9073
+processDispatchQueue @ react-dom.development.js:9086
+dispatchEventsForPlugins @ react-dom.development.js:9097
+(anonymous) @ react-dom.development.js:9288
+batchedUpdates$1 @ react-dom.development.js:26179
+batchedUpdates @ react-dom.development.js:3991
+dispatchEventForPluginEventSystem @ react-dom.development.js:9287
+dispatchEventWithEnableCapturePhaseSelectiveHydrationWithoutDiscreteEventReplay @ react-dom.development.js:6465
+dispatchEvent @ react-dom.development.js:6457
+dispatchDiscreteEvent @ react-dom.development.js:6430
+_app-41a6a28c2887ca83.js:38 Fetch finished loading: POST "https://logs.browser-intake-us5-datadoghq.com/api/v2/logs?ddsource=browser&ddtags=sdk_version%3A4.46.0%2Capi%3Afetch%2Cenv%3Aproduction%2Cservice%3Awebsite%2Cversion%3A364e5cc3&dd-api-key=pub31a5047a3a4692afb84a423db984dc57&dd-evp-origin-version=4.46.0&dd-evp-origin=browser&dd-request-id=ceb4a260-6e76-4722-bd15-229c6b1e2faf".
+(anonymous) @ _app-41a6a28c2887ca83.js:38
+a @ _app-41a6a28c2887ca83.js:40
+m @ _app-41a6a28c2887ca83.js:40
+g @ _app-41a6a28c2887ca83.js:40
+send @ _app-41a6a28c2887ca83.js:40
+e.flush @ _app-41a6a28c2887ca83.js:1
+(anonymous) @ _app-41a6a28c2887ca83.js:1
+(anonymous) @ _app-41a6a28c2887ca83.js:1
+e.notify @ _app-41a6a28c2887ca83.js:1
+f @ _app-41a6a28c2887ca83.js:1
+(anonymous) @ _app-41a6a28c2887ca83.js:1
+d @ _app-41a6a28c2887ca83.js:1
+(anonymous) @ _app-41a6a28c2887ca83.js:1
+n @ _app-41a6a28c2887ca83.js:38
+_app-41a6a28c2887ca83.js:38 Fetch finished loading: POST "https://sp.replit.com/v1/m".
+(anonymous) @ _app-41a6a28c2887ca83.js:38
+o @ sdk.min.js:1
+(anonymous) @ remote-metrics.ts:138
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+t.send @ sdk.min.js:1
+(anonymous) @ remote-metrics.ts:125
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+t.flush @ sdk.min.js:1
+l @ remote-metrics.ts:83
+n @ _app-41a6a28c2887ca83.js:38
+ColorModeToggle.tsx:15 🔥 ColorModeToggle rendering...
+ColorModeToggle.tsx:19 🔥 ColorMode values: {mode: 'light', resolvedMode: 'light', isColorModeDesignEnabled: undefined}
