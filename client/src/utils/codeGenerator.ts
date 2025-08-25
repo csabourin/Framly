@@ -107,52 +107,48 @@ ${indent}</${tag}>`;
   }
   
   generateCSS(): string {
-    // Generate CSS including custom classes
-    const cssRules: string[] = [];
+    const cssObjects: ColorModeCSS[] = [];
     
     // Reset styles
-    cssRules.push(`* {
+    const resetCSS = `* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}`);
-    
-    cssRules.push(`body {
+}
+
+body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     line-height: 1.6;
-}`);
+}`;
     
-    // Generate CSS for custom classes
+    // Generate CSS for custom classes with color mode support
     Object.values(this.customClasses).forEach(customClass => {
       if (customClass.styles && Object.keys(customClass.styles).length > 0) {
         const selector = `.${customClass.name}`;
-        const styles = this.generateCustomClassCSS(customClass.styles);
-        if (styles) {
-          cssRules.push(`${selector} {
-${styles}
-}`);
-        }
+        const colorModeCSS = generateColorModeCSS(selector, customClass.styles);
+        cssObjects.push(colorModeCSS);
       }
     });
     
     // Generate element-specific styles for elements without classes
-    // CRITICAL: Use expanded elements when available to include component instance children
     const elementsRecord = this.expandedElements || this.project.elements || {};
     const elements = Object.values(elementsRecord) as CanvasElement[];
     elements.forEach((element) => {
       // Only generate element styles if no custom classes are applied
       if (!element.classes || element.classes.length === 0) {
         const elementSelector = `[data-element-id="${element.id}"]`;
-        const styles = this.generateCSSProperties(element);
-        if (styles) {
-          cssRules.push(`${elementSelector} {
-${styles}
-}`);
-        }
+        const colorModeCSS = generateColorModeCSS(elementSelector, element.styles);
+        cssObjects.push(colorModeCSS);
       }
     });
     
-    return cssRules.join('\n\n');
+    // Generate responsive breakpoint styles
+    const responsiveCSS = this.generateResponsiveCSS();
+    
+    // Combine all CSS with color mode support
+    const colorModeOutput = combineColorModeCSS(cssObjects);
+    
+    return [resetCSS, colorModeOutput, responsiveCSS].filter(Boolean).join('\n\n');
   }
 
   generateLegacyCSS(): string {
@@ -198,48 +194,99 @@ ${styles}
       }
     });
     
-    // Generate responsive breakpoints
-    const breakpoints = Object.entries(this.project.breakpoints);
-    breakpoints.forEach(([name, config]) => {
-      if (name !== 'mobile' && (config as any).width) {
-        cssRules.push(`@media (min-width: ${(config as any).width}px) {
-    /* ${name} styles */
-}`);
-      }
-    });
+    // Generate responsive breakpoint styles
+    const responsiveCSS = this.generateResponsiveCSS();
     
-    return cssRules.join('\n\n');
+    return [cssRules.join('\n\n'), responsiveCSS].filter(Boolean).join('\n\n');
   }
   
   private generateCustomClassCSS(styles: Record<string, any>): string {
+    // Use color mode helper to generate proper CSS with color modes
+    const colorModeCSS = generateColorModeCSS('', styles);
     const cssProps: string[] = [];
     
-    for (const [key, value] of Object.entries(styles)) {
-      if (value !== undefined && value !== null && value !== '') {
-        // Convert camelCase to kebab-case
-        const cssKey = key.replace(/([A-Z])/g, '-$1').toLowerCase();
-        cssProps.push(`    ${cssKey}: ${value};`);
-      }
+    // Extract base CSS properties (remove selector wrapper)
+    if (colorModeCSS.baseCSS) {
+      const baseLines = colorModeCSS.baseCSS.split('\n').slice(1, -1); // Remove wrapper lines
+      cssProps.push(...baseLines);
     }
     
     return cssProps.join('\n');
   }
   
   private generateCSSProperties(element: CanvasElement): string {
+    // Use color mode helper to generate proper CSS with color modes
+    const colorModeCSS = generateColorModeCSS('', element.styles);
     const styles: string[] = [];
     
-    Object.entries(element.styles).forEach(([property, value]) => {
-      if (value !== undefined && value !== null) {
-        const cssProperty = this.camelToKebab(property);
-        styles.push(`    ${cssProperty}: ${value};`);
-      }
-    });
+    // Extract base CSS properties (remove selector wrapper)
+    if (colorModeCSS.baseCSS) {
+      const baseLines = colorModeCSS.baseCSS.split('\n').slice(1, -1); // Remove wrapper lines
+      styles.push(...baseLines);
+    }
     
     return styles.join('\n');
   }
   
   private camelToKebab(str: string): string {
     return str.replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, '$1-$2').toLowerCase();
+  }
+  
+  private generateResponsiveCSS(): string {
+    const breakpoints = Object.entries(this.project.breakpoints || {});
+    const responsiveRules: string[] = [];
+    
+    // Get all elements for responsive styles
+    const elementsRecord = this.expandedElements || this.project.elements || {};
+    const elements = Object.values(elementsRecord) as CanvasElement[];
+    
+    // Generate styles for each breakpoint (mobile-first)
+    breakpoints.forEach(([breakpointName, config]) => {
+      if (breakpointName === 'mobile') return; // Mobile is base styles
+      
+      const breakpointConfig = config as any;
+      if (!breakpointConfig.width) return;
+      
+      const breakpointStyles: string[] = [];
+      
+      // Check custom classes for responsive styles
+      Object.values(this.customClasses).forEach(customClass => {
+        const responsiveStyles = customClass.styles?.responsiveStyles as any;
+        if (responsiveStyles?.[breakpointName]) {
+          const styles = responsiveStyles[breakpointName];
+          const cssProps = Object.entries(styles)
+            .map(([prop, value]) => `    ${this.camelToKebab(prop)}: ${value};`)
+            .join('\n');
+          if (cssProps) {
+            breakpointStyles.push(`  .${customClass.name} {\n${cssProps}\n  }`);
+          }
+        }
+      });
+      
+      // Check elements for responsive styles
+      elements.forEach(element => {
+        const responsiveStyles = element.responsiveStyles as any;
+        if (responsiveStyles?.[breakpointName]) {
+          const styles = responsiveStyles[breakpointName];
+          const cssProps = Object.entries(styles)
+            .map(([prop, value]) => `    ${this.camelToKebab(prop)}: ${value};`)
+            .join('\n');
+          
+          if (cssProps) {
+            const selector = element.classes && element.classes.length > 0 
+              ? `.${element.classes[0]}`
+              : `[data-element-id="${element.id}"]`;
+            breakpointStyles.push(`  ${selector} {\n${cssProps}\n  }`);
+          }
+        }
+      });
+      
+      if (breakpointStyles.length > 0) {
+        responsiveRules.push(`@media (min-width: ${breakpointConfig.width}px) {\n${breakpointStyles.join('\n\n')}\n}`);
+      }
+    });
+    
+    return responsiveRules.join('\n\n');
   }
   
   generateReactComponent(): string {

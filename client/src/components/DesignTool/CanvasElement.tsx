@@ -11,6 +11,8 @@ import { selectCurrentElements } from '../../store/selectors';
 import { isComponentInstance } from '../../utils/componentInstances';
 import ComponentInstanceElement from './ComponentInstanceElement';
 import ElementContextMenu from './ElementContextMenu';
+import { useColorMode } from '../../contexts/ColorModeContext';
+import { isColorModeValues } from '../../utils/colorModeHelper';
 
 
 interface CanvasElementProps {
@@ -44,6 +46,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
   const { selectedTool, isDraggingForReorder, draggedElementId, insertionIndicator, settings } = useSelector(selectUIState);
   const customClasses = useSelector(selectCustomClasses);
   const reduxHoverState = useSelector(selectHoverState);
+  const { resolvedMode } = useColorMode(); // Add color mode support
   const elementRef = useRef<HTMLDivElement>(null);
   const [isEditing, setIsEditing] = React.useState(false);
   const textEditRef = useRef<HTMLDivElement>(null);
@@ -781,8 +784,19 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
       // Convert property to CSS variable name (--element-width, --element-color, etc.)
       const varName = `--element-${key.replace(/([A-Z])/g, '-$1').toLowerCase()}`;
       
+      // Handle color mode values - resolve to current mode value
+      if (isColorModeValues(value)) {
+        const colorModeValue = value as any;
+        const resolvedValue = colorModeValue[resolvedMode] || 
+                             colorModeValue.light || 
+                             colorModeValue.dark || 
+                             colorModeValue['high-contrast'];
+        if (resolvedValue) {
+          cssVariables[varName] = String(resolvedValue);
+        }
+      }
       // Handle complex objects that need to be converted to CSS strings
-      if (typeof value === 'object' && value !== null) {
+      else if (typeof value === 'object' && value !== null) {
         if (Array.isArray(value)) {
           cssVariables[varName] = value.join(' ');
         } else {
@@ -832,8 +846,24 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
       }
     }
     
-    return baseStyles;
-  }, [element.styles, element.classes, customClasses, currentBreakpoint]);
+    // Resolve color mode values to actual colors based on current mode
+    const resolvedStyles = { ...baseStyles };
+    Object.keys(resolvedStyles).forEach(key => {
+      const value = resolvedStyles[key];
+      if (isColorModeValues(value)) {
+        const colorModeValue = value as any;
+        const resolvedValue = colorModeValue[resolvedMode] || 
+                             colorModeValue.light || 
+                             colorModeValue.dark || 
+                             colorModeValue['high-contrast'];
+        if (resolvedValue) {
+          resolvedStyles[key] = resolvedValue;
+        }
+      }
+    });
+    
+    return resolvedStyles;
+  }, [element.styles, element.classes, customClasses, currentBreakpoint, resolvedMode]);
 
   // CRITICAL: FIXED HTML positioning logic - exactly like real HTML
   // Elements follow normal document flow unless explicitly positioned by dragging

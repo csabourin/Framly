@@ -8,18 +8,18 @@ This document outlines the development roadmap for the WYSIWYG web design tool, 
 **Goal:** Selected elements must keep (and show) their chosen units (px, %, rem, em, vw, vh, etc.) across all editable properties.
 
 **Implementation Tasks:**
-- [ ] Create `getActiveUnit(propertyName, elementId)` utility function
-  - [ ] Read element's computed style or stored CSS class token
-  - [ ] Resolve unit for property (default to app-wide unit if unset)
-- [ ] Bind properties panel controls to unit resolver
-- [ ] Store chosen unit alongside value in Redux slice for style editing
-- [ ] Serialize units into CSS classes in IndexedDB
+- [X] Create `getActiveUnit(propertyName, elementId)` utility function
+  - [X] Read element's computed style or stored CSS class token
+  - [X] Resolve unit for property (default to app-wide unit if unset)
+- [X] Bind properties panel controls to unit resolver
+- [X] Store chosen unit alongside value in Redux slice for style editing
+- [X] Serialize units into CSS classes in IndexedDB
 
 **Acceptance Criteria:**
 - [ ] Switching element selection never resets units to px
 - [ ] Changing unit on margin-left does not affect width (units are per property)
 - [ ] Undo/redo preserves units and values
-- [ ] Reloading app restores units exactly as last saved
+- [                                           ] Reloading app restores units exactly as last saved
 
 <!-- Implementation Note: This affects PropertiesPanel.tsx, PropertyInput.tsx, and the CSS generation system -->
 
