@@ -5,7 +5,7 @@ import { selectCanvasProject, selectExportModalState, selectUIState } from '../.
 import { switchBreakpoint, undo, redo, updateProjectName } from '../../store/canvasSlice';
 import { setExportModalOpen, setCodeModalOpen, setCSSOptimizationModalOpen, zoomIn, zoomOut, fitToScreen, setClassEditorOpen, setComponentEditorOpen, setButtonDesignerOpen, setSettingsMenuOpen } from '../../store/uiSlice';
 import { Button } from '@/components/ui/button';
-import { Eye, Undo, Redo, Download, Smartphone, Laptop, Monitor, Settings, Plus, Minus, Maximize, Zap, List, Palette, Component, MousePointer2 } from 'lucide-react';
+import { Eye, Undo, Redo, Download, Smartphone, Tablet, Monitor, Settings, Plus, Minus, Maximize, Zap, List, Palette, Component, MousePointer2, MonitorSpeaker } from 'lucide-react';
 import UndoRedoControls from './UndoRedoControls';
 import WebsiteImport from './WebsiteImport';
 import SettingsMenu from './SettingsMenu';
@@ -15,12 +15,12 @@ const Header: React.FC = () => {
   const project = useSelector(selectCanvasProject);
   const { isExportModalOpen } = useSelector(selectExportModalState);
 
-  // Icon mapping for breakpoints
+  // Icon mapping for breakpoints with distinct icons
   const breakpointIcons: Record<string, React.ComponentType<any>> = {
     mobile: Smartphone,
-    tablet: Laptop,  // Use Laptop icon for tablet
+    tablet: Tablet,
     desktop: Monitor,
-    large: Monitor,
+    large: MonitorSpeaker,  // Distinct icon for large screens
   };
 
   // Get breakpoints from Redux state - use all available breakpoints
@@ -29,6 +29,7 @@ const Header: React.FC = () => {
   
 
   const handleBreakpointChange = (breakpointName: string) => {
+    console.log('Switching to breakpoint:', breakpointName);
     dispatch(switchBreakpoint(breakpointName));
   };
 
