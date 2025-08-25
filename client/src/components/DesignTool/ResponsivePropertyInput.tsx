@@ -150,20 +150,33 @@ const ResponsivePropertyInput: React.FC<ResponsivePropertyInputProps> = ({
             const isCurrentBreakpoint = breakpoint === currentBreakpoint;
             
             return (
-              <div key={breakpoint} className="flex items-center space-x-2">
-                <Button
-                  variant={isCurrentBreakpoint ? "default" : "ghost"}
-                  size="sm"
-                  onClick={() => handleBreakpointPreview(breakpoint)}
-                  className="h-8 px-2 flex items-center space-x-1"
-                  data-testid={`button-preview-${breakpoint}`}
-                >
-                  <Icon className="w-3 h-3" />
-                  <span className="text-xs">{breakpointConfig.label}</span>
-                  <span className="text-xs text-gray-500">({breakpointConfig.width}px)</span>
-                </Button>
-                
-                <div className="flex-1">
+              <div key={breakpoint} className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <Button
+                    variant={isCurrentBreakpoint ? "default" : "ghost"}
+                    size="sm"
+                    onClick={() => handleBreakpointPreview(breakpoint)}
+                    className="h-8 px-3 flex items-center space-x-1 min-w-0"
+                    data-testid={`button-preview-${breakpoint}`}
+                  >
+                    <Icon className="w-3 h-3 flex-shrink-0" />
+                    <span className="text-xs truncate">{breakpointConfig.label}</span>
+                    <span className="text-xs text-gray-500 flex-shrink-0">({breakpointConfig.width}px)</span>
+                  </Button>
+                  {hasValue && breakpoint !== 'mobile' && (
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => handleResponsiveChange(breakpoint, undefined)}
+                      className="h-6 w-6 p-0 text-gray-400 hover:text-red-600 flex-shrink-0"
+                      data-testid={`button-clear-${breakpoint}-${config.key}`}
+                      title={`Clear ${breakpoint} value`}
+                    >
+                      ×
+                    </Button>
+                  )}
+                </div>
+                <div className="w-full">
                   <PropertyInput
                     config={{
                       ...config,
@@ -175,19 +188,6 @@ const ResponsivePropertyInput: React.FC<ResponsivePropertyInputProps> = ({
                     element={element}
                   />
                 </div>
-                
-                {hasValue && breakpoint !== 'mobile' && (
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => handleResponsiveChange(breakpoint, undefined)}
-                    className="h-6 w-6 p-0 text-gray-400 hover:text-red-600"
-                    data-testid={`button-clear-${breakpoint}-${config.key}`}
-                    title={`Clear ${breakpoint} value`}
-                  >
-                    ×
-                  </Button>
-                )}
               </div>
             );
           })}

@@ -146,6 +146,23 @@ export function getActiveUnit(
       }
     }
     
+    // Check responsive styles for any breakpoint to preserve unit preference
+    if (element.responsiveStyles) {
+      const breakpoints = Object.keys(element.responsiveStyles);
+      for (const breakpoint of breakpoints) {
+        const breakpointStyles = element.responsiveStyles[breakpoint as keyof typeof element.responsiveStyles];
+        if (breakpointStyles && breakpointStyles[propertyName as keyof typeof breakpointStyles]) {
+          const responsiveValue = breakpointStyles[propertyName as keyof typeof breakpointStyles];
+          if (responsiveValue) {
+            const parsed = parseValueAndUnit(responsiveValue);
+            if (parsed.unit && parsed.unit !== '') {
+              return parsed.unit;
+            }
+          }
+        }
+      }
+    }
+    
     // Check custom class styles
     if (element.classes && customClasses) {
       for (const className of element.classes) {
