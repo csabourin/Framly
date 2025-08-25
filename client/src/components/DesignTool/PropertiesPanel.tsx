@@ -271,7 +271,16 @@ const PropertiesPanel: React.FC = () => {
   };
 
   const handlePropertyChange = (propertyKey: string, value: any) => {
-    // console.log('🟡 handlePropertyChange called:', { propertyKey, value });
+    // DEBUG: Log every property change to verify updates are being dispatched
+    console.log('PROPERTY CHANGE DEBUG:', {
+      elementId: selectedElement.id.substring(0, 15) + '...',
+      propertyKey,
+      value,
+      oldValue: selectedElement.styles?.[propertyKey] || selectedElement[propertyKey as keyof typeof selectedElement],
+      hasSelectedClass: !!selectedClassForEditing,
+      timestamp: Date.now()
+    });
+
     // Handle special element-specific properties (not CSS styles)
     if (['headingLevel', 'listType'].includes(propertyKey)) {
       // Update element-specific properties (not styles)

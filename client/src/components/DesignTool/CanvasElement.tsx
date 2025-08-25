@@ -809,7 +809,6 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
           width: styles.width,
           display: styles.display,
         },
-        willSkipWidth: key === 'width' && ['text', 'heading', 'list'].includes(element.type) && isInFlexContainer,
         cssVariables: {
           '--element-width': cssVariables['--element-width'],
           '--element-display': cssVariables['--element-display'],
@@ -922,20 +921,20 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     ...cssVariables,
   };
 
-  // Debug row flex specifically
-  if (['text', 'heading', 'list'].includes(element.type) && isInFlexContainer && parentFlexDirection === 'row') {
-    console.log('ROW FLEX FINAL DEBUG:', {
+  // DEBUG: Log EVERY property update to see if changes reach CanvasElement
+  if (selectedElementId === element.id) {
+    console.log('SELECTED ELEMENT RENDER DEBUG:', {
       elementId: element.id.substring(0, 15) + '...',
       elementType: element.type,
-      parentFlexDirection,
-      parentJustifyContent: parentElement?.styles?.justifyContent,
-      hasInlineWidth: 'width' in minimalInlineStyles,
-      inlineWidth: minimalInlineStyles.width,
-      forcedAutoWidth: minimalInlineStyles.width === 'auto',
-      cssVariables: Object.keys(minimalInlineStyles).filter(key => key.startsWith('--element')).reduce((acc, key) => {
-        acc[key] = minimalInlineStyles[key];
-        return acc;
-      }, {} as Record<string, any>)
+      height: element.height,
+      width: element.width,
+      styles: element.styles,
+      minimalInlineStyles: {
+        width: minimalInlineStyles.width,
+        height: minimalInlineStyles.height,
+        ...Object.fromEntries(Object.entries(minimalInlineStyles).filter(([k]) => k.startsWith('--element')))
+      },
+      renderedAt: Date.now()
     });
   }
 

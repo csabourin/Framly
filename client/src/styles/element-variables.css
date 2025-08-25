@@ -35,7 +35,9 @@
   grid-template-rows: var(--element-grid-template-rows, none);
   grid-gap: var(--element-grid-gap, 0);
   
-  /* Dimensions - let classes and flexbox control these naturally */
+  /* Dimensions - CSS variables with high specificity */
+  width: var(--element-width, auto) !important;
+  height: var(--element-height, auto) !important;
   max-width: var(--element-max-width, none);
   min-width: var(--element-min-width, 0);
   max-height: var(--element-max-height, none);
