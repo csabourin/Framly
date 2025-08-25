@@ -132,7 +132,11 @@ const ResponsivePropertyInput: React.FC<ResponsivePropertyInputProps> = ({
         value={getResponsiveValue(currentBreakpoint) ?? value}
         onChange={(newValue) => handleResponsiveChange(currentBreakpoint, newValue)}
         elementId={element.id}
-        element={element}
+        element={{
+          ...element,
+          // Pass a modified element that preserves unit preferences by not including parsed values
+          styles: config.type === 'unit' ? {} : element.styles
+        }}
       />
 
       {/* Responsive controls */}
@@ -185,7 +189,11 @@ const ResponsivePropertyInput: React.FC<ResponsivePropertyInputProps> = ({
                     value={breakpointValue ?? ''}
                     onChange={(newValue) => handleResponsiveChange(breakpoint, newValue)}
                     elementId={element.id}
-                    element={element}
+                    element={{
+                      ...element,
+                      // Pass a modified element that preserves unit preferences by not including parsed values
+                      styles: config.type === 'unit' ? {} : element.styles
+                    }}
                   />
                 </div>
               </div>

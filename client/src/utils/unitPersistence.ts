@@ -135,7 +135,26 @@ export function getActiveUnit(
   customClasses?: Record<string, CustomClass>,
   availableUnits?: string[]
 ): string {
-  // 1. Check if current value has an explicit unit
+  // 1. PRIORITY: Check element-specific unit preference first (user's explicit choice)
+  const elementPrefs = elementUnitPreferences[elementId];
+  if (elementPrefs?.[propertyName]) {
+    const unit = elementPrefs[propertyName];
+    // Validate unit is in available units list
+    if (!availableUnits || availableUnits.includes(unit)) {
+      return unit;
+    }
+  }
+  
+  // 2. Check global unit preference for this property type
+  const globalPref = globalUnitPreferences[propertyName];
+  if (globalPref) {
+    // Validate unit is in available units list
+    if (!availableUnits || availableUnits.includes(globalPref)) {
+      return globalPref;
+    }
+  }
+  
+  // 3. Check if current value has an explicit unit (only if no preference exists)
   if (element) {
     // Check element's direct styles first
     const elementValue = element.styles?.[propertyName];
@@ -174,25 +193,6 @@ export function getActiveUnit(
           }
         }
       }
-    }
-  }
-  
-  // 2. Check element-specific unit preference
-  const elementPrefs = elementUnitPreferences[elementId];
-  if (elementPrefs?.[propertyName]) {
-    const unit = elementPrefs[propertyName];
-    // Validate unit is in available units list
-    if (!availableUnits || availableUnits.includes(unit)) {
-      return unit;
-    }
-  }
-  
-  // 3. Check global unit preference for this property type
-  const globalPref = globalUnitPreferences[propertyName];
-  if (globalPref) {
-    // Validate unit is in available units list
-    if (!availableUnits || availableUnits.includes(globalPref)) {
-      return globalPref;
     }
   }
   
