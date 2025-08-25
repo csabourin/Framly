@@ -742,7 +742,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
       }
     }
 
-    return <div className="h-full" style={{width: getElementWidth()}} />;
+    return <div className="h-full" style={cssVariables} />;
   };
 
   // Check if this element can accept drops using centralized logic
