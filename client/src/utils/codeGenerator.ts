@@ -124,8 +124,12 @@ body {
     // Generate CSS for custom classes with color mode support
     Object.values(this.customClasses).forEach(customClass => {
       if (customClass.styles && Object.keys(customClass.styles).length > 0) {
+        console.log(`🎨 Generating CSS for custom class: ${customClass.name}`);
+        console.log(`🎨 Styles:`, customClass.styles);
+        
         const selector = `.${customClass.name}`;
         const colorModeCSS = generateColorModeCSS(selector, customClass.styles);
+        console.log(`🎨 Generated ColorModeCSS:`, colorModeCSS);
         cssObjects.push(colorModeCSS);
       }
     });

@@ -32,8 +32,11 @@ export function generateColorModeCSS(
   const highContrastCSS: string[] = [];
 
   Object.entries(properties).forEach(([property, value]) => {
+    console.log(`🔍 Processing property: ${property}, value:`, value, `isColorModeValues:`, isColorModeValues(value));
+    
     if (isColorModeValues(value)) {
       const colorModeValue = value as ColorModeValues;
+      console.log(`✅ ColorModeValues detected:`, colorModeValue);
       
       // Use light mode as base, fallback to first available value
       const baseValue = colorModeValue.light || 
