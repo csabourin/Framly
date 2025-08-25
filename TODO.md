@@ -159,6 +159,54 @@ This document outlines the development roadmap for the WYSIWYG web design tool, 
 
 ## P2 — Medium Priority / Power-User Features
 
+### 🎨 Advanced CSS Custom Properties System
+**Goal:** Real cascading CSS variables with scope management and visual editing interface.
+
+**Implementation Tasks:**
+- [ ] Create variable definition panel with scope selector (global, component, element)
+- [ ] Support variable inheritance and cascade behavior matching real CSS
+- [ ] Visual variable editor with color pickers, unit selectors, and type validation
+- [ ] Auto-complete for variable references in property inputs
+- [ ] Variable usage tracking and dependency visualization
+
+**Acceptance Criteria:**
+- [ ] Variables defined at component level cascade correctly to children
+- [ ] Changing variable value updates all references instantly in canvas
+- [ ] Export generates proper `:root` and scoped variable declarations
+- [ ] Undo/redo works correctly with variable definitions and references
+
+### 🌓 Color Modes Support (Light/Dark/High-Contrast)
+**Goal:** Native support for system color modes with design-time preview.
+
+**Implementation Tasks:**
+- [ ] Add color mode toggle to toolbar (light/dark/auto/high-contrast)
+- [ ] Extend color picker with mode-specific values
+- [ ] Preview mode switcher in canvas toolbar
+- [ ] Export generates proper `@media (prefers-color-scheme)` queries
+- [ ] Support `prefers-contrast` and `forced-colors` media queries
+
+**Acceptance Criteria:**
+- [ ] Elements can have different colors per mode
+- [ ] Canvas accurately previews selected mode
+- [ ] Exported CSS works with system preferences
+- [ ] High-contrast mode meets WCAG AAA requirements
+
+### ✨ Interactive State Design System
+**Goal:** Design hover, focus, active, and loading states for all interactive elements.
+
+**Implementation Tasks:**
+- [ ] Extend button states to links, inputs, and custom interactive elements  
+- [ ] Add loading/error/success state variants
+- [ ] State transition preview with timing controls
+- [ ] Bulk state application across similar elements
+- [ ] State inheritance from parent components
+
+**Acceptance Criteria:**
+- [ ] All interactive elements support standard pseudo-states
+- [ ] Loading states can show spinners, skeletons, or custom content
+- [ ] State transitions preview smoothly in canvas
+- [ ] Export generates complete CSS with all pseudo-selectors
+
 ### 🧩 Component Editing via Tabs (Double-Click to Open)
 **Goal:** Double-clicking component instance opens new component editor tab with ghost root.
 
@@ -220,7 +268,119 @@ This document outlines the development roadmap for the WYSIWYG web design tool, 
 - [ ] Guides persist in IndexedDB per tab
 - [ ] Elements snap within small threshold; locked guides not draggable
 
+### 🧮 Advanced CSS Functions Support
+**Goal:** Native support for calc(), min(), max(), clamp(), and other CSS functions.
+
+**Implementation Tasks:**
+- [ ] Add function builder UI for complex value expressions
+- [ ] Support calc() with mixed units and variables
+- [ ] Clamp() editor with min/preferred/max inputs and visual preview
+- [ ] Auto-completion for CSS function syntax
+- [ ] Real-time preview of computed values in canvas
+
+**Acceptance Criteria:**
+- [ ] Functions render correctly in canvas matching browser behavior
+- [ ] Complex expressions with nested functions work properly
+- [ ] Export generates clean, optimized CSS function syntax
+- [ ] Functions work correctly with responsive breakpoints
+
+### 📱 Fluid Typography & Container Queries
+**Goal:** Advanced responsive design with container-based breakpoints and fluid scaling.
+
+**Implementation Tasks:**
+- [ ] Container query editor with container selector and size breakpoints
+- [ ] Fluid typography with min/max size scaling based on viewport/container
+- [ ] Visual container boundary indicators in canvas
+- [ ] Preview container at different sizes without changing viewport
+- [ ] Export generates proper `@container` queries
+
+**Acceptance Criteria:**
+- [ ] Typography scales smoothly between defined breakpoints
+- [ ] Container queries work independently of viewport media queries
+- [ ] Canvas shows accurate container-based responsive behavior
+- [ ] Generated CSS uses modern container query syntax
+
+### 📝 Variable Content & Edge Cases
+**Goal:** Design for real-world content variations and edge cases.
+
+**Implementation Tasks:**
+- [ ] Text overflow handling with truncation, ellipsis, and wrap options
+- [ ] Dynamic content simulator with variable text lengths
+- [ ] Missing image/media fallback design
+- [ ] Tag/badge overflow handling with "+N more" patterns
+- [ ] RTL language support and text direction switching
+
+**Acceptance Criteria:**
+- [ ] Elements handle very long and very short content gracefully
+- [ ] Overflow behaviors match CSS specifications exactly
+- [ ] Missing media shows designed fallback states
+- [ ] RTL layouts mirror correctly with proper text alignment
+
 ## P3 — Robustness / Constraints
+
+### 🎬 Animations & Transitions System
+**Goal:** Design and preview CSS animations, transitions, and scroll-triggered effects.
+
+**Implementation Tasks:**
+- [ ] Transition editor with easing curves, duration, and delay controls
+- [ ] Keyframe animation builder with timeline interface
+- [ ] Scroll-triggered animation support (intersection observer based)
+- [ ] Animation library with common presets (fade, slide, bounce)
+- [ ] Performance impact visualization and optimization suggestions
+
+**Acceptance Criteria:**
+- [ ] Transitions preview accurately in canvas
+- [ ] Complex keyframe animations play smoothly
+- [ ] Scroll animations trigger at correct viewport positions
+- [ ] Export generates optimized CSS with proper vendor prefixes
+
+### 📺 Enhanced Media Support
+**Goal:** Support for video, audio, and interactive media elements.
+
+**Implementation Tasks:**
+- [ ] Video element with poster frame design and controls styling
+- [ ] Audio player with custom control design
+- [ ] Media queries for different media types and capabilities
+- [ ] Responsive image/picture element with multiple sources
+- [ ] Background video support with performance considerations
+
+**Acceptance Criteria:**
+- [ ] Video elements show poster frames in canvas
+- [ ] Media controls can be styled and positioned
+- [ ] Responsive images switch sources correctly in preview
+- [ ] Media elements export with proper HTML5 semantic markup
+
+### 🖱️ Advanced Scrolling & Positioning
+**Goal:** Support for complex scrolling behaviors and positioning modes.
+
+**Implementation Tasks:**
+- [ ] Sticky positioning with container constraints
+- [ ] Scroll snap implementation with visual snap points
+- [ ] Custom scrollbar styling for containers
+- [ ] Fixed positioning with viewport-relative controls
+- [ ] Smooth scrolling behavior configuration
+
+**Acceptance Criteria:**
+- [ ] Sticky elements behave correctly during canvas scrolling
+- [ ] Scroll snap points are visible and functional in preview
+- [ ] Custom scrollbars render consistently across browsers
+- [ ] Fixed elements maintain position relative to viewport
+
+### 📱 Device-Specific & Touch Considerations
+**Goal:** Design considerations for touch interfaces and device capabilities.
+
+**Implementation Tasks:**
+- [ ] Touch target size validation and warnings (44px minimum)
+- [ ] Hover state alternatives for touch devices
+- [ ] Safe area respect for notched devices (env() CSS functions)
+- [ ] Orientation change handling and landscape/portrait specific styles
+- [ ] Keyboard navigation and focus indicators for accessibility
+
+**Acceptance Criteria:**
+- [ ] Touch targets meet accessibility guidelines
+- [ ] Touch-friendly alternatives available for hover interactions
+- [ ] Safe areas correctly respected on mobile preview
+- [ ] Keyboard navigation works throughout the interface
 
 ### 🎛️ Display Type & Positioning Correctness
 **Goal:** Ensure all display types and positioning modes work. Prevent abs-pos elements from being dragged outside canvas.
@@ -276,3 +436,37 @@ Add unit tests for utilities (`getActiveUnit`, breakpoint serialization), and in
 **P3 items** focus on robustness and edge case handling.
 
 Remember to update this TODO list as items are completed and new requirements emerge.
+
+---
+
+## 🚀 Extended Feature Roadmap (Web-Capable Design Features)
+
+*Based on analysis of features commonly missing in design software but essential for modern web development*
+
+### Future Considerations (P4 - Advanced/Experimental)
+
+#### 🔄 Advanced State Management
+- Form validation states (invalid, valid, required)
+- Data loading patterns (skeleton, spinner, error, empty states)
+- Progressive disclosure and conditional visibility
+- Multi-step process states and progress indicators
+
+#### 🌍 Advanced Responsive & Performance
+- Network-aware design (slow connection fallbacks)
+- Reduced motion respect (`prefers-reduced-motion`)
+- Print-specific styles and page break controls
+- Critical CSS identification and above-fold optimization
+
+#### 🧩 Component System Extensions
+- Slot-based composition patterns
+- Component variants with design tokens
+- Auto-generated style guides and documentation
+- Component usage analytics and optimization suggestions
+
+#### 🔗 Advanced Interactivity
+- Form design with validation states and error handling
+- Modal and overlay management with focus trapping
+- Drag-and-drop interface design
+- Complex navigation patterns (mega menus, breadcrumbs)
+
+These extended features represent the cutting edge of what design tools could support to bridge the gap between design and development, enabling designers to work with real web platform capabilities rather than approximations.
