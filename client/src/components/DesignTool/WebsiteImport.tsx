@@ -11,7 +11,6 @@ import { addCustomClass } from '@/store/classSlice';
 import { indexedDBManager } from '@/utils/indexedDB';
 import { nanoid } from 'nanoid';
 import type { CanvasElement } from '@/types/canvas';
-import { CSSRewriter } from '@/utils/cssRewriter';
 
 interface WebsiteImportProps {
   onImportComplete?: () => void;
@@ -60,7 +59,7 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
         throw new Error(`Failed to fetch website: ${response.statusText}`);
       }
 
-      const { html, css, assets } = await response.json();
+      const { html, css, rewrittenCSS, canvasId, assets } = await response.json();
       console.log('✅ STEP 1 COMPLETE: Website content fetched successfully');
       console.log('📄 HTML length:', html?.length || 0, 'characters');
       console.log('🎨 CSS length:', css?.length || 0, 'characters');
@@ -83,16 +82,30 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
         }
         console.log('✅ STEP 2 COMPLETE: HTML parsed successfully');
         
-        // Extract and process only used CSS classes
-        console.log('🔍 STEP 3: Analyzing HTML for used CSS classes...');
-        const usedClasses = extractUsedClasses(doc);
-        console.log(`📊 Found ${usedClasses.size} unique CSS classes in HTML:`, Array.from(usedClasses));
-        
-        console.log('🎨 STEP 4: Processing CSS with selective extraction...');
-        await processCSS(css, usedClasses);
+        console.log('🎨 STEP 3: Injecting server-rewritten CSS...');
+        if (rewrittenCSS && canvasId) {
+          // Remove any existing imported styles
+          const existingStyle = document.getElementById(`imported-styles-${canvasId}`);
+          if (existingStyle) {
+            existingStyle.remove();
+          }
+          
+          // Create and inject new styles
+          const styleElement = document.createElement('style');
+          styleElement.id = `imported-styles-${canvasId}`;
+          styleElement.textContent = rewrittenCSS;
+          document.head.appendChild(styleElement);
+          
+          // Store for canvas usage
+          (window as any).lastImportScope = canvasId;
+          (window as any).lastImportedCSS = rewrittenCSS;
+          
+          console.log(`✅ Injected ${rewrittenCSS.length} characters of scoped CSS`);
+          console.log(`🆔 Canvas ID: ${canvasId}`);
+        }
         
         // Convert body content to canvas elements (comprehensive processing)
-        console.log('🏗️ STEP 5: Converting HTML to canvas elements...');
+        console.log('🏗️ STEP 4: Converting HTML to canvas elements...');
         const bodyElement = doc.body;
         if (bodyElement && bodyElement.children.length > 0) {
           // Process all meaningful elements - no arbitrary limits
@@ -132,7 +145,7 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
           }
           
           const processingTime = Date.now() - startTime;
-          console.log(`✅ STEP 5 COMPLETE: Processed ${processedElements}/${elementsToProcess.length} elements in ${processingTime}ms`);
+          console.log(`✅ STEP 4 COMPLETE: Processed ${processedElements}/${elementsToProcess.length} elements in ${processingTime}ms`);
         } else {
           console.log('⚠️ No body element or children found - creating fallback element');
           
@@ -206,41 +219,6 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
     return usedClasses;
   };
 
-  const processCSS = async (css: string, usedClasses: Set<string>) => {
-    console.log('🎨 Processing CSS with advanced Shadow DOM rewriting');
-    console.log('📊 Input - CSS length:', css?.length || 0, 'characters');
-    console.log('📊 Input - Classes to match:', usedClasses.size);
-    
-    if (!css || css.trim().length === 0) {
-      console.error('⚠️ No CSS content to process - CSS extraction may have failed');
-      return;
-    }
-
-    try {
-      // Use the new CSS rewriter for Shadow DOM isolation
-      const rewriter = new CSSRewriter();
-      const rewritten = await rewriter.rewrite(css);
-      
-      console.log(`✅ CSS rewritten for Shadow DOM isolation`);
-      console.log(`🆔 Canvas ID: ${rewritten.canvasId}`);
-      console.log(`📊 Rewritten CSS length: ${rewritten.cssText.length} characters`);
-      console.log(`🎭 Keyframes renamed: ${rewritten.renamedKeyframes.size}`);
-      console.log(`🔤 Fonts renamed: ${rewritten.renamedFonts.size}`);
-
-      // Store the rewritten CSS and canvas ID for the Shadow DOM
-      (window as any).lastImportScope = rewritten.canvasId;
-      (window as any).lastImportedCSS = rewritten.cssText;
-      
-      console.log(`✅ STEP 4 COMPLETE: CSS processing finished successfully`);
-      
-    } catch (error) {
-      console.error('Failed to process CSS:', error);
-      // Fallback to basic scoping if rewriter fails
-      const importScope = `imported-${nanoid(8)}`;
-      (window as any).lastImportScope = importScope;
-      console.warn('⚠️ Using fallback CSS scoping');
-    }
-  };
 
   const processAssets = async (assets: Array<{ url: string; data: string; filename: string }>) => {
     console.log('Processing assets:', assets.length);
@@ -441,7 +419,7 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
         height = 150;
       }
 
-      // For Shadow DOM, we keep original class names - scoping happens via data-canvas attribute
+      // Keep original class names for scoped CSS targeting
       const importScope = (window as any).lastImportScope;
       const elementClasses = [...preservedClasses];
       
