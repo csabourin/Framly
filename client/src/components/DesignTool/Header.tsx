@@ -178,8 +178,8 @@ const Header: React.FC = () => {
           </Button>
         </div>
 
-        {/* Import Tools */}
-        <WebsiteImport />
+        {/* Import Tools - Hidden for now */}
+        {/* <WebsiteImport /> */}
 
         {/* Advanced Tools */}
         <div className="flex items-center gap-1 bg-gray-100 rounded-lg p-1" data-testid="advanced-tools">
