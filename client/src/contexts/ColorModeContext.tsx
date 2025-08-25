@@ -20,8 +20,6 @@ export interface ColorModeProviderProps {
 }
 
 export function ColorModeProvider({ children, defaultMode = 'auto' }: ColorModeProviderProps) {
-  console.log('🚀 ColorModeProvider rendering started...');
-  
   const [mode, setModeState] = useState<ColorMode>(() => {
     if (typeof window === 'undefined') return defaultMode;
     
@@ -111,7 +109,6 @@ export function ColorModeProvider({ children, defaultMode = 'auto' }: ColorModeP
 
   // Save color mode design enabled state
   const setColorModeDesignEnabled = useCallback((enabled: boolean) => {
-    console.log('🔧 Setting color mode design enabled:', enabled);
     setColorModeDesignEnabledState(enabled);
     try {
       localStorage.setItem('design-tool-color-mode-design-enabled', enabled.toString());
@@ -130,20 +127,6 @@ export function ColorModeProvider({ children, defaultMode = 'auto' }: ColorModeP
     setColorModeDesignEnabled,
   };
   
-  console.log('🎯 ColorModeContext providing:', { 
-    mode,
-    resolvedMode,
-    isColorModeDesignEnabled, 
-    setColorModeDesignEnabled: typeof setColorModeDesignEnabled,
-    hasFunction: !!setColorModeDesignEnabled,
-    contextValue: value
-  });
-  
-  // Debug: Log when state changes
-  console.log('🎯 ColorMode design enabled state:', isColorModeDesignEnabled);
-
-  console.log('🎯 About to render provider with value:', value);
-  
   return (
     <ColorModeContext.Provider value={value}>
       {children}
@@ -153,7 +136,6 @@ export function ColorModeProvider({ children, defaultMode = 'auto' }: ColorModeP
 
 export function useColorMode(): ColorModeContextValue {
   const context = useContext(ColorModeContext);
-  console.log('🔍 useColorMode called, context:', context);
   if (!context) {
     throw new Error('useColorMode must be used within a ColorModeProvider');
   }

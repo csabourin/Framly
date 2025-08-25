@@ -15,24 +15,10 @@ export function ColorModeToggle() {
   const { mode, resolvedMode, setMode, supportsHighContrast, isColorModeDesignEnabled, setColorModeDesignEnabled } = useColorMode();
   const { t } = useTranslation();
   
-  console.log('🔥 ColorMode values:', { mode, resolvedMode, isColorModeDesignEnabled, setColorModeDesignEnabled: typeof setColorModeDesignEnabled });
-  
-  // Fallback if context is not providing the function
+  // Simple toggle handler
   const handleToggleDesignMode = () => {
-    console.log('🔧 Attempting to toggle design mode. Current state:', isColorModeDesignEnabled);
-    console.log('🔧 Function type:', typeof setColorModeDesignEnabled);
-    console.log('🔧 Function value:', setColorModeDesignEnabled);
-    
     if (typeof setColorModeDesignEnabled === 'function') {
-      try {
-        setColorModeDesignEnabled(!isColorModeDesignEnabled);
-        console.log('🔧 Successfully toggled to:', !isColorModeDesignEnabled);
-      } catch (error) {
-        console.error('🔧 Error calling setColorModeDesignEnabled:', error);
-      }
-    } else {
-      console.error('🔧 setColorModeDesignEnabled is not a function:', setColorModeDesignEnabled);
-      console.error('🔧 Context appears broken. Need to investigate provider.');
+      setColorModeDesignEnabled(!isColorModeDesignEnabled);
     }
   };
 
