@@ -52,6 +52,32 @@ const Canvas: React.FC = () => {
   // Override root width based on current breakpoint
   const canvasWidth = breakpoints[currentBreakpoint]?.width || rootElement?.width || 375;
   
+  // Calculate actual content bounds to handle elements positioned outside initial canvas
+  const calculateContentBounds = useCallback(() => {
+    if (!currentElements || !rootElement) return { minY: 0, maxY: rootElement?.height || 800, width: canvasWidth };
+    
+    let minY = 0;  // Start from 0 (top of intended canvas)
+    let maxY = rootElement.height || 800;  // Default canvas height
+    
+    // Check all elements for their actual positions
+    Object.values(currentElements).forEach(element => {
+      if (!element || element.id === 'root') return;
+      
+      // For explicitly positioned elements, check their Y coordinates
+      if (element.x !== undefined && element.y !== undefined) {
+        const elementTop = element.y;
+        const elementBottom = element.y + (element.height || 100);
+        
+        minY = Math.min(minY, elementTop);
+        maxY = Math.max(maxY, elementBottom);
+      }
+    });
+    
+    return { minY, maxY, width: canvasWidth };
+  }, [currentElements, rootElement, canvasWidth]);
+  
+  const contentBounds = calculateContentBounds();
+  
 
   const selectedElement = selectedElementId ? currentElements[selectedElementId] : null;
 
@@ -1311,13 +1337,17 @@ const Canvas: React.FC = () => {
       <div 
         ref={canvasRef}
         className={`
-          bg-white shadow-lg rounded-lg overflow-hidden relative cursor-crosshair
+          bg-white shadow-lg rounded-lg relative cursor-crosshair
           ${isGridVisible ? 'canvas-grid' : ''}
         `}
         style={{ 
           width: canvasWidth, 
-          minHeight: rootElement.height,
+          height: Math.max(rootElement.height, contentBounds.maxY - contentBounds.minY + 100),
           transform: `scale(${zoomLevel})`,
+          // Add padding at the top if content extends above canvas (negative Y)
+          paddingTop: contentBounds.minY < 0 ? Math.abs(contentBounds.minY) + 50 : 50,
+          paddingBottom: 50,
+          marginTop: contentBounds.minY < 0 ? -(Math.abs(contentBounds.minY) + 50) : -50,
         }}
         onClick={handleCanvasClick}
         onMouseDown={handleMouseDown}
@@ -1342,7 +1372,10 @@ const Canvas: React.FC = () => {
               position: 'relative',
               width: '100%',
               minHeight: '100%'
-            } : {})
+            } : {}),
+            // Offset content to account for negative positioned elements
+            position: 'relative',
+            top: contentBounds.minY < 0 ? Math.abs(contentBounds.minY) : 0,
           }}
         >
           {/* Render child elements efficiently */}
