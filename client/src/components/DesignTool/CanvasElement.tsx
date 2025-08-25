@@ -819,18 +819,16 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
       });
     }
     
-    // Apply breakpoint-specific values for responsive properties
-    const responsiveProps = ['width', 'height', 'padding', 'margin', 'fontSize'];
-    responsiveProps.forEach(prop => {
-      const value = baseStyles[prop];
-      if (value && typeof value === 'object' && !Array.isArray(value) && value[currentBreakpoint]) {
-        // Use breakpoint-specific value if available
-        baseStyles[prop] = value[currentBreakpoint];
-      } else if (value && typeof value === 'object' && !Array.isArray(value)) {
-        // Fallback to mobile value if current breakpoint not available
-        baseStyles[prop] = value.mobile || value[Object.keys(value)[0]];
-      }
-    });
+    // Apply breakpoint-specific values for responsive properties from responsiveStyles
+    if (element.responsiveStyles && element.responsiveStyles[currentBreakpoint]) {
+      const breakpointStyles = element.responsiveStyles[currentBreakpoint];
+      Object.keys(breakpointStyles).forEach(prop => {
+        const value = breakpointStyles[prop as keyof typeof breakpointStyles];
+        if (value !== undefined) {
+          baseStyles[prop] = value;
+        }
+      });
+    }
     
     return baseStyles;
   }, [element.styles, element.classes, customClasses, currentBreakpoint]);
