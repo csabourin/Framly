@@ -1,11 +1,13 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { RootState } from '../../store';
 import { selectCanvasProject, selectUIState, selectCurrentElements } from '../../store/selectors';
 import { MousePointer, Layers, Smartphone } from 'lucide-react';
 import PersistenceStatus from '../PersistenceStatus';
 
 const StatusBar: React.FC = () => {
+  const { t } = useTranslation();
   const project = useSelector(selectCanvasProject);
   const { selectedTool } = useSelector(selectUIState);
 
@@ -20,23 +22,23 @@ const StatusBar: React.FC = () => {
   const getToolDisplay = () => {
     switch (selectedTool) {
       case 'select':
-        return 'Selection Tool';
+        return t('statusBar.selectionTool');
       case 'hand':
-        return 'Hand Tool';
+        return t('statusBar.handTool');
       case 'rectangle':
-        return 'Rectangle Tool';
+        return t('statusBar.rectangleTool');
       case 'text':
-        return 'Text Tool';
+        return t('statusBar.textTool');
       case 'image':
-        return 'Image Tool';
+        return t('statusBar.imageTool');
       case 'split-horizontal':
-        return 'Split Horizontal';
+        return t('statusBar.splitHorizontal');
       case 'split-vertical':
-        return 'Split Vertical';
+        return t('statusBar.splitVertical');
       case 'merge':
-        return 'Merge Tool';
+        return t('statusBar.mergeTool');
       default:
-        return 'Unknown Tool';
+        return t('statusBar.unknownTool');
     }
   };
 
@@ -62,7 +64,7 @@ const StatusBar: React.FC = () => {
       {/* Element Count */}
       <div className="flex items-center gap-1" data-testid="status-elements">
         <Layers className="w-3 h-3" />
-        <span>{elementCount} Elements</span>
+        <span>{t('statusBar.elementCount', { count: elementCount })}</span>
       </div>
       
       {/* Current Breakpoint */}
@@ -70,7 +72,7 @@ const StatusBar: React.FC = () => {
         <span>
           {project.currentBreakpoint ? (
             project.currentBreakpoint.charAt(0).toUpperCase() + project.currentBreakpoint.slice(1)
-          ) : 'Mobile'} 
+          ) : t('statusBar.mobile')} 
           ({currentBreakpoint?.width || 0}px)
         </span>
       </div>

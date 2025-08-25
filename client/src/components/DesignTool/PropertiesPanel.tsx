@@ -547,6 +547,13 @@ const PropertiesPanel: React.FC = () => {
     }
   };
 
+  const getTranslatedGroupLabel = (category: string, fallbackLabel: string) => {
+    const translationKey = `propertyGroups.${category}`;
+    const translatedText = t(translationKey);
+    // If translation key doesn't exist, use fallback
+    return translatedText !== translationKey ? translatedText : fallbackLabel;
+  };
+
   const getCategoryIcon = (category: string) => {
     const icons: Record<string, React.ComponentType<any>> = {
       content: FileText,
@@ -797,7 +804,7 @@ const PropertiesPanel: React.FC = () => {
               >
                 <div className="flex items-center gap-2">
                   <IconComponent className="w-4 h-4 text-gray-600" />
-                  <h3 className="font-medium text-gray-900">{group.label}</h3>
+                  <h3 className="font-medium text-gray-900">{getTranslatedGroupLabel(group.category, group.label)}</h3>
                   <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full">
                     {group.properties.length}
                   </span>

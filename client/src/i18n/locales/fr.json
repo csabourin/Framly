@@ -5,152 +5,147 @@
     "delete": "Supprimer",
     "edit": "Modifier",
     "add": "Ajouter",
+    "create": "Créer",
+    "update": "Mettre à jour",
     "remove": "Retirer",
-    "duplicate": "Dupliquer",
-    "clear": "Effacer",
-    "reset": "Réinitialiser",
-    "apply": "Appliquer",
     "close": "Fermer",
-    "open": "Ouvrir",
-    "preview": "Aperçu",
-    "export": "Exporter",
+    "confirm": "Confirmer",
+    "yes": "Oui",
+    "no": "Non",
+    "ok": "OK",
+    "apply": "Appliquer",
+    "reset": "Réinitialiser",
+    "clear": "Effacer",
+    "search": "Rechercher",
+    "filter": "Filtrer",
+    "sort": "Trier",
     "import": "Importer",
-    "settings": "Paramètres",
-    "help": "Aide",
+    "export": "Exporter",
+    "copy": "Copier",
+    "paste": "Coller",
+    "cut": "Couper",
+    "undo": "Annuler",
+    "redo": "Rétablir",
+    "duplicate": "Dupliquer",
+    "rename": "Renommer",
+    "move": "Déplacer",
+    "resize": "Redimensionner",
+    "rotate": "Faire pivoter",
+    "flip": "Retourner",
+    "align": "Aligner",
+    "distribute": "Distribuer",
+    "group": "Grouper",
+    "ungroup": "Dégrouper",
+    "lock": "Verrouiller",
+    "unlock": "Déverrouiller",
+    "show": "Afficher",
+    "hide": "Masquer",
+    "expand": "Développer",
+    "collapse": "Réduire",
+    "next": "Suivant",
+    "previous": "Précédent",
+    "first": "Premier",
+    "last": "Dernier",
     "loading": "Chargement...",
     "error": "Erreur",
     "success": "Succès",
     "warning": "Avertissement",
     "info": "Information"
   },
-  
+
   "header": {
-    "title": "Outil de Design",
+    "title": "Outil de Design Web Visuel",
     "newProject": "Nouveau Projet",
     "openProject": "Ouvrir Projet",
     "saveProject": "Enregistrer Projet",
     "exportProject": "Exporter Projet",
     "importWebsite": "Importer Site Web",
-    "undo": "Annuler",
-    "redo": "Refaire",
-    "language": "Langue"
+    "settings": "Paramètres",
+    "help": "Aide",
+    "account": "Compte"
   },
-  
-  "canvas": {
-    "zoomIn": "Zoom Avant",
-    "zoomOut": "Zoom Arrière",
-    "zoomFit": "Ajuster à l'Écran",
-    "zoomReset": "Réinitialiser Zoom",
-    "gridShow": "Afficher Grille",
-    "gridHide": "Masquer Grille",
-    "snapToGrid": "Aligner sur Grille",
-    "selectAll": "Tout Sélectionner",
-    "deselectAll": "Tout Désélectionner"
+
+  "sidebar": {
+    "layers": "Calques",
+    "components": "Composants",
+    "assets": "Ressources",
+    "history": "Historique"
   },
-  
-  "elements": {
+
+  "toolbar": {
+    "select": "Sélectionner",
+    "hand": "Main",
+    "shapes": "Formes",
+    "text": "Texte",
+    "media": "Média",
+    "layout": "Disposition"
+  },
+
+  "tools": {
+    "select": "Outil Sélection",
+    "hand": "Outil Main",
     "rectangle": "Rectangle",
     "text": "Texte",
-    "image": "Image",
-    "container": "Conteneur",
+    "heading": "Titre", 
     "button": "Bouton",
-    "input": "Champ de Saisie",
-    "textarea": "Zone de Texte",
-    "select": "Liste Déroulante",
+    "image": "Image",
+    "formElements": "Éléments de Formulaire",
+    "inputField": "Champ de Saisie",
+    "textArea": "Zone de Texte",
     "checkbox": "Case à Cocher",
-    "radio": "Bouton Radio",
-    "label": "Étiquette"
-  },
-  
-  "properties": {
-    "general": "Général",
-    "layout": "Mise en Page",
-    "spacing": "Espacement",
-    "typography": "Typographie",
-    "colors": "Couleurs",
-    "borders": "Bordures",
-    "shadows": "Ombres",
-    "effects": "Effets",
-    "responsive": "Responsive",
+    "radioButton": "Bouton Radio", 
+    "selectDropdown": "Menu Déroulant",
+    "structure": "Structure",
+    "section": "Section",
+    "navigation": "Navigation",
+    "header": "En-tête",
+    "footer": "Pied de page",
+    "article": "Article",
     "content": "Contenu",
-    "clickElement": "Cliquez sur un élément du canvas",
-    "selectElementToEdit": "Sélectionnez un élément pour commencer à modifier ses propriétés",
-    
-    "width": "Largeur",
-    "height": "Hauteur",
-    "minWidth": "Largeur Min",
-    "maxWidth": "Largeur Max",
-    "minHeight": "Hauteur Min",
-    "maxHeight": "Hauteur Max",
-    
-    "padding": "Rembourrage",
-    "paddingTop": "Rembourrage Haut",
-    "paddingRight": "Rembourrage Droite",
-    "paddingBottom": "Rembourrage Bas",
-    "paddingLeft": "Rembourrage Gauche",
-    "margin": "Marge",
-    "marginTop": "Marge Haut",
-    "marginRight": "Marge Droite",
-    "marginBottom": "Marge Bas",
-    "marginLeft": "Marge Gauche",
-    
-    "fontSize": "Taille Police",
-    "fontWeight": "Épaisseur Police",
-    "fontFamily": "Famille Police",
-    "lineHeight": "Hauteur Ligne",
-    "letterSpacing": "Espacement Lettres",
-    "textAlign": "Alignement Texte",
-    "textDecoration": "Décoration Texte",
-    "textTransform": "Transformation Texte",
-    
-    "backgroundColor": "Couleur Arrière-plan",
-    "color": "Couleur Texte",
-    "borderColor": "Couleur Bordure",
-    "borderWidth": "Largeur Bordure",
-    "borderRadius": "Rayon Bordure",
-    "boxShadow": "Ombre Boîte",
-    
-    "display": "Affichage",
-    "position": "Position",
-    "flexDirection": "Direction Flex",
-    "justifyContent": "Justifier Contenu",
-    "alignItems": "Aligner Éléments",
-    "gap": "Écart",
-    
-    "opacity": "Opacité",
-    "transform": "Transformation",
-    "transition": "Transition",
-    "zIndex": "Index Z",
-    "editComponentTemplate": "Modifier Modèle de Composant",
-    "releaseFromComponent": "Libérer du Composant",
-    "instanceProperties": "Propriétés d'Instance",
-    "xPosition": "Position X",
-    "yPosition": "Position Y",
-    "deleteInstance": "Supprimer Instance",
-    "deleteInstanceConfirm": "Êtes-vous sûr de vouloir supprimer cette instance de composant ?",
-    "auto": "Auto"
+    "list": "Liste",
+    "codeBlock": "Bloc de Code",
+    "divider": "Séparateur",
+    "link": "Lien",
+    "media": "Média",
+    "video": "Vidéo",
+    "audio": "Audio"
   },
-  
-  "breakpoints": {
-    "mobile": "Mobile",
-    "tablet": "Tablette",
-    "desktop": "Ordinateur",
-    "largeDesktop": "Grand Ordinateur",
-    "showBreakpoints": "Afficher Points de Rupture",
-    "hideBreakpoints": "Masquer Points de Rupture",
-    "mobileFirst": "Mobile d'abord : Définissez le mobile comme design de base. Les écrans plus grands héritent des valeurs mobiles sauf si modifiées.",
-    "inheritFromMobile": "Hériter du mobile",
-    "baseValue": "Valeur de base",
-    "clearValue": "Effacer valeur {{breakpoint}}",
-    "enterValue": "Saisir {{label}}",
-    "colorPlaceholder": "#000000"
+
+  "tooltips": {
+    "select": "Sélectionner et déplacer les éléments (V)",
+    "hand": "Outil main pour faire défiler (H)",
+    "rectangle": "Ajouter un conteneur rectangle (R)",
+    "text": "Ajouter un élément texte (T)",
+    "heading": "Ajouter un titre (Shift+T)",
+    "button": "Ajouter un élément bouton (B)",
+    "image": "Ajouter une image (I)",
+    "inputField": "Ajouter un champ de saisie",
+    "textArea": "Ajouter une zone de texte",
+    "checkbox": "Ajouter une case à cocher",
+    "radioButton": "Ajouter un bouton radio",
+    "selectDropdown": "Ajouter un menu déroulant",
+    "section": "Ajouter un conteneur section",
+    "navigation": "Ajouter une navigation",
+    "header": "Ajouter un en-tête",
+    "footer": "Ajouter un pied de page", 
+    "article": "Ajouter un conteneur article",
+    "list": "Ajouter une liste",
+    "codeBlock": "Ajouter un bloc de code",
+    "divider": "Ajouter une ligne de séparation",
+    "link": "Ajouter un hyperlien",
+    "video": "Ajouter un lecteur vidéo",
+    "audio": "Ajouter un lecteur audio",
+    "undo": "Annuler la dernière action (Ctrl+Z)",
+    "redo": "Rétablir la dernière action (Ctrl+Y)"
   },
-  
-  "toolbar": {
+
+  "panels": {
+    "properties": "Propriétés",
+    "layers": "Calques", 
     "elementTree": "Arbre des éléments",
     "components": "Composants"
   },
-  
+
   "elements": {
     "select": "Sélectionner",
     "hand": "Main",
@@ -180,7 +175,7 @@
     "video": "Vidéo",
     "audio": "Audio"
   },
-  
+
   "propertiesPanel": {
     "properties": "Propriétés",
     "classEditing": "Édition de classe",
@@ -200,7 +195,12 @@
     "savedAsDefault": "✓ Sauvegardé comme défaut !",
     "newButtonsUseDefault": "Les nouveaux boutons utiliseront le style actuel par défaut"
   },
-  
+
+  "properties": {
+    "clickElement": "Cliquez sur un élément",
+    "selectElementToEdit": "Sélectionnez un élément sur le canevas pour modifier ses propriétés"
+  },
+
   "components": {
     "createComponent": "Créer Composant",
     "editComponent": "Modifier Composant",
@@ -225,7 +225,7 @@
     "descriptionOptional": "Description (Facultative)",
     "describeComponent": "Décrivez ce que fait ce composant..."
   },
-  
+
   "customClasses": {
     "customClasses": "Classes Personnalisées",
     "createClass": "Créer Classe",
@@ -235,9 +235,9 @@
     "classStyles": "Styles de Classe",
     "noClasses": "Aucune classe personnalisée encore. Créez votre première classe CSS."
   },
-  
+
   "export": {
-    "exportOptions": "Options d'Export",
+    "exportOptions": "Options d'Exportation",
     "exportAsHTML": "Exporter en HTML",
     "exportAsReact": "Exporter en React",
     "exportAsCSS": "Exporter en CSS",
@@ -256,7 +256,7 @@
     "minifyCSS": "Minifier CSS",
     "includeComments": "Inclure les commentaires source"
   },
-  
+
   "import": {
     "importWebsite": "Importer Site Web",
     "websiteUrl": "URL du Site Web",
@@ -265,7 +265,7 @@
     "importSuccess": "Site web importé avec succès !",
     "importError": "Échec de l'importation du site web. Vérifiez l'URL et réessayez."
   },
-  
+
   "contextMenu": {
     "cut": "Couper",
     "copy": "Copier",
@@ -279,6 +279,43 @@
     "lock": "Verrouiller",
     "unlock": "Déverrouiller"
   },
+
+  "propertyGroups": {
+    "content": "Contenu",
+    "layoutPosition": "Disposition & Position",
+    "spacing": "Espacement",
+    "appearance": "Apparence",
+    "typography": "Typographie",
+    "flexbox": "Flexbox",
+    "gridLayout": "Disposition Grille",
+    "effects": "Effets",
+    "advanced": "Avancé"
+  },
+
+  "statusBar": {
+    "selectionTool": "Outil Sélection",
+    "handTool": "Outil Main",
+    "rectangleTool": "Outil Rectangle",
+    "textTool": "Outil Texte",
+    "imageTool": "Outil Image",
+    "splitHorizontal": "Diviser Horizontalement",
+    "splitVertical": "Diviser Verticalement",
+    "mergeTool": "Outil Fusionner",
+    "unknownTool": "Outil Inconnu",
+    "elementCount": "{{count}} Éléments",
+    "mobile": "Mobile"
+  },
+
+  "settings": {
+    "settings": "Paramètres",
+    "handToolBehavior": "Comportement Outil Main",
+    "enableHandleDragging": "Activer le glisser-déposer",
+    "allowDraggingElements": "Permettre le glissement des éléments par leurs poignées",
+    "enableClickToMove": "Activer clic pour déplacer",
+    "clickElementThenDestination": "Cliquer sur l'élément, puis sur la destination pour déplacer",
+    "interface": "Interface",
+    "moreSettingsComingSoon": "Plus de paramètres d'interface bientôt..."
+  },
   
   "validation": {
     "required": "Ce champ est obligatoire",
@@ -287,13 +324,13 @@
     "minLength": "Doit contenir au moins {{min}} caractères",
     "maxLength": "Ne doit pas dépasser {{max}} caractères",
     "invalidNumber": "Veuillez saisir un nombre valide",
-    "minValue": "La valeur doit être au moins {{min}}",
+    "minValue": "La valeur doit être d'au moins {{min}}",
     "maxValue": "La valeur ne doit pas dépasser {{max}}"
   },
   
   "messages": {
     "projectSaved": "Projet enregistré avec succès",
-    "projectLoaded": "Projet chargé avec succès",
+    "projectLoaded": "Projet chargé avec succès", 
     "elementDeleted": "Élément supprimé",
     "elementDuplicated": "Élément dupliqué",
     "componentCreated": "Composant créé avec succès",
@@ -303,19 +340,19 @@
     "classUpdated": "Classe personnalisée mise à jour avec succès",
     "classDeleted": "Classe personnalisée supprimée avec succès",
     "changesSaved": "Modifications enregistrées automatiquement",
-    "exportSuccess": "Export terminé avec succès",
-    "importSuccess": "Import terminé avec succès",
+    "exportSuccess": "Exportation réussie",
+    "importSuccess": "Importation réussie",
     "operationFailed": "Opération échouée. Veuillez réessayer."
   },
   
   "shortcuts": {
     "undo": "Ctrl+Z",
     "redo": "Ctrl+Y",
-    "copy": "Ctrl+C",
+    "copy": "Ctrl+C", 
     "paste": "Ctrl+V",
     "cut": "Ctrl+X",
     "selectAll": "Ctrl+A",
-    "delete": "Suppr",
+    "delete": "Supprimer",
     "duplicate": "Ctrl+D",
     "save": "Ctrl+S",
     "newProject": "Ctrl+N",
@@ -326,7 +363,7 @@
     "px": "Pixels",
     "rem": "Root Em",
     "em": "Em",
-    "percent": "Pourcentage",
+    "percent": "Pourcent",
     "vh": "Hauteur Viewport",
     "vw": "Largeur Viewport",
     "auto": "Auto"

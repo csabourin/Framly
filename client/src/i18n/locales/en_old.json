@@ -5,147 +5,152 @@
     "delete": "Delete",
     "edit": "Edit",
     "add": "Add",
-    "create": "Create",
-    "update": "Update",
     "remove": "Remove",
-    "close": "Close",
-    "confirm": "Confirm",
-    "yes": "Yes",
-    "no": "No",
-    "ok": "OK",
-    "apply": "Apply",
-    "reset": "Reset",
-    "clear": "Clear",
-    "search": "Search",
-    "filter": "Filter",
-    "sort": "Sort",
-    "import": "Import",
-    "export": "Export",
-    "copy": "Copy",
-    "paste": "Paste",
-    "cut": "Cut",
-    "undo": "Undo",
-    "redo": "Redo",
     "duplicate": "Duplicate",
-    "rename": "Rename",
-    "move": "Move",
-    "resize": "Resize",
-    "rotate": "Rotate",
-    "flip": "Flip",
-    "align": "Align",
-    "distribute": "Distribute",
-    "group": "Group",
-    "ungroup": "Ungroup",
-    "lock": "Lock",
-    "unlock": "Unlock",
-    "show": "Show",
-    "hide": "Hide",
-    "expand": "Expand",
-    "collapse": "Collapse",
-    "next": "Next",
-    "previous": "Previous",
-    "first": "First",
-    "last": "Last",
+    "clear": "Clear",
+    "reset": "Reset",
+    "apply": "Apply",
+    "close": "Close",
+    "open": "Open",
+    "preview": "Preview",
+    "export": "Export",
+    "import": "Import",
+    "settings": "Settings",
+    "help": "Help",
     "loading": "Loading...",
     "error": "Error",
     "success": "Success",
     "warning": "Warning",
     "info": "Information"
   },
-
+  
   "header": {
-    "title": "Visual Web Design Tool",
+    "title": "Design Tool",
     "newProject": "New Project",
     "openProject": "Open Project",
     "saveProject": "Save Project",
     "exportProject": "Export Project",
     "importWebsite": "Import Website",
-    "settings": "Settings",
-    "help": "Help",
-    "account": "Account"
+    "undo": "Undo",
+    "redo": "Redo",
+    "language": "Language"
   },
-
-  "sidebar": {
-    "layers": "Layers",
-    "components": "Components",
-    "assets": "Assets",
-    "history": "History"
+  
+  "canvas": {
+    "zoomIn": "Zoom In",
+    "zoomOut": "Zoom Out",
+    "zoomFit": "Fit to Screen",
+    "zoomReset": "Reset Zoom",
+    "gridShow": "Show Grid",
+    "gridHide": "Hide Grid",
+    "snapToGrid": "Snap to Grid",
+    "selectAll": "Select All",
+    "deselectAll": "Deselect All"
   },
-
-  "toolbar": {
-    "select": "Select",
-    "hand": "Hand",
-    "shapes": "Shapes",
-    "text": "Text",
-    "media": "Media",
-    "layout": "Layout"
-  },
-
-  "tools": {
-    "select": "Select Tool",
-    "hand": "Hand Tool",
+  
+  "elements": {
     "rectangle": "Rectangle",
     "text": "Text",
-    "heading": "Heading", 
-    "button": "Button",
     "image": "Image",
-    "formElements": "Form Elements",
-    "inputField": "Input Field",
-    "textArea": "Text Area",
+    "container": "Container",
+    "button": "Button",
+    "input": "Input",
+    "textarea": "Textarea",
+    "select": "Select",
     "checkbox": "Checkbox",
-    "radioButton": "Radio Button", 
-    "selectDropdown": "Select Dropdown",
-    "structure": "Structure",
-    "section": "Section",
-    "navigation": "Navigation",
-    "header": "Header",
-    "footer": "Footer",
-    "article": "Article",
+    "radio": "Radio Button",
+    "label": "Label"
+  },
+  
+  "properties": {
+    "general": "General",
+    "layout": "Layout",
+    "spacing": "Spacing",
+    "typography": "Typography",
+    "colors": "Colors",
+    "borders": "Borders",
+    "shadows": "Shadows",
+    "effects": "Effects",
+    "responsive": "Responsive",
     "content": "Content",
-    "list": "List",
-    "codeBlock": "Code Block",
-    "divider": "Divider",
-    "link": "Link",
-    "media": "Media",
-    "video": "Video",
-    "audio": "Audio"
+    "clickElement": "Click an element on the canvas",
+    "selectElementToEdit": "Select any element to start editing its properties",
+    
+    "width": "Width",
+    "height": "Height",
+    "minWidth": "Min Width",
+    "maxWidth": "Max Width",
+    "minHeight": "Min Height",
+    "maxHeight": "Max Height",
+    
+    "padding": "Padding",
+    "paddingTop": "Padding Top",
+    "paddingRight": "Padding Right",
+    "paddingBottom": "Padding Bottom",
+    "paddingLeft": "Padding Left",
+    "margin": "Margin",
+    "marginTop": "Margin Top",
+    "marginRight": "Margin Right",
+    "marginBottom": "Margin Bottom",
+    "marginLeft": "Margin Left",
+    
+    "fontSize": "Font Size",
+    "fontWeight": "Font Weight",
+    "fontFamily": "Font Family",
+    "lineHeight": "Line Height",
+    "letterSpacing": "Letter Spacing",
+    "textAlign": "Text Align",
+    "textDecoration": "Text Decoration",
+    "textTransform": "Text Transform",
+    
+    "backgroundColor": "Background Color",
+    "color": "Text Color",
+    "borderColor": "Border Color",
+    "borderWidth": "Border Width",
+    "borderRadius": "Border Radius",
+    "boxShadow": "Box Shadow",
+    
+    "display": "Display",
+    "position": "Position",
+    "flexDirection": "Flex Direction",
+    "justifyContent": "Justify Content",
+    "alignItems": "Align Items",
+    "gap": "Gap",
+    
+    "opacity": "Opacity",
+    "transform": "Transform",
+    "transition": "Transition",
+    "zIndex": "Z-Index",
+    "editComponentTemplate": "Edit Component Template",
+    "releaseFromComponent": "Release from Component",
+    "instanceProperties": "Instance Properties",
+    "xPosition": "X Position",
+    "yPosition": "Y Position",
+    "deleteInstance": "Delete Instance",
+    "deleteInstanceConfirm": "Are you sure you want to delete this component instance?",
+    "auto": "Auto"
   },
-
-  "tooltips": {
-    "select": "Select and move elements (V)",
-    "hand": "Hand tool for panning (H)",
-    "rectangle": "Add rectangle container (R)",
-    "text": "Add text element (T)",
-    "heading": "Add heading text (Shift+T)",
-    "button": "Add button element (B)",
-    "image": "Add image (I)",
-    "inputField": "Add input field",
-    "textArea": "Add text area",
-    "checkbox": "Add checkbox",
-    "radioButton": "Add radio button",
-    "selectDropdown": "Add select dropdown",
-    "section": "Add section container",
-    "navigation": "Add navigation",
-    "header": "Add header",
-    "footer": "Add footer", 
-    "article": "Add article container",
-    "list": "Add list",
-    "codeBlock": "Add code block",
-    "divider": "Add divider line",
-    "link": "Add hyperlink",
-    "video": "Add video player",
-    "audio": "Add audio player",
-    "undo": "Undo last action (Ctrl+Z)",
-    "redo": "Redo last action (Ctrl+Y)"
+  
+  "breakpoints": {
+    "mobile": "Mobile",
+    "tablet": "Tablet",
+    "desktop": "Desktop",
+    "largeDesktop": "Large Desktop",
+    "showBreakpoints": "Show Breakpoints",
+    "hideBreakpoints": "Hide Breakpoints",
+    "mobileFirst": "Mobile-first: Set mobile as your base design. Larger screens inherit mobile values unless overridden.",
+    "inheritFromMobile": "Inherit from mobile",
+    "baseValue": "Base value",
+    "clearValue": "Clear {{breakpoint}} value",
+    "enterValue": "Enter {{label}}",
+    "colorPlaceholder": "#000000"
   },
-
-  "panels": {
-    "properties": "Properties",
-    "layers": "Layers", 
+  
+  "toolbar": {
     "elementTree": "Element Tree",
     "components": "Components"
   },
-
+  
   "elements": {
     "select": "Select",
     "hand": "Hand",
@@ -175,32 +180,27 @@
     "video": "Video",
     "audio": "Audio"
   },
-
+  
   "propertiesPanel": {
     "properties": "Properties",
     "classEditing": "Class Editing",
-    "elementSelectedReady": "✅ Element selected - Ready to style!",
+    "elementSelectedReady": "✅ Element Selected - Ready to Style!",
     "startEditingHint": "Start editing any property below and a CSS class will be automatically created for this element.",
     "clickClassHint": "💡 Click a class below to edit its styles",
-    "selectClassHint": "Select a class to customize its appearance or create a new one.",
-    "appliedClasses": "Applied Classes (Click to edit)",
+    "selectClassHint": "Select a class to customize its appearance, or create a new one.",
+    "appliedClasses": "Applied Classes (Click to Edit)",
     "editing": "Editing:",
     "propertyChangesApply": "Property changes will apply to this class",
     "addNewClass": "Add New Class",
     "classNamePlaceholder": "class-name",
     "suggestions": "Suggestions:",
     "buttonProperties": "Button Properties",
-    "buttonDoubleClickHint": "💡 Double-click the button in the canvas to edit its text",
-    "makeDefaultButton": "Set as default for new buttons",
-    "savedAsDefault": "✓ Saved as default!",
-    "newButtonsUseDefault": "New buttons will use the current default style"
+    "buttonDoubleClickHint": "💡 Double-click the button on canvas to edit its text",
+    "makeDefaultButton": "Make Default for New Buttons",
+    "savedAsDefault": "✓ Saved as Default!",
+    "newButtonsUseDefault": "New buttons will use current styling as default"
   },
-
-  "properties": {
-    "clickElement": "Click an element",
-    "selectElementToEdit": "Select an element on the canvas to edit its properties"
-  },
-
+  
   "components": {
     "createComponent": "Create Component",
     "editComponent": "Edit Component",
@@ -225,7 +225,7 @@
     "descriptionOptional": "Description (Optional)",
     "describeComponent": "Describe what this component does..."
   },
-
+  
   "customClasses": {
     "customClasses": "Custom Classes",
     "createClass": "Create Class",
@@ -235,7 +235,7 @@
     "classStyles": "Class Styles",
     "noClasses": "No custom classes yet. Create your first CSS class."
   },
-
+  
   "export": {
     "exportOptions": "Export Options",
     "exportAsHTML": "Export as HTML",
@@ -256,7 +256,7 @@
     "minifyCSS": "Minify CSS",
     "includeComments": "Include source comments"
   },
-
+  
   "import": {
     "importWebsite": "Import Website",
     "websiteUrl": "Website URL",
@@ -265,7 +265,7 @@
     "importSuccess": "Website imported successfully!",
     "importError": "Failed to import website. Please check the URL and try again."
   },
-
+  
   "contextMenu": {
     "cut": "Cut",
     "copy": "Copy",
@@ -278,43 +278,6 @@
     "ungroup": "Ungroup",
     "lock": "Lock",
     "unlock": "Unlock"
-  },
-
-  "propertyGroups": {
-    "content": "Content",
-    "layoutPosition": "Layout & Position",
-    "spacing": "Spacing",
-    "appearance": "Appearance",
-    "typography": "Typography",
-    "flexbox": "Flexbox",
-    "gridLayout": "Grid Layout",
-    "effects": "Effects",
-    "advanced": "Advanced"
-  },
-
-  "statusBar": {
-    "selectionTool": "Selection Tool",
-    "handTool": "Hand Tool",
-    "rectangleTool": "Rectangle Tool",
-    "textTool": "Text Tool",
-    "imageTool": "Image Tool",
-    "splitHorizontal": "Split Horizontal",
-    "splitVertical": "Split Vertical",
-    "mergeTool": "Merge Tool",
-    "unknownTool": "Unknown Tool",
-    "elementCount": "{{count}} Elements",
-    "mobile": "Mobile"
-  },
-
-  "settings": {
-    "settings": "Settings",
-    "handToolBehavior": "Hand Tool Behavior",
-    "enableHandleDragging": "Enable handle dragging",
-    "allowDraggingElements": "Allow dragging elements from their drag handles",
-    "enableClickToMove": "Enable click-to-move",
-    "clickElementThenDestination": "Click element, then click destination to move",
-    "interface": "Interface",
-    "moreSettingsComingSoon": "More interface settings coming soon..."
   },
   
   "validation": {
