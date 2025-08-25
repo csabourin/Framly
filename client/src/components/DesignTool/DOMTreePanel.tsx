@@ -19,6 +19,7 @@ import {
   isValidDropTarget 
 } from '../../utils/canvas';
 import { historyManager } from '../../utils/historyManager';
+import { useTranslation } from 'react-i18next';
 
 interface DOMTreeNodeProps {
   element: CanvasElement;
@@ -32,15 +33,16 @@ interface DOMTreeNodeProps {
   treeHoveredZone: 'before' | 'after' | 'inside' | null;
   isTreeDragActive: boolean;
   expandedElements: Record<string, boolean>;
+  t: any;
 }
 
 // Helper function to get element label (moved outside component for better performance)
-function getElementLabel(element: CanvasElement) {
+function getElementLabel(element: CanvasElement, t: any) {
   if (element.type === 'text' && element.content) {
     const truncated = element.content.length > 20 ? element.content.substring(0, 20) + '...' : element.content;
-    return `Text: "${truncated}"`;
+    return t('elementTree.textElement', { content: truncated });
   }
-  if (element.id === 'root') return 'Root Container';
+  if (element.id === 'root') return t('elementTree.rootContainer');
   return `${element.type.charAt(0).toUpperCase() + element.type.slice(1)} ${element.id.split('-').pop()}`;
 }
 
@@ -55,7 +57,8 @@ const DOMTreeNode: React.FC<DOMTreeNodeProps> = ({
   treeHoveredElementId,
   treeHoveredZone,
   isTreeDragActive,
-  expandedElements
+  expandedElements,
+  t
 }) => {
   const dispatch = useDispatch();
   const nodeRef = useRef<HTMLDivElement>(null);
@@ -109,7 +112,7 @@ const DOMTreeNode: React.FC<DOMTreeNodeProps> = ({
     // Create ghost image
     const ghostElement = document.createElement('div');
     ghostElement.className = 'bg-blue-100 border border-blue-300 rounded px-2 py-1 text-sm text-blue-800';
-    ghostElement.textContent = getElementLabel(element);
+    ghostElement.textContent = getElementLabel(element, t);
     ghostElement.style.position = 'absolute';
     ghostElement.style.top = '-1000px';
     document.body.appendChild(ghostElement);
@@ -241,7 +244,7 @@ const DOMTreeNode: React.FC<DOMTreeNodeProps> = ({
           insertPosition: 'inside'
         }));
         
-        historyManager.recordAction('reorder', `Moved ${getElementLabel(draggedElement)} inside ${getElementLabel(element)}`);
+        historyManager.recordAction('reorder', `Moved ${getElementLabel(draggedElement, t)} inside ${getElementLabel(element, t)}`);
       } else {
         // Drop before or after the element (sibling position)
         const parentId = element.parent || 'root';
@@ -254,7 +257,7 @@ const DOMTreeNode: React.FC<DOMTreeNodeProps> = ({
         }));
         
         const positionText = zone === 'before' ? 'before' : 'after';
-        historyManager.recordAction('reorder', `Moved ${getElementLabel(draggedElement)} ${positionText} ${getElementLabel(element)}`);
+        historyManager.recordAction('reorder', `Moved ${getElementLabel(draggedElement, t)} ${positionText} ${getElementLabel(element, t)}`);
       }
     }
     
@@ -302,7 +305,7 @@ const DOMTreeNode: React.FC<DOMTreeNodeProps> = ({
         role="treeitem"
         aria-expanded={hasChildren ? isExpanded : undefined}
         aria-selected={element.id === selectedElementId}
-        aria-label={`${getElementLabel(element)}${hasChildren ? (isExpanded ? ', expanded' : ', collapsed') : ''}`}
+        aria-label={`${getElementLabel(element, t)}${hasChildren ? (isExpanded ? ', expanded' : ', collapsed') : ''}`}
         data-testid={`tree-node-${element.id}`}
       >
         {hasChildren && (
@@ -334,7 +337,7 @@ const DOMTreeNode: React.FC<DOMTreeNodeProps> = ({
           
           {getElementIcon(element.type)}
           <span className="truncate flex-1" data-testid={`element-${element.id}`}>
-            {getElementLabel(element)}
+            {getElementLabel(element, t)}
           </span>
           {!isVisible && (
             <EyeOff className="w-3 h-3 text-gray-400 flex-shrink-0" />
@@ -375,6 +378,7 @@ const DOMTreeNode: React.FC<DOMTreeNodeProps> = ({
                 treeHoveredZone={treeHoveredZone}
                 isTreeDragActive={isTreeDragActive}
                 expandedElements={expandedElements}
+                t={t}
               />
             ) : null;
           })}
@@ -385,6 +389,7 @@ const DOMTreeNode: React.FC<DOMTreeNodeProps> = ({
 };
 
 const DOMTreePanel: React.FC = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const panelRef = useRef<HTMLDivElement>(null);
   
@@ -473,7 +478,7 @@ const DOMTreePanel: React.FC = () => {
     if (isTreeDragActive && treeDraggedElementId) {
       const draggedElement = currentElements[treeDraggedElementId];
       if (draggedElement) {
-        const announcement = `Dragging ${getElementLabel(draggedElement)}. Use arrow keys to navigate and drop on target element.`;
+        const announcement = `Dragging ${getElementLabel(draggedElement, t)}. Use arrow keys to navigate and drop on target element.`;
         // Create temporary announcement element
         const announcer = document.createElement('div');
         announcer.setAttribute('aria-live', 'assertive');
@@ -498,9 +503,9 @@ const DOMTreePanel: React.FC = () => {
       aria-label="Element hierarchy tree"
     >
       <div className="p-3 border-b border-gray-200 bg-gray-50">
-        <h3 className="font-medium text-gray-900 text-sm">Element Tree</h3>
+        <h3 className="font-medium text-gray-900 text-sm">{t('elementTree.elementTree')}</h3>
         <p className="text-xs text-gray-500 mt-1">
-          {isTreeDragActive ? 'Drop to reorder elements' : 'Drag to reorder • Click to select'}
+          {isTreeDragActive ? t('elementTree.dropToReorder') : t('elementTree.dragToReorderClick')}
         </p>
       </div>
       
@@ -518,6 +523,7 @@ const DOMTreePanel: React.FC = () => {
             treeHoveredZone={treeHoveredZone}
             isTreeDragActive={isTreeDragActive}
             expandedElements={expandedElements}
+            t={t}
           />
         )}
       </div>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { RootState } from '../../store';
 import { selectCanvasProject, selectCurrentElements, selectSelectedElementId, selectComponentDefinitions, selectComponentCategories } from '../../store/selectors';
 import { setCreatingComponent } from '../../store/componentSlice';
@@ -41,6 +42,7 @@ import {
 } from '../ui/accordion';
 
 const ComponentPanel: React.FC = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const { isCreatingComponent } = useSelector((state: RootState) => state.components);
   const componentDefinitions = useSelector(selectComponentDefinitions);
@@ -209,7 +211,7 @@ const ComponentPanel: React.FC = () => {
         {/* Instructions for users when components exist */}
         {Object.values(componentDefinitions).length > 0 && (
           <div className="mb-3 p-2 bg-blue-50 border border-blue-200 rounded text-xs text-blue-700">
-            💡 Drag components to canvas or click the + button to add them
+            {t('components.dragTip')}
           </div>
         )}
         
@@ -217,7 +219,7 @@ const ComponentPanel: React.FC = () => {
         <div className="relative">
           <Search size={14} className="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-400" />
           <Input
-            placeholder="Search components..."
+            placeholder={t('components.searchPlaceholder')}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="pl-7 h-8 text-sm"
@@ -230,7 +232,7 @@ const ComponentPanel: React.FC = () => {
       <div className="flex-1 overflow-y-auto">
         {Object.keys(filteredComponents).length === 0 ? (
           <div className="p-4 text-center text-gray-500 text-sm">
-            {searchTerm ? 'No components match your search.' : 'No components yet. Create your first component by selecting an element and clicking "Create".'}
+            {searchTerm ? t('components.noMatchingComponents') : t('components.noComponentsYet')}
           </div>
         ) : (
           <Accordion type="multiple" defaultValue={Object.keys(filteredComponents)} className="px-2">

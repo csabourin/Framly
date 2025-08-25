@@ -364,6 +364,7 @@
     "tablet": "Tablet", 
     "desktop": "Desktop",
     "large": "Large",
+    "largeDesktop": "Large Desktop",
     "mobileFirst": "Mobile-first responsive design: values inherit upward",
     "baseValue": "Base value",
     "inheritFromMobile": "Inherit from mobile",

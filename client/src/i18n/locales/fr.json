@@ -364,6 +364,7 @@
     "tablet": "Tablette", 
     "desktop": "Ordinateur",
     "large": "Grand écran",
+    "largeDesktop": "Grand Ordinateur",
     "mobileFirst": "Design responsive mobile-first : les valeurs héritent vers le haut",
     "baseValue": "Valeur de base",
     "inheritFromMobile": "Hériter du mobile",
