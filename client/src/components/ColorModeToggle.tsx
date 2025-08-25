@@ -72,7 +72,7 @@ export function ColorModeToggle() {
         <Button
           variant="ghost"
           size="sm"
-          className="h-8 w-8 p-1 hover:bg-gray-100 dark:hover:bg-gray-700"
+          className="h-8 w-8 p-1 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800"
           title={t('colorMode.toggle', 'Toggle color mode')}
           data-testid="color-mode-toggle"
         >
