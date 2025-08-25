@@ -270,19 +270,21 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
           continue;
         }
         
-        // Create scoped selector to prevent conflicts with app styles
+        // Create scoped selector to match the actual class names applied to elements
         const scopedSelector = originalSelector
           .split(',')
           .map(sel => {
             const trimmed = sel.trim();
-            // Add scope prefix to prevent conflicts
+            // Create direct class selector that matches the hyphenated class names
             if (trimmed.startsWith('.')) {
-              return `.${importScope} ${trimmed}`;
+              const className = trimmed.substring(1);
+              return `.${importScope}-${className}`;
             } else if (trimmed.match(/^[a-zA-Z]/)) {
-              // Element selector
-              return `.${importScope} ${trimmed}`;
+              // Element selector - create scoped class
+              return `.${importScope}-${trimmed.replace(/[^a-zA-Z0-9]/g, '-')}`;
             } else {
-              return `.${importScope} ${trimmed}`;
+              // Complex selector - create scoped class
+              return `.${importScope}-${trimmed.replace(/[^a-zA-Z0-9]/g, '-')}`;
             }
           })
           .join(', ');
@@ -608,8 +610,9 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
         importScope ? `${importScope}-${cls}` : cls
       );
       
-      // Add the import scope class to the root container
-      if (parentId === 'root' && importScope) {
+      // Add the import scope as a wrapper class for all imported elements
+      // This ensures CSS rules can target imported elements specifically
+      if (importScope) {
         scopedClasses.unshift(importScope);
       }
 
