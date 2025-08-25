@@ -4,6 +4,7 @@ import App from "./App";
 import "./index.css";
 import { store } from './store';
 import { initializePersistence } from './utils/persistence';
+import './i18n'; // Initialize i18n
 
 // Initialize persistence system
 initializePersistence().catch(console.error);

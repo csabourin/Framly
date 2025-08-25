@@ -1,0 +1,245 @@
+{
+  "common": {
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "add": "Ajouter",
+    "remove": "Retirer",
+    "duplicate": "Dupliquer",
+    "clear": "Effacer",
+    "reset": "Réinitialiser",
+    "apply": "Appliquer",
+    "close": "Fermer",
+    "open": "Ouvrir",
+    "preview": "Aperçu",
+    "export": "Exporter",
+    "import": "Importer",
+    "settings": "Paramètres",
+    "help": "Aide",
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "success": "Succès",
+    "warning": "Avertissement",
+    "info": "Information"
+  },
+  
+  "header": {
+    "title": "Outil de Design",
+    "newProject": "Nouveau Projet",
+    "openProject": "Ouvrir Projet",
+    "saveProject": "Enregistrer Projet",
+    "exportProject": "Exporter Projet",
+    "importWebsite": "Importer Site Web",
+    "undo": "Annuler",
+    "redo": "Refaire",
+    "language": "Langue"
+  },
+  
+  "canvas": {
+    "zoomIn": "Zoom Avant",
+    "zoomOut": "Zoom Arrière",
+    "zoomFit": "Ajuster à l'Écran",
+    "zoomReset": "Réinitialiser Zoom",
+    "gridShow": "Afficher Grille",
+    "gridHide": "Masquer Grille",
+    "snapToGrid": "Aligner sur Grille",
+    "selectAll": "Tout Sélectionner",
+    "deselectAll": "Tout Désélectionner"
+  },
+  
+  "elements": {
+    "rectangle": "Rectangle",
+    "text": "Texte",
+    "image": "Image",
+    "container": "Conteneur",
+    "button": "Bouton",
+    "input": "Champ de Saisie",
+    "textarea": "Zone de Texte",
+    "select": "Liste Déroulante",
+    "checkbox": "Case à Cocher",
+    "radio": "Bouton Radio",
+    "label": "Étiquette"
+  },
+  
+  "properties": {
+    "general": "Général",
+    "layout": "Mise en Page",
+    "spacing": "Espacement",
+    "typography": "Typographie",
+    "colors": "Couleurs",
+    "borders": "Bordures",
+    "shadows": "Ombres",
+    "effects": "Effets",
+    "responsive": "Responsive",
+    "content": "Contenu",
+    
+    "width": "Largeur",
+    "height": "Hauteur",
+    "minWidth": "Largeur Min",
+    "maxWidth": "Largeur Max",
+    "minHeight": "Hauteur Min",
+    "maxHeight": "Hauteur Max",
+    
+    "padding": "Rembourrage",
+    "paddingTop": "Rembourrage Haut",
+    "paddingRight": "Rembourrage Droite",
+    "paddingBottom": "Rembourrage Bas",
+    "paddingLeft": "Rembourrage Gauche",
+    "margin": "Marge",
+    "marginTop": "Marge Haut",
+    "marginRight": "Marge Droite",
+    "marginBottom": "Marge Bas",
+    "marginLeft": "Marge Gauche",
+    
+    "fontSize": "Taille Police",
+    "fontWeight": "Épaisseur Police",
+    "fontFamily": "Famille Police",
+    "lineHeight": "Hauteur Ligne",
+    "letterSpacing": "Espacement Lettres",
+    "textAlign": "Alignement Texte",
+    "textDecoration": "Décoration Texte",
+    "textTransform": "Transformation Texte",
+    
+    "backgroundColor": "Couleur Arrière-plan",
+    "color": "Couleur Texte",
+    "borderColor": "Couleur Bordure",
+    "borderWidth": "Largeur Bordure",
+    "borderRadius": "Rayon Bordure",
+    "boxShadow": "Ombre Boîte",
+    
+    "display": "Affichage",
+    "position": "Position",
+    "flexDirection": "Direction Flex",
+    "justifyContent": "Justifier Contenu",
+    "alignItems": "Aligner Éléments",
+    "gap": "Écart",
+    
+    "opacity": "Opacité",
+    "transform": "Transformation",
+    "transition": "Transition",
+    "zIndex": "Index Z"
+  },
+  
+  "breakpoints": {
+    "mobile": "Mobile",
+    "tablet": "Tablette",
+    "desktop": "Ordinateur",
+    "largeDesktop": "Grand Ordinateur",
+    "showBreakpoints": "Afficher Points de Rupture",
+    "hideBreakpoints": "Masquer Points de Rupture",
+    "mobileFirst": "Mobile d'abord : Définissez le mobile comme design de base. Les écrans plus grands héritent des valeurs mobiles sauf si modifiées.",
+    "inheritFromMobile": "Hériter du mobile",
+    "baseValue": "Valeur de base",
+    "clearValue": "Effacer valeur {{breakpoint}}"
+  },
+  
+  "components": {
+    "createComponent": "Créer Composant",
+    "editComponent": "Modifier Composant",
+    "deleteComponent": "Supprimer Composant",
+    "duplicateComponent": "Dupliquer Composant",
+    "renameComponent": "Renommer Composant",
+    "componentName": "Nom du Composant",
+    "componentDescription": "Description du Composant",
+    "componentCategory": "Catégorie du Composant",
+    "createCategory": "Créer Catégorie",
+    "noComponents": "Aucun composant encore. Créez votre premier composant réutilisable.",
+    "propagateUpdates": "Propager Mises à Jour",
+    "detachInstance": "Détacher Instance"
+  },
+  
+  "customClasses": {
+    "customClasses": "Classes Personnalisées",
+    "createClass": "Créer Classe",
+    "editClass": "Modifier Classe",
+    "deleteClass": "Supprimer Classe",
+    "className": "Nom de Classe",
+    "classStyles": "Styles de Classe",
+    "noClasses": "Aucune classe personnalisée encore. Créez votre première classe CSS."
+  },
+  
+  "export": {
+    "exportOptions": "Options d'Export",
+    "exportAsHTML": "Exporter en HTML",
+    "exportAsReact": "Exporter en React",
+    "exportAsCSS": "Exporter en CSS",
+    "downloadFiles": "Télécharger Fichiers",
+    "copyToClipboard": "Copier dans Presse-papiers"
+  },
+  
+  "import": {
+    "importWebsite": "Importer Site Web",
+    "websiteUrl": "URL du Site Web",
+    "importButton": "Importer Site Web",
+    "importing": "Importation du site web...",
+    "importSuccess": "Site web importé avec succès !",
+    "importError": "Échec de l'importation du site web. Vérifiez l'URL et réessayez."
+  },
+  
+  "contextMenu": {
+    "cut": "Couper",
+    "copy": "Copier",
+    "paste": "Coller",
+    "delete": "Supprimer",
+    "duplicate": "Dupliquer",
+    "bringToFront": "Mettre au Premier Plan",
+    "sendToBack": "Envoyer à l'Arrière",
+    "group": "Grouper",
+    "ungroup": "Dégrouper",
+    "lock": "Verrouiller",
+    "unlock": "Déverrouiller"
+  },
+  
+  "validation": {
+    "required": "Ce champ est obligatoire",
+    "invalidEmail": "Veuillez saisir une adresse email valide",
+    "invalidUrl": "Veuillez saisir une URL valide",
+    "minLength": "Doit contenir au moins {{min}} caractères",
+    "maxLength": "Ne doit pas dépasser {{max}} caractères",
+    "invalidNumber": "Veuillez saisir un nombre valide",
+    "minValue": "La valeur doit être au moins {{min}}",
+    "maxValue": "La valeur ne doit pas dépasser {{max}}"
+  },
+  
+  "messages": {
+    "projectSaved": "Projet enregistré avec succès",
+    "projectLoaded": "Projet chargé avec succès",
+    "elementDeleted": "Élément supprimé",
+    "elementDuplicated": "Élément dupliqué",
+    "componentCreated": "Composant créé avec succès",
+    "componentUpdated": "Composant mis à jour avec succès",
+    "componentDeleted": "Composant supprimé avec succès",
+    "classCreated": "Classe personnalisée créée avec succès",
+    "classUpdated": "Classe personnalisée mise à jour avec succès",
+    "classDeleted": "Classe personnalisée supprimée avec succès",
+    "changesSaved": "Modifications enregistrées automatiquement",
+    "exportSuccess": "Export terminé avec succès",
+    "importSuccess": "Import terminé avec succès",
+    "operationFailed": "Opération échouée. Veuillez réessayer."
+  },
+  
+  "shortcuts": {
+    "undo": "Ctrl+Z",
+    "redo": "Ctrl+Y",
+    "copy": "Ctrl+C",
+    "paste": "Ctrl+V",
+    "cut": "Ctrl+X",
+    "selectAll": "Ctrl+A",
+    "delete": "Suppr",
+    "duplicate": "Ctrl+D",
+    "save": "Ctrl+S",
+    "newProject": "Ctrl+N",
+    "openProject": "Ctrl+O"
+  },
+  
+  "units": {
+    "px": "Pixels",
+    "rem": "Root Em",
+    "em": "Em",
+    "percent": "Pourcentage",
+    "vh": "Hauteur Viewport",
+    "vw": "Largeur Viewport",
+    "auto": "Auto"
+  }
+}

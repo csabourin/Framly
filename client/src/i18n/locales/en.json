@@ -1,0 +1,245 @@
+{
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "remove": "Remove",
+    "duplicate": "Duplicate",
+    "clear": "Clear",
+    "reset": "Reset",
+    "apply": "Apply",
+    "close": "Close",
+    "open": "Open",
+    "preview": "Preview",
+    "export": "Export",
+    "import": "Import",
+    "settings": "Settings",
+    "help": "Help",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "warning": "Warning",
+    "info": "Information"
+  },
+  
+  "header": {
+    "title": "Design Tool",
+    "newProject": "New Project",
+    "openProject": "Open Project",
+    "saveProject": "Save Project",
+    "exportProject": "Export Project",
+    "importWebsite": "Import Website",
+    "undo": "Undo",
+    "redo": "Redo",
+    "language": "Language"
+  },
+  
+  "canvas": {
+    "zoomIn": "Zoom In",
+    "zoomOut": "Zoom Out",
+    "zoomFit": "Fit to Screen",
+    "zoomReset": "Reset Zoom",
+    "gridShow": "Show Grid",
+    "gridHide": "Hide Grid",
+    "snapToGrid": "Snap to Grid",
+    "selectAll": "Select All",
+    "deselectAll": "Deselect All"
+  },
+  
+  "elements": {
+    "rectangle": "Rectangle",
+    "text": "Text",
+    "image": "Image",
+    "container": "Container",
+    "button": "Button",
+    "input": "Input",
+    "textarea": "Textarea",
+    "select": "Select",
+    "checkbox": "Checkbox",
+    "radio": "Radio Button",
+    "label": "Label"
+  },
+  
+  "properties": {
+    "general": "General",
+    "layout": "Layout",
+    "spacing": "Spacing",
+    "typography": "Typography",
+    "colors": "Colors",
+    "borders": "Borders",
+    "shadows": "Shadows",
+    "effects": "Effects",
+    "responsive": "Responsive",
+    "content": "Content",
+    
+    "width": "Width",
+    "height": "Height",
+    "minWidth": "Min Width",
+    "maxWidth": "Max Width",
+    "minHeight": "Min Height",
+    "maxHeight": "Max Height",
+    
+    "padding": "Padding",
+    "paddingTop": "Padding Top",
+    "paddingRight": "Padding Right",
+    "paddingBottom": "Padding Bottom",
+    "paddingLeft": "Padding Left",
+    "margin": "Margin",
+    "marginTop": "Margin Top",
+    "marginRight": "Margin Right",
+    "marginBottom": "Margin Bottom",
+    "marginLeft": "Margin Left",
+    
+    "fontSize": "Font Size",
+    "fontWeight": "Font Weight",
+    "fontFamily": "Font Family",
+    "lineHeight": "Line Height",
+    "letterSpacing": "Letter Spacing",
+    "textAlign": "Text Align",
+    "textDecoration": "Text Decoration",
+    "textTransform": "Text Transform",
+    
+    "backgroundColor": "Background Color",
+    "color": "Text Color",
+    "borderColor": "Border Color",
+    "borderWidth": "Border Width",
+    "borderRadius": "Border Radius",
+    "boxShadow": "Box Shadow",
+    
+    "display": "Display",
+    "position": "Position",
+    "flexDirection": "Flex Direction",
+    "justifyContent": "Justify Content",
+    "alignItems": "Align Items",
+    "gap": "Gap",
+    
+    "opacity": "Opacity",
+    "transform": "Transform",
+    "transition": "Transition",
+    "zIndex": "Z-Index"
+  },
+  
+  "breakpoints": {
+    "mobile": "Mobile",
+    "tablet": "Tablet",
+    "desktop": "Desktop",
+    "largeDesktop": "Large Desktop",
+    "showBreakpoints": "Show Breakpoints",
+    "hideBreakpoints": "Hide Breakpoints",
+    "mobileFirst": "Mobile-first: Set mobile as your base design. Larger screens inherit mobile values unless overridden.",
+    "inheritFromMobile": "Inherit from mobile",
+    "baseValue": "Base value",
+    "clearValue": "Clear {{breakpoint}} value"
+  },
+  
+  "components": {
+    "createComponent": "Create Component",
+    "editComponent": "Edit Component",
+    "deleteComponent": "Delete Component",
+    "duplicateComponent": "Duplicate Component",
+    "renameComponent": "Rename Component",
+    "componentName": "Component Name",
+    "componentDescription": "Component Description",
+    "componentCategory": "Component Category",
+    "createCategory": "Create Category",
+    "noComponents": "No components yet. Create your first reusable component.",
+    "propagateUpdates": "Propagate Updates",
+    "detachInstance": "Detach Instance"
+  },
+  
+  "customClasses": {
+    "customClasses": "Custom Classes",
+    "createClass": "Create Class",
+    "editClass": "Edit Class",
+    "deleteClass": "Delete Class",
+    "className": "Class Name",
+    "classStyles": "Class Styles",
+    "noClasses": "No custom classes yet. Create your first CSS class."
+  },
+  
+  "export": {
+    "exportOptions": "Export Options",
+    "exportAsHTML": "Export as HTML",
+    "exportAsReact": "Export as React",
+    "exportAsCSS": "Export as CSS",
+    "downloadFiles": "Download Files",
+    "copyToClipboard": "Copy to Clipboard"
+  },
+  
+  "import": {
+    "importWebsite": "Import Website",
+    "websiteUrl": "Website URL",
+    "importButton": "Import Website",
+    "importing": "Importing website...",
+    "importSuccess": "Website imported successfully!",
+    "importError": "Failed to import website. Please check the URL and try again."
+  },
+  
+  "contextMenu": {
+    "cut": "Cut",
+    "copy": "Copy",
+    "paste": "Paste",
+    "delete": "Delete",
+    "duplicate": "Duplicate",
+    "bringToFront": "Bring to Front",
+    "sendToBack": "Send to Back",
+    "group": "Group",
+    "ungroup": "Ungroup",
+    "lock": "Lock",
+    "unlock": "Unlock"
+  },
+  
+  "validation": {
+    "required": "This field is required",
+    "invalidEmail": "Please enter a valid email address",
+    "invalidUrl": "Please enter a valid URL",
+    "minLength": "Must be at least {{min}} characters",
+    "maxLength": "Must be no more than {{max}} characters",
+    "invalidNumber": "Please enter a valid number",
+    "minValue": "Value must be at least {{min}}",
+    "maxValue": "Value must be no more than {{max}}"
+  },
+  
+  "messages": {
+    "projectSaved": "Project saved successfully",
+    "projectLoaded": "Project loaded successfully", 
+    "elementDeleted": "Element deleted",
+    "elementDuplicated": "Element duplicated",
+    "componentCreated": "Component created successfully",
+    "componentUpdated": "Component updated successfully",
+    "componentDeleted": "Component deleted successfully",
+    "classCreated": "Custom class created successfully",
+    "classUpdated": "Custom class updated successfully",
+    "classDeleted": "Custom class deleted successfully",
+    "changesSaved": "Changes saved automatically",
+    "exportSuccess": "Export completed successfully",
+    "importSuccess": "Import completed successfully",
+    "operationFailed": "Operation failed. Please try again."
+  },
+  
+  "shortcuts": {
+    "undo": "Ctrl+Z",
+    "redo": "Ctrl+Y",
+    "copy": "Ctrl+C", 
+    "paste": "Ctrl+V",
+    "cut": "Ctrl+X",
+    "selectAll": "Ctrl+A",
+    "delete": "Delete",
+    "duplicate": "Ctrl+D",
+    "save": "Ctrl+S",
+    "newProject": "Ctrl+N",
+    "openProject": "Ctrl+O"
+  },
+  
+  "units": {
+    "px": "Pixels",
+    "rem": "Root Em",
+    "em": "Em",
+    "percent": "Percent",
+    "vh": "Viewport Height",
+    "vw": "Viewport Width",
+    "auto": "Auto"
+  }
+}

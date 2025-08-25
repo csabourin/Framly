@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { RootState } from '../../store';
 import { selectCanvasProject, selectExportModalState, selectUIState } from '../../store/selectors';
 import { switchBreakpoint, undo, redo, updateProjectName } from '../../store/canvasSlice';
@@ -9,8 +10,10 @@ import { Eye, Undo, Redo, Download, Smartphone, Tablet, Monitor, Settings, Plus,
 import UndoRedoControls from './UndoRedoControls';
 import WebsiteImport from './WebsiteImport';
 import SettingsMenu from './SettingsMenu';
+import LanguageSwitcher from '@/components/ui/language-switcher';
 
 const Header: React.FC = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const project = useSelector(selectCanvasProject);
   const { isExportModalOpen } = useSelector(selectExportModalState);
@@ -25,10 +28,10 @@ const Header: React.FC = () => {
 
   // Ensure all 4 breakpoints are present with proper defaults
   const defaultBreakpoints = {
-    mobile: { name: 'mobile', label: 'Mobile', width: 375 },
-    tablet: { name: 'tablet', label: 'Tablet', width: 768 }, 
-    desktop: { name: 'desktop', label: 'Desktop', width: 1024 },
-    large: { name: 'large', label: 'Large', width: 1440 }
+    mobile: { name: 'mobile', label: t('breakpoints.mobile'), width: 375 },
+    tablet: { name: 'tablet', label: t('breakpoints.tablet'), width: 768 }, 
+    desktop: { name: 'desktop', label: t('breakpoints.desktop'), width: 1024 },
+    large: { name: 'large', label: t('breakpoints.largeDesktop'), width: 1440 }
   };
   
   // Merge existing breakpoints with defaults, ensuring all properties are present
@@ -230,7 +233,7 @@ const Header: React.FC = () => {
             onClick={handlePreview}
             className="p-2 hover:bg-gray-100"
             data-testid="button-preview"
-            title="Preview & Code"
+            title={t('canvas.preview')}
           >
             <Eye className="w-4 h-4" />
           </Button>
@@ -247,15 +250,19 @@ const Header: React.FC = () => {
           >
             <Zap className="w-4 h-4" />
           </Button>
+          
+          {/* Language Switcher */}
+          <LanguageSwitcher />
+          
           <Button
             onClick={handleExport}
             size="sm"
             className="bg-primary text-white hover:bg-blue-600"
             data-testid="button-export"
-            title="Export Project"
+            title={t('common.export')}
           >
             <Download className="w-4 h-4 mr-2" />
-            Export
+            {t('common.export')}
           </Button>
         </div>
       </div>
