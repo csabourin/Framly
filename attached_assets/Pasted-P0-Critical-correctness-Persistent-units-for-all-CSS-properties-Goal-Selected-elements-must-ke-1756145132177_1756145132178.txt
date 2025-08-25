@@ -1,0 +1,287 @@
+P0 — Critical / correctness
+
+Persistent units for all CSS properties
+Goal: Selected elements must keep (and show) their chosen units (px, %, rem, em, vw, vh, etc.) across all editable properties.
+Implement:
+
+Add a single getActiveUnit(propertyName, elementId) utility that:
+
+Reads the element’s computed style or stored CSS class token.
+
+Resolves unit for that property (default to app-wide unit if unset).
+
+In the properties panel, bind each control to this resolver and persist user changes to the element’s class token (class-first model).
+
+Store chosen unit alongside value in the Redux slice for style editing; serialize into CSS classes in IndexedDB.
+Acceptance:
+
+Switching element selection never resets units to px.
+
+Changing a unit on margin-left does not affect width (units are per property).
+
+Undo/redo preserves units and values.
+
+Reloading the app restores units exactly as last saved.
+
+Export button behavior (tab-scoped HTML + project-named CSS)
+Goal: Export only the current tab’s HTML; CSS filename must equal the project name.
+Implement:
+
+Hook Export action to active tab route (Wouter) and canvas state snapshot for that tab.
+
+Generate HTML for the active document tree only.
+
+Generate a single CSS file named <projectName>.css.
+Acceptance:
+
+Exporting on Tab A never includes Tab B content.
+
+Downloaded CSS is <projectName>.css.
+
+Re-importing the exported pair renders identically.
+
+Canvas reflects <body> CSS (e.g., background)
+Goal: The Canvas visual equals <body> styling.
+Implement:
+
+Apply the computed <body> class tokens to the canvas host.
+
+Mirror background, color, font, line-height, etc. from <body> into the canvas root.
+Acceptance:
+
+Body background set in the app instantly appears in the canvas.
+
+Exported HTML/CSS renders the same look outside the app.
+
+Insertion rules on invalid recipients
+Goal: When dropping onto an invalid recipient, the element inserts before or after the target, based on mouse position.
+Implement:
+
+During drag-over, if recipient.canAccept(child) is false:
+
+Use bounding box midpoint: upper half → insert before, lower half → insert after.
+
+Show clear placement indicator (line/ghost).
+Acceptance:
+
+Dropping on a <span> or locked instance still inserts above/below consistently.
+
+Undo/redo preserves the exact position.
+
+Insert in canvas padding = top/bottom of DOM
+Goal: Dropping in upper padding inserts at the document top; lower padding inserts at the bottom.
+Implement:
+
+Create two drop zones mapped to document start/end.
+
+Maintain visual affordances at top/bottom.
+Acceptance:
+
+Dropping in top gutter inserts at index 0.
+
+Dropping in bottom gutter appends to the end.
+
+P1 — High priority / UX & platform
+
+Breakpoints = real media queries (mobile-first)
+Goal: Setting properties with a breakpoint active writes those properties into a mobile‑first cascade using media queries.
+Implement:
+
+Maintain a breakpoint context (base, sm, md, lg, xl).
+
+When editing in md, write base rules for mobile-first and only the overrides in @media (min-width: md).
+
+CSS generator merges per-breakpoint tokens into minimal output.
+Acceptance:
+
+A color set at base applies everywhere unless overridden at larger breakpoints.
+
+Switching breakpoints updates which controls are “active/overridden.”
+
+Exported CSS contains correct @media blocks with no duplicate base rules.
+
+i18n (EN/FR) across the interface
+Goal: Full bilingual UI.
+Implement:
+
+Integrate react-i18next.
+
+Create en.json and fr.json; wrap all strings with t().
+
+Persist user language in settings (IndexedDB); auto-detect from browser, with manual override.
+Acceptance:
+
+Language switch instantly updates all UI, tooltips, dialogs, and validation messages.
+
+New tabs and dialogs open in the selected language.
+
+Import web page + CSS scoping (fix broken flow)
+Goal: Import an external HTML+CSS and scope styles so they don’t leak.
+Implement:
+
+HTML: parse into element tree, mapping unknown tags to known element types or semantic elements.
+
+CSS: prefix/scoped strategy:
+
+Generate a unique data-attribute (e.g., data-scope="imp-xxxxx") on the imported root.
+
+Rewrite selectors to :where([data-scope="imp-xxxxx"] ...) to minimize specificity inflation.
+
+Resolve URL assets; inline small assets (<= 2MB) into IndexedDB.
+Acceptance:
+
+Imported styles affect only the imported content.
+
+No collisions with app UI or other tabs.
+
+Export maintains selectors without app-internal prefixes.
+
+Element Tree Toggle button relocation
+Goal: Place the Element Tree toggle next to the Component Panel toggle, and show at the right side.
+Implement:
+
+Move the toggle control into the right-hand toolbar cluster.
+
+Preserve keyboard shortcut unchanged.
+Acceptance:
+
+Visual order matches spec; click toggles the Element Tree panel.
+
+Tabs: rename by double‑click
+Goal: Double-click the tab label to rename.
+Implement:
+
+On dblclick → inline edit input with focus trapping and Enter/Escape handling.
+
+Persist to Redux + IndexedDB; validate uniqueness per project.
+Acceptance:
+
+Names update instantly across the UI and in export.
+
+Undo/redo returns previous name.
+
+Semantic elements (nav, section, main, aside, …) parity with Rectangle (div)
+Goal: Same properties and behaviors as div.
+Implement:
+
+Ensure the element model exposes the same editable property groups (layout, spacing, typography, background, border, effects, etc.).
+
+Ensure recipients rules allow children consistent with HTML semantics (but do not restrict styling).
+Acceptance:
+
+Selecting a <nav> shows the full properties set.
+
+CSS generation emits the correct tag selectors or class tokens identically to div.
+
+P2 — Medium priority / power-user features
+
+Component editing via tabs (double-click to open)
+Goal: Double-clicking a component instance or its entry in the Components panel opens a new component editor tab with the ghost root. Closing (X) or saving propagates changes to all instances.
+Implement:
+
+If not already open, create a tab keyed by component id.
+
+Editor uses isolated canvas with ghost root; lock external context.
+
+On save/close: increment component version, propagate updates to all instances.
+Acceptance:
+
+Double-click on instance opens the component tab.
+
+Saving updates every instance; detach instances remain unchanged.
+
+Closing via (X) behaves like save-or-discard (prompt on dirty state).
+
+Component size inherits content
+Goal: A newly inserted component sizes to its content (no arbitrary fixed size).
+Implement:
+
+Default display to display: block with no fixed width/height; allow content/intrinsic sizing.
+
+If the component’s first render has explicit size constraints, apply them; otherwise, auto (content).
+Acceptance:
+
+Inserting component wraps snugly around its content unless user sets dimensions.
+
+Button state gallery — full gallery + functional preview
+Goal: Show all button states side‑by‑side and allow interactive preview.
+Implement:
+
+Grid view with tiles for default, hover, active, focus, disabled.
+
+Toggle “Auto-cycle” demo and manual state testing (mouse/keyboard/focus).
+Acceptance:
+
+Styles per state render exactly as defined.
+
+Copy/export produces the CSS for all states.
+
+Rulers (horizontal & vertical) with configurable units + selection markers
+Goal: Add top/left rulers showing position with the app’s unit system; show markers for selected element bounds.
+Implement:
+
+Ruler overlays synced with canvas scroll/zoom.
+
+Unit config sourced from the new units system; update ticks on zoom.
+
+Selection draws ticks/lines along rulers at element edges.
+Acceptance:
+
+Zooming updates tick density.
+
+Selecting an element shows correct markers on both rulers.
+
+Draggable guides from rulers (show/hide/lock)
+Goal: Create guides for alignment; lockable and per‑tab persistent.
+Implement:
+
+Drag from ruler to create guide; double‑click ruler removes nearest guide.
+
+Context menu: hide/show all, lock/unlock all.
+
+Snap elements to guides (with modifier to ignore).
+Acceptance:
+
+Guides persist in IndexedDB per tab.
+
+Elements snap within a small threshold; locked guides are not draggable.
+
+P3 — Robustness / constraints
+
+Display type & positioning correctness; constraints for absolutely positioned items
+Goal: Ensure all display types (block, inline, inline-block, flex, grid) and positioning modes work. Prevent abs-pos elements from being dragged outside the canvas, but allow free move/resize within.
+Implement:
+
+Normalize controls for display, position, top/right/bottom/left, z-index.
+
+Drag constraints: clamp element’s bounding box to canvas bounds during drag.
+
+Resize handles active for abs-pos elements; keep within canvas.
+Acceptance:
+
+Switching display/position reflect immediately in canvas and exported CSS.
+
+Abs-pos elements cannot be lost off-screen; resize/drag feels unrestricted inside the canvas.
+
+Always-on polish (can be done alongside)
+
+Element insertion UX feedback
+Goal: Clear, accessible indicators for insertion points.
+Implement:
+
+High-contrast insertion line + ARIA live region announcing “Insert before X” / “Insert after X” / “Insert at top/bottom”.
+Acceptance:
+
+Screen readers announce insertion target.
+
+WCAG 2.1 AA contrast confirmed.
+
+Notes & dependencies
+
+State & persistence: All new UI state and style tokens must round-trip through Redux Toolkit and IndexedDB (class-first model), and work with undo/redo.
+
+Export/Import: Keep HTML/CSS generators and parsers in sync with breakpoint, units, and scoping changes.
+
+Accessibility: Follow WCAG 2.1 AA—focus states, keyboard access (rename, toggles, drag alternatives), and ARIA where indicated.
+
+Testing: Add unit tests for utilities (getActiveUnit, breakpoint serialization), and integration tests for export, import, and insertion rules.
