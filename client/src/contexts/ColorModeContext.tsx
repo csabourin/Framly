@@ -112,7 +112,15 @@ export function ColorModeProvider({ children, defaultMode = 'auto' }: ColorModeP
 export function useColorMode() {
   const context = useContext(ColorModeContext);
   if (!context) {
-    throw new Error('useColorMode must be used within a ColorModeProvider');
+    console.error('useColorMode must be used within a ColorModeProvider');
+    // Return a fallback context instead of throwing
+    return {
+      mode: 'light' as ColorMode,
+      resolvedMode: 'light' as const,
+      setMode: () => {},
+      systemPreference: 'light' as const,
+      supportsHighContrast: false
+    };
   }
   return context;
 }
