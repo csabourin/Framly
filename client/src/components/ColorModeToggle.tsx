@@ -12,13 +12,8 @@ import { Palette, Sun, Moon, Monitor, Contrast } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 export function ColorModeToggle() {
-  console.log('🎨 ColorModeToggle rendering...');
-  
-  try {
-    const { mode, resolvedMode, setMode, supportsHighContrast } = useColorMode();
-    const { t } = useTranslation();
-    
-    console.log('🎨 ColorMode values:', { mode, resolvedMode, supportsHighContrast });
+  const { mode, resolvedMode, setMode, supportsHighContrast } = useColorMode();
+  const { t } = useTranslation();
 
   const modeOptions: { value: ColorMode; label: string; icon: React.ComponentType<{ className?: string }>; description: string }[] = [
     {
@@ -74,11 +69,11 @@ export function ColorModeToggle() {
           <span className="sr-only">{t('colorMode.toggle', 'Toggle color mode')}</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-56">
-        <div className="px-2 py-1.5 text-sm font-medium text-muted-foreground">
+      <DropdownMenuContent align="end" className="w-56 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-lg">
+        <div className="px-2 py-1.5 text-sm font-medium text-gray-700 dark:text-gray-300">
           {t('colorMode.title', 'Color Mode')}
         </div>
-        <DropdownMenuSeparator />
+        <DropdownMenuSeparator className="bg-gray-200 dark:bg-gray-700" />
         {modeOptions.map((option) => {
           const IconComponent = option.icon;
           const isActive = mode === option.value;
@@ -92,8 +87,8 @@ export function ColorModeToggle() {
             >
               <IconComponent className="h-4 w-4" />
               <div className="flex-1">
-                <div className="font-medium">{option.label}</div>
-                <div className="text-xs text-muted-foreground">{option.description}</div>
+                <div className="font-medium text-gray-900 dark:text-gray-100">{option.label}</div>
+                <div className="text-xs text-gray-600 dark:text-gray-400">{option.description}</div>
               </div>
               {isActive && (
                 <div className="h-2 w-2 rounded-full bg-primary" />
@@ -104,19 +99,4 @@ export function ColorModeToggle() {
       </DropdownMenuContent>
     </DropdownMenu>
   );
-  } catch (error) {
-    console.error('🎨 ColorModeToggle error:', error);
-    // Fallback UI
-    return (
-      <Button
-        variant="ghost"
-        size="sm"
-        className="h-8 w-8 p-0 bg-red-100 border border-red-300"
-        title="Color mode (error)"
-        data-testid="color-mode-toggle-fallback"
-      >
-        <Sun className="h-4 w-4 text-red-600" />
-      </Button>
-    );
-  }
 }

@@ -1,0 +1,3072 @@
+1006-97b4b975ff7864ed.js:1  Unrecognized feature: 'ambient-light-sensor'.
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+n @ main-c93df503a906273d.js:1
+u @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+n @ main-c93df503a906273d.js:1
+u @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+navigateTo @ 1006-97b4b975ff7864ed.js:1
+refresh @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ _app-c2e3429e7e7922b3.js:9
+(anonymous) @ _app-c2e3429e7e7922b3.js:9
+onClick @ _app-c2e3429e7e7922b3.js:9
+(anonymous) @ _app-c2e3429e7e7922b3.js:14
+eB @ framework-ad4c9db86abb7211.js:1
+eH @ framework-ad4c9db86abb7211.js:1
+(anonymous) @ framework-ad4c9db86abb7211.js:1
+re @ framework-ad4c9db86abb7211.js:1
+rt @ framework-ad4c9db86abb7211.js:1
+(anonymous) @ framework-ad4c9db86abb7211.js:1
+uT @ framework-ad4c9db86abb7211.js:1
+eM @ framework-ad4c9db86abb7211.js:1
+ru @ framework-ad4c9db86abb7211.js:1
+tB @ framework-ad4c9db86abb7211.js:1
+tD @ framework-ad4c9db86abb7211.js:1
+n @ _app-c2e3429e7e7922b3.js:38
+1006-97b4b975ff7864ed.js:1  Unrecognized feature: 'battery'.
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+n @ main-c93df503a906273d.js:1
+u @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+n @ main-c93df503a906273d.js:1
+u @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+navigateTo @ 1006-97b4b975ff7864ed.js:1
+refresh @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ _app-c2e3429e7e7922b3.js:9
+(anonymous) @ _app-c2e3429e7e7922b3.js:9
+onClick @ _app-c2e3429e7e7922b3.js:9
+(anonymous) @ _app-c2e3429e7e7922b3.js:14
+eB @ framework-ad4c9db86abb7211.js:1
+eH @ framework-ad4c9db86abb7211.js:1
+(anonymous) @ framework-ad4c9db86abb7211.js:1
+re @ framework-ad4c9db86abb7211.js:1
+rt @ framework-ad4c9db86abb7211.js:1
+(anonymous) @ framework-ad4c9db86abb7211.js:1
+uT @ framework-ad4c9db86abb7211.js:1
+eM @ framework-ad4c9db86abb7211.js:1
+ru @ framework-ad4c9db86abb7211.js:1
+tB @ framework-ad4c9db86abb7211.js:1
+tD @ framework-ad4c9db86abb7211.js:1
+n @ _app-c2e3429e7e7922b3.js:38
+1006-97b4b975ff7864ed.js:1  Unrecognized feature: 'execution-while-not-rendered'.
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+n @ main-c93df503a906273d.js:1
+u @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+n @ main-c93df503a906273d.js:1
+u @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+navigateTo @ 1006-97b4b975ff7864ed.js:1
+refresh @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ _app-c2e3429e7e7922b3.js:9
+(anonymous) @ _app-c2e3429e7e7922b3.js:9
+onClick @ _app-c2e3429e7e7922b3.js:9
+(anonymous) @ _app-c2e3429e7e7922b3.js:14
+eB @ framework-ad4c9db86abb7211.js:1
+eH @ framework-ad4c9db86abb7211.js:1
+(anonymous) @ framework-ad4c9db86abb7211.js:1
+re @ framework-ad4c9db86abb7211.js:1
+rt @ framework-ad4c9db86abb7211.js:1
+(anonymous) @ framework-ad4c9db86abb7211.js:1
+uT @ framework-ad4c9db86abb7211.js:1
+eM @ framework-ad4c9db86abb7211.js:1
+ru @ framework-ad4c9db86abb7211.js:1
+tB @ framework-ad4c9db86abb7211.js:1
+tD @ framework-ad4c9db86abb7211.js:1
+n @ _app-c2e3429e7e7922b3.js:38
+1006-97b4b975ff7864ed.js:1  Unrecognized feature: 'execution-while-out-of-viewport'.
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+n @ main-c93df503a906273d.js:1
+u @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+n @ main-c93df503a906273d.js:1
+u @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+navigateTo @ 1006-97b4b975ff7864ed.js:1
+refresh @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ _app-c2e3429e7e7922b3.js:9
+(anonymous) @ _app-c2e3429e7e7922b3.js:9
+onClick @ _app-c2e3429e7e7922b3.js:9
+(anonymous) @ _app-c2e3429e7e7922b3.js:14
+eB @ framework-ad4c9db86abb7211.js:1
+eH @ framework-ad4c9db86abb7211.js:1
+(anonymous) @ framework-ad4c9db86abb7211.js:1
+re @ framework-ad4c9db86abb7211.js:1
+rt @ framework-ad4c9db86abb7211.js:1
+(anonymous) @ framework-ad4c9db86abb7211.js:1
+uT @ framework-ad4c9db86abb7211.js:1
+eM @ framework-ad4c9db86abb7211.js:1
+ru @ framework-ad4c9db86abb7211.js:1
+tB @ framework-ad4c9db86abb7211.js:1
+tD @ framework-ad4c9db86abb7211.js:1
+n @ _app-c2e3429e7e7922b3.js:38
+1006-97b4b975ff7864ed.js:1  Unrecognized feature: 'layout-animations'.
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+n @ main-c93df503a906273d.js:1
+u @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+n @ main-c93df503a906273d.js:1
+u @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+navigateTo @ 1006-97b4b975ff7864ed.js:1
+refresh @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ _app-c2e3429e7e7922b3.js:9
+(anonymous) @ _app-c2e3429e7e7922b3.js:9
+onClick @ _app-c2e3429e7e7922b3.js:9
+(anonymous) @ _app-c2e3429e7e7922b3.js:14
+eB @ framework-ad4c9db86abb7211.js:1
+eH @ framework-ad4c9db86abb7211.js:1
+(anonymous) @ framework-ad4c9db86abb7211.js:1
+re @ framework-ad4c9db86abb7211.js:1
+rt @ framework-ad4c9db86abb7211.js:1
+(anonymous) @ framework-ad4c9db86abb7211.js:1
+uT @ framework-ad4c9db86abb7211.js:1
+eM @ framework-ad4c9db86abb7211.js:1
+ru @ framework-ad4c9db86abb7211.js:1
+tB @ framework-ad4c9db86abb7211.js:1
+tD @ framework-ad4c9db86abb7211.js:1
+n @ _app-c2e3429e7e7922b3.js:38
+1006-97b4b975ff7864ed.js:1  Unrecognized feature: 'legacy-image-formats'.
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+n @ main-c93df503a906273d.js:1
+u @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+n @ main-c93df503a906273d.js:1
+u @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+navigateTo @ 1006-97b4b975ff7864ed.js:1
+refresh @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ _app-c2e3429e7e7922b3.js:9
+(anonymous) @ _app-c2e3429e7e7922b3.js:9
+onClick @ _app-c2e3429e7e7922b3.js:9
+(anonymous) @ _app-c2e3429e7e7922b3.js:14
+eB @ framework-ad4c9db86abb7211.js:1
+eH @ framework-ad4c9db86abb7211.js:1
+(anonymous) @ framework-ad4c9db86abb7211.js:1
+re @ framework-ad4c9db86abb7211.js:1
+rt @ framework-ad4c9db86abb7211.js:1
+(anonymous) @ framework-ad4c9db86abb7211.js:1
+uT @ framework-ad4c9db86abb7211.js:1
+eM @ framework-ad4c9db86abb7211.js:1
+ru @ framework-ad4c9db86abb7211.js:1
+tB @ framework-ad4c9db86abb7211.js:1
+tD @ framework-ad4c9db86abb7211.js:1
+n @ _app-c2e3429e7e7922b3.js:38
+1006-97b4b975ff7864ed.js:1  Unrecognized feature: 'navigation-override'.
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+n @ main-c93df503a906273d.js:1
+u @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+n @ main-c93df503a906273d.js:1
+u @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+navigateTo @ 1006-97b4b975ff7864ed.js:1
+refresh @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ _app-c2e3429e7e7922b3.js:9
+(anonymous) @ _app-c2e3429e7e7922b3.js:9
+onClick @ _app-c2e3429e7e7922b3.js:9
+(anonymous) @ _app-c2e3429e7e7922b3.js:14
+eB @ framework-ad4c9db86abb7211.js:1
+eH @ framework-ad4c9db86abb7211.js:1
+(anonymous) @ framework-ad4c9db86abb7211.js:1
+re @ framework-ad4c9db86abb7211.js:1
+rt @ framework-ad4c9db86abb7211.js:1
+(anonymous) @ framework-ad4c9db86abb7211.js:1
+uT @ framework-ad4c9db86abb7211.js:1
+eM @ framework-ad4c9db86abb7211.js:1
+ru @ framework-ad4c9db86abb7211.js:1
+tB @ framework-ad4c9db86abb7211.js:1
+tD @ framework-ad4c9db86abb7211.js:1
+n @ _app-c2e3429e7e7922b3.js:38
+1006-97b4b975ff7864ed.js:1  Unrecognized feature: 'oversized-images'.
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+n @ main-c93df503a906273d.js:1
+u @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+n @ main-c93df503a906273d.js:1
+u @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+navigateTo @ 1006-97b4b975ff7864ed.js:1
+refresh @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ _app-c2e3429e7e7922b3.js:9
+(anonymous) @ _app-c2e3429e7e7922b3.js:9
+onClick @ _app-c2e3429e7e7922b3.js:9
+(anonymous) @ _app-c2e3429e7e7922b3.js:14
+eB @ framework-ad4c9db86abb7211.js:1
+eH @ framework-ad4c9db86abb7211.js:1
+(anonymous) @ framework-ad4c9db86abb7211.js:1
+re @ framework-ad4c9db86abb7211.js:1
+rt @ framework-ad4c9db86abb7211.js:1
+(anonymous) @ framework-ad4c9db86abb7211.js:1
+uT @ framework-ad4c9db86abb7211.js:1
+eM @ framework-ad4c9db86abb7211.js:1
+ru @ framework-ad4c9db86abb7211.js:1
+tB @ framework-ad4c9db86abb7211.js:1
+tD @ framework-ad4c9db86abb7211.js:1
+n @ _app-c2e3429e7e7922b3.js:38
+1006-97b4b975ff7864ed.js:1  Unrecognized feature: 'publickey-credentials'.
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+n @ main-c93df503a906273d.js:1
+u @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+n @ main-c93df503a906273d.js:1
+u @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+navigateTo @ 1006-97b4b975ff7864ed.js:1
+refresh @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ _app-c2e3429e7e7922b3.js:9
+(anonymous) @ _app-c2e3429e7e7922b3.js:9
+onClick @ _app-c2e3429e7e7922b3.js:9
+(anonymous) @ _app-c2e3429e7e7922b3.js:14
+eB @ framework-ad4c9db86abb7211.js:1
+eH @ framework-ad4c9db86abb7211.js:1
+(anonymous) @ framework-ad4c9db86abb7211.js:1
+re @ framework-ad4c9db86abb7211.js:1
+rt @ framework-ad4c9db86abb7211.js:1
+(anonymous) @ framework-ad4c9db86abb7211.js:1
+uT @ framework-ad4c9db86abb7211.js:1
+eM @ framework-ad4c9db86abb7211.js:1
+ru @ framework-ad4c9db86abb7211.js:1
+tB @ framework-ad4c9db86abb7211.js:1
+tD @ framework-ad4c9db86abb7211.js:1
+n @ _app-c2e3429e7e7922b3.js:38
+1006-97b4b975ff7864ed.js:1  Unrecognized feature: 'speaker-selection'.
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+n @ main-c93df503a906273d.js:1
+u @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+n @ main-c93df503a906273d.js:1
+u @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+navigateTo @ 1006-97b4b975ff7864ed.js:1
+refresh @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ _app-c2e3429e7e7922b3.js:9
+(anonymous) @ _app-c2e3429e7e7922b3.js:9
+onClick @ _app-c2e3429e7e7922b3.js:9
+(anonymous) @ _app-c2e3429e7e7922b3.js:14
+eB @ framework-ad4c9db86abb7211.js:1
+eH @ framework-ad4c9db86abb7211.js:1
+(anonymous) @ framework-ad4c9db86abb7211.js:1
+re @ framework-ad4c9db86abb7211.js:1
+rt @ framework-ad4c9db86abb7211.js:1
+(anonymous) @ framework-ad4c9db86abb7211.js:1
+uT @ framework-ad4c9db86abb7211.js:1
+eM @ framework-ad4c9db86abb7211.js:1
+ru @ framework-ad4c9db86abb7211.js:1
+tB @ framework-ad4c9db86abb7211.js:1
+tD @ framework-ad4c9db86abb7211.js:1
+n @ _app-c2e3429e7e7922b3.js:38
+1006-97b4b975ff7864ed.js:1  Unrecognized feature: 'unoptimized-images'.
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+n @ main-c93df503a906273d.js:1
+u @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+n @ main-c93df503a906273d.js:1
+u @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+navigateTo @ 1006-97b4b975ff7864ed.js:1
+refresh @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ _app-c2e3429e7e7922b3.js:9
+(anonymous) @ _app-c2e3429e7e7922b3.js:9
+onClick @ _app-c2e3429e7e7922b3.js:9
+(anonymous) @ _app-c2e3429e7e7922b3.js:14
+eB @ framework-ad4c9db86abb7211.js:1
+eH @ framework-ad4c9db86abb7211.js:1
+(anonymous) @ framework-ad4c9db86abb7211.js:1
+re @ framework-ad4c9db86abb7211.js:1
+rt @ framework-ad4c9db86abb7211.js:1
+(anonymous) @ framework-ad4c9db86abb7211.js:1
+uT @ framework-ad4c9db86abb7211.js:1
+eM @ framework-ad4c9db86abb7211.js:1
+ru @ framework-ad4c9db86abb7211.js:1
+tB @ framework-ad4c9db86abb7211.js:1
+tD @ framework-ad4c9db86abb7211.js:1
+n @ _app-c2e3429e7e7922b3.js:38
+1006-97b4b975ff7864ed.js:1  Unrecognized feature: 'unsized-media'.
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+n @ main-c93df503a906273d.js:1
+u @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+n @ main-c93df503a906273d.js:1
+u @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+navigateTo @ 1006-97b4b975ff7864ed.js:1
+refresh @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ _app-c2e3429e7e7922b3.js:9
+(anonymous) @ _app-c2e3429e7e7922b3.js:9
+onClick @ _app-c2e3429e7e7922b3.js:9
+(anonymous) @ _app-c2e3429e7e7922b3.js:14
+eB @ framework-ad4c9db86abb7211.js:1
+eH @ framework-ad4c9db86abb7211.js:1
+(anonymous) @ framework-ad4c9db86abb7211.js:1
+re @ framework-ad4c9db86abb7211.js:1
+rt @ framework-ad4c9db86abb7211.js:1
+(anonymous) @ framework-ad4c9db86abb7211.js:1
+uT @ framework-ad4c9db86abb7211.js:1
+eM @ framework-ad4c9db86abb7211.js:1
+ru @ framework-ad4c9db86abb7211.js:1
+tB @ framework-ad4c9db86abb7211.js:1
+tD @ framework-ad4c9db86abb7211.js:1
+n @ _app-c2e3429e7e7922b3.js:38
+1006-97b4b975ff7864ed.js:1  Unrecognized feature: 'pointer-lock'.
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+n @ main-c93df503a906273d.js:1
+u @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+n @ main-c93df503a906273d.js:1
+u @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+navigateTo @ 1006-97b4b975ff7864ed.js:1
+refresh @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ _app-c2e3429e7e7922b3.js:9
+(anonymous) @ _app-c2e3429e7e7922b3.js:9
+onClick @ _app-c2e3429e7e7922b3.js:9
+(anonymous) @ _app-c2e3429e7e7922b3.js:14
+eB @ framework-ad4c9db86abb7211.js:1
+eH @ framework-ad4c9db86abb7211.js:1
+(anonymous) @ framework-ad4c9db86abb7211.js:1
+re @ framework-ad4c9db86abb7211.js:1
+rt @ framework-ad4c9db86abb7211.js:1
+(anonymous) @ framework-ad4c9db86abb7211.js:1
+uT @ framework-ad4c9db86abb7211.js:1
+eM @ framework-ad4c9db86abb7211.js:1
+ru @ framework-ad4c9db86abb7211.js:1
+tB @ framework-ad4c9db86abb7211.js:1
+tD @ framework-ad4c9db86abb7211.js:1
+n @ _app-c2e3429e7e7922b3.js:38
+1006-97b4b975ff7864ed.js:1  Allow attribute will take precedence over 'allowfullscreen'.
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+n @ main-c93df503a906273d.js:1
+u @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+n @ main-c93df503a906273d.js:1
+u @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+navigateTo @ 1006-97b4b975ff7864ed.js:1
+refresh @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ _app-c2e3429e7e7922b3.js:9
+(anonymous) @ _app-c2e3429e7e7922b3.js:9
+onClick @ _app-c2e3429e7e7922b3.js:9
+(anonymous) @ _app-c2e3429e7e7922b3.js:14
+eB @ framework-ad4c9db86abb7211.js:1
+eH @ framework-ad4c9db86abb7211.js:1
+(anonymous) @ framework-ad4c9db86abb7211.js:1
+re @ framework-ad4c9db86abb7211.js:1
+rt @ framework-ad4c9db86abb7211.js:1
+(anonymous) @ framework-ad4c9db86abb7211.js:1
+uT @ framework-ad4c9db86abb7211.js:1
+eM @ framework-ad4c9db86abb7211.js:1
+ru @ framework-ad4c9db86abb7211.js:1
+tB @ framework-ad4c9db86abb7211.js:1
+tD @ framework-ad4c9db86abb7211.js:1
+n @ _app-c2e3429e7e7922b3.js:38
+1006-97b4b975ff7864ed.js:1  Allow attribute will take precedence over 'allowpaymentrequest'.
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+n @ main-c93df503a906273d.js:1
+u @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+n @ main-c93df503a906273d.js:1
+u @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+navigateTo @ 1006-97b4b975ff7864ed.js:1
+refresh @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ _app-c2e3429e7e7922b3.js:9
+(anonymous) @ _app-c2e3429e7e7922b3.js:9
+onClick @ _app-c2e3429e7e7922b3.js:9
+(anonymous) @ _app-c2e3429e7e7922b3.js:14
+eB @ framework-ad4c9db86abb7211.js:1
+eH @ framework-ad4c9db86abb7211.js:1
+(anonymous) @ framework-ad4c9db86abb7211.js:1
+re @ framework-ad4c9db86abb7211.js:1
+rt @ framework-ad4c9db86abb7211.js:1
+(anonymous) @ framework-ad4c9db86abb7211.js:1
+uT @ framework-ad4c9db86abb7211.js:1
+eM @ framework-ad4c9db86abb7211.js:1
+ru @ framework-ad4c9db86abb7211.js:1
+tB @ framework-ad4c9db86abb7211.js:1
+tD @ framework-ad4c9db86abb7211.js:1
+n @ _app-c2e3429e7e7922b3.js:38
+Fetch finished loading: GET "<URL>".
+Fetch finished loading: GET "<URL>".
+Fetch finished loading: GET "<URL>".
+Fetch finished loading: GET "<URL>".
+Fetch finished loading: GET "<URL>".
+Fetch finished loading: GET "<URL>".
+Fetch finished loading: GET "<URL>".
+Fetch finished loading: GET "<URL>".
+Fetch finished loading: GET "<URL>".
+Fetch finished loading: GET "<URL>".
+Fetch finished loading: GET "<URL>".
+Fetch finished loading: GET "<URL>".
+Fetch finished loading: GET "<URL>".
+Fetch finished loading: GET "<URL>".
+Fetch finished loading: GET "<URL>".
+Fetch finished loading: GET "<URL>".
+Fetch finished loading: GET "<URL>".
+Fetch finished loading: GET "<URL>".
+Fetch finished loading: GET "<URL>".
+Fetch finished loading: GET "<URL>".
+Fetch finished loading: GET "<URL>".
+Fetch finished loading: GET "<URL>".
+Fetch finished loading: GET "<URL>".
+Fetch finished loading: GET "<URL>".
+Fetch finished loading: GET "<URL>".
+_app-c2e3429e7e7922b3.js:38 Fetch failed loading: POST "https://analytics.google.com/g/collect?v=2&tid=G-MPJY3F1YEL&gtm=45je58l0v9135634466za200&_p=1756150216377&_gaz=1&gcd=13l3l3l3l2l1&npa=0&dma=0&tag_exp=101509157~103116026~103200004~103233427~104527906~104528501~104684208~104684211~104948811~104948813~105399921~105399923&ul=fr-ca&sr=2560x1440&cid=1570992701.1755893996&ecid=404491333&ir=1&uaa=x86&uab=64&uafvl=Not%253BA%253DBrand%3B99.0.0.0%7CMicrosoft%2520Edge%3B139.0.3405.111%7CChromium%3B139.0.7258.139&uamb=0&uam=&uap=Windows&uapv=19.0.0&uaw=0&are=1&frm=0&pscdl=noapi&_eu=EBAIAAQ&_s=165&dl=https%3A%2F%2Freplit.com%2F%40csabourin%2FLayoutMaster&dp=%2F%40csabourin%2FLayoutMaster&dt=replEnvironmentDesktop&sid=1756141441&sct=83&seg=1&_tu=wAQ&en=Workspace%20Webview%20Used&_ee=1&ep.event_category=All&ep.value=0&_et=18843&tfd=6762854".
+(anonymous) @ _app-c2e3429e7e7922b3.js:38
+$c @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:247
+rm @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:427
+RM @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:888
+k.Ib @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:893
+k.add @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:895
+k.Fl @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:910
+k.Tp @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:910
+(anonymous) @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:907
+mn @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:443
+pp @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:463
+(anonymous) @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:907
+c @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:843
+gJ @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:843
+k.Sp @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:907
+c @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:921
+v @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:482
+vn @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:445
+Uq @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:482
+Tq.flush @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:486
+Tq.push @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:484
+Kq @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:479
+event @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:740
+fD @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:746
+b.push @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:752
+bD @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:752
+jD @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:752
+ND @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:765
+OD.b.push @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:766
+Sa @ analytics.js:51
+(anonymous) @ analytics.js:83
+(anonymous) @ analytics.js:47
+(anonymous) @ analytics.js:87
+(anonymous) @ analytics.js:68
+(anonymous) @ analytics.js:102
+(anonymous) @ analytics.js:101
+N @ analytics.js:103
+(anonymous) @ index.js:360
+(anonymous) @ protos.js:372
+(anonymous) @ protos.js:178
+(anonymous) @ index.ts:270
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+s @ tslib.es6.js:73
+Promise.then
+a @ tslib.es6.js:76
+(anonymous) @ tslib.es6.js:76
+u @ tslib.es6.js:72
+(anonymous) @ ajs-destination.bundle.8e6b895db75187c55313.js:1
+(anonymous) @ index.ts:286
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+push.3771.t.track @ ajs-destination.bundle.8e6b895db75187c55313.js:1
+(anonymous) @ delivery.js:28
+(anonymous) @ delivery.js:11
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+(anonymous) @ delivery.js:4
+o @ delivery.js:27
+(anonymous) @ event-queue.js:325
+(anonymous) @ event-queue.js:323
+n @ _app-c2e3429e7e7922b3.js:38
+setTimeout
+(anonymous) @ _app-c2e3429e7e7922b3.js:38
+(anonymous) @ event-queue.js:321
+(anonymous) @ event-queue.js:320
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+s @ tslib.es6.js:73
+Promise.then
+a @ tslib.es6.js:76
+s @ tslib.es6.js:73
+Promise.then
+a @ tslib.es6.js:76
+(anonymous) @ tslib.es6.js:76
+u @ tslib.es6.js:72
+(anonymous) @ event-queue.js:273
+(anonymous) @ event-queue.js:181
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+s @ tslib.es6.js:73
+Promise.then
+a @ tslib.es6.js:76
+(anonymous) @ tslib.es6.js:76
+u @ tslib.es6.js:72
+(anonymous) @ event-queue.js:169
+(anonymous) @ event-queue.js:135
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+(anonymous) @ event-queue.js:128
+(anonymous) @ dispatch.js:25
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+p @ dispatch.js:18
+(anonymous) @ index.ts:460
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+(anonymous) @ index.ts:454
+(anonymous) @ index.ts:253
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+n.track @ index.ts:241
+A @ _app-c2e3429e7e7922b3.js:1
+x @ 1006-97b4b975ff7864ed.js:1
+refresh @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ _app-c2e3429e7e7922b3.js:9
+(anonymous) @ _app-c2e3429e7e7922b3.js:9
+onClick @ _app-c2e3429e7e7922b3.js:9
+(anonymous) @ _app-c2e3429e7e7922b3.js:14
+eB @ framework-ad4c9db86abb7211.js:1
+eH @ framework-ad4c9db86abb7211.js:1
+(anonymous) @ framework-ad4c9db86abb7211.js:1
+re @ framework-ad4c9db86abb7211.js:1
+rt @ framework-ad4c9db86abb7211.js:1
+(anonymous) @ framework-ad4c9db86abb7211.js:1
+uT @ framework-ad4c9db86abb7211.js:1
+eM @ framework-ad4c9db86abb7211.js:1
+ru @ framework-ad4c9db86abb7211.js:1
+tB @ framework-ad4c9db86abb7211.js:1
+tD @ framework-ad4c9db86abb7211.js:1
+n @ _app-c2e3429e7e7922b3.js:38
+workspace_iframe.html?initialPath=%2F&id=%3Ar8hq%3A:32  Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+workspace_iframe.html?initialPath=%2F&id=%3Ar8hq%3A:32  Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+workspace_iframe.html?initialPath=%2F&id=%3Ar8hq%3A:32  Unrecognized feature: 'ambient-light-sensor'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar8hq%3A:32  Unrecognized feature: 'ambient-light-sensor'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar8hq%3A:32  Unrecognized feature: 'battery'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar8hq%3A:32  Unrecognized feature: 'battery'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar8hq%3A:32  Unrecognized feature: 'execution-while-not-rendered'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar8hq%3A:32  Unrecognized feature: 'execution-while-not-rendered'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar8hq%3A:32  Unrecognized feature: 'execution-while-out-of-viewport'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar8hq%3A:32  Unrecognized feature: 'execution-while-out-of-viewport'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar8hq%3A:32  Unrecognized feature: 'layout-animations'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar8hq%3A:32  Unrecognized feature: 'layout-animations'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar8hq%3A:32  Unrecognized feature: 'legacy-image-formats'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar8hq%3A:32  Unrecognized feature: 'legacy-image-formats'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar8hq%3A:32  Unrecognized feature: 'navigation-override'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar8hq%3A:32  Unrecognized feature: 'navigation-override'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar8hq%3A:32  Unrecognized feature: 'oversized-images'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar8hq%3A:32  Unrecognized feature: 'oversized-images'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar8hq%3A:32  Unrecognized feature: 'publickey-credentials'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar8hq%3A:32  Unrecognized feature: 'publickey-credentials'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar8hq%3A:32  Unrecognized feature: 'speaker-selection'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar8hq%3A:32  Unrecognized feature: 'speaker-selection'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar8hq%3A:32  Unrecognized feature: 'unoptimized-images'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar8hq%3A:32  Unrecognized feature: 'unoptimized-images'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar8hq%3A:32  Unrecognized feature: 'unsized-media'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar8hq%3A:32  Unrecognized feature: 'unsized-media'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar8hq%3A:32  Allow attribute will take precedence over 'allowfullscreen'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar8hq%3A:32  Allow attribute will take precedence over 'allowfullscreen'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar8hq%3A:32  Allow attribute will take precedence over 'allowpaymentrequest'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar8hq%3A:32  Allow attribute will take precedence over 'allowpaymentrequest'.
+_app-c2e3429e7e7922b3.js:38 XHR finished loading: POST "https://stats.g.doubleclick.net/j/collect?t=dc&aip=1&_r=3&v=1&_v=j102&tid=UA-25629695-1&cid=1570992701.1755893996&jid=1575288712&gjid=1510200836&_gid=227805936.1755893996&_u=SCCAgEAjQAAAAGgCIAD~&z=633219251".
+(anonymous) @ _app-c2e3429e7e7922b3.js:38
+(anonymous) @ _app-c2e3429e7e7922b3.js:38
+wd @ analytics.js:46
+pe @ analytics.js:44
+(anonymous) @ analytics.js:83
+(anonymous) @ analytics.js:47
+(anonymous) @ analytics.js:87
+(anonymous) @ analytics.js:68
+(anonymous) @ analytics.js:102
+(anonymous) @ analytics.js:101
+N @ analytics.js:103
+(anonymous) @ index.js:360
+(anonymous) @ protos.js:372
+(anonymous) @ protos.js:178
+(anonymous) @ index.ts:270
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+s @ tslib.es6.js:73
+Promise.then
+a @ tslib.es6.js:76
+(anonymous) @ tslib.es6.js:76
+u @ tslib.es6.js:72
+(anonymous) @ ajs-destination.bundle.8e6b895db75187c55313.js:1
+(anonymous) @ index.ts:286
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+push.3771.t.track @ ajs-destination.bundle.8e6b895db75187c55313.js:1
+(anonymous) @ delivery.js:28
+(anonymous) @ delivery.js:11
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+(anonymous) @ delivery.js:4
+o @ delivery.js:27
+(anonymous) @ event-queue.js:325
+(anonymous) @ event-queue.js:323
+n @ _app-c2e3429e7e7922b3.js:38
+setTimeout
+(anonymous) @ _app-c2e3429e7e7922b3.js:38
+(anonymous) @ event-queue.js:321
+(anonymous) @ event-queue.js:320
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+s @ tslib.es6.js:73
+Promise.then
+a @ tslib.es6.js:76
+s @ tslib.es6.js:73
+Promise.then
+a @ tslib.es6.js:76
+(anonymous) @ tslib.es6.js:76
+u @ tslib.es6.js:72
+(anonymous) @ event-queue.js:273
+(anonymous) @ event-queue.js:181
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+s @ tslib.es6.js:73
+Promise.then
+a @ tslib.es6.js:76
+(anonymous) @ tslib.es6.js:76
+u @ tslib.es6.js:72
+(anonymous) @ event-queue.js:169
+(anonymous) @ event-queue.js:135
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+(anonymous) @ event-queue.js:128
+(anonymous) @ dispatch.js:25
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+p @ dispatch.js:18
+(anonymous) @ index.ts:460
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+(anonymous) @ index.ts:454
+(anonymous) @ index.ts:253
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+n.track @ index.ts:241
+A @ _app-c2e3429e7e7922b3.js:1
+x @ 1006-97b4b975ff7864ed.js:1
+refresh @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ _app-c2e3429e7e7922b3.js:9
+(anonymous) @ _app-c2e3429e7e7922b3.js:9
+onClick @ _app-c2e3429e7e7922b3.js:9
+(anonymous) @ _app-c2e3429e7e7922b3.js:14
+eB @ framework-ad4c9db86abb7211.js:1
+eH @ framework-ad4c9db86abb7211.js:1
+(anonymous) @ framework-ad4c9db86abb7211.js:1
+re @ framework-ad4c9db86abb7211.js:1
+rt @ framework-ad4c9db86abb7211.js:1
+(anonymous) @ framework-ad4c9db86abb7211.js:1
+uT @ framework-ad4c9db86abb7211.js:1
+eM @ framework-ad4c9db86abb7211.js:1
+ru @ framework-ad4c9db86abb7211.js:1
+tB @ framework-ad4c9db86abb7211.js:1
+tD @ framework-ad4c9db86abb7211.js:1
+n @ _app-c2e3429e7e7922b3.js:38
+Fetch finished loading: POST "<URL>".
+Fetch finished loading: POST "<URL>".
+Fetch finished loading: POST "<URL>".
+Fetch finished loading: POST "<URL>".
+Fetch finished loading: POST "<URL>".
+Fetch finished loading: POST "<URL>".
+Fetch finished loading: POST "<URL>".
+Fetch finished loading: POST "<URL>".
+Fetch finished loading: POST "<URL>".
+Fetch finished loading: POST "<URL>".
+Fetch finished loading: POST "<URL>".
+Fetch finished loading: POST "<URL>".
+Fetch finished loading: POST "<URL>".
+Fetch finished loading: POST "<URL>".
+client:495 [vite] connecting...
+client:536  WebSocket connection to 'wss://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/?token=3yBWfOfrR_z8' failed: 
+setupWebSocket @ client:536
+(anonymous) @ client:531
+  WebSocket connection to 'wss://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/?token=3yBWfOfrR_z8' failed: 
+setupWebSocket @ 1bd21cbd-0e36-4bdb-8…ev/@vite/client:536
+(anonymous) @ 1bd21cbd-0e36-4bdb-8…ev/@vite/client:531
+client:536  Uncaught (in promise) SyntaxError: Failed to construct 'WebSocket': The URL 'wss://localhost:undefined/?token=3yBWfOfrR_z8' is invalid.
+    at setupWebSocket (client:536:19)
+    at fallback (client:509:16)
+    at WebSocket.<anonymous> (client:555:7)
+setupWebSocket @ client:536
+fallback @ client:509
+(anonymous) @ client:555
+useComponentPropagation.ts:15  The result function returned its own inputs without modification. e.g
+`createSelector([state => state.todos], todos => todos)`
+This could lead to inefficient memoization and unnecessary re-renders.
+Ensure transformation logic is in the result function, and extraction logic is in the input selectors. {stack: 'Error\n    at Object.runIdentityFunctionCheck [as r…dules/.vite/deps/react-redux.js?v=71123327:60:21)'}
+runIdentityFunctionCheck @ identityFunctionCheck.ts:44
+dependenciesChecker @ createSelectorCreator.ts:418
+memoized @ weakMapMemoize.ts:228
+memoized @ useSelector.ts:171
+memoizedSelector @ use-sync-external-store-with-selector.development.js:46
+(anonymous) @ use-sync-external-store-with-selector.development.js:70
+mountSyncExternalStore @ react-dom.development.js:15980
+useSyncExternalStore @ react-dom.development.js:16908
+useSyncExternalStore @ react.development.js:1676
+exports.useSyncExternalStoreWithSelector @ use-sync-external-store-with-selector.development.js:81
+useSelector2 @ useSelector.ts:243
+useComponentPropagation @ useComponentPropagation.ts:15
+DesignToolContent @ index.tsx:32
+renderWithHooks @ react-dom.development.js:15486
+mountIndeterminateComponent @ react-dom.development.js:20103
+beginWork @ react-dom.development.js:21626
+beginWork$1 @ react-dom.development.js:27465
+performUnitOfWork @ react-dom.development.js:26596
+workLoopSync @ react-dom.development.js:26505
+renderRootSync @ react-dom.development.js:26473
+performConcurrentWorkOnRoot @ react-dom.development.js:25777
+workLoop @ scheduler.development.js:266
+flushWork @ scheduler.development.js:239
+performWorkUntilDeadline @ scheduler.development.js:533
+PropertiesPanel.tsx:76  The result function returned its own inputs without modification. e.g
+`createSelector([state => state.todos], todos => todos)`
+This could lead to inefficient memoization and unnecessary re-renders.
+Ensure transformation logic is in the result function, and extraction logic is in the input selectors. {stack: 'Error\n    at Object.runIdentityFunctionCheck [as r…dules/.vite/deps/react-redux.js?v=71123327:60:21)'}
+runIdentityFunctionCheck @ identityFunctionCheck.ts:44
+dependenciesChecker @ createSelectorCreator.ts:418
+memoized @ weakMapMemoize.ts:228
+memoized @ useSelector.ts:171
+memoizedSelector @ use-sync-external-store-with-selector.development.js:46
+(anonymous) @ use-sync-external-store-with-selector.development.js:70
+mountSyncExternalStore @ react-dom.development.js:15980
+useSyncExternalStore @ react-dom.development.js:16908
+useSyncExternalStore @ react.development.js:1676
+exports.useSyncExternalStoreWithSelector @ use-sync-external-store-with-selector.development.js:81
+useSelector2 @ useSelector.ts:243
+PropertiesPanel @ PropertiesPanel.tsx:76
+renderWithHooks @ react-dom.development.js:15486
+mountIndeterminateComponent @ react-dom.development.js:20103
+beginWork @ react-dom.development.js:21626
+beginWork$1 @ react-dom.development.js:27465
+performUnitOfWork @ react-dom.development.js:26596
+workLoopSync @ react-dom.development.js:26505
+renderRootSync @ react-dom.development.js:26473
+performConcurrentWorkOnRoot @ react-dom.development.js:25777
+workLoop @ scheduler.development.js:266
+flushWork @ scheduler.development.js:239
+performWorkUntilDeadline @ scheduler.development.js:533
+CreateComponentModal.tsx:39  The result function returned its own inputs without modification. e.g
+`createSelector([state => state.todos], todos => todos)`
+This could lead to inefficient memoization and unnecessary re-renders.
+Ensure transformation logic is in the result function, and extraction logic is in the input selectors. {stack: 'Error\n    at Object.runIdentityFunctionCheck [as r…dules/.vite/deps/react-redux.js?v=71123327:60:21)'}
+runIdentityFunctionCheck @ identityFunctionCheck.ts:44
+dependenciesChecker @ createSelectorCreator.ts:418
+memoized @ weakMapMemoize.ts:228
+memoized @ useSelector.ts:171
+memoizedSelector @ use-sync-external-store-with-selector.development.js:46
+(anonymous) @ use-sync-external-store-with-selector.development.js:70
+mountSyncExternalStore @ react-dom.development.js:15980
+useSyncExternalStore @ react-dom.development.js:16908
+useSyncExternalStore @ react.development.js:1676
+exports.useSyncExternalStoreWithSelector @ use-sync-external-store-with-selector.development.js:81
+useSelector2 @ useSelector.ts:243
+CreateComponentModal @ CreateComponentModal.tsx:39
+renderWithHooks @ react-dom.development.js:15486
+mountIndeterminateComponent @ react-dom.development.js:20103
+beginWork @ react-dom.development.js:21626
+beginWork$1 @ react-dom.development.js:27465
+performUnitOfWork @ react-dom.development.js:26596
+workLoopSync @ react-dom.development.js:26505
+renderRootSync @ react-dom.development.js:26473
+performConcurrentWorkOnRoot @ react-dom.development.js:25777
+workLoop @ scheduler.development.js:266
+flushWork @ scheduler.development.js:239
+performWorkUntilDeadline @ scheduler.development.js:533
+indexedDB.ts:79 IndexedDB opened successfully
+indexedDB.ts:581 IndexedDB initialized successfully
+indexedDB.ts:601 Project loaded from IndexedDB: default-project
+persistence.ts:86 Loading persisted project: Beppo et cie.
+workspace_iframe.html?initialPath=%2F&id=%3Ar8hq%3A:142  Refused to load the script 'https://replit.com/public/js/beacon.js' because it violates the following Content Security Policy directive: "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://fonts.googleapis.com https://fonts.gstatic.com". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback.
+
+onIframeLoad @ workspace_iframe.html?initialPath=%2F&id=%3Ar8hq%3A:142
+  Refused to load the script 'https://replit.com/public/js/beacon.js' because it violates the following Content Security Policy directive: "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://fonts.googleapis.com https://fonts.gstatic.com". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback.
+
+onIframeLoad @ workspace_iframe.htm…F&id=%3Ar8hq%3A:142
+persistence.ts:225 Loaded 3 component definitions in 0 categories
+persistence.ts:248 Loaded 60 custom classes and 0 class categories
+react-dom.development.js:86  Warning: Unsupported style property border-top-left-radius. Did you mean borderTopLeftRadius?
+    at div
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-2K77HOHX.js?v=71123327:79:13
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-2K77HOHX.js?v=71123327:56:13
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-AXMZZQ2X.js?v=71123327:42:13
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-context-menu.js?v=71123327:97:13
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at Popper (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-JUSJUB55.js?v=71123327:1919:11)
+    at Menu (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-OAA53SIK.js?v=71123327:86:11)
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at ContextMenu (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-context-menu.js?v=71123327:61:11)
+    at ElementContextMenu (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/components/DesignTool/ElementContextMenu.tsx:29:31)
+    at CanvasElement (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/components/DesignTool/CanvasElement.tsx:29:3)
+    at div
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-2K77HOHX.js?v=71123327:79:13
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-2K77HOHX.js?v=71123327:56:13
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-AXMZZQ2X.js?v=71123327:42:13
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-context-menu.js?v=71123327:97:13
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at Popper (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-JUSJUB55.js?v=71123327:1919:11)
+    at Menu (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-OAA53SIK.js?v=71123327:86:11)
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at ContextMenu (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-context-menu.js?v=71123327:61:11)
+    at ElementContextMenu (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/components/DesignTool/ElementContextMenu.tsx:29:31)
+    at CanvasElement (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/components/DesignTool/CanvasElement.tsx:29:3)
+    at div
+    at div
+    at main
+    at Canvas (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/components/DesignTool/Canvas.tsx:29:20)
+    at div
+    at div
+    at DesignToolContent (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/components/DesignTool/index.tsx:45:3)
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/react-redux.js?v=71123327:923:11)
+    at DesignTool
+    at Route (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=71123327:265:16)
+    at Switch (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=71123327:321:17)
+    at Router
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at TooltipProvider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-tooltip.js?v=71123327:59:5)
+    at ColorModeProvider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/contexts/ColorModeContext.tsx:20:37)
+    at QueryClientProvider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js?v=71123327:2805:3)
+    at App
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/react-redux.js?v=71123327:923:11)
+printWarning @ react-dom.development.js:86
+error @ react-dom.development.js:60
+warnHyphenatedStyleName @ react-dom.development.js:2695
+warnValidStyle @ react-dom.development.js:2743
+setValueForStyles @ react-dom.development.js:2816
+updateDOMProperties @ react-dom.development.js:9732
+updateProperties @ react-dom.development.js:10143
+commitUpdate @ react-dom.development.js:11047
+commitMutationEffectsOnFiber @ react-dom.development.js:24428
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24471
+commitMutationEffects @ react-dom.development.js:24282
+commitRootImpl @ react-dom.development.js:26849
+commitRoot @ react-dom.development.js:26721
+performSyncWorkOnRoot @ react-dom.development.js:26156
+flushSyncCallbacks @ react-dom.development.js:12042
+(anonymous) @ react-dom.development.js:25690
+react-dom.development.js:86  Warning: Unsupported style property border-bottom-right-radius. Did you mean borderBottomRightRadius?
+    at div
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-2K77HOHX.js?v=71123327:79:13
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-2K77HOHX.js?v=71123327:56:13
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-AXMZZQ2X.js?v=71123327:42:13
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-context-menu.js?v=71123327:97:13
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at Popper (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-JUSJUB55.js?v=71123327:1919:11)
+    at Menu (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-OAA53SIK.js?v=71123327:86:11)
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at ContextMenu (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-context-menu.js?v=71123327:61:11)
+    at ElementContextMenu (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/components/DesignTool/ElementContextMenu.tsx:29:31)
+    at CanvasElement (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/components/DesignTool/CanvasElement.tsx:29:3)
+    at div
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-2K77HOHX.js?v=71123327:79:13
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-2K77HOHX.js?v=71123327:56:13
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-AXMZZQ2X.js?v=71123327:42:13
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-context-menu.js?v=71123327:97:13
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at Popper (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-JUSJUB55.js?v=71123327:1919:11)
+    at Menu (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-OAA53SIK.js?v=71123327:86:11)
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at ContextMenu (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-context-menu.js?v=71123327:61:11)
+    at ElementContextMenu (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/components/DesignTool/ElementContextMenu.tsx:29:31)
+    at CanvasElement (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/components/DesignTool/CanvasElement.tsx:29:3)
+    at div
+    at div
+    at main
+    at Canvas (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/components/DesignTool/Canvas.tsx:29:20)
+    at div
+    at div
+    at DesignToolContent (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/components/DesignTool/index.tsx:45:3)
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/react-redux.js?v=71123327:923:11)
+    at DesignTool
+    at Route (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=71123327:265:16)
+    at Switch (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=71123327:321:17)
+    at Router
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at TooltipProvider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-tooltip.js?v=71123327:59:5)
+    at ColorModeProvider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/contexts/ColorModeContext.tsx:20:37)
+    at QueryClientProvider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js?v=71123327:2805:3)
+    at App
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/react-redux.js?v=71123327:923:11)
+printWarning @ react-dom.development.js:86
+error @ react-dom.development.js:60
+warnHyphenatedStyleName @ react-dom.development.js:2695
+warnValidStyle @ react-dom.development.js:2743
+setValueForStyles @ react-dom.development.js:2816
+updateDOMProperties @ react-dom.development.js:9732
+updateProperties @ react-dom.development.js:10143
+commitUpdate @ react-dom.development.js:11047
+commitMutationEffectsOnFiber @ react-dom.development.js:24428
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24471
+commitMutationEffects @ react-dom.development.js:24282
+commitRootImpl @ react-dom.development.js:26849
+commitRoot @ react-dom.development.js:26721
+performSyncWorkOnRoot @ react-dom.development.js:26156
+flushSyncCallbacks @ react-dom.development.js:12042
+(anonymous) @ react-dom.development.js:25690
+react-dom.development.js:86  Warning: Unsupported style property border-bottom-left-radius. Did you mean borderBottomLeftRadius?
+    at div
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-2K77HOHX.js?v=71123327:79:13
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-2K77HOHX.js?v=71123327:56:13
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-AXMZZQ2X.js?v=71123327:42:13
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-context-menu.js?v=71123327:97:13
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at Popper (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-JUSJUB55.js?v=71123327:1919:11)
+    at Menu (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-OAA53SIK.js?v=71123327:86:11)
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at ContextMenu (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-context-menu.js?v=71123327:61:11)
+    at ElementContextMenu (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/components/DesignTool/ElementContextMenu.tsx:29:31)
+    at CanvasElement (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/components/DesignTool/CanvasElement.tsx:29:3)
+    at div
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-2K77HOHX.js?v=71123327:79:13
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-2K77HOHX.js?v=71123327:56:13
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-AXMZZQ2X.js?v=71123327:42:13
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-context-menu.js?v=71123327:97:13
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at Popper (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-JUSJUB55.js?v=71123327:1919:11)
+    at Menu (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-OAA53SIK.js?v=71123327:86:11)
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at ContextMenu (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-context-menu.js?v=71123327:61:11)
+    at ElementContextMenu (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/components/DesignTool/ElementContextMenu.tsx:29:31)
+    at CanvasElement (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/components/DesignTool/CanvasElement.tsx:29:3)
+    at div
+    at div
+    at main
+    at Canvas (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/components/DesignTool/Canvas.tsx:29:20)
+    at div
+    at div
+    at DesignToolContent (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/components/DesignTool/index.tsx:45:3)
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/react-redux.js?v=71123327:923:11)
+    at DesignTool
+    at Route (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=71123327:265:16)
+    at Switch (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=71123327:321:17)
+    at Router
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at TooltipProvider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-tooltip.js?v=71123327:59:5)
+    at ColorModeProvider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/contexts/ColorModeContext.tsx:20:37)
+    at QueryClientProvider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js?v=71123327:2805:3)
+    at App
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/react-redux.js?v=71123327:923:11)
+printWarning @ react-dom.development.js:86
+error @ react-dom.development.js:60
+warnHyphenatedStyleName @ react-dom.development.js:2695
+warnValidStyle @ react-dom.development.js:2743
+setValueForStyles @ react-dom.development.js:2816
+updateDOMProperties @ react-dom.development.js:9732
+updateProperties @ react-dom.development.js:10143
+commitUpdate @ react-dom.development.js:11047
+commitMutationEffectsOnFiber @ react-dom.development.js:24428
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24471
+commitMutationEffects @ react-dom.development.js:24282
+commitRootImpl @ react-dom.development.js:26849
+commitRoot @ react-dom.development.js:26721
+performSyncWorkOnRoot @ react-dom.development.js:26156
+flushSyncCallbacks @ react-dom.development.js:12042
+(anonymous) @ react-dom.development.js:25690
+react-dom.development.js:86  Warning: Unsupported style property border-top-right-radius. Did you mean borderTopRightRadius?
+    at div
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-2K77HOHX.js?v=71123327:79:13
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-2K77HOHX.js?v=71123327:56:13
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-AXMZZQ2X.js?v=71123327:42:13
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-context-menu.js?v=71123327:97:13
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at Popper (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-JUSJUB55.js?v=71123327:1919:11)
+    at Menu (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-OAA53SIK.js?v=71123327:86:11)
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at ContextMenu (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-context-menu.js?v=71123327:61:11)
+    at ElementContextMenu (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/components/DesignTool/ElementContextMenu.tsx:29:31)
+    at CanvasElement (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/components/DesignTool/CanvasElement.tsx:29:3)
+    at div
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-2K77HOHX.js?v=71123327:79:13
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-2K77HOHX.js?v=71123327:56:13
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-AXMZZQ2X.js?v=71123327:42:13
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-context-menu.js?v=71123327:97:13
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at Popper (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-JUSJUB55.js?v=71123327:1919:11)
+    at Menu (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-OAA53SIK.js?v=71123327:86:11)
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at ContextMenu (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-context-menu.js?v=71123327:61:11)
+    at ElementContextMenu (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/components/DesignTool/ElementContextMenu.tsx:29:31)
+    at CanvasElement (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/components/DesignTool/CanvasElement.tsx:29:3)
+    at div
+    at div
+    at main
+    at Canvas (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/components/DesignTool/Canvas.tsx:29:20)
+    at div
+    at div
+    at DesignToolContent (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/components/DesignTool/index.tsx:45:3)
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/react-redux.js?v=71123327:923:11)
+    at DesignTool
+    at Route (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=71123327:265:16)
+    at Switch (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=71123327:321:17)
+    at Router
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at TooltipProvider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-tooltip.js?v=71123327:59:5)
+    at ColorModeProvider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/contexts/ColorModeContext.tsx:20:37)
+    at QueryClientProvider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js?v=71123327:2805:3)
+    at App
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/react-redux.js?v=71123327:923:11)
+printWarning @ react-dom.development.js:86
+error @ react-dom.development.js:60
+warnHyphenatedStyleName @ react-dom.development.js:2695
+warnValidStyle @ react-dom.development.js:2743
+setValueForStyles @ react-dom.development.js:2816
+updateDOMProperties @ react-dom.development.js:9732
+updateProperties @ react-dom.development.js:10143
+commitUpdate @ react-dom.development.js:11047
+commitMutationEffectsOnFiber @ react-dom.development.js:24428
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24471
+commitMutationEffects @ react-dom.development.js:24282
+commitRootImpl @ react-dom.development.js:26849
+commitRoot @ react-dom.development.js:26721
+performSyncWorkOnRoot @ react-dom.development.js:26156
+flushSyncCallbacks @ react-dom.development.js:12042
+(anonymous) @ react-dom.development.js:25690
+persistence.ts:258 Loading persisted UI settings
+persistence.ts:54 Persistence manager initialized
+historyManager.ts:85 [Violation] 'success' handler took 392ms
+historyManager.ts:95 Loaded 50 history entries from IndexedDB
+historyManager.ts:19 History manager initialized
+indexedDB.ts:591 Project saved to IndexedDB: default-project
+persistence.ts:291 Project auto-saved
+_app-c2e3429e7e7922b3.js:38 Fetch failed loading: POST "https://analytics.google.com/g/collect?v=2&tid=G-MPJY3F1YEL&gtm=45je58l0v9135634466za200&_p=1756150216377&gcd=13l3l3l3l2l1&npa=0&dma=0&tag_exp=101509157~103116026~103200004~103233427~104527906~104528501~104684208~104684211~104948811~104948813~105399921~105399923&ul=fr-ca&sr=2560x1440&cid=1570992701.1755893996&ecid=404491333&ir=1&uaa=x86&uab=64&uafvl=Not%253BA%253DBrand%3B99.0.0.0%7CMicrosoft%2520Edge%3B139.0.3405.111%7CChromium%3B139.0.7258.139&uamb=0&uam=&uap=Windows&uapv=19.0.0&uaw=0&are=1&frm=0&pscdl=noapi&_eu=EBAIAAQ&_s=166&dl=https%3A%2F%2Freplit.com%2F%40csabourin%2FLayoutMaster&dp=%2F%40csabourin%2FLayoutMaster&dt=replEnvironmentDesktop&sid=1756141441&sct=83&seg=1&_tu=wAQ&en=Agent%20Used&_ee=1&ep.event_category=All&ep.value=0&_et=28314&tfd=6796180".
+(anonymous) @ _app-c2e3429e7e7922b3.js:38
+$c @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:247
+rm @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:427
+RM @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:888
+k.flush @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:895
+(anonymous) @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:893
+n @ _app-c2e3429e7e7922b3.js:38
+setTimeout
+(anonymous) @ _app-c2e3429e7e7922b3.js:38
+k.Ib @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:893
+k.add @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:895
+k.Fl @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:910
+k.Tp @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:910
+(anonymous) @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:907
+mn @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:443
+pp @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:463
+(anonymous) @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:907
+c @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:843
+gJ @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:843
+k.Sp @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:907
+c @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:921
+v @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:482
+vn @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:445
+Uq @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:482
+Tq.flush @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:486
+Tq.push @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:484
+Kq @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:479
+event @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:740
+fD @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:746
+b.push @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:752
+bD @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:752
+jD @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:752
+ND @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:765
+OD.b.push @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:766
+Sa @ analytics.js:51
+(anonymous) @ analytics.js:83
+(anonymous) @ analytics.js:47
+(anonymous) @ analytics.js:87
+(anonymous) @ analytics.js:68
+(anonymous) @ analytics.js:102
+(anonymous) @ analytics.js:101
+N @ analytics.js:103
+(anonymous) @ index.js:360
+(anonymous) @ protos.js:372
+(anonymous) @ protos.js:178
+(anonymous) @ index.ts:270
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+s @ tslib.es6.js:73
+Promise.then
+a @ tslib.es6.js:76
+(anonymous) @ tslib.es6.js:76
+u @ tslib.es6.js:72
+(anonymous) @ ajs-destination.bundle.8e6b895db75187c55313.js:1
+(anonymous) @ index.ts:286
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+push.3771.t.track @ ajs-destination.bundle.8e6b895db75187c55313.js:1
+(anonymous) @ delivery.js:28
+(anonymous) @ delivery.js:11
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+(anonymous) @ delivery.js:4
+o @ delivery.js:27
+(anonymous) @ event-queue.js:325
+(anonymous) @ event-queue.js:323
+n @ _app-c2e3429e7e7922b3.js:38
+setTimeout
+(anonymous) @ _app-c2e3429e7e7922b3.js:38
+(anonymous) @ event-queue.js:321
+(anonymous) @ event-queue.js:320
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+s @ tslib.es6.js:73
+Promise.then
+a @ tslib.es6.js:76
+s @ tslib.es6.js:73
+Promise.then
+a @ tslib.es6.js:76
+(anonymous) @ tslib.es6.js:76
+u @ tslib.es6.js:72
+(anonymous) @ event-queue.js:273
+(anonymous) @ event-queue.js:181
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+s @ tslib.es6.js:73
+Promise.then
+a @ tslib.es6.js:76
+(anonymous) @ tslib.es6.js:76
+u @ tslib.es6.js:72
+(anonymous) @ event-queue.js:169
+(anonymous) @ event-queue.js:135
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+(anonymous) @ event-queue.js:128
+(anonymous) @ dispatch.js:25
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+p @ dispatch.js:18
+(anonymous) @ index.ts:460
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+(anonymous) @ index.ts:454
+(anonymous) @ index.ts:253
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+n.track @ index.ts:241
+A @ _app-c2e3429e7e7922b3.js:1
+p @ 8179-3989ced133550543.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+n @ main-c93df503a906273d.js:1
+u @ main-c93df503a906273d.js:1
+Promise.then
+n @ main-c93df503a906273d.js:1
+u @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+n @ main-c93df503a906273d.js:1
+u @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ main-c93df503a906273d.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+keydown @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ 275e5802-4258517799a8847d.js:1
+runHandlers @ 275e5802-4258517799a8847d.js:1
+handleEvent @ 275e5802-4258517799a8847d.js:1
+n @ _app-c2e3429e7e7922b3.js:38
+_app-c2e3429e7e7922b3.js:38 Fetch failed loading: POST "https://analytics.google.com/g/collect?v=2&tid=G-MPJY3F1YEL&gtm=45je58l0v9135634466za200&_p=1756150216377&_gaz=1&gcd=13l3l3l3l2l1&npa=0&dma=0&tag_exp=101509157~103116026~103200004~103233427~104527906~104528501~104684208~104684211~104948811~104948813~105399921~105399923&ul=fr-ca&sr=2560x1440&cid=1570992701.1755893996&ecid=404491333&ir=1&uaa=x86&uab=64&uafvl=Not%253BA%253DBrand%3B99.0.0.0%7CMicrosoft%2520Edge%3B139.0.3405.111%7CChromium%3B139.0.7258.139&uamb=0&uam=&uap=Windows&uapv=19.0.0&uaw=0&are=1&frm=0&pscdl=noapi&_eu=EBAIAAQ&_s=167&dl=https%3A%2F%2Freplit.com%2F%40csabourin%2FLayoutMaster&dp=%2F%40csabourin%2FLayoutMaster&dt=replEnvironmentDesktop&sid=1756141441&sct=83&seg=1&_tu=wAQ&en=Git%20Feature%20Used&_ee=1&ep.event_category=All&ep.value=0&_et=32956&tfd=6824128".
+(anonymous) @ _app-c2e3429e7e7922b3.js:38
+$c @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:247
+rm @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:427
+RM @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:888
+k.Ib @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:893
+k.add @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:895
+k.Fl @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:910
+k.Tp @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:910
+(anonymous) @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:907
+mn @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:443
+pp @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:463
+(anonymous) @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:907
+c @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:843
+gJ @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:843
+k.Sp @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:907
+c @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:921
+v @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:482
+vn @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:445
+Uq @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:482
+Tq.flush @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:486
+Tq.push @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:484
+Kq @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:479
+event @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:740
+fD @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:746
+b.push @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:752
+bD @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:752
+jD @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:752
+ND @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:765
+OD.b.push @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:766
+Sa @ analytics.js:51
+(anonymous) @ analytics.js:83
+(anonymous) @ analytics.js:47
+(anonymous) @ analytics.js:87
+(anonymous) @ analytics.js:68
+(anonymous) @ analytics.js:102
+(anonymous) @ analytics.js:101
+N @ analytics.js:103
+(anonymous) @ index.js:360
+(anonymous) @ protos.js:372
+(anonymous) @ protos.js:178
+(anonymous) @ index.ts:270
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+s @ tslib.es6.js:73
+Promise.then
+a @ tslib.es6.js:76
+(anonymous) @ tslib.es6.js:76
+u @ tslib.es6.js:72
+(anonymous) @ ajs-destination.bundle.8e6b895db75187c55313.js:1
+(anonymous) @ index.ts:286
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+push.3771.t.track @ ajs-destination.bundle.8e6b895db75187c55313.js:1
+(anonymous) @ delivery.js:28
+(anonymous) @ delivery.js:11
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+(anonymous) @ delivery.js:4
+o @ delivery.js:27
+(anonymous) @ event-queue.js:325
+(anonymous) @ event-queue.js:323
+n @ _app-c2e3429e7e7922b3.js:38
+setTimeout
+(anonymous) @ _app-c2e3429e7e7922b3.js:38
+(anonymous) @ event-queue.js:321
+(anonymous) @ event-queue.js:320
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+s @ tslib.es6.js:73
+Promise.then
+a @ tslib.es6.js:76
+s @ tslib.es6.js:73
+Promise.then
+a @ tslib.es6.js:76
+(anonymous) @ tslib.es6.js:76
+u @ tslib.es6.js:72
+(anonymous) @ event-queue.js:273
+(anonymous) @ event-queue.js:181
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+s @ tslib.es6.js:73
+Promise.then
+a @ tslib.es6.js:76
+(anonymous) @ tslib.es6.js:76
+u @ tslib.es6.js:72
+(anonymous) @ event-queue.js:169
+(anonymous) @ event-queue.js:135
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+(anonymous) @ event-queue.js:128
+(anonymous) @ dispatch.js:25
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+p @ dispatch.js:18
+(anonymous) @ index.ts:460
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+(anonymous) @ index.ts:454
+(anonymous) @ index.ts:253
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+n.track @ index.ts:241
+A @ _app-c2e3429e7e7922b3.js:1
+dv @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+n @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+oO @ framework-ad4c9db86abb7211.js:1
+uB @ framework-ad4c9db86abb7211.js:1
+u_ @ framework-ad4c9db86abb7211.js:1
+r6 @ framework-ad4c9db86abb7211.js:1
+(anonymous) @ framework-ad4c9db86abb7211.js:1
+_app-c2e3429e7e7922b3.js:38 XHR finished loading: POST "https://stats.g.doubleclick.net/j/collect?t=dc&aip=1&_r=3&v=1&_v=j102&tid=UA-25629695-1&cid=1570992701.1755893996&jid=1723676419&gjid=1061496562&_gid=227805936.1755893996&_u=SCCAgEAjQAAAAGgCIAD~&z=2062232089".
+(anonymous) @ _app-c2e3429e7e7922b3.js:38
+(anonymous) @ _app-c2e3429e7e7922b3.js:38
+wd @ analytics.js:46
+pe @ analytics.js:44
+(anonymous) @ analytics.js:83
+(anonymous) @ analytics.js:47
+(anonymous) @ analytics.js:87
+(anonymous) @ analytics.js:68
+(anonymous) @ analytics.js:102
+(anonymous) @ analytics.js:101
+N @ analytics.js:103
+(anonymous) @ index.js:360
+(anonymous) @ protos.js:372
+(anonymous) @ protos.js:178
+(anonymous) @ index.ts:270
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+s @ tslib.es6.js:73
+Promise.then
+a @ tslib.es6.js:76
+(anonymous) @ tslib.es6.js:76
+u @ tslib.es6.js:72
+(anonymous) @ ajs-destination.bundle.8e6b895db75187c55313.js:1
+(anonymous) @ index.ts:286
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+push.3771.t.track @ ajs-destination.bundle.8e6b895db75187c55313.js:1
+(anonymous) @ delivery.js:28
+(anonymous) @ delivery.js:11
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+(anonymous) @ delivery.js:4
+o @ delivery.js:27
+(anonymous) @ event-queue.js:325
+(anonymous) @ event-queue.js:323
+n @ _app-c2e3429e7e7922b3.js:38
+setTimeout
+(anonymous) @ _app-c2e3429e7e7922b3.js:38
+(anonymous) @ event-queue.js:321
+(anonymous) @ event-queue.js:320
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+s @ tslib.es6.js:73
+Promise.then
+a @ tslib.es6.js:76
+s @ tslib.es6.js:73
+Promise.then
+a @ tslib.es6.js:76
+(anonymous) @ tslib.es6.js:76
+u @ tslib.es6.js:72
+(anonymous) @ event-queue.js:273
+(anonymous) @ event-queue.js:181
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+s @ tslib.es6.js:73
+Promise.then
+a @ tslib.es6.js:76
+(anonymous) @ tslib.es6.js:76
+u @ tslib.es6.js:72
+(anonymous) @ event-queue.js:169
+(anonymous) @ event-queue.js:135
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+(anonymous) @ event-queue.js:128
+(anonymous) @ dispatch.js:25
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+p @ dispatch.js:18
+(anonymous) @ index.ts:460
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+(anonymous) @ index.ts:454
+(anonymous) @ index.ts:253
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+n.track @ index.ts:241
+A @ _app-c2e3429e7e7922b3.js:1
+dv @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+n @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+oO @ framework-ad4c9db86abb7211.js:1
+uB @ framework-ad4c9db86abb7211.js:1
+u_ @ framework-ad4c9db86abb7211.js:1
+r6 @ framework-ad4c9db86abb7211.js:1
+(anonymous) @ framework-ad4c9db86abb7211.js:1
+_app-c2e3429e7e7922b3.js:38 XHR finished loading: POST "https://events.launchdarkly.com/events/diagnostic/62b35a865152ab14c5942820".
+(anonymous) @ _app-c2e3429e7e7922b3.js:38
+(anonymous) @ _app-c2e3429e7e7922b3.js:38
+promise @ _app-c2e3429e7e7922b3.js:40
+(anonymous) @ _app-c2e3429e7e7922b3.js:40
+r.httpRequest @ _app-c2e3429e7e7922b3.js:40
+t @ _app-c2e3429e7e7922b3.js:40
+a.sendChunk @ _app-c2e3429e7e7922b3.js:40
+a.sendEvents @ _app-c2e3429e7e7922b3.js:40
+m @ _app-c2e3429e7e7922b3.js:40
+b @ _app-c2e3429e7e7922b3.js:40
+n @ _app-c2e3429e7e7922b3.js:38
+workspace_iframe.html?initialPath=%2F&id=%3Ar8hq%3A:32  Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+client:495 [vite] connecting...
+client:536  WebSocket connection to 'wss://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/?token=3yBWfOfrR_z8' failed: 
+setupWebSocket @ client:536
+(anonymous) @ client:531
+client:536  Uncaught (in promise) SyntaxError: Failed to construct 'WebSocket': The URL 'wss://localhost:undefined/?token=3yBWfOfrR_z8' is invalid.
+    at setupWebSocket (client:536:19)
+    at fallback (client:509:16)
+    at WebSocket.<anonymous> (client:555:7)
+setupWebSocket @ client:536
+fallback @ client:509
+(anonymous) @ client:555
+ColorModeContext.tsx:21 🎨 ColorModeProvider initializing...
+useComponentPropagation.ts:15  The result function returned its own inputs without modification. e.g
+`createSelector([state => state.todos], todos => todos)`
+This could lead to inefficient memoization and unnecessary re-renders.
+Ensure transformation logic is in the result function, and extraction logic is in the input selectors. {stack: 'Error\n    at Object.runIdentityFunctionCheck [as r…dules/.vite/deps/react-redux.js?v=71123327:60:21)'}
+runIdentityFunctionCheck @ identityFunctionCheck.ts:44
+dependenciesChecker @ createSelectorCreator.ts:418
+memoized @ weakMapMemoize.ts:228
+memoized @ useSelector.ts:171
+memoizedSelector @ use-sync-external-store-with-selector.development.js:46
+(anonymous) @ use-sync-external-store-with-selector.development.js:70
+mountSyncExternalStore @ react-dom.development.js:15980
+useSyncExternalStore @ react-dom.development.js:16908
+useSyncExternalStore @ react.development.js:1676
+exports.useSyncExternalStoreWithSelector @ use-sync-external-store-with-selector.development.js:81
+useSelector2 @ useSelector.ts:243
+useComponentPropagation @ useComponentPropagation.ts:15
+DesignToolContent @ index.tsx:32
+renderWithHooks @ react-dom.development.js:15486
+mountIndeterminateComponent @ react-dom.development.js:20103
+beginWork @ react-dom.development.js:21626
+beginWork$1 @ react-dom.development.js:27465
+performUnitOfWork @ react-dom.development.js:26596
+workLoopSync @ react-dom.development.js:26505
+renderRootSync @ react-dom.development.js:26473
+performConcurrentWorkOnRoot @ react-dom.development.js:25777
+workLoop @ scheduler.development.js:266
+flushWork @ scheduler.development.js:239
+performWorkUntilDeadline @ scheduler.development.js:533
+ColorModeToggle.tsx:15 🎨 ColorModeToggle rendering...
+ColorModeToggle.tsx:21 🎨 ColorMode values: {mode: 'dark', resolvedMode: 'dark', supportsHighContrast: true}
+PropertiesPanel.tsx:76  The result function returned its own inputs without modification. e.g
+`createSelector([state => state.todos], todos => todos)`
+This could lead to inefficient memoization and unnecessary re-renders.
+Ensure transformation logic is in the result function, and extraction logic is in the input selectors. {stack: 'Error\n    at Object.runIdentityFunctionCheck [as r…dules/.vite/deps/react-redux.js?v=71123327:60:21)'}
+runIdentityFunctionCheck @ identityFunctionCheck.ts:44
+dependenciesChecker @ createSelectorCreator.ts:418
+memoized @ weakMapMemoize.ts:228
+memoized @ useSelector.ts:171
+memoizedSelector @ use-sync-external-store-with-selector.development.js:46
+(anonymous) @ use-sync-external-store-with-selector.development.js:70
+mountSyncExternalStore @ react-dom.development.js:15980
+useSyncExternalStore @ react-dom.development.js:16908
+useSyncExternalStore @ react.development.js:1676
+exports.useSyncExternalStoreWithSelector @ use-sync-external-store-with-selector.development.js:81
+useSelector2 @ useSelector.ts:243
+PropertiesPanel @ PropertiesPanel.tsx:76
+renderWithHooks @ react-dom.development.js:15486
+mountIndeterminateComponent @ react-dom.development.js:20103
+beginWork @ react-dom.development.js:21626
+beginWork$1 @ react-dom.development.js:27465
+performUnitOfWork @ react-dom.development.js:26596
+workLoopSync @ react-dom.development.js:26505
+renderRootSync @ react-dom.development.js:26473
+performConcurrentWorkOnRoot @ react-dom.development.js:25777
+workLoop @ scheduler.development.js:266
+flushWork @ scheduler.development.js:239
+performWorkUntilDeadline @ scheduler.development.js:533
+CreateComponentModal.tsx:39  The result function returned its own inputs without modification. e.g
+`createSelector([state => state.todos], todos => todos)`
+This could lead to inefficient memoization and unnecessary re-renders.
+Ensure transformation logic is in the result function, and extraction logic is in the input selectors. {stack: 'Error\n    at Object.runIdentityFunctionCheck [as r…dules/.vite/deps/react-redux.js?v=71123327:60:21)'}
+runIdentityFunctionCheck @ identityFunctionCheck.ts:44
+dependenciesChecker @ createSelectorCreator.ts:418
+memoized @ weakMapMemoize.ts:228
+memoized @ useSelector.ts:171
+memoizedSelector @ use-sync-external-store-with-selector.development.js:46
+(anonymous) @ use-sync-external-store-with-selector.development.js:70
+mountSyncExternalStore @ react-dom.development.js:15980
+useSyncExternalStore @ react-dom.development.js:16908
+useSyncExternalStore @ react.development.js:1676
+exports.useSyncExternalStoreWithSelector @ use-sync-external-store-with-selector.development.js:81
+useSelector2 @ useSelector.ts:243
+CreateComponentModal @ CreateComponentModal.tsx:39
+renderWithHooks @ react-dom.development.js:15486
+mountIndeterminateComponent @ react-dom.development.js:20103
+beginWork @ react-dom.development.js:21626
+beginWork$1 @ react-dom.development.js:27465
+performUnitOfWork @ react-dom.development.js:26596
+workLoopSync @ react-dom.development.js:26505
+renderRootSync @ react-dom.development.js:26473
+performConcurrentWorkOnRoot @ react-dom.development.js:25777
+workLoop @ scheduler.development.js:266
+flushWork @ scheduler.development.js:239
+performWorkUntilDeadline @ scheduler.development.js:533
+indexedDB.ts:79 IndexedDB opened successfully
+indexedDB.ts:581 IndexedDB initialized successfully
+indexedDB.ts:601 Project loaded from IndexedDB: default-project
+persistence.ts:86 Loading persisted project: Beppo et cie.
+ColorModeToggle.tsx:15 🎨 ColorModeToggle rendering...
+ColorModeToggle.tsx:21 🎨 ColorMode values: {mode: 'dark', resolvedMode: 'dark', supportsHighContrast: true}
+ColorModeToggle.tsx:15 🎨 ColorModeToggle rendering...
+ColorModeToggle.tsx:21 🎨 ColorMode values: {mode: 'dark', resolvedMode: 'dark', supportsHighContrast: true}
+workspace_iframe.html?initialPath=%2F&id=%3Ar8hq%3A:142  Refused to load the script 'https://replit.com/public/js/beacon.js' because it violates the following Content Security Policy directive: "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://fonts.googleapis.com https://fonts.gstatic.com". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback.
+
+onIframeLoad @ workspace_iframe.html?initialPath=%2F&id=%3Ar8hq%3A:142
+persistence.ts:225 Loaded 3 component definitions in 0 categories
+ColorModeToggle.tsx:15 🎨 ColorModeToggle rendering...
+ColorModeToggle.tsx:21 🎨 ColorMode values: {mode: 'dark', resolvedMode: 'dark', supportsHighContrast: true}
+persistence.ts:248 Loaded 60 custom classes and 0 class categories
+react-dom.development.js:86  Warning: Unsupported style property border-top-left-radius. Did you mean borderTopLeftRadius?
+    at div
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-2K77HOHX.js?v=71123327:79:13
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-2K77HOHX.js?v=71123327:56:13
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-AXMZZQ2X.js?v=71123327:42:13
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-context-menu.js?v=71123327:97:13
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at Popper (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-JUSJUB55.js?v=71123327:1919:11)
+    at Menu (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-OAA53SIK.js?v=71123327:86:11)
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at ContextMenu (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-context-menu.js?v=71123327:61:11)
+    at ElementContextMenu (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/components/DesignTool/ElementContextMenu.tsx:29:31)
+    at CanvasElement (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/components/DesignTool/CanvasElement.tsx:29:3)
+    at div
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-2K77HOHX.js?v=71123327:79:13
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-2K77HOHX.js?v=71123327:56:13
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-AXMZZQ2X.js?v=71123327:42:13
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-context-menu.js?v=71123327:97:13
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at Popper (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-JUSJUB55.js?v=71123327:1919:11)
+    at Menu (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-OAA53SIK.js?v=71123327:86:11)
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at ContextMenu (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-context-menu.js?v=71123327:61:11)
+    at ElementContextMenu (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/components/DesignTool/ElementContextMenu.tsx:29:31)
+    at CanvasElement (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/components/DesignTool/CanvasElement.tsx:29:3)
+    at div
+    at div
+    at main
+    at Canvas (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/components/DesignTool/Canvas.tsx:29:20)
+    at div
+    at div
+    at DesignToolContent (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/components/DesignTool/index.tsx?t=1756157058266:45:3)
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/react-redux.js?v=71123327:923:11)
+    at DesignTool
+    at Route (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=71123327:265:16)
+    at Switch (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=71123327:321:17)
+    at Router
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at TooltipProvider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-tooltip.js?v=71123327:59:5)
+    at ColorModeProvider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/contexts/ColorModeContext.tsx?t=1756157058266:20:37)
+    at QueryClientProvider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js?v=71123327:2805:3)
+    at App
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/react-redux.js?v=71123327:923:11)
+printWarning @ react-dom.development.js:86
+error @ react-dom.development.js:60
+warnHyphenatedStyleName @ react-dom.development.js:2695
+warnValidStyle @ react-dom.development.js:2743
+setValueForStyles @ react-dom.development.js:2816
+updateDOMProperties @ react-dom.development.js:9732
+updateProperties @ react-dom.development.js:10143
+commitUpdate @ react-dom.development.js:11047
+commitMutationEffectsOnFiber @ react-dom.development.js:24428
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24471
+commitMutationEffects @ react-dom.development.js:24282
+commitRootImpl @ react-dom.development.js:26849
+commitRoot @ react-dom.development.js:26721
+performSyncWorkOnRoot @ react-dom.development.js:26156
+flushSyncCallbacks @ react-dom.development.js:12042
+(anonymous) @ react-dom.development.js:25690
+react-dom.development.js:86  Warning: Unsupported style property border-bottom-right-radius. Did you mean borderBottomRightRadius?
+    at div
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-2K77HOHX.js?v=71123327:79:13
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-2K77HOHX.js?v=71123327:56:13
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-AXMZZQ2X.js?v=71123327:42:13
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-context-menu.js?v=71123327:97:13
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at Popper (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-JUSJUB55.js?v=71123327:1919:11)
+    at Menu (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-OAA53SIK.js?v=71123327:86:11)
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at ContextMenu (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-context-menu.js?v=71123327:61:11)
+    at ElementContextMenu (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/components/DesignTool/ElementContextMenu.tsx:29:31)
+    at CanvasElement (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/components/DesignTool/CanvasElement.tsx:29:3)
+    at div
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-2K77HOHX.js?v=71123327:79:13
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-2K77HOHX.js?v=71123327:56:13
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-AXMZZQ2X.js?v=71123327:42:13
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-context-menu.js?v=71123327:97:13
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at Popper (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-JUSJUB55.js?v=71123327:1919:11)
+    at Menu (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-OAA53SIK.js?v=71123327:86:11)
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at ContextMenu (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-context-menu.js?v=71123327:61:11)
+    at ElementContextMenu (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/components/DesignTool/ElementContextMenu.tsx:29:31)
+    at CanvasElement (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/components/DesignTool/CanvasElement.tsx:29:3)
+    at div
+    at div
+    at main
+    at Canvas (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/components/DesignTool/Canvas.tsx:29:20)
+    at div
+    at div
+    at DesignToolContent (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/components/DesignTool/index.tsx?t=1756157058266:45:3)
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/react-redux.js?v=71123327:923:11)
+    at DesignTool
+    at Route (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=71123327:265:16)
+    at Switch (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=71123327:321:17)
+    at Router
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at TooltipProvider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-tooltip.js?v=71123327:59:5)
+    at ColorModeProvider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/contexts/ColorModeContext.tsx?t=1756157058266:20:37)
+    at QueryClientProvider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js?v=71123327:2805:3)
+    at App
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/react-redux.js?v=71123327:923:11)
+printWarning @ react-dom.development.js:86
+error @ react-dom.development.js:60
+warnHyphenatedStyleName @ react-dom.development.js:2695
+warnValidStyle @ react-dom.development.js:2743
+setValueForStyles @ react-dom.development.js:2816
+updateDOMProperties @ react-dom.development.js:9732
+updateProperties @ react-dom.development.js:10143
+commitUpdate @ react-dom.development.js:11047
+commitMutationEffectsOnFiber @ react-dom.development.js:24428
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24471
+commitMutationEffects @ react-dom.development.js:24282
+commitRootImpl @ react-dom.development.js:26849
+commitRoot @ react-dom.development.js:26721
+performSyncWorkOnRoot @ react-dom.development.js:26156
+flushSyncCallbacks @ react-dom.development.js:12042
+(anonymous) @ react-dom.development.js:25690
+react-dom.development.js:86  Warning: Unsupported style property border-bottom-left-radius. Did you mean borderBottomLeftRadius?
+    at div
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-2K77HOHX.js?v=71123327:79:13
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-2K77HOHX.js?v=71123327:56:13
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-AXMZZQ2X.js?v=71123327:42:13
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-context-menu.js?v=71123327:97:13
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at Popper (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-JUSJUB55.js?v=71123327:1919:11)
+    at Menu (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-OAA53SIK.js?v=71123327:86:11)
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at ContextMenu (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-context-menu.js?v=71123327:61:11)
+    at ElementContextMenu (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/components/DesignTool/ElementContextMenu.tsx:29:31)
+    at CanvasElement (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/components/DesignTool/CanvasElement.tsx:29:3)
+    at div
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-2K77HOHX.js?v=71123327:79:13
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-2K77HOHX.js?v=71123327:56:13
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-AXMZZQ2X.js?v=71123327:42:13
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-context-menu.js?v=71123327:97:13
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at Popper (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-JUSJUB55.js?v=71123327:1919:11)
+    at Menu (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-OAA53SIK.js?v=71123327:86:11)
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at ContextMenu (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-context-menu.js?v=71123327:61:11)
+    at ElementContextMenu (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/components/DesignTool/ElementContextMenu.tsx:29:31)
+    at CanvasElement (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/components/DesignTool/CanvasElement.tsx:29:3)
+    at div
+    at div
+    at main
+    at Canvas (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/components/DesignTool/Canvas.tsx:29:20)
+    at div
+    at div
+    at DesignToolContent (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/components/DesignTool/index.tsx?t=1756157058266:45:3)
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/react-redux.js?v=71123327:923:11)
+    at DesignTool
+    at Route (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=71123327:265:16)
+    at Switch (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=71123327:321:17)
+    at Router
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at TooltipProvider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-tooltip.js?v=71123327:59:5)
+    at ColorModeProvider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/contexts/ColorModeContext.tsx?t=1756157058266:20:37)
+    at QueryClientProvider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js?v=71123327:2805:3)
+    at App
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/react-redux.js?v=71123327:923:11)
+printWarning @ react-dom.development.js:86
+error @ react-dom.development.js:60
+warnHyphenatedStyleName @ react-dom.development.js:2695
+warnValidStyle @ react-dom.development.js:2743
+setValueForStyles @ react-dom.development.js:2816
+updateDOMProperties @ react-dom.development.js:9732
+updateProperties @ react-dom.development.js:10143
+commitUpdate @ react-dom.development.js:11047
+commitMutationEffectsOnFiber @ react-dom.development.js:24428
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24471
+commitMutationEffects @ react-dom.development.js:24282
+commitRootImpl @ react-dom.development.js:26849
+commitRoot @ react-dom.development.js:26721
+performSyncWorkOnRoot @ react-dom.development.js:26156
+flushSyncCallbacks @ react-dom.development.js:12042
+(anonymous) @ react-dom.development.js:25690
+react-dom.development.js:86  Warning: Unsupported style property border-top-right-radius. Did you mean borderTopRightRadius?
+    at div
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-2K77HOHX.js?v=71123327:79:13
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-2K77HOHX.js?v=71123327:56:13
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-AXMZZQ2X.js?v=71123327:42:13
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-context-menu.js?v=71123327:97:13
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at Popper (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-JUSJUB55.js?v=71123327:1919:11)
+    at Menu (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-OAA53SIK.js?v=71123327:86:11)
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at ContextMenu (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-context-menu.js?v=71123327:61:11)
+    at ElementContextMenu (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/components/DesignTool/ElementContextMenu.tsx:29:31)
+    at CanvasElement (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/components/DesignTool/CanvasElement.tsx:29:3)
+    at div
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-2K77HOHX.js?v=71123327:79:13
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-2K77HOHX.js?v=71123327:56:13
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-AXMZZQ2X.js?v=71123327:42:13
+    at https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-context-menu.js?v=71123327:97:13
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at Popper (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-JUSJUB55.js?v=71123327:1919:11)
+    at Menu (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-OAA53SIK.js?v=71123327:86:11)
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at ContextMenu (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-context-menu.js?v=71123327:61:11)
+    at ElementContextMenu (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/components/DesignTool/ElementContextMenu.tsx:29:31)
+    at CanvasElement (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/components/DesignTool/CanvasElement.tsx:29:3)
+    at div
+    at div
+    at main
+    at Canvas (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/components/DesignTool/Canvas.tsx:29:20)
+    at div
+    at div
+    at DesignToolContent (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/components/DesignTool/index.tsx?t=1756157058266:45:3)
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/react-redux.js?v=71123327:923:11)
+    at DesignTool
+    at Route (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=71123327:265:16)
+    at Switch (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=71123327:321:17)
+    at Router
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-7SUNRGEF.js?v=71123327:38:15)
+    at TooltipProvider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-tooltip.js?v=71123327:59:5)
+    at ColorModeProvider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/contexts/ColorModeContext.tsx?t=1756157058266:20:37)
+    at QueryClientProvider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js?v=71123327:2805:3)
+    at App
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/react-redux.js?v=71123327:923:11)
+printWarning @ react-dom.development.js:86
+error @ react-dom.development.js:60
+warnHyphenatedStyleName @ react-dom.development.js:2695
+warnValidStyle @ react-dom.development.js:2743
+setValueForStyles @ react-dom.development.js:2816
+updateDOMProperties @ react-dom.development.js:9732
+updateProperties @ react-dom.development.js:10143
+commitUpdate @ react-dom.development.js:11047
+commitMutationEffectsOnFiber @ react-dom.development.js:24428
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24471
+commitMutationEffects @ react-dom.development.js:24282
+commitRootImpl @ react-dom.development.js:26849
+commitRoot @ react-dom.development.js:26721
+performSyncWorkOnRoot @ react-dom.development.js:26156
+flushSyncCallbacks @ react-dom.development.js:12042
+(anonymous) @ react-dom.development.js:25690
+persistence.ts:258 Loading persisted UI settings
+ColorModeToggle.tsx:15 🎨 ColorModeToggle rendering...
+ColorModeToggle.tsx:21 🎨 ColorMode values: {mode: 'dark', resolvedMode: 'dark', supportsHighContrast: true}
+persistence.ts:54 Persistence manager initialized
+historyManager.ts:85 [Violation] 'success' handler took 384ms
+historyManager.ts:95 Loaded 50 history entries from IndexedDB
+historyManager.ts:19 History manager initialized
+ColorModeToggle.tsx:15 🎨 ColorModeToggle rendering...
+ColorModeToggle.tsx:21 🎨 ColorMode values: {mode: 'dark', resolvedMode: 'dark', supportsHighContrast: true}
+ColorModeToggle.tsx:15 🎨 ColorModeToggle rendering...
+ColorModeToggle.tsx:21 🎨 ColorMode values: {mode: 'dark', resolvedMode: 'dark', supportsHighContrast: true}
+ColorModeToggle.tsx:15 🎨 ColorModeToggle rendering...
+ColorModeToggle.tsx:21 🎨 ColorMode values: {mode: 'dark', resolvedMode: 'dark', supportsHighContrast: true}
+ColorModeToggle.tsx:15 🎨 ColorModeToggle rendering...
+ColorModeToggle.tsx:21 🎨 ColorMode values: {mode: 'dark', resolvedMode: 'dark', supportsHighContrast: true}
+_app-c2e3429e7e7922b3.js:38 Fetch failed loading: POST "https://analytics.google.com/g/collect?v=2&tid=G-MPJY3F1YEL&gtm=45je58l0v9135634466za200&_p=1756150216377&gcd=13l3l3l3l2l1&npa=0&dma=0&tag_exp=101509157~103116026~103200004~103233427~104527906~104528501~104684208~104684211~104948811~104948813~105399921~105399923&ul=fr-ca&sr=2560x1440&cid=1570992701.1755893996&ecid=404491333&ir=1&uaa=x86&uab=64&uafvl=Not%253BA%253DBrand%3B99.0.0.0%7CMicrosoft%2520Edge%3B139.0.3405.111%7CChromium%3B139.0.7258.139&uamb=0&uam=&uap=Windows&uapv=19.0.0&uaw=0&are=1&frm=0&pscdl=noapi&_eu=EBAIAAQ&dl=https%3A%2F%2Freplit.com%2F%40csabourin%2FLayoutMaster&dp=%2F%40csabourin%2FLayoutMaster&dt=replEnvironmentDesktop&sid=1756141441&sct=83&seg=1&_tu=wAQ&_s=168&tfd=6864411".
+(anonymous) @ _app-c2e3429e7e7922b3.js:38
+$c @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:247
+rm @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:427
+RM @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:888
+k.flush @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:895
+(anonymous) @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:893
+n @ _app-c2e3429e7e7922b3.js:38
+setTimeout
+(anonymous) @ _app-c2e3429e7e7922b3.js:38
+k.Ib @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:893
+k.add @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:895
+k.Fl @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:910
+k.Tp @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:910
+(anonymous) @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:907
+mn @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:443
+pp @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:463
+(anonymous) @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:907
+c @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:843
+gJ @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:843
+k.Sp @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:907
+c @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:921
+v @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:482
+vn @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:445
+Uq @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:482
+Tq.flush @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:486
+Tq.push @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:484
+Kq @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:479
+event @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:740
+fD @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:746
+b.push @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:752
+bD @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:752
+jD @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:752
+ND @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:765
+OD.b.push @ js?id=G-MPJY3F1YEL&cx=c&_slc=1:766
+Sa @ analytics.js:51
+(anonymous) @ analytics.js:83
+(anonymous) @ analytics.js:47
+(anonymous) @ analytics.js:87
+(anonymous) @ analytics.js:68
+(anonymous) @ analytics.js:102
+(anonymous) @ analytics.js:101
+N @ analytics.js:103
+(anonymous) @ index.js:360
+(anonymous) @ protos.js:372
+(anonymous) @ protos.js:178
+(anonymous) @ index.ts:270
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+s @ tslib.es6.js:73
+Promise.then
+a @ tslib.es6.js:76
+(anonymous) @ tslib.es6.js:76
+u @ tslib.es6.js:72
+(anonymous) @ ajs-destination.bundle.8e6b895db75187c55313.js:1
+(anonymous) @ index.ts:286
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+push.3771.t.track @ ajs-destination.bundle.8e6b895db75187c55313.js:1
+(anonymous) @ delivery.js:28
+(anonymous) @ delivery.js:11
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+(anonymous) @ delivery.js:4
+o @ delivery.js:27
+(anonymous) @ event-queue.js:325
+(anonymous) @ event-queue.js:323
+n @ _app-c2e3429e7e7922b3.js:38
+setTimeout
+(anonymous) @ _app-c2e3429e7e7922b3.js:38
+(anonymous) @ event-queue.js:321
+(anonymous) @ event-queue.js:320
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+s @ tslib.es6.js:73
+Promise.then
+a @ tslib.es6.js:76
+s @ tslib.es6.js:73
+Promise.then
+a @ tslib.es6.js:76
+(anonymous) @ tslib.es6.js:76
+u @ tslib.es6.js:72
+(anonymous) @ event-queue.js:273
+(anonymous) @ event-queue.js:181
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+s @ tslib.es6.js:73
+Promise.then
+a @ tslib.es6.js:76
+(anonymous) @ tslib.es6.js:76
+u @ tslib.es6.js:72
+(anonymous) @ event-queue.js:169
+(anonymous) @ event-queue.js:135
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+(anonymous) @ event-queue.js:128
+(anonymous) @ dispatch.js:25
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+p @ dispatch.js:18
+(anonymous) @ index.ts:460
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+(anonymous) @ index.ts:454
+(anonymous) @ index.ts:253
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+n.track @ index.ts:241
+A @ _app-c2e3429e7e7922b3.js:1
+x @ 1006-97b4b975ff7864ed.js:1
+refresh @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ 1006-97b4b975ff7864ed.js:1
+(anonymous) @ _app-c2e3429e7e7922b3.js:9
+(anonymous) @ _app-c2e3429e7e7922b3.js:9
+onClick @ _app-c2e3429e7e7922b3.js:9
+(anonymous) @ _app-c2e3429e7e7922b3.js:14
+eB @ framework-ad4c9db86abb7211.js:1
+eH @ framework-ad4c9db86abb7211.js:1
+(anonymous) @ framework-ad4c9db86abb7211.js:1
+re @ framework-ad4c9db86abb7211.js:1
+rt @ framework-ad4c9db86abb7211.js:1
+(anonymous) @ framework-ad4c9db86abb7211.js:1
+uT @ framework-ad4c9db86abb7211.js:1
+eM @ framework-ad4c9db86abb7211.js:1
+ru @ framework-ad4c9db86abb7211.js:1
+tB @ framework-ad4c9db86abb7211.js:1
+tD @ framework-ad4c9db86abb7211.js:1
+n @ _app-c2e3429e7e7922b3.js:38
+ColorModeToggle.tsx:15 🎨 ColorModeToggle rendering...
+ColorModeToggle.tsx:21 🎨 ColorMode values: {mode: 'dark', resolvedMode: 'dark', supportsHighContrast: true}
+ColorModeToggle.tsx:15 🎨 ColorModeToggle rendering...
+ColorModeToggle.tsx:21 🎨 ColorMode values: {mode: 'dark', resolvedMode: 'dark', supportsHighContrast: true}
+ColorModeToggle.tsx:15 🎨 ColorModeToggle rendering...
+ColorModeToggle.tsx:21 🎨 ColorMode values: {mode: 'dark', resolvedMode: 'dark', supportsHighContrast: true}
+ColorModeToggle.tsx:15 🎨 ColorModeToggle rendering...
+ColorModeToggle.tsx:21 🎨 ColorMode values: {mode: 'dark', resolvedMode: 'dark', supportsHighContrast: true}
+indexedDB.ts:591 Project saved to IndexedDB: default-project
+persistence.ts:291 Project auto-saved

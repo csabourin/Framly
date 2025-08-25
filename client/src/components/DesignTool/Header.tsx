@@ -239,9 +239,7 @@ const Header: React.FC = () => {
           <UndoRedoControls />
           
           {/* Color Mode Toggle */}
-          <div data-testid="color-mode-toggle-wrapper" className="border border-blue-300 bg-blue-50 p-1">
-            <ColorModeToggle />
-          </div>
+          <ColorModeToggle />
           
           <Button
             variant="ghost"
