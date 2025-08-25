@@ -20,7 +20,8 @@ export interface ColorModeProviderProps {
 }
 
 export function ColorModeProvider({ children, defaultMode = 'auto' }: ColorModeProviderProps) {
-  console.log('🚀 ColorModeProvider rendering...');
+  console.log('🚀 ColorModeProvider rendering started...');
+  
   const [mode, setModeState] = useState<ColorMode>(() => {
     if (typeof window === 'undefined') return defaultMode;
     

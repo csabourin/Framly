@@ -32,16 +32,7 @@ export function ColorModeToggle() {
       }
     } else {
       console.error('🔧 setColorModeDesignEnabled is not a function:', setColorModeDesignEnabled);
-      // Fallback: try to set it in localStorage directly
-      try {
-        const newValue = !isColorModeDesignEnabled;
-        localStorage.setItem('design-tool-color-mode-design-enabled', newValue.toString());
-        console.log('🔧 Fallback: Set value in localStorage:', newValue);
-        // Force a page reload to pick up the new value
-        window.location.reload();
-      } catch (error) {
-        console.error('🔧 Fallback failed:', error);
-      }
+      console.error('🔧 Context appears broken. Need to investigate provider.');
     }
   };
 
