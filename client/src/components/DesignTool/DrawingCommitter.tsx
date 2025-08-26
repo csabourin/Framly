@@ -185,8 +185,9 @@ function findBestInsertionPoint(
   const drawnCenterY = drawnRect.top + drawnRect.height / 2;
   const drawnCenterX = drawnRect.left + drawnRect.width / 2;
 
-  // Check if rect overlaps significantly with any child
-  for (const sibling of sortedSiblings) {
+  // Check insertion position for each sibling
+  for (let i = 0; i < sortedSiblings.length; i++) {
+    const sibling = sortedSiblings[i];
     const siblingRect = {
       left: sibling.x || 0,
       top: sibling.y || 0,
@@ -198,21 +199,56 @@ function findBestInsertionPoint(
     const siblingArea = siblingRect.width * siblingRect.height;
     const overlapPercentage = overlapArea / siblingArea;
 
-    // If >70% overlap with a container, try to insert inside it
-    if (overlapPercentage > 0.7 && isValidDropTarget(sibling)) {
+    console.log(`🎯 Insertion check for ${sibling.type} (${sibling.id}):`, {
+      overlapPercentage: overlapPercentage.toFixed(2),
+      isContainer: isValidDropTarget(sibling),
+      drawnCenter: { x: drawnCenterX, y: drawnCenterY },
+      siblingRect,
+      siblingBottom: siblingRect.top + siblingRect.height
+    });
+
+    // If significant overlap with a container, insert inside it (reduced threshold)
+    if (overlapPercentage > 0.5 && isValidDropTarget(sibling)) {
+      console.log('🎯 Inserting inside container due to overlap');
       return {
         parentId: sibling.id,
         insertPosition: 'inside'
       };
     }
 
-    // Check if drawn rect should be before this sibling
-    if (drawnCenterY < siblingRect.top + siblingRect.height / 2) {
+    // Check if drawn rect should be before this sibling (improved logic)
+    const isAboveElement = drawnCenterY < siblingRect.top + (siblingRect.height * 0.3);
+    const hasVerticalOverlap = drawnRect.top < siblingRect.top + siblingRect.height && 
+                               drawnRect.top + drawnRect.height > siblingRect.top;
+    
+    if (isAboveElement || (!hasVerticalOverlap && drawnCenterY < siblingRect.top)) {
+      console.log('🎯 Inserting before element');
       return {
         parentId: container.id,
         insertPosition: 'before',
         referenceElementId: sibling.id
       };
+    }
+
+    // Check if should be after this element but before the next one
+    const nextSibling = sortedSiblings[i + 1];
+    if (nextSibling) {
+      const nextRect = {
+        top: nextSibling.y || 0,
+        height: nextSibling.height || 50
+      };
+      
+      const isBetweenElements = drawnCenterY > siblingRect.top + siblingRect.height &&
+                               drawnCenterY < nextRect.top;
+      
+      if (isBetweenElements) {
+        console.log('🎯 Inserting between elements');
+        return {
+          parentId: container.id,
+          insertPosition: 'after',
+          referenceElementId: sibling.id
+        };
+      }
     }
   }
 

@@ -487,8 +487,9 @@ const Canvas: React.FC = () => {
     const rect = canvasRef.current?.getBoundingClientRect();
     if (!rect) return;
     
-    const x = (e.clientX - rect.left) / zoomLevel;
-    const y = (e.clientY - rect.top) / zoomLevel;
+    // Convert from main container coordinates to canvas coordinates
+    let x = (e.clientX - rect.left) / zoomLevel;
+    let y = (e.clientY - rect.top) / zoomLevel;
     
     // Handle drawing for creation tools
     if (['rectangle', 'text', 'image', 'container', 'heading', 'list', 'button',
@@ -499,7 +500,12 @@ const Canvas: React.FC = () => {
       e.preventDefault();
       e.stopPropagation();
       
-      console.log('🎨 Starting drawing for tool:', selectedTool, 'at:', { x, y });
+      console.log('🎨 Starting drawing for tool:', selectedTool, 'at:', { 
+        rawCoords: { x: e.clientX, y: e.clientY },
+        canvasRect: { left: rect.left, top: rect.top },
+        canvasCoords: { x, y },
+        canvasBounds: { width: canvasWidth, height: rootElement?.height || 600 }
+      });
       
       setDrawingState({
         start: { x, y },
@@ -573,8 +579,15 @@ const Canvas: React.FC = () => {
     const rect = canvasRef.current?.getBoundingClientRect();
     if (!rect) return;
     
-    const x = (e.clientX - rect.left) / zoomLevel;
-    const y = (e.clientY - rect.top) / zoomLevel;
+    // Convert from main container coordinates to canvas coordinates
+    let x = (e.clientX - rect.left) / zoomLevel;
+    let y = (e.clientY - rect.top) / zoomLevel;
+    
+    // Clamp coordinates to canvas bounds for drawing purposes
+    if (drawingState) {
+      x = Math.max(0, Math.min(x, canvasWidth));
+      y = Math.max(0, Math.min(y, (rootElement?.height || 600)));
+    }
     
     // Handle active drawing
     if (drawingState) {
@@ -1449,6 +1462,9 @@ const Canvas: React.FC = () => {
       onDragOver={handleDragOver}
       onDrop={handleDrop}
       onDragLeave={handleDragLeave}
+      onMouseDown={handleMouseDown}
+      onMouseMove={handleMouseMove}
+      onMouseUp={() => handleMouseUp()}
       data-testid="canvas-main"
     >
       {/* Drawing functionality integrated into canvas handlers */}
@@ -1473,9 +1489,6 @@ const Canvas: React.FC = () => {
           // Keep pointer events enabled - drawing overlay will handle coordination
         }}
         onClick={handleCanvasClick}
-        onMouseDown={handleMouseDown}
-        onMouseMove={handleMouseMove}
-        onMouseUp={() => handleMouseUp()}
         onMouseLeave={() => {
           // Clear hover state when leaving canvas area, but not during drag operations
           if (!isDraggingForReorder && !isDragging) {
