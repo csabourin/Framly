@@ -435,6 +435,8 @@ const Canvas: React.FC = () => {
          'section', 'nav', 'header', 'footer', 'article',
          'video', 'audio', 'link', 'code', 'divider'].includes(selectedTool)) {
       console.log('🎨 Canvas click skipped for creation tool:', selectedTool);
+      e.preventDefault();
+      e.stopPropagation();
       return;
     }
     
