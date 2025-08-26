@@ -124,6 +124,15 @@
   --c-focus: oklch(85% 0.12 265);
 }
 
+/* Force solid backgrounds for context menus in dark mode */
+.dark [role="menu"],
+.dark [data-radix-context-menu-content],
+.dark [data-radix-dropdown-menu-content] {
+  background-color: #1f2937 !important; /* gray-800 */
+  border-color: #374151 !important; /* gray-700 */
+  color: #f9fafb !important; /* gray-50 */
+}
+
 .high-contrast {
   /* High contrast color overrides */
   --background: hsl(0, 0%, 0%);
