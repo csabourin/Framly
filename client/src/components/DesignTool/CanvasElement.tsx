@@ -106,8 +106,6 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
   }, [isDraggingForReorder, insertionIndicator, draggedElementId, element.id, currentElements]);
 
   const handleClick = useCallback((e: React.MouseEvent) => {
-    // Removed debug logging to improve performance
-    
     // CRITICAL: Component children are not selectable - redirect to component root
     if (isComponentChild && element.componentRootId) {
       e.stopPropagation();
@@ -115,9 +113,20 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
       return;
     }
     
+    // Define text elements that support editing
+    const textElements = ['text', 'heading', 'list'];
+    const isTextElement = textElements.includes(element.type);
+    
     // Define non-container elements that cannot have children
     const nonContainerElements = ['text', 'heading', 'list', 'image'];
     const isNonContainer = nonContainerElements.includes(element.type);
+    
+    // Handle text element single-click editing
+    if (isTextElement && isSelected) {
+      e.stopPropagation();
+      setIsEditing(true);
+      return;
+    }
     
     // Handle selection for select and hand tools
     if (['select', 'hand'].includes(selectedTool)) {
@@ -132,7 +141,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
       // Creation tool on container or empty space - let Canvas drawing system handle it
       // Don't stop propagation for creation tools on containers - let canvas handle drawing
     }
-  }, [element.id, element.type, dispatch, selectedTool]);
+  }, [element.id, element.type, dispatch, selectedTool, isSelected]);
 
   const handleContentEdit = useCallback((e: React.FormEvent<HTMLDivElement>) => {
     const newContent = e.currentTarget.innerHTML || '';
@@ -172,48 +181,50 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
 
   const handleKeyDown = useCallback((e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === 'Enter') {
-      e.preventDefault();
-      
       if (e.shiftKey) {
         // Shift+Enter: Insert line break
+        e.preventDefault();
         document.execCommand('insertHTML', false, '<br>');
       } else {
-        // Enter: Create new paragraph
-        const selection = window.getSelection();
-        if (selection && selection.rangeCount > 0) {
-          const range = selection.getRangeAt(0);
-          
-          // Create new paragraph element
-          const newP = document.createElement('p');
-          newP.innerHTML = '<br>'; // Empty paragraph with break for cursor positioning
-          
-          // Insert the new paragraph
-          range.deleteContents();
-          range.insertNode(newP);
-          
-          // Position cursor at start of new paragraph
-          range.setStart(newP, 0);
-          range.collapse(true);
-          selection.removeAllRanges();
-          selection.addRange(range);
+        // Enter: Save and exit editing
+        e.preventDefault();
+        if (textEditRef.current) {
+          const newContent = textEditRef.current.innerHTML || '';
+          dispatch(updateElement({
+            id: element.id,
+            updates: { content: newContent }
+          }));
         }
+        setIsEditing(false);
       }
+    } else if (e.key === 'Escape') {
+      // Escape: Cancel editing without saving
+      e.preventDefault();
+      setIsEditing(false);
     }
-  }, []);
+  }, [element.id, dispatch]);
 
-  // Handle clicking outside to stop text editing
+  // Handle clicking outside to stop text editing and save changes
   React.useEffect(() => {
     if (!isEditing) return;
 
     const handleClickOutside = (event: MouseEvent) => {
       if (textEditRef.current && !textEditRef.current.contains(event.target as Node)) {
+        // Save the content before stopping editing
+        if (textEditRef.current) {
+          const newContent = textEditRef.current.innerHTML || '';
+          dispatch(updateElement({
+            id: element.id,
+            updates: { content: newContent }
+          }));
+        }
         setIsEditing(false);
       }
     };
 
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [isEditing]);
+  }, [isEditing, element.id, dispatch]);
 
   const renderContent = () => {
     if (element.type === 'text') {
@@ -249,12 +260,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
       } else {
         return (
           <div
-            onDoubleClick={(e) => {
-              e.stopPropagation();
-              // Enable text editing without changing tool
-              setIsEditing(true);
-            }}
-            className="h-full outline-none cursor-pointer text-element"
+            className="h-full outline-none cursor-text text-element"
             style={{ 
               minHeight: 'inherit',
               padding: '4px',
@@ -299,11 +305,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
       } else {
         return (
           <HeadingTag
-            onDoubleClick={(e) => {
-              e.stopPropagation();
-              setIsEditing(true);
-            }}
-            className="h-full outline-none cursor-pointer text-element"
+            className="h-full outline-none cursor-text text-element"
             style={{ 
               minHeight: 'inherit',
               padding: '4px',
@@ -349,11 +351,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
       } else {
         return (
           <ListTag
-            onDoubleClick={(e) => {
-              e.stopPropagation();
-              setIsEditing(true);
-            }}
-            className="h-full outline-none cursor-pointer text-element"
+            className="h-full outline-none cursor-text text-element"
             style={{ 
               minHeight: 'inherit',
               padding: '4px',
@@ -527,10 +525,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
             justifyContent: element.justifyContent || 'flex-start',
             alignItems: element.alignItems || 'stretch'
           },
-          onDoubleClick: content ? (e: React.MouseEvent) => {
-            e.stopPropagation();
-            setIsEditing(true);
-          } : undefined
+          // Removed double click handler - single click editing is handled in main click handler
         };
         
         // Only add innerHTML for non-void elements with content

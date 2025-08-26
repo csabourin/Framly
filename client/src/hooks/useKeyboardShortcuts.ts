@@ -486,8 +486,8 @@ export const useKeyboardShortcuts = (onShowCheatsheet?: () => void) => {
 
   // Handle keydown events
   const handleKeyDown = useCallback((event: KeyboardEvent) => {
-    // Skip if input is focused
-    if (isInputFocused()) {
+    // Skip if input is focused OR if text editing is active
+    if (isInputFocused() || document.querySelector('.text-editing')) {
       return;
     }
 
