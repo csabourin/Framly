@@ -12,7 +12,7 @@ import { Palette, Sun, Moon, Monitor, Contrast } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 export function ColorModeToggle() {
-  console.log('🔧 ColorModeToggle rendering');
+  console.log('🔧 ColorModeToggle rendering - DEBUG VERSION');
   
   const { mode, resolvedMode, setMode, supportsHighContrast, isColorModeDesignEnabled, setColorModeDesignEnabled } = useColorMode();
   const { t } = useTranslation();
@@ -69,11 +69,11 @@ export function ColorModeToggle() {
         <Button
           variant="ghost"
           size="sm"
-          className="h-8 w-8 p-1 hover:bg-gray-100 dark:hover:bg-gray-700 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600"
+          className="h-8 w-8 p-1 bg-red-500 border-2 border-blue-500 hover:bg-red-600 text-white"
           title={t('colorMode.toggle', 'Toggle color mode')}
           data-testid="color-mode-toggle"
         >
-          <CurrentIcon className="h-4 w-4 text-gray-900 dark:text-gray-100" />
+          <CurrentIcon className="h-4 w-4 text-white" />
           <span className="sr-only">{t('colorMode.toggle', 'Toggle color mode')}</span>
         </Button>
       </DropdownMenuTrigger>
