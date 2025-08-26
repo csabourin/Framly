@@ -205,6 +205,29 @@ function findBestInsertionPoint(
   const drawnCenterY = drawnRect.top + drawnRect.height / 2;
   const drawnCenterX = drawnRect.left + drawnRect.width / 2;
 
+  console.log('🎯 findBestInsertionPoint:', {
+    drawnRect,
+    drawnCenter: { x: drawnCenterX, y: drawnCenterY },
+    siblingCount: sortedSiblings.length,
+    firstSiblingY: sortedSiblings[0]?.y || 0
+  });
+
+  // Special check: if drawn rect is above ALL siblings, insert at the very beginning
+  if (sortedSiblings.length > 0) {
+    const firstSibling = sortedSiblings[0];
+    const firstSiblingTop = firstSibling.y || 0;
+    
+    // If drawn rect center is above the first sibling's top, insert before it
+    if (drawnCenterY < firstSiblingTop) {
+      console.log('🎯 Inserting at the very beginning - above all elements');
+      return {
+        parentId: container.id,
+        insertPosition: 'before',
+        referenceElementId: firstSibling.id
+      };
+    }
+  }
+
   // Check insertion position for each sibling
   for (let i = 0; i < sortedSiblings.length; i++) {
     const sibling = sortedSiblings[i];
@@ -274,6 +297,7 @@ function findBestInsertionPoint(
 
   // Insert after the last sibling
   const lastSibling = sortedSiblings[sortedSiblings.length - 1];
+  console.log('🎯 Inserting at the end - after all elements');
   return {
     parentId: container.id,
     insertPosition: 'after',
