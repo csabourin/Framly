@@ -93,7 +93,7 @@ const ElementContextMenu: React.FC<ElementContextMenuProps> = ({ elementId, chil
         <ContextMenuItem 
           onClick={handleDelete}
           disabled={!elementId || elementId === 'root'}
-          className="text-red-600 focus:text-red-600"
+          className="text-destructive focus:text-destructive"
           data-testid={`context-delete-element-${elementId}`}
         >
           <Trash2 className="mr-2 h-4 w-4" />

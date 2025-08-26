@@ -98,19 +98,19 @@ export function ColorModeToggle() {
           <Button
             variant="ghost"
             size="sm"
-            className="h-8 w-8 p-1 hover:bg-gray-100 dark:hover:bg-gray-700 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600"
+            className="h-8 w-8 p-1 hover:bg-accent hover:text-accent-foreground bg-card border border-border"
             title={t('colorMode.toggle', 'Toggle color mode')}
             data-testid="color-mode-toggle"
           >
-            <CurrentIcon className="h-4 w-4 text-gray-900 dark:text-gray-100" />
+            <CurrentIcon className="h-4 w-4 text-foreground" />
             <span className="sr-only">{t('colorMode.toggle', 'Toggle color mode')}</span>
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="w-56 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-lg">
-          <div className="px-2 py-1.5 text-sm font-medium text-gray-700 dark:text-gray-300">
+        <DropdownMenuContent align="end" className="w-56">
+          <div className="px-2 py-1.5 text-sm font-medium text-foreground">
             {t('colorMode.title', 'Color Mode')}
           </div>
-          <DropdownMenuSeparator className="bg-gray-200 dark:bg-gray-700" />
+          <DropdownMenuSeparator />
           {modeOptions.map((option) => {
             const IconComponent = option.icon;
             const isActive = mode === option.value;
@@ -124,8 +124,8 @@ export function ColorModeToggle() {
               >
                 <IconComponent className="h-4 w-4" />
                 <div className="flex-1">
-                  <div className="font-medium text-gray-900 dark:text-gray-100">{option.label}</div>
-                  <div className="text-xs text-gray-600 dark:text-gray-400">{option.description}</div>
+                  <div className="font-medium text-foreground">{option.label}</div>
+                  <div className="text-xs text-muted-foreground">{option.description}</div>
                 </div>
                 {isActive && (
                   <div className="h-2 w-2 rounded-full bg-primary" />
@@ -133,7 +133,7 @@ export function ColorModeToggle() {
               </DropdownMenuItem>
             );
           })}
-          <DropdownMenuSeparator className="bg-gray-200 dark:bg-gray-700" />
+          <DropdownMenuSeparator />
           <DropdownMenuItem
             onClick={(e) => {
               console.log('Dropdown item clicked!');
@@ -147,10 +147,10 @@ export function ColorModeToggle() {
             <div className="flex items-center gap-2 w-full">
               <Palette className="h-4 w-4" />
               <div className="flex-1">
-                <div className="font-medium text-gray-900 dark:text-gray-100">
+                <div className="font-medium text-foreground">
                   {t('colorMode.designMode', 'Design Mode')}
                 </div>
-                <div className="text-xs text-gray-600 dark:text-gray-400">
+                <div className="text-xs text-muted-foreground">
                   {t('colorMode.designModeDesc', 'Enable color mode support for all properties')}
                 </div>
               </div>
@@ -158,7 +158,7 @@ export function ColorModeToggle() {
                 {isColorModeDesignEnabled ? (
                   <div className="h-2 w-2 rounded-full bg-blue-500" />
                 ) : (
-                  <div className="h-2 w-2 rounded-full border border-gray-300" />
+                  <div className="h-2 w-2 rounded-full border border-border" />
                 )}
               </div>
             </div>
@@ -173,7 +173,7 @@ export function ColorModeToggle() {
       <Button
         variant="ghost"
         size="sm"
-        className="h-8 w-8 p-1 hover:bg-gray-100 border border-gray-200"
+        className="h-8 w-8 p-1 hover:bg-accent hover:text-accent-foreground bg-card border border-border"
         title="Color Mode Toggle (Error)"
         data-testid="color-mode-toggle-fallback"
         onClick={() => console.log('ColorModeToggle fallback clicked')}

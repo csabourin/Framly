@@ -166,7 +166,7 @@ const ComponentContextMenu: React.FC<ComponentContextMenuProps> = ({
         
         <ContextMenuItem 
           onClick={handleDetachInstances}
-          className="flex items-center gap-2 text-orange-600 hover:text-orange-700"
+          className="flex items-center gap-2 text-warning hover:text-warning/80"
           data-testid={`context-detach-${component.id}`}
         >
           <Unlink size={16} />
@@ -178,7 +178,7 @@ const ComponentContextMenu: React.FC<ComponentContextMenuProps> = ({
         {/* Destructive Actions */}
         <ContextMenuItem 
           onClick={handleDeleteComponent}
-          className="flex items-center gap-2 text-red-600 hover:text-red-700 focus:text-red-700"
+          className="flex items-center gap-2 text-destructive hover:text-destructive/80 focus:text-destructive"
           data-testid={`context-delete-component-${component.id}`}
         >
           <Trash2 size={16} />
