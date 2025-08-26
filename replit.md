@@ -154,3 +154,5 @@ Preferred communication style: Simple, everyday language.
 - **Accurate DOM Insertion**: Elements inserted at correct DOM position - top insertions go to beginning, not end
 - **Coordinate System Simplification**: Removed complex padding logic for predictable, accurate positioning
 - **Element Unit Preferences**: Automatic unit preference setting for percentage-width elements
+- **Unified Drag & Drop Logic**: Both drawing and dragging operations use same Y-position based DOM insertion logic
+- **Code Cleanup**: Removed all debug console.log statements for cleaner production code

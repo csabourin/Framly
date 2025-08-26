@@ -160,13 +160,6 @@ function computePlacement(
       el => el.parent === target.id
     );
     
-    console.log('🎯 Root placement - considering DOM order:', {
-      targetId: target.id,
-      childrenCount: rootChildren.length,
-      drawnY: localRect.top,
-      children: rootChildren.map(c => ({ id: c.id, y: c.y || 0 }))
-    });
-    
     if (rootChildren.length > 0) {
       // Sort children by Y position to find insertion point
       const sortedChildren = rootChildren.sort((a, b) => (a.y || 0) - (b.y || 0));
@@ -176,7 +169,6 @@ function computePlacement(
       for (const child of sortedChildren) {
         const childY = child.y || 0;
         if (drawnCenterY < childY) {
-          console.log('🎯 Root: Inserting before child at Y:', childY);
           return {
             parentId: target.id,
             insertPosition: 'before',
@@ -188,7 +180,6 @@ function computePlacement(
       
       // Insert after the last child
       const lastChild = sortedChildren[sortedChildren.length - 1];
-      console.log('🎯 Root: Inserting after last child');
       return {
         parentId: target.id,
         insertPosition: 'after',
@@ -198,7 +189,6 @@ function computePlacement(
     }
     
     // No children, just insert inside
-    console.log('🎯 Root: First child, inserting inside');
     return {
       parentId: target.id,
       insertPosition: 'inside',
@@ -249,13 +239,6 @@ function findBestInsertionPoint(
   const drawnCenterY = drawnRect.top + drawnRect.height / 2;
   const drawnCenterX = drawnRect.left + drawnRect.width / 2;
 
-  console.log('🎯 findBestInsertionPoint:', {
-    drawnRect,
-    drawnCenter: { x: drawnCenterX, y: drawnCenterY },
-    siblingCount: sortedSiblings.length,
-    firstSiblingY: sortedSiblings[0]?.y || 0
-  });
-
   // Special check: if drawn rect is above ALL siblings, insert at the very beginning
   if (sortedSiblings.length > 0) {
     const firstSibling = sortedSiblings[0];
@@ -263,7 +246,6 @@ function findBestInsertionPoint(
     
     // If drawn rect center is above the first sibling's top, insert before it
     if (drawnCenterY < firstSiblingTop) {
-      console.log('🎯 Inserting at the very beginning - above all elements');
       return {
         parentId: container.id,
         insertPosition: 'before',
@@ -286,17 +268,8 @@ function findBestInsertionPoint(
     const siblingArea = siblingRect.width * siblingRect.height;
     const overlapPercentage = overlapArea / siblingArea;
 
-    console.log(`🎯 Insertion check for ${sibling.type} (${sibling.id}):`, {
-      overlapPercentage: overlapPercentage.toFixed(2),
-      isContainer: isValidDropTarget(sibling),
-      drawnCenter: { x: drawnCenterX, y: drawnCenterY },
-      siblingRect,
-      siblingBottom: siblingRect.top + siblingRect.height
-    });
-
     // If significant overlap with a container, insert inside it (reduced threshold)
     if (overlapPercentage > 0.5 && isValidDropTarget(sibling)) {
-      console.log('🎯 Inserting inside container due to overlap');
       return {
         parentId: sibling.id,
         insertPosition: 'inside'
@@ -309,7 +282,6 @@ function findBestInsertionPoint(
                                drawnRect.top + drawnRect.height > siblingRect.top;
     
     if (isAboveElement || (!hasVerticalOverlap && drawnCenterY < siblingRect.top)) {
-      console.log('🎯 Inserting before element');
       return {
         parentId: container.id,
         insertPosition: 'before',
@@ -341,7 +313,6 @@ function findBestInsertionPoint(
 
   // Insert after the last sibling
   const lastSibling = sortedSiblings[sortedSiblings.length - 1];
-  console.log('🎯 Inserting at the end - after all elements');
   return {
     parentId: container.id,
     insertPosition: 'after',

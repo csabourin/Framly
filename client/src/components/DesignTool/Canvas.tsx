@@ -594,7 +594,6 @@ const Canvas: React.FC = () => {
     
     // Handle active drawing
     if (drawingState) {
-      console.log('🎨 Drawing move:', { x, y });
       setDrawingState(prev => prev ? {
         ...prev,
         current: { x, y },
@@ -831,13 +830,6 @@ const Canvas: React.FC = () => {
             height: height * zoomLevel
           };
           
-          console.log('🎨 Converting coordinates:', { 
-            canvasCoords: { left, top, width, height },
-            screenCoords: screenRect,
-            zoomLevel,
-            canvasRect: { left: rect.left, top: rect.top }
-          });
-          
           // Use the drawing committer to create the element
           commitDrawnRect(
             screenRect,
@@ -864,12 +856,6 @@ const Canvas: React.FC = () => {
       const mouseX = (lastMousePos.current.x - rect.left) / zoomLevel;
       const mouseY = (lastMousePos.current.y - rect.top) / zoomLevel;
       
-      console.log('🎯 DRAG DROP - Y-position based reordering:', {
-        draggedElementId,
-        mouseY,
-        elements: Object.keys(currentElements).length
-      });
-      
       // Use the same placement logic as drawing system
       // Find the best target container based on mouse position
       let targetElement = currentElements['root']; // Default to root
@@ -893,15 +879,8 @@ const Canvas: React.FC = () => {
         el => el.parent === targetElement.id && el.id !== draggedElementId // Exclude the dragged element
       );
       
-      console.log('🎯 DRAG DROP - Target analysis:', {
-        targetId: targetElement.id,
-        childrenCount: targetChildren.length,
-        children: targetChildren.map(c => ({ id: c.id, y: c.y || 0 }))
-      });
-      
       if (targetChildren.length === 0) {
         // No siblings, just insert inside
-        console.log('🎯 DRAG DROP - No siblings, inserting inside');
         dispatch(reorderElement({
           elementId: draggedElementId,
           newParentId: targetElement.id,
@@ -916,7 +895,6 @@ const Canvas: React.FC = () => {
         for (const child of sortedChildren) {
           const childY = child.y || 0;
           if (mouseY < childY) {
-            console.log('🎯 DRAG DROP - Inserting before child at Y:', childY);
             dispatch(reorderElement({
               elementId: draggedElementId,
               newParentId: targetElement.id,
@@ -931,7 +909,6 @@ const Canvas: React.FC = () => {
         // If not inserted before any child, insert after the last child
         if (!insertedBefore) {
           const lastChild = sortedChildren[sortedChildren.length - 1];
-          console.log('🎯 DRAG DROP - Inserting after last child');
           dispatch(reorderElement({
             elementId: draggedElementId,
             newParentId: targetElement.id,
@@ -1224,7 +1201,6 @@ const Canvas: React.FC = () => {
           if ((insertionZone as any).position === 'canvas-top' || (insertionZone as any).position === 'canvas-bottom') {
             parentId = 'root';
             insertPosition = (insertionZone as any).position === 'canvas-top' ? 'canvas-start' as any : 'canvas-end' as any;
-            console.log('Component canvas padding insertion:', { parentId, insertPosition });
           } else if (canDropHere) {
             if ((insertionZone as any).position === 'inside') {
               parentId = insertionZone.elementId;
@@ -1246,17 +1222,14 @@ const Canvas: React.FC = () => {
               referenceElementId = insertionZone.elementId;
             }
             
-            console.log('Component insertion targeting:', { parentId, insertPosition, referenceElementId });
           } else {
-            console.log('Component drop rejected - invalid target, falling back to root');
+            // Component drop rejected - invalid target, falling back to root
           }
         } else {
-          console.log('No insertion zone detected, using root as default');
+          // No insertion zone detected, using root as default
         }
         
         // CRITICAL: Create component instance using proper ComponentDef structure
-        console.log('Creating component instance from:', data.component);
-        
         const componentDef: ComponentDef = data.component;
         
         // Create instance element with proper insertion positioning (NO free x,y coordinates)
@@ -1294,15 +1267,6 @@ const Canvas: React.FC = () => {
           })
         };
         
-        console.log('Adding component instance via insertion system:', {
-          componentName: componentDef.name,
-          instanceId: instanceElement.id,
-          templateType: componentDef.template.type,
-          parentId,
-          insertPosition,
-          referenceElementId
-        });
-        
         // Add the component instance using proper insertion system
         dispatch(addElement({ 
           element: instanceElement,
@@ -1313,11 +1277,8 @@ const Canvas: React.FC = () => {
         
         // Select the instance element
         dispatch(selectElement(instanceElement.id));
-        
-        console.log('Component dropped successfully:', data.component.name, 'at position:', insertPosition, 'in parent:', parentId);
       }
     } catch (error) {
-      console.error('Error handling drop:', error);
       // Ensure we clear dragging state even on error
       setIsDraggingComponent(false);
       setHoveredElementId(null);
@@ -1348,7 +1309,6 @@ const Canvas: React.FC = () => {
   // Clear drawing state when tool changes
   useEffect(() => {
     if (drawingState) {
-      console.log('🎨 Tool changed, clearing drawing state');
       setDrawingState(null);
     }
   }, [selectedTool]);
