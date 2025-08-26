@@ -1052,6 +1052,9 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
         data-accepts={element.isContainer ? 'text,image,button,rectangle,heading,container' : ''}
         data-element-type={element.type}
         data-testid={`canvas-element-${element.id}`}
+        data-drop-target={
+          isThisElementHovered && thisElementHoveredZone ? thisElementHoveredZone : undefined
+        }
       >
       {/* Professional Selection/Drag Handle - Always visible when selected */}
       {isSelected && (

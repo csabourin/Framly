@@ -4,13 +4,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
 import { selectElement, addElement, moveElement, resizeElement, reorderElement, deleteElement, copyElement, cutElement, pasteElement } from '../../store/canvasSlice';
 import { setDragging, setDragStart, setResizing, setResizeHandle, resetUI, setDraggedElement, setDraggingForReorder, setHoveredElement, setSelectedTool } from '../../store/uiSlice';
-import { createDefaultElement, getElementAtPoint, calculateSnapPosition, isValidDropTarget, isPointAndClickTool, isDrawingTool } from '../../utils/canvas';
+import { createDefaultElement, getElementAtPoint, calculateSnapPosition, isValidDropTarget, isPointAndClickTool, isDrawingTool, canAcceptChildren } from '../../utils/canvas';
 import { selectCurrentElements, selectSelectedElementId, selectCanvasProject, selectCanvasUIState } from '../../store/selectors';
 import { ComponentDef, CanvasElement as CanvasElementType, Tool } from '../../types/canvas';
 import CanvasElement from './CanvasElement';
 import { useExpandedElements } from '../../hooks/useExpandedElements';
 import { useColorModeCanvasSync } from '../../hooks/useColorModeCanvasSync';
 import { useDrawingCommitter } from './DrawingCommitter';
+import DragFeedback from './DragFeedback';
 
 import { Plus, Minus, Maximize } from 'lucide-react';
 
@@ -775,21 +776,26 @@ const Canvas: React.FC = () => {
         }
         
         if (canDropHere) {
+          const targetElement = currentElements[insertionZone.elementId];
+          const insertionPosition = (insertionZone as any).position === 'between' ? 'inside' : (insertionZone as any).position;
+          
+          // Determine if this should be child insertion (blue) or sibling insertion (green)
+          const isChildInsertion = insertionPosition === 'inside' && canAcceptChildren(targetElement);
+          
           setHoveredElementId(insertionZone.elementId);
-          setHoveredZone((insertionZone as any).position === 'between' ? 'inside' : (insertionZone as any).position);
+          setHoveredZone(insertionPosition);
           
           // Update Redux state for visual feedback 
           dispatch(setHoveredElement({ 
             elementId: insertionZone.elementId, 
-            zone: (insertionZone as any).position === 'between' ? 'inside' : (insertionZone as any).position
+            zone: insertionPosition
           }));
           
           // Store the insertion indicator for visual feedback
           setInsertionIndicator(insertionZone);
           
           // Apply padding expansion for better targeting
-          const hoveredContainerElement = currentElements[insertionZone.elementId];
-          if (hoveredContainerElement && (hoveredContainerElement.isContainer || hoveredContainerElement.type === 'container' || hoveredContainerElement.type === 'rectangle')) {
+          if (targetElement && (targetElement.isContainer || targetElement.type === 'container' || targetElement.type === 'rectangle')) {
             setExpandedContainerId(insertionZone.elementId);
           }
         } else {
@@ -799,7 +805,7 @@ const Canvas: React.FC = () => {
           const canDropAsSibling = parentElement ? isValidDropTarget(parentElement) : true; // root always accepts
           
           if (canDropAsSibling && !parentElement?.componentRef) {
-            // Use mouse position to determine before/after placement
+            // Use mouse position to determine before/after placement for sibling insertion
             const targetElementDiv = document.querySelector(`[data-element-id="${insertionZone.elementId}"]`) as HTMLElement;
             if (targetElementDiv) {
               const targetRect = targetElementDiv.getBoundingClientRect();
@@ -815,8 +821,6 @@ const Canvas: React.FC = () => {
                   elementId: insertionZone.elementId,
                   bounds: insertionZone.bounds
                 };
-                
-                // Invalid recipient, using mouse-based placement
                 
                 setHoveredElementId(insertionZone.elementId);
                 setHoveredZone(placementPosition);
@@ -1786,6 +1790,14 @@ const Canvas: React.FC = () => {
             );
           })()
         )}
+
+        {/* DRAG FEEDBACK SYSTEM */}
+        <DragFeedback
+          hoveredElementId={hoveredElementId}
+          hoveredZone={hoveredZone}
+          draggedElementId={draggedElementId}
+          currentElements={currentElements}
+        />
 
       </div>
     </main>

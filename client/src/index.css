@@ -233,11 +233,34 @@
   pointer-events: none;
 }
 
-/* When element is the active INSIDE drop target */
+/* When element is the active INSIDE drop target (child insertion - blue) */
 .canvas-element[data-drop-target="inside"]::after {
   opacity: 1;
-  background: var(--dnd-inside-bg);
-  box-shadow: 0 0 0 2px var(--dnd-indicator);
+  background: color-mix(in oklab, oklch(60% 0.20 265), transparent 85%);
+  box-shadow: 0 0 0 2px oklch(60% 0.20 265);
+}
+
+/* When element is the active sibling drop target (green line) */
+.canvas-element[data-drop-target="before"]::before,
+.canvas-element[data-drop-target="after"]::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: oklch(75% 0.17 142);
+  border-radius: 999px;
+  z-index: 4;
+  pointer-events: none;
+  box-shadow: 0 0 6px color-mix(in oklab, oklch(75% 0.17 142), transparent 50%);
+}
+
+.canvas-element[data-drop-target="before"]::before {
+  top: -2px;
+}
+
+.canvas-element[data-drop-target="after"]::after {
+  bottom: -2px;
 }
 
 /* Professional line indicators for before/after drops */
@@ -245,11 +268,12 @@
   position: absolute;
   left: 0; 
   right: 0; 
-  height: 2px;
-  background: var(--dnd-indicator);
+  height: 3px;
+  background: oklch(75% 0.17 142);  /* Green for sibling insertion */
   border-radius: 999px;
-  z-index: 3;                             /* visible but non-interactive */
+  z-index: 4;                             /* visible but non-interactive */
   pointer-events: none !important;
+  box-shadow: 0 0 8px color-mix(in oklab, oklch(75% 0.17 142), transparent 40%);
 }
 
 /* Z-index management for proper layering */
