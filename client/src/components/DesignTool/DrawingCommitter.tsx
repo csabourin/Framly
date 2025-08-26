@@ -55,7 +55,7 @@ export const useDrawingCommitter = ({
     const placement = computePlacement(target, localRect, currentElements);
 
     // Create the element with appropriate properties
-    const elementDef = createElementForTool(tool, localRect, placement, modifiers);
+    const elementDef = createElementForTool(tool, localRect, placement, modifiers, currentBreakpointWidth);
 
     // Animate the morphing effect from overlay to final position
     await animateMorphFromOverlayToFinal(
@@ -271,7 +271,8 @@ function createElementForTool(
   tool: Tool,
   localRect: CommitRect,
   placement: any,
-  modifiers: { shift: boolean; alt: boolean }
+  modifiers: { shift: boolean; alt: boolean },
+  currentBreakpointWidth: number
 ): CanvasElement {
   // Only create elements for valid creation tools
   if (!['rectangle', 'text', 'image', 'container', 'heading', 'button', 'input', 'textarea', 'section', 'nav', 'header', 'footer', 'article'].includes(tool)) {
@@ -281,10 +282,18 @@ function createElementForTool(
   // Create base element using existing utility
   const baseElement = createDefaultElement(tool as any);
 
+  const drawnWidth = Math.round(localRect.width);
+  const drawnHeight = Math.round(localRect.height);
+  
+  // Check if drawn width exceeds breakpoint for 100% width behavior
+  const exceedsBreakpoint = (localRect.left + localRect.width + 20) > currentBreakpointWidth;
+
   console.log('🎯 Creating element with drawn dimensions:', { 
     tool, 
-    drawnSize: { width: localRect.width, height: localRect.height },
-    baseElementDefaults: { width: baseElement.width, height: baseElement.height }
+    drawnSize: { width: drawnWidth, height: drawnHeight },
+    baseElementDefaults: { width: baseElement.width, height: baseElement.height },
+    exceedsBreakpoint,
+    currentBreakpointWidth
   });
 
   // Add positioning if absolute
@@ -293,28 +302,28 @@ function createElementForTool(
       ...baseElement,
       x: placement.localPosition.x,
       y: placement.localPosition.y,
-      width: Math.round(localRect.width),
-      height: Math.round(localRect.height),
+      width: drawnWidth,
+      height: drawnHeight,
       // Override default styles with drawn dimensions
       styles: {
         ...baseElement.styles,
-        width: `${Math.round(localRect.width)}px`,
-        height: `${Math.round(localRect.height)}px`,
+        width: exceedsBreakpoint ? '100%' : `${drawnWidth}px`,
+        height: `${drawnHeight}px`,
       }
     };
   }
 
-  // For flow elements, set appropriate size - override defaults
+  // For flow elements, use 100% width if exceeds breakpoint
   return {
     ...baseElement,
-    width: Math.round(localRect.width),
-    height: Math.round(localRect.height),
+    width: drawnWidth,
+    height: drawnHeight,
     // Override default styles with drawn dimensions
     styles: {
       ...baseElement.styles,
-      width: Math.round(localRect.width) > 0 ? `${Math.round(localRect.width)}px` : '100%',
-      height: `${Math.round(localRect.height)}px`,
-      minHeight: `${Math.round(localRect.height)}px`,
+      width: exceedsBreakpoint ? '100%' : (drawnWidth > 0 ? `${drawnWidth}px` : '100%'),
+      height: `${drawnHeight}px`,
+      minHeight: `${drawnHeight}px`,
     }
   };
 }
