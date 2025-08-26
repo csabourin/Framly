@@ -173,11 +173,6 @@ const ComponentPanel: React.FC = () => {
     }
   };
 
-  const handleAddCategory = () => {
-    // TODO: Implement new category creation
-    console.log('Add category functionality not implemented yet');
-  };
-
   const ComponentThumbnail: React.FC<{ component: ComponentDef }> = ({ component }) => {
     return (
       <div className="w-full h-16 bg-gray-100 rounded border flex items-center justify-center text-xs text-gray-500 mb-2">
