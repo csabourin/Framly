@@ -12,12 +12,30 @@ import { Palette, Sun, Moon, Monitor, Contrast } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 export function ColorModeToggle() {
-  console.log('🔧 ColorModeToggle rendering');
+  console.log('🔧 ColorModeToggle rendering at', new Date().toISOString());
   
   try {
     const { mode, resolvedMode, setMode, supportsHighContrast, isColorModeDesignEnabled, setColorModeDesignEnabled } = useColorMode();
-    const { t } = useTranslation();
-    console.log('🔧 ColorModeToggle: useColorMode successful, mode:', mode, 'resolved:', resolvedMode);
+    console.log('🔧 ColorModeToggle: useColorMode hook called successfully');
+    
+    const { t, ready } = useTranslation();
+    console.log('🔧 ColorModeToggle: useTranslation ready:', ready, 'mode:', mode, 'resolved:', resolvedMode);
+    
+    // If translation is not ready, don't render yet (prevents crashes during async i18n initialization)
+    if (!ready) {
+      console.log('🔧 ColorModeToggle: i18n not ready, returning loading state');
+      return (
+        <Button
+          variant="ghost"
+          size="sm"
+          className="h-8 w-8 p-1 opacity-50"
+          disabled
+          data-testid="color-mode-toggle-loading"
+        >
+          <Sun className="h-4 w-4 animate-pulse" />
+        </Button>
+      );
+    }
     
     // Simple toggle handler
     const handleToggleDesignMode = () => {
