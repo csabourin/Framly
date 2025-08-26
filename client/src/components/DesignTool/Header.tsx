@@ -15,6 +15,7 @@ import { SimpleColorModeToggle } from '../../components/SimpleColorModeToggle';
 import { useColorMode } from '../../contexts/ColorModeContext';
 
 const Header: React.FC = () => {
+  console.log('[Header] Component rendering at', new Date().toISOString());
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const { isColorModeDesignEnabled, setColorModeDesignEnabled } = useColorMode();
@@ -240,8 +241,10 @@ const Header: React.FC = () => {
           {/* Undo/Redo Controls with History Management */}
           <UndoRedoControls />
           
-          {/* Color Mode Toggle */}
-          <SimpleColorModeToggle />
+          {/* Color Mode Toggle - Always render with unique key */}
+          <div className="border-2 border-green-500" data-testid="color-mode-wrapper">
+            <SimpleColorModeToggle key={`toggle-${Date.now()}`} />
+          </div>
           
           
           <Button
