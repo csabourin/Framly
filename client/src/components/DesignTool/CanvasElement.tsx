@@ -124,15 +124,16 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     if (['select', 'hand'].includes(selectedTool)) {
       e.stopPropagation();
       dispatch(selectElement(element.id));
-    } else if (isNonContainer && ['rectangle', 'text', 'image', 'container', 'heading', 'list'].includes(selectedTool)) {
+    } else if (isNonContainer && ['rectangle', 'text', 'image', 'container', 'heading', 'list', 'button', 'input', 'textarea', 'checkbox', 'radio', 'select', 'section', 'nav', 'header', 'footer', 'article', 'video', 'audio', 'link', 'code', 'divider'].includes(selectedTool)) {
       // For non-container elements clicked with creation tools, auto-switch to selection
       console.log('Non-container clicked with creation tool - switching to select tool');
       e.stopPropagation();
       dispatch(setSelectedTool('select'));
       dispatch(selectElement(element.id));
     } else {
-      // Creation tool - NOT stopping propagation, letting canvas handle it
-      // Don't stop propagation for creation tools on containers - let canvas handle it
+      // Creation tool on container or empty space - let Canvas drawing system handle it
+      // Don't stop propagation for creation tools on containers - let canvas handle drawing
+      console.log('🎨 CanvasElement: allowing drawing system to handle creation tool:', selectedTool);
     }
   }, [element.id, element.type, dispatch, selectedTool]);
 
@@ -995,11 +996,8 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
         tabIndex={0}
         onClick={handleClick}
         onMouseDown={(e) => {
-          // Prevent mouse down from interfering with canvas click detection
-          if (!['select', 'hand'].includes(selectedTool)) {
-            e.preventDefault();
-          }
-          // Prevent text selection during drag operations
+          // Allow drawing system to work - don't prevent default for creation tools
+          // Only prevent text selection during drag operations
           if (selectedTool === 'hand') {
             e.preventDefault();
           }
