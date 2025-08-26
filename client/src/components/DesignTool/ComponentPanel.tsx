@@ -54,14 +54,17 @@ const ComponentPanel: React.FC = () => {
 
   // Group components by category
   const groupedComponents = React.useMemo(() => {
-    const groups: Record<string, ComponentDef[]> = {
-      'uncategorized': []
-    };
+    const groups: Record<string, ComponentDef[]> = {};
 
-    // Initialize category groups
+    // Always initialize with all available categories first
     Object.values(componentCategories).forEach(cat => {
       groups[cat.id] = [];
     });
+
+    // Add uncategorized if not already present
+    if (!groups['uncategorized']) {
+      groups['uncategorized'] = [];
+    }
 
     // Group components
     Object.values(componentDefinitions).forEach(comp => {
@@ -230,9 +233,9 @@ const ComponentPanel: React.FC = () => {
 
       {/* Component Categories */}
       <div className="flex-1 overflow-y-auto">
-        {Object.keys(filteredComponents).length === 0 ? (
+        {Object.values(componentCategories).length === 0 ? (
           <div className="p-4 text-center text-gray-500 text-sm">
-            {searchTerm ? t('components.noMatchingComponents') : t('components.noComponentsYet')}
+            {t('components.noComponentsYet')}
           </div>
         ) : (
           <Accordion type="multiple" defaultValue={Object.keys(filteredComponents)} className="px-2">
@@ -250,8 +253,13 @@ const ComponentPanel: React.FC = () => {
                     </div>
                   </AccordionTrigger>
                   <AccordionContent className="pb-2">
-                    <div className="space-y-2 px-2">
-                      {components.map((component) => (
+                    {components.length === 0 ? (
+                      <div className="px-2 py-4 text-center text-gray-400 text-xs">
+                        {searchTerm ? t('components.noMatchingComponents') : 'No components in this category yet'}
+                      </div>
+                    ) : (
+                      <div className="space-y-2 px-2">
+                        {components.map((component) => (
                         <Card 
                           key={component.id}
                           className="cursor-pointer hover:shadow-md transition-shadow group"
@@ -302,8 +310,9 @@ const ComponentPanel: React.FC = () => {
                             </div>
                           </CardContent>
                         </Card>
-                      ))}
-                    </div>
+                        ))}
+                      </div>
+                    )}
                   </AccordionContent>
                 </AccordionItem>
               );
