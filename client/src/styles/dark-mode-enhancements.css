@@ -178,6 +178,7 @@
 .dark [class*="bg-white"],
 .dark [class*="bg-gray"],
 .dark .bg-slate-50,
+.dark .bg-blue-50,
 .dark .bg-slate-100 {
   background-color: hsl(var(--card)) !important;
   color: hsl(var(--card-foreground)) !important;
