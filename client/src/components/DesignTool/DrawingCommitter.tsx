@@ -302,8 +302,10 @@ function createElementForTool(
       ...baseElement,
       x: placement.localPosition.x,
       y: placement.localPosition.y,
-      width: drawnWidth,
+      width: exceedsBreakpoint ? 100 : drawnWidth,
       height: drawnHeight,
+      widthUnit: exceedsBreakpoint ? '%' : 'px',
+      heightUnit: 'px',
       // Override default styles with drawn dimensions
       styles: {
         ...baseElement.styles,
@@ -316,8 +318,10 @@ function createElementForTool(
   // For flow elements, use 100% width if exceeds breakpoint
   return {
     ...baseElement,
-    width: drawnWidth,
+    width: exceedsBreakpoint ? 100 : drawnWidth,
     height: drawnHeight,
+    widthUnit: exceedsBreakpoint ? '%' : 'px',
+    heightUnit: 'px',
     // Override default styles with drawn dimensions
     styles: {
       ...baseElement.styles,
