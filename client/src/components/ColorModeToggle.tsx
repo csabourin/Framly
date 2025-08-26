@@ -15,8 +15,14 @@ export function ColorModeToggle() {
   console.log('🔧 ColorModeToggle rendering at', new Date().toISOString());
   
   try {
-    const { mode, resolvedMode, setMode, supportsHighContrast, isColorModeDesignEnabled, setColorModeDesignEnabled } = useColorMode();
+    const contextValue = useColorMode();
+    const { mode, resolvedMode, setMode, supportsHighContrast, isColorModeDesignEnabled, setColorModeDesignEnabled } = contextValue;
     console.log('🔧 ColorModeToggle: useColorMode hook called successfully');
+    console.log('🔧 ColorModeToggle: Context functions check:', {
+      setMode: typeof setMode,
+      setColorModeDesignEnabled: typeof setColorModeDesignEnabled,
+      contextValue: !!contextValue
+    });
     
     const { t, ready } = useTranslation();
     console.log('🔧 ColorModeToggle: useTranslation ready:', ready, 'mode:', mode, 'resolved:', resolvedMode);
@@ -37,9 +43,13 @@ export function ColorModeToggle() {
       );
     }
     
-    // Simple toggle handler
+    // Simple toggle handler with safety check
     const handleToggleDesignMode = () => {
-      setColorModeDesignEnabled(!isColorModeDesignEnabled);
+      if (typeof setColorModeDesignEnabled === 'function') {
+        setColorModeDesignEnabled(!isColorModeDesignEnabled);
+      } else {
+        console.error('🔧 ColorModeToggle: setColorModeDesignEnabled is not a function:', typeof setColorModeDesignEnabled);
+      }
     };
 
     const modeOptions: { value: ColorMode; label: string; icon: React.ComponentType<{ className?: string }>; description: string }[] = [

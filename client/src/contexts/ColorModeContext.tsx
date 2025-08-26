@@ -142,6 +142,13 @@ export function ColorModeProvider({ children, defaultMode = 'auto' }: ColorModeP
     setColorModeDesignEnabled,
   };
   
+  console.log('🔧 ColorModeProvider: Providing context value:', {
+    mode,
+    resolvedMode,
+    setMode: typeof setMode,
+    setColorModeDesignEnabled: typeof setColorModeDesignEnabled,
+    isColorModeDesignEnabled
+  });
   
   return (
     <ColorModeContext.Provider value={value}>
