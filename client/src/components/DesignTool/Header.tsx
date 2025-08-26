@@ -15,7 +15,6 @@ import { StaticColorModeToggle } from '../../components/StaticColorModeToggle';
 import { useColorMode } from '../../contexts/ColorModeContext';
 
 const Header: React.FC = () => {
-  console.log('[Header] Component rendering at', new Date().toISOString());
   const { t } = useTranslation();
   const dispatch = useDispatch();
   
@@ -27,7 +26,7 @@ const Header: React.FC = () => {
     isColorModeDesignEnabled = colorModeContext.isColorModeDesignEnabled;
     setColorModeDesignEnabled = colorModeContext.setColorModeDesignEnabled;
   } catch (error) {
-    console.error('[Header] ColorMode context error:', error);
+    // Silent fallback if context not available
   }
   const project = useSelector(selectCanvasProject);
   const { isExportModalOpen } = useSelector(selectExportModalState);

@@ -1,0 +1,1565 @@
+Fetch finished loading: GET "<URL>".
+Fetch finished loading: GET "<URL>".
+Fetch finished loading: GET "<URL>".
+Fetch finished loading: GET "<URL>".
+Fetch finished loading: GET "<URL>".
+Fetch finished loading: GET "<URL>".
+Fetch finished loading: GET "<URL>".
+Fetch finished loading: GET "<URL>".
+Fetch finished loading: GET "<URL>".
+Fetch finished loading: GET "<URL>".
+Fetch finished loading: GET "<URL>".
+Fetch finished loading: GET "<URL>".
+Fetch finished loading: GET "<URL>".
+Fetch finished loading: GET "<URL>".
+Fetch finished loading: GET "<URL>".
+Fetch finished loading: GET "<URL>".
+Fetch finished loading: GET "<URL>".
+Fetch finished loading: GET "<URL>".
+Fetch finished loading: GET "<URL>".
+Fetch finished loading: GET "<URL>".
+@reduxjs_toolkit.js?v=71123327:1060  The result function returned its own inputs without modification. e.g
+`createSelector([state => state.todos], todos => todos)`
+This could lead to inefficient memoization and unnecessary re-renders.
+Ensure transformation logic is in the result function, and extraction logic is in the input selectors. {stack: 'Error\n    at Object.runIdentityFunctionCheck [as r…dules/.vite/deps/react-redux.js?v=71123327:60:21)'}
+runIdentityFunctionCheck @ identityFunctionCheck.ts:44
+dependenciesChecker @ createSelectorCreator.ts:418
+memoized @ weakMapMemoize.ts:228
+memoized @ useSelector.ts:171
+memoizedSelector @ use-sync-external-store-with-selector.development.js:46
+(anonymous) @ use-sync-external-store-with-selector.development.js:70
+mountSyncExternalStore @ react-dom.development.js:15980
+useSyncExternalStore @ react-dom.development.js:16908
+useSyncExternalStore @ react.development.js:1676
+exports.useSyncExternalStoreWithSelector @ use-sync-external-store-with-selector.development.js:81
+useSelector2 @ useSelector.ts:243
+useComponentPropagation @ useComponentPropagation.ts:15
+DesignToolContent @ index.tsx:32
+renderWithHooks @ react-dom.development.js:15486
+mountIndeterminateComponent @ react-dom.development.js:20103
+beginWork @ react-dom.development.js:21626
+beginWork$1 @ react-dom.development.js:27465
+performUnitOfWork @ react-dom.development.js:26596
+workLoopSync @ react-dom.development.js:26505
+renderRootSync @ react-dom.development.js:26473
+performConcurrentWorkOnRoot @ react-dom.development.js:25777
+workLoop @ scheduler.development.js:266
+flushWork @ scheduler.development.js:239
+performWorkUntilDeadline @ scheduler.development.js:533
+@reduxjs_toolkit.js?v=71123327:1060  The result function returned its own inputs without modification. e.g
+`createSelector([state => state.todos], todos => todos)`
+This could lead to inefficient memoization and unnecessary re-renders.
+Ensure transformation logic is in the result function, and extraction logic is in the input selectors. {stack: 'Error\n    at Object.runIdentityFunctionCheck [as r…dules/.vite/deps/react-redux.js?v=71123327:60:21)'}
+runIdentityFunctionCheck @ identityFunctionCheck.ts:44
+dependenciesChecker @ createSelectorCreator.ts:418
+memoized @ weakMapMemoize.ts:228
+memoized @ useSelector.ts:171
+memoizedSelector @ use-sync-external-store-with-selector.development.js:46
+(anonymous) @ use-sync-external-store-with-selector.development.js:70
+mountSyncExternalStore @ react-dom.development.js:15980
+useSyncExternalStore @ react-dom.development.js:16908
+useSyncExternalStore @ react.development.js:1676
+exports.useSyncExternalStoreWithSelector @ use-sync-external-store-with-selector.development.js:81
+useSelector2 @ useSelector.ts:243
+PropertiesPanel @ PropertiesPanel.tsx:76
+renderWithHooks @ react-dom.development.js:15486
+mountIndeterminateComponent @ react-dom.development.js:20103
+beginWork @ react-dom.development.js:21626
+beginWork$1 @ react-dom.development.js:27465
+performUnitOfWork @ react-dom.development.js:26596
+workLoopSync @ react-dom.development.js:26505
+renderRootSync @ react-dom.development.js:26473
+performConcurrentWorkOnRoot @ react-dom.development.js:25777
+workLoop @ scheduler.development.js:266
+flushWork @ scheduler.development.js:239
+performWorkUntilDeadline @ scheduler.development.js:533
+@reduxjs_toolkit.js?v=71123327:1060  The result function returned its own inputs without modification. e.g
+`createSelector([state => state.todos], todos => todos)`
+This could lead to inefficient memoization and unnecessary re-renders.
+Ensure transformation logic is in the result function, and extraction logic is in the input selectors. {stack: 'Error\n    at Object.runIdentityFunctionCheck [as r…dules/.vite/deps/react-redux.js?v=71123327:60:21)'}
+runIdentityFunctionCheck @ identityFunctionCheck.ts:44
+dependenciesChecker @ createSelectorCreator.ts:418
+memoized @ weakMapMemoize.ts:228
+memoized @ useSelector.ts:171
+memoizedSelector @ use-sync-external-store-with-selector.development.js:46
+(anonymous) @ use-sync-external-store-with-selector.development.js:70
+mountSyncExternalStore @ react-dom.development.js:15980
+useSyncExternalStore @ react-dom.development.js:16908
+useSyncExternalStore @ react.development.js:1676
+exports.useSyncExternalStoreWithSelector @ use-sync-external-store-with-selector.development.js:81
+useSelector2 @ useSelector.ts:243
+CreateComponentModal @ CreateComponentModal.tsx:39
+renderWithHooks @ react-dom.development.js:15486
+mountIndeterminateComponent @ react-dom.development.js:20103
+beginWork @ react-dom.development.js:21626
+beginWork$1 @ react-dom.development.js:27465
+performUnitOfWork @ react-dom.development.js:26596
+workLoopSync @ react-dom.development.js:26505
+renderRootSync @ react-dom.development.js:26473
+performConcurrentWorkOnRoot @ react-dom.development.js:25777
+workLoop @ scheduler.development.js:266
+flushWork @ scheduler.development.js:239
+performWorkUntilDeadline @ scheduler.development.js:533
+indexedDB.ts:27 IndexedDB opened successfully
+indexedDB.ts:454 IndexedDB initialized successfully
+indexedDB.ts:472 Project loaded from IndexedDB: default-project
+persistence.ts?v=MUA2ioMlWbG7ecfQrrz6y:62 Loading persisted project: Beppo et cie.
+workspace_iframe.html?initialPath=%2F&id=%3Ar2vp%3A:142  Refused to load the script 'https://replit.com/public/js/beacon.js' because it violates the following Content Security Policy directive: "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://fonts.googleapis.com https://fonts.gstatic.com". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback.
+
+onIframeLoad @ workspace_iframe.html?initialPath=%2F&id=%3Ar2vp%3A:142
+workspace_iframe.html?initialPath=%2F&id=%3Ar2vp%3A:142  Refused to load the script 'https://replit.com/public/js/beacon.js' because it violates the following Content Security Policy directive: "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://fonts.googleapis.com https://fonts.gstatic.com". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback.
+
+onIframeLoad @ workspace_iframe.htm…F&id=%3Ar2vp%3A:142
+workspace_iframe.html?initialPath=%2F&id=%3Ar2vp%3A:1  Unrecognized feature: 'ambient-light-sensor'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar2vp%3A:1  Unrecognized feature: 'ambient-light-sensor'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar2vp%3A:1  Unrecognized feature: 'battery'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar2vp%3A:1  Unrecognized feature: 'battery'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar2vp%3A:1  Unrecognized feature: 'execution-while-not-rendered'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar2vp%3A:1  Unrecognized feature: 'execution-while-not-rendered'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar2vp%3A:1  Unrecognized feature: 'execution-while-out-of-viewport'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar2vp%3A:1  Unrecognized feature: 'execution-while-out-of-viewport'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar2vp%3A:1  Unrecognized feature: 'layout-animations'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar2vp%3A:1  Unrecognized feature: 'layout-animations'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar2vp%3A:1  Unrecognized feature: 'legacy-image-formats'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar2vp%3A:1  Unrecognized feature: 'legacy-image-formats'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar2vp%3A:1  Unrecognized feature: 'navigation-override'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar2vp%3A:1  Unrecognized feature: 'navigation-override'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar2vp%3A:1  Unrecognized feature: 'oversized-images'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar2vp%3A:1  Unrecognized feature: 'oversized-images'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar2vp%3A:1  Unrecognized feature: 'publickey-credentials'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar2vp%3A:1  Unrecognized feature: 'publickey-credentials'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar2vp%3A:1  Unrecognized feature: 'speaker-selection'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar2vp%3A:1  Unrecognized feature: 'speaker-selection'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar2vp%3A:1  Unrecognized feature: 'unoptimized-images'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar2vp%3A:1  Unrecognized feature: 'unoptimized-images'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar2vp%3A:1  Unrecognized feature: 'unsized-media'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar2vp%3A:1  Unrecognized feature: 'unsized-media'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar2vp%3A:1  Allow attribute will take precedence over 'allowfullscreen'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar2vp%3A:1  Allow attribute will take precedence over 'allowfullscreen'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar2vp%3A:1  Allow attribute will take precedence over 'allowpaymentrequest'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar2vp%3A:1  Allow attribute will take precedence over 'allowpaymentrequest'.
+LayoutMaster:1  Unrecognized feature: 'ambient-light-sensor'.
+LayoutMaster:1  Unrecognized feature: 'battery'.
+LayoutMaster:1  Unrecognized feature: 'execution-while-not-rendered'.
+LayoutMaster:1  Unrecognized feature: 'execution-while-out-of-viewport'.
+LayoutMaster:1  Unrecognized feature: 'layout-animations'.
+LayoutMaster:1  Unrecognized feature: 'legacy-image-formats'.
+LayoutMaster:1  Unrecognized feature: 'navigation-override'.
+LayoutMaster:1  Unrecognized feature: 'oversized-images'.
+LayoutMaster:1  Unrecognized feature: 'publickey-credentials'.
+LayoutMaster:1  Unrecognized feature: 'speaker-selection'.
+LayoutMaster:1  Unrecognized feature: 'unoptimized-images'.
+LayoutMaster:1  Unrecognized feature: 'unsized-media'.
+LayoutMaster:1  Unrecognized feature: 'pointer-lock'.
+LayoutMaster:1  Allow attribute will take precedence over 'allowfullscreen'.
+LayoutMaster:1  Allow attribute will take precedence over 'allowpaymentrequest'.
+persistence.ts?v=MUA2ioMlWbG7ecfQrrz6y:177 Loaded 3 component definitions in 0 categories
+persistence.ts?v=MUA2ioMlWbG7ecfQrrz6y:194 Loaded 64 custom classes and 0 class categories
+persistence.ts?v=MUA2ioMlWbG7ecfQrrz6y:203 Loading persisted UI settings
+persistence.ts?v=MUA2ioMlWbG7ecfQrrz6y:42 Persistence manager initialized
+Fetch failed loading: POST "<URL>".
+Fetch failed loading: POST "<URL>".
+Fetch failed loading: POST "<URL>".
+Fetch failed loading: POST "<URL>".
+Fetch failed loading: POST "<URL>".
+Fetch failed loading: POST "<URL>".
+Fetch failed loading: POST "<URL>".
+historyManager.ts:69 [Violation] 'success' handler took 339ms
+historyManager.ts:74 Loaded 50 history entries from IndexedDB
+historyManager.ts:18 History manager initialized
+Fetch finished loading: POST "<URL>".
+Fetch finished loading: POST "<URL>".
+Fetch finished loading: POST "<URL>".
+Fetch finished loading: POST "<URL>".
+Fetch finished loading: POST "<URL>".
+Fetch finished loading: POST "<URL>".
+Fetch finished loading: POST "<URL>".
+Fetch finished loading: POST "<URL>".
+Fetch finished loading: POST "<URL>".
+Fetch finished loading: POST "<URL>".
+Fetch finished loading: POST "<URL>".
+Fetch finished loading: POST "<URL>".
+Fetch finished loading: POST "<URL>".
+Fetch finished loading: POST "<URL>".
+Fetch finished loading: POST "<URL>".
+Fetch finished loading: POST "<URL>".
+Fetch finished loading: POST "<URL>".
+Fetch finished loading: POST "<URL>".
+Fetch finished loading: POST "<URL>".
+Fetch finished loading: POST "<URL>".
+Fetch finished loading: POST "<URL>".
+Fetch finished loading: POST "<URL>".
+indexedDB.ts:463 Project saved to IndexedDB: default-project
+persistence.ts?v=MUA2ioMlWbG7ecfQrrz6y:227 Project auto-saved
+PropertiesPanel.tsx:609 Getting headingLevel value: 1 returning: 1
+PropertiesPanel.tsx:609 Getting headingLevel value: 1 returning: 1
+chunk-RPCDYKBN.js?v=71123327:1861  The specified value "[object Object]" does not conform to the required format.  The format is "#rrggbb" where rr, gg, bb are two-digit hexadecimal numbers.
+set @ react-dom.development.js:1661
+updateWrapper @ react-dom.development.js:1837
+updateProperties @ react-dom.development.js:10151
+commitUpdate @ react-dom.development.js:11047
+commitMutationEffectsOnFiber @ react-dom.development.js:24428
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24471
+commitMutationEffects @ react-dom.development.js:24282
+commitRootImpl @ react-dom.development.js:26849
+commitRoot @ react-dom.development.js:26721
+performSyncWorkOnRoot @ react-dom.development.js:26156
+flushSyncCallbacks @ react-dom.development.js:12042
+(anonymous) @ react-dom.development.js:25690
+1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-RPCDYKBN.js?v=71123327:1861  The specified value "[object Object]" does not conform to the required format.  The format is "#rrggbb" where rr, gg, bb are two-digit hexadecimal numbers.
+set @ 1bd21cbd-0e36-4bdb-8….js?v=71123327:1861
+updateWrapper @ 1bd21cbd-0e36-4bdb-8….js?v=71123327:1987
+updateProperties @ 1bd21cbd-0e36-4bdb-8….js?v=71123327:7762
+commitUpdate @ 1bd21cbd-0e36-4bdb-8….js?v=71123327:8419
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17763
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17699
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17737
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17737
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17699
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17737
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17737
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17737
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17737
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17737
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17699
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17737
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17737
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17699
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17896
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17699
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17699
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17896
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17699
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17699
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17699
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17896
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17699
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17699
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17896
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17699
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17896
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17699
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17699
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17896
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17699
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17794
+commitMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17663
+commitRootImpl @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:19347
+commitRoot @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:19277
+performSyncWorkOnRoot @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:18895
+flushSyncCallbacks @ 1bd21cbd-0e36-4bdb-8….js?v=71123327:9119
+(anonymous) @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:18627
+PropertiesPanel.tsx:609 Getting headingLevel value: 1 returning: 1
+chunk-RPCDYKBN.js?v=71123327:1861  The specified value "[object Object]" does not conform to the required format.  The format is "#rrggbb" where rr, gg, bb are two-digit hexadecimal numbers.
+set @ react-dom.development.js:1661
+updateWrapper @ react-dom.development.js:1837
+updateProperties @ react-dom.development.js:10151
+commitUpdate @ react-dom.development.js:11047
+commitMutationEffectsOnFiber @ react-dom.development.js:24428
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24385
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24615
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24332
+recursivelyTraverseMutationEffects @ react-dom.development.js:24312
+commitMutationEffectsOnFiber @ react-dom.development.js:24471
+commitMutationEffects @ react-dom.development.js:24282
+commitRootImpl @ react-dom.development.js:26849
+commitRoot @ react-dom.development.js:26721
+performSyncWorkOnRoot @ react-dom.development.js:26156
+flushSyncCallbacks @ react-dom.development.js:12042
+(anonymous) @ react-dom.development.js:25690
+1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-RPCDYKBN.js?v=71123327:1861  The specified value "[object Object]" does not conform to the required format.  The format is "#rrggbb" where rr, gg, bb are two-digit hexadecimal numbers.
+set @ 1bd21cbd-0e36-4bdb-8….js?v=71123327:1861
+updateWrapper @ 1bd21cbd-0e36-4bdb-8….js?v=71123327:1987
+updateProperties @ 1bd21cbd-0e36-4bdb-8….js?v=71123327:7762
+commitUpdate @ 1bd21cbd-0e36-4bdb-8….js?v=71123327:8419
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17763
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17699
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17737
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17737
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17699
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17737
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17737
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17737
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17737
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17737
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17699
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17737
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17737
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17699
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17896
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17699
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17699
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17896
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17699
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17699
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17699
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17896
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17699
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17699
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17896
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17699
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17896
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17699
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17699
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17896
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17699
+recursivelyTraverseMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17685
+commitMutationEffectsOnFiber @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17794
+commitMutationEffects @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:17663
+commitRootImpl @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:19347
+commitRoot @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:19277
+performSyncWorkOnRoot @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:18895
+flushSyncCallbacks @ 1bd21cbd-0e36-4bdb-8….js?v=71123327:9119
+(anonymous) @ 1bd21cbd-0e36-4bdb-8…js?v=71123327:18627
+_app-704ac2ee9a5e6155.js:38 XHR finished loading: POST "https://stats.g.doubleclick.net/j/collect?t=dc&aip=1&_r=3&v=1&_v=j102&tid=UA-25629695-1&cid=1280382135.1756161793&jid=1419543425&gjid=611144711&_gid=1323205256.1756161793&_u=SCCAgEAjQAAAAGgCIAD~&z=299808079".
+(anonymous) @ _app-704ac2ee9a5e6155.js:38
+(anonymous) @ _app-704ac2ee9a5e6155.js:38
+wd @ analytics.js:46
+pe @ analytics.js:44
+(anonymous) @ analytics.js:83
+Ha.D @ analytics.js:47
+pc.send @ analytics.js:87
+X.b.<computed> @ analytics.js:68
+Z.v @ analytics.js:102
+Z.D @ analytics.js:101
+N @ analytics.js:103
+w.track @ index.js:360
+track @ protos.js:372
+e.invoke @ protos.js:178
+(anonymous) @ index.ts:270
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+s @ tslib.es6.js:73
+Promise.then
+a @ tslib.es6.js:76
+(anonymous) @ tslib.es6.js:76
+u @ tslib.es6.js:72
+t.send @ ajs-destination.bundle.8e6b895db75187c55313.js:1
+(anonymous) @ index.ts:286
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+t.track @ ajs-destination.bundle.8e6b895db75187c55313.js:1
+(anonymous) @ delivery.js:28
+(anonymous) @ delivery.js:11
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+(anonymous) @ delivery.js:4
+o @ delivery.js:27
+(anonymous) @ event-queue.js:325
+(anonymous) @ event-queue.js:323
+n @ _app-704ac2ee9a5e6155.js:38
+setTimeout
+(anonymous) @ _app-704ac2ee9a5e6155.js:38
+(anonymous) @ event-queue.js:321
+(anonymous) @ event-queue.js:320
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+s @ tslib.es6.js:73
+Promise.then
+a @ tslib.es6.js:76
+s @ tslib.es6.js:73
+Promise.then
+a @ tslib.es6.js:76
+(anonymous) @ tslib.es6.js:76
+u @ tslib.es6.js:72
+n.flushOne @ event-queue.js:273
+(anonymous) @ event-queue.js:181
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+s @ tslib.es6.js:73
+Promise.then
+a @ tslib.es6.js:76
+(anonymous) @ tslib.es6.js:76
+u @ tslib.es6.js:72
+n.deliver @ event-queue.js:169
+(anonymous) @ event-queue.js:135
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+n.dispatchSingle @ event-queue.js:128
+(anonymous) @ dispatch.js:25
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+p @ dispatch.js:18
+(anonymous) @ index.ts:460
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+n._dispatch @ index.ts:454
+(anonymous) @ index.ts:253
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+n.track @ index.ts:241
+A @ _app-704ac2ee9a5e6155.js:1
+p @ 8179-7d51908ac4a20159.js:1
+(anonymous) @ 9237-cb4ce64b6603dedd.js:1
+(anonymous) @ main-c2ac87e9dfaf7b84.js:1
+n @ main-c2ac87e9dfaf7b84.js:1
+u @ main-c2ac87e9dfaf7b84.js:1
+Promise.then
+n @ main-c2ac87e9dfaf7b84.js:1
+u @ main-c2ac87e9dfaf7b84.js:1
+(anonymous) @ main-c2ac87e9dfaf7b84.js:1
+(anonymous) @ main-c2ac87e9dfaf7b84.js:1
+(anonymous) @ 9237-cb4ce64b6603dedd.js:1
+(anonymous) @ 9237-cb4ce64b6603dedd.js:1
+(anonymous) @ 9237-cb4ce64b6603dedd.js:1
+(anonymous) @ main-c2ac87e9dfaf7b84.js:1
+n @ main-c2ac87e9dfaf7b84.js:1
+u @ main-c2ac87e9dfaf7b84.js:1
+(anonymous) @ main-c2ac87e9dfaf7b84.js:1
+(anonymous) @ main-c2ac87e9dfaf7b84.js:1
+(anonymous) @ 9237-cb4ce64b6603dedd.js:1
+(anonymous) @ 9237-cb4ce64b6603dedd.js:1
+(anonymous) @ 9237-cb4ce64b6603dedd.js:1
+keydown @ 9237-cb4ce64b6603dedd.js:1
+(anonymous) @ 275e5802-bfc630455e838aac.js:1
+runHandlers @ 275e5802-bfc630455e838aac.js:1
+handleEvent @ 275e5802-bfc630455e838aac.js:1
+n @ _app-704ac2ee9a5e6155.js:38
+workspace_iframe.html?initialPath=%2F&id=%3Ar2vp%3A:32  Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+client:495 [vite] connecting...
+client:536  WebSocket connection to 'wss://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/?token=3yBWfOfrR_z8' failed: 
+setupWebSocket @ VM10075 client:536
+(anonymous) @ VM10075 client:531
+client:536  Uncaught (in promise) SyntaxError: Failed to construct 'WebSocket': The URL 'wss://localhost:undefined/?token=3yBWfOfrR_z8' is invalid.
+    at setupWebSocket (client:536:19)
+    at fallback (client:509:16)
+    at WebSocket.<anonymous> (client:555:7)
+setupWebSocket @ VM10075 client:536
+fallback @ VM10075 client:509
+(anonymous) @ VM10075 client:555
+@reduxjs_toolkit.js?v=71123327:1060  The result function returned its own inputs without modification. e.g
+`createSelector([state => state.todos], todos => todos)`
+This could lead to inefficient memoization and unnecessary re-renders.
+Ensure transformation logic is in the result function, and extraction logic is in the input selectors. {stack: 'Error\n    at Object.runIdentityFunctionCheck [as r…dules/.vite/deps/react-redux.js?v=71123327:60:21)'}
+runIdentityFunctionCheck @ VM10100 @reduxjs_toolkit.js:1060
+dependenciesChecker @ VM10100 @reduxjs_toolkit.js:1393
+memoized @ VM10100 @reduxjs_toolkit.js:1316
+memoized @ VM10082 react-redux.js:1021
+memoizedSelector @ VM10082 react-redux.js:31
+(anonymous) @ VM10082 react-redux.js:51
+mountSyncExternalStore @ VM10086 chunk-RPCDYKBN.js:11886
+useSyncExternalStore @ VM10086 chunk-RPCDYKBN.js:12573
+useSyncExternalStore @ VM10084 chunk-QCHXOAYK.js:1120
+exports.useSyncExternalStoreWithSelector @ VM10082 react-redux.js:60
+useSelector2 @ VM10082 react-redux.js:1076
+useComponentPropagation @ VM10148 useComponentPropagation.ts:9
+DesignToolContent @ VM10144 index.tsx:46
+renderWithHooks @ VM10086 chunk-RPCDYKBN.js:11548
+mountIndeterminateComponent @ VM10086 chunk-RPCDYKBN.js:14926
+beginWork @ VM10086 chunk-RPCDYKBN.js:15914
+beginWork$1 @ VM10086 chunk-RPCDYKBN.js:19753
+performUnitOfWork @ VM10086 chunk-RPCDYKBN.js:19198
+workLoopSync @ VM10086 chunk-RPCDYKBN.js:19137
+renderRootSync @ VM10086 chunk-RPCDYKBN.js:19116
+performConcurrentWorkOnRoot @ VM10086 chunk-RPCDYKBN.js:18678
+workLoop @ VM10086 chunk-RPCDYKBN.js:197
+flushWork @ VM10086 chunk-RPCDYKBN.js:176
+performWorkUntilDeadline @ VM10086 chunk-RPCDYKBN.js:384
+Header.tsx?t=1756168246734:32 [Header] Component rendering at 2025-08-26T00:30:51.133Z
+@reduxjs_toolkit.js?v=71123327:1060  The result function returned its own inputs without modification. e.g
+`createSelector([state => state.todos], todos => todos)`
+This could lead to inefficient memoization and unnecessary re-renders.
+Ensure transformation logic is in the result function, and extraction logic is in the input selectors. {stack: 'Error\n    at Object.runIdentityFunctionCheck [as r…dules/.vite/deps/react-redux.js?v=71123327:60:21)'}
+runIdentityFunctionCheck @ VM10100 @reduxjs_toolkit.js:1060
+dependenciesChecker @ VM10100 @reduxjs_toolkit.js:1393
+memoized @ VM10100 @reduxjs_toolkit.js:1316
+memoized @ VM10082 react-redux.js:1021
+memoizedSelector @ VM10082 react-redux.js:31
+(anonymous) @ VM10082 react-redux.js:51
+mountSyncExternalStore @ VM10086 chunk-RPCDYKBN.js:11886
+useSyncExternalStore @ VM10086 chunk-RPCDYKBN.js:12573
+useSyncExternalStore @ VM10084 chunk-QCHXOAYK.js:1120
+exports.useSyncExternalStoreWithSelector @ VM10082 react-redux.js:60
+useSelector2 @ VM10082 react-redux.js:1076
+PropertiesPanel @ VM10152 PropertiesPanel.tsx:75
+renderWithHooks @ VM10086 chunk-RPCDYKBN.js:11548
+mountIndeterminateComponent @ VM10086 chunk-RPCDYKBN.js:14926
+beginWork @ VM10086 chunk-RPCDYKBN.js:15914
+beginWork$1 @ VM10086 chunk-RPCDYKBN.js:19753
+performUnitOfWork @ VM10086 chunk-RPCDYKBN.js:19198
+workLoopSync @ VM10086 chunk-RPCDYKBN.js:19137
+renderRootSync @ VM10086 chunk-RPCDYKBN.js:19116
+performConcurrentWorkOnRoot @ VM10086 chunk-RPCDYKBN.js:18678
+workLoop @ VM10086 chunk-RPCDYKBN.js:197
+flushWork @ VM10086 chunk-RPCDYKBN.js:176
+performWorkUntilDeadline @ VM10086 chunk-RPCDYKBN.js:384
+@reduxjs_toolkit.js?v=71123327:1060  The result function returned its own inputs without modification. e.g
+`createSelector([state => state.todos], todos => todos)`
+This could lead to inefficient memoization and unnecessary re-renders.
+Ensure transformation logic is in the result function, and extraction logic is in the input selectors. {stack: 'Error\n    at Object.runIdentityFunctionCheck [as r…dules/.vite/deps/react-redux.js?v=71123327:60:21)'}
+runIdentityFunctionCheck @ VM10100 @reduxjs_toolkit.js:1060
+dependenciesChecker @ VM10100 @reduxjs_toolkit.js:1393
+memoized @ VM10100 @reduxjs_toolkit.js:1316
+memoized @ VM10082 react-redux.js:1021
+memoizedSelector @ VM10082 react-redux.js:31
+(anonymous) @ VM10082 react-redux.js:51
+mountSyncExternalStore @ VM10086 chunk-RPCDYKBN.js:11886
+useSyncExternalStore @ VM10086 chunk-RPCDYKBN.js:12573
+useSyncExternalStore @ VM10084 chunk-QCHXOAYK.js:1120
+exports.useSyncExternalStoreWithSelector @ VM10082 react-redux.js:60
+useSelector2 @ VM10082 react-redux.js:1076
+CreateComponentModal @ VM10154 CreateComponentModal.tsx:52
+renderWithHooks @ VM10086 chunk-RPCDYKBN.js:11548
+mountIndeterminateComponent @ VM10086 chunk-RPCDYKBN.js:14926
+beginWork @ VM10086 chunk-RPCDYKBN.js:15914
+beginWork$1 @ VM10086 chunk-RPCDYKBN.js:19753
+performUnitOfWork @ VM10086 chunk-RPCDYKBN.js:19198
+workLoopSync @ VM10086 chunk-RPCDYKBN.js:19137
+renderRootSync @ VM10086 chunk-RPCDYKBN.js:19116
+performConcurrentWorkOnRoot @ VM10086 chunk-RPCDYKBN.js:18678
+workLoop @ VM10086 chunk-RPCDYKBN.js:197
+flushWork @ VM10086 chunk-RPCDYKBN.js:176
+performWorkUntilDeadline @ VM10086 chunk-RPCDYKBN.js:384
+indexedDB.ts:27 IndexedDB opened successfully
+indexedDB.ts:454 IndexedDB initialized successfully
+indexedDB.ts:472 Project loaded from IndexedDB: default-project
+persistence.ts?v=cI0-6Hs7pkJ5GR78mTDWY:62 Loading persisted project: Beppo et cie.
+Header.tsx?t=1756168246734:32 [Header] Component rendering at 2025-08-26T00:30:51.374Z
+Header.tsx?t=1756168246734:32 [Header] Component rendering at 2025-08-26T00:30:51.487Z
+workspace_iframe.html?initialPath=%2F&id=%3Ar2vp%3A:142  Refused to load the script 'https://replit.com/public/js/beacon.js' because it violates the following Content Security Policy directive: "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://fonts.googleapis.com https://fonts.gstatic.com". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback.
+
+onIframeLoad @ workspace_iframe.html?initialPath=%2F&id=%3Ar2vp%3A:142
+persistence.ts?v=cI0-6Hs7pkJ5GR78mTDWY:177 Loaded 3 component definitions in 0 categories
+Header.tsx?t=1756168246734:32 [Header] Component rendering at 2025-08-26T00:30:51.522Z
+persistence.ts?v=cI0-6Hs7pkJ5GR78mTDWY:194 Loaded 64 custom classes and 0 class categories
+persistence.ts?v=cI0-6Hs7pkJ5GR78mTDWY:203 Loading persisted UI settings
+Header.tsx?t=1756168246734:32 [Header] Component rendering at 2025-08-26T00:30:51.592Z
+persistence.ts?v=cI0-6Hs7pkJ5GR78mTDWY:42 Persistence manager initialized
+historyManager.ts:69 [Violation] 'success' handler took 344ms
+historyManager.ts:74 Loaded 50 history entries from IndexedDB
+historyManager.ts:18 History manager initialized
+indexedDB.ts:463 Project saved to IndexedDB: default-project
+persistence.ts?v=cI0-6Hs7pkJ5GR78mTDWY:227 Project auto-saved
+_app-704ac2ee9a5e6155.js:38 XHR finished loading: POST "https://events.launchdarkly.com/events/diagnostic/62b35a865152ab14c5942820".
+(anonymous) @ _app-704ac2ee9a5e6155.js:38
+(anonymous) @ _app-704ac2ee9a5e6155.js:38
+promise @ _app-704ac2ee9a5e6155.js:40
+(anonymous) @ _app-704ac2ee9a5e6155.js:40
+r.httpRequest @ _app-704ac2ee9a5e6155.js:40
+t @ _app-704ac2ee9a5e6155.js:40
+a.sendChunk @ _app-704ac2ee9a5e6155.js:40
+a.sendEvents @ _app-704ac2ee9a5e6155.js:40
+m @ _app-704ac2ee9a5e6155.js:40
+b @ _app-704ac2ee9a5e6155.js:40
+n @ _app-704ac2ee9a5e6155.js:38
+framework-9def6c35092b2c2f.js:1  Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+_ @ framework-9def6c35092b2c2f.js:1
+(anonymous) @ framework-9def6c35092b2c2f.js:1
+uD @ framework-9def6c35092b2c2f.js:1
+uI @ framework-9def6c35092b2c2f.js:1
+uM @ framework-9def6c35092b2c2f.js:1
+uS @ framework-9def6c35092b2c2f.js:1
+C @ framework-9def6c35092b2c2f.js:1
+z @ framework-9def6c35092b2c2f.js:1
+framework-9def6c35092b2c2f.js:1  The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+e @ framework-9def6c35092b2c2f.js:1
+e @ framework-9def6c35092b2c2f.js:1
+e @ framework-9def6c35092b2c2f.js:1
+oK @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+framework-9def6c35092b2c2f.js:1  The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+e @ framework-9def6c35092b2c2f.js:1
+e @ framework-9def6c35092b2c2f.js:1
+e @ framework-9def6c35092b2c2f.js:1
+oK @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+framework-9def6c35092b2c2f.js:1  The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+e @ framework-9def6c35092b2c2f.js:1
+e @ framework-9def6c35092b2c2f.js:1
+e @ framework-9def6c35092b2c2f.js:1
+oK @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+oQ @ framework-9def6c35092b2c2f.js:1
+oq @ framework-9def6c35092b2c2f.js:1
+1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar3b4%3A:32  Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar3b4%3A:32  Unrecognized feature: 'ambient-light-sensor'.
+1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar3b4%3A:32  Unrecognized feature: 'battery'.
+1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar3b4%3A:32  Unrecognized feature: 'execution-while-not-rendered'.
+1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar3b4%3A:32  Unrecognized feature: 'execution-while-out-of-viewport'.
+1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar3b4%3A:32  Unrecognized feature: 'layout-animations'.
+1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar3b4%3A:32  Unrecognized feature: 'legacy-image-formats'.
+1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar3b4%3A:32  Unrecognized feature: 'navigation-override'.
+1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar3b4%3A:32  Unrecognized feature: 'oversized-images'.
+1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar3b4%3A:32  Unrecognized feature: 'publickey-credentials'.
+1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar3b4%3A:32  Unrecognized feature: 'speaker-selection'.
+1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar3b4%3A:32  Unrecognized feature: 'unoptimized-images'.
+1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar3b4%3A:32  Unrecognized feature: 'unsized-media'.
+1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar3b4%3A:32  Allow attribute will take precedence over 'allowfullscreen'.
+1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Ar3b4%3A:32  Allow attribute will take precedence over 'allowpaymentrequest'.
+client:495 [vite] connecting...
+_app-704ac2ee9a5e6155.js:38 XHR finished loading: POST "https://stats.g.doubleclick.net/j/collect?t=dc&aip=1&_r=3&v=1&_v=j102&tid=UA-25629695-1&cid=1280382135.1756161793&jid=841091590&gjid=175993347&_gid=1323205256.1756161793&_u=SCCAgEAjQAAAAGgCIAD~&z=2137454477".
+(anonymous) @ _app-704ac2ee9a5e6155.js:38
+(anonymous) @ _app-704ac2ee9a5e6155.js:38
+wd @ analytics.js:46
+pe @ analytics.js:44
+(anonymous) @ analytics.js:83
+Ha.D @ analytics.js:47
+pc.send @ analytics.js:87
+X.b.<computed> @ analytics.js:68
+Z.v @ analytics.js:102
+Z.D @ analytics.js:101
+N @ analytics.js:103
+w.track @ index.js:360
+track @ protos.js:372
+e.invoke @ protos.js:178
+(anonymous) @ index.ts:270
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+s @ tslib.es6.js:73
+Promise.then
+a @ tslib.es6.js:76
+(anonymous) @ tslib.es6.js:76
+u @ tslib.es6.js:72
+t.send @ ajs-destination.bundle.8e6b895db75187c55313.js:1
+(anonymous) @ index.ts:286
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+t.track @ ajs-destination.bundle.8e6b895db75187c55313.js:1
+(anonymous) @ delivery.js:28
+(anonymous) @ delivery.js:11
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+(anonymous) @ delivery.js:4
+o @ delivery.js:27
+(anonymous) @ event-queue.js:325
+(anonymous) @ event-queue.js:323
+n @ _app-704ac2ee9a5e6155.js:38
+setTimeout
+(anonymous) @ _app-704ac2ee9a5e6155.js:38
+(anonymous) @ event-queue.js:321
+(anonymous) @ event-queue.js:320
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+s @ tslib.es6.js:73
+Promise.then
+a @ tslib.es6.js:76
+s @ tslib.es6.js:73
+Promise.then
+a @ tslib.es6.js:76
+(anonymous) @ tslib.es6.js:76
+u @ tslib.es6.js:72
+n.flushOne @ event-queue.js:273
+(anonymous) @ event-queue.js:181
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+s @ tslib.es6.js:73
+Promise.then
+a @ tslib.es6.js:76
+(anonymous) @ tslib.es6.js:76
+u @ tslib.es6.js:72
+n.deliver @ event-queue.js:169
+(anonymous) @ event-queue.js:135
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+n.dispatchSingle @ event-queue.js:128
+(anonymous) @ dispatch.js:25
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+p @ dispatch.js:18
+(anonymous) @ index.ts:460
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+n._dispatch @ index.ts:454
+(anonymous) @ index.ts:253
+(anonymous) @ tslib.es6.js:103
+(anonymous) @ tslib.es6.js:108
+(anonymous) @ tslib.es6.js:80
+u @ tslib.es6.js:72
+n.track @ index.ts:241
+A @ _app-704ac2ee9a5e6155.js:1
+(anonymous) @ 9237-cb4ce64b6603dedd.js:1
+f.emit @ 2255-8d705a8ae6446cc7.js:1
+(anonymous) @ 908-734cd1f28edb7569.js:1
+(anonymous) @ 1755-f85943d4d4980439.js:1
+handleCommand @ 1755-f85943d4d4980439.js:1
+onSocketMessage @ 1755-f85943d4d4980439.js:1
+client:536  WebSocket connection to 'wss://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/?token=3yBWfOfrR_z8' failed: 
+setupWebSocket @ client:536
+(anonymous) @ client:531
+client:536  Uncaught (in promise) SyntaxError: Failed to construct 'WebSocket': The URL 'wss://localhost:undefined/?token=3yBWfOfrR_z8' is invalid.
+    at setupWebSocket (client:536:19)
+    at fallback (client:509:16)
+    at WebSocket.<anonymous> (client:555:7)
+setupWebSocket @ client:536
+fallback @ client:509
+(anonymous) @ client:555
+useComponentPropagation.ts:15  The result function returned its own inputs without modification. e.g
+`createSelector([state => state.todos], todos => todos)`
+This could lead to inefficient memoization and unnecessary re-renders.
+Ensure transformation logic is in the result function, and extraction logic is in the input selectors. {stack: 'Error\n    at Object.runIdentityFunctionCheck [as r…dules/.vite/deps/react-redux.js?v=71123327:60:21)'}
+runIdentityFunctionCheck @ identityFunctionCheck.ts:44
+dependenciesChecker @ createSelectorCreator.ts:418
+memoized @ weakMapMemoize.ts:228
+memoized @ useSelector.ts:171
+memoizedSelector @ use-sync-external-store-with-selector.development.js:46
+(anonymous) @ use-sync-external-store-with-selector.development.js:70
+mountSyncExternalStore @ react-dom.development.js:15980
+useSyncExternalStore @ react-dom.development.js:16908
+useSyncExternalStore @ react.development.js:1676
+exports.useSyncExternalStoreWithSelector @ use-sync-external-store-with-selector.development.js:81
+useSelector2 @ useSelector.ts:243
+useComponentPropagation @ useComponentPropagation.ts:15
+DesignToolContent @ index.tsx:32
+renderWithHooks @ react-dom.development.js:15486
+mountIndeterminateComponent @ react-dom.development.js:20103
+beginWork @ react-dom.development.js:21626
+beginWork$1 @ react-dom.development.js:27465
+performUnitOfWork @ react-dom.development.js:26596
+workLoopSync @ react-dom.development.js:26505
+renderRootSync @ react-dom.development.js:26473
+performConcurrentWorkOnRoot @ react-dom.development.js:25777
+workLoop @ scheduler.development.js:266
+flushWork @ scheduler.development.js:239
+performWorkUntilDeadline @ scheduler.development.js:533
+PropertiesPanel.tsx:76  The result function returned its own inputs without modification. e.g
+`createSelector([state => state.todos], todos => todos)`
+This could lead to inefficient memoization and unnecessary re-renders.
+Ensure transformation logic is in the result function, and extraction logic is in the input selectors. {stack: 'Error\n    at Object.runIdentityFunctionCheck [as r…dules/.vite/deps/react-redux.js?v=71123327:60:21)'}
+runIdentityFunctionCheck @ identityFunctionCheck.ts:44
+dependenciesChecker @ createSelectorCreator.ts:418
+memoized @ weakMapMemoize.ts:228
+memoized @ useSelector.ts:171
+memoizedSelector @ use-sync-external-store-with-selector.development.js:46
+(anonymous) @ use-sync-external-store-with-selector.development.js:70
+mountSyncExternalStore @ react-dom.development.js:15980
+useSyncExternalStore @ react-dom.development.js:16908
+useSyncExternalStore @ react.development.js:1676
+exports.useSyncExternalStoreWithSelector @ use-sync-external-store-with-selector.development.js:81
+useSelector2 @ useSelector.ts:243
+PropertiesPanel @ PropertiesPanel.tsx:76
+renderWithHooks @ react-dom.development.js:15486
+mountIndeterminateComponent @ react-dom.development.js:20103
+beginWork @ react-dom.development.js:21626
+beginWork$1 @ react-dom.development.js:27465
+performUnitOfWork @ react-dom.development.js:26596
+workLoopSync @ react-dom.development.js:26505
+renderRootSync @ react-dom.development.js:26473
+performConcurrentWorkOnRoot @ react-dom.development.js:25777
+workLoop @ scheduler.development.js:266
+flushWork @ scheduler.development.js:239
+performWorkUntilDeadline @ scheduler.development.js:533
+CreateComponentModal.tsx:39  The result function returned its own inputs without modification. e.g
+`createSelector([state => state.todos], todos => todos)`
+This could lead to inefficient memoization and unnecessary re-renders.
+Ensure transformation logic is in the result function, and extraction logic is in the input selectors. {stack: 'Error\n    at Object.runIdentityFunctionCheck [as r…dules/.vite/deps/react-redux.js?v=71123327:60:21)'}
+runIdentityFunctionCheck @ identityFunctionCheck.ts:44
+dependenciesChecker @ createSelectorCreator.ts:418
+memoized @ weakMapMemoize.ts:228
+memoized @ useSelector.ts:171
+memoizedSelector @ use-sync-external-store-with-selector.development.js:46
+(anonymous) @ use-sync-external-store-with-selector.development.js:70
+mountSyncExternalStore @ react-dom.development.js:15980
+useSyncExternalStore @ react-dom.development.js:16908
+useSyncExternalStore @ react.development.js:1676
+exports.useSyncExternalStoreWithSelector @ use-sync-external-store-with-selector.development.js:81
+useSelector2 @ useSelector.ts:243
+CreateComponentModal @ CreateComponentModal.tsx:39
+renderWithHooks @ react-dom.development.js:15486
+mountIndeterminateComponent @ react-dom.development.js:20103
+beginWork @ react-dom.development.js:21626
+beginWork$1 @ react-dom.development.js:27465
+performUnitOfWork @ react-dom.development.js:26596
+workLoopSync @ react-dom.development.js:26505
+renderRootSync @ react-dom.development.js:26473
+performConcurrentWorkOnRoot @ react-dom.development.js:25777
+workLoop @ scheduler.development.js:266
+flushWork @ scheduler.development.js:239
+performWorkUntilDeadline @ scheduler.development.js:533
+indexedDB.ts:79 IndexedDB opened successfully
+indexedDB.ts:581 IndexedDB initialized successfully
+indexedDB.ts:601 Project loaded from IndexedDB: default-project
+persistence.ts:86 Loading persisted project: Beppo et cie.
+workspace_iframe.html?initialPath=%2F&id=%3Ar3b4%3A:142  Refused to load the script 'https://replit.com/public/js/beacon.js' because it violates the following Content Security Policy directive: "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://fonts.googleapis.com https://fonts.gstatic.com". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback.
+
+onIframeLoad @ workspace_iframe.html?initialPath=%2F&id=%3Ar3b4%3A:142
+persistence.ts:225 Loaded 3 component definitions in 0 categories
+persistence.ts:248 Loaded 64 custom classes and 0 class categories
+persistence.ts:258 Loading persisted UI settings
+persistence.ts:54 Persistence manager initialized
+historyManager.ts:85 [Violation] 'success' handler took 328ms
+historyManager.ts:95 Loaded 50 history entries from IndexedDB
+historyManager.ts:19 History manager initialized

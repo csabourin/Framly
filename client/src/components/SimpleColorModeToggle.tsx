@@ -3,21 +3,14 @@ import { Button } from '@/components/ui/button';
 import { Sun, Moon } from 'lucide-react';
 
 export function SimpleColorModeToggle() {
-  console.log('[SimpleColorModeToggle] Component rendering at', new Date().toISOString());
-  
   const [isDark, setIsDark] = useState(false);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    console.log('[SimpleColorModeToggle] useEffect running - mounting');
     setMounted(true);
     // Check initial theme
     const isDarkMode = document.documentElement.classList.contains('dark');
     setIsDark(isDarkMode);
-    
-    return () => {
-      console.log('[SimpleColorModeToggle] Component unmounting');
-    };
   }, []);
 
   const toggleTheme = () => {
@@ -35,7 +28,6 @@ export function SimpleColorModeToggle() {
 
   // Always render something, even if not mounted yet
   if (!mounted) {
-    console.log('[SimpleColorModeToggle] Rendering placeholder while mounting');
     return (
       <div className="h-8 w-8 p-1 bg-gray-200 border border-gray-300 rounded" title="Loading...">
         <div className="w-full h-full bg-gray-400 animate-pulse rounded" />
@@ -43,7 +35,6 @@ export function SimpleColorModeToggle() {
     );
   }
 
-  console.log('[SimpleColorModeToggle] Rendering full button, isDark:', isDark);
   return (
     <Button
       variant="ghost"
