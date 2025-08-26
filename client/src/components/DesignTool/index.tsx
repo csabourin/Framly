@@ -7,6 +7,7 @@ import { selectUIState, selectComponentDefinitionsState } from '../../store/sele
 import { historyManager } from '../../utils/historyManager';
 import { useKeyboardShortcuts } from '../../hooks/useKeyboardShortcuts';
 import { useComponentPropagation } from '../../hooks/useComponentPropagation';
+import { useColorModeCanvasSync } from '../../hooks/useColorModeCanvasSync';
 import Header from './Header';
 import TabBar from './TabBar';
 import Toolbar from './Toolbar';
@@ -30,6 +31,9 @@ const DesignToolContent: React.FC = () => {
   
   // Initialize component propagation
   useComponentPropagation();
+  
+  // Sync color mode changes with canvas
+  useColorModeCanvasSync();
   
   // Initialize history manager and tracking
   useEffect(() => {

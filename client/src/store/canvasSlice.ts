@@ -892,6 +892,16 @@ const canvasSlice = createSlice({
       currentTab.updatedAt = Date.now();
       canvasSlice.caseReducers.saveToHistory(state);
     },
+    
+    // Force canvas refresh to re-evaluate all elements (useful for color mode changes)
+    forceCanvasRefresh: (state) => {
+      const currentTab = getCurrentTab(state);
+      if (!currentTab) return;
+      
+      // Trigger a re-render by updating the timestamp
+      // This ensures all canvas elements re-evaluate their styles and color mode properties
+      currentTab.updatedAt = Date.now();
+    },
   },
 });
 
@@ -928,6 +938,7 @@ export const {
   setTabColor,
   reorderTabs,
   updateTabViewSettings,
+  forceCanvasRefresh,
 } = canvasSlice.actions;
 
 export default canvasSlice.reducer;

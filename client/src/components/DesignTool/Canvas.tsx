@@ -9,6 +9,7 @@ import { selectCurrentElements, selectSelectedElementId, selectCanvasProject, se
 import { ComponentDef, CanvasElement as CanvasElementType } from '../../types/canvas';
 import CanvasElement from './CanvasElement';
 import { useExpandedElements } from '../../hooks/useExpandedElements';
+import { useColorModeCanvasSync } from '../../hooks/useColorModeCanvasSync';
 
 import { Plus, Minus, Maximize } from 'lucide-react';
 
@@ -25,6 +26,9 @@ interface InsertionIndicator {
 
 const Canvas: React.FC = () => {
   const dispatch = useDispatch();
+  
+  // Sync color mode changes with canvas refresh
+  useColorModeCanvasSync();
   const canvasRef = useRef<HTMLDivElement>(null);
   const [hoveredElementId, setHoveredElementId] = useState<string | null>(null);
   const [hoveredZone, setHoveredZone] = useState<'before' | 'after' | 'inside' | null>(null);
