@@ -156,3 +156,16 @@ Preferred communication style: Simple, everyday language.
 - **Element Unit Preferences**: Automatic unit preference setting for percentage-width elements
 - **Unified Drag & Drop Logic**: Both drawing and dragging operations use same Y-position based DOM insertion logic
 - **Production Code Cleanup**: Systematic removal of debug console statements across 40+ files for production deployment readiness
+
+#### Comprehensive Keyboard Shortcut System (August 26, 2025) - COMPLETED
+- **Platform-Aware Shortcuts**: Automatic Mac/Windows detection with correct modifier key display (⌘ vs Ctrl)
+- **Global Shortcut Handler**: Active only when no text fields are focused, preventing interference with text editing
+- **Complete Tool Shortcuts**: V (Select), H (Hand), R (Rectangle), T (Text), Shift+H (Header), I (Image), B (Button)
+- **Edit Operations**: Ctrl/Cmd+Z (Undo), Ctrl/Cmd+Y/Shift+Ctrl/Cmd+Z (Redo), Ctrl/Cmd+D (Duplicate), Ctrl/Cmd+A (Select All)
+- **Element Management**: Backspace/Delete (Delete), Ctrl/Cmd+G (Group), Shift+Ctrl/Cmd+G (Ungroup)
+- **Precise Nudging**: Arrow keys (1px), Shift+Arrow (10px), Alt+Arrow (0.1px) for fine positioning control
+- **View Controls**: Ctrl/Cmd+Plus (Zoom In), Ctrl/Cmd+Minus (Zoom Out), Ctrl/Cmd+0 (Reset to 100%)
+- **Layer Management**: Shift+] (Bring to Front), Shift+[ (Send to Back), ] (Forward), [ (Backward)
+- **Searchable Cheatsheet**: Accessible via "?" key or toolbar button, with platform-specific key display and search functionality
+- **Conflict Resolution**: Smart modifier key handling prevents conflicts between H (Hand) and Shift+H (Header) tools
+- **Trackpad Compatibility**: All shortcuts designed to work without mouse interaction for full accessibility

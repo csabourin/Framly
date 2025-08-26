@@ -57,11 +57,20 @@ export const useKeyboardShortcuts = (onShowCheatsheet?: () => void) => {
     const ctrlKey = isMac ? event.metaKey : event.ctrlKey;
     const metaKey = isMac ? event.metaKey : event.ctrlKey;
     
+    // For shortcuts without modifiers, ensure no modifiers are pressed
+    const hasAnyModifier = Object.keys(modifiers).length > 0;
+    
+    if (!hasAnyModifier) {
+      // If no modifiers are specified, ensure none are pressed
+      return !event.shiftKey && !event.altKey && !ctrlKey;
+    }
+    
+    // For shortcuts with modifiers, check exact match
     return (
-      (modifiers.ctrl === undefined || modifiers.ctrl === ctrlKey) &&
-      (modifiers.meta === undefined || modifiers.meta === metaKey) &&
-      (modifiers.shift === undefined || modifiers.shift === event.shiftKey) &&
-      (modifiers.alt === undefined || modifiers.alt === event.altKey)
+      (modifiers.ctrl === undefined ? !event.ctrlKey : modifiers.ctrl === event.ctrlKey) &&
+      (modifiers.meta === undefined ? !event.metaKey : modifiers.meta === event.metaKey) &&
+      (modifiers.shift === undefined ? !event.shiftKey : modifiers.shift === event.shiftKey) &&
+      (modifiers.alt === undefined ? !event.altKey : modifiers.alt === event.altKey)
     );
   }, []);
 
@@ -482,11 +491,20 @@ export const useKeyboardShortcuts = (onShowCheatsheet?: () => void) => {
       return;
     }
 
-    // Find matching shortcut
-    const matchingShortcut = shortcuts.find(shortcut => {
+    // Find matching shortcuts, prioritizing those with more specific modifiers
+    const matchingShortcuts = shortcuts.filter(shortcut => {
       return shortcut.key.toLowerCase() === event.key.toLowerCase() && 
              checkModifiers(event, shortcut.modifiers);
     });
+
+    // Sort by specificity (more modifiers = higher priority)
+    const sortedShortcuts = matchingShortcuts.sort((a, b) => {
+      const aModifierCount = Object.keys(a.modifiers).length;
+      const bModifierCount = Object.keys(b.modifiers).length;
+      return bModifierCount - aModifierCount; // More modifiers first
+    });
+
+    const matchingShortcut = sortedShortcuts[0];
 
     if (matchingShortcut) {
       event.preventDefault();
