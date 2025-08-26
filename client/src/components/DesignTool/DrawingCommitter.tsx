@@ -40,6 +40,13 @@ export const useDrawingCommitter = ({
       width: screenRect.width / zoomLevel,
       height: screenRect.height / zoomLevel
     };
+    
+    console.log('🎯 DrawingCommitter: Converting coordinates', { 
+      screenRect, 
+      canvasRect: { left: canvasRect.left, top: canvasRect.top },
+      localRect,
+      zoomLevel 
+    });
 
     // Hit-test to find the best container
     const target = chooseTargetContainer(screenRect, currentElements);
@@ -79,26 +86,38 @@ function chooseTargetContainer(
   const centerX = screenRect.left + screenRect.width / 2;
   const centerY = screenRect.top + screenRect.height / 2;
 
+  console.log('🎯 Hit-testing at screen coordinates:', { centerX, centerY });
+
   const elementsAtPoint = document.elementsFromPoint(centerX, centerY);
+  console.log('🎯 Elements found at point:', elementsAtPoint.map(el => ({ 
+    tag: el.tagName, 
+    elementId: (el as HTMLElement).dataset?.elementId,
+    classes: el.className 
+  })));
   
   // Filter to valid containers, prefer deepest
   for (const element of elementsAtPoint) {
     if (!(element instanceof HTMLElement)) continue;
     
-    // Skip overlay elements
+    // Skip overlay elements and drawing indicators
     if (element.closest('[data-dnd-overlay="true"]')) continue;
+    if (element.classList.contains('drawing-overlay')) continue;
+    if (element.classList.contains('rubber-band')) continue;
     
     const elementId = element.dataset.elementId;
     if (!elementId || !currentElements[elementId]) continue;
     
     const canvasElement = currentElements[elementId];
+    console.log('🎯 Checking element:', { id: elementId, type: canvasElement.type, isValidTarget: isValidDropTarget(canvasElement) });
     
     // Check if this element can accept children
     if (isValidDropTarget(canvasElement)) {
+      console.log('🎯 Selected target container:', elementId, canvasElement.type);
       return canvasElement;
     }
   }
 
+  console.log('🎯 Fallback to root container');
   // Fallback to root
   return currentElements.root;
 }
@@ -248,25 +267,49 @@ async function animateMorphFromOverlayToFinal(
   elementDef: CanvasElement
 ): Promise<void> {
   return new Promise((resolve) => {
-    // Create a temporary ghost element for animation
+    console.log('🎭 Animation starting with screen rect:', screenRect);
+    
+    // Create a temporary ghost element for animation - position it in the canvas container
+    const canvas = document.querySelector('[data-testid="canvas-container"]');
+    if (!canvas) {
+      console.log('🎭 Canvas not found, skipping animation');
+      resolve();
+      return;
+    }
+    
+    const canvasRect = canvas.getBoundingClientRect();
+    
+    // Calculate position relative to canvas
+    const relativeLeft = screenRect.left - canvasRect.left;
+    const relativeTop = screenRect.top - canvasRect.top;
+    
+    console.log('🎭 Animation positioning:', { 
+      relativeLeft, 
+      relativeTop, 
+      canvasRect: { left: canvasRect.left, top: canvasRect.top },
+      screenRect 
+    });
+    
     const ghost = document.createElement('div');
     ghost.className = 'absolute border-2 border-blue-500 bg-blue-500/20 pointer-events-none z-[1001]';
-    ghost.style.left = `${screenRect.left}px`;
-    ghost.style.top = `${screenRect.top}px`;
+    ghost.style.left = `${relativeLeft}px`;
+    ghost.style.top = `${relativeTop}px`;
     ghost.style.width = `${screenRect.width}px`;
     ghost.style.height = `${screenRect.height}px`;
     ghost.style.transition = 'all 250ms cubic-bezier(0.4, 0, 0.2, 1)';
     
-    document.body.appendChild(ghost);
+    // Append to canvas container instead of body
+    canvas.appendChild(ghost);
 
-    // Calculate final position (this would need real implementation)
-    // For now, just fade out the ghost
+    // Animate the morphing effect
     requestAnimationFrame(() => {
       ghost.style.opacity = '0';
       ghost.style.transform = 'scale(0.95)';
       
       setTimeout(() => {
-        document.body.removeChild(ghost);
+        if (ghost.parentNode) {
+          ghost.parentNode.removeChild(ghost);
+        }
         resolve();
       }, 250);
     });
@@ -275,7 +318,7 @@ async function animateMorphFromOverlayToFinal(
 
 // Helper functions
 function isValidDropTarget(element: CanvasElement): boolean {
-  return ['container', 'section', 'nav', 'header', 'footer', 'article'].includes(element.type) 
+  return ['container', 'rectangle', 'section', 'nav', 'header', 'footer', 'article'].includes(element.type) 
     || element.id === 'root';
 }
 

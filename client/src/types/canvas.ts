@@ -101,6 +101,7 @@ export interface TabViewSettings {
   panX: number;
   panY: number;
   selectedElementId: string;
+  isTextEditing: boolean;
 }
 
 export interface DesignTab {

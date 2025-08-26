@@ -474,6 +474,13 @@ const Canvas: React.FC = () => {
   const handleMouseDown = useCallback((e: React.MouseEvent) => {
     console.log('🔍 Canvas mouseDown triggered - selectedTool:', selectedTool, 'target:', e.target);
     
+    // Skip drawing when text editing is active - check for .text-editing class
+    const isTextEditingActive = document.querySelector('.text-editing') !== null;
+    if (isTextEditingActive) {
+      console.log('🔍 Skipping drawing - text editing is active');
+      return;
+    }
+    
     const rect = canvasRef.current?.getBoundingClientRect();
     if (!rect) return;
     

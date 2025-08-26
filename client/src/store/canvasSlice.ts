@@ -47,6 +47,7 @@ const createDefaultTab = (name: string = 'Untitled Tab'): DesignTab => {
       panX: 0,
       panY: 0,
       selectedElementId: 'root',
+      isTextEditing: false,
     },
     createdAt: Date.now(),
     updatedAt: Date.now(),
@@ -902,6 +903,14 @@ const canvasSlice = createSlice({
       // This ensures all canvas elements re-evaluate their styles and color mode properties
       currentTab.updatedAt = Date.now();
     },
+    
+    // Text editing state management
+    setTextEditing: (state, action: PayloadAction<boolean>) => {
+      const currentTab = getCurrentTab(state);
+      if (!currentTab) return;
+      
+      currentTab.viewSettings.isTextEditing = action.payload;
+    },
   },
 });
 
@@ -939,6 +948,8 @@ export const {
   reorderTabs,
   updateTabViewSettings,
   forceCanvasRefresh,
+  // Text editing actions
+  setTextEditing,
 } = canvasSlice.actions;
 
 export default canvasSlice.reducer;
