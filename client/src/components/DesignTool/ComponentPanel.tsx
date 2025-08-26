@@ -52,6 +52,7 @@ const ComponentPanel: React.FC = () => {
   const selectedElementId = useSelector(selectSelectedElementId);
   const [searchTerm, setSearchTerm] = useState('');
 
+
   // Group components by category
   const groupedComponents = React.useMemo(() => {
     const groups: Record<string, ComponentDef[]> = {};
