@@ -474,10 +474,13 @@ const Canvas: React.FC = () => {
   const handleMouseDown = useCallback((e: React.MouseEvent) => {
     console.log('🔍 Canvas mouseDown triggered - selectedTool:', selectedTool, 'target:', e.target);
     
-    // Skip drawing when text editing is active - check for .text-editing class
+    // Skip drawing when clicking on editable text elements or when text editing is active
+    const target = e.target as HTMLElement;
+    const isClickingText = target.closest('.text-element') || target.closest('[contenteditable="true"]') || target.hasAttribute('contenteditable');
     const isTextEditingActive = document.querySelector('.text-editing') !== null;
-    if (isTextEditingActive) {
-      console.log('🔍 Skipping drawing - text editing is active');
+    
+    if (isClickingText || isTextEditingActive) {
+      console.log('🔍 Skipping drawing - clicking on text element or text editing active');
       return;
     }
     
@@ -802,12 +805,30 @@ const Canvas: React.FC = () => {
       
       // Minimum size check
       if (width > 5 && height > 5) {
-        // Use the drawing committer to create the element
-        commitDrawnRect(
-          { left, top, width, height },
-          selectedTool as Tool,
-          { shift: isShiftPressed, alt: isAltPressed }
-        );
+        // Convert canvas coordinates to screen coordinates for the committer
+        const rect = canvasRef.current?.getBoundingClientRect();
+        if (rect) {
+          const screenRect = {
+            left: left * zoomLevel + rect.left,
+            top: top * zoomLevel + rect.top,
+            width: width * zoomLevel,
+            height: height * zoomLevel
+          };
+          
+          console.log('🎨 Converting coordinates:', { 
+            canvasCoords: { left, top, width, height },
+            screenCoords: screenRect,
+            zoomLevel,
+            canvasRect: { left: rect.left, top: rect.top }
+          });
+          
+          // Use the drawing committer to create the element
+          commitDrawnRect(
+            screenRect,
+            selectedTool as Tool,
+            { shift: isShiftPressed, alt: isAltPressed }
+          );
+        }
       }
       
       // Clear drawing state

@@ -269,37 +269,24 @@ async function animateMorphFromOverlayToFinal(
   return new Promise((resolve) => {
     console.log('🎭 Animation starting with screen rect:', screenRect);
     
-    // Create a temporary ghost element for animation - position it in the canvas container
-    const canvas = document.querySelector('[data-testid="canvas-container"]');
-    if (!canvas) {
-      console.log('🎭 Canvas not found, skipping animation');
-      resolve();
-      return;
-    }
-    
-    const canvasRect = canvas.getBoundingClientRect();
-    
-    // Calculate position relative to canvas
-    const relativeLeft = screenRect.left - canvasRect.left;
-    const relativeTop = screenRect.top - canvasRect.top;
-    
-    console.log('🎭 Animation positioning:', { 
-      relativeLeft, 
-      relativeTop, 
-      canvasRect: { left: canvasRect.left, top: canvasRect.top },
-      screenRect 
-    });
-    
+    // Position animation ghost using viewport coordinates
     const ghost = document.createElement('div');
-    ghost.className = 'absolute border-2 border-blue-500 bg-blue-500/20 pointer-events-none z-[1001]';
-    ghost.style.left = `${relativeLeft}px`;
-    ghost.style.top = `${relativeTop}px`;
+    ghost.className = 'fixed border-2 border-blue-500 bg-blue-500/20 pointer-events-none z-[1001]';
+    ghost.style.left = `${screenRect.left}px`;
+    ghost.style.top = `${screenRect.top}px`;
     ghost.style.width = `${screenRect.width}px`;
     ghost.style.height = `${screenRect.height}px`;
     ghost.style.transition = 'all 250ms cubic-bezier(0.4, 0, 0.2, 1)';
     
-    // Append to canvas container instead of body
-    canvas.appendChild(ghost);
+    console.log('🎭 Animation ghost positioned at:', { 
+      left: screenRect.left, 
+      top: screenRect.top,
+      width: screenRect.width,
+      height: screenRect.height
+    });
+    
+    // Append to body with fixed positioning
+    document.body.appendChild(ghost);
 
     // Animate the morphing effect
     requestAnimationFrame(() => {
