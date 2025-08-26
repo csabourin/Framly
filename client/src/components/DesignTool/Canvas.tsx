@@ -491,9 +491,9 @@ const Canvas: React.FC = () => {
     let x = (e.clientX - rect.left) / zoomLevel;
     let y = (e.clientY - rect.top) / zoomLevel;
     
-    // Handle drawing for creation tools
+    // Only handle drawing for creation tools (exclude select and hand)
     if (['rectangle', 'text', 'image', 'container', 'heading', 'list', 'button',
-         'input', 'textarea', 'checkbox', 'radio', 'select',
+         'input', 'textarea', 'checkbox', 'radio',
          'section', 'nav', 'header', 'footer', 'article',
          'video', 'audio', 'link', 'code', 'divider'].includes(selectedTool)) {
       
@@ -517,31 +517,35 @@ const Canvas: React.FC = () => {
       return;
     }
     
-    // Only handle mouse down for selection and hand tools
-    if (!['select', 'hand'].includes(selectedTool)) {
-      return;
-    }
-    // console.log('DRAG DEBUG - Mouse down:', { selectedTool, selectedElementId: selectedElement?.id });
-    
-    if (selectedTool === 'select' && selectedElement) {
-      // FIXED: Don't automatically start dragging on mouse down - only select the element
-      // Dragging should only happen via drag handles
-      const clickedElement = getElementAtPoint(x, y, currentElements, zoomLevel);
-      if (clickedElement && clickedElement.id !== 'root') {
-        dispatch(selectElement(clickedElement.id));
-      }
-    } else if (selectedTool === 'hand') {
-      // With new drag handle system, regular clicks on elements should only select
-      // Dragging only happens from drag handles (handled by dragHandleMouseDown event)
-      const clickedElement = getElementAtPoint(x, y, currentElements, zoomLevel);
-      if (clickedElement && clickedElement.id !== 'root') {
-        // console.log('DRAG DEBUG - Hand tool clicked element (selection only):', clickedElement.id);
-        dispatch(selectElement(clickedElement.id));
-        
-        // Click-to-move behavior (if enabled in settings)
-        if (settings.enableClickToMove) {
-          // console.log('DRAG DEBUG - Click-to-move enabled - implement later');
-          // TODO: Implement click-to-move behavior
+    // Handle selection and hand tools
+    if (['select', 'hand'].includes(selectedTool)) {
+      // console.log('DRAG DEBUG - Mouse down:', { selectedTool, selectedElementId: selectedElement?.id });
+      
+      if (selectedTool === 'select') {
+        // Selection tool should only select elements, never create new ones
+        const clickedElement = getElementAtPoint(x, y, currentElements, zoomLevel);
+        if (clickedElement && clickedElement.id !== 'root') {
+          dispatch(selectElement(clickedElement.id));
+        } else {
+          // Click on empty space - select root
+          dispatch(selectElement('root'));
+        }
+      } else if (selectedTool === 'hand') {
+        // With new drag handle system, regular clicks on elements should only select
+        // Dragging only happens from drag handles (handled by dragHandleMouseDown event)
+        const clickedElement = getElementAtPoint(x, y, currentElements, zoomLevel);
+        if (clickedElement && clickedElement.id !== 'root') {
+          // console.log('DRAG DEBUG - Hand tool clicked element (selection only):', clickedElement.id);
+          dispatch(selectElement(clickedElement.id));
+          
+          // Click-to-move behavior (if enabled in settings)
+          if (settings.enableClickToMove) {
+            // console.log('DRAG DEBUG - Click-to-move enabled - implement later');
+            // TODO: Implement click-to-move behavior
+          }
+        } else {
+          // Click on empty space - select root
+          dispatch(selectElement('root'));
         }
       }
     }
