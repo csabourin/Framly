@@ -121,10 +121,12 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     const nonContainerElements = ['text', 'heading', 'list', 'image'];
     const isNonContainer = nonContainerElements.includes(element.type);
     
-    // Handle text element single-click editing
-    if (isTextElement && isSelected) {
+    // Handle text element single-click: select AND start editing immediately
+    if (isTextElement) {
       e.stopPropagation();
-      setIsEditing(true);
+      dispatch(selectElement(element.id));
+      // Use setTimeout to ensure selection happens first, then start editing
+      setTimeout(() => setIsEditing(true), 10);
       return;
     }
     
@@ -141,7 +143,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
       // Creation tool on container or empty space - let Canvas drawing system handle it
       // Don't stop propagation for creation tools on containers - let canvas handle drawing
     }
-  }, [element.id, element.type, dispatch, selectedTool, isSelected]);
+  }, [element.id, element.type, dispatch, selectedTool]);
 
   const handleContentEdit = useCallback((e: React.FormEvent<HTMLDivElement>) => {
     const newContent = e.currentTarget.innerHTML || '';
@@ -255,6 +257,20 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
             }}
             dangerouslySetInnerHTML={{ __html: htmlContent }}
             autoFocus
+            onFocus={(e) => {
+              // Position cursor at click location
+              const clickEvent = e.target as HTMLElement;
+              if (clickEvent && window.getSelection) {
+                const selection = window.getSelection();
+                if (selection) {
+                  selection.removeAllRanges();
+                  const range = document.createRange();
+                  range.selectNodeContents(clickEvent);
+                  range.collapse(false); // Position at end
+                  selection.addRange(range);
+                }
+              }
+            }}
           />
         );
       } else {
@@ -300,6 +316,20 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
             }}
             dangerouslySetInnerHTML={{ __html: processedContent }}
             autoFocus
+            onFocus={(e) => {
+              // Position cursor at click location
+              const clickEvent = e.target as HTMLElement;
+              if (clickEvent && window.getSelection) {
+                const selection = window.getSelection();
+                if (selection) {
+                  selection.removeAllRanges();
+                  const range = document.createRange();
+                  range.selectNodeContents(clickEvent);
+                  range.collapse(false); // Position at end
+                  selection.addRange(range);
+                }
+              }
+            }}
           />
         );
       } else {
@@ -346,6 +376,20 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
             }}
             dangerouslySetInnerHTML={{ __html: `<${ListTag}>${listHTML}</${ListTag}>` }}
             autoFocus
+            onFocus={(e) => {
+              // Position cursor at click location
+              const clickEvent = e.target as HTMLElement;
+              if (clickEvent && window.getSelection) {
+                const selection = window.getSelection();
+                if (selection) {
+                  selection.removeAllRanges();
+                  const range = document.createRange();
+                  range.selectNodeContents(clickEvent);
+                  range.collapse(false); // Position at end
+                  selection.addRange(range);
+                }
+              }
+            }}
           />
         );
       } else {
