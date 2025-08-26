@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import { addElement, selectElement } from '../../store/canvasSlice';
+import { addElement, selectElement, updateElement } from '../../store/canvasSlice';
 import { createDefaultElement } from '../../utils/canvas';
 import { Tool, CanvasElement } from '../../types/canvas';
 
@@ -70,6 +70,9 @@ export const useDrawingCommitter = ({
       insertPosition: placement.insertPosition,
       referenceElementId: placement.referenceElementId
     }));
+
+    // Update canvas dimensions based on drawn rectangle
+    updateCanvasDimensions(localRect, currentElements, dispatch);
 
     dispatch(selectElement(elementDef.id));
   }, [currentElements, zoomLevel, canvasRef, dispatch]);
@@ -359,6 +362,56 @@ function calculateOverlapArea(rect1: CommitRect, rect2: CommitRect): number {
     return (right - left) * (bottom - top);
   }
   return 0;
+}
+
+// Update canvas dimensions based on drawn rectangle
+function updateCanvasDimensions(
+  drawnRect: CommitRect,
+  currentElements: Record<string, CanvasElement>,
+  dispatch: any
+) {
+  const rootElement = currentElements.root;
+  if (!rootElement) return;
+
+  const currentCanvasWidth = rootElement.width || 375;
+  const currentCanvasHeight = rootElement.height || 600;
+
+  // Calculate required dimensions based on drawn rectangle
+  const requiredWidth = Math.max(drawnRect.left + drawnRect.width + 20, 0); // Add 20px padding
+  const requiredHeight = Math.max(drawnRect.top + drawnRect.height + 20, 0); // Add 20px padding
+
+  let newWidth = currentCanvasWidth;
+  let newHeight = currentCanvasHeight;
+
+  // Height: apply right away from drawn rectangles
+  if (requiredHeight > currentCanvasHeight) {
+    newHeight = requiredHeight;
+    console.log('🎯 Canvas height updated to:', newHeight);
+  }
+
+  // Width logic: apply if smaller than canvas, otherwise use 100% (current width)
+  if (requiredWidth <= currentCanvasWidth) {
+    // Rectangle fits within current canvas - update to actual required width if smaller
+    if (requiredWidth < currentCanvasWidth) {
+      newWidth = Math.max(requiredWidth, 200); // Minimum width of 200px
+      console.log('🎯 Canvas width reduced to:', newWidth);
+    }
+  } else {
+    // Rectangle is bigger than canvas - keep current width (100% behavior)
+    console.log('🎯 Rectangle exceeds canvas width, maintaining 100% width:', currentCanvasWidth);
+  }
+
+  // Apply updates if any dimension changed
+  if (newWidth !== currentCanvasWidth || newHeight !== currentCanvasHeight) {
+    dispatch(updateElement({
+      id: 'root',
+      updates: {
+        width: newWidth,
+        height: newHeight
+      }
+    }));
+    console.log('🎯 Canvas dimensions updated:', { width: newWidth, height: newHeight });
+  }
 }
 
 export default useDrawingCommitter;
