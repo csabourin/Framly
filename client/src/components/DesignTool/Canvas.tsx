@@ -487,9 +487,24 @@ const Canvas: React.FC = () => {
     const rect = canvasRef.current?.getBoundingClientRect();
     if (!rect) return;
     
-    // Convert from main container coordinates to canvas coordinates
+    // Convert from main container coordinates to canvas coordinates, accounting for offsets
     let x = (e.clientX - rect.left) / zoomLevel;
     let y = (e.clientY - rect.top) / zoomLevel;
+    
+    // Adjust for canvas padding and content wrapper offsets
+    const canvasPaddingTop = contentBounds.minY < 0 ? Math.abs(contentBounds.minY) + 50 : 50;
+    const contentWrapperTop = contentBounds.minY < 0 ? Math.abs(contentBounds.minY) : 0;
+    
+    // Subtract the visual offsets to get true element-relative coordinates
+    y = y - canvasPaddingTop - contentWrapperTop;
+    
+    console.log('🎯 Coordinate conversion:', {
+      rawClick: { x: e.clientX, y: e.clientY },
+      canvasRect: { left: rect.left, top: rect.top },
+      beforeOffsets: { x: (e.clientX - rect.left) / zoomLevel, y: (e.clientY - rect.top) / zoomLevel },
+      offsets: { canvasPaddingTop, contentWrapperTop },
+      final: { x, y }
+    });
     
     // Only handle drawing for creation tools (exclude select and hand)
     if (['rectangle', 'text', 'image', 'container', 'heading', 'list', 'button',
@@ -583,9 +598,16 @@ const Canvas: React.FC = () => {
     const rect = canvasRef.current?.getBoundingClientRect();
     if (!rect) return;
     
-    // Convert from main container coordinates to canvas coordinates
+    // Convert from main container coordinates to canvas coordinates, accounting for offsets
     let x = (e.clientX - rect.left) / zoomLevel;
     let y = (e.clientY - rect.top) / zoomLevel;
+    
+    // Adjust for canvas padding and content wrapper offsets
+    const canvasPaddingTop = contentBounds.minY < 0 ? Math.abs(contentBounds.minY) + 50 : 50;
+    const contentWrapperTop = contentBounds.minY < 0 ? Math.abs(contentBounds.minY) : 0;
+    
+    // Subtract the visual offsets to get true element-relative coordinates
+    y = y - canvasPaddingTop - contentWrapperTop;
     
     // Handle active drawing
     if (drawingState) {
