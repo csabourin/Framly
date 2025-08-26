@@ -5,6 +5,7 @@ import { RootState } from '../../store';
 import { selectCanvasProject, selectUIState, selectCurrentElements } from '../../store/selectors';
 import { MousePointer, Layers, Smartphone } from 'lucide-react';
 import PersistenceStatus from '../PersistenceStatus';
+import { ServiceWorkerStatus } from '../ServiceWorkerStatus';
 
 const StatusBar: React.FC = () => {
   const { t } = useTranslation();
@@ -44,7 +45,7 @@ const StatusBar: React.FC = () => {
 
   return (
     <footer 
-      className="h-8 bg-white border-t border-gray-200 flex items-center px-4 text-xs text-gray-600 gap-4 flex-shrink-0"
+      className="h-8 bg-background border-t border-border flex items-center px-4 text-xs text-muted-foreground gap-4 flex-shrink-0"
       data-testid="status-bar"
     >
       {/* Current Tool */}
@@ -76,6 +77,9 @@ const StatusBar: React.FC = () => {
           ({currentBreakpoint?.width || 0}px)
         </span>
       </div>
+      
+      {/* Service Worker Status */}
+      <ServiceWorkerStatus />
       
       {/* Persistence Status */}
       <div className="ml-auto" data-testid="status-persistence">
