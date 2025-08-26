@@ -5,7 +5,6 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { PWAInstallPrompt } from "@/components/PWAInstallPrompt";
-import { ServiceWorkerStatus } from "@/components/ServiceWorkerStatus";
 import { ColorModeProvider } from "./contexts/ColorModeContext";
 import DesignTool from "./components/DesignTool";
 import NotFound from "@/pages/not-found";
@@ -26,7 +25,6 @@ function App() {
         <TooltipProvider>
           <Toaster />
           <PWAInstallPrompt />
-          <ServiceWorkerStatus />
           <Router />
         </TooltipProvider>
       </ColorModeProvider>
