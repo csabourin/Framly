@@ -28,6 +28,13 @@ self.addEventListener('install', (event) => {
   self.skipWaiting(); // Force activation
 });
 
+// Listen for skip waiting messages
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    self.skipWaiting();
+  }
+});
+
 // Activate Service Worker
 self.addEventListener('activate', (event) => {
   console.log('Service Worker activating...');

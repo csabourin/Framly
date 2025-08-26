@@ -7,6 +7,39 @@ import { initializePersistence } from './utils/persistence';
 import { indexedDBManager } from './utils/indexedDB';
 import './i18n'; // Initialize i18n
 
+// Register Service Worker for PWA functionality
+async function registerServiceWorker() {
+  if ('serviceWorker' in navigator) {
+    try {
+      console.log('🔧 Registering service worker...');
+      const registration = await navigator.serviceWorker.register('/sw.js', {
+        scope: '/'
+      });
+      
+      console.log('✅ Service Worker registered successfully:', registration.scope);
+      
+      // Listen for updates
+      registration.addEventListener('updatefound', () => {
+        const newWorker = registration.installing;
+        if (newWorker) {
+          newWorker.addEventListener('statechange', () => {
+            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+              console.log('🔄 New service worker available');
+              // Could show a user notification here about updates
+            }
+          });
+        }
+      });
+      
+      return registration;
+    } catch (error) {
+      console.error('❌ Service Worker registration failed:', error);
+    }
+  } else {
+    console.log('ℹ️ Service Worker not supported');
+  }
+}
+
 // Initialize theme from IndexedDB before React renders
 async function initializeTheme() {
   try {
@@ -21,10 +54,11 @@ async function initializeTheme() {
   }
 }
 
-// Initialize theme and persistence system before rendering
+// Initialize theme, persistence, and PWA functionality before rendering
 Promise.all([
   initializeTheme(),
-  initializePersistence()
+  initializePersistence(),
+  registerServiceWorker()
 ]).then(() => {
   createRoot(document.getElementById("root")!).render(
     <Provider store={store}>
