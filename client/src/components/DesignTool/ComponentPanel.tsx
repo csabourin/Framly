@@ -187,7 +187,7 @@ const ComponentPanel: React.FC = () => {
       data-testid="component-panel-main"
     >
       {/* Header */}
-      <div className="components-header relative overflow-visible p-4 border-b border-gray-200">
+      <div className="components-header p-4 border-b border-gray-200">
         <div className="flex items-center justify-between mb-3">
           <h2 className="text-sm font-semibold text-gray-900 flex items-center gap-2">
             <Package size={16} />
@@ -197,7 +197,7 @@ const ComponentPanel: React.FC = () => {
             size="sm"
             onClick={handleCreateComponent}
             disabled={!selectedElementId || selectedElementId === 'root'}
-            className="create-component-btn absolute right-3 top-2 z-10 text-xs"
+            className="create-component-btn text-xs"
             data-testid="button-create-component"
             title={!selectedElementId || selectedElementId === 'root' 
               ? 'Select an element to create a component' 
