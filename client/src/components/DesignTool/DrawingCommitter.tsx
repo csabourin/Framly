@@ -421,13 +421,22 @@ function updateCanvasDimensions(
       console.log('🎯 Canvas width reduced to:', newWidth, '(from breakpoint width:', currentBreakpointWidth, ')');
     }
   } else {
-    // Rectangle exceeds breakpoint width - keep breakpoint width (100% behavior)
-    console.log('🎯 Rectangle exceeds breakpoint width, maintaining 100% width:', currentBreakpointWidth);
+    // Rectangle exceeds breakpoint width - ensure 100% width is set
+    newWidth = currentBreakpointWidth;
+    needsUpdate = true; // Force update to ensure 100% CSS is applied
+    console.log('🎯 Rectangle exceeds breakpoint width, setting 100% width at:', currentBreakpointWidth);
   }
 
   // Apply updates if any dimension changed
   if (needsUpdate) {
     const updates: any = { height: newHeight };
+    
+    console.log('🎯 Width update logic:', {
+      newWidth,
+      currentBreakpointWidth,
+      isEqualToBreakpoint: newWidth === currentBreakpointWidth,
+      requiredWidth
+    });
     
     // For width, set CSS width appropriately
     if (newWidth === currentBreakpointWidth) {
@@ -437,6 +446,7 @@ function updateCanvasDimensions(
         ...rootElement.styles,
         width: '100%'
       };
+      console.log('🎯 Setting 100% width - breakpoint size');
     } else {
       // Use specific pixel width when smaller
       updates.width = newWidth;
@@ -444,13 +454,19 @@ function updateCanvasDimensions(
         ...rootElement.styles,
         width: `${newWidth}px`
       };
+      console.log('🎯 Setting pixel width:', newWidth);
     }
     
     dispatch(updateElement({
       id: 'root',
       updates
     }));
-    console.log('🎯 Canvas dimensions updated:', { width: newWidth, height: newHeight, widthCSS: updates.styles?.width });
+    console.log('🎯 Canvas dimensions updated:', { 
+      numericWidth: newWidth, 
+      height: newHeight, 
+      cssWidth: updates.styles?.width,
+      finalUpdates: updates
+    });
   }
 }
 
