@@ -1,4 +1,29 @@
-import { CanvasElement } from '../types/canvas';
+import { CanvasElement, Tool } from '../types/canvas';
+
+// Tools that use point-and-click insertion instead of drawing
+export const POINT_AND_CLICK_TOOLS: Tool[] = [
+  'text', 'heading', 'button', 'list', 'link', 'code'
+];
+
+// Tools that require drawing for proper sizing
+export const DRAWING_TOOLS: Tool[] = [
+  'rectangle', 'container', 'image', 'video', 'audio', 'input', 'textarea', 
+  'checkbox', 'radio', 'select', 'section', 'nav', 'header', 'footer', 'article', 'divider'
+];
+
+/**
+ * Check if a tool should use point-and-click insertion
+ */
+export function isPointAndClickTool(tool: Tool): boolean {
+  return POINT_AND_CLICK_TOOLS.includes(tool);
+}
+
+/**
+ * Check if a tool should use drawing behavior
+ */
+export function isDrawingTool(tool: Tool): boolean {
+  return DRAWING_TOOLS.includes(tool);
+}
 
 export function generateUniqueId(type: string): string {
   return `${type}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;

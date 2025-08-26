@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
 import { selectElement, addElement, moveElement, resizeElement, reorderElement, deleteElement, copyElement, cutElement, pasteElement } from '../../store/canvasSlice';
 import { setDragging, setDragStart, setResizing, setResizeHandle, resetUI, setDraggedElement, setDraggingForReorder, setHoveredElement, setSelectedTool } from '../../store/uiSlice';
-import { createDefaultElement, getElementAtPoint, calculateSnapPosition, isValidDropTarget } from '../../utils/canvas';
+import { createDefaultElement, getElementAtPoint, calculateSnapPosition, isValidDropTarget, isPointAndClickTool, isDrawingTool } from '../../utils/canvas';
 import { selectCurrentElements, selectSelectedElementId, selectCanvasProject, selectCanvasUIState } from '../../store/selectors';
 import { ComponentDef, CanvasElement as CanvasElementType, Tool } from '../../types/canvas';
 import CanvasElement from './CanvasElement';
@@ -73,6 +73,8 @@ const Canvas: React.FC = () => {
     canvasRef,
     currentBreakpointWidth: canvasWidth
   });
+
+
   
   // Calculate actual content bounds to handle elements positioned outside initial canvas
   const calculateContentBounds = useCallback(() => {
@@ -427,7 +429,81 @@ const Canvas: React.FC = () => {
     return null;
   }, [currentElements, zoomLevel, draggedElementId]);
 
+  // Handle point-and-click insertion for content elements
+  const handlePointAndClickInsertion = useCallback((x: number, y: number, tool: string, isShiftPressed: boolean, isAltPressed: boolean) => {
+    // Find the insertion zone at this point
+    const insertionZone = detectInsertionZone(x, y, false);
+    
+    if (!insertionZone) {
+      // Fallback to root insertion
+      const newElement = createDefaultElement(tool as any);
+      dispatch(addElement({
+        element: newElement,
+        parentId: 'root',
+        insertPosition: 'inside'
+      }));
+      dispatch(selectElement(newElement.id));
+      return;
+    }
 
+    // Create the new element
+    const newElement = createDefaultElement(tool as any);
+    
+    // Determine insertion parameters based on the insertion zone
+    let parentId = insertionZone.elementId;
+    let insertPosition: 'before' | 'after' | 'inside' = 'inside';
+    let referenceElementId: string | undefined;
+
+    if ((insertionZone as any).position === 'between') {
+      // Between siblings
+      parentId = insertionZone.elementId;
+      insertPosition = (insertionZone as any).insertPosition || 'inside';
+      referenceElementId = (insertionZone as any).referenceElementId;
+    } else if ((insertionZone as any).position === 'before') {
+      // Before element
+      const targetElement = currentElements[insertionZone.elementId];
+      parentId = targetElement?.parent || 'root';
+      insertPosition = 'before';
+      referenceElementId = insertionZone.elementId;
+    } else if ((insertionZone as any).position === 'after') {
+      // After element
+      const targetElement = currentElements[insertionZone.elementId];
+      parentId = targetElement?.parent || 'root';
+      insertPosition = 'after';
+      referenceElementId = insertionZone.elementId;
+    } else if ((insertionZone as any).position === 'canvas-top') {
+      // Top of canvas
+      parentId = 'root';
+      insertPosition = 'inside';
+      referenceElementId = undefined;
+    } else if ((insertionZone as any).position === 'canvas-bottom') {
+      // Bottom of canvas
+      parentId = 'root';
+      insertPosition = 'inside';
+      referenceElementId = undefined;
+    } else {
+      // Inside container
+      parentId = insertionZone.elementId;
+      insertPosition = 'inside';
+    }
+
+    // Insert the element
+    dispatch(addElement({
+      element: newElement,
+      parentId,
+      insertPosition,
+      referenceElementId
+    }));
+
+    // Select the newly created element
+    dispatch(selectElement(newElement.id));
+
+    // Clear any visual feedback
+    setInsertionIndicator(null);
+    setHoveredElementId(null);
+    setHoveredZone(null);
+    dispatch(setHoveredElement({ elementId: null, zone: null }));
+  }, [detectInsertionZone, currentElements, dispatch]);
 
   const handleCanvasClick = useCallback((e: React.MouseEvent) => {
     // Skip click handling for creation tools - drawing system handles them
@@ -496,6 +572,14 @@ const Canvas: React.FC = () => {
       e.preventDefault();
       e.stopPropagation();
       
+      // Check if this is a point-and-click tool
+      if (isPointAndClickTool(selectedTool as Tool)) {
+        // Point-and-click insertion for content elements
+        handlePointAndClickInsertion(x, y, selectedTool, e.shiftKey, e.altKey || e.metaKey);
+        return;
+      }
+      
+      // Drawing tools use the existing drawing behavior
       setDrawingState({
         start: { x, y },
         current: { x, y },
@@ -590,13 +674,36 @@ const Canvas: React.FC = () => {
       return;
     }
     
-    // For creation tools, clear insertion indicators only when NOT drawing
+    // For creation tools, handle insertion indicators based on tool type
     if (['rectangle', 'text', 'image', 'container', 'heading', 'list', 'button',
          'input', 'textarea', 'checkbox', 'radio',
          'section', 'nav', 'header', 'footer', 'article',
          'video', 'audio', 'link', 'code', 'divider'].includes(selectedTool)) {
       
-      // Only clear indicators when not actively drawing
+      // Show insertion indicators for point-and-click tools
+      if (isPointAndClickTool(selectedTool as Tool)) {
+        const insertionZone = detectInsertionZone(x, y, false);
+        
+        if (insertionZone) {
+          // Valid insertion zone - show visual feedback
+          setHoveredElementId(insertionZone.elementId);
+          setHoveredZone((insertionZone as any).position === 'between' ? 'inside' : (insertionZone as any).position);
+          dispatch(setHoveredElement({ 
+            elementId: insertionZone.elementId, 
+            zone: (insertionZone as any).position === 'between' ? 'inside' : (insertionZone as any).position
+          }));
+          setInsertionIndicator(insertionZone);
+        } else {
+          // No valid insertion zone
+          setInsertionIndicator(null);
+          setHoveredElementId(null);
+          setHoveredZone(null);
+          dispatch(setHoveredElement({ elementId: null, zone: null }));
+        }
+        return;
+      }
+      
+      // For drawing tools, only clear indicators when not actively drawing
       if (!drawingState) {
         // Clear insertion indicators for drawing mode when mouse is just hovering
         setInsertionIndicator(null);
