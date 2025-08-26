@@ -10,7 +10,6 @@ import { ComponentDef, CanvasElement as CanvasElementType, Tool } from '../../ty
 import CanvasElement from './CanvasElement';
 import { useExpandedElements } from '../../hooks/useExpandedElements';
 import { useColorModeCanvasSync } from '../../hooks/useColorModeCanvasSync';
-import DrawingOverlay from './DrawingOverlay';
 import { useDrawingCommitter } from './DrawingCommitter';
 
 import { Plus, Minus, Maximize } from 'lucide-react';
@@ -429,6 +428,8 @@ const Canvas: React.FC = () => {
 
 
   const handleCanvasClick = useCallback((e: React.MouseEvent) => {
+    console.log('🔍 Canvas click triggered - selectedTool:', selectedTool, 'target:', e.target);
+    
     // Skip click handling for creation tools - drawing system handles them
     if (['rectangle', 'text', 'image', 'container', 'heading', 'list', 'button',
          'input', 'textarea', 'checkbox', 'radio', 'select',
@@ -471,6 +472,8 @@ const Canvas: React.FC = () => {
   }, [selectedTool, zoomLevel, currentElements, dispatch, hoveredElementId, hoveredZone]);
 
   const handleMouseDown = useCallback((e: React.MouseEvent) => {
+    console.log('🔍 Canvas mouseDown triggered - selectedTool:', selectedTool, 'target:', e.target);
+    
     const rect = canvasRef.current?.getBoundingClientRect();
     if (!rect) return;
     
