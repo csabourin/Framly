@@ -34,10 +34,16 @@ import {
   Link,
   // Content elements
   Code,
-  Minus
+  Minus,
+  // Help
+  Keyboard
 } from 'lucide-react';
 
-const Toolbar: React.FC = () => {
+interface ToolbarProps {
+  onShowKeyboardShortcuts?: () => void;
+}
+
+const Toolbar: React.FC<ToolbarProps> = ({ onShowKeyboardShortcuts }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const { selectedTool, isComponentPanelVisible, isDOMTreePanelVisible } = useSelector(selectUIState);
@@ -280,6 +286,21 @@ const Toolbar: React.FC = () => {
         {/* Tooltip */}
         <div className="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-xs rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50">
 {t('toolbar.components')} <span className="ml-1 text-gray-400">(C)</span>
+        </div>
+      </button>
+
+      {/* Keyboard Shortcuts Help */}
+      <button
+        onClick={onShowKeyboardShortcuts}
+        className="w-10 h-10 mx-1 rounded-lg flex items-center justify-center transition-colors group relative hover:bg-gray-100 text-gray-600"
+        title="Keyboard Shortcuts (?)"
+        data-testid="button-keyboard-shortcuts"
+      >
+        <Keyboard className="w-4 h-4" />
+        
+        {/* Tooltip */}
+        <div className="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-xs rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50">
+          Keyboard Shortcuts <span className="ml-1 text-gray-400">(?)</span>
         </div>
       </button>
     </aside>

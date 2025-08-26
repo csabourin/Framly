@@ -1,11 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Provider } from 'react-redux';
 import { useSelector, useDispatch } from 'react-redux';
 import { store, RootState } from '../../store';
 import { setClassEditorOpen, setComponentEditorOpen, setEditingComponent, setButtonDesignerOpen } from '../../store/uiSlice';
 import { selectUIState, selectComponentDefinitionsState } from '../../store/selectors';
 import { historyManager } from '../../utils/historyManager';
-import { useKeyboardShortcuts } from '../../hooks/useKeyboardShortcuts';
 import { useComponentPropagation } from '../../hooks/useComponentPropagation';
 import { useColorModeCanvasSync } from '../../hooks/useColorModeCanvasSync';
 import Header from './Header';
@@ -24,10 +23,14 @@ import ClassEditor from './ClassEditor';
 import ComponentEditor from './ComponentEditor';
 import ComponentTabbedEditor from './ComponentTabbedEditor';
 import ButtonDesigner from './ButtonDesigner';
+import { KeyboardCheatsheet } from './KeyboardCheatsheet';
+import { useKeyboardShortcuts } from '../../hooks/useKeyboardShortcuts';
 
 const DesignToolContent: React.FC = () => {
-  // Initialize keyboard shortcuts
-  useKeyboardShortcuts();
+  const [showKeyboardShortcuts, setShowKeyboardShortcuts] = useState(false);
+  
+  // Initialize keyboard shortcuts with cheatsheet handler
+  const { shortcuts, isMac } = useKeyboardShortcuts(() => setShowKeyboardShortcuts(true));
   
   // Initialize component propagation
   useComponentPropagation();
@@ -76,7 +79,7 @@ const DesignToolContent: React.FC = () => {
     <div className="flex flex-col h-screen relative bg-gray-50 font-inter overflow-hidden">
       <Header />
       <div className="flex flex-1 overflow-hidden">
-        <Toolbar />
+        <Toolbar onShowKeyboardShortcuts={() => setShowKeyboardShortcuts(true)} />
         {isDOMTreePanelVisible && <DOMTreePanel />}
         <Canvas />
         <ComponentPanel />
@@ -112,6 +115,14 @@ const DesignToolContent: React.FC = () => {
 
       {/* Component Tabbed Editor */}
       {isComponentTabbedEditorOpen && <ComponentTabbedEditor />}
+      
+      {/* Keyboard Shortcuts Cheatsheet */}
+      <KeyboardCheatsheet 
+        open={showKeyboardShortcuts}
+        onOpenChange={setShowKeyboardShortcuts}
+        shortcuts={shortcuts}
+        isMac={isMac}
+      />
     </div>
   );
 };
