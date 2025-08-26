@@ -27,14 +27,13 @@ export function expandComponentTemplate(
     
     // Handle different template structures
     if (typeof templateElement === 'string') {
-      // Template has string ID references (flat structure)
-      console.warn('Template has string ID reference, cannot expand:', templateElement);
+      // Template has string ID references (flat structure) - cannot expand
       return templateElement;
     } else if (typeof templateElement === 'object' && templateElement.id) {
       // Template has nested element objects (tree structure from componentTreeCapture)
       element = templateElement;
     } else {
-      console.warn('Invalid template element structure:', templateElement);
+      // Invalid template element structure
       return '';
     }
 
@@ -49,8 +48,8 @@ export function expandComponentTemplate(
       parent: newParentId || instance.id,
       
       // Adjust position relative to instance
-      x: instance.x + (element.x || 0),
-      y: instance.y + (element.y || 0),
+      x: (instance.x || 0) + (element.x || 0),
+      y: (instance.y || 0) + (element.y || 0),
       
       // Preserve all element properties
       styles: element.styles ? { ...element.styles } : {},

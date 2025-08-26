@@ -55,13 +55,6 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
         const base64Data = e.target?.result as string;
         
         try {
-          console.log('Starting image save process:', {
-            filename: file.name,
-            size: file.size,
-            type: file.type,
-            base64Length: base64Data.length
-          });
-
           // Save to IndexedDB
           const imageId = nanoid();
           const savedImage: SavedImage = {
@@ -73,9 +66,7 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
             createdAt: new Date().toISOString()
           };
 
-          console.log('Attempting to save to IndexedDB:', { imageId, filename: file.name });
           await indexedDBManager.saveImage(savedImage);
-          console.log('Image saved to IndexedDB successfully');
 
           // Update element
           const updates = {
@@ -83,8 +74,6 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
             imageUrl: undefined, // Clear URL when uploading file
             imageAlt: currentImageAlt || file.name.replace(/\.[^/.]+$/, '') // Default alt from filename
           };
-
-          console.log('Updating element with image data');
           dispatch(updateElement({
             id: elementId,
             updates
@@ -94,13 +83,7 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
             onImageChange(updates);
           }
 
-          console.log('Image upload completed successfully');
-
         } catch (error) {
-          console.error('Failed to save image - detailed error:', error);
-          console.error('Error type:', typeof error);
-          console.error('Error message:', error instanceof Error ? error.message : 'Unknown error');
-          console.error('Error stack:', error instanceof Error ? error.stack : 'No stack trace');
           setUploadError(`Failed to save image: ${error instanceof Error ? error.message : 'Unknown error'}`);
         } finally {
           setIsUploading(false);
@@ -114,7 +97,6 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
 
       reader.readAsDataURL(file);
     } catch (error) {
-      console.error('Upload error:', error);
       setUploadError('Upload failed. Please try again.');
       setIsUploading(false);
     }

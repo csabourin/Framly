@@ -124,12 +124,8 @@ body {
     // Generate CSS for custom classes with color mode support
     Object.values(this.customClasses).forEach(customClass => {
       if (customClass.styles && Object.keys(customClass.styles).length > 0) {
-        console.log(`🎨 Generating CSS for custom class: ${customClass.name}`);
-        console.log(`🎨 Styles:`, customClass.styles);
-        
         const selector = `.${customClass.name}`;
         const colorModeCSS = generateColorModeCSS(selector, customClass.styles);
-        console.log(`🎨 Generated ColorModeCSS:`, colorModeCSS);
         cssObjects.push(colorModeCSS);
       }
     });
@@ -156,7 +152,6 @@ body {
   }
 
   generateLegacyCSS(): string {
-    console.log(`🔧 Using generateLegacyCSS method`);
     const elements = Object.values(this.project.elements) as CanvasElement[];
     const cssRules: string[] = [];
     
@@ -220,8 +215,6 @@ ${styles}
   }
   
   private generateCSSProperties(element: CanvasElement): string {
-    console.log(`🔧 generateCSSProperties called for element styles:`, element.styles);
-    
     const styles: string[] = [];
     
     if (!element.styles || typeof element.styles !== 'object') {
@@ -229,10 +222,7 @@ ${styles}
     }
     
     Object.entries(element.styles).forEach(([property, value]) => {
-      console.log(`🔧 Processing property: ${property}, value:`, value, `type:`, typeof value);
-      
       if (isColorModeValues(value)) {
-        console.log(`✅ ColorModeValues detected:`, value);
         // Use light mode as default, fallback to dark or high-contrast
         const defaultValue = value.light || value.dark || value['high-contrast'];
         if (defaultValue) {
@@ -243,8 +233,6 @@ ${styles}
         // Only process primitive values, skip objects that aren't ColorModeValues
         const cssProperty = this.camelToKebab(property);
         styles.push(`    ${cssProperty}: ${value};`);
-      } else if (typeof value === 'object') {
-        console.log(`❌ Skipping object value that's not ColorModeValues:`, value);
       }
     });
     
@@ -390,7 +378,6 @@ ${indent}</${tag}>`;
           }
         }
       } catch (error) {
-        console.error('Error getting optimized classes:', error);
         // Fallback to element classes
         if (element.classes && element.classes.length > 0) {
           return element.classes;
@@ -429,7 +416,6 @@ ${indent}</${tag}>`;
         }
       };
     } catch (error) {
-      console.error('Error generating optimized CSS:', error);
       // Fallback to legacy CSS generation
       return {
         html: this.generateHTML(),

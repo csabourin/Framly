@@ -411,19 +411,16 @@ const canvasSlice = createSlice({
       const newParent = currentTab.elements[newParentId];
       
       if (!element || !newParent) {
-        console.warn('reorderElement: Element or parent not found', { elementId, newParentId });
         return;
       }
 
       // Validate that the target can accept elements
       if (newParent.type !== 'container' && newParent.type !== 'rectangle' && newParentId !== 'root') {
-        console.warn('reorderElement: Invalid parent type', newParent.type);
         return;
       }
 
       // Prevent moving element to itself
       if (elementId === newParentId) {
-        console.warn('reorderElement: Cannot move element to itself');
         return;
       }
 
@@ -479,14 +476,6 @@ const canvasSlice = createSlice({
         ...element,
         parent: newParentId
       };
-      
-      console.log('reorderElement: Success', { 
-        elementId, 
-        oldParentId, 
-        newParentId, 
-        insertPosition,
-        newChildrenCount: targetChildren.length 
-      });
       
       currentTab.updatedAt = Date.now();
       canvasSlice.caseReducers.saveToHistory(state);
@@ -630,7 +619,6 @@ const canvasSlice = createSlice({
             }
           };
           newTab.viewSettings.selectedElementId = 'root';
-          console.log('Component tab loaded with template:', componentDef.name);
         }
       }
       

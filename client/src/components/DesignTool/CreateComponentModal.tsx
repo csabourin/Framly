@@ -71,17 +71,7 @@ t('components.containsInstancesConfirm', { count: instanceIds.length })
     }
 
     // CRITICAL: Create component with ghost root that preserves element hierarchy
-    console.log('Creating component with ghost root wrapper for element hierarchy:', selectedElement.id);
     const completeTemplate = captureElementTree(selectedElement.id, currentElements);
-    
-    console.log('Component template created with ghost root hierarchy:', {
-      rootId: selectedElement.id,
-      templateId: completeTemplate.id,
-      templateType: completeTemplate.type,
-      isGhostRoot: completeTemplate.isGhostRoot,
-      hasChildren: !!(completeTemplate as any).children?.length,
-      ghostRootSize: `${completeTemplate.width}x${completeTemplate.height}`
-    });
     
     // Create spec-compliant ComponentDef with COMPLETE TREE
     const componentDef: ComponentDef = {
@@ -93,7 +83,7 @@ t('components.containsInstancesConfirm', { count: instanceIds.length })
       updatedAt: Date.now()
     };
     
-    console.log('Creating component with category:', componentCategory, 'categoryId:', componentDef.categoryId);
+
 
     // Create or get category if needed
     if (componentCategory !== 'custom') {
@@ -111,9 +101,8 @@ t('components.containsInstancesConfirm', { count: instanceIds.length })
         
         try {
           await saveComponentCategory(newCategory);
-          console.log('Component category saved:', newCategory.name);
         } catch (error) {
-          console.error('Failed to save component category:', error);
+          // Failed to save component category
         }
       }
     }
@@ -129,12 +118,6 @@ t('components.containsInstancesConfirm', { count: instanceIds.length })
     );
     
     // Replace the original element with the component instance
-    console.log('Replacing element with component instance:', {
-      originalElement: selectedElement.id,
-      componentInstance: componentInstance.id,
-      hasComponentRef: !!componentInstance.componentRef,
-      componentId: componentInstance.componentRef?.componentId
-    });
     
     dispatch(updateElement({
       id: selectedElement.id,
@@ -144,10 +127,8 @@ t('components.containsInstancesConfirm', { count: instanceIds.length })
     // Save to IndexedDB (NEW system only)
     try {
       await saveComponentDefinition(componentDef);
-      console.log('Component definition saved:', componentDef.name, 'v' + componentDef.version);
-      console.log('Component instance created at original location:', selectedElement.id);
     } catch (error) {
-      console.error('Failed to save component to IndexedDB:', error);
+      // Failed to save component to IndexedDB
     }
     
     dispatch(setCreatingComponent(false));

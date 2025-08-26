@@ -254,7 +254,6 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
     shortcut.sides.forEach(sideKey => {
       const side = config.sides.find(s => s.key === sideKey);
       if (side) {
-        console.log(`Applying ${value} to ${side.prop}`);
         onChange(side.prop, value);
       }
     });
@@ -263,7 +262,6 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
   const handleSideChange = (sideKey: string, value: string) => {
     const side = config.sides.find(s => s.key === sideKey);
     if (side) {
-      console.log(`handleSideChange: ${sideKey} -> ${side.prop} = "${value}"`);
       onChange(side.prop, value);
     }
   };
@@ -271,7 +269,6 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
   // Clear all border conflicts when expanding individual sides for borders
   const clearBorderConflicts = () => {
     if (propertyType === 'border') {
-      console.log('Clearing all border conflicts');
       // Clear ALL shorthand properties that conflict with individual sides
       onChange('border', '');
       onChange('border-width', '');
@@ -291,24 +288,20 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
     const sideValue = values[side.prop];
     if (sideValue !== undefined && sideValue !== null && sideValue !== '') {
       const stringValue = String(sideValue);
-      console.log(`getValue ${sideKey}: found side value:`, stringValue);
       return stringValue;
     }
     
     // For borders, don't use simple value as it conflicts with individual sides
     if (propertyType === 'border') {
-      console.log(`getValue ${sideKey}: returning empty for border (no side value)`);
       return '';
     }
     
     // If no side-specific value but there's a simple value, use it as default
     if (simpleValue && !hasAnyAdvancedValues()) {
       const stringValue = String(simpleValue);
-      console.log(`getValue ${sideKey}: using simple value:`, stringValue);
       return stringValue;
     }
     
-    console.log(`getValue ${sideKey}: returning empty`);
     return '';
   };
 
@@ -328,11 +321,9 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
           placeholder="0px"
           value={value}
           onChange={(e) => {
-            console.log(`Spacing change for ${sideKey}:`, e.target.value);
             handleSideChange(sideKey, e.target.value);
           }}
           onFocus={(e) => {
-            console.log(`Spacing input focused for ${sideKey}`);
             e.stopPropagation();
           }}
           onClick={(e) => {
@@ -382,8 +373,6 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
                 }
               } else {
                 // Clear all borders if value is empty
-                console.log('🔴 Clearing all border sides');
-                
                 if (onBatchChange) {
                   onBatchChange({
                     'border': '',
@@ -401,7 +390,6 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
                     onChange('border-left', '');
                   }, 10);
                 }
-                console.log('🔴 Cleared all border sides');
               }
             }}
           />

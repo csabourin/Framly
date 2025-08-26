@@ -40,11 +40,6 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
     setError('');
 
     try {
-      console.log('🚀 STARTING WEBSITE IMPORT PROCESS');
-      console.log('📍 Target URL:', url);
-      console.log('⏱️ Start time:', new Date().toISOString());
-      
-      console.log('🌐 STEP 1: Fetching webpage content from server...');
       // Fetch the webpage content
       const response = await fetch('/api/import-website', {
         method: 'POST',
@@ -55,34 +50,23 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
       });
 
       if (!response.ok) {
-        console.error('❌ Server request failed:', response.status, response.statusText);
         throw new Error(`Failed to fetch website: ${response.statusText}`);
       }
 
       const { html, css, rewrittenCSS, canvasId, assets } = await response.json();
-      console.log('✅ STEP 1 COMPLETE: Website content fetched successfully');
-      console.log('📄 HTML length:', html?.length || 0, 'characters');
-      console.log('🎨 CSS length:', css?.length || 0, 'characters');
-      console.log('🖼️ Assets count:', assets?.length || 0);
       
       if (!html || html.length === 0) {
-        console.error('❌ No HTML content received from server');
         throw new Error('No HTML content received');
       }
 
       try {
         // Parse HTML and convert to canvas elements
-        console.log('🔧 STEP 2: Parsing HTML content...');
         const parser = new DOMParser();
         const doc = parser.parseFromString(html, 'text/html');
         
         if (!doc || !doc.body) {
-          console.error('❌ Failed to parse HTML - no body element found');
           throw new Error('Invalid HTML structure');
         }
-        console.log('✅ STEP 2 COMPLETE: HTML parsed successfully');
-        
-        console.log('🎨 STEP 3: Injecting server-rewritten CSS...');
         if (rewrittenCSS && canvasId) {
           // Remove any existing imported styles
           const existingStyle = document.getElementById(`imported-styles-${canvasId}`);
@@ -99,18 +83,13 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
           // Store for canvas usage
           (window as any).lastImportScope = canvasId;
           (window as any).lastImportedCSS = rewrittenCSS;
-          
-          console.log(`✅ Injected ${rewrittenCSS.length} characters of scoped CSS`);
-          console.log(`🆔 Canvas ID: ${canvasId}`);
         }
         
         // Convert body content to canvas elements (comprehensive processing)
-        console.log('🏗️ STEP 4: Converting HTML to canvas elements...');
         const bodyElement = doc.body;
         if (bodyElement && bodyElement.children.length > 0) {
           // Process all meaningful elements - no arbitrary limits
           const elementsToProcess = Array.from(bodyElement.children);
-          console.log(`🎯 Processing ${elementsToProcess.length} top-level elements from body`);
           
           let processedElements = 0;
           const startTime = Date.now();
@@ -118,20 +97,13 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
           for (let i = 0; i < elementsToProcess.length; i++) {
             const child = elementsToProcess[i];
             try {
-              console.log(`🔧 Processing element ${i + 1}/${elementsToProcess.length}: ${child.tagName}`);
-              
               // Skip script and style tags, but process everything else
               if (['script', 'style', 'meta', 'link', 'title'].includes(child.tagName.toLowerCase())) {
-                console.log(`⏭️ Skipping non-visual element: ${child.tagName}`);
                 continue;
               }
               
-              const elementClasses = Array.from(child.classList || []);
-              console.log(`📋 Classes: [${elementClasses.slice(0, 3).join(', ')}${elementClasses.length > 3 ? '...' : ''}]`);
-              
               await convertHTMLToElements(child, 'root');
               processedElements++;
-              console.log(`✅ Processed: ${child.tagName} (${processedElements} total)`);
               
               // Add small delay to prevent UI blocking for large imports
               if (processedElements % 5 === 0) {
@@ -139,15 +111,10 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
               }
               
             } catch (elementError) {
-              console.error(`❌ Failed to convert element ${child.tagName}:`, elementError);
               // Continue with other elements
             }
           }
-          
-          const processingTime = Date.now() - startTime;
-          console.log(`✅ STEP 4 COMPLETE: Processed ${processedElements}/${elementsToProcess.length} elements in ${processingTime}ms`);
         } else {
-          console.log('⚠️ No body element or children found - creating fallback element');
           
           // Create a fallback element if no body content
           const fallbackElement: CanvasElement = {
@@ -167,11 +134,9 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
         }
 
         // Process assets (images)
-        console.log('Processing assets...');
         await processAssets(assets);
         
       } catch (conversionError) {
-        console.error('HTML conversion failed:', conversionError);
         throw new Error(`Failed to convert HTML: ${conversionError instanceof Error ? conversionError.message : 'Unknown error'}`);
       }
 
@@ -180,25 +145,19 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
         onImportComplete();
       }
 
-      console.log('🎉 IMPORT COMPLETE: Website successfully imported!');
-
     } catch (error) {
-      console.error('❌ Website import failed:', error);
       setError(error instanceof Error ? error.message : 'Failed to import website');
     } finally {
       setIsImporting(false);
-      console.log('🔄 Import process finished');
     }
   };
 
   // Function to extract all CSS classes actually used in the HTML
   const extractUsedClasses = (doc: Document): Set<string> => {
-    console.log('🔍 Scanning HTML for used CSS classes...');
     const usedClasses = new Set<string>();
     
     // Get all elements with class attributes
     const elementsWithClasses = doc.querySelectorAll('[class]');
-    console.log(`📊 Found ${elementsWithClasses.length} elements with class attributes`);
     
     elementsWithClasses.forEach((element, index) => {
       const classList = element.getAttribute('class');
@@ -208,21 +167,13 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
         classes.forEach(cls => {
           usedClasses.add(cls.trim());
         });
-        
-        if (index < 10) { // Log first 10 for debugging
-          console.log(`📋 Element ${index + 1}: ${element.tagName} classes: [${classes.join(', ')}]`);
-        }
       }
     });
-    
-    console.log(`✅ Class extraction complete: ${usedClasses.size} unique classes found`);
     return usedClasses;
   };
 
 
   const processAssets = async (assets: Array<{ url: string; data: string; filename: string }>) => {
-    console.log('Processing assets:', assets.length);
-    
     for (const asset of assets) {
       try {
         // Save images to IndexedDB
@@ -236,9 +187,8 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
         };
 
         await indexedDBManager.saveImage(savedImage);
-        console.log('Saved asset:', asset.filename);
       } catch (error) {
-        console.warn('Failed to save asset:', asset.filename, error);
+        // Failed to save asset
       }
     }
   };
@@ -252,7 +202,6 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
       let elementData: Partial<CanvasElement> = {};
 
       const textContent = htmlElement.textContent?.trim() || '';
-      console.log(`Element ${htmlElement.tagName} text content: "${textContent.substring(0, 50)}"`);
 
       switch (htmlElement.tagName.toLowerCase()) {
         case 'img':
@@ -378,7 +327,7 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
             }
           }
         } catch (styleError) {
-          console.warn('Failed to parse inline styles:', styleError);
+
         }
       }
 
@@ -461,11 +410,11 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
       // Add element to canvas
       dispatch(addElement({ element: canvasElement, parentId }));
 
-      console.log(`Created element: ${elementType} (${htmlElement.tagName}) - "${(elementData.content as string)?.substring(0, 50) || 'container'}" with classes: [${elementClasses.join(', ')}]`);
+
 
       // Process children recursively if it's a container
       if (canvasElement.isContainer && htmlElement.children && htmlElement.children.length > 0) {
-        console.log(`Processing ${htmlElement.children.length} children of ${htmlElement.tagName}`);
+
         
         // Process all children - no artificial limits, but be smart about it
         const childrenToProcess = Array.from(htmlElement.children);
@@ -480,20 +429,18 @@ export const WebsiteImport: React.FC<WebsiteImportProps> = ({ onImportComplete }
               
               // If this is getting too deep, break to prevent infinite recursion
               if (processedCount > 50) {
-                console.log(`Stopping child processing at ${processedCount} elements to prevent overflow`);
+
                 break;
               }
             }
           } catch (childError) {
-            console.warn('Failed to process child element:', child.tagName, childError);
+
           }
         }
-        
-        console.log(`Successfully processed ${processedCount} children of ${htmlElement.tagName}`);
+
       }
 
     } catch (elementError) {
-      console.error('Failed to convert element:', htmlElement.tagName, elementError);
       throw elementError;
     }
   };

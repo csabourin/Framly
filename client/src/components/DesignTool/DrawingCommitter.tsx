@@ -43,13 +43,6 @@ export const useDrawingCommitter = ({
       width: screenRect.width / zoomLevel,
       height: screenRect.height / zoomLevel
     };
-    
-    console.log('🎯 DrawingCommitter: Converting coordinates', { 
-      screenRect, 
-      canvasRect: { left: canvasRect.left, top: canvasRect.top },
-      localRect,
-      zoomLevel 
-    });
 
     // Hit-test to find the best container
     const target = chooseTargetContainer(screenRect, currentElements);
@@ -77,19 +70,10 @@ export const useDrawingCommitter = ({
     // Set element unit preferences for percentage width if applicable
     if (elementDef.widthUnit === '%') {
       setElementUnitPreference(elementDef.id, 'width', '%');
-      console.log('🎯 Set element unit preference for width to %:', elementDef.id);
     }
 
     // Update canvas dimensions based on drawn rectangle
     updateCanvasDimensions(localRect, currentElements, dispatch, currentBreakpointWidth);
-
-    console.log('🎯 Final element created:', {
-      id: elementDef.id,
-      width: elementDef.width,
-      widthUnit: elementDef.widthUnit,
-      cssWidth: elementDef.styles?.width,
-      exceedsBreakpoint: (localRect.left + localRect.width + 20) > currentBreakpointWidth
-    });
 
     dispatch(selectElement(elementDef.id));
   }, [currentElements, zoomLevel, canvasRef, dispatch]);
@@ -106,14 +90,7 @@ function chooseTargetContainer(
   const centerX = screenRect.left + screenRect.width / 2;
   const centerY = screenRect.top + screenRect.height / 2;
 
-  console.log('🎯 Hit-testing at screen coordinates:', { centerX, centerY });
-
   const elementsAtPoint = document.elementsFromPoint(centerX, centerY);
-  console.log('🎯 Elements found at point:', elementsAtPoint.map(el => ({ 
-    tag: el.tagName, 
-    elementId: (el as HTMLElement).dataset?.elementId,
-    classes: el.className 
-  })));
   
   // Filter to valid containers, prefer deepest
   for (const element of elementsAtPoint) {
@@ -128,16 +105,13 @@ function chooseTargetContainer(
     if (!elementId || !currentElements[elementId]) continue;
     
     const canvasElement = currentElements[elementId];
-    console.log('🎯 Checking element:', { id: elementId, type: canvasElement.type, isValidTarget: isValidDropTarget(canvasElement) });
     
     // Check if this element can accept children
     if (isValidDropTarget(canvasElement)) {
-      console.log('🎯 Selected target container:', elementId, canvasElement.type);
       return canvasElement;
     }
   }
 
-  console.log('🎯 Fallback to root container');
   // Fallback to root
   return currentElements.root;
 }
@@ -301,7 +275,6 @@ function findBestInsertionPoint(
                                drawnCenterY < nextRect.top;
       
       if (isBetweenElements) {
-        console.log('🎯 Inserting between elements');
         return {
           parentId: container.id,
           insertPosition: 'after',
@@ -341,14 +314,6 @@ function createElementForTool(
   
   // Check if drawn width exceeds breakpoint for 100% width behavior
   const exceedsBreakpoint = (localRect.left + localRect.width + 20) > currentBreakpointWidth;
-
-  console.log('🎯 Creating element with drawn dimensions:', { 
-    tool, 
-    drawnSize: { width: drawnWidth, height: drawnHeight },
-    baseElementDefaults: { width: baseElement.width, height: baseElement.height },
-    exceedsBreakpoint,
-    currentBreakpointWidth
-  });
 
   // Add positioning if absolute
   if (placement.localPosition) {
@@ -394,8 +359,6 @@ async function animateMorphFromOverlayToFinal(
   elementDef: CanvasElement
 ): Promise<void> {
   return new Promise((resolve) => {
-    console.log('🎭 Animation starting with screen rect:', screenRect);
-    
     // Position animation ghost using viewport coordinates
     const ghost = document.createElement('div');
     ghost.className = 'fixed border-2 border-blue-500 bg-blue-500/20 pointer-events-none z-[1001]';
@@ -404,13 +367,6 @@ async function animateMorphFromOverlayToFinal(
     ghost.style.width = `${screenRect.width}px`;
     ghost.style.height = `${screenRect.height}px`;
     ghost.style.transition = 'all 250ms cubic-bezier(0.4, 0, 0.2, 1)';
-    
-    console.log('🎭 Animation ghost positioned at:', { 
-      left: screenRect.left, 
-      top: screenRect.top,
-      width: screenRect.width,
-      height: screenRect.height
-    });
     
     // Append to body with fixed positioning
     document.body.appendChild(ghost);
@@ -476,7 +432,6 @@ function updateCanvasDimensions(
   if (requiredHeight > currentCanvasHeight) {
     newHeight = requiredHeight;
     needsUpdate = true;
-    console.log('🎯 Canvas height updated to:', newHeight);
   }
 
   // Width logic: compare against current breakpoint width
@@ -485,25 +440,16 @@ function updateCanvasDimensions(
     if (requiredWidth < currentBreakpointWidth) {
       newWidth = Math.max(requiredWidth, 200); // Minimum width of 200px
       needsUpdate = true;
-      console.log('🎯 Canvas width reduced to:', newWidth, '(from breakpoint width:', currentBreakpointWidth, ')');
     }
   } else {
     // Rectangle exceeds breakpoint width - ensure 100% width is set
     newWidth = currentBreakpointWidth;
     needsUpdate = true; // Force update to ensure 100% CSS is applied
-    console.log('🎯 Rectangle exceeds breakpoint width, setting 100% width at:', currentBreakpointWidth);
   }
 
   // Apply updates if any dimension changed
   if (needsUpdate) {
     const updates: any = { height: newHeight };
-    
-    console.log('🎯 Width update logic:', {
-      newWidth,
-      currentBreakpointWidth,
-      isEqualToBreakpoint: newWidth === currentBreakpointWidth,
-      requiredWidth
-    });
     
     // For width, set CSS width appropriately
     if (newWidth === currentBreakpointWidth) {
@@ -513,7 +459,6 @@ function updateCanvasDimensions(
         ...rootElement.styles,
         width: '100%'
       };
-      console.log('🎯 Setting 100% width - breakpoint size');
     } else {
       // Use specific pixel width when smaller
       updates.width = newWidth;
@@ -521,19 +466,12 @@ function updateCanvasDimensions(
         ...rootElement.styles,
         width: `${newWidth}px`
       };
-      console.log('🎯 Setting pixel width:', newWidth);
     }
     
     dispatch(updateElement({
       id: 'root',
       updates
     }));
-    console.log('🎯 Canvas dimensions updated:', { 
-      numericWidth: newWidth, 
-      height: newHeight, 
-      cssWidth: updates.styles?.width,
-      finalUpdates: updates
-    });
   }
 }
 

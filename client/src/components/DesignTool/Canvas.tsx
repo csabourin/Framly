@@ -430,14 +430,11 @@ const Canvas: React.FC = () => {
 
 
   const handleCanvasClick = useCallback((e: React.MouseEvent) => {
-    console.log('🔍 Canvas click triggered - selectedTool:', selectedTool, 'target:', e.target);
-    
     // Skip click handling for creation tools - drawing system handles them
     if (['rectangle', 'text', 'image', 'container', 'heading', 'list', 'button',
          'input', 'textarea', 'checkbox', 'radio', 'select',
          'section', 'nav', 'header', 'footer', 'article',
          'video', 'audio', 'link', 'code', 'divider'].includes(selectedTool)) {
-      console.log('🎨 Canvas click skipped for creation tool:', selectedTool);
       e.preventDefault();
       e.stopPropagation();
       return;
@@ -474,15 +471,12 @@ const Canvas: React.FC = () => {
   }, [selectedTool, zoomLevel, currentElements, dispatch, hoveredElementId, hoveredZone]);
 
   const handleMouseDown = useCallback((e: React.MouseEvent) => {
-    console.log('🔍 Canvas mouseDown triggered - selectedTool:', selectedTool, 'target:', e.target);
-    
     // Skip drawing when clicking on editable text elements or when text editing is active
     const target = e.target as HTMLElement;
     const isClickingText = target.closest('.text-element') || target.closest('[contenteditable="true"]') || target.hasAttribute('contenteditable');
     const isTextEditingActive = document.querySelector('.text-editing') !== null;
     
     if (isClickingText || isTextEditingActive) {
-      console.log('🔍 Skipping drawing - clicking on text element or text editing active');
       return;
     }
     
@@ -501,13 +495,6 @@ const Canvas: React.FC = () => {
       
       e.preventDefault();
       e.stopPropagation();
-      
-      console.log('🎨 Starting drawing for tool:', selectedTool, 'at:', { 
-        rawCoords: { x: e.clientX, y: e.clientY },
-        canvasRect: { left: rect.left, top: rect.top },
-        canvasCoords: { x, y },
-        canvasBounds: { width: canvasWidth, height: rootElement?.height || 600 }
-      });
       
       setDrawingState({
         start: { x, y },
@@ -722,7 +709,7 @@ const Canvas: React.FC = () => {
                   bounds: insertionZone.bounds
                 };
                 
-                console.log('ELEMENT REORDERING - Invalid recipient, using mouse-based placement:', placementPosition, 'canvas y:', canvasY, 'element midpoint:', targetRect.top + targetRect.height / 2);
+                // Invalid recipient, using mouse-based placement
                 
                 setHoveredElementId(insertionZone.elementId);
                 setHoveredZone(placementPosition);
@@ -790,11 +777,8 @@ const Canvas: React.FC = () => {
   }, [isDragging, isDraggingForReorder, selectedElement, draggedElementId, dragStart, zoomLevel, dispatch, selectedTool, currentElements, dragThreshold, drawingState]);
 
   const handleMouseUp = useCallback((e?: MouseEvent) => {
-    console.log('🔍 Canvas mouseUp triggered, drawingState:', !!drawingState);
-    
     // Handle drawing completion FIRST
     if (drawingState) {
-      console.log('🎨 Completing drawing:', drawingState);
       
       const { start, current, isShiftPressed, isAltPressed } = drawingState;
       

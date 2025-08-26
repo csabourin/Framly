@@ -57,7 +57,6 @@ const customLanguageDetector = {
         }
       };
     } catch (error) {
-      console.error('Language detection error:', error);
       callback('en');
     }
   },
@@ -81,7 +80,7 @@ const customLanguageDetector = {
         }
       };
     } catch (error) {
-      console.error('Language caching error:', error);
+      // Language caching failed
     }
   }
 };

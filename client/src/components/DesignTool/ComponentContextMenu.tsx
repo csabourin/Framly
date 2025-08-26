@@ -53,7 +53,6 @@ const ComponentContextMenu: React.FC<ComponentContextMenuProps> = ({
 
     // Add to legacy store for backward compatibility
     // In a full implementation, this would also create a new ComponentDef
-    console.log('Duplicate component:', duplicatedComponent.name);
   };
 
   const handleDeleteComponent = async () => {
@@ -84,9 +83,8 @@ const ComponentContextMenu: React.FC<ComponentContextMenuProps> = ({
       await deleteFromLegacyDB(component.id);
       await deleteFromDB(component.id);
       
-      console.log('Component deleted:', component.name);
     } catch (error) {
-      console.error('Failed to delete component:', error);
+      // Failed to delete component
     }
   };
 
@@ -96,7 +94,6 @@ const ComponentContextMenu: React.FC<ComponentContextMenuProps> = ({
     if (newName && newName.trim() && newName.trim() !== component.name) {
       // Update component name
       // In full implementation, this would update both legacy and new stores
-      console.log('Rename component from', component.name, 'to', newName.trim());
     }
   };
 
@@ -108,14 +105,12 @@ const ComponentContextMenu: React.FC<ComponentContextMenuProps> = ({
     
     if (confirmDetach) {
       // In full implementation, this would find all instances and detach them
-      console.log('Detach all instances of:', component.name);
     }
   };
 
   const handlePropagateUpdates = () => {
     // Force update all component instances
     // In full implementation, this would trigger propagation system
-    console.log('Propagate updates to all instances of:', component.name);
   };
 
   return (

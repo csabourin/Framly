@@ -16,9 +16,8 @@ export class HistoryManager {
     try {
       this.db = await this.openDB();
       await this.loadHistoryFromStorage();
-      console.log('History manager initialized');
     } catch (error) {
-      console.error('Failed to initialize history manager:', error);
+      // Failed to initialize history manager
     }
   }
 
@@ -66,9 +65,8 @@ export class HistoryManager {
         });
       }
 
-      console.log(`Saved ${historyEntries.length} history entries to IndexedDB`);
     } catch (error) {
-      console.error('Failed to save history to IndexedDB:', error);
+      // Failed to save history to IndexedDB
     }
   }
 
@@ -92,9 +90,8 @@ export class HistoryManager {
       // Load into Redux store
       reduxStore.dispatch({ type: 'history/loadHistoryFromStorage', payload: entries });
       
-      console.log(`Loaded ${entries.length} history entries from IndexedDB`);
     } catch (error) {
-      console.error('Failed to load history from IndexedDB:', error);
+      // Failed to load history from IndexedDB
     }
   }
 
@@ -132,7 +129,6 @@ export class HistoryManager {
     const state = reduxStore.getState();
     
     if (state.history.currentIndex <= 0) {
-      console.log('Cannot undo: at beginning of history');
       return false;
     }
 
@@ -153,13 +149,10 @@ export class HistoryManager {
         
         // Restore class state
         reduxStore.dispatch(loadCustomClassesFromStorage(targetEntry.classState.customClasses || {}));
-        
-        console.log(`Undid: ${targetEntry.description}`);
       }
       
       return true;
     } catch (error) {
-      console.error('Failed to perform undo:', error);
       return false;
     } finally {
       // Clear undoing flag
@@ -176,7 +169,6 @@ export class HistoryManager {
     const state = reduxStore.getState();
     
     if (state.history.currentIndex >= state.history.entries.length - 1) {
-      console.log('Cannot redo: at end of history');
       return false;
     }
 
@@ -197,13 +189,10 @@ export class HistoryManager {
         
         // Restore class state
         reduxStore.dispatch(loadCustomClassesFromStorage(targetEntry.classState.customClasses || {}));
-        
-        console.log(`Redid: ${targetEntry.description}`);
       }
       
       return true;
     } catch (error) {
-      console.error('Failed to perform redo:', error);
       return false;
     } finally {
       // Clear redoing flag
@@ -228,9 +217,8 @@ export class HistoryManager {
           request.onsuccess = () => resolve();
           request.onerror = () => reject(request.error);
         });
-        console.log('Cleared history from IndexedDB');
       } catch (error) {
-        console.error('Failed to clear history from IndexedDB:', error);
+        // Failed to clear history from IndexedDB
       }
     }
   }

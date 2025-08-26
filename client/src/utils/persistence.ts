@@ -51,9 +51,7 @@ export class PersistenceManager {
       this.startAutoSave();
       
       this.isInitialized = true;
-      console.log('Persistence manager initialized');
     } catch (error) {
-      console.error('Failed to initialize persistence manager:', error);
       // Continue without persistence if IndexedDB fails
     }
   }
@@ -75,7 +73,7 @@ export class PersistenceManager {
       // Load UI settings
       await this.loadUISettings();
     } catch (error) {
-      console.error('Failed to load persisted data:', error);
+      // Failed to load persisted data
     }
   }
 
@@ -83,16 +81,12 @@ export class PersistenceManager {
     try {
       const project = await loadProjectFromIndexedDB(PROJECT_ID);
       if (project) {
-        console.log('Loading persisted project:', project.name);
-        
         // Check if project needs migration from old structure to new tab structure
         const migratedProject = this.migrateProjectToTabStructure(project);
         store.dispatch(loadProject(migratedProject));
-      } else {
-        console.log('No persisted project found, using default');
       }
     } catch (error) {
-      console.error('Failed to load current project:', error);
+      // Failed to load current project
     }
   }
 
@@ -133,7 +127,6 @@ export class PersistenceManager {
       currentBreakpoint: project.currentBreakpoint || 'mobile'
     };
 
-    console.log('Migrated project from old structure to tab structure');
     return migratedProject;
   }
 
@@ -193,9 +186,8 @@ export class PersistenceManager {
       // Load into Redux store
       store.dispatch(loadComponents(categoriesWithComponents));
       
-      console.log(`Loaded ${components.length} components in ${categories.length} categories`);
     } catch (error) {
-      console.error('Failed to load components:', error);
+      // Failed to load components
     }
   }
 
@@ -231,9 +223,8 @@ export class PersistenceManager {
         }));
       }
       
-      console.log(`Loaded ${componentDefs.length} component definitions in ${categories.length} categories`);
     } catch (error) {
-      console.error('Failed to load component definitions:', error);
+      // Failed to load component definitions
     }
   }
 
@@ -254,9 +245,8 @@ export class PersistenceManager {
       store.dispatch(loadCustomClassesFromStorage(customClassesObject));
       store.dispatch(loadCategoriesFromStorage(classCategories));
       
-      console.log(`Loaded ${customClasses.length} custom classes and ${classCategories.length} class categories`);
     } catch (error) {
-      console.error('Failed to load custom classes:', error);
+      // Failed to load custom classes
     }
   }
 
@@ -264,10 +254,7 @@ export class PersistenceManager {
     try {
       const uiSettings = await indexedDBManager.loadSetting('uiSettings');
       if (uiSettings) {
-        console.log('Loading persisted UI settings');
         store.dispatch(loadUISettings(uiSettings));
-      } else {
-        console.log('No persisted UI settings found, using defaults');
       }
       
       // Also load theme setting and apply it
@@ -277,7 +264,7 @@ export class PersistenceManager {
         document.documentElement.classList.add(theme);
       }
     } catch (error) {
-      console.error('Failed to load UI settings:', error);
+      // Failed to load UI settings
     }
   }
 
@@ -304,18 +291,15 @@ export class PersistenceManager {
       await this.saveUISettings();
       
       this.lastSavedState = currentStateString;
-      console.log('Project auto-saved');
     } catch (error) {
-      console.error('Failed to save current project:', error);
+      // Failed to save current project
     }
   }
 
   async saveComponent(component: CustomComponent): Promise<void> {
     try {
       await saveComponentToIndexedDB(component);
-      console.log('Component saved:', component.name);
     } catch (error) {
-      console.error('Failed to save component:', error);
       throw error;
     }
   }
@@ -323,9 +307,7 @@ export class PersistenceManager {
   async saveCategory(category: ComponentCategory): Promise<void> {
     try {
       await saveCategoryToIndexedDB(category);
-      console.log('Category saved:', category.name);
     } catch (error) {
-      console.error('Failed to save category:', error);
       throw error;
     }
   }
@@ -333,9 +315,7 @@ export class PersistenceManager {
   async deleteComponent(componentId: string): Promise<void> {
     try {
       await indexedDBManager.deleteComponent(componentId);
-      console.log('Component deleted:', componentId);
     } catch (error) {
-      console.error('Failed to delete component:', error);
       throw error;
     }
   }
@@ -357,7 +337,6 @@ export class PersistenceManager {
     if (this.autoSaveTimer) {
       clearInterval(this.autoSaveTimer);
       this.autoSaveTimer = null;
-      console.log('Auto-save stopped');
     }
   }
 
@@ -379,7 +358,6 @@ export class PersistenceManager {
 
       return JSON.stringify(exportData, null, 2);
     } catch (error) {
-      console.error('Failed to export data:', error);
       throw error;
     }
   }
@@ -407,7 +385,7 @@ export class PersistenceManager {
         );
       }
     } catch (error) {
-      console.error('Failed to save custom classes:', error);
+      // Failed to save custom classes
     }
   }
 
@@ -427,7 +405,7 @@ export class PersistenceManager {
       
       await indexedDBManager.saveSetting('uiSettings', persistentUISettings);
     } catch (error) {
-      console.error('Failed to save UI settings:', error);
+      // Failed to save UI settings
     }
   }
 
@@ -467,16 +445,13 @@ export class PersistenceManager {
       // Reload data
       await this.loadPersistedData();
       
-      console.log('Data imported successfully');
     } catch (error) {
-      console.error('Failed to import data:', error);
       throw error;
     }
   }
 
   async clearAllData(): Promise<void> {
     try {
-      console.log('Starting complete database clear...');
       
       // Clear main IndexedDB
       await indexedDBManager.clearAll();
@@ -494,28 +469,23 @@ export class PersistenceManager {
           deleteRequest.onsuccess = () => resolve(true);
           deleteRequest.onerror = () => reject(deleteRequest.error);
         });
-        console.log('Component definitions database deleted');
       } catch (error) {
-        console.error('Error deleting component definitions database:', error);
+        // Error deleting component definitions database
       }
       
       // Clear local storage
       try {
         localStorage.clear();
-        console.log('Local storage cleared');
       } catch (error) {
-        console.error('Error clearing local storage:', error);
+        // Error clearing local storage
       }
       
       // Clear session storage
       try {
         sessionStorage.clear();
-        console.log('Session storage cleared');
       } catch (error) {
-        console.error('Error clearing session storage:', error);
+        // Error clearing session storage
       }
-      
-      console.log('Complete database clear finished - reloading page...');
       
       // Force complete page reload to reset all state
       setTimeout(() => {
@@ -523,7 +493,6 @@ export class PersistenceManager {
       }, 100);
       
     } catch (error) {
-      console.error('Failed to clear all data:', error);
       // Force reload even if clearing failed
       window.location.reload();
     }
@@ -552,7 +521,6 @@ export class PersistenceManager {
             cleanedElements[elementId] = cleanElement;
             tabHasOrphans = true;
             hasOrphans = true;
-            console.log(`Cleaned orphaned component instance: ${elementId} (was referencing ${element.componentRef.componentId})`);
           } else {
             cleanedElements[elementId] = element;
           }
@@ -572,11 +540,10 @@ export class PersistenceManager {
         
         // Save cleaned project back to IndexedDB
         await this.saveCurrentProject();
-        console.log('Orphaned component instances cleaned and saved');
       }
       
     } catch (error) {
-      console.error('Error cleaning up orphaned instances:', error);
+      // Error cleaning up orphaned instances
     }
   }
 }

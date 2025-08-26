@@ -33,11 +33,8 @@ export function propagateComponentUpdates(componentDef: ComponentDef): void {
   const instanceIds = findComponentInstances(componentDef.id);
   
   if (instanceIds.length === 0) {
-    console.log('No instances found for component:', componentDef.name);
     return;
   }
-  
-  console.log(`Propagating updates to ${instanceIds.length} instances of component:`, componentDef.name);
   
   const state = store.getState();
   const currentElements = selectCurrentElements(state);
@@ -67,8 +64,7 @@ export function propagateComponentUpdates(componentDef: ComponentDef): void {
       }));
     }
   });
-  
-  console.log('Component propagation completed for:', componentDef.name);
+
 }
 
 /**
@@ -94,11 +90,8 @@ export function detachAllComponentInstances(componentDef: ComponentDef): void {
   const instanceIds = findComponentInstances(componentDef.id);
   
   if (instanceIds.length === 0) {
-    console.log('No instances to detach for component:', componentDef.name);
     return;
   }
-  
-  console.log(`Detaching ${instanceIds.length} instances of component:`, componentDef.name);
   
   const state = store.getState();
   const currentElements = selectCurrentElements(state);
@@ -131,8 +124,6 @@ export function detachAllComponentInstances(componentDef: ComponentDef): void {
       }));
     }
   });
-  
-  console.log('Component detachment completed for:', componentDef.name);
 }
 
 /**

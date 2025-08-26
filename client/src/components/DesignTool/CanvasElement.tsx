@@ -110,7 +110,6 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     
     // CRITICAL: Component children are not selectable - redirect to component root
     if (isComponentChild && element.componentRootId) {
-      console.log('Component child clicked - selecting component root:', element.componentRootId);
       e.stopPropagation();
       dispatch(selectElement(element.componentRootId));
       return;
@@ -126,14 +125,12 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
       dispatch(selectElement(element.id));
     } else if (isNonContainer && ['rectangle', 'text', 'image', 'container', 'heading', 'list', 'button', 'input', 'textarea', 'checkbox', 'radio', 'select', 'section', 'nav', 'header', 'footer', 'article', 'video', 'audio', 'link', 'code', 'divider'].includes(selectedTool)) {
       // For non-container elements clicked with creation tools, auto-switch to selection
-      console.log('Non-container clicked with creation tool - switching to select tool');
       e.stopPropagation();
       dispatch(setSelectedTool('select'));
       dispatch(selectElement(element.id));
     } else {
       // Creation tool on container or empty space - let Canvas drawing system handle it
       // Don't stop propagation for creation tools on containers - let canvas handle drawing
-      console.log('🎨 CanvasElement: allowing drawing system to handle creation tool:', selectedTool);
     }
   }, [element.id, element.type, dispatch, selectedTool]);
 

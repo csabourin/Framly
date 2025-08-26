@@ -43,7 +43,6 @@ export function usePWA() {
       setIsInstalled(true);
       setCanInstall(false);
       setDeferredPrompt(null);
-      console.log('PWA was installed');
     };
 
     // Add event listeners
@@ -59,7 +58,6 @@ export function usePWA() {
 
   const installPWA = async () => {
     if (!deferredPrompt) {
-      console.log('Install prompt not available');
       return false;
     }
 
@@ -71,7 +69,6 @@ export function usePWA() {
       const choiceResult = await deferredPrompt.userChoice;
       
       if (choiceResult.outcome === 'accepted') {
-        console.log('User accepted the install prompt');
         setCanInstall(false);
         setDeferredPrompt(null);
         return true;

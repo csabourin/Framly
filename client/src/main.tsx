@@ -11,12 +11,9 @@ import './i18n'; // Initialize i18n
 async function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
     try {
-      console.log('🔧 Registering service worker...');
       const registration = await navigator.serviceWorker.register('/sw.js', {
         scope: '/'
       });
-      
-      console.log('✅ Service Worker registered successfully:', registration.scope);
       
       // Listen for updates
       registration.addEventListener('updatefound', () => {
@@ -24,7 +21,6 @@ async function registerServiceWorker() {
         if (newWorker) {
           newWorker.addEventListener('statechange', () => {
             if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-              console.log('🔄 New service worker available');
               // Could show a user notification here about updates
             }
           });
@@ -33,10 +29,8 @@ async function registerServiceWorker() {
       
       return registration;
     } catch (error) {
-      console.error('❌ Service Worker registration failed:', error);
+      // Service Worker registration failed
     }
-  } else {
-    console.log('ℹ️ Service Worker not supported');
   }
 }
 
@@ -48,7 +42,6 @@ async function initializeTheme() {
     const theme = savedTheme || 'light';
     document.documentElement.classList.add(theme);
   } catch (error) {
-    console.error('Failed to load theme from IndexedDB:', error);
     // Fallback to light theme
     document.documentElement.classList.add('light');
   }
@@ -66,7 +59,6 @@ Promise.all([
     </Provider>
   );
 }).catch(error => {
-  console.error('Initialization error:', error);
   // Still render the app even if initialization fails
   createRoot(document.getElementById("root")!).render(
     <Provider store={store}>

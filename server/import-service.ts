@@ -17,8 +17,6 @@ export interface ImportedWebsite {
 
 export class WebsiteImportService {
   async importWebsite(url: string): Promise<ImportedWebsite> {
-    console.log('Importing website:', url);
-    
     try {
       // Fetch the main HTML
       const response = await fetch(url, {
@@ -34,7 +32,6 @@ export class WebsiteImportService {
       const html = await response.text();
       
       // Extract CSS from HTML on server side
-      console.log('Extracting CSS from HTML...');
       let combinedCSS = '';
       
       try {
@@ -46,7 +43,6 @@ export class WebsiteImportService {
           const cssContent = styleMatch[1];
           if (cssContent && cssContent.trim()) {
             combinedCSS += cssContent.trim() + '\n\n';
-            console.log(`Extracted ${cssContent.length} characters from <style> tag`);
           }
         }
         
@@ -62,7 +58,7 @@ export class WebsiteImportService {
               const stylesheetUrl = new URL(href, url).href;
               stylesheetUrls.push(stylesheetUrl);
             } catch (error) {
-              console.warn('Invalid stylesheet URL:', href);
+              // Skip invalid stylesheet URLs
             }
           }
         }
@@ -70,7 +66,6 @@ export class WebsiteImportService {
         // Fetch external stylesheets (limit to first 3 for safety)
         for (const stylesheetUrl of stylesheetUrls.slice(0, 3)) {
           try {
-            console.log('Fetching external stylesheet:', stylesheetUrl);
             const cssResponse = await fetch(stylesheetUrl, {
               headers: {
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
@@ -82,18 +77,14 @@ export class WebsiteImportService {
               if (cssContent && cssContent.trim()) {
                 combinedCSS += `/* External stylesheet: ${stylesheetUrl} */\n`;
                 combinedCSS += cssContent.trim() + '\n\n';
-                console.log(`Extracted ${cssContent.length} characters from external stylesheet`);
               }
             }
           } catch (error) {
-            console.warn('Failed to fetch stylesheet:', stylesheetUrl, error);
+            // Skip failed stylesheets
           }
         }
         
-        console.log(`Total CSS extracted: ${combinedCSS.length} characters`);
-        
       } catch (cssError) {
-        console.error('CSS extraction failed:', cssError);
         // Continue without CSS if extraction fails
       }
       
@@ -103,11 +94,8 @@ export class WebsiteImportService {
       
       if (combinedCSS && combinedCSS.trim().length > 0) {
         try {
-          console.log('🔧 SERVER: Rewriting CSS for scoped isolation');
           rewrittenCSS = await this.rewriteCSS(combinedCSS, canvasId);
-          console.log(`✅ SERVER: CSS rewritten successfully (${rewrittenCSS.length} characters)`);
         } catch (rewriteError) {
-          console.error('CSS rewrite failed:', rewriteError);
           // Fallback to basic scoping if rewriter fails
           rewrittenCSS = this.basicCSSScope(combinedCSS, canvasId);
         }
@@ -124,7 +112,6 @@ export class WebsiteImportService {
 
 
     } catch (error) {
-      console.error('Website import failed:', error);
       throw new Error(`Failed to import website: ${error instanceof Error ? error.message : 'Unknown error'}`);
     }
   }

@@ -125,7 +125,6 @@ const PropertiesPanel: React.FC = () => {
               <Button 
                 onClick={() => {
                   // TODO: Open component editor in new tab
-                  console.log('Edit component:', selectedElement.componentRef);
                 }}
                 className="w-full flex items-center gap-2"
                 variant="default"
@@ -138,7 +137,6 @@ const PropertiesPanel: React.FC = () => {
               <Button 
                 onClick={() => {
                   // TODO: Release from component (create independent elements)
-                  console.log('Release from component:', selectedElement.id);
                 }}
                 className="w-full flex items-center gap-2"
                 variant="outline"
@@ -244,8 +242,6 @@ const PropertiesPanel: React.FC = () => {
   
   // Batch property change handler for multiple properties at once (e.g., all border sides)
   const handleBatchPropertyChange = (propertyUpdates: Record<string, any>) => {
-    console.log('🟦 handleBatchPropertyChange called:', propertyUpdates);
-    
     if (selectedClassForEditing) {
       // Update the selected class with batch updates
       dispatch(batchUpdateCustomClass({
@@ -254,7 +250,6 @@ const PropertiesPanel: React.FC = () => {
       }));
     } else if (selectedElement.classes && selectedElement.classes.length > 1) {
       // Multiple classes available, user needs to select one
-      console.warn('Multiple classes available. Please select a class to edit its styles.');
       return;
     } else {
       // Auto-create a class for batch style updates
@@ -350,7 +345,6 @@ const PropertiesPanel: React.FC = () => {
       }
     } else if (selectedElement.classes && selectedElement.classes.length > 1) {
       // Multiple classes available, user needs to select one
-      console.warn('Multiple classes available. Please select a class to edit its styles.');
       return;
     } else {
       // Auto-create a class for any style property
@@ -465,9 +459,6 @@ const PropertiesPanel: React.FC = () => {
       const value = selectedElement[property.key as keyof typeof selectedElement];
       // Convert numbers to strings for dropdowns
       const result = property.type === 'select' ? String(value) : value;
-      if (property.key === 'headingLevel') {
-        console.log('Getting headingLevel value:', value, 'returning:', result);
-      }
       return result;
     }
     
@@ -771,7 +762,6 @@ const PropertiesPanel: React.FC = () => {
                       // Fallback to element styles
                       const currentStyles = selectedElement.styles;
                       localStorage.setItem('defaultButtonStyles', JSON.stringify(currentStyles));
-                      console.log('Button styles saved as default');
                     }
                   }}
                   className="w-full text-orange-700 border-orange-300 hover:bg-orange-50"

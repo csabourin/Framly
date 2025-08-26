@@ -131,19 +131,15 @@ export function captureElementTree(
       for (const childId of element.children) {
         const childElement = allElements[childId];
         if (childElement) {
-          console.log('Cloning child element for template:', childId, childElement.type);
           const clonedChild = deepCloneElement(childElement);
           // Adjust child position relative to parent (maintain relative positioning)
           clonedChild.x = (childElement.x || 0) - (element.x || 0);
           clonedChild.y = (childElement.y || 0) - (element.y || 0);
           clonedChild.parent = element.id; // Maintain parent relationship
           childElements.push(clonedChild);
-        } else {
-          console.warn(`Child element ${childId} not found for parent ${element.id}`);
         }
       }
       (clonedElement as any).children = childElements;
-      console.log('Element cloned with children:', element.id, 'childCount:', childElements.length);
     }
 
     return clonedElement;
@@ -166,13 +162,7 @@ export function captureElementTree(
     children: [adjustedTemplate] as any // Store actual element object for tree processing
   };
   
-  console.log('Captured component tree with ghost root:', {
-    ghostRootId: 'ghost-root',
-    templateId: rootElementId,
-    templateType: rootElement.type,
-    totalChildren: countElementsInTree(ghostRootWithTemplate),
-    ghostRootSize: `${ghostRoot.width}x${ghostRoot.height}`
-  });
+  // Component tree captured with ghost root structure
 
   return ghostRootWithTemplate;
 }
@@ -241,7 +231,6 @@ export function reconstructTreeFromTemplate(
   function reconstructElement(elementId: string): CanvasElement {
     const element = elementMap[elementId];
     if (!element) {
-      console.warn(`Element ${elementId} not found in element map`);
       return template; // Fallback to template
     }
     

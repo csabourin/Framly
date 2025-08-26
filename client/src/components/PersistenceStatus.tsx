@@ -55,9 +55,7 @@ const PersistenceStatus: React.FC = () => {
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
       
-      console.log('Data exported successfully');
     } catch (error) {
-      console.error('Failed to export data:', error);
       alert('Failed to export data. Please try again.');
     } finally {
       setIsExporting(false);
@@ -73,11 +71,9 @@ const PersistenceStatus: React.FC = () => {
       const text = await file.text();
       await persistenceManager.importData(text);
       
-      console.log('Data imported successfully');
       alert('Data imported successfully! The page will reload to apply changes.');
       window.location.reload();
     } catch (error) {
-      console.error('Failed to import data:', error);
       alert('Failed to import data. Please check the file format and try again.');
     } finally {
       setIsImporting(false);
@@ -98,11 +94,9 @@ const PersistenceStatus: React.FC = () => {
     setIsClearing(true);
     try {
       await persistenceManager.clearAllData();
-      console.log('All data cleared successfully');
       alert('All data cleared successfully!');
       setIsOpen(false);
     } catch (error) {
-      console.error('Failed to clear data:', error);
       alert('Failed to clear data. Please try again.');
     } finally {
       setIsClearing(false);

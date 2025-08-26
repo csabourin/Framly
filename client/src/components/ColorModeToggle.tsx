@@ -12,24 +12,16 @@ import { Palette, Sun, Moon, Monitor, Contrast } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 export function ColorModeToggle() {
-  console.log('🔧 ColorModeToggle rendering at', new Date().toISOString());
+
   
   try {
     const contextValue = useColorMode();
     const { mode, resolvedMode, setMode, supportsHighContrast, isColorModeDesignEnabled, setColorModeDesignEnabled } = contextValue;
-    console.log('🔧 ColorModeToggle: useColorMode hook called successfully');
-    console.log('🔧 ColorModeToggle: Context functions check:', {
-      setMode: typeof setMode,
-      setColorModeDesignEnabled: typeof setColorModeDesignEnabled,
-      contextValue: !!contextValue
-    });
     
     const { t, ready } = useTranslation();
-    console.log('🔧 ColorModeToggle: useTranslation ready:', ready, 'mode:', mode, 'resolved:', resolvedMode);
     
     // If translation is not ready, don't render yet (prevents crashes during async i18n initialization)
     if (!ready) {
-      console.log('🔧 ColorModeToggle: i18n not ready, returning loading state');
       return (
         <Button
           variant="ghost"
@@ -47,8 +39,6 @@ export function ColorModeToggle() {
     const handleToggleDesignMode = () => {
       if (typeof setColorModeDesignEnabled === 'function') {
         setColorModeDesignEnabled(!isColorModeDesignEnabled);
-      } else {
-        console.error('🔧 ColorModeToggle: setColorModeDesignEnabled is not a function:', typeof setColorModeDesignEnabled);
       }
     };
 
@@ -136,7 +126,6 @@ export function ColorModeToggle() {
           <DropdownMenuSeparator />
           <DropdownMenuItem
             onClick={(e) => {
-              console.log('Dropdown item clicked!');
               e.preventDefault();
               e.stopPropagation();
               handleToggleDesignMode();
@@ -167,7 +156,6 @@ export function ColorModeToggle() {
       </DropdownMenu>
     );
   } catch (error) {
-    console.error('🔧 ColorModeToggle ERROR:', error);
     // Fallback component when there's an error
     return (
       <Button
@@ -176,7 +164,6 @@ export function ColorModeToggle() {
         className="h-8 w-8 p-1 hover:bg-accent hover:text-accent-foreground bg-card border border-border"
         title="Color Mode Toggle (Error)"
         data-testid="color-mode-toggle-fallback"
-        onClick={() => console.log('ColorModeToggle fallback clicked')}
       >
         <Sun className="h-4 w-4" />
         <span className="sr-only">Color Mode Toggle (Error)</span>

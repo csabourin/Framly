@@ -155,7 +155,7 @@ export function createDefaultElement(type: CanvasElement['type'], x?: number, y?
             try {
               return JSON.parse(defaultStyles);
             } catch (e) {
-              console.warn('Failed to parse default button styles');
+              // Use default styles if parsing fails
             }
           }
           

@@ -8,7 +8,6 @@ export const useKeyboardShortcuts = () => {
       if ((event.ctrlKey || event.metaKey) && event.key === 'z' && !event.shiftKey) {
         event.preventDefault();
         historyManager.performUndo();
-        console.log('Undo triggered via keyboard shortcut');
         return;
       }
 
@@ -16,7 +15,6 @@ export const useKeyboardShortcuts = () => {
       if ((event.ctrlKey || event.metaKey) && event.key === 'z' && event.shiftKey) {
         event.preventDefault();
         historyManager.performRedo();
-        console.log('Redo triggered via keyboard shortcut');
         return;
       }
 
@@ -24,7 +22,6 @@ export const useKeyboardShortcuts = () => {
       if ((event.ctrlKey || event.metaKey) && event.key === 'y') {
         event.preventDefault();
         historyManager.performRedo();
-        console.log('Redo triggered via keyboard shortcut (Ctrl+Y)');
         return;
       }
     };

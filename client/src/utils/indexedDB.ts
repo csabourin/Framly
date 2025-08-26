@@ -70,69 +70,55 @@ class IndexedDBManager {
       const request = indexedDB.open(DB_NAME, DB_VERSION);
 
       request.onerror = () => {
-        console.error('IndexedDB failed to open:', request.error);
         reject(request.error);
       };
 
       request.onsuccess = () => {
         this.db = request.result;
-        console.log('IndexedDB opened successfully');
         resolve();
       };
 
       request.onupgradeneeded = (event) => {
         const db = (event.target as IDBOpenDBRequest).result;
         
-        console.log('IndexedDB upgrade triggered, version:', event.newVersion, 'from:', event.oldVersion);
-        console.log('Existing stores:', Array.from(db.objectStoreNames));
-        
         // Create object stores
         if (!db.objectStoreNames.contains(PROJECTS_STORE)) {
-          console.log('Creating projects store');
           const projectStore = db.createObjectStore(PROJECTS_STORE, { keyPath: 'id' });
           projectStore.createIndex('updatedAt', 'updatedAt', { unique: false });
         }
 
         if (!db.objectStoreNames.contains(COMPONENTS_STORE)) {
-          console.log('Creating components store');
           const componentStore = db.createObjectStore(COMPONENTS_STORE, { keyPath: 'id' });
           componentStore.createIndex('category', 'category', { unique: false });
           componentStore.createIndex('updatedAt', 'updatedAt', { unique: false });
         }
 
         if (!db.objectStoreNames.contains(CATEGORIES_STORE)) {
-          console.log('Creating categories store');
           const categoryStore = db.createObjectStore(CATEGORIES_STORE, { keyPath: 'id' });
           categoryStore.createIndex('updatedAt', 'updatedAt', { unique: false });
         }
 
         if (!db.objectStoreNames.contains(SETTINGS_STORE)) {
-          console.log('Creating settings store');
           db.createObjectStore(SETTINGS_STORE, { keyPath: 'id' });
         }
 
         if (!db.objectStoreNames.contains(CUSTOM_CLASSES_STORE)) {
-          console.log('Creating custom classes store');
           const customClassStore = db.createObjectStore(CUSTOM_CLASSES_STORE, { keyPath: 'name' });
           customClassStore.createIndex('category', 'category', { unique: false });
           customClassStore.createIndex('updatedAt', 'updatedAt', { unique: false });
         }
 
         if (!db.objectStoreNames.contains(CLASS_CATEGORIES_STORE)) {
-          console.log('Creating class categories store');
           const classCategoryStore = db.createObjectStore(CLASS_CATEGORIES_STORE, { keyPath: 'id' });
           classCategoryStore.createIndex('type', 'type', { unique: false });
           classCategoryStore.createIndex('updatedAt', 'updatedAt', { unique: false });
         }
 
         if (!db.objectStoreNames.contains(IMAGES_STORE)) {
-          console.log('Creating images store');
           const imageStore = db.createObjectStore(IMAGES_STORE, { keyPath: 'id' });
           imageStore.createIndex('filename', 'filename', { unique: false });
           imageStore.createIndex('createdAt', 'createdAt', { unique: false });
         }
-
-        console.log('IndexedDB schema created/upgraded. Final stores:', Array.from(db.objectStoreNames));
       };
     });
 
@@ -149,7 +135,6 @@ class IndexedDBManager {
     
     // Verify that required stores exist
     if (!this.db.objectStoreNames.contains(IMAGES_STORE)) {
-      console.error('Images store missing from database. Available stores:', Array.from(this.db.objectStoreNames));
       throw new Error(`Database is missing required store: ${IMAGES_STORE}. Please refresh the page to upgrade your database.`);
     }
     
@@ -438,49 +423,29 @@ class IndexedDBManager {
   // Image operations
   async saveImage(image: SavedImage): Promise<void> {
     try {
-      console.log('IndexedDB saveImage called with:', { 
-        id: image.id, 
-        filename: image.filename,
-        size: image.size,
-        mimeType: image.mimeType 
-      });
-
       const db = await this.ensureDB();
-      console.log('Database connection established');
 
       const transaction = db.transaction([IMAGES_STORE], 'readwrite');
       const store = transaction.objectStore(IMAGES_STORE);
-      console.log('Transaction and store created');
       
       const imageWithTimestamp = {
         ...image,
         createdAt: image.createdAt || new Date().toISOString() // Use provided timestamp or create new
       };
 
-      console.log('About to store image with data:', {
-        id: imageWithTimestamp.id,
-        filename: imageWithTimestamp.filename,
-        dataLength: imageWithTimestamp.data.length,
-        createdAt: imageWithTimestamp.createdAt
-      });
-
       await new Promise<void>((resolve, reject) => {
         const request = store.put(imageWithTimestamp);
         
         request.onsuccess = () => {
-          console.log('Image stored successfully in IndexedDB');
           resolve();
         };
         
         request.onerror = () => {
-          console.error('IndexedDB store.put failed:', request.error);
           reject(new Error(`IndexedDB store error: ${request.error?.message || 'Unknown error'}`));
         };
       });
 
-      console.log('SaveImage operation completed successfully');
     } catch (error) {
-      console.error('SaveImage failed with error:', error);
       throw error;
     }
   }
@@ -578,9 +543,7 @@ export const indexedDBManager = new IndexedDBManager();
 export async function initializeDB(): Promise<void> {
   try {
     await indexedDBManager.init();
-    console.log('IndexedDB initialized successfully');
   } catch (error) {
-    console.error('Failed to initialize IndexedDB:', error);
     throw error;
   }
 }
@@ -588,9 +551,7 @@ export async function initializeDB(): Promise<void> {
 export async function saveProjectToIndexedDB(project: Project): Promise<void> {
   try {
     await indexedDBManager.saveProject(project);
-    console.log('Project saved to IndexedDB:', project.id);
   } catch (error) {
-    console.error('Failed to save project to IndexedDB:', error);
     throw error;
   }
 }
@@ -598,10 +559,8 @@ export async function saveProjectToIndexedDB(project: Project): Promise<void> {
 export async function loadProjectFromIndexedDB(projectId: string): Promise<Project | null> {
   try {
     const project = await indexedDBManager.loadProject(projectId);
-    console.log('Project loaded from IndexedDB:', projectId);
     return project;
   } catch (error) {
-    console.error('Failed to load project from IndexedDB:', error);
     throw error;
   }
 }
@@ -609,9 +568,7 @@ export async function loadProjectFromIndexedDB(projectId: string): Promise<Proje
 export async function saveComponentToIndexedDB(component: CustomComponent): Promise<void> {
   try {
     await indexedDBManager.saveComponent(component);
-    console.log('Component saved to IndexedDB:', component.id);
   } catch (error) {
-    console.error('Failed to save component to IndexedDB:', error);
     throw error;
   }
 }
@@ -619,10 +576,8 @@ export async function saveComponentToIndexedDB(component: CustomComponent): Prom
 export async function loadComponentsFromIndexedDB(): Promise<CustomComponent[]> {
   try {
     const components = await indexedDBManager.getAllComponents();
-    console.log('Components loaded from IndexedDB:', components.length);
     return components;
   } catch (error) {
-    console.error('Failed to load components from IndexedDB:', error);
     throw error;
   }
 }
@@ -630,9 +585,7 @@ export async function loadComponentsFromIndexedDB(): Promise<CustomComponent[]> 
 export async function saveCategoryToIndexedDB(category: ComponentCategory): Promise<void> {
   try {
     await indexedDBManager.saveCategory(category);
-    console.log('Category saved to IndexedDB:', category.id);
   } catch (error) {
-    console.error('Failed to save category to IndexedDB:', error);
     throw error;
   }
 }
@@ -640,10 +593,8 @@ export async function saveCategoryToIndexedDB(category: ComponentCategory): Prom
 export async function loadCategoriesFromIndexedDB(): Promise<ComponentCategory[]> {
   try {
     const categories = await indexedDBManager.getAllCategories();
-    console.log('Categories loaded from IndexedDB:', categories.length);
     return categories;
   } catch (error) {
-    console.error('Failed to load categories from IndexedDB:', error);
     return [];
   }
 }
@@ -652,9 +603,7 @@ export async function loadCategoriesFromIndexedDB(): Promise<ComponentCategory[]
 export async function saveCustomClassToIndexedDB(customClass: CustomClass): Promise<void> {
   try {
     await indexedDBManager.saveCustomClass(customClass);
-    console.log('Custom class saved to IndexedDB:', customClass.name);
   } catch (error) {
-    console.error('Failed to save custom class to IndexedDB:', error);
     throw error;
   }
 }
@@ -663,7 +612,6 @@ export async function loadCustomClassesFromIndexedDB(): Promise<CustomClass[]> {
   try {
     return await indexedDBManager.getAllCustomClasses();
   } catch (error) {
-    console.error('Failed to load custom classes from IndexedDB:', error);
     return [];
   }
 }
@@ -671,9 +619,7 @@ export async function loadCustomClassesFromIndexedDB(): Promise<CustomClass[]> {
 export async function deleteCustomClassFromIndexedDB(className: string): Promise<void> {
   try {
     await indexedDBManager.deleteCustomClass(className);
-    console.log('Custom class deleted from IndexedDB:', className);
   } catch (error) {
-    console.error('Failed to delete custom class from IndexedDB:', error);
     throw error;
   }
 }
@@ -682,9 +628,7 @@ export async function deleteCustomClassFromIndexedDB(className: string): Promise
 export async function saveClassCategoryToIndexedDB(category: Category): Promise<void> {
   try {
     await indexedDBManager.saveClassCategory(category);
-    console.log('Class category saved to IndexedDB:', category.id);
   } catch (error) {
-    console.error('Failed to save class category to IndexedDB:', error);
     throw error;
   }
 }
@@ -693,7 +637,6 @@ export async function loadClassCategoriesFromIndexedDB(): Promise<Category[]> {
   try {
     return await indexedDBManager.getAllClassCategories();
   } catch (error) {
-    console.error('Failed to load class categories from IndexedDB:', error);
     return [];
   }
 }

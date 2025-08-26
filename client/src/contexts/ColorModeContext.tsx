@@ -23,22 +23,19 @@ export function ColorModeProvider({ children, defaultMode = 'auto' }: ColorModeP
   
   const [mode, setModeState] = useState<ColorMode>(() => {
     if (typeof window === 'undefined') {
-      console.log('🔧 ColorModeProvider: SSR mode, using default:', defaultMode);
       return defaultMode;
     }
     
     // Try to load from localStorage
     try {
       const saved = localStorage.getItem('design-tool-color-mode');
-      console.log('🔧 ColorModeProvider: Loaded from localStorage:', saved);
       if (saved && ['light', 'dark', 'auto', 'high-contrast'].includes(saved)) {
         return saved as ColorMode;
       }
     } catch (error) {
-      console.warn('🔧 ColorModeProvider: Failed to load from localStorage:', error);
+      // Failed to load from localStorage, use default
     }
     
-    console.log('🔧 ColorModeProvider: Using default mode:', defaultMode);
     return defaultMode;
   });
 
@@ -54,15 +51,12 @@ export function ColorModeProvider({ children, defaultMode = 'auto' }: ColorModeP
 
   const [isColorModeDesignEnabled, setColorModeDesignEnabledState] = useState<boolean>(() => {
     if (typeof window === 'undefined') {
-      console.log('🔧 ColorModeDesignEnabled: SSR mode, using false');
       return false;
     }
     try {
       const saved = localStorage.getItem('design-tool-color-mode-design-enabled');
-      console.log('🔧 ColorModeDesignEnabled: Loaded from localStorage:', saved);
       return saved === 'true';
     } catch (error) {
-      console.warn('🔧 ColorModeDesignEnabled: Failed to load from localStorage:', error);
       return false;
     }
   });
@@ -127,7 +121,7 @@ export function ColorModeProvider({ children, defaultMode = 'auto' }: ColorModeP
     try {
       localStorage.setItem('design-tool-color-mode-design-enabled', enabled.toString());
     } catch (error) {
-      console.warn('Failed to save color mode design enabled state:', error);
+      // Silently handle localStorage error
     }
   }, []);
 
