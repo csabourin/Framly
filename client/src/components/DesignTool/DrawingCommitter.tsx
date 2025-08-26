@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { addElement, selectElement, updateElement } from '../../store/canvasSlice';
 import { createDefaultElement } from '../../utils/canvas';
 import { Tool, CanvasElement } from '../../types/canvas';
+import { setElementUnitPreference } from '../../utils/unitPersistence';
 
 interface CommitRect {
   left: number;
@@ -73,8 +74,22 @@ export const useDrawingCommitter = ({
       referenceElementId: placement.referenceElementId
     }));
 
+    // Set element unit preferences for percentage width if applicable
+    if (elementDef.widthUnit === '%') {
+      setElementUnitPreference(elementDef.id, 'width', '%');
+      console.log('🎯 Set element unit preference for width to %:', elementDef.id);
+    }
+
     // Update canvas dimensions based on drawn rectangle
     updateCanvasDimensions(localRect, currentElements, dispatch, currentBreakpointWidth);
+
+    console.log('🎯 Final element created:', {
+      id: elementDef.id,
+      width: elementDef.width,
+      widthUnit: elementDef.widthUnit,
+      cssWidth: elementDef.styles?.width,
+      exceedsBreakpoint: (localRect.left + localRect.width + 20) > currentBreakpointWidth
+    });
 
     dispatch(selectElement(elementDef.id));
   }, [currentElements, zoomLevel, canvasRef, dispatch]);
