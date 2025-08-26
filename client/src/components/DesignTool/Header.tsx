@@ -241,7 +241,7 @@ const Header: React.FC = () => {
           <UndoRedoControls />
           
           {/* Color Mode Toggle */}
-          <ColorModeToggle />
+          <ColorModeToggle key="color-mode-toggle-v2" />
           
           
           <Button
