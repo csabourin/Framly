@@ -578,17 +578,20 @@ const Canvas: React.FC = () => {
       return;
     }
     
-    // For creation tools, clear insertion indicators (drawing mode doesn't need them)
+    // For creation tools, clear insertion indicators only when NOT drawing
     if (['rectangle', 'text', 'image', 'container', 'heading', 'list', 'button',
          'input', 'textarea', 'checkbox', 'radio',
          'section', 'nav', 'header', 'footer', 'article',
          'video', 'audio', 'link', 'code', 'divider'].includes(selectedTool)) {
       
-      // Clear insertion indicators for drawing mode
-      setInsertionIndicator(null);
-      setHoveredElementId(null);
-      setHoveredZone(null);
-      dispatch(setHoveredElement({ elementId: null, zone: null }));
+      // Only clear indicators when not actively drawing
+      if (!drawingState) {
+        // Clear insertion indicators for drawing mode when mouse is just hovering
+        setInsertionIndicator(null);
+        setHoveredElementId(null);
+        setHoveredZone(null);
+        dispatch(setHoveredElement({ elementId: null, zone: null }));
+      }
       return; // Early return to avoid processing other hover logic
     }
     
