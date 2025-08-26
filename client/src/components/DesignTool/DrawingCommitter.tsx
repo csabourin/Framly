@@ -155,6 +155,50 @@ function computePlacement(
 } {
   // For root or absolute positioning containers
   if (target.id === 'root' || hasAbsolutePositioning(target)) {
+    // Even for root, we should consider DOM ordering based on Y position
+    const rootChildren = Object.values(currentElements).filter(
+      el => el.parent === target.id
+    );
+    
+    console.log('🎯 Root placement - considering DOM order:', {
+      targetId: target.id,
+      childrenCount: rootChildren.length,
+      drawnY: localRect.top,
+      children: rootChildren.map(c => ({ id: c.id, y: c.y || 0 }))
+    });
+    
+    if (rootChildren.length > 0) {
+      // Sort children by Y position to find insertion point
+      const sortedChildren = rootChildren.sort((a, b) => (a.y || 0) - (b.y || 0));
+      const drawnCenterY = localRect.top + localRect.height / 2;
+      
+      // Check if should be inserted before any existing child
+      for (const child of sortedChildren) {
+        const childY = child.y || 0;
+        if (drawnCenterY < childY) {
+          console.log('🎯 Root: Inserting before child at Y:', childY);
+          return {
+            parentId: target.id,
+            insertPosition: 'before',
+            referenceElementId: child.id,
+            localPosition: { x: localRect.left, y: localRect.top }
+          };
+        }
+      }
+      
+      // Insert after the last child
+      const lastChild = sortedChildren[sortedChildren.length - 1];
+      console.log('🎯 Root: Inserting after last child');
+      return {
+        parentId: target.id,
+        insertPosition: 'after',
+        referenceElementId: lastChild.id,
+        localPosition: { x: localRect.left, y: localRect.top }
+      };
+    }
+    
+    // No children, just insert inside
+    console.log('🎯 Root: First child, inserting inside');
     return {
       parentId: target.id,
       insertPosition: 'inside',
