@@ -583,12 +583,6 @@ const Canvas: React.FC = () => {
     let x = (e.clientX - rect.left) / zoomLevel;
     let y = (e.clientY - rect.top) / zoomLevel;
     
-    // Clamp coordinates to canvas bounds for drawing purposes
-    if (drawingState) {
-      x = Math.max(0, Math.min(x, canvasWidth));
-      y = Math.max(0, Math.min(y, (rootElement?.height || 600)));
-    }
-    
     // Handle active drawing
     if (drawingState) {
       console.log('🎨 Drawing move:', { x, y });
