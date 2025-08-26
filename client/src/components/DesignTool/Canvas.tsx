@@ -421,6 +421,15 @@ const Canvas: React.FC = () => {
 
 
   const handleCanvasClick = useCallback((e: React.MouseEvent) => {
+    // Skip click handling for creation tools - let the drawing overlay handle them
+    if (['rectangle', 'text', 'image', 'container', 'heading', 'list', 'button',
+         'input', 'textarea', 'checkbox', 'radio', 'select',
+         'section', 'nav', 'header', 'footer', 'article',
+         'video', 'audio', 'link', 'code', 'divider'].includes(selectedTool)) {
+      // Drawing overlay will handle these tools
+      return;
+    }
+    
     // console.log('Canvas click triggered - selectedTool:', selectedTool);
     e.preventDefault();
     e.stopPropagation();
@@ -447,168 +456,7 @@ const Canvas: React.FC = () => {
       } else {
         dispatch(selectElement('root'));
       }
-    } else if (['rectangle', 'text', 'image', 'container', 'heading', 'list', 'button',
-              'input', 'textarea', 'checkbox', 'radio', 'select',
-              'section', 'nav', 'header', 'footer', 'article',
-              'video', 'audio', 'link', 'code', 'divider'].includes(selectedTool)) {
-      // Re-detect the insertion point at click time to ensure we have current hover state
-      const clickedElement = getElementAtPoint(x, y, currentElements, zoomLevel);
-      let targetElementId = hoveredElementId;
-      let targetZone = hoveredZone;
-      
-      // console.log('CLICK DEBUG - hoveredElementId:', hoveredElementId, 'hoveredZone:', hoveredZone);
-      // console.log('CLICK DEBUG - clickedElement:', clickedElement?.id);
-      
-      // If hover state was lost, re-detect it
-      if (!targetElementId && clickedElement) {
-        targetElementId = clickedElement.id;
-        targetZone = 'inside'; // Default to inside for direct clicks
-        // console.log('CLICK DEBUG - Using clicked element:', targetElementId);
-      }
-      
-      // Validate the target element can accept new elements
-      const targetElement = targetElementId ? currentElements[targetElementId] : null;
-      const canInsertInTarget = targetElement ? isValidDropTarget(targetElement) : true;
-      
-      // console.log('CLICK DEBUG - Final target:', targetElementId, 'zone:', targetZone, 'canInsert:', canInsertInTarget);
-      
-      // ENHANCED: Handle canvas padding insertion (document start/end)
-      if (targetZone === 'canvas-top' || targetZone === 'canvas-bottom') {
-        const newElement = createDefaultElement(selectedTool as any);
-        
-        dispatch(addElement({ 
-          element: newElement, 
-          parentId: 'root',
-          insertPosition: targetZone === 'canvas-top' ? 'canvas-start' as any : 'canvas-end' as any
-        }));
-      } else if (targetElementId && targetZone && targetElementId !== 'root' && canInsertInTarget) {
-        // console.log('CLICK DEBUG - Creating element inside:', targetElementId);
-        
-        // Create element without explicit coordinates for document flow
-        const newElement = createDefaultElement(selectedTool as any);
-        
-        if (targetZone === 'inside') {
-          // Insert inside the target element
-          // console.log('CLICK DEBUG - Dispatching addElement with parentId:', targetElementId);
-          dispatch(addElement({ 
-            element: newElement, 
-            parentId: targetElementId,
-            insertPosition: 'inside'
-          }));
-        } else {
-          // Insert before or after the target element (sibling)
-          const targetElement = currentElements[targetElementId];
-          const parentId = targetElement?.parent || 'root';
-          
-          // console.log('CLICK DEBUG - Dispatching addElement as sibling, parentId:', parentId);
-          dispatch(addElement({ 
-            element: newElement, 
-            parentId: parentId,
-            insertPosition: targetZone,
-            referenceElementId: targetElementId
-          }));
-        }
-        
-        setHoveredElementId(null);
-        setHoveredZone(null);
-        dispatch(selectElement(newElement.id));
-        
-        // Force immediate synchronous re-render to show the new element
-        flushSync(() => {
-          dispatch(setHoveredElement({ elementId: null, zone: null }));
-        });
-        
-        // Keep the current tool active so user can continue placing elements
-      } else {
-        // If no valid insertion point, check if we clicked on a non-container element
-        if (!canInsertInTarget && targetElementId && targetElementId !== 'root') {
-          // Instead of switching to select tool, try inserting above or below the target
-          const targetElement = currentElements[targetElementId];
-          if (targetElement && targetElement.parent) {
-            // Get the DOM element to determine click position relative to element bounds
-            const targetDOMElement = document.querySelector(`[data-element-id="${targetElementId}"]`) as HTMLElement;
-            if (targetDOMElement) {
-              const rect = targetDOMElement.getBoundingClientRect();
-              const canvasRect = canvasRef.current?.getBoundingClientRect();
-              
-              if (canvasRect) {
-                // Convert click coordinates to canvas-relative position
-                const clickY = (e.clientY - canvasRect.top) / zoomLevel;
-                const elementTop = (rect.top - canvasRect.top) / zoomLevel;
-                const elementBottom = (rect.bottom - canvasRect.top) / zoomLevel;
-                const elementMiddle = (elementTop + elementBottom) / 2;
-                
-                // Determine if click was in upper or lower half
-                const insertPosition = clickY < elementMiddle ? 'before' : 'after';
-                
-                console.log('CLICK DEBUG - Non-container clicked, inserting as sibling:', {
-                  clickY, elementMiddle, insertPosition, targetElement: targetElementId
-                });
-                
-                // Create new element and insert as sibling
-                const newElement = createDefaultElement(selectedTool as any);
-                dispatch(addElement({
-                  element: newElement,
-                  parentId: targetElement.parent,
-                  insertPosition: insertPosition,
-                  referenceElementId: targetElementId
-                }));
-                dispatch(selectElement(newElement.id));
-                
-                // Force immediate synchronous re-render to show the new element
-                flushSync(() => {
-                  dispatch(setHoveredElement({ elementId: null, zone: null }));
-                });
-                
-                return;
-              }
-            }
-          }
-          
-          // Fallback to original behavior if we can't determine position
-          console.log('CLICK DEBUG - Non-container clicked with creation tool - switching to select tool');
-          dispatch(setSelectedTool('select'));
-          dispatch(selectElement(targetElementId));
-          return;
-        }
-        
-        // Otherwise create at root
-        if (!canInsertInTarget) {
-          console.log('CLICK DEBUG - Target cannot accept elements, creating at root instead');
-        } else {
-          console.log('CLICK DEBUG - Creating element at root, targetElementId was:', targetElementId);
-        }
-        // Create element with explicit positioning only when dropped on root
-        const newElement = createDefaultElement(selectedTool as any, x, y);
-        dispatch(addElement({ 
-          element: newElement, 
-          parentId: 'root',
-          insertPosition: 'inside'
-        }));
-        dispatch(selectElement(newElement.id));
-        
-        // Force immediate synchronous re-render to show the new element  
-        flushSync(() => {
-          dispatch(setHoveredElement({ elementId: null, zone: null }));
-        });
-        
-        // Keep the current tool active so user can continue placing elements
-      }
-    } else {
-      // Clicked on empty area (non-recipient) with creation tool - switch to selection tool
-      const clickedElement = getElementAtPoint(x, y, currentElements, zoomLevel);
-      
-      // Only switch to select tool if clicking on truly empty area or non-recipient elements
-      if (!clickedElement || clickedElement.id === 'root' || !isValidDropTarget(clickedElement)) {
-        if (['rectangle', 'text', 'image', 'container', 'heading', 'list', 'button'].includes(selectedTool)) {
-          // console.log('TOOL SWITCH DEBUG - Switching to select tool (clicked non-recipient):', { clickedElement: clickedElement?.id, selectedTool });
-          dispatch(setSelectedTool('select'));
-          dispatch(selectElement('root'));
-        }
-      } else {
-        // Clicked on recipient element (like rectangle/container) - stay in current tool mode for more creation
-        // console.log('TOOL SWITCH DEBUG - Staying in current tool (clicked recipient):', { clickedElement: clickedElement?.id, selectedTool, isValidDropTarget: isValidDropTarget(clickedElement) });
-      }
+    // Creation tools are now handled by the drawing overlay - no click handling needed
     }
   }, [selectedTool, zoomLevel, currentElements, dispatch, hoveredElementId, hoveredZone]);
 

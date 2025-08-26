@@ -74,14 +74,18 @@ const DrawingOverlay: React.FC<DrawingOverlayProps> = ({
   }, [drawingState]);
 
   const onPointerDown = useCallback((e: React.PointerEvent) => {
+    console.log('🎨 DrawingOverlay: pointerDown received', { selectedTool, x: e.clientX, y: e.clientY });
+    
     e.preventDefault();
     e.stopPropagation();
     
     // Only handle creation tools, not select/hand
     if (!['rectangle', 'text', 'image', 'container', 'heading', 'button', 'input', 'textarea'].includes(selectedTool)) {
+      console.log('🎨 DrawingOverlay: ignoring tool', selectedTool);
       return;
     }
 
+    console.log('🎨 DrawingOverlay: starting draw for tool', selectedTool);
     e.currentTarget.setPointerCapture(e.pointerId);
     const point = { x: e.clientX, y: e.clientY };
     
@@ -174,7 +178,14 @@ const DrawingOverlay: React.FC<DrawingOverlayProps> = ({
     <div
       ref={overlayRef}
       className="absolute inset-0 z-[1000] cursor-crosshair select-none"
-      style={{ pointerEvents: 'auto' }}
+      style={{ 
+        pointerEvents: 'auto',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0
+      }}
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}
