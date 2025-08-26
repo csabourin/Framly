@@ -429,12 +429,12 @@ const Canvas: React.FC = () => {
 
 
   const handleCanvasClick = useCallback((e: React.MouseEvent) => {
-    // Skip click handling for creation tools - let the drawing overlay handle them
+    // Skip click handling for creation tools - drawing system handles them
     if (['rectangle', 'text', 'image', 'container', 'heading', 'list', 'button',
          'input', 'textarea', 'checkbox', 'radio', 'select',
          'section', 'nav', 'header', 'footer', 'article',
          'video', 'audio', 'link', 'code', 'divider'].includes(selectedTool)) {
-      // Drawing overlay will handle these tools
+      console.log('🎨 Canvas click skipped for creation tool:', selectedTool);
       return;
     }
     
@@ -573,27 +573,17 @@ const Canvas: React.FC = () => {
       return;
     }
     
-    // Show insertion indicators for creation tools when NOT drawing
+    // For creation tools, clear insertion indicators (drawing mode doesn't need them)
     if (['rectangle', 'text', 'image', 'container', 'heading', 'list', 'button',
          'input', 'textarea', 'checkbox', 'radio',
          'section', 'nav', 'header', 'footer', 'article',
          'video', 'audio', 'link', 'code', 'divider'].includes(selectedTool)) {
-      const zone = detectInsertionZone(x, y, false, false);
-      setInsertionIndicator(zone);
       
-      // Also set hover state for better visual feedback
-      if (zone) {
-        setHoveredElementId(zone.elementId);
-        setHoveredZone((zone as any).position === 'between' ? 'inside' : (zone as any).position);
-        dispatch(setHoveredElement({ 
-          elementId: zone.elementId, 
-          zone: (zone as any).position === 'between' ? 'inside' : (zone as any).position
-        }));
-      } else {
-        setHoveredElementId(null);
-        setHoveredZone(null);
-        dispatch(setHoveredElement({ elementId: null, zone: null }));
-      }
+      // Clear insertion indicators for drawing mode
+      setInsertionIndicator(null);
+      setHoveredElementId(null);
+      setHoveredZone(null);
+      dispatch(setHoveredElement({ elementId: null, zone: null }));
       return; // Early return to avoid processing other hover logic
     }
     
