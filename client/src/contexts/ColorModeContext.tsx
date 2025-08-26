@@ -20,15 +20,26 @@ export interface ColorModeProviderProps {
 }
 
 export function ColorModeProvider({ children, defaultMode = 'auto' }: ColorModeProviderProps) {
+  console.log('🔧 ColorModeProvider mounting');
+  
   const [mode, setModeState] = useState<ColorMode>(() => {
-    if (typeof window === 'undefined') return defaultMode;
-    
-    // Try to load from localStorage
-    const saved = localStorage.getItem('design-tool-color-mode');
-    if (saved && ['light', 'dark', 'auto', 'high-contrast'].includes(saved)) {
-      return saved as ColorMode;
+    if (typeof window === 'undefined') {
+      console.log('🔧 ColorModeProvider: SSR mode, using default:', defaultMode);
+      return defaultMode;
     }
     
+    // Try to load from localStorage
+    try {
+      const saved = localStorage.getItem('design-tool-color-mode');
+      console.log('🔧 ColorModeProvider: Loaded from localStorage:', saved);
+      if (saved && ['light', 'dark', 'auto', 'high-contrast'].includes(saved)) {
+        return saved as ColorMode;
+      }
+    } catch (error) {
+      console.warn('🔧 ColorModeProvider: Failed to load from localStorage:', error);
+    }
+    
+    console.log('🔧 ColorModeProvider: Using default mode:', defaultMode);
     return defaultMode;
   });
 
@@ -43,12 +54,16 @@ export function ColorModeProvider({ children, defaultMode = 'auto' }: ColorModeP
   });
 
   const [isColorModeDesignEnabled, setColorModeDesignEnabledState] = useState<boolean>(() => {
-    if (typeof window === 'undefined') return false;
+    if (typeof window === 'undefined') {
+      console.log('🔧 ColorModeDesignEnabled: SSR mode, using false');
+      return false;
+    }
     try {
       const saved = localStorage.getItem('design-tool-color-mode-design-enabled');
+      console.log('🔧 ColorModeDesignEnabled: Loaded from localStorage:', saved);
       return saved === 'true';
     } catch (error) {
-      console.warn('Failed to load color mode design enabled state:', error);
+      console.warn('🔧 ColorModeDesignEnabled: Failed to load from localStorage:', error);
       return false;
     }
   });
