@@ -765,6 +765,8 @@ const Canvas: React.FC = () => {
   }, [isDragging, isDraggingForReorder, selectedElement, draggedElementId, dragStart, zoomLevel, dispatch, selectedTool, currentElements, dragThreshold, drawingState]);
 
   const handleMouseUp = useCallback((e?: MouseEvent) => {
+    console.log('🔍 Canvas mouseUp triggered, drawingState:', !!drawingState);
+    
     // Handle drawing completion FIRST
     if (drawingState) {
       console.log('🎨 Completing drawing:', drawingState);
@@ -1280,6 +1282,14 @@ const Canvas: React.FC = () => {
     // Fit to screen functionality would be implemented here
   };
 
+  // Clear drawing state when tool changes
+  useEffect(() => {
+    if (drawingState) {
+      console.log('🎨 Tool changed, clearing drawing state');
+      setDrawingState(null);
+    }
+  }, [selectedTool]);
+
   // Input modality detection for professional selection styling
   useEffect(() => {
     const handleMouseMove = () => {
@@ -1437,6 +1447,7 @@ const Canvas: React.FC = () => {
         onClick={handleCanvasClick}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
+        onMouseUp={() => handleMouseUp()}
         onMouseLeave={() => {
           // Clear hover state when leaving canvas area, but not during drag operations
           if (!isDraggingForReorder && !isDragging) {
