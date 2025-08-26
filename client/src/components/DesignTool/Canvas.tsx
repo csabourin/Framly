@@ -31,6 +31,7 @@ const Canvas: React.FC = () => {
   // Sync color mode changes with canvas refresh
   useColorModeCanvasSync();
   const canvasRef = useRef<HTMLDivElement>(null);
+  const lastMousePos = useRef({ x: 0, y: 0 });
   const [hoveredElementId, setHoveredElementId] = useState<string | null>(null);
   const [hoveredZone, setHoveredZone] = useState<'before' | 'after' | 'inside' | 'canvas-top' | 'canvas-bottom' | null>(null);
   const [insertionIndicator, setInsertionIndicator] = useState<any | null>(null);
@@ -584,6 +585,9 @@ const Canvas: React.FC = () => {
     const rect = canvasRef.current?.getBoundingClientRect();
     if (!rect) return;
     
+    // Track mouse position for drag operations
+    lastMousePos.current = { x: e.clientX, y: e.clientY };
+    
     // Simple coordinate conversion without complex offsets
     let x = (e.clientX - rect.left) / zoomLevel;
     let y = (e.clientY - rect.top) / zoomLevel;
@@ -850,72 +854,91 @@ const Canvas: React.FC = () => {
     
     // console.log('DRAG DEBUG - Mouse up:', { isDraggingForReorder, draggedElementId, hoveredElementId, hoveredZone, insertionIndicator });
     
-    if (isDraggingForReorder && draggedElementId && insertionIndicator) {
-      const targetElement = currentElements[insertionIndicator.elementId];
-      let canDropHere = false;
+    if (isDraggingForReorder && draggedElementId) {
+      const draggedElement = currentElements[draggedElementId];
       
-      // Different validation logic based on insertion type
-      if ((insertionIndicator as any).position === 'inside' || (insertionIndicator as any).position === 'between') {
-        // For inside/between positions, the target must be a container
-        canDropHere = targetElement ? isValidDropTarget(targetElement) : false;
-      } else {
-        // For before/after positions (sibling insertion), check if the parent can accept children
-        const parentId = targetElement?.parent || 'root';
-        const parentElement = currentElements[parentId];
-        canDropHere = parentElement ? isValidDropTarget(parentElement) : false;
+      // Get mouse position for Y-based placement calculation
+      const rect = canvasRef.current?.getBoundingClientRect();
+      if (!rect) return;
+      
+      const mouseX = (lastMousePos.current.x - rect.left) / zoomLevel;
+      const mouseY = (lastMousePos.current.y - rect.top) / zoomLevel;
+      
+      console.log('🎯 DRAG DROP - Y-position based reordering:', {
+        draggedElementId,
+        mouseY,
+        elements: Object.keys(currentElements).length
+      });
+      
+      // Use the same placement logic as drawing system
+      // Find the best target container based on mouse position
+      let targetElement = currentElements['root']; // Default to root
+      
+      // Check if dropping over a specific element for better targeting
+      if (insertionIndicator?.elementId && currentElements[insertionIndicator.elementId]) {
+        const hoveredElement = currentElements[insertionIndicator.elementId];
+        if (isValidDropTarget(hoveredElement)) {
+          targetElement = hoveredElement;
+        } else {
+          // If hovering over non-container, use its parent
+          const parentId = hoveredElement.parent || 'root';
+          if (currentElements[parentId] && isValidDropTarget(currentElements[parentId])) {
+            targetElement = currentElements[parentId];
+          }
+        }
       }
       
-      // console.log('DRAG DEBUG - Drop validation:', { 
-      //   targetElement: targetElement?.type, 
-      //   canDropHere, 
-      //   insertionPosition: (insertionIndicator as any).position,
-      //   parentId: targetElement?.parent,
-      //   parentType: currentElements[targetElement?.parent || 'root']?.type
-      // });
+      // Calculate Y-position based placement using similar logic to DrawingCommitter
+      const targetChildren = Object.values(currentElements).filter(
+        el => el.parent === targetElement.id && el.id !== draggedElementId // Exclude the dragged element
+      );
       
-      if (canDropHere) {
-        // Complete the reorder operation only for valid targets
-        if ((insertionIndicator as any).position === 'inside') {
-          // console.log('DRAG DEBUG - Reordering inside:', insertionIndicator.elementId);
+      console.log('🎯 DRAG DROP - Target analysis:', {
+        targetId: targetElement.id,
+        childrenCount: targetChildren.length,
+        children: targetChildren.map(c => ({ id: c.id, y: c.y || 0 }))
+      });
+      
+      if (targetChildren.length === 0) {
+        // No siblings, just insert inside
+        console.log('🎯 DRAG DROP - No siblings, inserting inside');
+        dispatch(reorderElement({
+          elementId: draggedElementId,
+          newParentId: targetElement.id,
+          insertPosition: 'inside'
+        }));
+      } else {
+        // Sort children by Y position to find correct insertion point
+        const sortedChildren = targetChildren.sort((a, b) => (a.y || 0) - (b.y || 0));
+        
+        // Check if should be inserted before any existing child
+        let insertedBefore = false;
+        for (const child of sortedChildren) {
+          const childY = child.y || 0;
+          if (mouseY < childY) {
+            console.log('🎯 DRAG DROP - Inserting before child at Y:', childY);
+            dispatch(reorderElement({
+              elementId: draggedElementId,
+              newParentId: targetElement.id,
+              insertPosition: 'before',
+              referenceElementId: child.id
+            }));
+            insertedBefore = true;
+            break;
+          }
+        }
+        
+        // If not inserted before any child, insert after the last child
+        if (!insertedBefore) {
+          const lastChild = sortedChildren[sortedChildren.length - 1];
+          console.log('🎯 DRAG DROP - Inserting after last child');
           dispatch(reorderElement({
             elementId: draggedElementId,
-            newParentId: insertionIndicator.elementId,
-            insertPosition: 'inside'
-          }));
-        } else if ((insertionIndicator as any).position === 'between') {
-          // Precise insertion between siblings using the container and reference element
-          // console.log('DRAG DEBUG - Reordering between siblings:', { 
-          //   containerId: insertionIndicator.elementId,
-          //   insertPosition: (insertionIndicator as any).insertPosition,
-          //   referenceElementId: (insertionIndicator as any).referenceElementId
-          // });
-          
-          dispatch(reorderElement({
-            elementId: draggedElementId,
-            newParentId: insertionIndicator.elementId, // This is the container ID
-            insertPosition: (insertionIndicator as any).insertPosition,
-            referenceElementId: (insertionIndicator as any).referenceElementId
-          }));
-        } else {
-          // Handle before/after positions (sibling insertion) - use the hovered element's parent
-          const hoveredElement = currentElements[insertionIndicator.elementId];
-          const parentId = hoveredElement?.parent || 'root';
-          
-          // console.log('DRAG DEBUG - Reordering as sibling:', { 
-          //   hoveredElementId: insertionIndicator.elementId,
-          //   parentId, 
-          //   position: (insertionIndicator as any).position 
-          // });
-          
-          dispatch(reorderElement({
-            elementId: draggedElementId,
-            newParentId: parentId,
-            insertPosition: (insertionIndicator as any).position,
-            referenceElementId: insertionIndicator.elementId
+            newParentId: targetElement.id,
+            insertPosition: 'after',
+            referenceElementId: lastChild.id
           }));
         }
-      } else {
-        // console.log('DRAG DEBUG - Invalid drop target, canceling reorder');
       }
     }
     
