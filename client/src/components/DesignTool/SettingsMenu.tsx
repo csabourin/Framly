@@ -7,7 +7,8 @@ import { Button } from '../ui/button';
 import { Switch } from '../ui/switch';
 import { Label } from '../ui/label';
 import { Separator } from '../ui/separator';
-import { X } from 'lucide-react';
+import { X, Download } from 'lucide-react';
+import { indexedDBManager } from '../../utils/indexedDB';
 
 const SettingsMenu: React.FC = () => {
   const { t } = useTranslation();
@@ -26,6 +27,20 @@ const SettingsMenu: React.FC = () => {
 
   const handleToggleClickToMove = (enabled: boolean) => {
     dispatch(updateSettings({ enableClickToMove: enabled }));
+  };
+
+  const handleTogglePWAPrompt = async (enabled: boolean) => {
+    dispatch(updateSettings({ enablePWAPrompt: enabled }));
+    
+    // If re-enabling PWA prompts, clear the dismissal flag
+    if (enabled) {
+      try {
+        await indexedDBManager.init();
+        await indexedDBManager.saveSetting('pwa-prompt-dismissed', false);
+      } catch (error) {
+        // Silent fail
+      }
+    }
   };
 
   return (
@@ -96,14 +111,27 @@ const SettingsMenu: React.FC = () => {
           
           <Separator />
           
-          {/* Future settings sections can go here */}
+          {/* PWA Section */}
           <div className="space-y-3">
             <h3 className="text-sm font-medium text-gray-900 dark:text-gray-100">
-              {t('settings.interface')}
+              Progressive Web App
             </h3>
-            <p className="text-xs text-gray-500 dark:text-gray-400">
-              {t('settings.moreSettingsComingSoon')}
-            </p>
+            <div className="flex items-center justify-between">
+              <div className="space-y-1">
+                <Label htmlFor="pwa-prompt" className="text-sm font-normal">
+                  Show Install Prompts
+                </Label>
+                <p className="text-xs text-gray-500 dark:text-gray-400">
+                  Allow app installation prompts to appear
+                </p>
+              </div>
+              <Switch
+                id="pwa-prompt"
+                checked={settings.enablePWAPrompt}
+                onCheckedChange={handleTogglePWAPrompt}
+                data-testid="pwa-prompt-toggle"
+              />
+            </div>
           </div>
         </div>
       </div>

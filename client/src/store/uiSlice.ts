@@ -36,6 +36,7 @@ interface UIState {
   settings: {
     enableHandToolDragging: boolean;
     enableClickToMove: boolean;
+    enablePWAPrompt: boolean;
   };
 }
 
@@ -70,6 +71,7 @@ const initialState: UIState = {
   settings: {
     enableHandToolDragging: false, // Disabled by default
     enableClickToMove: false, // Disabled by default
+    enablePWAPrompt: true, // Enabled by default
   },
 };
 
