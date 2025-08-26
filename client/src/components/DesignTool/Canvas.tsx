@@ -487,24 +487,9 @@ const Canvas: React.FC = () => {
     const rect = canvasRef.current?.getBoundingClientRect();
     if (!rect) return;
     
-    // Convert from main container coordinates to canvas coordinates, accounting for offsets
+    // Simple coordinate conversion without complex offsets
     let x = (e.clientX - rect.left) / zoomLevel;
     let y = (e.clientY - rect.top) / zoomLevel;
-    
-    // Adjust for canvas padding and content wrapper offsets
-    const canvasPaddingTop = contentBounds.minY < 0 ? Math.abs(contentBounds.minY) + 50 : 50;
-    const contentWrapperTop = contentBounds.minY < 0 ? Math.abs(contentBounds.minY) : 0;
-    
-    // Subtract the visual offsets to get true element-relative coordinates
-    y = y - canvasPaddingTop - contentWrapperTop;
-    
-    console.log('🎯 Coordinate conversion:', {
-      rawClick: { x: e.clientX, y: e.clientY },
-      canvasRect: { left: rect.left, top: rect.top },
-      beforeOffsets: { x: (e.clientX - rect.left) / zoomLevel, y: (e.clientY - rect.top) / zoomLevel },
-      offsets: { canvasPaddingTop, contentWrapperTop },
-      final: { x, y }
-    });
     
     // Only handle drawing for creation tools (exclude select and hand)
     if (['rectangle', 'text', 'image', 'container', 'heading', 'list', 'button',
@@ -598,16 +583,9 @@ const Canvas: React.FC = () => {
     const rect = canvasRef.current?.getBoundingClientRect();
     if (!rect) return;
     
-    // Convert from main container coordinates to canvas coordinates, accounting for offsets
+    // Simple coordinate conversion without complex offsets
     let x = (e.clientX - rect.left) / zoomLevel;
     let y = (e.clientY - rect.top) / zoomLevel;
-    
-    // Adjust for canvas padding and content wrapper offsets
-    const canvasPaddingTop = contentBounds.minY < 0 ? Math.abs(contentBounds.minY) + 50 : 50;
-    const contentWrapperTop = contentBounds.minY < 0 ? Math.abs(contentBounds.minY) : 0;
-    
-    // Subtract the visual offsets to get true element-relative coordinates
-    y = y - canvasPaddingTop - contentWrapperTop;
     
     // Handle active drawing
     if (drawingState) {
@@ -1498,15 +1476,9 @@ const Canvas: React.FC = () => {
         `}
         style={{ 
           width: canvasWidth, 
-          height: Math.max(rootElement.height, contentBounds.maxY - contentBounds.minY + 100),
+          height: rootElement.height || 800,
           transform: `scale(${zoomLevel})`,
-          // Add padding at the top if content extends above canvas (negative Y)
-          paddingTop: contentBounds.minY < 0 ? Math.abs(contentBounds.minY) + 50 : 50,
-          paddingBottom: 50,
-          marginTop: contentBounds.minY < 0 ? -(Math.abs(contentBounds.minY) + 50) : -50,
-          // Mirror body font-family for consistency
           fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif",
-          // Keep pointer events enabled - drawing overlay will handle coordination
         }}
         onClick={handleCanvasClick}
         onMouseLeave={() => {
@@ -1530,11 +1502,8 @@ const Canvas: React.FC = () => {
               width: '100%',
               minHeight: '100%'
             } : {}),
-            // Mirror body styling for consistency
             fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif",
-            // Offset content to account for negative positioned elements
             position: 'relative',
-            top: contentBounds.minY < 0 ? Math.abs(contentBounds.minY) : 0,
           }}
         >
           {/* Render child elements efficiently */}
