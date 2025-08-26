@@ -20,7 +20,6 @@ export interface ColorModeProviderProps {
 }
 
 export function ColorModeProvider({ children, defaultMode = 'auto' }: ColorModeProviderProps) {
-  console.log('🔧 ColorModeProvider mounting');
   
   const [mode, setModeState] = useState<ColorMode>(() => {
     if (typeof window === 'undefined') {
@@ -142,13 +141,6 @@ export function ColorModeProvider({ children, defaultMode = 'auto' }: ColorModeP
     setColorModeDesignEnabled,
   };
   
-  console.log('🔧 ColorModeProvider: Providing context value:', {
-    mode,
-    resolvedMode,
-    setMode: typeof setMode,
-    setColorModeDesignEnabled: typeof setColorModeDesignEnabled,
-    isColorModeDesignEnabled
-  });
   
   return (
     <ColorModeContext.Provider value={value}>
