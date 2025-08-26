@@ -28,9 +28,10 @@ const customLanguageDetector = {
         
         getRequest.onsuccess = () => {
           if (getRequest.result?.value) {
+            // Manual preference found - use it as source of truth
             callback(getRequest.result.value);
           } else {
-            // Fallback to browser language detection
+            // No manual preference set - use browser language as initial suggestion only
             const browserLang = navigator.language.split('-')[0];
             const supportedLang = ['en', 'fr'].includes(browserLang) ? browserLang : 'en';
             callback(supportedLang);
@@ -38,18 +39,14 @@ const customLanguageDetector = {
         };
         
         getRequest.onerror = () => {
-          // Fallback to browser language
-          const browserLang = navigator.language.split('-')[0];
-          const supportedLang = ['en', 'fr'].includes(browserLang) ? browserLang : 'en';
-          callback(supportedLang);
+          // Fallback to default when can't read settings
+          callback('en');
         };
       };
       
       request.onerror = () => {
-        // Fallback to browser language
-        const browserLang = navigator.language.split('-')[0];
-        const supportedLang = ['en', 'fr'].includes(browserLang) ? browserLang : 'en';
-        callback(supportedLang);
+        // Fallback to default when IndexedDB fails
+        callback('en');
       };
       
       // Setup IndexedDB structure if it doesn't exist
@@ -103,9 +100,9 @@ i18n
       }
     },
     
-    // Language detection
+    // Language detection - Only use custom detector to ensure manual preference is source of truth
     detection: {
-      order: ['customDetector', 'navigator'],
+      order: ['customDetector'],
       caches: ['customDetector']
     },
     
