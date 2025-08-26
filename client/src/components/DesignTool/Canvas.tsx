@@ -10,6 +10,8 @@ import { ComponentDef, CanvasElement as CanvasElementType } from '../../types/ca
 import CanvasElement from './CanvasElement';
 import { useExpandedElements } from '../../hooks/useExpandedElements';
 import { useColorModeCanvasSync } from '../../hooks/useColorModeCanvasSync';
+import DrawingOverlay from './DrawingOverlay';
+import { useDrawingCommitter } from './DrawingCommitter';
 
 import { Plus, Minus, Maximize } from 'lucide-react';
 
@@ -31,7 +33,7 @@ const Canvas: React.FC = () => {
   useColorModeCanvasSync();
   const canvasRef = useRef<HTMLDivElement>(null);
   const [hoveredElementId, setHoveredElementId] = useState<string | null>(null);
-  const [hoveredZone, setHoveredZone] = useState<'before' | 'after' | 'inside' | null>(null);
+  const [hoveredZone, setHoveredZone] = useState<'before' | 'after' | 'inside' | 'canvas-top' | 'canvas-bottom' | null>(null);
   const [insertionIndicator, setInsertionIndicator] = useState<any | null>(null);
   const [isDraggingComponent, setIsDraggingComponent] = useState(false);
   const [dragThreshold, setDragThreshold] = useState({ x: 0, y: 0, exceeded: false });
@@ -50,6 +52,13 @@ const Canvas: React.FC = () => {
   
   // CRITICAL: Expand component instances to show their template children
   const currentElements = useExpandedElements(rawElements);
+
+  // Initialize drawing committer for the new drawing-based UX
+  const { commitDrawnRect } = useDrawingCommitter({
+    currentElements,
+    zoomLevel,
+    canvasRef
+  });
 
   const rootElement = currentElements.root;
   
@@ -1538,7 +1547,7 @@ const Canvas: React.FC = () => {
                 element={element}
                 isSelected={element.id === selectedElementId}
                 isHovered={element.id === hoveredElementId}
-                hoveredZone={element.id === hoveredElementId ? hoveredZone : null}
+                hoveredZone={element.id === hoveredElementId && hoveredZone && ['before', 'after', 'inside'].includes(hoveredZone) ? hoveredZone as 'before' | 'after' | 'inside' : null}
                 expandedContainerId={expandedContainerId}
                 currentElements={currentElements}
               />
@@ -1548,7 +1557,12 @@ const Canvas: React.FC = () => {
         
         {/* Component children are now rendered by their parent elements - no separate rendering needed */}
         
-
+        {/* REVOLUTIONARY DRAWING OVERLAY - Making DOM insertion feel like drawing */}
+        <DrawingOverlay
+          currentElements={currentElements}
+          zoomLevel={zoomLevel}
+          onCommit={commitDrawnRect}
+        />
         
         {/* LARGE, OBVIOUS DROP ZONES */}
         {insertionIndicator && (
