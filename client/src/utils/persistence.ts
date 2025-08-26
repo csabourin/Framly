@@ -217,10 +217,19 @@ export class PersistenceManager {
         categoriesRecord[cat.id] = cat;
       });
       
-      store.dispatch(loadComponentDefinitions({
-        definitions: definitionsRecord,
-        categories: categoriesRecord
-      }));
+      // Only load categories if we actually have them, otherwise keep initial state defaults
+      if (categories.length > 0) {
+        store.dispatch(loadComponentDefinitions({
+          definitions: definitionsRecord,
+          categories: categoriesRecord
+        }));
+      } else {
+        // Just load definitions, keep default categories from initial state
+        store.dispatch(loadComponentDefinitions({
+          definitions: definitionsRecord,
+          categories: store.getState().componentDefinitions.categories
+        }));
+      }
       
       console.log(`Loaded ${componentDefs.length} component definitions in ${categories.length} categories`);
     } catch (error) {
