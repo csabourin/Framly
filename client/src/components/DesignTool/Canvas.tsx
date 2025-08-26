@@ -6,7 +6,7 @@ import { selectElement, addElement, moveElement, resizeElement, reorderElement, 
 import { setDragging, setDragStart, setResizing, setResizeHandle, resetUI, setDraggedElement, setDraggingForReorder, setHoveredElement, setSelectedTool } from '../../store/uiSlice';
 import { createDefaultElement, getElementAtPoint, calculateSnapPosition, isValidDropTarget } from '../../utils/canvas';
 import { selectCurrentElements, selectSelectedElementId, selectCanvasProject, selectCanvasUIState } from '../../store/selectors';
-import { ComponentDef, CanvasElement as CanvasElementType } from '../../types/canvas';
+import { ComponentDef, CanvasElement as CanvasElementType, Tool } from '../../types/canvas';
 import CanvasElement from './CanvasElement';
 import { useExpandedElements } from '../../hooks/useExpandedElements';
 import { useColorModeCanvasSync } from '../../hooks/useColorModeCanvasSync';
@@ -41,6 +41,14 @@ const Canvas: React.FC = () => {
   const [expandedContainerId, setExpandedContainerId] = useState<string | null>(null);
   const [inputModality, setInputModality] = useState<'mouse' | 'keyboard'>('mouse');
   const [isDragFromHandle, setIsDragFromHandle] = useState(false);
+  
+  // Drawing state for rubber-band rectangle
+  const [drawingState, setDrawingState] = useState<{
+    start: { x: number; y: number };
+    current: { x: number; y: number };
+    isShiftPressed: boolean;
+    isAltPressed: boolean;
+  } | null>(null);
   const project = useSelector(selectCanvasProject);
   const { selectedTool, isDragging, dragStart, isResizing, resizeHandle, zoomLevel, isGridVisible, draggedElementId, isDraggingForReorder, isDOMTreePanelVisible, isComponentPanelVisible, settings } = useSelector(selectCanvasUIState);
   const currentBreakpoint = useSelector((state: RootState) => state.canvas.project.currentBreakpoint);
@@ -461,16 +469,37 @@ const Canvas: React.FC = () => {
   }, [selectedTool, zoomLevel, currentElements, dispatch, hoveredElementId, hoveredZone]);
 
   const handleMouseDown = useCallback((e: React.MouseEvent) => {
-    // Only handle mouse down for selection and hand tools
-    if (!['select', 'hand'].includes(selectedTool)) {
-      return;
-    }
     const rect = canvasRef.current?.getBoundingClientRect();
     if (!rect) return;
     
     const x = (e.clientX - rect.left) / zoomLevel;
     const y = (e.clientY - rect.top) / zoomLevel;
     
+    // Handle drawing for creation tools
+    if (['rectangle', 'text', 'image', 'container', 'heading', 'list', 'button',
+         'input', 'textarea', 'checkbox', 'radio', 'select',
+         'section', 'nav', 'header', 'footer', 'article',
+         'video', 'audio', 'link', 'code', 'divider'].includes(selectedTool)) {
+      
+      e.preventDefault();
+      e.stopPropagation();
+      
+      console.log('🎨 Starting drawing for tool:', selectedTool, 'at:', { x, y });
+      
+      setDrawingState({
+        start: { x, y },
+        current: { x, y },
+        isShiftPressed: e.shiftKey,
+        isAltPressed: e.altKey || e.metaKey
+      });
+      
+      return;
+    }
+    
+    // Only handle mouse down for selection and hand tools
+    if (!['select', 'hand'].includes(selectedTool)) {
+      return;
+    }
     // console.log('DRAG DEBUG - Mouse down:', { selectedTool, selectedElementId: selectedElement?.id });
     
     if (selectedTool === 'select' && selectedElement) {
@@ -532,7 +561,19 @@ const Canvas: React.FC = () => {
     const x = (e.clientX - rect.left) / zoomLevel;
     const y = (e.clientY - rect.top) / zoomLevel;
     
-    // Show insertion indicators for creation tools FIRST
+    // Handle active drawing
+    if (drawingState) {
+      console.log('🎨 Drawing move:', { x, y });
+      setDrawingState(prev => prev ? {
+        ...prev,
+        current: { x, y },
+        isShiftPressed: e.shiftKey,
+        isAltPressed: e.altKey || e.metaKey
+      } : null);
+      return;
+    }
+    
+    // Show insertion indicators for creation tools when NOT drawing
     if (['rectangle', 'text', 'image', 'container', 'heading', 'list', 'button',
          'input', 'textarea', 'checkbox', 'radio',
          'section', 'nav', 'header', 'footer', 'article',
@@ -723,9 +764,50 @@ const Canvas: React.FC = () => {
       dispatch(setHoveredElement({ elementId: null, zone: null }));
       setInsertionIndicator(null);
     }
-  }, [isDragging, isDraggingForReorder, selectedElement, draggedElementId, dragStart, zoomLevel, dispatch, selectedTool, currentElements, dragThreshold]);
+  }, [isDragging, isDraggingForReorder, selectedElement, draggedElementId, dragStart, zoomLevel, dispatch, selectedTool, currentElements, dragThreshold, drawingState]);
 
   const handleMouseUp = useCallback((e?: MouseEvent) => {
+    // Handle drawing completion FIRST
+    if (drawingState) {
+      console.log('🎨 Completing drawing:', drawingState);
+      
+      const { start, current, isShiftPressed, isAltPressed } = drawingState;
+      
+      // Calculate rectangle dimensions
+      let left = Math.min(start.x, current.x);
+      let top = Math.min(start.y, current.y);
+      let width = Math.abs(current.x - start.x);
+      let height = Math.abs(current.y - start.y);
+      
+      // Apply modifier key behaviors
+      if (isShiftPressed) {
+        // Shift key: make square
+        const size = Math.max(width, height);
+        width = size;
+        height = size;
+      }
+      
+      if (isAltPressed) {
+        // Alt key: draw from center
+        left = start.x - width / 2;
+        top = start.y - height / 2;
+      }
+      
+      // Minimum size check
+      if (width > 5 && height > 5) {
+        // Use the drawing committer to create the element
+        commitDrawnRect(
+          { left, top, width, height },
+          selectedTool as Tool,
+          { shift: isShiftPressed, alt: isAltPressed }
+        );
+      }
+      
+      // Clear drawing state
+      setDrawingState(null);
+      return;
+    }
+    
     // console.log('DRAG DEBUG - Mouse up:', { isDraggingForReorder, draggedElementId, hoveredElementId, hoveredZone, insertionIndicator });
     
     if (isDraggingForReorder && draggedElementId && insertionIndicator) {
@@ -819,7 +901,7 @@ const Canvas: React.FC = () => {
       dispatch(setSelectedTool('select'));
     }
     setIsDragFromHandle(false);
-  }, [dispatch, isDraggingForReorder, draggedElementId, hoveredElementId, hoveredZone, insertionIndicator, currentElements, dragThreshold, setDragThreshold, isDragFromHandle]);
+  }, [dispatch, isDraggingForReorder, draggedElementId, hoveredElementId, hoveredZone, insertionIndicator, currentElements, dragThreshold, setDragThreshold, isDragFromHandle, drawingState, selectedTool, commitDrawnRect]);
 
   // Keyboard shortcuts for copy/cut/paste
   useEffect(() => {
@@ -1333,12 +1415,7 @@ const Canvas: React.FC = () => {
       onDragLeave={handleDragLeave}
       data-testid="canvas-main"
     >
-      {/* REVOLUTIONARY DRAWING OVERLAY - Positioned at main level to intercept events */}
-      <DrawingOverlay
-        currentElements={currentElements}
-        zoomLevel={zoomLevel}
-        onCommit={commitDrawnRect}
-      />
+      {/* Drawing functionality integrated into canvas handlers */}
       
       {/* Canvas Container */}
       <div 
@@ -1357,11 +1434,7 @@ const Canvas: React.FC = () => {
           marginTop: contentBounds.minY < 0 ? -(Math.abs(contentBounds.minY) + 50) : -50,
           // Mirror body font-family for consistency
           fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif",
-          // Disable pointer events on canvas for creation tools - let overlay handle them
-          pointerEvents: ['rectangle', 'text', 'image', 'container', 'heading', 'list', 'button',
-                          'input', 'textarea', 'checkbox', 'radio', 'select',
-                          'section', 'nav', 'header', 'footer', 'article',
-                          'video', 'audio', 'link', 'code', 'divider'].includes(selectedTool) ? 'none' : 'auto'
+          // Keep pointer events enabled - drawing overlay will handle coordination
         }}
         onClick={handleCanvasClick}
         onMouseDown={handleMouseDown}
@@ -1546,6 +1619,54 @@ const Canvas: React.FC = () => {
                       {typeof draggedElement.content === 'string' ? draggedElement.content.slice(0, 20) : 'Content'}
                     </div>
                   )}
+                </div>
+              </div>
+            );
+          })()
+        )}
+
+        {/* DRAWING RUBBER-BAND RECTANGLE */}
+        {drawingState && (
+          (() => {
+            const { start, current, isShiftPressed, isAltPressed } = drawingState;
+            
+            let left = Math.min(start.x, current.x);
+            let top = Math.min(start.y, current.y);
+            let width = Math.abs(current.x - start.x);
+            let height = Math.abs(current.y - start.y);
+            
+            // Apply modifier key behaviors for preview
+            if (isShiftPressed) {
+              const size = Math.max(width, height);
+              width = size;
+              height = size;
+            }
+            
+            if (isAltPressed) {
+              left = start.x - width / 2;
+              top = start.y - height / 2;
+            }
+            
+            return (
+              <div
+                className="absolute pointer-events-none z-[100] border-2 border-blue-500 bg-blue-500/10 rounded"
+                style={{
+                  left: left,
+                  top: top,
+                  width: width,
+                  height: height,
+                  transform: `scale(${zoomLevel})`,
+                  transformOrigin: '0 0'
+                }}
+              >
+                {/* Size indicator */}
+                <div 
+                  className="absolute -top-8 left-0 bg-blue-600 text-white text-xs px-2 py-1 rounded shadow-lg whitespace-nowrap"
+                  style={{ transform: `scale(${1/zoomLevel})` }}
+                >
+                  {Math.round(width)} × {Math.round(height)}
+                  {isShiftPressed && <span className="ml-1">□</span>}
+                  {isAltPressed && <span className="ml-1">⌥</span>}
                 </div>
               </div>
             );
