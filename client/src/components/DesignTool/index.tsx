@@ -79,7 +79,7 @@ const DesignToolContent: React.FC = () => {
         <Toolbar />
         {isDOMTreePanelVisible && <DOMTreePanel />}
         <Canvas />
-        {isComponentPanelVisible && <ComponentPanel />}
+        <ComponentPanel />
         <PropertiesPanel />
       </div>
       <div className="flex flex-col">

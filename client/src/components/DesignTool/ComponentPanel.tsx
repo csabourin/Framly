@@ -186,6 +186,8 @@ const ComponentPanel: React.FC = () => {
     );
   };
 
+  console.log('ComponentPanel rendering with categories:', componentCategories.length);
+  
   return (
     <aside className="absolute right-80 top-12 bottom-8 w-64 bg-white border-l border-gray-200 flex flex-col"
       data-testid="component-panel-main"
