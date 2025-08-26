@@ -1,20 +1,27 @@
 import React from 'react';
 import { Sun, Moon } from 'lucide-react';
+import { indexedDBManager } from '../utils/indexedDB';
 
-// Ultra-simple color mode toggle that doesn't rely on any React state or context
-// Uses only DOM APIs to ensure it always works
+// Ultra-simple color mode toggle that uses IndexedDB for persistence
 export function StaticColorModeToggle() {
-  const handleClick = () => {
+  const handleClick = async () => {
     const isDark = document.documentElement.classList.contains('dark');
+    const newTheme = isDark ? 'light' : 'dark';
     
+    // Update DOM immediately
     if (isDark) {
       document.documentElement.classList.remove('dark');
       document.documentElement.classList.add('light');
-      localStorage.setItem('theme', 'light');
     } else {
       document.documentElement.classList.remove('light');
       document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
+    }
+    
+    // Save to IndexedDB
+    try {
+      await indexedDBManager.saveSetting('theme', newTheme);
+    } catch (error) {
+      console.error('Failed to save theme to IndexedDB:', error);
     }
   };
 

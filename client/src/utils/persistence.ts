@@ -260,6 +260,13 @@ export class PersistenceManager {
       } else {
         console.log('No persisted UI settings found, using defaults');
       }
+      
+      // Also load theme setting and apply it
+      const theme = await indexedDBManager.loadSetting('theme');
+      if (theme) {
+        document.documentElement.classList.remove('light', 'dark');
+        document.documentElement.classList.add(theme);
+      }
     } catch (error) {
       console.error('Failed to load UI settings:', error);
     }
