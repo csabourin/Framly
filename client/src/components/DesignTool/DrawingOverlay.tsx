@@ -80,7 +80,10 @@ const DrawingOverlay: React.FC<DrawingOverlayProps> = ({
     e.stopPropagation();
     
     // Only handle creation tools, not select/hand
-    if (!['rectangle', 'text', 'image', 'container', 'heading', 'button', 'input', 'textarea'].includes(selectedTool)) {
+    if (!['rectangle', 'text', 'image', 'container', 'heading', 'list', 'button',
+         'input', 'textarea', 'checkbox', 'radio', 'select',
+         'section', 'nav', 'header', 'footer', 'article',
+         'video', 'audio', 'link', 'code', 'divider'].includes(selectedTool)) {
       console.log('🎨 DrawingOverlay: ignoring tool', selectedTool);
       return;
     }

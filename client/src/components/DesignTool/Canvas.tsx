@@ -1333,6 +1333,13 @@ const Canvas: React.FC = () => {
       onDragLeave={handleDragLeave}
       data-testid="canvas-main"
     >
+      {/* REVOLUTIONARY DRAWING OVERLAY - Positioned at main level to intercept events */}
+      <DrawingOverlay
+        currentElements={currentElements}
+        zoomLevel={zoomLevel}
+        onCommit={commitDrawnRect}
+      />
+      
       {/* Canvas Container */}
       <div 
         ref={canvasRef}
@@ -1350,6 +1357,11 @@ const Canvas: React.FC = () => {
           marginTop: contentBounds.minY < 0 ? -(Math.abs(contentBounds.minY) + 50) : -50,
           // Mirror body font-family for consistency
           fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif",
+          // Disable pointer events on canvas for creation tools - let overlay handle them
+          pointerEvents: ['rectangle', 'text', 'image', 'container', 'heading', 'list', 'button',
+                          'input', 'textarea', 'checkbox', 'radio', 'select',
+                          'section', 'nav', 'header', 'footer', 'article',
+                          'video', 'audio', 'link', 'code', 'divider'].includes(selectedTool) ? 'none' : 'auto'
         }}
         onClick={handleCanvasClick}
         onMouseDown={handleMouseDown}
@@ -1404,13 +1416,6 @@ const Canvas: React.FC = () => {
         </div>
         
         {/* Component children are now rendered by their parent elements - no separate rendering needed */}
-        
-        {/* REVOLUTIONARY DRAWING OVERLAY - Making DOM insertion feel like drawing */}
-        <DrawingOverlay
-          currentElements={currentElements}
-          zoomLevel={zoomLevel}
-          onCommit={commitDrawnRect}
-        />
         
         {/* LARGE, OBVIOUS DROP ZONES */}
         {insertionIndicator && (
