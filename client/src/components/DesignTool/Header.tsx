@@ -11,14 +11,24 @@ import UndoRedoControls from './UndoRedoControls';
 import WebsiteImport from './WebsiteImport';
 import SettingsMenu from './SettingsMenu';
 import LanguageSwitcher from '@/components/ui/language-switcher';
-import { SimpleColorModeToggle } from '../../components/SimpleColorModeToggle';
+import { StaticColorModeToggle } from '../../components/StaticColorModeToggle';
 import { useColorMode } from '../../contexts/ColorModeContext';
 
 const Header: React.FC = () => {
   console.log('[Header] Component rendering at', new Date().toISOString());
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const { isColorModeDesignEnabled, setColorModeDesignEnabled } = useColorMode();
+  
+  // Safely use ColorMode context with fallback
+  let isColorModeDesignEnabled = false;
+  let setColorModeDesignEnabled: any = () => {};
+  try {
+    const colorModeContext = useColorMode();
+    isColorModeDesignEnabled = colorModeContext.isColorModeDesignEnabled;
+    setColorModeDesignEnabled = colorModeContext.setColorModeDesignEnabled;
+  } catch (error) {
+    console.error('[Header] ColorMode context error:', error);
+  }
   const project = useSelector(selectCanvasProject);
   const { isExportModalOpen } = useSelector(selectExportModalState);
 
@@ -241,10 +251,8 @@ const Header: React.FC = () => {
           {/* Undo/Redo Controls with History Management */}
           <UndoRedoControls />
           
-          {/* Color Mode Toggle - Always render with unique key */}
-          <div className="border-2 border-green-500" data-testid="color-mode-wrapper">
-            <SimpleColorModeToggle key={`toggle-${Date.now()}`} />
-          </div>
+          {/* Color Mode Toggle - Static version that always works */}
+          <StaticColorModeToggle />
           
           
           <Button

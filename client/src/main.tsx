@@ -6,6 +6,10 @@ import { store } from './store';
 import { initializePersistence } from './utils/persistence';
 import './i18n'; // Initialize i18n
 
+// Initialize theme from localStorage before React renders
+const savedTheme = localStorage.getItem('theme') || 'light';
+document.documentElement.classList.add(savedTheme);
+
 // Initialize persistence system
 initializePersistence().catch(console.error);
 
