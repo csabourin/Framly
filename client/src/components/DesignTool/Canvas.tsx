@@ -60,17 +60,18 @@ const Canvas: React.FC = () => {
   // CRITICAL: Expand component instances to show their template children
   const currentElements = useExpandedElements(rawElements);
 
-  // Initialize drawing committer for the new drawing-based UX
-  const { commitDrawnRect } = useDrawingCommitter({
-    currentElements,
-    zoomLevel,
-    canvasRef
-  });
-
   const rootElement = currentElements.root;
   
   // Override root width based on current breakpoint
   const canvasWidth = breakpoints[currentBreakpoint]?.width || rootElement?.width || 375;
+
+  // Initialize drawing committer for the new drawing-based UX
+  const { commitDrawnRect } = useDrawingCommitter({
+    currentElements,
+    zoomLevel,
+    canvasRef,
+    currentBreakpointWidth: canvasWidth
+  });
   
   // Calculate actual content bounds to handle elements positioned outside initial canvas
   const calculateContentBounds = useCallback(() => {

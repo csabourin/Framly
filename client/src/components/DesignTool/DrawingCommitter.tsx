@@ -15,12 +15,14 @@ interface DrawingCommitterProps {
   currentElements: Record<string, CanvasElement>;
   zoomLevel: number;
   canvasRef: React.RefObject<HTMLDivElement>;
+  currentBreakpointWidth: number;
 }
 
 export const useDrawingCommitter = ({ 
   currentElements, 
   zoomLevel, 
-  canvasRef 
+  canvasRef,
+  currentBreakpointWidth
 }: DrawingCommitterProps) => {
   const dispatch = useDispatch();
 
@@ -72,7 +74,7 @@ export const useDrawingCommitter = ({
     }));
 
     // Update canvas dimensions based on drawn rectangle
-    updateCanvasDimensions(localRect, currentElements, dispatch);
+    updateCanvasDimensions(localRect, currentElements, dispatch, currentBreakpointWidth);
 
     dispatch(selectElement(elementDef.id));
   }, [currentElements, zoomLevel, canvasRef, dispatch]);
@@ -279,22 +281,41 @@ function createElementForTool(
   // Create base element using existing utility
   const baseElement = createDefaultElement(tool as any);
 
+  console.log('🎯 Creating element with drawn dimensions:', { 
+    tool, 
+    drawnSize: { width: localRect.width, height: localRect.height },
+    baseElementDefaults: { width: baseElement.width, height: baseElement.height }
+  });
+
   // Add positioning if absolute
   if (placement.localPosition) {
     return {
       ...baseElement,
       x: placement.localPosition.x,
       y: placement.localPosition.y,
-      width: localRect.width,
-      height: localRect.height
+      width: Math.round(localRect.width),
+      height: Math.round(localRect.height),
+      // Override default styles with drawn dimensions
+      styles: {
+        ...baseElement.styles,
+        width: `${Math.round(localRect.width)}px`,
+        height: `${Math.round(localRect.height)}px`,
+      }
     };
   }
 
-  // For flow elements, set appropriate size classes
+  // For flow elements, set appropriate size - override defaults
   return {
     ...baseElement,
-    width: localRect.width,
-    height: localRect.height
+    width: Math.round(localRect.width),
+    height: Math.round(localRect.height),
+    // Override default styles with drawn dimensions
+    styles: {
+      ...baseElement.styles,
+      width: Math.round(localRect.width) > 0 ? `${Math.round(localRect.width)}px` : '100%',
+      height: `${Math.round(localRect.height)}px`,
+      minHeight: `${Math.round(localRect.height)}px`,
+    }
   };
 }
 
@@ -368,49 +389,68 @@ function calculateOverlapArea(rect1: CommitRect, rect2: CommitRect): number {
 function updateCanvasDimensions(
   drawnRect: CommitRect,
   currentElements: Record<string, CanvasElement>,
-  dispatch: any
+  dispatch: any,
+  currentBreakpointWidth: number
 ) {
   const rootElement = currentElements.root;
   if (!rootElement) return;
 
-  const currentCanvasWidth = rootElement.width || 375;
   const currentCanvasHeight = rootElement.height || 600;
 
   // Calculate required dimensions based on drawn rectangle
   const requiredWidth = Math.max(drawnRect.left + drawnRect.width + 20, 0); // Add 20px padding
   const requiredHeight = Math.max(drawnRect.top + drawnRect.height + 20, 0); // Add 20px padding
 
-  let newWidth = currentCanvasWidth;
+  let newWidth = currentBreakpointWidth; // Start with current breakpoint width
   let newHeight = currentCanvasHeight;
+  let needsUpdate = false;
 
   // Height: apply right away from drawn rectangles
   if (requiredHeight > currentCanvasHeight) {
     newHeight = requiredHeight;
+    needsUpdate = true;
     console.log('🎯 Canvas height updated to:', newHeight);
   }
 
-  // Width logic: apply if smaller than canvas, otherwise use 100% (current width)
-  if (requiredWidth <= currentCanvasWidth) {
-    // Rectangle fits within current canvas - update to actual required width if smaller
-    if (requiredWidth < currentCanvasWidth) {
+  // Width logic: compare against current breakpoint width
+  if (requiredWidth <= currentBreakpointWidth) {
+    // Rectangle fits within breakpoint - update to actual required width if smaller
+    if (requiredWidth < currentBreakpointWidth) {
       newWidth = Math.max(requiredWidth, 200); // Minimum width of 200px
-      console.log('🎯 Canvas width reduced to:', newWidth);
+      needsUpdate = true;
+      console.log('🎯 Canvas width reduced to:', newWidth, '(from breakpoint width:', currentBreakpointWidth, ')');
     }
   } else {
-    // Rectangle is bigger than canvas - keep current width (100% behavior)
-    console.log('🎯 Rectangle exceeds canvas width, maintaining 100% width:', currentCanvasWidth);
+    // Rectangle exceeds breakpoint width - keep breakpoint width (100% behavior)
+    console.log('🎯 Rectangle exceeds breakpoint width, maintaining 100% width:', currentBreakpointWidth);
   }
 
   // Apply updates if any dimension changed
-  if (newWidth !== currentCanvasWidth || newHeight !== currentCanvasHeight) {
+  if (needsUpdate) {
+    const updates: any = { height: newHeight };
+    
+    // For width, set CSS width appropriately
+    if (newWidth === currentBreakpointWidth) {
+      // Use 100% width when at breakpoint size
+      updates.width = currentBreakpointWidth;
+      updates.styles = {
+        ...rootElement.styles,
+        width: '100%'
+      };
+    } else {
+      // Use specific pixel width when smaller
+      updates.width = newWidth;
+      updates.styles = {
+        ...rootElement.styles,
+        width: `${newWidth}px`
+      };
+    }
+    
     dispatch(updateElement({
       id: 'root',
-      updates: {
-        width: newWidth,
-        height: newHeight
-      }
+      updates
     }));
-    console.log('🎯 Canvas dimensions updated:', { width: newWidth, height: newHeight });
+    console.log('🎯 Canvas dimensions updated:', { width: newWidth, height: newHeight, widthCSS: updates.styles?.width });
   }
 }
 
