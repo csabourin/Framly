@@ -896,7 +896,6 @@ const Canvas: React.FC = () => {
       
       // DISABLE OLD DRAG SYSTEM when HTML5 is active
       if (isDraggingForReorder) {
-        console.log('🔄 OLD DRAG SYSTEM: Skipping because HTML5 drag active');
         return; // Skip old system when HTML5 drag is active
       }
     } else if (selectedTool === 'select' || selectedTool === 'hand') {
@@ -1105,20 +1104,15 @@ const Canvas: React.FC = () => {
     e.preventDefault();
     e.dataTransfer.dropEffect = 'move';
     
-    console.log('🎯 CANVAS DRAG OVER - HTML5 System Active', e.clientX, e.clientY);
-    console.log('   - DataTransfer types:', Array.from(e.dataTransfer.types));
-    
     // Check if this is a canvas element reorder by checking types
     // NOTE: For security reasons, drag data is only readable during 'drop' event, not 'dragOver'
     if (e.dataTransfer.types.includes('application/json')) {
-      console.log('   - Canvas element reorder detected (by types), accepting drop');
       // Visual feedback will be handled by drop event when we can actually read the data
     }
   }, []);
 
   // Add missing Canvas dragLeave handler
   const handleCanvasDragLeave = useCallback((e: React.DragEvent) => {
-    console.log('🎯 CANVAS DRAG LEAVE');
     // Only clear states if leaving the main canvas area
     if (!e.currentTarget.contains(e.relatedTarget as Node)) {
       setInsertionIndicator(null);
@@ -1278,7 +1272,6 @@ const Canvas: React.FC = () => {
   const handleDragLeave = useCallback((e: React.DragEvent) => {
     // Only clear if leaving the canvas container itself, not child elements
     if (e.target === canvasRef.current) {
-      console.log('COMPONENT DRAG - Left canvas area');
       setIsDraggingComponent(false);
       setHoveredElementId(null);
       setHoveredZone(null);
@@ -1289,8 +1282,6 @@ const Canvas: React.FC = () => {
 
   const handleCanvasDrop = useCallback((e: React.DragEvent) => {
     e.preventDefault();
-    console.log('🎯🎯🎯 CANVAS DROP EVENT FIRED!', e.clientX, e.clientY);
-    console.log('   - DataTransfer types:', Array.from(e.dataTransfer.types));
     
     // Handle canvas element reordering drops
     try {
@@ -1299,12 +1290,10 @@ const Canvas: React.FC = () => {
         const data = JSON.parse(dragData);
         
         if (data.type === 'canvas-element' && data.elementId) {
-          console.log('   - Canvas element drop detected:', data.elementId);
           
           // Implement canvas element drop logic using the DnD system
           const draggedElement = currentElements[data.elementId];
           if (!draggedElement) {
-            console.log('   - Dragged element not found in currentElements');
             return;
           }
           
@@ -1361,8 +1350,6 @@ const Canvas: React.FC = () => {
           );
           
           if (drop) {
-            console.log('   - Drop location found:', drop);
-            
             // Convert to reorder parameters
             let insertPosition: 'before' | 'after' | 'inside' = 'inside';
             let referenceElementId: string | undefined;
@@ -1384,13 +1371,6 @@ const Canvas: React.FC = () => {
               insertPosition = 'inside';
             }
             
-            console.log('   - Performing reorder:', {
-              elementId: data.elementId,
-              newParentId: drop.parentId,
-              insertPosition,
-              referenceElementId
-            });
-            
             // Perform the actual reordering
             dispatch(reorderElement({
               elementId: data.elementId,
@@ -1398,10 +1378,7 @@ const Canvas: React.FC = () => {
               insertPosition,
               referenceElementId
             }));
-            
-            console.log('   - ✅ CANVAS ELEMENT REORDER COMPLETED!');
           } else {
-            console.log('   - No valid drop location, moving to root');
             // Fallback to root container
             dispatch(reorderElement({
               elementId: data.elementId,
@@ -1422,7 +1399,7 @@ const Canvas: React.FC = () => {
         }
       }
     } catch (error) {
-      console.log('   - Error parsing canvas element drag data:', error);
+      // Silently handle drag data parsing errors
     }
     
     // Clear component dragging state for component drops
@@ -1443,7 +1420,7 @@ const Canvas: React.FC = () => {
         const x = isFinite(rawX) ? rawX : 50;
         const y = isFinite(rawY) ? rawY : 50;
         
-        console.log('Component drop coordinates:', { x, y, rawX, rawY, zoomLevel });
+        // Component drop with calculated coordinates
         
         // NEW DnD SYSTEM: Use new system for component dropping validation
         const candidateIds = getCandidateContainerIds({ x: e.clientX, y: e.clientY });

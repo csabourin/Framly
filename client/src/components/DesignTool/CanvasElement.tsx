@@ -1096,22 +1096,8 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
         aria-selected={isSelected}
         tabIndex={0}
         onClick={handleClick}
-        onMouseDown={(e) => {
-          console.log('🖱️ MOUSE DOWN on element:', element.id, 'Tool:', selectedTool, 'Draggable:', !isEditing && !isComponentChild);
-          console.log('   - Target:', e.target, 'CurrentTarget:', e.currentTarget);
-          console.log('   - Buttons:', e.buttons, 'Button:', e.button);
-          
-          // DEBUG: Check what might prevent HTML5 drag
-          if (selectedTool === 'hand') {
-            console.log('   - Hand tool active - HTML5 drag should work');
-          }
-        }}
         // HTML5 Drag and Drop event handlers
         onDragStart={(e) => {
-          console.log('🚀🚀🚀 HTML5 DRAG STARTED!!!', element.id, 'Tool:', selectedTool);
-          console.log('   - DataTransfer:', e.dataTransfer);
-          console.log('   - Target draggable:', e.currentTarget.draggable);
-          
           // Add immediate visual feedback that drag started
           e.currentTarget.style.opacity = '0.5';
           e.currentTarget.style.transform = 'scale(0.95)';
@@ -1130,9 +1116,6 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
           dispatch(setDraggedElement(element.id));
         }}
         onDragEnd={(e) => {
-          console.log('🏁 HTML5 DRAG ENDED:', element.id);
-          console.log('   - DropEffect:', e.dataTransfer.dropEffect);
-          
           // Reset visual feedback
           e.currentTarget.style.opacity = '';
           e.currentTarget.style.transform = '';
