@@ -1,0 +1,463 @@
+Drag & Drop Spec Sheet — Block/Flex/Grid (Replit-ready)
+
+Goal: Implement an intuitive, fast, and accessible drag-and-drop system for moving and inserting elements in a React + TypeScript + Redux app that designs web layouts. Supports block, flex, grid only (no inline/caret text placement). New elements behave like moves. Images/“drawable” components still use the existing draw tool (unchanged).
+
+0) Definitions (strict)
+
+ElementNode: canonical node in Redux tree (not the DOM).
+
+Move: change a node’s parent/index.
+
+Insert: create a new node and place it as if moved.
+
+Container: an element allowed to have children (per rules below).
+
+Invalid Recipient: cannot accept children at all (e.g., P, IMG, HR, BR, INPUT, VIDEO, AUDIO, void/replaced/interactive).
+
+Strict Parent: only accepts certain tags (e.g., UL/OL → LI, TABLE → TR / sections, etc.).
+
+Gap: a visual hotspot between siblings along the container’s main axis.
+
+Inside Band: the inner area of a container that means “insert inside as last child”.
+
+1) Data Model (Redux)
+type ElementNode = {
+  id: string;
+  tag: string;              // uppercase HTML tag or component key
+  parentId: string | null;
+  children: string[];
+  classes: string[];
+  layoutType: "block" | "flex" | "grid" | "absolute";
+  // ...other props (content, attrs, etc.)
+};
+
+type MoveOp = {
+  type: "move";
+  id: string;
+  from: { parent: string; index: number };
+  to:   { parent: string; index: number | "end" };
+};
+
+type InsertOp = {
+  type: "insert";
+  node: ElementNode;                   // prebuilt with id
+  to:   { parent: string; index: number | "end" };
+};
+
+
+Rule: Persist only logical ops (Move/Insert). History is pushed on drop.
+
+2) Eligibility Rules (must override existing logic)
+
+Do this in dnd/canAcceptChild.ts:
+
+const VOID_TAGS = new Set(["AREA","BASE","BR","COL","EMBED","HR","IMG","INPUT","LINK","META","PARAM","SOURCE","TRACK","WBR"]);
+const REPLACED = new Set(["IMG","VIDEO","AUDIO","CANVAS","IFRAME","OBJECT","SVG"]);
+const INTERACTIVE = new Set(["INPUT","SELECT","TEXTAREA","BUTTON","LABEL"]);
+
+const NON_CONTAINER = new Set(["P", ...VOID_TAGS, ...REPLACED, ...INTERACTIVE]);
+
+const STRICT_PARENTS: Record<string,(childTag:string)=>boolean> = {
+  UL: t => t === "LI",
+  OL: t => t === "LI",
+  TABLE: t => ["CAPTION","COLGROUP","THEAD","TBODY","TFOOT","TR"].includes(t),
+  THEAD: t => t === "TR",
+  TBODY: t => t === "TR",
+  TFOOT: t => t === "TR",
+  TR:    t => t === "TD" || t === "TH",
+};
+
+export type ComponentMeta = {
+  id: string;
+  tag: string;                   // uppercase
+  acceptsChildren?: boolean;     // component override
+  acceptsTags?: string[];        // optional whitelist
+};
+
+export function canAcceptChild(parent: ComponentMeta, child?: ComponentMeta): boolean {
+  if (parent.acceptsChildren === false) return false;
+  if (NON_CONTAINER.has(parent.tag)) return false;
+
+  const strict = STRICT_PARENTS[parent.tag];
+  if (!strict) return true;
+
+  const childTag = child?.tag ?? "";
+  return strict(childTag);
+}
+
+
+Override requirement: Replace any older acceptance checks with canAcceptChild.
+
+3) Layout Axis + Gap Map (must implement)
+
+Axis detection (dnd/layout.ts):
+
+export type Axis = "x"|"y";
+export function mainAxis(el: HTMLElement): Axis {
+  const cs = getComputedStyle(el);
+  if (cs.display.startsWith("flex")) return cs.flexDirection.includes("row") ? "x" : "y";
+  if (cs.display.startsWith("grid")) return "x"; // treat row-major for gaps
+  return "y"; // block flow
+}
+
+
+Gap generation (dnd/gaps.ts):
+
+Build gaps before first, between each visible child, after last along the main axis.
+
+Ignore slivers < 6px wide/high.
+
+For flex-wrap/grid, compute gaps from child rects; row-major sort.
+
+4) Drop Choice Algorithm (must override)
+
+Core chooser (dnd/chooseDrop.ts):
+
+Hit-test to get candidate containers from deepest → ancestors.
+
+For each container:
+
+Compute Inside Band = inner 70% box (inset 15% each side).
+
+If pointer in Inside Band → tentative { kind:"into", parentId, index:"end" }.
+
+Else if pointer hits a gap → tentative { kind:"between", parentId, index }.
+
+Pass tentative into legal resolver.
+
+If none legal under pointer → fallback { between, parent: ROOT, index: end }.
+
+Legal resolver (dnd/resolveDrop.ts):
+
+export type Drop =
+  | { kind:"into"; parentId:string; index:"end" }
+  | { kind:"between"; parentId:string; index:number };
+
+export function resolveLegalDrop(
+  tentative: Drop,
+  dragged: ComponentMeta,
+  getMeta: (id:string)=>ComponentMeta,
+  getParentId: (id:string)=>string|null,
+  indexOf: (parentId:string, childId:string)=>number
+): Drop | null {
+  if (tentative.kind === "between") return tentative;
+
+  let p = getMeta(tentative.parentId);
+  if (canAcceptChild(p, dragged)) return tentative;
+
+  // climb ancestors
+  let pid = getParentId(p.id);
+  while (pid) {
+    const anc = getMeta(pid);
+    if (canAcceptChild(anc, dragged)) return { kind:"into", parentId: anc.id, index:"end" };
+    pid = getParentId(anc.id);
+  }
+
+  // bounce to sibling between (above/below or left/right)
+  const invalidParentId = getParentId(p.id);
+  if (!invalidParentId) return null;
+  const i = indexOf(invalidParentId, p.id);
+  return { kind:"between", parentId: invalidParentId, index: i };
+}
+
+
+Hysteresis: store last chosen drop; require 8–12px movement to switch bands → prevents flicker.
+
+5) New Element Insertion (must override)
+
+Insert uses the same pipeline as Move, except the node is new.
+
+Do not change the existing draw mode for images/valid drawable recipients. That path stays as-is.
+
+Chooser for new nodes (dnd/chooseDropForNew.ts):
+
+export function chooseDropForNewElement(
+  pt:{x:number;y:number},
+  candidateContainers: string[],
+  draggedMeta: ComponentMeta
+): Drop {
+  for (const cid of candidateContainers) {
+    const cEl = document.getElementById(cid)!;
+    const tentative = chooseDrop(pt, cEl);         // inside or between
+    const legal = tentative && resolveLegalDrop(tentative, draggedMeta, getMeta, getParentId, indexOf);
+    if (legal) return legal;
+  }
+  return { kind:"between", parentId: ROOT_ID, index: getChildren(ROOT_ID).length };
+}
+
+
+Never swallow / always insert invariants (state/applyInsert.ts):
+
+function clampIndex(len:number, idx:number|"end"){ return idx==="end"?len:Math.max(0,Math.min(idx,len)); }
+
+export function applyInsertOp(state:TreeState, op:InsertOp):TreeState {
+  const next = structuredClone(state);
+
+  const parent = next.nodes[op.to.parent] ?? next.nodes[ROOT_ID];
+  const idx = clampIndex(parent.children.length, op.to.index);
+  next.nodes[op.node.id] = op.node;
+  parent.children.splice(idx, 0, op.node.id);
+
+  return next;
+}
+
+
+Render-time safety check: after insert, if element didn’t mount, dispatch a Move to ROOT@end once.
+
+6) Pointer Input & Drag Layer (must implement)
+
+Use Pointer Events (pointerdown → setPointerCapture → pointermove on a single drag layer).
+
+Threshold: don’t start drag until 4–6px movement.
+
+Drag preview (ghost) rendered in a portal; follow pointer with transform: translate3d(...).
+
+Keep original spot occupied with a placeholder to avoid layout jumps.
+
+7) Visual Affordances (override if different)
+
+Between: 2px insertion bar along main axis (horizontal for y, vertical for x), with subtle fade/scale 120–160ms.
+
+Inside: soft rounded interior highlight with “Drop inside” label.
+
+Invalid recipients: never show inside glow; show only between bars.
+
+Axis-aware labels: “Insert left/right” for x; “Insert above/below” for y.
+
+8) Performance (required)
+
+Build a per-frame hit cache of visible rects (id, DOMRect, depth).
+
+All animations via FLIP (translate only; 120–160ms).
+
+Avoid layout thrash; measure once per frame; use requestAnimationFrame.
+
+9) Autoscroll (required)
+
+Detect nearest scrollable container or window under pointer.
+
+If pointer within 24px of edge, scroll speed scales with proximity; cap at ~36px per frame.
+
+Pause when over fixed overlays.
+
+10) Accessibility (WCAG 2.1 mandatory)
+
+Draggables: tabindex=0, roles treeitem/listitem. Containers: role="group" or tree.
+
+Keyboard path:
+
+Space: pick up / drop.
+
+Arrows: move focus across legal between positions and inside of eligible containers.
+
+Enter: commit drop.
+
+Esc: cancel.
+
+ARIA:
+
+aria-grabbed during drag.
+
+Live region announcements (e.g., “Picked up ‘Card’. Move above ‘Hero’ or inside ‘Section’.”).
+
+11) Undo/Redo (must preserve)
+
+Push one op per drop. Coalesce hover moves within a drag.
+
+Insert undo deletes node & removes reference. Redo reinserts at stored parent/index (clamp index; fallback to end).
+
+12) Edge Case Policy (enforced)
+
+Dropping onto P/IMG/HR/BR/AUDIO/VIDEO/INPUT/etc. → force between in their parent.
+
+Dropping non-LI into UL/OL → between outside the list.
+
+Table zones enforce STRICT rules; otherwise bounce to between outside table.
+
+If no legal target under pointer → ROOT@end.
+
+Move to same parent/index → no-op (but still show indicator during hover).
+
+13) Integration Plan (exact changes)
+
+Add modules:
+
+src/dnd/canAcceptChild.ts
+
+src/dnd/layout.ts
+
+src/dnd/gaps.ts
+
+src/dnd/chooseDrop.ts
+
+src/dnd/resolveDrop.ts
+
+src/dnd/chooseDropForNew.ts
+
+src/state/applyInsert.ts
+
+Update existing code to call:
+
+On pointer move: build hit cache → candidate containers → chooseDrop + resolveLegalDrop (or chooseDropForNewElement for inserts).
+
+On drop:
+
+If moving: dispatch MoveOp.
+
+If inserting: dispatch InsertOp → reducer applyInsertOp.
+
+Keep image/draw mode path unchanged. Do not route draw through DnD.
+
+Remove/override any prior:
+
+“Drop inside” checks not using canAcceptChild.
+
+“Above/below” logic not using axis-aware gaps.
+
+Any behavior that lets elements be dropped “inside” invalid recipients.
+
+14) Automated Success Criteria (must pass)
+Unit (Jest)
+
+canAcceptChild
+
+IMG/P return false for any child.
+
+UL/OL accept LI, reject others.
+
+resolveLegalDrop
+
+Tentative into IMG → returns between at IMG’s parent (above).
+
+Tentative into UL with DIV → between outside UL.
+
+No legal ancestors → null → caller must fallback to ROOT@end.
+
+gaps
+
+Flex-row: produces left/right gaps; flex-column: above/below.
+
+Grid with 4 children: returns gaps between visual neighbors.
+
+chooseDropForNewElement
+
+Over IMG → between at parent index.
+
+Over empty container → inside@end.
+
+No candidates → ROOT@end.
+
+Reducers:
+
+applyInsertOp always yields node present in nodes and referenced by some parent.
+
+Undo Insert removes node and reference; redo re-inserts (clamped index).
+
+Integration (React Testing Library)
+
+Drag over invalid recipient shows between bar, not inside highlight.
+
+Drag over flex-row shows vertical bar; flex-column shows horizontal bar.
+
+Drop move reorders siblings visually with FLIP (transform applied).
+
+New insert over grid appends to end (row-major).
+
+E2E (Playwright/Cypress)
+
+Move element across nested containers; hysteresis prevents flicker.
+
+Autoscroll kicks near edges; stops when pointer leaves edge.
+
+Keyboard-only: Space → pickup; Arrows step through legal positions; Enter → drop.
+
+15) Human QA Script (copy as checklist)
+
+Invalid recipients
+
+Drag a block over an IMG: see only between bar; drop places above/below image (parent container updates).
+
+Drag over a P: same behavior; never inside highlight.
+
+Strict parents
+
+Drag LI into UL: inside highlight allowed; drop appends at end.
+
+Drag DIV over UL: only between outside; drop above/below list.
+
+Axis awareness
+
+Flex-row container: vertical insertion bar between narrow children; side drops land correctly.
+
+Flex-column container: horizontal bar above/below.
+
+Grid
+
+Insert over grid interior → appends as last (row-major). Gaps between items allow between placement.
+
+Never swallow
+
+After 20 random inserts, confirm all new nodes exist in Redux and DOM; none disappear after undo/redo.
+
+Autoscroll
+
+Start drag and approach canvas bottom; page scrolls smoothly; drop target remains stable.
+
+Undo/Redo
+
+Perform 3 inserts and 2 moves; Undo×5 returns to original; Redo×5 restores.
+
+Keyboard
+
+Focus an element, Space to pick up; Arrows change proposed positions; Enter drops; Esc cancels.
+
+Draw mode
+
+Use existing image draw tool; behavior unchanged; not routed through DnD.
+
+16) Logging/Telemetry (optional but recommended)
+
+Emit debug events: dnd:start, dnd:update (with target id, drop kind), dnd:drop, dnd:autoscroll.
+
+Flag when resolveLegalDrop bounced from invalid to between.
+
+Error log if render-time safety check had to recover to ROOT@end.
+
+17) Non-Goals / Out of Scope
+
+Inline text caret placement and character-level insertion (deferred).
+
+Table deep editing beyond basic strict parent enforcement.
+
+CSS inline styling (class-first only, as existing system enforces).
+
+18) Coding Notes / Best Practices
+
+Use Pointer Events + pointer capture; one global drag layer.
+
+requestAnimationFrame for measuring/moving; avoid sync layout thrash.
+
+Transform-only animations (no width/height).
+
+Keep all visuals (ghost, bars, highlights) on a top overlay to avoid z-index issues.
+
+Store/compute in screen coordinates during drag; convert to local on drop if needed.
+
+Respect RTL by reversing x-axis gap ordering where direction: rtl on container.
+
+19) Acceptance Gate (block release unless all true)
+
+✅ All unit/integration/E2E tests above pass.
+
+✅ Manual QA checklist passes with screenshots.
+
+✅ Keyboard and screen reader announcements verified.
+
+✅ Image draw mode unchanged and functional.
+
+✅ No case found where an element disappears or an insert produces no DOM change.
+
+✅ Undo/redo stable across reload (history persisted as per existing system).
+
+Implementation order (suggested):
+Eligibility → Gaps/Axis → Chooser + Resolver → Move path → Insert path → Visuals → Autoscroll → A11y → Tests.

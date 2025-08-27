@@ -27,7 +27,10 @@ import { useStableDragTarget } from '../../hooks/useStableDragTarget';
 import DragIndicatorOverlay from './DragIndicatorOverlay';
 
 import { calculateHitZone, clampToCanvas, areZonesMutuallyExclusive } from '../../utils/hitZoneGeometry';
-
+import { chooseDropForNewElement, getCandidateContainerIds, createElementMetaForInsertion } from '../../dnd/chooseDropForNew';
+import { chooseDropWithFallback } from '../../dnd/chooseDrop';
+import { resolveLegalDrop, createComponentMeta } from '../../dnd/resolveDrop';
+import { canAcceptChild } from '../../dnd/canAcceptChild';
 
 import { Plus, Minus, Maximize } from 'lucide-react';
 
@@ -469,13 +472,67 @@ const Canvas: React.FC = () => {
     return null;
   }, [currentElements, zoomLevel, draggedElementId]);
 
-  // Handle point-and-click insertion for content elements
+  // NEW DnD SYSTEM: Handle point-and-click insertion for content elements using proper HTML semantics
   const handlePointAndClickInsertion = useCallback((x: number, y: number, tool: string, isShiftPressed: boolean, isAltPressed: boolean) => {
-    // Find the insertion zone at this point
-    const insertionZone = detectInsertionZone(x, y, false);
+    // Convert canvas coordinates to screen coordinates for the new DnD system
+    const rect = canvasRef.current?.getBoundingClientRect();
+    if (!rect) return;
     
-    if (!insertionZone) {
-      // Fallback to root insertion
+    const screenX = x * zoomLevel + rect.left;
+    const screenY = y * zoomLevel + rect.top;
+    
+    // Get candidate containers and element metadata for the new DnD system
+    const candidateIds = getCandidateContainerIds({ x: screenX, y: screenY });
+    const elementMeta = createElementMetaForInsertion(tool);
+    
+    // Create helper functions for the new DnD system
+    const getMeta = (id: string) => {
+      if (id === "root") {
+        return { id: "root", tag: "DIV", acceptsChildren: true };
+      }
+      const element = currentElements[id];
+      return element ? createComponentMeta(element) : null;
+    };
+    
+    const getParentId = (id: string) => {
+      if (id === "root") return null;
+      const element = currentElements[id];
+      return element?.parent || "root";
+    };
+    
+    const indexOf = (parentId: string, childId: string) => {
+      if (parentId === "root") {
+        return Object.values(currentElements)
+          .filter(el => el.parent === "root" || !el.parent)
+          .findIndex(el => el.id === childId);
+      }
+      const parent = currentElements[parentId];
+      return parent?.children?.indexOf(childId) || 0;
+    };
+    
+    const getChildren = (parentId: string) => {
+      if (parentId === "root") {
+        return Object.values(currentElements)
+          .filter(el => el.parent === "root" || !el.parent)
+          .map(el => el.id);
+      }
+      const parent = currentElements[parentId];
+      return parent?.children || [];
+    };
+    
+    // Get legal drop location using new DnD system
+    const drop = chooseDropForNewElement(
+      { x: screenX, y: screenY },
+      candidateIds,
+      elementMeta,
+      getMeta,
+      getParentId,
+      indexOf,
+      getChildren
+    );
+    
+    if (!drop) {
+      // Fallback to root insertion if no valid drop found
       const newElement = createDefaultElement(tool as any);
       dispatch(addElement({
         element: newElement,
@@ -489,45 +546,24 @@ const Canvas: React.FC = () => {
     // Create the new element
     const newElement = createDefaultElement(tool as any);
     
-    // Determine insertion parameters based on the insertion zone
-    let parentId = insertionZone.elementId;
-    let insertPosition: 'before' | 'after' | 'inside' = 'inside';
+    // Convert new DnD format to insertion parameters
+    let parentId = drop.parentId;
+    let insertPosition: 'before' | 'after' | 'inside' = drop.kind === "into" ? 'inside' : 'before';
     let referenceElementId: string | undefined;
-
-    if ((insertionZone as any).position === 'between') {
-      // Between siblings
-      parentId = insertionZone.elementId;
-      insertPosition = (insertionZone as any).insertPosition || 'inside';
-      referenceElementId = (insertionZone as any).referenceElementId;
-    } else if ((insertionZone as any).position === 'before') {
-      // Before element
-      const targetElement = currentElements[insertionZone.elementId];
-      parentId = targetElement?.parent || 'root';
-      insertPosition = 'before';
-      referenceElementId = insertionZone.elementId;
-    } else if ((insertionZone as any).position === 'after') {
-      // After element
-      const targetElement = currentElements[insertionZone.elementId];
-      parentId = targetElement?.parent || 'root';
-      insertPosition = 'after';
-      referenceElementId = insertionZone.elementId;
-    } else if ((insertionZone as any).position === 'canvas-top') {
-      // Top of canvas
-      parentId = 'root';
-      insertPosition = 'inside';
-      referenceElementId = undefined;
-    } else if ((insertionZone as any).position === 'canvas-bottom') {
-      // Bottom of canvas
-      parentId = 'root';
-      insertPosition = 'inside';
-      referenceElementId = undefined;
-    } else {
-      // Inside container
-      parentId = insertionZone.elementId;
-      insertPosition = 'inside';
+    
+    if (drop.kind === "between" && typeof drop.index === "number") {
+      // For between insertion, find the reference element
+      const siblings = getChildren(parentId);
+      if (drop.index < siblings.length) {
+        referenceElementId = siblings[drop.index];
+        insertPosition = 'before';
+      } else {
+        // Insert at end
+        insertPosition = 'inside';
+      }
     }
 
-    // Insert the element
+    // Insert the element using validated drop location
     dispatch(addElement({
       element: newElement,
       parentId,
@@ -543,7 +579,7 @@ const Canvas: React.FC = () => {
     setHoveredElementId(null);
     setHoveredZone(null);
     dispatch(setHoveredElement({ elementId: null, zone: null }));
-  }, [detectInsertionZone, currentElements, dispatch]);
+  }, [currentElements, dispatch, zoomLevel]);
 
   const handleCanvasClick = useCallback((e: React.MouseEvent) => {
     // Skip click handling for creation tools - drawing system handles them
@@ -731,28 +767,83 @@ const Canvas: React.FC = () => {
          'section', 'nav', 'header', 'footer', 'article',
          'video', 'audio', 'link', 'code', 'divider'].includes(selectedTool)) {
       
-      // Show insertion indicators for point-and-click tools
+      // NEW DnD SYSTEM: Show insertion indicators for point-and-click tools
       if (isPointAndClickTool(selectedTool as Tool)) {
-        const insertionZone = detectInsertionZone(x, y, false);
+        // Use new DnD system for element insertion
+        const candidateIds = getCandidateContainerIds({ x: e.clientX, y: e.clientY });
+        const elementMeta = createElementMetaForInsertion(selectedTool);
         
-        if (insertionZone) {
-          // Use stable drag target to prevent flicker
-          const targetZone = (insertionZone as any).position === 'between' ? 'inside' : (insertionZone as any).position;
-          
-          stableDragTarget.updateTarget({
-            elementId: insertionZone.elementId,
-            zone: targetZone as 'before' | 'after' | 'inside',
-            bounds: insertionZone.bounds
-          }, x, y, (target) => {
-            // Debounced update - only fires when target actually changes
-            setHoveredElementId(target.elementId);
-            setHoveredZone(target.zone);
-            dispatch(setHoveredElement({ 
-              elementId: target.elementId, 
-              zone: target.zone
-            }));
-            setInsertionIndicator(insertionZone);
-          });
+        // Create helper functions for the new DnD system
+        const getMeta = (id: string) => {
+          if (id === "root") {
+            return { id: "root", tag: "DIV", acceptsChildren: true };
+          }
+          const element = currentElements[id];
+          return element ? createComponentMeta(element) : null;
+        };
+        
+        const getParentId = (id: string) => {
+          if (id === "root") return null;
+          const element = currentElements[id];
+          return element?.parent || "root";
+        };
+        
+        const indexOf = (parentId: string, childId: string) => {
+          if (parentId === "root") {
+            return Object.values(currentElements)
+              .filter(el => el.parent === "root" || !el.parent)
+              .findIndex(el => el.id === childId);
+          }
+          const parent = currentElements[parentId];
+          return parent?.children?.indexOf(childId) || 0;
+        };
+        
+        const getChildren = (parentId: string) => {
+          if (parentId === "root") {
+            return Object.values(currentElements)
+              .filter(el => el.parent === "root" || !el.parent)
+              .map(el => el.id);
+          }
+          const parent = currentElements[parentId];
+          return parent?.children || [];
+        };
+        
+        // Get legal drop location using new system
+        const drop = chooseDropForNewElement(
+          { x: e.clientX, y: e.clientY },
+          candidateIds,
+          elementMeta,
+          getMeta,
+          getParentId,
+          indexOf,
+          getChildren
+        );
+        
+        if (drop) {
+          // Convert new DnD format to old insertion zone format for compatibility
+          const targetElement = currentElements[drop.parentId];
+          if (targetElement) {
+            const insertionZone = {
+              elementId: drop.parentId,
+              position: drop.kind === "into" ? "inside" : "between",
+              bounds: { x: 0, y: 0, width: 100, height: 100 }, // Placeholder bounds
+              index: drop.index
+            };
+            
+            stableDragTarget.updateTarget({
+              elementId: drop.parentId,
+              zone: drop.kind === "into" ? "inside" : "between" as any,
+              bounds: insertionZone.bounds
+            }, x, y, (target) => {
+              setHoveredElementId(target.elementId);
+              setHoveredZone(target.zone);
+              dispatch(setHoveredElement({ 
+                elementId: target.elementId, 
+                zone: target.zone
+              }));
+              setInsertionIndicator(insertionZone);
+            });
+          }
         } else {
           // No valid insertion zone
           stableDragTarget.clearTarget();
@@ -814,40 +905,82 @@ const Canvas: React.FC = () => {
       //   thresholdExceeded: dragThreshold.exceeded
       // });
       
-      // Only show insertion feedback if we're actually dragging
+      // NEW DnD SYSTEM: Only show insertion feedback if we're actually dragging
       if (isDraggingForReorder) {
-        // Detect more precise insertion zones during drag
-        const insertionZone = detectInsertionZone(x, y, true);
-      
-      if (insertionZone) {
-        // console.log('DRAG DEBUG - Insertion zone detected:', insertionZone);
+        // Use new DnD system for element reordering validation
+        const draggedElement = currentElements[draggedElementId];
+        if (!draggedElement) return;
         
-        const targetElement = currentElements[insertionZone.elementId];
-        // Different validation logic based on insertion type
-        let canDropHere = false;
-        if ((insertionZone as any).position === 'inside' || (insertionZone as any).position === 'between') {
-          // For inside/between positions, the target must be a container
-          canDropHere = targetElement ? isValidDropTarget(targetElement) : false;
-        } else {
-          // For before/after positions (sibling insertion), check if the parent can accept children
-          const parentId = targetElement?.parent || 'root';
-          const parentElement = currentElements[parentId];
-          canDropHere = parentElement ? isValidDropTarget(parentElement) : false;
-        }
+        // Get candidate containers for the dragged element
+        const candidateIds = getCandidateContainerIds({ x: e.clientX, y: e.clientY });
+        const draggedMeta = createComponentMeta(draggedElement);
         
-        if (canDropHere) {
-          const targetElement = currentElements[insertionZone.elementId];
-          const insertionPosition = (insertionZone as any).position === 'between' ? 'inside' : (insertionZone as any).position;
+        // Create helper functions for the new DnD system
+        const getMeta = (id: string) => {
+          if (id === "root") {
+            return { id: "root", tag: "DIV", acceptsChildren: true };
+          }
+          if (id === draggedElementId) {
+            return draggedMeta; // Return meta for the dragged element itself
+          }
+          const element = currentElements[id];
+          return element ? createComponentMeta(element) : null;
+        };
+        
+        const getParentId = (id: string) => {
+          if (id === "root") return null;
+          const element = currentElements[id];
+          return element?.parent || "root";
+        };
+        
+        const indexOf = (parentId: string, childId: string) => {
+          if (parentId === "root") {
+            return Object.values(currentElements)
+              .filter(el => el.parent === "root" || !el.parent)
+              .findIndex(el => el.id === childId);
+          }
+          const parent = currentElements[parentId];
+          return parent?.children?.indexOf(childId) || 0;
+        };
+        
+        const getChildren = (parentId: string) => {
+          if (parentId === "root") {
+            return Object.values(currentElements)
+              .filter(el => el.parent === "root" || !el.parent)
+              .map(el => el.id);
+          }
+          const parent = currentElements[parentId];
+          return parent?.children || [];
+        };
+        
+        // Get legal drop location using new DnD system
+        const drop = chooseDropWithFallback(
+          { x: e.clientX, y: e.clientY },
+          candidateIds,
+          draggedMeta,
+          getMeta,
+          getParentId,
+          indexOf,
+          getChildren
+        );
+        
+        if (drop) {
+          // Convert new DnD format to old insertion zone format for compatibility
+          const insertionZone = {
+            elementId: drop.parentId,
+            position: drop.kind === "into" ? "inside" : "between",
+            bounds: { x: 0, y: 0, width: 100, height: 100 }, // Placeholder bounds
+            index: drop.index
+          };
           
-          // Determine if this should be child insertion (blue) or sibling insertion (green)
-          const isChildInsertion = insertionPosition === 'inside' && canAcceptChildren(targetElement);
+          const insertionPosition = drop.kind === "into" ? "inside" : "between";
           
-          setHoveredElementId(insertionZone.elementId);
+          setHoveredElementId(drop.parentId);
           setHoveredZone(insertionPosition);
           
           // Update Redux state for visual feedback 
           dispatch(setHoveredElement({ 
-            elementId: insertionZone.elementId, 
+            elementId: drop.parentId, 
             zone: insertionPosition
           }));
           
@@ -855,65 +988,17 @@ const Canvas: React.FC = () => {
           setInsertionIndicator(insertionZone);
           
           // Apply padding expansion for better targeting
+          const targetElement = currentElements[drop.parentId];
           if (targetElement && (targetElement.isContainer || targetElement.type === 'container' || targetElement.type === 'rectangle')) {
-            setExpandedContainerId(insertionZone.elementId);
+            setExpandedContainerId(drop.parentId);
           }
         } else {
-          // Enhanced sibling placement logic for invalid drop targets (element reordering)
-          const parentId = targetElement?.parent || 'root';
-          const parentElement = currentElements[parentId];
-          const canDropAsSibling = parentElement ? isValidDropTarget(parentElement) : true; // root always accepts
-          
-          if (canDropAsSibling && !parentElement?.componentRef) {
-            // Use mouse position to determine before/after placement for sibling insertion
-            const targetElementDiv = document.querySelector(`[data-element-id="${insertionZone.elementId}"]`) as HTMLElement;
-            if (targetElementDiv) {
-              const targetRect = targetElementDiv.getBoundingClientRect();
-              const canvasRect = canvasRef.current?.getBoundingClientRect();
-              
-              if (canvasRect) {
-                // Convert canvas coordinates to screen coordinates for comparison
-                const canvasY = canvasRect.top + (y * zoomLevel);
-                const placementPosition = canvasY < (targetRect.top + targetRect.height / 2) ? 'before' : 'after';
-                
-                const siblingZone = {
-                  position: placementPosition,
-                  elementId: insertionZone.elementId,
-                  bounds: insertionZone.bounds
-                };
-                
-                setHoveredElementId(insertionZone.elementId);
-                setHoveredZone(placementPosition);
-                dispatch(setHoveredElement({ 
-                  elementId: insertionZone.elementId, 
-                  zone: placementPosition
-                }));
-                setInsertionIndicator(siblingZone);
-              }
-            } else {
-              // Fallback to 'after' if we can't get element rect
-              const siblingZone = {
-                position: 'after',
-                elementId: insertionZone.elementId,
-                bounds: insertionZone.bounds
-              };
-              
-              setHoveredElementId(insertionZone.elementId);
-              setHoveredZone('after');
-              dispatch(setHoveredElement({ 
-                elementId: insertionZone.elementId, 
-                zone: 'after'
-              }));
-              setInsertionIndicator(siblingZone);
-            }
-          } else {
-            // Clear visual feedback if sibling placement also fails
-            setHoveredElementId(null);
-            setHoveredZone(null);
-            dispatch(setHoveredElement({ elementId: null, zone: null }));
-            setInsertionIndicator(null);
-            setExpandedContainerId(null);
-          }
+          // No valid drop location found, clear feedback
+          setHoveredElementId(null);
+          setHoveredZone(null);
+          dispatch(setHoveredElement({ elementId: null, zone: null }));
+          setInsertionIndicator(null);
+          setExpandedContainerId(null);
         }
       } else {
         setHoveredElementId(null);
@@ -922,7 +1007,6 @@ const Canvas: React.FC = () => {
         setInsertionIndicator(null);
         setExpandedContainerId(null);
       }
-      } // Close isDraggingForReorder check
     } else if (selectedTool === 'select' || selectedTool === 'hand') {
       // Handle selection/hand tool hover detection - NO insertion indicators
       const hoveredElement = getElementAtPoint(x, y, currentElements, zoomLevel, draggedElementId);
@@ -1006,65 +1090,96 @@ const Canvas: React.FC = () => {
     
     if (isDraggingForReorder && draggedElementId) {
       const draggedElement = currentElements[draggedElementId];
+      if (!draggedElement) return;
       
-      // Get mouse position for Y-based placement calculation
+      // NEW DnD SYSTEM: Use new system for final drop validation and insertion
       const rect = canvasRef.current?.getBoundingClientRect();
       if (!rect) return;
       
-      const mouseX = (lastMousePos.current.x - rect.left) / zoomLevel;
-      const mouseY = (lastMousePos.current.y - rect.top) / zoomLevel;
+      // Get candidate containers for the dragged element
+      const candidateIds = getCandidateContainerIds({ x: lastMousePos.current.x, y: lastMousePos.current.y });
+      const draggedMeta = createComponentMeta(draggedElement);
       
-      // Use the same placement logic as drawing system
-      // Find the best target container based on mouse position
-      let targetElement = currentElements['root']; // Default to root
-      
-      // Check if dropping over a specific element for better targeting
-      if (insertionIndicator?.elementId && currentElements[insertionIndicator.elementId]) {
-        const hoveredElement = currentElements[insertionIndicator.elementId];
-        if (isValidDropTarget(hoveredElement)) {
-          targetElement = hoveredElement;
-        } else {
-          // If hovering over non-container, use its parent
-          const parentId = hoveredElement.parent || 'root';
-          if (currentElements[parentId] && isValidDropTarget(currentElements[parentId])) {
-            targetElement = currentElements[parentId];
-          }
+      // Create helper functions for the new DnD system
+      const getMeta = (id: string) => {
+        if (id === "root") {
+          return { id: "root", tag: "DIV", acceptsChildren: true };
         }
-      }
+        if (id === draggedElementId) {
+          return draggedMeta; // Return meta for the dragged element itself
+        }
+        const element = currentElements[id];
+        return element ? createComponentMeta(element) : null;
+      };
       
-      // Calculate Y-position based placement using similar logic to DrawingCommitter
-      const targetChildren = Object.values(currentElements).filter(
-        el => el.parent === targetElement.id && el.id !== draggedElementId // Exclude the dragged element
+      const getParentId = (id: string) => {
+        if (id === "root") return null;
+        const element = currentElements[id];
+        return element?.parent || "root";
+      };
+      
+      const indexOf = (parentId: string, childId: string) => {
+        if (parentId === "root") {
+          return Object.values(currentElements)
+            .filter(el => el.parent === "root" || !el.parent)
+            .findIndex(el => el.id === childId);
+        }
+        const parent = currentElements[parentId];
+        return parent?.children?.indexOf(childId) || 0;
+      };
+      
+      const getChildren = (parentId: string) => {
+        if (parentId === "root") {
+          return Object.values(currentElements)
+            .filter(el => el.parent === "root" || !el.parent)
+            .map(el => el.id);
+        }
+        const parent = currentElements[parentId];
+        return parent?.children || [];
+      };
+      
+      // Get legal drop location using new DnD system
+      const drop = chooseDropWithFallback(
+        { x: lastMousePos.current.x, y: lastMousePos.current.y },
+        candidateIds,
+        draggedMeta,
+        getMeta,
+        getParentId,
+        indexOf,
+        getChildren
       );
       
-      if (targetChildren.length === 0) {
-        // No siblings, just insert inside
-        dispatch(reorderElement({
-          elementId: draggedElementId,
-          newParentId: targetElement.id,
-          insertPosition: 'inside'
-        }));
-      } else {
-        // Sort children by Y position to find correct insertion point
-        const sortedChildren = targetChildren.sort((a, b) => (a.y || 0) - (b.y || 0));
+      if (drop) {
+        // Convert new DnD format to reorder parameters
+        let insertPosition: 'before' | 'after' | 'inside' = drop.kind === "into" ? 'inside' : 'before';
+        let referenceElementId: string | undefined;
         
-        // Check if should be inserted before any existing child
-        let insertedBefore = false;
-        for (const child of sortedChildren) {
-          const childY = child.y || 0;
-          if (mouseY < childY) {
-            dispatch(reorderElement({
-              elementId: draggedElementId,
-              newParentId: targetElement.id,
-              insertPosition: 'before',
-              referenceElementId: child.id
-            }));
-            insertedBefore = true;
-            break;
+        if (drop.kind === "between" && typeof drop.index === "number") {
+          // For between insertion, find the reference element
+          const siblings = getChildren(drop.parentId);
+          if (drop.index < siblings.length) {
+            referenceElementId = siblings[drop.index];
+            insertPosition = 'before';
+          } else {
+            // Insert at end
+            insertPosition = 'inside';
           }
         }
         
-        // If not inserted before any child, insert after the last child
+        // Perform the reordering using validated drop location
+        dispatch(reorderElement({
+          elementId: draggedElementId,
+          newParentId: drop.parentId,
+          insertPosition,
+          referenceElementId
+        }));
+      } else {
+        // Fallback to root insertion if no valid drop found
+        dispatch(reorderElement({
+          elementId: draggedElementId,
+          newParentId: 'root',
+          insertPosition: 'inside'
+        }));
         if (!insertedBefore) {
           const lastChild = sortedChildren[sortedChildren.length - 1];
           dispatch(reorderElement({
@@ -1147,124 +1262,94 @@ const Canvas: React.FC = () => {
       if (data) {
         setIsDraggingComponent(true);
         
-        // Get mouse coordinates and detect insertion zones during component dragging
+        // NEW DnD SYSTEM: Get mouse coordinates and use new system for component drops
         const rect = canvasRef.current?.getBoundingClientRect();
         if (rect) {
-          const x = (e.clientX - rect.left) / zoomLevel;
-          const y = (e.clientY - rect.top) / zoomLevel;
+          // Use new DnD system for component dropping
+          const candidateIds = getCandidateContainerIds({ x: e.clientX, y: e.clientY });
+          // Component drops use generic element metadata
+          const elementMeta = createElementMetaForInsertion('rectangle'); // Use generic container type
           
-          // Use the same insertion zone detection as element reordering
-          const insertionZone = detectInsertionZone(x, y, false, true); // false for forDrag, true for forComponentDrag
-          
-          if (insertionZone) {
-            console.log('COMPONENT DRAG - Insertion zone detected:', insertionZone);
-            
-            const targetElement = currentElements[insertionZone.elementId];
-            
-            // Apply the same validation logic as element reordering
-            let canDropHere = false;
-            if ((insertionZone as any).position === 'inside' || (insertionZone as any).position === 'between') {
-              // For inside/between positions, the target must be a container
-              canDropHere = targetElement ? isValidDropTarget(targetElement) : false;
-              
-              // CRITICAL: Additional check for component drops - prevent dropping into component instances
-              if (canDropHere && targetElement?.componentRef) {
-                console.log('COMPONENT DRAG - Rejecting drop into component instance');
-                canDropHere = false;
-              }
-            } else {
-              // For before/after positions (sibling insertion), check if the parent can accept children
-              const parentId = targetElement?.parent || 'root';
-              const parentElement = currentElements[parentId];
-              canDropHere = parentElement ? isValidDropTarget(parentElement) : false;
-              
-              // CRITICAL: Additional check for component drops - prevent dropping into component instances
-              if (canDropHere && parentElement?.componentRef) {
-                console.log('COMPONENT DRAG - Rejecting drop into component instance parent');
-                canDropHere = false;
-              }
+          // Create helper functions for the new DnD system
+          const getMeta = (id: string) => {
+            if (id === "root") {
+              return { id: "root", tag: "DIV", acceptsChildren: true };
             }
-            
-            console.log('COMPONENT DRAG - Drop validation:', { 
-              targetType: targetElement?.type, 
-              canDropHere, 
-              insertionPosition: (insertionZone as any).position,
-              parentId: targetElement?.parent,
-              parentType: currentElements[targetElement?.parent || 'root']?.type
-            });
+            const element = currentElements[id];
+            return element ? createComponentMeta(element) : null;
+          };
+          
+          const getParentId = (id: string) => {
+            if (id === "root") return null;
+            const element = currentElements[id];
+            return element?.parent || "root";
+          };
+          
+          const indexOf = (parentId: string, childId: string) => {
+            if (parentId === "root") {
+              return Object.values(currentElements)
+                .filter(el => el.parent === "root" || !el.parent)
+                .findIndex(el => el.id === childId);
+            }
+            const parent = currentElements[parentId];
+            return parent?.children?.indexOf(childId) || 0;
+          };
+          
+          const getChildren = (parentId: string) => {
+            if (parentId === "root") {
+              return Object.values(currentElements)
+                .filter(el => el.parent === "root" || !el.parent)
+                .map(el => el.id);
+            }
+            const parent = currentElements[parentId];
+            return parent?.children || [];
+          };
+          
+          // Get legal drop location using new DnD system
+          const drop = chooseDropForNewElement(
+            { x: e.clientX, y: e.clientY },
+            candidateIds,
+            elementMeta,
+            getMeta,
+            getParentId,
+            indexOf,
+            getChildren
+          );
+          
+          if (drop) {
+            // Additional validation for component drops - prevent dropping into component instances
+            const targetElement = currentElements[drop.parentId];
+            const canDropHere = !targetElement?.componentRef;
             
             if (canDropHere) {
-              setHoveredElementId(insertionZone.elementId);
-              setHoveredZone((insertionZone as any).position === 'between' ? 'inside' : (insertionZone as any).position);
+              // Convert new DnD format to old insertion zone format for compatibility
+              const insertionZone = {
+                elementId: drop.parentId,
+                position: drop.kind === "into" ? "inside" : "between",
+                bounds: { x: 0, y: 0, width: 100, height: 100 }, // Placeholder bounds
+                index: drop.index
+              };
+              
+              setHoveredElementId(drop.parentId);
+              setHoveredZone(drop.kind === "into" ? "inside" : "between");
               
               // Update Redux state for visual feedback 
               dispatch(setHoveredElement({ 
-                elementId: insertionZone.elementId, 
-                zone: (insertionZone as any).position === 'between' ? 'inside' : (insertionZone as any).position
+                elementId: drop.parentId, 
+                zone: drop.kind === "into" ? "inside" : "between"
               }));
               
               // Store the insertion indicator for visual feedback
               setInsertionIndicator(insertionZone);
             } else {
-              // Enhanced sibling placement logic for invalid drop targets
-              const parentId = targetElement?.parent || 'root';
-              const parentElement = currentElements[parentId];
-              const canDropAsSibling = parentElement ? isValidDropTarget(parentElement) : true; // root always accepts
-              
-              if (canDropAsSibling && !parentElement?.componentRef) {
-                // Use mouse position to determine before/after placement
-                const targetElementDiv = document.querySelector(`[data-element-id="${insertionZone.elementId}"]`) as HTMLElement;
-                if (targetElementDiv) {
-                  const targetRect = targetElementDiv.getBoundingClientRect();
-                  const canvasRect = canvasRef.current?.getBoundingClientRect();
-                  
-                  if (canvasRect) {
-                    // Convert mouse coordinates to element-relative coordinates
-                    const mouseYRelative = e.clientY;
-                    const placementPosition = mouseYRelative < (targetRect.top + targetRect.height / 2) ? 'before' : 'after';
-                    
-                    const siblingZone = {
-                      position: placementPosition,
-                      elementId: insertionZone.elementId,
-                      bounds: insertionZone.bounds
-                    };
-                    
-                    console.log('INVALID RECIPIENT - Using mouse-based placement:', placementPosition, 'at y:', mouseYRelative, 'element midpoint:', targetRect.top + targetRect.height / 2);
-                    
-                    setHoveredElementId(insertionZone.elementId);
-                    setHoveredZone(placementPosition);
-                    dispatch(setHoveredElement({ 
-                      elementId: insertionZone.elementId, 
-                      zone: placementPosition
-                    }));
-                    setInsertionIndicator(siblingZone);
-                  }
-                } else {
-                  // Fallback to 'after' if we can't get element rect
-                  const siblingZone = {
-                    position: 'after' as const,
-                    elementId: insertionZone.elementId,
-                    bounds: insertionZone.bounds
-                  };
-                  
-                  setHoveredElementId(insertionZone.elementId);
-                  setHoveredZone('after');
-                  dispatch(setHoveredElement({ 
-                    elementId: insertionZone.elementId, 
-                    zone: 'after'
-                  }));
-                  setInsertionIndicator(siblingZone);
-                }
-              } else {
-                // Clear visual feedback if sibling placement also fails
-                setHoveredElementId(null);
-                setHoveredZone(null);
-                dispatch(setHoveredElement({ elementId: null, zone: null }));
-                setInsertionIndicator(null);
-              }
+              // Clear visual feedback if component instance detected
+              setHoveredElementId(null);
+              setHoveredZone(null);
+              dispatch(setHoveredElement({ elementId: null, zone: null }));
+              setInsertionIndicator(null);
             }
           } else {
-            // Clear visual feedback if no insertion zone
+            // Clear visual feedback if no valid drop location
             setHoveredElementId(null);
             setHoveredZone(null);
             dispatch(setHoveredElement({ elementId: null, zone: null }));
@@ -1313,78 +1398,81 @@ const Canvas: React.FC = () => {
         
         console.log('Component drop coordinates:', { x, y, rawX, rawY, zoomLevel });
         
-        // Use the same precise insertion zone detection as element reordering
-        const insertionZone = detectInsertionZone(x, y, false, true); // false for forDrag, true for forComponentDrag
+        // NEW DnD SYSTEM: Use new system for component dropping validation
+        const candidateIds = getCandidateContainerIds({ x: e.clientX, y: e.clientY });
+        // Component drops use generic element metadata
+        const elementMeta = createElementMetaForInsertion('rectangle');
+        
+        // Create helper functions for the new DnD system
+        const getMeta = (id: string) => {
+          if (id === "root") {
+            return { id: "root", tag: "DIV", acceptsChildren: true };
+          }
+          const element = currentElements[id];
+          return element ? createComponentMeta(element) : null;
+        };
+        
+        const getParentId = (id: string) => {
+          if (id === "root") return null;
+          const element = currentElements[id];
+          return element?.parent || "root";
+        };
+        
+        const indexOf = (parentId: string, childId: string) => {
+          if (parentId === "root") {
+            return Object.values(currentElements)
+              .filter(el => el.parent === "root" || !el.parent)
+              .findIndex(el => el.id === childId);
+          }
+          const parent = currentElements[parentId];
+          return parent?.children?.indexOf(childId) || 0;
+        };
+        
+        const getChildren = (parentId: string) => {
+          if (parentId === "root") {
+            return Object.values(currentElements)
+              .filter(el => el.parent === "root" || !el.parent)
+              .map(el => el.id);
+          }
+          const parent = currentElements[parentId];
+          return parent?.children || [];
+        };
+        
+        // Get legal drop location using new DnD system
+        const drop = chooseDropForNewElement(
+          { x: e.clientX, y: e.clientY },
+          candidateIds,
+          elementMeta,
+          getMeta,
+          getParentId,
+          indexOf,
+          getChildren
+        );
         
         let parentId = 'root';
         let insertPosition: 'before' | 'after' | 'inside' = 'inside';
         let referenceElementId: string | undefined;
         
-        if (insertionZone) {
-          const targetElement = currentElements[insertionZone.elementId];
-          
-          // Apply the same validation logic as element reordering
-          let canDropHere = false;
-          if ((insertionZone as any).position === 'inside' || (insertionZone as any).position === 'between') {
-            // For inside/between positions, the target must be a container
-            canDropHere = targetElement ? isValidDropTarget(targetElement) : false;
+        if (drop) {
+          // Additional validation for component drops - prevent dropping into component instances
+          const targetElement = currentElements[drop.parentId];
+          if (!targetElement?.componentRef) {
+            // Convert new DnD format to insertion parameters
+            parentId = drop.parentId;
+            insertPosition = drop.kind === "into" ? 'inside' : 'before';
             
-            // CRITICAL: Additional check for component drops - prevent dropping into component instances
-            if (canDropHere && targetElement?.componentRef) {
-              console.log('COMPONENT DROP - Rejecting drop into component instance');
-              canDropHere = false;
-            }
-          } else {
-            // For before/after positions (sibling insertion), check if the parent can accept children
-            const targetParentId = targetElement?.parent || 'root';
-            const parentElement = currentElements[targetParentId];
-            canDropHere = parentElement ? isValidDropTarget(parentElement) : false;
-            
-            // CRITICAL: Additional check for component drops - prevent dropping into component instances
-            if (canDropHere && parentElement?.componentRef) {
-              console.log('COMPONENT DROP - Rejecting drop into component instance parent');
-              canDropHere = false;
-            }
-          }
-          
-          console.log('Component drop validation:', { 
-            targetElement: targetElement?.type, 
-            canDropHere, 
-            insertionPosition: (insertionZone as any).position,
-            parentId: targetElement?.parent,
-            parentType: currentElements[targetElement?.parent || 'root']?.type
-          });
-          
-          // ENHANCED: Handle canvas padding insertion for component drops
-          if ((insertionZone as any).position === 'canvas-top' || (insertionZone as any).position === 'canvas-bottom') {
-            parentId = 'root';
-            insertPosition = (insertionZone as any).position === 'canvas-top' ? 'canvas-start' as any : 'canvas-end' as any;
-          } else if (canDropHere) {
-            if ((insertionZone as any).position === 'inside') {
-              parentId = insertionZone.elementId;
-              // For empty containers, respect the spatial positioning
-              if ((insertionZone as any).isEmpty && (insertionZone as any).insertAtBeginning) {
-                insertPosition = 'inside'; // Will be first child
+            if (drop.kind === "between" && typeof drop.index === "number") {
+              // For between insertion, find the reference element
+              const siblings = getChildren(parentId);
+              if (drop.index < siblings.length) {
+                referenceElementId = siblings[drop.index];
+                insertPosition = 'before';
               } else {
-                insertPosition = 'inside'; // Will be last child (default)
+                // Insert at end
+                insertPosition = 'inside';
               }
-            } else if ((insertionZone as any).position === 'between') {
-              // Precise insertion between siblings
-              parentId = insertionZone.elementId; // This is the container ID
-              insertPosition = (insertionZone as any).insertPosition;
-              referenceElementId = (insertionZone as any).referenceElementId;
-            } else {
-              // Handle before/after positions (sibling insertion)
-              parentId = targetElement?.parent || 'root';
-              insertPosition = (insertionZone as any).position;
-              referenceElementId = insertionZone.elementId;
             }
-            
-          } else {
-            // Component drop rejected - invalid target, falling back to root
           }
-        } else {
-          // No insertion zone detected, using root as default
         }
         
         // CRITICAL: Create component instance using proper ComponentDef structure
