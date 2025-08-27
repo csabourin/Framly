@@ -1080,8 +1080,8 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     <ElementContextMenu elementId={element.id}>
       <div
         ref={elementRef}
-        draggable={!isEditing && !isComponentChild} // Enable HTML5 drag and drop, but not for text editing or component children
-        title={`Draggable: ${!isEditing && !isComponentChild} | Tool: ${selectedTool} | Editing: ${isEditing}`}
+        draggable={true} // FORCE HTML5 drag for testing
+        title={`DRAG TEST: Always draggable | Tool: ${selectedTool} | Editing: ${isEditing}`}
         className={`
           selectable-block
           canvas-element
@@ -1097,19 +1097,18 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
         tabIndex={0}
         onClick={handleClick}
         onMouseDown={(e) => {
-          // Allow drawing system to work - don't prevent default for creation tools
-          // For hand tool, allow HTML5 drag to start naturally - don't prevent default
-          if (selectedTool === 'hand') {
-            console.log('✅ Hand tool: allowing HTML5 drag to start naturally');
-            // Don't call e.preventDefault() - this was blocking HTML5 drag
-          }
+          console.log('🖱️ MOUSE DOWN on element:', element.id, 'Event target:', e.target);
+          // NEVER prevent default - let HTML5 drag work
         }}
         // HTML5 Drag and Drop event handlers
         onDragStart={(e) => {
-          console.log('🚀 HTML5 DRAG STARTED:', element.id, 'Tool:', selectedTool);
+          console.log('🚀🚀🚀 HTML5 DRAG STARTED!!!', element.id, 'Tool:', selectedTool);
           // Add immediate visual feedback that drag started
           e.currentTarget.style.opacity = '0.5';
-          handleDragStart(e);
+          e.currentTarget.style.transform = 'scale(0.95)';
+          // Simple drag data
+          e.dataTransfer.setData('text/plain', element.id);
+          e.dataTransfer.effectAllowed = 'move';
         }}
         onDragEnd={(e) => {
           console.log('🏁 HTML5 DRAG ENDED:', element.id);
