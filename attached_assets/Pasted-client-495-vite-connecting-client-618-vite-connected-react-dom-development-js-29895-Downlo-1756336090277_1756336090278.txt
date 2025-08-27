@@ -1,0 +1,704 @@
+client:495 [vite] connecting...
+client:618 [vite] connected.
+react-dom.development.js:29895 Download the React DevTools for a better development experience: https://reactjs.org/link/react-devtools
+useComponentPropagation.ts:15  The result function returned its own inputs without modification. e.g
+`createSelector([state => state.todos], todos => todos)`
+This could lead to inefficient memoization and unnecessary re-renders.
+Ensure transformation logic is in the result function, and extraction logic is in the input selectors. {stack: 'Error\n    at Object.runIdentityFunctionCheck [as r…dules/.vite/deps/react-redux.js?v=b492906c:60:21)'}
+runIdentityFunctionCheck @ identityFunctionCheck.ts:44
+dependenciesChecker @ createSelectorCreator.ts:418
+memoized @ weakMapMemoize.ts:228
+memoized @ useSelector.ts:171
+memoizedSelector @ use-sync-external-store-with-selector.development.js:46
+(anonymous) @ use-sync-external-store-with-selector.development.js:70
+mountSyncExternalStore @ react-dom.development.js:15980
+useSyncExternalStore @ react-dom.development.js:16908
+useSyncExternalStore @ react.development.js:1676
+exports.useSyncExternalStoreWithSelector @ use-sync-external-store-with-selector.development.js:81
+useSelector2 @ useSelector.ts:243
+useComponentPropagation @ useComponentPropagation.ts:15
+DesignToolContent @ index.tsx:36
+renderWithHooks @ react-dom.development.js:15486
+mountIndeterminateComponent @ react-dom.development.js:20103
+beginWork @ react-dom.development.js:21626
+beginWork$1 @ react-dom.development.js:27465
+performUnitOfWork @ react-dom.development.js:26596
+workLoopSync @ react-dom.development.js:26505
+renderRootSync @ react-dom.development.js:26473
+performConcurrentWorkOnRoot @ react-dom.development.js:25777
+workLoop @ scheduler.development.js:266
+flushWork @ scheduler.development.js:239
+performWorkUntilDeadline @ scheduler.development.js:533
+index.tsx:51  The result function returned its own inputs without modification. e.g
+`createSelector([state => state.todos], todos => todos)`
+This could lead to inefficient memoization and unnecessary re-renders.
+Ensure transformation logic is in the result function, and extraction logic is in the input selectors. {stack: 'Error\n    at Object.runIdentityFunctionCheck [as r…dules/.vite/deps/react-redux.js?v=b492906c:60:21)'}
+runIdentityFunctionCheck @ identityFunctionCheck.ts:44
+dependenciesChecker @ createSelectorCreator.ts:418
+memoized @ weakMapMemoize.ts:228
+memoized @ useSelector.ts:171
+memoizedSelector @ use-sync-external-store-with-selector.development.js:46
+(anonymous) @ use-sync-external-store-with-selector.development.js:70
+mountSyncExternalStore @ react-dom.development.js:15980
+useSyncExternalStore @ react-dom.development.js:16908
+useSyncExternalStore @ react.development.js:1676
+exports.useSyncExternalStoreWithSelector @ use-sync-external-store-with-selector.development.js:81
+useSelector2 @ useSelector.ts:243
+DesignToolContent @ index.tsx:51
+renderWithHooks @ react-dom.development.js:15486
+mountIndeterminateComponent @ react-dom.development.js:20103
+beginWork @ react-dom.development.js:21626
+beginWork$1 @ react-dom.development.js:27465
+performUnitOfWork @ react-dom.development.js:26596
+workLoopSync @ react-dom.development.js:26505
+renderRootSync @ react-dom.development.js:26473
+performConcurrentWorkOnRoot @ react-dom.development.js:25777
+workLoop @ scheduler.development.js:266
+flushWork @ scheduler.development.js:239
+performWorkUntilDeadline @ scheduler.development.js:533
+Canvas.tsx:83  The result function returned its own inputs without modification. e.g
+`createSelector([state => state.todos], todos => todos)`
+This could lead to inefficient memoization and unnecessary re-renders.
+Ensure transformation logic is in the result function, and extraction logic is in the input selectors. {stack: 'Error\n    at Object.runIdentityFunctionCheck [as r…dules/.vite/deps/react-redux.js?v=b492906c:60:21)'}
+runIdentityFunctionCheck @ identityFunctionCheck.ts:44
+dependenciesChecker @ createSelectorCreator.ts:418
+memoized @ weakMapMemoize.ts:228
+memoized @ useSelector.ts:171
+memoizedSelector @ use-sync-external-store-with-selector.development.js:46
+(anonymous) @ use-sync-external-store-with-selector.development.js:70
+mountSyncExternalStore @ react-dom.development.js:15980
+useSyncExternalStore @ react-dom.development.js:16908
+useSyncExternalStore @ react.development.js:1676
+exports.useSyncExternalStoreWithSelector @ use-sync-external-store-with-selector.development.js:81
+useSelector2 @ useSelector.ts:243
+Canvas @ Canvas.tsx:83
+renderWithHooks @ react-dom.development.js:15486
+mountIndeterminateComponent @ react-dom.development.js:20103
+beginWork @ react-dom.development.js:21626
+beginWork$1 @ react-dom.development.js:27465
+performUnitOfWork @ react-dom.development.js:26596
+workLoopSync @ react-dom.development.js:26505
+renderRootSync @ react-dom.development.js:26473
+performConcurrentWorkOnRoot @ react-dom.development.js:25777
+workLoop @ scheduler.development.js:266
+flushWork @ scheduler.development.js:239
+performWorkUntilDeadline @ scheduler.development.js:533
+Canvas.tsx:84  The result function returned its own inputs without modification. e.g
+`createSelector([state => state.todos], todos => todos)`
+This could lead to inefficient memoization and unnecessary re-renders.
+Ensure transformation logic is in the result function, and extraction logic is in the input selectors. {stack: 'Error\n    at Object.runIdentityFunctionCheck [as r…dules/.vite/deps/react-redux.js?v=b492906c:60:21)'}
+runIdentityFunctionCheck @ identityFunctionCheck.ts:44
+dependenciesChecker @ createSelectorCreator.ts:418
+memoized @ weakMapMemoize.ts:228
+memoized @ useSelector.ts:171
+memoizedSelector @ use-sync-external-store-with-selector.development.js:46
+(anonymous) @ use-sync-external-store-with-selector.development.js:70
+mountSyncExternalStore @ react-dom.development.js:15980
+useSyncExternalStore @ react-dom.development.js:16908
+useSyncExternalStore @ react.development.js:1676
+exports.useSyncExternalStoreWithSelector @ use-sync-external-store-with-selector.development.js:81
+useSelector2 @ useSelector.ts:243
+Canvas @ Canvas.tsx:84
+renderWithHooks @ react-dom.development.js:15486
+mountIndeterminateComponent @ react-dom.development.js:20103
+beginWork @ react-dom.development.js:21626
+beginWork$1 @ react-dom.development.js:27465
+performUnitOfWork @ react-dom.development.js:26596
+workLoopSync @ react-dom.development.js:26505
+renderRootSync @ react-dom.development.js:26473
+performConcurrentWorkOnRoot @ react-dom.development.js:25777
+workLoop @ scheduler.development.js:266
+flushWork @ scheduler.development.js:239
+performWorkUntilDeadline @ scheduler.development.js:533
+Canvas.tsx:85  The result function returned its own inputs without modification. e.g
+`createSelector([state => state.todos], todos => todos)`
+This could lead to inefficient memoization and unnecessary re-renders.
+Ensure transformation logic is in the result function, and extraction logic is in the input selectors. {stack: 'Error\n    at Object.runIdentityFunctionCheck [as r…dules/.vite/deps/react-redux.js?v=b492906c:60:21)'}
+runIdentityFunctionCheck @ identityFunctionCheck.ts:44
+dependenciesChecker @ createSelectorCreator.ts:418
+memoized @ weakMapMemoize.ts:228
+memoized @ useSelector.ts:171
+memoizedSelector @ use-sync-external-store-with-selector.development.js:46
+(anonymous) @ use-sync-external-store-with-selector.development.js:70
+mountSyncExternalStore @ react-dom.development.js:15980
+useSyncExternalStore @ react-dom.development.js:16908
+useSyncExternalStore @ react.development.js:1676
+exports.useSyncExternalStoreWithSelector @ use-sync-external-store-with-selector.development.js:81
+useSelector2 @ useSelector.ts:243
+Canvas @ Canvas.tsx:85
+renderWithHooks @ react-dom.development.js:15486
+mountIndeterminateComponent @ react-dom.development.js:20103
+beginWork @ react-dom.development.js:21626
+beginWork$1 @ react-dom.development.js:27465
+performUnitOfWork @ react-dom.development.js:26596
+workLoopSync @ react-dom.development.js:26505
+renderRootSync @ react-dom.development.js:26473
+performConcurrentWorkOnRoot @ react-dom.development.js:25777
+workLoop @ scheduler.development.js:266
+flushWork @ scheduler.development.js:239
+performWorkUntilDeadline @ scheduler.development.js:533
+Canvas.tsx:86  The result function returned its own inputs without modification. e.g
+`createSelector([state => state.todos], todos => todos)`
+This could lead to inefficient memoization and unnecessary re-renders.
+Ensure transformation logic is in the result function, and extraction logic is in the input selectors. {stack: 'Error\n    at Object.runIdentityFunctionCheck [as r…dules/.vite/deps/react-redux.js?v=b492906c:60:21)'}
+runIdentityFunctionCheck @ identityFunctionCheck.ts:44
+dependenciesChecker @ createSelectorCreator.ts:418
+memoized @ weakMapMemoize.ts:228
+memoized @ useSelector.ts:171
+memoizedSelector @ use-sync-external-store-with-selector.development.js:46
+(anonymous) @ use-sync-external-store-with-selector.development.js:70
+mountSyncExternalStore @ react-dom.development.js:15980
+useSyncExternalStore @ react-dom.development.js:16908
+useSyncExternalStore @ react.development.js:1676
+exports.useSyncExternalStoreWithSelector @ use-sync-external-store-with-selector.development.js:81
+useSelector2 @ useSelector.ts:243
+Canvas @ Canvas.tsx:86
+renderWithHooks @ react-dom.development.js:15486
+mountIndeterminateComponent @ react-dom.development.js:20103
+beginWork @ react-dom.development.js:21626
+beginWork$1 @ react-dom.development.js:27465
+performUnitOfWork @ react-dom.development.js:26596
+workLoopSync @ react-dom.development.js:26505
+renderRootSync @ react-dom.development.js:26473
+performConcurrentWorkOnRoot @ react-dom.development.js:25777
+workLoop @ scheduler.development.js:266
+flushWork @ scheduler.development.js:239
+performWorkUntilDeadline @ scheduler.development.js:533
+CanvasElement.tsx:47  The result function returned its own inputs without modification. e.g
+`createSelector([state => state.todos], todos => todos)`
+This could lead to inefficient memoization and unnecessary re-renders.
+Ensure transformation logic is in the result function, and extraction logic is in the input selectors. {stack: 'Error\n    at Object.runIdentityFunctionCheck [as r…dules/.vite/deps/react-redux.js?v=b492906c:60:21)'}
+runIdentityFunctionCheck @ identityFunctionCheck.ts:44
+dependenciesChecker @ createSelectorCreator.ts:418
+memoized @ weakMapMemoize.ts:228
+memoized @ useSelector.ts:171
+memoizedSelector @ use-sync-external-store-with-selector.development.js:46
+(anonymous) @ use-sync-external-store-with-selector.development.js:70
+mountSyncExternalStore @ react-dom.development.js:15980
+useSyncExternalStore @ react-dom.development.js:16908
+useSyncExternalStore @ react.development.js:1676
+exports.useSyncExternalStoreWithSelector @ use-sync-external-store-with-selector.development.js:81
+useSelector2 @ useSelector.ts:243
+CanvasElement @ CanvasElement.tsx:47
+renderWithHooks @ react-dom.development.js:15486
+updateFunctionComponent @ react-dom.development.js:19617
+updateSimpleMemoComponent @ react-dom.development.js:19454
+updateMemoComponent @ react-dom.development.js:19303
+beginWork @ react-dom.development.js:21712
+beginWork$1 @ react-dom.development.js:27465
+performUnitOfWork @ react-dom.development.js:26596
+workLoopSync @ react-dom.development.js:26505
+renderRootSync @ react-dom.development.js:26473
+performConcurrentWorkOnRoot @ react-dom.development.js:25777
+workLoop @ scheduler.development.js:266
+flushWork @ scheduler.development.js:239
+performWorkUntilDeadline @ scheduler.development.js:533
+CanvasElement.tsx:48  The result function returned its own inputs without modification. e.g
+`createSelector([state => state.todos], todos => todos)`
+This could lead to inefficient memoization and unnecessary re-renders.
+Ensure transformation logic is in the result function, and extraction logic is in the input selectors. {stack: 'Error\n    at Object.runIdentityFunctionCheck [as r…dules/.vite/deps/react-redux.js?v=b492906c:60:21)'}
+runIdentityFunctionCheck @ identityFunctionCheck.ts:44
+dependenciesChecker @ createSelectorCreator.ts:418
+memoized @ weakMapMemoize.ts:228
+memoized @ useSelector.ts:171
+memoizedSelector @ use-sync-external-store-with-selector.development.js:46
+(anonymous) @ use-sync-external-store-with-selector.development.js:70
+mountSyncExternalStore @ react-dom.development.js:15980
+useSyncExternalStore @ react-dom.development.js:16908
+useSyncExternalStore @ react.development.js:1676
+exports.useSyncExternalStoreWithSelector @ use-sync-external-store-with-selector.development.js:81
+useSelector2 @ useSelector.ts:243
+CanvasElement @ CanvasElement.tsx:48
+renderWithHooks @ react-dom.development.js:15486
+updateFunctionComponent @ react-dom.development.js:19617
+updateSimpleMemoComponent @ react-dom.development.js:19454
+updateMemoComponent @ react-dom.development.js:19303
+beginWork @ react-dom.development.js:21712
+beginWork$1 @ react-dom.development.js:27465
+performUnitOfWork @ react-dom.development.js:26596
+workLoopSync @ react-dom.development.js:26505
+renderRootSync @ react-dom.development.js:26473
+performConcurrentWorkOnRoot @ react-dom.development.js:25777
+workLoop @ scheduler.development.js:266
+flushWork @ scheduler.development.js:239
+performWorkUntilDeadline @ scheduler.development.js:533
+CanvasElement.tsx:49  The result function returned its own inputs without modification. e.g
+`createSelector([state => state.todos], todos => todos)`
+This could lead to inefficient memoization and unnecessary re-renders.
+Ensure transformation logic is in the result function, and extraction logic is in the input selectors. {stack: 'Error\n    at Object.runIdentityFunctionCheck [as r…dules/.vite/deps/react-redux.js?v=b492906c:60:21)'}
+runIdentityFunctionCheck @ identityFunctionCheck.ts:44
+dependenciesChecker @ createSelectorCreator.ts:418
+memoized @ weakMapMemoize.ts:228
+memoized @ useSelector.ts:171
+memoizedSelector @ use-sync-external-store-with-selector.development.js:46
+(anonymous) @ use-sync-external-store-with-selector.development.js:70
+mountSyncExternalStore @ react-dom.development.js:15980
+useSyncExternalStore @ react-dom.development.js:16908
+useSyncExternalStore @ react.development.js:1676
+exports.useSyncExternalStoreWithSelector @ use-sync-external-store-with-selector.development.js:81
+useSelector2 @ useSelector.ts:243
+CanvasElement @ CanvasElement.tsx:49
+renderWithHooks @ react-dom.development.js:15486
+updateFunctionComponent @ react-dom.development.js:19617
+updateSimpleMemoComponent @ react-dom.development.js:19454
+updateMemoComponent @ react-dom.development.js:19303
+beginWork @ react-dom.development.js:21712
+beginWork$1 @ react-dom.development.js:27465
+performUnitOfWork @ react-dom.development.js:26596
+workLoopSync @ react-dom.development.js:26505
+renderRootSync @ react-dom.development.js:26473
+performConcurrentWorkOnRoot @ react-dom.development.js:25777
+workLoop @ scheduler.development.js:266
+flushWork @ scheduler.development.js:239
+performWorkUntilDeadline @ scheduler.development.js:533
+CreateComponentModal.tsx:39  The result function returned its own inputs without modification. e.g
+`createSelector([state => state.todos], todos => todos)`
+This could lead to inefficient memoization and unnecessary re-renders.
+Ensure transformation logic is in the result function, and extraction logic is in the input selectors. {stack: 'Error\n    at Object.runIdentityFunctionCheck [as r…dules/.vite/deps/react-redux.js?v=b492906c:60:21)'}
+runIdentityFunctionCheck @ identityFunctionCheck.ts:44
+dependenciesChecker @ createSelectorCreator.ts:418
+memoized @ weakMapMemoize.ts:228
+memoized @ useSelector.ts:171
+memoizedSelector @ use-sync-external-store-with-selector.development.js:46
+(anonymous) @ use-sync-external-store-with-selector.development.js:70
+mountSyncExternalStore @ react-dom.development.js:15980
+useSyncExternalStore @ react-dom.development.js:16908
+useSyncExternalStore @ react.development.js:1676
+exports.useSyncExternalStoreWithSelector @ use-sync-external-store-with-selector.development.js:81
+useSelector2 @ useSelector.ts:243
+CreateComponentModal @ CreateComponentModal.tsx:39
+renderWithHooks @ react-dom.development.js:15486
+mountIndeterminateComponent @ react-dom.development.js:20103
+beginWork @ react-dom.development.js:21626
+beginWork$1 @ react-dom.development.js:27465
+performUnitOfWork @ react-dom.development.js:26596
+workLoopSync @ react-dom.development.js:26505
+renderRootSync @ react-dom.development.js:26473
+performConcurrentWorkOnRoot @ react-dom.development.js:25777
+workLoop @ scheduler.development.js:266
+flushWork @ scheduler.development.js:239
+performWorkUntilDeadline @ scheduler.development.js:533
+(index):1 Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+CanvasElement.tsx:1100 🖱️ MOUSE DOWN on element: text-1756251092479-s7yq2ijjr Tool: select Draggable: true
+CanvasElement.tsx:1101    - Target: <p>​…​</p>​ CurrentTarget: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​1081:​6" data-component-name=​"div" draggable=​"true" title=​"DRAG TEST:​ Always draggable | Tool:​ select | Editing:​ false" class=​"
+          selectable-block
+          canvas-element
+          text-1756251092479
+          sibling-spacing-reset
+          
+          
+        " data-state=​"hover" data-locked=​"false" data-invalid=​"false" aria-selected=​"false" tabindex=​"0" data-element-id=​"text-1756251092479-s7yq2ijjr" data-container=​"false" data-accepts data-element-type=​"text" data-testid=​"canvas-element-text-1756251092479-s7yq2ijjr" style=​"position:​ relative;​ width:​ 100%;​ height:​ auto;​ min-height:​ 1.2em;​ font-size:​ 16px;​ font-weight:​ 400;​ color:​ rgb(31, 41, 55)​;​ padding:​ 8px;​ display:​ block;​ --element-font-size:​ 16px;​ --element-font-weight:​ 400;​ --element-color:​ #1f2937;​ --element-padding:​ 8px;​ --element-display:​ block;​ user-select:​ none;​ cursor:​ grab;​ z-index:​ 1000;​">​…​</div>​
+CanvasElement.tsx:1102    - Buttons: 1 Button: 0
+CanvasElement.tsx:1100 🖱️ MOUSE DOWN on element: rectangle-1756256873161-wazcz2c5a Tool: select Draggable: true
+CanvasElement.tsx:1101    - Target: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​1081:​6" data-component-name=​"div" draggable=​"true" title=​"DRAG TEST:​ Always draggable | Tool:​ select | Editing:​ false" class=​"
+          selectable-block
+          canvas-element
+          rectangle-1756256873161
+          sibling-spacing-reset
+          
+          
+        " data-state=​"hover" data-locked=​"false" data-invalid=​"false" aria-selected=​"false" tabindex=​"0" data-element-id=​"rectangle-1756256873161-wazcz2c5a" data-container=​"true" data-accepts=​"text,image,button,rectangle,heading,container" data-element-type=​"rectangle" data-testid=​"canvas-element-rectangle-1756256873161-wazcz2c5a" style=​"position:​ relative;​ width:​ 100%;​ height:​ 59px;​ min-height:​ 59px;​ background-color:​ rgb(243, 244, 246)​;​ border:​ 1px solid rgb(209, 213, 219)​;​ border-radius:​ 6px;​ padding:​ 8px;​ display:​ flex;​ flex-direction:​ column;​ gap:​ 8px;​ --element-background-color:​ #f3f4f6;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 8px;​ --element-width:​ 100%;​ --element-min-height:​ 59px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 8px;​ --element-height:​ 59px;​ user-select:​ none;​ cursor:​ grab;​ z-index:​ 1000;​">​…​</div>​flex CurrentTarget: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​1081:​6" data-component-name=​"div" draggable=​"true" title=​"DRAG TEST:​ Always draggable | Tool:​ select | Editing:​ false" class=​"
+          selectable-block
+          canvas-element
+          rectangle-1756256873161
+          sibling-spacing-reset
+          
+          
+        " data-state=​"hover" data-locked=​"false" data-invalid=​"false" aria-selected=​"false" tabindex=​"0" data-element-id=​"rectangle-1756256873161-wazcz2c5a" data-container=​"true" data-accepts=​"text,image,button,rectangle,heading,container" data-element-type=​"rectangle" data-testid=​"canvas-element-rectangle-1756256873161-wazcz2c5a" style=​"position:​ relative;​ width:​ 100%;​ height:​ 59px;​ min-height:​ 59px;​ background-color:​ rgb(243, 244, 246)​;​ border:​ 1px solid rgb(209, 213, 219)​;​ border-radius:​ 6px;​ padding:​ 8px;​ display:​ flex;​ flex-direction:​ column;​ gap:​ 8px;​ --element-background-color:​ #f3f4f6;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 8px;​ --element-width:​ 100%;​ --element-min-height:​ 59px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 8px;​ --element-height:​ 59px;​ user-select:​ none;​ cursor:​ grab;​ z-index:​ 1000;​">​…​</div>​flex
+CanvasElement.tsx:1102    - Buttons: 1 Button: 0
+CanvasElement.tsx:1100 🖱️ MOUSE DOWN on element: rectangle-1756256868934-t5ex5cyzn Tool: select Draggable: true
+CanvasElement.tsx:1101    - Target: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​1081:​6" data-component-name=​"div" draggable=​"true" title=​"DRAG TEST:​ Always draggable | Tool:​ select | Editing:​ false" class=​"
+          selectable-block
+          canvas-element
+          rectangle-1756256873161
+          sibling-spacing-reset
+          
+          
+        " data-state=​"hover" data-locked=​"false" data-invalid=​"false" aria-selected=​"false" tabindex=​"0" data-element-id=​"rectangle-1756256873161-wazcz2c5a" data-container=​"true" data-accepts=​"text,image,button,rectangle,heading,container" data-element-type=​"rectangle" data-testid=​"canvas-element-rectangle-1756256873161-wazcz2c5a" style=​"position:​ relative;​ width:​ 100%;​ height:​ 59px;​ min-height:​ 59px;​ background-color:​ rgb(243, 244, 246)​;​ border:​ 1px solid rgb(209, 213, 219)​;​ border-radius:​ 6px;​ padding:​ 8px;​ display:​ flex;​ flex-direction:​ column;​ gap:​ 8px;​ --element-background-color:​ #f3f4f6;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 8px;​ --element-width:​ 100%;​ --element-min-height:​ 59px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 8px;​ --element-height:​ 59px;​ user-select:​ none;​ cursor:​ grab;​ z-index:​ 1000;​">​…​</div>​flex CurrentTarget: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​1081:​6" data-component-name=​"div" draggable=​"true" title=​"DRAG TEST:​ Always draggable | Tool:​ select | Editing:​ false" class=​"
+          selectable-block
+          canvas-element
+          rectangle-1756256868935
+          sibling-spacing-reset
+          
+          
+        " data-state=​"idle" data-locked=​"false" data-invalid=​"false" aria-selected=​"false" tabindex=​"0" data-element-id=​"rectangle-1756256868934-t5ex5cyzn" data-container=​"true" data-accepts=​"text,image,button,rectangle,heading,container" data-element-type=​"rectangle" data-testid=​"canvas-element-rectangle-1756256868934-t5ex5cyzn" style=​"position:​ relative;​ width:​ 100%;​ height:​ 205px;​ min-height:​ 80px;​ background-color:​ rgb(243, 244, 246)​;​ border:​ 1px solid rgb(209, 213, 219)​;​ border-radius:​ 6px;​ padding:​ 8px;​ display:​ flex;​ flex-direction:​ column;​ gap:​ 0px;​ --element-background-color:​ #f3f4f6;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 8px;​ --element-width:​ 100%;​ --element-min-height:​ 80px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 0px;​ --element-height:​ 205px;​ user-select:​ none;​ cursor:​ grab;​">​…​</div>​flex
+CanvasElement.tsx:1102    - Buttons: 1 Button: 0
+CanvasElement.tsx:1100 🖱️ MOUSE DOWN on element: text-1756251092479-s7yq2ijjr Tool: select Draggable: true
+CanvasElement.tsx:1101    - Target: <p>​…​</p>​ CurrentTarget: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​1081:​6" data-component-name=​"div" draggable=​"true" title=​"DRAG TEST:​ Always draggable | Tool:​ select | Editing:​ false" class=​"
+          selectable-block
+          canvas-element
+          text-1756251092479
+          sibling-spacing-reset
+          
+          
+        " data-state=​"hover" data-locked=​"false" data-invalid=​"false" aria-selected=​"false" tabindex=​"0" data-element-id=​"text-1756251092479-s7yq2ijjr" data-container=​"false" data-accepts data-element-type=​"text" data-testid=​"canvas-element-text-1756251092479-s7yq2ijjr" style=​"position:​ relative;​ width:​ 100%;​ height:​ auto;​ min-height:​ 1.2em;​ font-size:​ 16px;​ font-weight:​ 400;​ color:​ rgb(31, 41, 55)​;​ padding:​ 8px;​ display:​ block;​ --element-font-size:​ 16px;​ --element-font-weight:​ 400;​ --element-color:​ #1f2937;​ --element-padding:​ 8px;​ --element-display:​ block;​ user-select:​ none;​ cursor:​ grab;​ z-index:​ 1000;​">​…​</div>​
+CanvasElement.tsx:1102    - Buttons: 1 Button: 0
+Canvas.tsx:899 🔄 OLD DRAG SYSTEM: Skipping because HTML5 drag active
+Canvas.tsx:899 🔄 OLD DRAG SYSTEM: Skipping because HTML5 drag active
+Canvas.tsx:899 🔄 OLD DRAG SYSTEM: Skipping because HTML5 drag active
+Canvas.tsx:899 🔄 OLD DRAG SYSTEM: Skipping because HTML5 drag active
+CanvasElement.tsx:1111 🚀🚀🚀 HTML5 DRAG STARTED!!! text-1756251092479-s7yq2ijjr Tool: hand
+CanvasElement.tsx:1112    - DataTransfer: DataTransfer {dropEffect: 'none', effectAllowed: 'uninitialized', items: DataTransferItemList, types: Array(0), files: FileList}
+CanvasElement.tsx:1113    - Target draggable: true
+CanvasElement.tsx:1133 🏁 HTML5 DRAG ENDED: text-1756251092479-s7yq2ijjr
+CanvasElement.tsx:1134    - DropEffect: none
+CanvasElement.tsx:1100 🖱️ MOUSE DOWN on element: rectangle-1756256873161-wazcz2c5a Tool: hand Draggable: true
+CanvasElement.tsx:1101    - Target: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​858:​11" data-component-name=​"div" class=​"h-full" style=​"--element-background-color:​ #f3f4f6;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 8px;​ --element-width:​ 100%;​ --element-min-height:​ 59px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 8px;​ --element-height:​ 59px;​">​</div>​ CurrentTarget: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​1081:​6" data-component-name=​"div" draggable=​"true" title=​"DRAG TEST:​ Always draggable | Tool:​ hand | Editing:​ false" class=​"
+          selectable-block
+          canvas-element
+          rectangle-1756256873161
+          sibling-spacing-reset
+          
+          
+        " data-state=​"selected" data-locked=​"false" data-invalid=​"false" aria-selected=​"true" tabindex=​"0" data-element-id=​"rectangle-1756256873161-wazcz2c5a" data-container=​"true" data-accepts=​"text,image,button,rectangle,heading,container" data-element-type=​"rectangle" data-testid=​"canvas-element-rectangle-1756256873161-wazcz2c5a" style=​"position:​ relative;​ width:​ 100%;​ height:​ 59px;​ min-height:​ 59px;​ background-color:​ rgb(243, 244, 246)​;​ border:​ 1px solid rgb(209, 213, 219)​;​ border-radius:​ 6px;​ padding:​ 8px;​ display:​ flex;​ flex-direction:​ column;​ gap:​ 8px;​ --element-background-color:​ #f3f4f6;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 8px;​ --element-width:​ 100%;​ --element-min-height:​ 59px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 8px;​ --element-height:​ 59px;​ user-select:​ none;​ cursor:​ grab;​ z-index:​ 1000;​">​…​</div>​flex
+CanvasElement.tsx:1102    - Buttons: 1 Button: 0
+CanvasElement.tsx:1106    - Hand tool active - HTML5 drag should work
+CanvasElement.tsx:1100 🖱️ MOUSE DOWN on element: rectangle-1756256868934-t5ex5cyzn Tool: hand Draggable: true
+CanvasElement.tsx:1101    - Target: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​858:​11" data-component-name=​"div" class=​"h-full" style=​"--element-background-color:​ #f3f4f6;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 8px;​ --element-width:​ 100%;​ --element-min-height:​ 59px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 8px;​ --element-height:​ 59px;​">​</div>​ CurrentTarget: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​1081:​6" data-component-name=​"div" draggable=​"true" title=​"DRAG TEST:​ Always draggable | Tool:​ hand | Editing:​ false" class=​"
+          selectable-block
+          canvas-element
+          rectangle-1756256868935
+          sibling-spacing-reset
+          
+          
+        " data-state=​"idle" data-locked=​"false" data-invalid=​"false" aria-selected=​"false" tabindex=​"0" data-element-id=​"rectangle-1756256868934-t5ex5cyzn" data-container=​"true" data-accepts=​"text,image,button,rectangle,heading,container" data-element-type=​"rectangle" data-testid=​"canvas-element-rectangle-1756256868934-t5ex5cyzn" style=​"position:​ relative;​ width:​ 100%;​ height:​ 205px;​ min-height:​ 80px;​ background-color:​ rgb(243, 244, 246)​;​ border:​ 1px solid rgb(209, 213, 219)​;​ border-radius:​ 6px;​ padding:​ 8px;​ display:​ flex;​ flex-direction:​ column;​ gap:​ 0px;​ --element-background-color:​ #f3f4f6;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 8px;​ --element-width:​ 100%;​ --element-min-height:​ 80px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 0px;​ --element-height:​ 205px;​ user-select:​ none;​ cursor:​ grab;​">​…​</div>​flex
+CanvasElement.tsx:1102    - Buttons: 1 Button: 0
+CanvasElement.tsx:1106    - Hand tool active - HTML5 drag should work
+Canvas.tsx:899 🔄 OLD DRAG SYSTEM: Skipping because HTML5 drag active
+Canvas.tsx:899 🔄 OLD DRAG SYSTEM: Skipping because HTML5 drag active
+Canvas.tsx:899 🔄 OLD DRAG SYSTEM: Skipping because HTML5 drag active
+CanvasElement.tsx:1111 🚀🚀🚀 HTML5 DRAG STARTED!!! rectangle-1756256873161-wazcz2c5a Tool: hand
+CanvasElement.tsx:1112    - DataTransfer: DataTransfer {dropEffect: 'none', effectAllowed: 'uninitialized', items: DataTransferItemList, types: Array(0), files: FileList}
+CanvasElement.tsx:1113    - Target draggable: true
+CanvasElement.tsx:1111 🚀🚀🚀 HTML5 DRAG STARTED!!! rectangle-1756256868934-t5ex5cyzn Tool: hand
+CanvasElement.tsx:1112    - DataTransfer: DataTransfer {dropEffect: 'none', effectAllowed: 'move', items: DataTransferItemList, types: Array(2), files: FileList}
+CanvasElement.tsx:1113    - Target draggable: true
+CanvasElement.tsx:1133 🏁 HTML5 DRAG ENDED: rectangle-1756256873161-wazcz2c5a
+CanvasElement.tsx:1134    - DropEffect: none
+CanvasElement.tsx:1133 🏁 HTML5 DRAG ENDED: rectangle-1756256868934-t5ex5cyzn
+CanvasElement.tsx:1134    - DropEffect: none
+Canvas.tsx:899 🔄 OLD DRAG SYSTEM: Skipping because HTML5 drag active
+CanvasElement.tsx:1100 🖱️ MOUSE DOWN on element: rectangle-1756250466856-veobcplsp Tool: hand Draggable: true
+CanvasElement.tsx:1101    - Target: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​858:​11" data-component-name=​"div" class=​"h-full" style=​"--element-background-color:​ #f3f4f6;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 0px;​ --element-width:​ 100%;​ --element-min-height:​ 80px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 0px;​ --element-height:​ 300px;​">​</div>​ CurrentTarget: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​1081:​6" data-component-name=​"div" draggable=​"true" title=​"DRAG TEST:​ Always draggable | Tool:​ hand | Editing:​ false" class=​"
+          selectable-block
+          canvas-element
+          rectangle-1756250466856
+          sibling-spacing-reset
+          
+          
+        " data-state=​"selected" data-locked=​"false" data-invalid=​"false" aria-selected=​"true" tabindex=​"0" data-element-id=​"rectangle-1756250466856-veobcplsp" data-container=​"true" data-accepts=​"text,image,button,rectangle,heading,container" data-element-type=​"rectangle" data-testid=​"canvas-element-rectangle-1756250466856-veobcplsp" style=​"position:​ relative;​ width:​ 100%;​ height:​ 300px;​ min-height:​ 80px;​ background-color:​ rgb(243, 244, 246)​;​ border:​ 1px solid rgb(209, 213, 219)​;​ border-radius:​ 6px;​ padding:​ 0px;​ display:​ flex;​ flex-direction:​ column;​ gap:​ 0px;​ --element-background-color:​ #f3f4f6;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 0px;​ --element-width:​ 100%;​ --element-min-height:​ 80px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 0px;​ --element-height:​ 300px;​ user-select:​ none;​ cursor:​ grab;​ z-index:​ 1000;​">​…​</div>​flex
+CanvasElement.tsx:1102    - Buttons: 1 Button: 0
+CanvasElement.tsx:1106    - Hand tool active - HTML5 drag should work
+CanvasElement.tsx:1100 🖱️ MOUSE DOWN on element: rectangle-1756256876139-1ostpmfmj Tool: hand Draggable: true
+CanvasElement.tsx:1101    - Target: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​858:​11" data-component-name=​"div" class=​"h-full" style=​"--element-background-color:​ #f3f4f6;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 0px;​ --element-width:​ 100%;​ --element-min-height:​ 80px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 0px;​ --element-height:​ 300px;​">​</div>​ CurrentTarget: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​1081:​6" data-component-name=​"div" draggable=​"true" title=​"DRAG TEST:​ Always draggable | Tool:​ hand | Editing:​ false" class=​"
+          selectable-block
+          canvas-element
+          rectangle-1756256876139
+          sibling-spacing-reset
+          
+          
+        " data-state=​"idle" data-locked=​"false" data-invalid=​"false" aria-selected=​"false" tabindex=​"0" data-element-id=​"rectangle-1756256876139-1ostpmfmj" data-container=​"true" data-accepts=​"text,image,button,rectangle,heading,container" data-element-type=​"rectangle" data-testid=​"canvas-element-rectangle-1756256876139-1ostpmfmj" style=​"position:​ relative;​ width:​ 100%;​ height:​ 100%;​ min-height:​ 116px;​ background-color:​ rgb(243, 244, 246)​;​ border:​ 1px solid rgb(209, 213, 219)​;​ border-radius:​ 6px;​ padding:​ 8px;​ display:​ flex;​ flex-direction:​ column;​ gap:​ 8px;​ --element-background-color:​ #f3f4f6;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 8px;​ --element-width:​ 100%;​ --element-min-height:​ 116px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 8px;​ --element-height:​ 100%;​ user-select:​ none;​ cursor:​ grab;​">​…​</div>​flex
+CanvasElement.tsx:1102    - Buttons: 1 Button: 0
+CanvasElement.tsx:1106    - Hand tool active - HTML5 drag should work
+CanvasElement.tsx:1100 🖱️ MOUSE DOWN on element: rectangle-1756256868934-t5ex5cyzn Tool: hand Draggable: true
+CanvasElement.tsx:1101    - Target: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​858:​11" data-component-name=​"div" class=​"h-full" style=​"--element-background-color:​ #f3f4f6;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 0px;​ --element-width:​ 100%;​ --element-min-height:​ 80px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 0px;​ --element-height:​ 300px;​">​</div>​ CurrentTarget: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​1081:​6" data-component-name=​"div" draggable=​"true" title=​"DRAG TEST:​ Always draggable | Tool:​ hand | Editing:​ false" class=​"
+          selectable-block
+          canvas-element
+          rectangle-1756256868935
+          sibling-spacing-reset
+          
+          
+        " data-state=​"idle" data-locked=​"false" data-invalid=​"false" aria-selected=​"false" tabindex=​"0" data-element-id=​"rectangle-1756256868934-t5ex5cyzn" data-container=​"true" data-accepts=​"text,image,button,rectangle,heading,container" data-element-type=​"rectangle" data-testid=​"canvas-element-rectangle-1756256868934-t5ex5cyzn" style=​"position:​ relative;​ width:​ 100%;​ height:​ 205px;​ min-height:​ 80px;​ background-color:​ rgb(243, 244, 246)​;​ border:​ 1px solid rgb(209, 213, 219)​;​ border-radius:​ 6px;​ padding:​ 8px;​ display:​ flex;​ flex-direction:​ column;​ gap:​ 0px;​ --element-background-color:​ #f3f4f6;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 8px;​ --element-width:​ 100%;​ --element-min-height:​ 80px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 0px;​ --element-height:​ 205px;​ user-select:​ none;​ cursor:​ grab;​ outline:​ rgb(59, 130, 246)​ solid 2px;​ box-shadow:​ rgba(59, 130, 246, 0.3)​ 0px 0px 0px 1px;​ z-index:​ 100;​">​…​</div>​flex
+CanvasElement.tsx:1102    - Buttons: 1 Button: 0
+CanvasElement.tsx:1106    - Hand tool active - HTML5 drag should work
+CanvasElement.tsx:1100 🖱️ MOUSE DOWN on element: rectangle-1756256868934-t5ex5cyzn Tool: hand Draggable: true
+CanvasElement.tsx:1101    - Target: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​858:​11" data-component-name=​"div" class=​"h-full" style=​"--element-background-color:​ #f3f4f6;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 8px;​ --element-width:​ 100%;​ --element-min-height:​ 80px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 0px;​ --element-height:​ 205px;​">​</div>​ CurrentTarget: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​1081:​6" data-component-name=​"div" draggable=​"true" title=​"DRAG TEST:​ Always draggable | Tool:​ hand | Editing:​ false" class=​"
+          selectable-block
+          canvas-element
+          rectangle-1756256868935
+          sibling-spacing-reset
+          
+          
+        " data-state=​"selected" data-locked=​"false" data-invalid=​"false" aria-selected=​"true" tabindex=​"0" data-element-id=​"rectangle-1756256868934-t5ex5cyzn" data-container=​"true" data-accepts=​"text,image,button,rectangle,heading,container" data-element-type=​"rectangle" data-testid=​"canvas-element-rectangle-1756256868934-t5ex5cyzn" style=​"position:​ relative;​ width:​ 100%;​ height:​ 205px;​ min-height:​ 80px;​ background-color:​ rgb(243, 244, 246)​;​ border:​ 1px solid rgb(209, 213, 219)​;​ border-radius:​ 6px;​ padding:​ 8px;​ display:​ flex;​ flex-direction:​ column;​ gap:​ 0px;​ --element-background-color:​ #f3f4f6;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 8px;​ --element-width:​ 100%;​ --element-min-height:​ 80px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 0px;​ --element-height:​ 205px;​ user-select:​ none;​ cursor:​ grab;​ z-index:​ 1000;​">​…​</div>​flex
+CanvasElement.tsx:1102    - Buttons: 1 Button: 0
+CanvasElement.tsx:1106    - Hand tool active - HTML5 drag should work
+CanvasElement.tsx:1100 🖱️ MOUSE DOWN on element: rectangle-1756256873161-wazcz2c5a Tool: hand Draggable: true
+CanvasElement.tsx:1101    - Target: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​858:​11" data-component-name=​"div" class=​"h-full" style=​"--element-background-color:​ #f3f4f6;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 8px;​ --element-width:​ 100%;​ --element-min-height:​ 59px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 8px;​ --element-height:​ 59px;​">​</div>​ CurrentTarget: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​1081:​6" data-component-name=​"div" draggable=​"true" title=​"DRAG TEST:​ Always draggable | Tool:​ hand | Editing:​ false" class=​"
+          selectable-block
+          canvas-element
+          rectangle-1756256873161
+          sibling-spacing-reset
+          
+          
+        " data-state=​"selected" data-locked=​"false" data-invalid=​"false" aria-selected=​"true" tabindex=​"0" data-element-id=​"rectangle-1756256873161-wazcz2c5a" data-container=​"true" data-accepts=​"text,image,button,rectangle,heading,container" data-element-type=​"rectangle" data-testid=​"canvas-element-rectangle-1756256873161-wazcz2c5a" style=​"position:​ relative;​ width:​ 100%;​ height:​ 59px;​ min-height:​ 59px;​ background-color:​ rgb(243, 244, 246)​;​ border:​ 1px solid rgb(209, 213, 219)​;​ border-radius:​ 6px;​ padding:​ 8px;​ display:​ flex;​ flex-direction:​ column;​ gap:​ 8px;​ --element-background-color:​ #f3f4f6;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 8px;​ --element-width:​ 100%;​ --element-min-height:​ 59px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 8px;​ --element-height:​ 59px;​ user-select:​ none;​ cursor:​ grab;​ z-index:​ 1000;​">​…​</div>​flex
+CanvasElement.tsx:1102    - Buttons: 1 Button: 0
+CanvasElement.tsx:1106    - Hand tool active - HTML5 drag should work
+CanvasElement.tsx:1100 🖱️ MOUSE DOWN on element: rectangle-1756256868934-t5ex5cyzn Tool: hand Draggable: true
+CanvasElement.tsx:1101    - Target: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​858:​11" data-component-name=​"div" class=​"h-full" style=​"--element-background-color:​ #f3f4f6;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 8px;​ --element-width:​ 100%;​ --element-min-height:​ 59px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 8px;​ --element-height:​ 59px;​">​</div>​ CurrentTarget: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​1081:​6" data-component-name=​"div" draggable=​"true" title=​"DRAG TEST:​ Always draggable | Tool:​ hand | Editing:​ false" class=​"
+          selectable-block
+          canvas-element
+          rectangle-1756256868935
+          sibling-spacing-reset
+          
+          
+        " data-state=​"idle" data-locked=​"false" data-invalid=​"false" aria-selected=​"false" tabindex=​"0" data-element-id=​"rectangle-1756256868934-t5ex5cyzn" data-container=​"true" data-accepts=​"text,image,button,rectangle,heading,container" data-element-type=​"rectangle" data-testid=​"canvas-element-rectangle-1756256868934-t5ex5cyzn" style=​"position:​ relative;​ width:​ 100%;​ height:​ 205px;​ min-height:​ 80px;​ background-color:​ rgb(255, 128, 128)​;​ border:​ 1px solid rgb(209, 213, 219)​;​ border-radius:​ 6px;​ padding:​ 8px;​ display:​ flex;​ flex-direction:​ column;​ gap:​ 0px;​ --element-background-color:​ #ff8080;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 8px;​ --element-width:​ 100%;​ --element-min-height:​ 80px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 0px;​ --element-height:​ 205px;​ user-select:​ none;​ cursor:​ grab;​ z-index:​ 100;​ outline:​ rgb(59, 130, 246)​ solid 2px;​ box-shadow:​ rgba(59, 130, 246, 0.3)​ 0px 0px 0px 1px;​ --element-background:​ [object Object]​;​">​…​</div>​flex
+CanvasElement.tsx:1102    - Buttons: 1 Button: 0
+CanvasElement.tsx:1106    - Hand tool active - HTML5 drag should work
+Canvas.tsx:899 🔄 OLD DRAG SYSTEM: Skipping because HTML5 drag active
+Canvas.tsx:899 🔄 OLD DRAG SYSTEM: Skipping because HTML5 drag active
+CanvasElement.tsx:1111 🚀🚀🚀 HTML5 DRAG STARTED!!! rectangle-1756256873161-wazcz2c5a Tool: hand
+CanvasElement.tsx:1112    - DataTransfer: DataTransfer {dropEffect: 'none', effectAllowed: 'uninitialized', items: DataTransferItemList, types: Array(0), files: FileList}
+CanvasElement.tsx:1113    - Target draggable: true
+CanvasElement.tsx:1133 🏁 HTML5 DRAG ENDED: rectangle-1756256873161-wazcz2c5a
+CanvasElement.tsx:1134    - DropEffect: none
+CanvasElement.tsx:1100 🖱️ MOUSE DOWN on element: rectangle-1756250466856-veobcplsp Tool: hand Draggable: true
+CanvasElement.tsx:1101    - Target: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​858:​11" data-component-name=​"div" class=​"h-full" style=​"--element-background-color:​ #f3f4f6;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 0px;​ --element-width:​ 100%;​ --element-min-height:​ 80px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 0px;​ --element-height:​ 300px;​">​</div>​ CurrentTarget: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​1081:​6" data-component-name=​"div" draggable=​"true" title=​"DRAG TEST:​ Always draggable | Tool:​ hand | Editing:​ false" class=​"
+          selectable-block
+          canvas-element
+          rectangle-1756250466856
+          sibling-spacing-reset
+          
+          
+        " data-state=​"selected" data-locked=​"false" data-invalid=​"false" aria-selected=​"true" tabindex=​"0" data-element-id=​"rectangle-1756250466856-veobcplsp" data-container=​"true" data-accepts=​"text,image,button,rectangle,heading,container" data-element-type=​"rectangle" data-testid=​"canvas-element-rectangle-1756250466856-veobcplsp" style=​"position:​ relative;​ width:​ 100%;​ height:​ 300px;​ min-height:​ 80px;​ background-color:​ rgb(243, 244, 246)​;​ border:​ 1px solid rgb(209, 213, 219)​;​ border-radius:​ 6px;​ padding:​ 0px;​ display:​ flex;​ flex-direction:​ column;​ gap:​ 0px;​ --element-background-color:​ #f3f4f6;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 0px;​ --element-width:​ 100%;​ --element-min-height:​ 80px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 0px;​ --element-height:​ 300px;​ user-select:​ none;​ cursor:​ grab;​ z-index:​ 1000;​">​…​</div>​flex
+CanvasElement.tsx:1102    - Buttons: 1 Button: 0
+CanvasElement.tsx:1106    - Hand tool active - HTML5 drag should work
+CanvasElement.tsx:1100 🖱️ MOUSE DOWN on element: rectangle-1756256876139-1ostpmfmj Tool: hand Draggable: true
+CanvasElement.tsx:1101    - Target: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​858:​11" data-component-name=​"div" class=​"h-full" style=​"--element-background-color:​ #f3f4f6;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 0px;​ --element-width:​ 100%;​ --element-min-height:​ 80px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 0px;​ --element-height:​ 300px;​">​</div>​ CurrentTarget: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​1081:​6" data-component-name=​"div" draggable=​"true" title=​"DRAG TEST:​ Always draggable | Tool:​ hand | Editing:​ false" class=​"
+          selectable-block
+          canvas-element
+          rectangle-1756256876139
+          sibling-spacing-reset
+          
+          
+        " data-state=​"idle" data-locked=​"false" data-invalid=​"false" aria-selected=​"false" tabindex=​"0" data-element-id=​"rectangle-1756256876139-1ostpmfmj" data-container=​"true" data-accepts=​"text,image,button,rectangle,heading,container" data-element-type=​"rectangle" data-testid=​"canvas-element-rectangle-1756256876139-1ostpmfmj" style=​"position:​ relative;​ width:​ 100%;​ height:​ 100%;​ min-height:​ 116px;​ background-color:​ rgb(243, 244, 246)​;​ border:​ 1px solid rgb(209, 213, 219)​;​ border-radius:​ 6px;​ padding:​ 8px;​ display:​ flex;​ flex-direction:​ column;​ gap:​ 8px;​ --element-background-color:​ #f3f4f6;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 8px;​ --element-width:​ 100%;​ --element-min-height:​ 116px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 8px;​ --element-height:​ 100%;​ user-select:​ none;​ cursor:​ grab;​">​…​</div>​flex
+CanvasElement.tsx:1102    - Buttons: 1 Button: 0
+CanvasElement.tsx:1106    - Hand tool active - HTML5 drag should work
+CanvasElement.tsx:1100 🖱️ MOUSE DOWN on element: rectangle-1756256868934-t5ex5cyzn Tool: hand Draggable: true
+CanvasElement.tsx:1101    - Target: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​858:​11" data-component-name=​"div" class=​"h-full" style=​"--element-background-color:​ #f3f4f6;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 0px;​ --element-width:​ 100%;​ --element-min-height:​ 80px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 0px;​ --element-height:​ 300px;​">​</div>​ CurrentTarget: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​1081:​6" data-component-name=​"div" draggable=​"true" title=​"DRAG TEST:​ Always draggable | Tool:​ hand | Editing:​ false" class=​"
+          selectable-block
+          canvas-element
+          rectangle-1756256868935
+          sibling-spacing-reset
+          
+          
+        " data-state=​"idle" data-locked=​"false" data-invalid=​"false" aria-selected=​"false" tabindex=​"0" data-element-id=​"rectangle-1756256868934-t5ex5cyzn" data-container=​"true" data-accepts=​"text,image,button,rectangle,heading,container" data-element-type=​"rectangle" data-testid=​"canvas-element-rectangle-1756256868934-t5ex5cyzn" style=​"position:​ relative;​ width:​ 100%;​ height:​ 205px;​ min-height:​ 80px;​ background-color:​ rgb(255, 128, 128)​;​ border:​ 1px solid rgb(209, 213, 219)​;​ border-radius:​ 6px;​ padding:​ 8px;​ display:​ flex;​ flex-direction:​ column;​ gap:​ 0px;​ --element-background-color:​ #ff8080;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 8px;​ --element-width:​ 100%;​ --element-min-height:​ 80px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 0px;​ --element-height:​ 205px;​ user-select:​ none;​ cursor:​ grab;​ --element-background:​ [object Object]​;​ outline:​ rgb(59, 130, 246)​ solid 2px;​ box-shadow:​ rgba(59, 130, 246, 0.3)​ 0px 0px 0px 1px;​ z-index:​ 100;​">​…​</div>​flex
+CanvasElement.tsx:1102    - Buttons: 1 Button: 0
+CanvasElement.tsx:1106    - Hand tool active - HTML5 drag should work
+CanvasElement.tsx:1100 🖱️ MOUSE DOWN on element: rectangle-1756256876139-1ostpmfmj Tool: hand Draggable: true
+CanvasElement.tsx:1101    - Target: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​858:​11" data-component-name=​"div" class=​"h-full" style=​"--element-background-color:​ #f3f4f6;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 8px;​ --element-width:​ 100%;​ --element-min-height:​ 116px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 8px;​ --element-height:​ 100%;​">​</div>​ CurrentTarget: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​1081:​6" data-component-name=​"div" draggable=​"true" title=​"DRAG TEST:​ Always draggable | Tool:​ hand | Editing:​ false" class=​"
+          selectable-block
+          canvas-element
+          rectangle-1756256876139
+          sibling-spacing-reset
+          
+          
+        " data-state=​"selected" data-locked=​"false" data-invalid=​"false" aria-selected=​"true" tabindex=​"0" data-element-id=​"rectangle-1756256876139-1ostpmfmj" data-container=​"true" data-accepts=​"text,image,button,rectangle,heading,container" data-element-type=​"rectangle" data-testid=​"canvas-element-rectangle-1756256876139-1ostpmfmj" style=​"position:​ relative;​ width:​ 100%;​ height:​ 100%;​ min-height:​ 116px;​ background-color:​ rgb(243, 244, 246)​;​ border:​ 1px solid rgb(209, 213, 219)​;​ border-radius:​ 6px;​ padding:​ 8px;​ display:​ flex;​ flex-direction:​ column;​ gap:​ 8px;​ --element-background-color:​ #f3f4f6;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 8px;​ --element-width:​ 100%;​ --element-min-height:​ 116px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 8px;​ --element-height:​ 100%;​ user-select:​ none;​ cursor:​ grab;​ z-index:​ 1000;​">​…​</div>​flex
+CanvasElement.tsx:1102    - Buttons: 1 Button: 0
+CanvasElement.tsx:1106    - Hand tool active - HTML5 drag should work
+CanvasElement.tsx:1100 🖱️ MOUSE DOWN on element: rectangle-1756256868934-t5ex5cyzn Tool: hand Draggable: true
+CanvasElement.tsx:1101    - Target: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​858:​11" data-component-name=​"div" class=​"h-full" style=​"--element-background-color:​ #f3f4f6;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 8px;​ --element-width:​ 100%;​ --element-min-height:​ 116px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 8px;​ --element-height:​ 100%;​">​</div>​ CurrentTarget: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​1081:​6" data-component-name=​"div" draggable=​"true" title=​"DRAG TEST:​ Always draggable | Tool:​ hand | Editing:​ false" class=​"
+          selectable-block
+          canvas-element
+          rectangle-1756256868935
+          sibling-spacing-reset
+          
+          
+        " data-state=​"idle" data-locked=​"false" data-invalid=​"false" aria-selected=​"false" tabindex=​"0" data-element-id=​"rectangle-1756256868934-t5ex5cyzn" data-container=​"true" data-accepts=​"text,image,button,rectangle,heading,container" data-element-type=​"rectangle" data-testid=​"canvas-element-rectangle-1756256868934-t5ex5cyzn" style=​"position:​ relative;​ width:​ 100%;​ height:​ 205px;​ min-height:​ 80px;​ background-color:​ rgb(255, 128, 128)​;​ border:​ 1px solid rgb(209, 213, 219)​;​ border-radius:​ 6px;​ padding:​ 8px;​ display:​ flex;​ flex-direction:​ column;​ gap:​ 0px;​ --element-background-color:​ #ff8080;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 8px;​ --element-width:​ 100%;​ --element-min-height:​ 80px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 0px;​ --element-height:​ 205px;​ user-select:​ none;​ cursor:​ grab;​ --element-background:​ [object Object]​;​">​…​</div>​flex
+CanvasElement.tsx:1102    - Buttons: 1 Button: 0
+CanvasElement.tsx:1106    - Hand tool active - HTML5 drag should work
+CanvasElement.tsx:1100 🖱️ MOUSE DOWN on element: rectangle-1756250466856-veobcplsp Tool: hand Draggable: true
+CanvasElement.tsx:1101    - Target: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​858:​11" data-component-name=​"div" class=​"h-full" style=​"--element-background-color:​ #a47474;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 0px;​ --element-width:​ 100%;​ --element-min-height:​ 80px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 0px;​ --element-height:​ 300px;​ --element-background:​ [object Object]​;​">​</div>​ CurrentTarget: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​1081:​6" data-component-name=​"div" draggable=​"true" title=​"DRAG TEST:​ Always draggable | Tool:​ hand | Editing:​ false" class=​"
+          selectable-block
+          canvas-element
+          rectangle-1756250466856
+          sibling-spacing-reset
+          
+          
+        " data-state=​"selected" data-locked=​"false" data-invalid=​"false" aria-selected=​"true" tabindex=​"0" data-element-id=​"rectangle-1756250466856-veobcplsp" data-container=​"true" data-accepts=​"text,image,button,rectangle,heading,container" data-element-type=​"rectangle" data-testid=​"canvas-element-rectangle-1756250466856-veobcplsp" style=​"position:​ relative;​ width:​ 100%;​ height:​ 300px;​ min-height:​ 80px;​ background-color:​ rgb(164, 116, 116)​;​ border:​ 1px solid rgb(209, 213, 219)​;​ border-radius:​ 6px;​ padding:​ 0px;​ display:​ flex;​ flex-direction:​ column;​ gap:​ 0px;​ --element-background-color:​ #a47474;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 0px;​ --element-width:​ 100%;​ --element-min-height:​ 80px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 0px;​ --element-height:​ 300px;​ user-select:​ none;​ cursor:​ grab;​ --element-background:​ [object Object]​;​ z-index:​ 1000;​">​…​</div>​flex
+CanvasElement.tsx:1102    - Buttons: 1 Button: 0
+CanvasElement.tsx:1106    - Hand tool active - HTML5 drag should work
+CanvasElement.tsx:1100 🖱️ MOUSE DOWN on element: rectangle-1756256876139-1ostpmfmj Tool: hand Draggable: true
+CanvasElement.tsx:1101    - Target: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​858:​11" data-component-name=​"div" class=​"h-full" style=​"--element-background-color:​ #a47474;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 0px;​ --element-width:​ 100%;​ --element-min-height:​ 80px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 0px;​ --element-height:​ 300px;​ --element-background:​ [object Object]​;​">​</div>​ CurrentTarget: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​1081:​6" data-component-name=​"div" draggable=​"true" title=​"DRAG TEST:​ Always draggable | Tool:​ hand | Editing:​ false" class=​"
+          selectable-block
+          canvas-element
+          rectangle-1756256876139
+          sibling-spacing-reset
+          
+          
+        " data-state=​"idle" data-locked=​"false" data-invalid=​"false" aria-selected=​"false" tabindex=​"0" data-element-id=​"rectangle-1756256876139-1ostpmfmj" data-container=​"true" data-accepts=​"text,image,button,rectangle,heading,container" data-element-type=​"rectangle" data-testid=​"canvas-element-rectangle-1756256876139-1ostpmfmj" style=​"position:​ relative;​ width:​ 100%;​ height:​ 100%;​ min-height:​ 116px;​ background-color:​ rgb(115, 12, 12)​;​ border:​ 1px solid rgb(209, 213, 219)​;​ border-radius:​ 6px;​ padding:​ 8px;​ display:​ flex;​ flex-direction:​ column;​ gap:​ 8px;​ --element-background-color:​ #730c0c;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 8px;​ --element-width:​ 100%;​ --element-min-height:​ 116px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 8px;​ --element-height:​ 100%;​ user-select:​ none;​ cursor:​ grab;​ --element-background:​ [object Object]​;​">​…​</div>​flex
+CanvasElement.tsx:1102    - Buttons: 1 Button: 0
+CanvasElement.tsx:1106    - Hand tool active - HTML5 drag should work
+CanvasElement.tsx:1100 🖱️ MOUSE DOWN on element: rectangle-1756256868934-t5ex5cyzn Tool: hand Draggable: true
+CanvasElement.tsx:1101    - Target: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​858:​11" data-component-name=​"div" class=​"h-full" style=​"--element-background-color:​ #a47474;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 0px;​ --element-width:​ 100%;​ --element-min-height:​ 80px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 0px;​ --element-height:​ 300px;​ --element-background:​ [object Object]​;​">​</div>​ CurrentTarget: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​1081:​6" data-component-name=​"div" draggable=​"true" title=​"DRAG TEST:​ Always draggable | Tool:​ hand | Editing:​ false" class=​"
+          selectable-block
+          canvas-element
+          rectangle-1756256868935
+          sibling-spacing-reset
+          
+          
+        " data-state=​"idle" data-locked=​"false" data-invalid=​"false" aria-selected=​"false" tabindex=​"0" data-element-id=​"rectangle-1756256868934-t5ex5cyzn" data-container=​"true" data-accepts=​"text,image,button,rectangle,heading,container" data-element-type=​"rectangle" data-testid=​"canvas-element-rectangle-1756256868934-t5ex5cyzn" style=​"position:​ relative;​ width:​ 100%;​ height:​ 205px;​ min-height:​ 80px;​ background-color:​ rgb(255, 128, 128)​;​ border:​ 1px solid rgb(209, 213, 219)​;​ border-radius:​ 6px;​ padding:​ 8px;​ display:​ flex;​ flex-direction:​ column;​ gap:​ 0px;​ --element-background-color:​ #ff8080;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 8px;​ --element-width:​ 100%;​ --element-min-height:​ 80px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 0px;​ --element-height:​ 205px;​ user-select:​ none;​ cursor:​ grab;​ --element-background:​ [object Object]​;​ z-index:​ 100;​ outline:​ rgb(59, 130, 246)​ solid 2px;​ box-shadow:​ rgba(59, 130, 246, 0.3)​ 0px 0px 0px 1px;​">​…​</div>​flex
+CanvasElement.tsx:1102    - Buttons: 1 Button: 0
+CanvasElement.tsx:1106    - Hand tool active - HTML5 drag should work
+CanvasElement.tsx:1100 🖱️ MOUSE DOWN on element: rectangle-1756256876139-1ostpmfmj Tool: hand Draggable: true
+CanvasElement.tsx:1101    - Target: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​858:​11" data-component-name=​"div" class=​"h-full" style=​"--element-background-color:​ #730c0c;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 8px;​ --element-width:​ 100%;​ --element-min-height:​ 116px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 8px;​ --element-height:​ 100%;​ --element-background:​ [object Object]​;​">​</div>​ CurrentTarget: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​1081:​6" data-component-name=​"div" draggable=​"true" title=​"DRAG TEST:​ Always draggable | Tool:​ hand | Editing:​ false" class=​"
+          selectable-block
+          canvas-element
+          rectangle-1756256876139
+          sibling-spacing-reset
+          
+          
+        " data-state=​"selected" data-locked=​"false" data-invalid=​"false" aria-selected=​"true" tabindex=​"0" data-element-id=​"rectangle-1756256876139-1ostpmfmj" data-container=​"true" data-accepts=​"text,image,button,rectangle,heading,container" data-element-type=​"rectangle" data-testid=​"canvas-element-rectangle-1756256876139-1ostpmfmj" style=​"position:​ relative;​ width:​ 100%;​ height:​ 100%;​ min-height:​ 116px;​ background-color:​ rgb(115, 12, 12)​;​ border:​ 1px solid rgb(209, 213, 219)​;​ border-radius:​ 6px;​ padding:​ 8px;​ display:​ flex;​ flex-direction:​ column;​ gap:​ 8px;​ --element-background-color:​ #730c0c;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 8px;​ --element-width:​ 100%;​ --element-min-height:​ 116px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 8px;​ --element-height:​ 100%;​ user-select:​ none;​ cursor:​ grab;​ --element-background:​ [object Object]​;​ z-index:​ 1000;​">​…​</div>​flex
+CanvasElement.tsx:1102    - Buttons: 1 Button: 0
+CanvasElement.tsx:1106    - Hand tool active - HTML5 drag should work
+CanvasElement.tsx:1100 🖱️ MOUSE DOWN on element: rectangle-1756256868934-t5ex5cyzn Tool: hand Draggable: true
+CanvasElement.tsx:1101    - Target: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​858:​11" data-component-name=​"div" class=​"h-full" style=​"--element-background-color:​ #730c0c;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 8px;​ --element-width:​ 100%;​ --element-min-height:​ 116px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 8px;​ --element-height:​ 100%;​ --element-background:​ [object Object]​;​">​</div>​ CurrentTarget: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​1081:​6" data-component-name=​"div" draggable=​"true" title=​"DRAG TEST:​ Always draggable | Tool:​ hand | Editing:​ false" class=​"
+          selectable-block
+          canvas-element
+          rectangle-1756256868935
+          sibling-spacing-reset
+          
+          
+        " data-state=​"idle" data-locked=​"false" data-invalid=​"false" aria-selected=​"false" tabindex=​"0" data-element-id=​"rectangle-1756256868934-t5ex5cyzn" data-container=​"true" data-accepts=​"text,image,button,rectangle,heading,container" data-element-type=​"rectangle" data-testid=​"canvas-element-rectangle-1756256868934-t5ex5cyzn" style=​"position:​ relative;​ width:​ 100%;​ height:​ 205px;​ min-height:​ 80px;​ background-color:​ rgb(255, 128, 128)​;​ border:​ 1px solid rgb(209, 213, 219)​;​ border-radius:​ 6px;​ padding:​ 8px;​ display:​ flex;​ flex-direction:​ column;​ gap:​ 0px;​ --element-background-color:​ #ff8080;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 8px;​ --element-width:​ 100%;​ --element-min-height:​ 80px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 0px;​ --element-height:​ 205px;​ user-select:​ none;​ cursor:​ grab;​ --element-background:​ [object Object]​;​">​…​</div>​flex
+CanvasElement.tsx:1102    - Buttons: 1 Button: 0
+CanvasElement.tsx:1106    - Hand tool active - HTML5 drag should work
+CanvasElement.tsx:1100 🖱️ MOUSE DOWN on element: rectangle-1756256868934-t5ex5cyzn Tool: hand Draggable: true
+CanvasElement.tsx:1101    - Target: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​858:​11" data-component-name=​"div" class=​"h-full" style=​"--element-background-color:​ #ff8080;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 8px;​ --element-width:​ 100%;​ --element-min-height:​ 80px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 0px;​ --element-height:​ 205px;​ --element-background:​ [object Object]​;​">​</div>​ CurrentTarget: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​1081:​6" data-component-name=​"div" draggable=​"true" title=​"DRAG TEST:​ Always draggable | Tool:​ hand | Editing:​ false" class=​"
+          selectable-block
+          canvas-element
+          rectangle-1756256868935
+          sibling-spacing-reset
+          
+          
+        " data-state=​"selected" data-locked=​"false" data-invalid=​"false" aria-selected=​"true" tabindex=​"0" data-element-id=​"rectangle-1756256868934-t5ex5cyzn" data-container=​"true" data-accepts=​"text,image,button,rectangle,heading,container" data-element-type=​"rectangle" data-testid=​"canvas-element-rectangle-1756256868934-t5ex5cyzn" style=​"position:​ relative;​ width:​ 100%;​ height:​ 205px;​ min-height:​ 80px;​ background-color:​ rgb(255, 128, 128)​;​ border:​ 1px solid rgb(209, 213, 219)​;​ border-radius:​ 6px;​ padding:​ 8px;​ display:​ flex;​ flex-direction:​ column;​ gap:​ 0px;​ --element-background-color:​ #ff8080;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 8px;​ --element-width:​ 100%;​ --element-min-height:​ 80px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 0px;​ --element-height:​ 205px;​ user-select:​ none;​ cursor:​ grab;​ --element-background:​ [object Object]​;​ z-index:​ 1000;​">​…​</div>​flex
+CanvasElement.tsx:1102    - Buttons: 1 Button: 0
+CanvasElement.tsx:1106    - Hand tool active - HTML5 drag should work
+CanvasElement.tsx:1100 🖱️ MOUSE DOWN on element: heading-1756250422500-t0f41v5ox Tool: hand Draggable: true
+CanvasElement.tsx:1101    - Target: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​1081:​6" data-component-name=​"div" draggable=​"true" title=​"DRAG TEST:​ Always draggable | Tool:​ hand | Editing:​ false" class=​"
+          selectable-block
+          canvas-element
+          heading-1756250422500
+          sibling-spacing-reset
+          
+          
+        " data-state=​"selected" data-locked=​"false" data-invalid=​"false" aria-selected=​"true" tabindex=​"0" data-element-id=​"heading-1756250422500-t0f41v5ox" data-container=​"false" data-accepts data-element-type=​"heading" data-testid=​"canvas-element-heading-1756250422500-t0f41v5ox" style=​"position:​ relative;​ width:​ 100%;​ height:​ 94px;​ min-height:​ 1.2em;​ font-size:​ 32px;​ font-weight:​ 700;​ color:​ rgb(17, 24, 39)​;​ padding:​ 8px;​ display:​ block;​ line-height:​ 1.2;​ margin-bottom:​ 16px;​ --element-font-size:​ 32px;​ --element-font-weight:​ 700;​ --element-color:​ #111827;​ --element-padding:​ 8px;​ --element-display:​ block;​ --element-line-height:​ 1.2;​ --element-margin-bottom:​ 16px;​ --element-width:​ 100%;​ --element-height:​ 94px;​ user-select:​ none;​ cursor:​ grab;​ z-index:​ 1000;​">​…​</div>​ CurrentTarget: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​1081:​6" data-component-name=​"div" draggable=​"true" title=​"DRAG TEST:​ Always draggable | Tool:​ hand | Editing:​ false" class=​"
+          selectable-block
+          canvas-element
+          heading-1756250422500
+          sibling-spacing-reset
+          
+          
+        " data-state=​"selected" data-locked=​"false" data-invalid=​"false" aria-selected=​"true" tabindex=​"0" data-element-id=​"heading-1756250422500-t0f41v5ox" data-container=​"false" data-accepts data-element-type=​"heading" data-testid=​"canvas-element-heading-1756250422500-t0f41v5ox" style=​"position:​ relative;​ width:​ 100%;​ height:​ 94px;​ min-height:​ 1.2em;​ font-size:​ 32px;​ font-weight:​ 700;​ color:​ rgb(17, 24, 39)​;​ padding:​ 8px;​ display:​ block;​ line-height:​ 1.2;​ margin-bottom:​ 16px;​ --element-font-size:​ 32px;​ --element-font-weight:​ 700;​ --element-color:​ #111827;​ --element-padding:​ 8px;​ --element-display:​ block;​ --element-line-height:​ 1.2;​ --element-margin-bottom:​ 16px;​ --element-width:​ 100%;​ --element-height:​ 94px;​ user-select:​ none;​ cursor:​ grab;​ z-index:​ 1000;​">​…​</div>​
+CanvasElement.tsx:1102    - Buttons: 1 Button: 0
+CanvasElement.tsx:1106    - Hand tool active - HTML5 drag should work
+Canvas.tsx:899 🔄 OLD DRAG SYSTEM: Skipping because HTML5 drag active
+Canvas.tsx:899 🔄 OLD DRAG SYSTEM: Skipping because HTML5 drag active
+Canvas.tsx:899 🔄 OLD DRAG SYSTEM: Skipping because HTML5 drag active
+Canvas.tsx:899 🔄 OLD DRAG SYSTEM: Skipping because HTML5 drag active
+CanvasElement.tsx:1111 🚀🚀🚀 HTML5 DRAG STARTED!!! heading-1756250422500-t0f41v5ox Tool: hand
+CanvasElement.tsx:1112    - DataTransfer: DataTransfer {dropEffect: 'none', effectAllowed: 'uninitialized', items: DataTransferItemList, types: Array(0), files: FileList}
+CanvasElement.tsx:1113    - Target draggable: true
+CanvasElement.tsx:1133 🏁 HTML5 DRAG ENDED: heading-1756250422500-t0f41v5ox
+CanvasElement.tsx:1134    - DropEffect: none
+CanvasElement.tsx:1100 🖱️ MOUSE DOWN on element: heading-1756250422500-t0f41v5ox Tool: hand Draggable: false
+CanvasElement.tsx:1101    - Target: <h1 data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​410:​10" data-component-name=​"HeadingTag" class=​"h-full outline-none cursor-text text-element" style=​"min-height:​ inherit;​ padding:​ 4px;​ width:​ 100%;​ height:​ 100%;​ box-sizing:​ border-box;​ margin:​ 0px;​">​Gardiennage Maxime​</h1>​ CurrentTarget: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​1081:​6" data-component-name=​"div" draggable=​"true" title=​"DRAG TEST:​ Always draggable | Tool:​ hand | Editing:​ true" class=​"
+          selectable-block
+          canvas-element
+          heading-1756250422500
+          sibling-spacing-reset
+          
+          
+        " data-state=​"editing" data-locked=​"false" data-invalid=​"false" aria-selected=​"false" tabindex=​"0" data-element-id=​"heading-1756250422500-t0f41v5ox" data-container=​"false" data-accepts data-element-type=​"heading" data-testid=​"canvas-element-heading-1756250422500-t0f41v5ox" style=​"position:​ relative;​ width:​ 100%;​ height:​ 94px;​ min-height:​ 1.2em;​ font-size:​ 32px;​ font-weight:​ 700;​ color:​ rgb(17, 24, 39)​;​ padding:​ 8px;​ display:​ block;​ line-height:​ 1.2;​ margin-bottom:​ 16px;​ --element-font-size:​ 32px;​ --element-font-weight:​ 700;​ --element-color:​ #111827;​ --element-padding:​ 8px;​ --element-display:​ block;​ --element-line-height:​ 1.2;​ --element-margin-bottom:​ 16px;​ --element-width:​ 100%;​ --element-height:​ 94px;​ user-select:​ none;​ cursor:​ default;​ z-index:​ 1000;​">​…​</div>​
+CanvasElement.tsx:1102    - Buttons: 1 Button: 0
+CanvasElement.tsx:1106    - Hand tool active - HTML5 drag should work
+Canvas.tsx:899 🔄 OLD DRAG SYSTEM: Skipping because HTML5 drag active
+Canvas.tsx:899 🔄 OLD DRAG SYSTEM: Skipping because HTML5 drag active
+CanvasElement.tsx:1111 🚀🚀🚀 HTML5 DRAG STARTED!!! heading-1756250422500-t0f41v5ox Tool: hand
+CanvasElement.tsx:1112    - DataTransfer: DataTransfer {dropEffect: 'none', effectAllowed: 'uninitialized', items: DataTransferItemList, types: Array(0), files: FileList}
+CanvasElement.tsx:1113    - Target draggable: true
+CanvasElement.tsx:1133 🏁 HTML5 DRAG ENDED: heading-1756250422500-t0f41v5ox
+CanvasElement.tsx:1134    - DropEffect: none
+CanvasElement.tsx:1100 🖱️ MOUSE DOWN on element: rectangle-1756255896372-e88tj8ic2 Tool: hand Draggable: true
+CanvasElement.tsx:1101    - Target: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​1081:​6" data-component-name=​"div" draggable=​"true" title=​"DRAG TEST:​ Always draggable | Tool:​ hand | Editing:​ false" class=​"
+          selectable-block
+          canvas-element
+          rectangle-1756255896372
+          sibling-spacing-reset
+          
+          
+        " data-state=​"selected" data-locked=​"false" data-invalid=​"false" aria-selected=​"true" tabindex=​"0" data-element-id=​"rectangle-1756255896372-e88tj8ic2" data-container=​"true" data-accepts=​"text,image,button,rectangle,heading,container" data-element-type=​"rectangle" data-testid=​"canvas-element-rectangle-1756255896372-e88tj8ic2" style=​"position:​ relative;​ width:​ 100%;​ height:​ 100%;​ min-height:​ 253px;​ background-color:​ rgb(243, 244, 246)​;​ border:​ 1px solid rgb(209, 213, 219)​;​ border-radius:​ 6px;​ padding:​ 8px;​ display:​ flex;​ flex-direction:​ column;​ gap:​ 0px;​ --element-background-color:​ #f3f4f6;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 8px;​ --element-width:​ 100%;​ --element-min-height:​ 253px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 0px;​ --element-height:​ 100%;​ user-select:​ none;​ cursor:​ grab;​ z-index:​ 1000;​">​…​</div>​flex CurrentTarget: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​1081:​6" data-component-name=​"div" draggable=​"true" title=​"DRAG TEST:​ Always draggable | Tool:​ hand | Editing:​ false" class=​"
+          selectable-block
+          canvas-element
+          rectangle-1756255896372
+          sibling-spacing-reset
+          
+          
+        " data-state=​"selected" data-locked=​"false" data-invalid=​"false" aria-selected=​"true" tabindex=​"0" data-element-id=​"rectangle-1756255896372-e88tj8ic2" data-container=​"true" data-accepts=​"text,image,button,rectangle,heading,container" data-element-type=​"rectangle" data-testid=​"canvas-element-rectangle-1756255896372-e88tj8ic2" style=​"position:​ relative;​ width:​ 100%;​ height:​ 100%;​ min-height:​ 253px;​ background-color:​ rgb(243, 244, 246)​;​ border:​ 1px solid rgb(209, 213, 219)​;​ border-radius:​ 6px;​ padding:​ 8px;​ display:​ flex;​ flex-direction:​ column;​ gap:​ 0px;​ --element-background-color:​ #f3f4f6;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 8px;​ --element-width:​ 100%;​ --element-min-height:​ 253px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 0px;​ --element-height:​ 100%;​ user-select:​ none;​ cursor:​ grab;​ z-index:​ 1000;​">​…​</div>​flex
+CanvasElement.tsx:1102    - Buttons: 1 Button: 0
+CanvasElement.tsx:1106    - Hand tool active - HTML5 drag should work
+CanvasElement.tsx:1100 🖱️ MOUSE DOWN on element: image-1756257311949-qzrn0e7fl Tool: hand Draggable: true
+CanvasElement.tsx:1101    - Target: <img data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​527:​10" data-component-name=​"img" src=​"data:​image/​jpeg;​base64,/​9j…A9VP9K5WfXY5LXZPJhiTyvr6iv/​Z" alt=​"IMG_1476" class=​"h-full" style=​"object-fit:​ contain;​ object-position:​ center center;​ width:​ auto;​ max-width:​ 100%;​">​ CurrentTarget: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​1081:​6" data-component-name=​"div" draggable=​"true" title=​"DRAG TEST:​ Always draggable | Tool:​ hand | Editing:​ false" class=​"
+          selectable-block
+          canvas-element
+          image-1756257311949
+          sibling-spacing-reset
+          
+          
+        " data-state=​"selected" data-locked=​"false" data-invalid=​"false" aria-selected=​"true" tabindex=​"0" data-element-id=​"image-1756257311949-qzrn0e7fl" data-container=​"false" data-accepts data-element-type=​"image" data-testid=​"canvas-element-image-1756257311949-qzrn0e7fl" style=​"position:​ relative;​ width:​ 174px;​ height:​ 162px;​ min-height:​ 162px;​ background-color:​ transparent;​ border-radius:​ 6px;​ object-fit:​ cover;​ --element-background-color:​ transparent;​ --element-border-radius:​ 6px;​ --element-object-fit:​ cover;​ --element-width:​ 174px;​ --element-height:​ 162px;​ --element-min-height:​ 162px;​ user-select:​ none;​ cursor:​ grab;​ z-index:​ 1000;​">​…​</div>​flex
+CanvasElement.tsx:1102    - Buttons: 1 Button: 0
+CanvasElement.tsx:1106    - Hand tool active - HTML5 drag should work
+CanvasElement.tsx:1100 🖱️ MOUSE DOWN on element: rectangle-1756255896372-e88tj8ic2 Tool: hand Draggable: true
+CanvasElement.tsx:1101    - Target: <img data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​527:​10" data-component-name=​"img" src=​"data:​image/​jpeg;​base64,/​9j…A9VP9K5WfXY5LXZPJhiTyvr6iv/​Z" alt=​"IMG_1476" class=​"h-full" style=​"object-fit:​ contain;​ object-position:​ center center;​ width:​ auto;​ max-width:​ 100%;​">​ CurrentTarget: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​1081:​6" data-component-name=​"div" draggable=​"true" title=​"DRAG TEST:​ Always draggable | Tool:​ hand | Editing:​ false" class=​"
+          selectable-block
+          canvas-element
+          rectangle-1756255896372
+          sibling-spacing-reset
+          
+          
+        " data-state=​"idle" data-locked=​"false" data-invalid=​"false" aria-selected=​"false" tabindex=​"0" data-element-id=​"rectangle-1756255896372-e88tj8ic2" data-container=​"true" data-accepts=​"text,image,button,rectangle,heading,container" data-element-type=​"rectangle" data-testid=​"canvas-element-rectangle-1756255896372-e88tj8ic2" style=​"position:​ relative;​ width:​ 100%;​ height:​ 100%;​ min-height:​ 253px;​ background-color:​ rgb(243, 244, 246)​;​ border:​ 1px solid rgb(209, 213, 219)​;​ border-radius:​ 6px;​ padding:​ 8px;​ display:​ flex;​ flex-direction:​ column;​ gap:​ 0px;​ --element-background-color:​ #f3f4f6;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 8px;​ --element-width:​ 100%;​ --element-min-height:​ 253px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 0px;​ --element-height:​ 100%;​ user-select:​ none;​ cursor:​ grab;​ z-index:​ 100;​ outline:​ rgb(59, 130, 246)​ solid 2px;​ box-shadow:​ rgba(59, 130, 246, 0.3)​ 0px 0px 0px 1px;​">​…​</div>​flex
+CanvasElement.tsx:1102    - Buttons: 1 Button: 0
+CanvasElement.tsx:1106    - Hand tool active - HTML5 drag should work
+CanvasElement.tsx:1111 🚀🚀🚀 HTML5 DRAG STARTED!!! image-1756257311949-qzrn0e7fl Tool: hand
+CanvasElement.tsx:1112    - DataTransfer: DataTransfer {dropEffect: 'none', effectAllowed: 'uninitialized', items: DataTransferItemList, types: Array(0), files: FileList}
+CanvasElement.tsx:1113    - Target draggable: true
+CanvasElement.tsx:1111 🚀🚀🚀 HTML5 DRAG STARTED!!! rectangle-1756255896372-e88tj8ic2 Tool: hand
+CanvasElement.tsx:1112    - DataTransfer: DataTransfer {dropEffect: 'none', effectAllowed: 'move', items: DataTransferItemList, types: Array(2), files: FileList}
+CanvasElement.tsx:1113    - Target draggable: true
+CanvasElement.tsx:1133 🏁 HTML5 DRAG ENDED: image-1756257311949-qzrn0e7fl
+CanvasElement.tsx:1134    - DropEffect: none
+CanvasElement.tsx:1133 🏁 HTML5 DRAG ENDED: rectangle-1756255896372-e88tj8ic2
+CanvasElement.tsx:1134    - DropEffect: none
+CanvasElement.tsx:1100 🖱️ MOUSE DOWN on element: image-1756257311949-qzrn0e7fl Tool: hand Draggable: true
+CanvasElement.tsx:1101    - Target: <img data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​527:​10" data-component-name=​"img" src=​"data:​image/​jpeg;​base64,/​9j…A9VP9K5WfXY5LXZPJhiTyvr6iv/​Z" alt=​"IMG_1476" class=​"h-full" style=​"object-fit:​ contain;​ object-position:​ center center;​ width:​ auto;​ max-width:​ 100%;​">​ CurrentTarget: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​1081:​6" data-component-name=​"div" draggable=​"true" title=​"DRAG TEST:​ Always draggable | Tool:​ hand | Editing:​ false" class=​"
+          selectable-block
+          canvas-element
+          image-1756257311949
+          sibling-spacing-reset
+          
+          
+        " data-state=​"selected" data-locked=​"false" data-invalid=​"false" aria-selected=​"true" tabindex=​"0" data-element-id=​"image-1756257311949-qzrn0e7fl" data-container=​"false" data-accepts data-element-type=​"image" data-testid=​"canvas-element-image-1756257311949-qzrn0e7fl" style=​"position:​ relative;​ width:​ 174px;​ height:​ 162px;​ min-height:​ 162px;​ background-color:​ transparent;​ border-radius:​ 6px;​ object-fit:​ cover;​ --element-background-color:​ transparent;​ --element-border-radius:​ 6px;​ --element-object-fit:​ cover;​ --element-width:​ 174px;​ --element-height:​ 162px;​ --element-min-height:​ 162px;​ user-select:​ none;​ cursor:​ grab;​ z-index:​ 1000;​">​…​</div>​flex
+CanvasElement.tsx:1102    - Buttons: 1 Button: 0
+CanvasElement.tsx:1106    - Hand tool active - HTML5 drag should work
+CanvasElement.tsx:1100 🖱️ MOUSE DOWN on element: rectangle-1756255896372-e88tj8ic2 Tool: hand Draggable: true
+CanvasElement.tsx:1101    - Target: <img data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​527:​10" data-component-name=​"img" src=​"data:​image/​jpeg;​base64,/​9j…A9VP9K5WfXY5LXZPJhiTyvr6iv/​Z" alt=​"IMG_1476" class=​"h-full" style=​"object-fit:​ contain;​ object-position:​ center center;​ width:​ auto;​ max-width:​ 100%;​">​ CurrentTarget: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​1081:​6" data-component-name=​"div" draggable=​"true" title=​"DRAG TEST:​ Always draggable | Tool:​ hand | Editing:​ false" class=​"
+          selectable-block
+          canvas-element
+          rectangle-1756255896372
+          sibling-spacing-reset
+          
+          
+        " data-state=​"idle" data-locked=​"false" data-invalid=​"false" aria-selected=​"false" tabindex=​"0" data-element-id=​"rectangle-1756255896372-e88tj8ic2" data-container=​"true" data-accepts=​"text,image,button,rectangle,heading,container" data-element-type=​"rectangle" data-testid=​"canvas-element-rectangle-1756255896372-e88tj8ic2" style=​"position:​ relative;​ width:​ 100%;​ height:​ 100%;​ min-height:​ 253px;​ background-color:​ rgb(243, 244, 246)​;​ border:​ 1px solid rgb(209, 213, 219)​;​ border-radius:​ 6px;​ padding:​ 8px;​ display:​ flex;​ flex-direction:​ column;​ gap:​ 0px;​ --element-background-color:​ #f3f4f6;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 8px;​ --element-width:​ 100%;​ --element-min-height:​ 253px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 0px;​ --element-height:​ 100%;​ user-select:​ none;​ cursor:​ grab;​">​…​</div>​flex
+CanvasElement.tsx:1102    - Buttons: 1 Button: 0
+CanvasElement.tsx:1106    - Hand tool active - HTML5 drag should work
+Canvas.tsx:899 🔄 OLD DRAG SYSTEM: Skipping because HTML5 drag active
+Canvas.tsx:899 🔄 OLD DRAG SYSTEM: Skipping because HTML5 drag active
+Canvas.tsx:899 🔄 OLD DRAG SYSTEM: Skipping because HTML5 drag active
+CanvasElement.tsx:1111 🚀🚀🚀 HTML5 DRAG STARTED!!! image-1756257311949-qzrn0e7fl Tool: hand
+CanvasElement.tsx:1112    - DataTransfer: DataTransfer {dropEffect: 'none', effectAllowed: 'uninitialized', items: DataTransferItemList, types: Array(0), files: FileList}
+CanvasElement.tsx:1113    - Target draggable: true
+CanvasElement.tsx:1111 🚀🚀🚀 HTML5 DRAG STARTED!!! rectangle-1756255896372-e88tj8ic2 Tool: hand
+CanvasElement.tsx:1112    - DataTransfer: DataTransfer {dropEffect: 'none', effectAllowed: 'move', items: DataTransferItemList, types: Array(2), files: FileList}
+CanvasElement.tsx:1113    - Target draggable: true
+CanvasElement.tsx:1133 🏁 HTML5 DRAG ENDED: image-1756257311949-qzrn0e7fl
+CanvasElement.tsx:1134    - DropEffect: none
+CanvasElement.tsx:1133 🏁 HTML5 DRAG ENDED: rectangle-1756255896372-e88tj8ic2
+CanvasElement.tsx:1134    - DropEffect: none
