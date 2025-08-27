@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useMemo } from 'react';
+import React, { useEffect, useRef, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { selectCurrentElements } from '../../store/selectors';
+import { selectCurrentElements, selectIsDraggingForReorder } from '../../store/selectors';
 
 
 interface DragFeedbackProps {
@@ -16,6 +16,8 @@ const DragFeedback: React.FC<DragFeedbackProps> = React.memo(({
 }) => {
   const liveRegionRef = useRef<HTMLDivElement>(null);
   const currentElements = useSelector(selectCurrentElements);
+  const isDraggingForReorder = useSelector(selectIsDraggingForReorder);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   
   // Memoize announcement to prevent unnecessary calculations
   const announcement = useMemo(() => {
@@ -66,6 +68,21 @@ const DragFeedback: React.FC<DragFeedbackProps> = React.memo(({
     
     return () => clearTimeout(timer);
   }, [announcement]);
+
+  // Track mouse position for ghost object
+  useEffect(() => {
+    if (!isDraggingForReorder) return;
+    
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    };
+    
+    document.addEventListener('mousemove', handleMouseMove);
+    return () => document.removeEventListener('mousemove', handleMouseMove);
+  }, [isDraggingForReorder]);
+
+  // Get dragged element for ghost rendering
+  const draggedElement = draggedElementId ? currentElements[draggedElementId] : null;
   
   return (
     <>
@@ -77,6 +94,28 @@ const DragFeedback: React.FC<DragFeedbackProps> = React.memo(({
         className="sr-only"
         role="status"
       />
+      
+      {/* Ghost object during drag */}
+      {isDraggingForReorder && draggedElement && (
+        <div
+          className="fixed z-[10000] pointer-events-none opacity-70"
+          style={{
+            left: `${mousePosition.x + 10}px`,
+            top: `${mousePosition.y + 10}px`,
+            transform: 'translate(0, 0)'
+          }}
+        >
+          <div className="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded shadow-lg p-2 min-w-[100px] min-h-[30px] flex items-center justify-center text-sm font-medium text-gray-700 dark:text-gray-300">
+            {draggedElement.type === 'text' && draggedElement.content ? 
+              draggedElement.content.substring(0, 20) + (draggedElement.content.length > 20 ? '...' : '') :
+              draggedElement.type === 'button' && draggedElement.buttonText ?
+              draggedElement.buttonText :
+              draggedElement.type === 'image' ? 'Image' :
+              draggedElement.type.charAt(0).toUpperCase() + draggedElement.type.slice(1)
+            }
+          </div>
+        </div>
+      )}
       
       {/* Visual feedback tooltip */}
       {hoveredElementId && hoveredZone && (

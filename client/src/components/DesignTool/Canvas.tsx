@@ -735,22 +735,11 @@ const Canvas: React.FC = () => {
     // Track mouse position for drag operations
     lastMousePos.current = { x: e.clientX, y: e.clientY };
     
-    // Simple coordinate conversion with clamping to prevent ghost growth
-    const rawX = (e.clientX - rect.left) / zoomLevel;
-    const rawY = (e.clientY - rect.top) / zoomLevel;
+    // Allow unconstrained coordinates for natural drawing outside canvas
+    const x = (e.clientX - rect.left) / zoomLevel;
+    const y = (e.clientY - rect.top) / zoomLevel;
     
-    // Clamp coordinates to canvas bounds to prevent artifacts
-    const canvasWidth = rect.width / zoomLevel;
-    const canvasHeight = rect.height / zoomLevel;
-    const { x, y, clamped } = clampToCanvas(rawX, rawY, canvasWidth, canvasHeight);
-    
-    // Allow drawing to continue even when near edges (less restrictive)
-    // Only stop if coordinates are severely out of bounds
-    if (clamped && (x < -100 || y < -100 || x > canvasWidth + 100 || y > canvasHeight + 100)) {
-      return; // Don't update drawing state when severely out of bounds
-    }
-    
-    // Handle active drawing
+    // Handle active drawing - no constraints, allow expansion
     if (drawingState) {
       setDrawingState(prev => prev ? {
         ...prev,
@@ -911,6 +900,8 @@ const Canvas: React.FC = () => {
         const draggedElement = currentElements[draggedElementId];
         if (!draggedElement) return;
         
+        console.log('Drag visual feedback - dragging:', draggedElement.id, 'at:', { x: e.clientX, y: e.clientY });
+        
         // Get candidate containers for the dragged element
         const candidateIds = getCandidateContainerIds({ x: e.clientX, y: e.clientY });
         const draggedMeta = createComponentMeta(draggedElement);
@@ -965,6 +956,8 @@ const Canvas: React.FC = () => {
         );
         
         if (drop) {
+          console.log('Drag drop zone found:', drop);
+          
           // Convert new DnD format to old insertion zone format for compatibility
           const insertionZone = {
             elementId: drop.parentId,
@@ -993,6 +986,7 @@ const Canvas: React.FC = () => {
             setExpandedContainerId(drop.parentId);
           }
         } else {
+          console.log('Drag no valid drop zone found');
           // No valid drop location found, clear feedback
           setHoveredElementId(null);
           setHoveredZone(null);
@@ -1151,6 +1145,8 @@ const Canvas: React.FC = () => {
       );
       
       if (drop) {
+        console.log('Mouse up - valid drop found:', drop, 'for element:', draggedElementId);
+        
         // Convert new DnD format to reorder parameters
         let insertPosition: 'before' | 'after' | 'inside' = drop.kind === "into" ? 'inside' : 'before';
         let referenceElementId: string | undefined;
@@ -1167,6 +1163,13 @@ const Canvas: React.FC = () => {
           }
         }
         
+        console.log('Mouse up - performing reorder:', {
+          elementId: draggedElementId,
+          newParentId: drop.parentId,
+          insertPosition,
+          referenceElementId
+        });
+        
         // Perform the reordering using validated drop location
         dispatch(reorderElement({
           elementId: draggedElementId,
@@ -1175,6 +1178,7 @@ const Canvas: React.FC = () => {
           referenceElementId
         }));
       } else {
+        console.log('Mouse up - no valid drop found, falling back to root for element:', draggedElementId);
         // Fallback to root insertion if no valid drop found
         dispatch(reorderElement({
           elementId: draggedElementId,
