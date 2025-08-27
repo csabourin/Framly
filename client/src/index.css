@@ -238,7 +238,6 @@
   opacity: 1;
   background: color-mix(in oklab, oklch(60% 0.20 265), transparent 85%);
   box-shadow: 0 0 0 2px oklch(60% 0.20 265);
-  animation: insertion-highlight-appear 150ms cubic-bezier(0.2, 0.7, 0, 1);
 }
 
 /* When element is the active sibling drop target (green line) */
@@ -246,15 +245,14 @@
 .canvas-element[data-drop-target="after"]::after {
   content: "";
   position: absolute;
-  left: -8px;  /* Extend beyond element bounds */
-  right: -8px; /* Extend beyond element bounds */
+  left: 0;
+  right: 0;
   height: 3px;
   background: oklch(75% 0.17 142);
   border-radius: 999px;
   z-index: 4;
   pointer-events: none;
-  box-shadow: 0 0 8px color-mix(in oklab, oklch(75% 0.17 142), transparent 40%);
-  animation: insertion-line-appear 150ms cubic-bezier(0.2, 0.7, 0, 1);
+  box-shadow: 0 0 6px color-mix(in oklab, oklch(75% 0.17 142), transparent 50%);
 }
 
 .canvas-element[data-drop-target="before"]::before {
@@ -263,29 +261,6 @@
 
 .canvas-element[data-drop-target="after"]::after {
   bottom: -2px;
-}
-
-/* Smooth animations for insertion feedback */
-@keyframes insertion-line-appear {
-  from {
-    opacity: 0;
-    transform: scaleX(0.8);
-  }
-  to {
-    opacity: 1;
-    transform: scaleX(1);
-  }
-}
-
-@keyframes insertion-highlight-appear {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
 }
 
 /* Professional line indicators for before/after drops */
