@@ -1,0 +1,2606 @@
+client:495 [vite] connecting...
+client:618 [vite] connected.
+react-dom.development.js:29895 Download the React DevTools for a better development experience: https://reactjs.org/link/react-devtools
+useComponentPropagation.ts:15  The result function returned its own inputs without modification. e.g
+`createSelector([state => state.todos], todos => todos)`
+This could lead to inefficient memoization and unnecessary re-renders.
+Ensure transformation logic is in the result function, and extraction logic is in the input selectors. {stack: 'Error\n    at Object.runIdentityFunctionCheck [as r…dules/.vite/deps/react-redux.js?v=b492906c:60:21)'}
+runIdentityFunctionCheck @ identityFunctionCheck.ts:44
+dependenciesChecker @ createSelectorCreator.ts:418
+memoized @ weakMapMemoize.ts:228
+memoized @ useSelector.ts:171
+memoizedSelector @ use-sync-external-store-with-selector.development.js:46
+(anonymous) @ use-sync-external-store-with-selector.development.js:70
+mountSyncExternalStore @ react-dom.development.js:15980
+useSyncExternalStore @ react-dom.development.js:16908
+useSyncExternalStore @ react.development.js:1676
+exports.useSyncExternalStoreWithSelector @ use-sync-external-store-with-selector.development.js:81
+useSelector2 @ useSelector.ts:243
+useComponentPropagation @ useComponentPropagation.ts:15
+DesignToolContent @ index.tsx:36
+renderWithHooks @ react-dom.development.js:15486
+mountIndeterminateComponent @ react-dom.development.js:20103
+beginWork @ react-dom.development.js:21626
+beginWork$1 @ react-dom.development.js:27465
+performUnitOfWork @ react-dom.development.js:26596
+workLoopSync @ react-dom.development.js:26505
+renderRootSync @ react-dom.development.js:26473
+performConcurrentWorkOnRoot @ react-dom.development.js:25777
+workLoop @ scheduler.development.js:266
+flushWork @ scheduler.development.js:239
+performWorkUntilDeadline @ scheduler.development.js:533
+index.tsx:51  The result function returned its own inputs without modification. e.g
+`createSelector([state => state.todos], todos => todos)`
+This could lead to inefficient memoization and unnecessary re-renders.
+Ensure transformation logic is in the result function, and extraction logic is in the input selectors. {stack: 'Error\n    at Object.runIdentityFunctionCheck [as r…dules/.vite/deps/react-redux.js?v=b492906c:60:21)'}
+runIdentityFunctionCheck @ identityFunctionCheck.ts:44
+dependenciesChecker @ createSelectorCreator.ts:418
+memoized @ weakMapMemoize.ts:228
+memoized @ useSelector.ts:171
+memoizedSelector @ use-sync-external-store-with-selector.development.js:46
+(anonymous) @ use-sync-external-store-with-selector.development.js:70
+mountSyncExternalStore @ react-dom.development.js:15980
+useSyncExternalStore @ react-dom.development.js:16908
+useSyncExternalStore @ react.development.js:1676
+exports.useSyncExternalStoreWithSelector @ use-sync-external-store-with-selector.development.js:81
+useSelector2 @ useSelector.ts:243
+DesignToolContent @ index.tsx:51
+renderWithHooks @ react-dom.development.js:15486
+mountIndeterminateComponent @ react-dom.development.js:20103
+beginWork @ react-dom.development.js:21626
+beginWork$1 @ react-dom.development.js:27465
+performUnitOfWork @ react-dom.development.js:26596
+workLoopSync @ react-dom.development.js:26505
+renderRootSync @ react-dom.development.js:26473
+performConcurrentWorkOnRoot @ react-dom.development.js:25777
+workLoop @ scheduler.development.js:266
+flushWork @ scheduler.development.js:239
+performWorkUntilDeadline @ scheduler.development.js:533
+Canvas.tsx:83  The result function returned its own inputs without modification. e.g
+`createSelector([state => state.todos], todos => todos)`
+This could lead to inefficient memoization and unnecessary re-renders.
+Ensure transformation logic is in the result function, and extraction logic is in the input selectors. {stack: 'Error\n    at Object.runIdentityFunctionCheck [as r…dules/.vite/deps/react-redux.js?v=b492906c:60:21)'}
+runIdentityFunctionCheck @ identityFunctionCheck.ts:44
+dependenciesChecker @ createSelectorCreator.ts:418
+memoized @ weakMapMemoize.ts:228
+memoized @ useSelector.ts:171
+memoizedSelector @ use-sync-external-store-with-selector.development.js:46
+(anonymous) @ use-sync-external-store-with-selector.development.js:70
+mountSyncExternalStore @ react-dom.development.js:15980
+useSyncExternalStore @ react-dom.development.js:16908
+useSyncExternalStore @ react.development.js:1676
+exports.useSyncExternalStoreWithSelector @ use-sync-external-store-with-selector.development.js:81
+useSelector2 @ useSelector.ts:243
+Canvas @ Canvas.tsx:83
+renderWithHooks @ react-dom.development.js:15486
+mountIndeterminateComponent @ react-dom.development.js:20103
+beginWork @ react-dom.development.js:21626
+beginWork$1 @ react-dom.development.js:27465
+performUnitOfWork @ react-dom.development.js:26596
+workLoopSync @ react-dom.development.js:26505
+renderRootSync @ react-dom.development.js:26473
+performConcurrentWorkOnRoot @ react-dom.development.js:25777
+workLoop @ scheduler.development.js:266
+flushWork @ scheduler.development.js:239
+performWorkUntilDeadline @ scheduler.development.js:533
+Canvas.tsx:84  The result function returned its own inputs without modification. e.g
+`createSelector([state => state.todos], todos => todos)`
+This could lead to inefficient memoization and unnecessary re-renders.
+Ensure transformation logic is in the result function, and extraction logic is in the input selectors. {stack: 'Error\n    at Object.runIdentityFunctionCheck [as r…dules/.vite/deps/react-redux.js?v=b492906c:60:21)'}
+runIdentityFunctionCheck @ identityFunctionCheck.ts:44
+dependenciesChecker @ createSelectorCreator.ts:418
+memoized @ weakMapMemoize.ts:228
+memoized @ useSelector.ts:171
+memoizedSelector @ use-sync-external-store-with-selector.development.js:46
+(anonymous) @ use-sync-external-store-with-selector.development.js:70
+mountSyncExternalStore @ react-dom.development.js:15980
+useSyncExternalStore @ react-dom.development.js:16908
+useSyncExternalStore @ react.development.js:1676
+exports.useSyncExternalStoreWithSelector @ use-sync-external-store-with-selector.development.js:81
+useSelector2 @ useSelector.ts:243
+Canvas @ Canvas.tsx:84
+renderWithHooks @ react-dom.development.js:15486
+mountIndeterminateComponent @ react-dom.development.js:20103
+beginWork @ react-dom.development.js:21626
+beginWork$1 @ react-dom.development.js:27465
+performUnitOfWork @ react-dom.development.js:26596
+workLoopSync @ react-dom.development.js:26505
+renderRootSync @ react-dom.development.js:26473
+performConcurrentWorkOnRoot @ react-dom.development.js:25777
+workLoop @ scheduler.development.js:266
+flushWork @ scheduler.development.js:239
+performWorkUntilDeadline @ scheduler.development.js:533
+Canvas.tsx:85  The result function returned its own inputs without modification. e.g
+`createSelector([state => state.todos], todos => todos)`
+This could lead to inefficient memoization and unnecessary re-renders.
+Ensure transformation logic is in the result function, and extraction logic is in the input selectors. {stack: 'Error\n    at Object.runIdentityFunctionCheck [as r…dules/.vite/deps/react-redux.js?v=b492906c:60:21)'}
+runIdentityFunctionCheck @ identityFunctionCheck.ts:44
+dependenciesChecker @ createSelectorCreator.ts:418
+memoized @ weakMapMemoize.ts:228
+memoized @ useSelector.ts:171
+memoizedSelector @ use-sync-external-store-with-selector.development.js:46
+(anonymous) @ use-sync-external-store-with-selector.development.js:70
+mountSyncExternalStore @ react-dom.development.js:15980
+useSyncExternalStore @ react-dom.development.js:16908
+useSyncExternalStore @ react.development.js:1676
+exports.useSyncExternalStoreWithSelector @ use-sync-external-store-with-selector.development.js:81
+useSelector2 @ useSelector.ts:243
+Canvas @ Canvas.tsx:85
+renderWithHooks @ react-dom.development.js:15486
+mountIndeterminateComponent @ react-dom.development.js:20103
+beginWork @ react-dom.development.js:21626
+beginWork$1 @ react-dom.development.js:27465
+performUnitOfWork @ react-dom.development.js:26596
+workLoopSync @ react-dom.development.js:26505
+renderRootSync @ react-dom.development.js:26473
+performConcurrentWorkOnRoot @ react-dom.development.js:25777
+workLoop @ scheduler.development.js:266
+flushWork @ scheduler.development.js:239
+performWorkUntilDeadline @ scheduler.development.js:533
+Canvas.tsx:86  The result function returned its own inputs without modification. e.g
+`createSelector([state => state.todos], todos => todos)`
+This could lead to inefficient memoization and unnecessary re-renders.
+Ensure transformation logic is in the result function, and extraction logic is in the input selectors. {stack: 'Error\n    at Object.runIdentityFunctionCheck [as r…dules/.vite/deps/react-redux.js?v=b492906c:60:21)'}
+runIdentityFunctionCheck @ identityFunctionCheck.ts:44
+dependenciesChecker @ createSelectorCreator.ts:418
+memoized @ weakMapMemoize.ts:228
+memoized @ useSelector.ts:171
+memoizedSelector @ use-sync-external-store-with-selector.development.js:46
+(anonymous) @ use-sync-external-store-with-selector.development.js:70
+mountSyncExternalStore @ react-dom.development.js:15980
+useSyncExternalStore @ react-dom.development.js:16908
+useSyncExternalStore @ react.development.js:1676
+exports.useSyncExternalStoreWithSelector @ use-sync-external-store-with-selector.development.js:81
+useSelector2 @ useSelector.ts:243
+Canvas @ Canvas.tsx:86
+renderWithHooks @ react-dom.development.js:15486
+mountIndeterminateComponent @ react-dom.development.js:20103
+beginWork @ react-dom.development.js:21626
+beginWork$1 @ react-dom.development.js:27465
+performUnitOfWork @ react-dom.development.js:26596
+workLoopSync @ react-dom.development.js:26505
+renderRootSync @ react-dom.development.js:26473
+performConcurrentWorkOnRoot @ react-dom.development.js:25777
+workLoop @ scheduler.development.js:266
+flushWork @ scheduler.development.js:239
+performWorkUntilDeadline @ scheduler.development.js:533
+CanvasElement.tsx:47  The result function returned its own inputs without modification. e.g
+`createSelector([state => state.todos], todos => todos)`
+This could lead to inefficient memoization and unnecessary re-renders.
+Ensure transformation logic is in the result function, and extraction logic is in the input selectors. {stack: 'Error\n    at Object.runIdentityFunctionCheck [as r…dules/.vite/deps/react-redux.js?v=b492906c:60:21)'}
+runIdentityFunctionCheck @ identityFunctionCheck.ts:44
+dependenciesChecker @ createSelectorCreator.ts:418
+memoized @ weakMapMemoize.ts:228
+memoized @ useSelector.ts:171
+memoizedSelector @ use-sync-external-store-with-selector.development.js:46
+(anonymous) @ use-sync-external-store-with-selector.development.js:70
+mountSyncExternalStore @ react-dom.development.js:15980
+useSyncExternalStore @ react-dom.development.js:16908
+useSyncExternalStore @ react.development.js:1676
+exports.useSyncExternalStoreWithSelector @ use-sync-external-store-with-selector.development.js:81
+useSelector2 @ useSelector.ts:243
+CanvasElement @ CanvasElement.tsx:47
+renderWithHooks @ react-dom.development.js:15486
+updateFunctionComponent @ react-dom.development.js:19617
+updateSimpleMemoComponent @ react-dom.development.js:19454
+updateMemoComponent @ react-dom.development.js:19303
+beginWork @ react-dom.development.js:21712
+beginWork$1 @ react-dom.development.js:27465
+performUnitOfWork @ react-dom.development.js:26596
+workLoopSync @ react-dom.development.js:26505
+renderRootSync @ react-dom.development.js:26473
+performConcurrentWorkOnRoot @ react-dom.development.js:25777
+workLoop @ scheduler.development.js:266
+flushWork @ scheduler.development.js:239
+performWorkUntilDeadline @ scheduler.development.js:533
+CanvasElement.tsx:48  The result function returned its own inputs without modification. e.g
+`createSelector([state => state.todos], todos => todos)`
+This could lead to inefficient memoization and unnecessary re-renders.
+Ensure transformation logic is in the result function, and extraction logic is in the input selectors. {stack: 'Error\n    at Object.runIdentityFunctionCheck [as r…dules/.vite/deps/react-redux.js?v=b492906c:60:21)'}
+runIdentityFunctionCheck @ identityFunctionCheck.ts:44
+dependenciesChecker @ createSelectorCreator.ts:418
+memoized @ weakMapMemoize.ts:228
+memoized @ useSelector.ts:171
+memoizedSelector @ use-sync-external-store-with-selector.development.js:46
+(anonymous) @ use-sync-external-store-with-selector.development.js:70
+mountSyncExternalStore @ react-dom.development.js:15980
+useSyncExternalStore @ react-dom.development.js:16908
+useSyncExternalStore @ react.development.js:1676
+exports.useSyncExternalStoreWithSelector @ use-sync-external-store-with-selector.development.js:81
+useSelector2 @ useSelector.ts:243
+CanvasElement @ CanvasElement.tsx:48
+renderWithHooks @ react-dom.development.js:15486
+updateFunctionComponent @ react-dom.development.js:19617
+updateSimpleMemoComponent @ react-dom.development.js:19454
+updateMemoComponent @ react-dom.development.js:19303
+beginWork @ react-dom.development.js:21712
+beginWork$1 @ react-dom.development.js:27465
+performUnitOfWork @ react-dom.development.js:26596
+workLoopSync @ react-dom.development.js:26505
+renderRootSync @ react-dom.development.js:26473
+performConcurrentWorkOnRoot @ react-dom.development.js:25777
+workLoop @ scheduler.development.js:266
+flushWork @ scheduler.development.js:239
+performWorkUntilDeadline @ scheduler.development.js:533
+CanvasElement.tsx:49  The result function returned its own inputs without modification. e.g
+`createSelector([state => state.todos], todos => todos)`
+This could lead to inefficient memoization and unnecessary re-renders.
+Ensure transformation logic is in the result function, and extraction logic is in the input selectors. {stack: 'Error\n    at Object.runIdentityFunctionCheck [as r…dules/.vite/deps/react-redux.js?v=b492906c:60:21)'}
+runIdentityFunctionCheck @ identityFunctionCheck.ts:44
+dependenciesChecker @ createSelectorCreator.ts:418
+memoized @ weakMapMemoize.ts:228
+memoized @ useSelector.ts:171
+memoizedSelector @ use-sync-external-store-with-selector.development.js:46
+(anonymous) @ use-sync-external-store-with-selector.development.js:70
+mountSyncExternalStore @ react-dom.development.js:15980
+useSyncExternalStore @ react-dom.development.js:16908
+useSyncExternalStore @ react.development.js:1676
+exports.useSyncExternalStoreWithSelector @ use-sync-external-store-with-selector.development.js:81
+useSelector2 @ useSelector.ts:243
+CanvasElement @ CanvasElement.tsx:49
+renderWithHooks @ react-dom.development.js:15486
+updateFunctionComponent @ react-dom.development.js:19617
+updateSimpleMemoComponent @ react-dom.development.js:19454
+updateMemoComponent @ react-dom.development.js:19303
+beginWork @ react-dom.development.js:21712
+beginWork$1 @ react-dom.development.js:27465
+performUnitOfWork @ react-dom.development.js:26596
+workLoopSync @ react-dom.development.js:26505
+renderRootSync @ react-dom.development.js:26473
+performConcurrentWorkOnRoot @ react-dom.development.js:25777
+workLoop @ scheduler.development.js:266
+flushWork @ scheduler.development.js:239
+performWorkUntilDeadline @ scheduler.development.js:533
+CreateComponentModal.tsx:39  The result function returned its own inputs without modification. e.g
+`createSelector([state => state.todos], todos => todos)`
+This could lead to inefficient memoization and unnecessary re-renders.
+Ensure transformation logic is in the result function, and extraction logic is in the input selectors. {stack: 'Error\n    at Object.runIdentityFunctionCheck [as r…dules/.vite/deps/react-redux.js?v=b492906c:60:21)'}
+runIdentityFunctionCheck @ identityFunctionCheck.ts:44
+dependenciesChecker @ createSelectorCreator.ts:418
+memoized @ weakMapMemoize.ts:228
+memoized @ useSelector.ts:171
+memoizedSelector @ use-sync-external-store-with-selector.development.js:46
+(anonymous) @ use-sync-external-store-with-selector.development.js:70
+mountSyncExternalStore @ react-dom.development.js:15980
+useSyncExternalStore @ react-dom.development.js:16908
+useSyncExternalStore @ react.development.js:1676
+exports.useSyncExternalStoreWithSelector @ use-sync-external-store-with-selector.development.js:81
+useSelector2 @ useSelector.ts:243
+CreateComponentModal @ CreateComponentModal.tsx:39
+renderWithHooks @ react-dom.development.js:15486
+mountIndeterminateComponent @ react-dom.development.js:20103
+beginWork @ react-dom.development.js:21626
+beginWork$1 @ react-dom.development.js:27465
+performUnitOfWork @ react-dom.development.js:26596
+workLoopSync @ react-dom.development.js:26505
+renderRootSync @ react-dom.development.js:26473
+performConcurrentWorkOnRoot @ react-dom.development.js:25777
+workLoop @ scheduler.development.js:266
+flushWork @ scheduler.development.js:239
+performWorkUntilDeadline @ scheduler.development.js:533
+(index):1 Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+CanvasElement.tsx:1108 DRAG START EVENT FIRED: rectangle-1756250466856-veobcplsp Tool: hand Editing: false ComponentChild: undefined
+CanvasElement.tsx:187 DRAG START: rectangle-1756250466856-veobcplsp
+(index):1 Autofocus processing was blocked because a document already has a focused element.
+Canvas.tsx:1210 DRAG OVER: 958 582
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 960 581
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 962 580
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 963 579
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 964 578
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 964 578
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 965 577
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 967 576
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 967 576
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 969 574
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 970 572
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 971 572
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 971 572
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 973 571
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 973 571
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 973 569
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 974 569
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 974 569
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 975 568
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 976 567
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 976 567
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 977 567
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 977 566
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 977 566
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 978 566
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 979 565
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 979 565
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 979 564
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 982 562
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 982 562
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 983 561
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 986 560
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 989 557
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 989 557
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 991 555
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 992 555
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 992 555
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 995 552
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 997 552
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 997 552
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 997 551
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 999 550
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 999 550
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1000 549
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1000 549
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1001 549
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1001 548
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1001 548
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1002 548
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1002 547
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1002 547
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1003 547
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1003 547
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1004 546
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1004 546
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1006 545
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1006 544
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1006 544
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1007 543
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1009 542
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1009 542
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1010 542
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1014 539
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1014 539
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1015 538
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1016 537
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1016 537
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1018 536
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1019 535
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1019 535
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1020 534
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1023 533
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1023 533
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1024 532
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1025 532
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1025 532
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1025 531
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1026 530
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1026 530
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1027 530
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1027 530
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1028 529
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1029 529
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1029 529
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1029 528
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1030 528
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1030 528
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1031 527
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1031 527
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1032 526
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1033 526
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1033 526
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1033 525
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1034 525
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1034 525
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1036 524
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1036 524
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1037 523
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1038 522
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1038 522
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1039 521
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1039 521
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1041 520
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1041 520
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1042 520
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1042 519
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1042 519
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1043 519
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1044 518
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1044 518
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1046 517
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1047 515
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1049 514
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1049 514
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1052 512
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1054 510
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1054 510
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1056 508
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1058 506
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1058 506
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1060 505
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1060 504
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1060 504
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1061 504
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1062 503
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1062 503
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1062 502
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1063 502
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1063 502
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1063 501
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1063 501
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1064 501
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1064 500
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1064 500
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1064 499
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1064 499
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1065 498
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1065 498
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1065 497
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1065 497
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1065 496
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1065 495
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1065 495
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1065 494
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1065 493
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1065 493
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1065 492
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1065 491
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1065 490
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1065 490
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1065 487
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1065 485
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1065 485
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1065 483
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1065 481
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1065 481
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1065 479
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1065 478
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1065 478
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1065 474
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1065 473
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1065 473
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1065 472
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1065 472
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1065 470
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1065 469
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1065 468
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1065 467
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1065 467
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1065 466
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1065 466
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1065 465
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1065 465
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1065 465
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1065 465
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1066 465
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1066 465
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1066 470
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1066 474
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1066 474
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1067 478
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1067 483
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1067 483
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1068 486
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1068 492
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1068 492
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1069 499
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1069 507
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1069 507
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1069 513
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1070 516
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1070 516
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1070 522
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1070 526
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1070 530
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1070 531
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1070 531
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1070 535
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1070 537
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1070 537
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1070 543
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1069 548
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1069 548
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1068 551
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1066 564
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1064 579
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1062 588
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1062 593
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1062 593
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1060 602
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1059 605
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1059 605
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1059 610
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1057 617
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1057 617
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1057 620
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1055 624
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1055 624
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1055 626
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1054 628
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1054 628
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1053 632
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1053 634
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1053 634
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1052 638
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1050 645
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1050 645
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1049 647
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1048 650
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1048 650
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1047 653
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1044 660
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1044 660
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1044 663
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1041 669
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1039 675
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1038 678
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1038 678
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1037 680
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1036 682
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1036 682
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1034 689
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1033 692
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1032 694
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1031 697
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1031 697
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1029 704
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1029 704
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1027 712
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1026 714
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1026 714
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1025 716
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1025 718
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1025 718
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1024 721
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1023 723
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1023 723
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1022 725
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1022 727
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1022 727
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1021 730
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1020 733
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1020 733
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1020 734
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1019 736
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1019 736
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1019 737
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1018 740
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1018 740
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1017 742
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1017 743
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1017 743
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1016 745
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1015 747
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1015 747
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1014 748
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1014 750
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1013 751
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1012 753
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1012 753
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1012 754
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1012 754
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1012 754
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1011 754
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1011 755
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1011 755
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1011 756
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1011 756
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1010 757
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1010 759
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1009 760
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1009 761
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1009 761
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1007 764
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1007 765
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1007 765
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1006 766
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1005 767
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1005 767
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1004 769
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1004 769
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1003 771
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1003 771
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1002 773
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1002 773
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1001 774
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1000 775
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1000 775
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1000 776
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 999 778
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 997 780
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 997 781
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 995 784
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 995 784
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 995 785
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 993 787
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 993 787
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 992 789
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 992 789
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 992 789
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 992 789
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 992 789
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 992 789
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 992 788
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 992 788
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 992 787
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 993 786
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 993 786
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 993 785
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 993 784
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 993 784
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 994 783
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 994 782
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 994 782
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 995 781
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 995 781
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 995 780
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 995 780
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 996 780
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 996 779
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 996 779
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 996 778
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 996 778
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 997 777
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 997 776
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 997 776
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 997 775
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 998 773
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 999 773
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 999 770
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 999 770
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1000 769
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1001 768
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1001 768
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1001 766
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1002 765
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1002 764
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1002 764
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1002 763
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1003 763
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1003 763
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1003 762
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1003 762
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1004 761
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1004 760
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1004 760
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1004 759
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1004 759
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1004 758
+Canvas.tsx:1214 Candidate IDs: (3) ['text-1756255790426-yflp7n8m4', 'rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1004 758
+Canvas.tsx:1214 Candidate IDs: (3) ['text-1756255790426-yflp7n8m4', 'rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1004 756
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1004 756
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1004 755
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1004 755
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1004 754
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1004 753
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1004 753
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1004 752
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1004 752
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1004 751
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1004 751
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1003 751
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1003 751
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1002 751
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1002 751
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1001 751
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1001 751
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1001 751
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1000 751
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1000 751
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 999 752
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 999 754
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 999 754
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 998 757
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 997 759
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 996 761
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 995 764
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 995 764
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 993 767
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 992 770
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 990 778
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 990 778
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 988 783
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 986 787
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 986 789
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 985 793
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 984 798
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 982 804
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 982 805
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 982 805
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 981 809
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 979 813
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 979 813
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 979 815
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 978 819
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 978 819
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 978 821
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 977 825
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 977 825
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 976 830
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 976 831
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 976 831
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 975 833
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 974 838
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 974 838
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 972 847
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 972 847
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 972 849
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 971 851
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 971 851
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 969 856
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 969 858
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 969 858
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 969 861
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 968 865
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 968 865
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 967 866
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 967 867
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 966 870
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 966 870
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 966 870
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 966 870
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 966 870
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 966 869
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 966 868
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 966 867
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 966 866
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 966 866
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 966 864
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 965 863
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 965 863
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 965 862
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 965 862
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 964 862
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 964 862
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 964 862
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 963 862
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 963 862
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 963 861
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 962 861
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 962 861
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 962 861
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 962 861
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 962 861
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 962 861
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 962 861
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 963 861
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 963 861
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 964 861
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 965 861
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 965 861
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 966 861
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 966 861
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 967 861
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 967 861
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 968 861
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 968 861
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 969 861
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 969 861
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 969 862
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 969 862
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 969 862
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 969 862
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 969 862
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 969 862
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 969 862
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 969 862
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 969 862
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 969 862
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 969 862
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 969 862
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 969 862
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 969 862
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 969 862
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 969 862
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 969 862
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 969 862
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 969 862
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 970 862
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 970 862
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 971 862
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 971 862
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 971 863
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 971 863
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 972 863
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 972 863
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 973 863
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 973 863
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 974 863
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 974 863
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 974 863
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 975 863
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 975 863
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 976 864
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 976 864
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 976 865
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 977 865
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 977 865
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 977 865
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 978 866
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 978 867
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 978 867
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 979 868
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 979 868
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 980 869
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 980 869
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 981 870
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 981 871
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 981 871
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 982 872
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 982 872
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 983 874
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 983 874
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 984 874
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 984 875
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 984 875
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 984 876
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 984 876
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 985 877
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 985 877
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 985 878
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 985 878
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 986 879
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 986 879
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 986 881
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 986 881
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 987 883
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 988 884
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 988 884
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 988 886
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 990 889
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 991 891
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 991 891
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 991 892
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 992 893
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 992 893
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 993 895
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 993 896
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 993 896
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 995 900
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 996 902
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 996 902
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 997 904
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 997 905
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 997 905
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 998 908
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1000 911
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1000 911
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1001 914
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1003 917
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1003 917
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1005 921
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1006 924
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1006 924
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1011 933
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1011 933
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1011 935
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1013 938
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1013 938
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1014 941
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1014 943
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1014 943
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1015 945
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1016 948
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1016 948
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1016 950
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1016 953
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1016 953
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1017 956
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1017 961
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1017 961
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1017 965
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1017 970
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1017 970
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1017 974
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1015 987
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1014 991
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1014 991
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1013 994
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1012 998
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1012 998
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1009 1008
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1008 1012
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1008 1012
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1006 1016
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1006 1020
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1006 1020
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1004 1025
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1002 1029
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1002 1029
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 999 1037
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 998 1041
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 998 1041
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 997 1042
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 997 1043
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 996 1045
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 996 1045
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 996 1046
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 995 1046
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 995 1046
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 995 1047
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 994 1048
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 994 1048
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 994 1050
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 994 1050
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 993 1050
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 993 1051
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 993 1051
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 993 1051
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 993 1051
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 993 1051
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 993 1048
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 993 1048
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 994 1046
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 994 1046
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 995 1036
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 995 1036
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 997 1028
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 998 1022
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 998 1022
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 999 1017
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1002 1005
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1002 1005
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1002 998
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1003 991
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1003 991
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1004 983
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1004 975
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1004 975
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1006 965
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1007 954
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1007 954
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1008 944
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1010 930
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1010 930
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1012 909
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1012 909
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1013 892
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1015 872
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1015 872
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1018 847
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1021 818
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1023 809
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1026 794
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1029 782
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1031 773
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1031 773
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1034 760
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1038 745
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1038 745
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1040 735
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1042 726
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1042 726
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1046 715
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1046 710
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1046 710
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1051 687
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1053 675
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1054 670
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1054 670
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1057 645
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1057 645
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1058 641
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1060 628
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1060 628
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1061 622
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1064 609
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1064 609
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1064 603
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1066 590
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1066 590
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1067 583
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1068 566
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1071 539
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1071 539
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1072 525
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1072 519
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1072 519
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1072 505
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1072 499
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1072 499
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1072 495
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1072 485
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1072 485
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1072 480
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1071 477
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1071 477
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1070 468
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1070 465
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1070 465
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1069 462
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1067 457
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1067 457
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1066 455
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1066 453
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1066 453
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1066 452
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1065 449
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1065 449
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1064 447
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1063 446
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1063 446
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1063 445
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1062 441
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1062 441
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1061 440
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1061 440
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1061 439
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1061 438
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1061 438
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1060 437
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1060 437
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1060 436
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1060 435
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1060 435
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1059 434
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1058 430
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1057 429
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1057 429
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1057 427
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1057 425
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1057 425
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1056 422
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1056 419
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1056 419
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1055 411
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1055 409
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1055 409
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1055 404
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1055 403
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1055 403
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1055 399
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1055 399
+Canvas.tsx:1214 Candidate IDs: (2) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 1055 395
+Canvas.tsx:1214 Candidate IDs: []
+Canvas.tsx:1210 DRAG OVER: 1055 395
+Canvas.tsx:1214 Candidate IDs: []
+Canvas.tsx:1210 DRAG OVER: 1055 393
+Canvas.tsx:1214 Candidate IDs: []
+Canvas.tsx:1210 DRAG OVER: 1055 393
+Canvas.tsx:1214 Candidate IDs: []
+Canvas.tsx:1210 DRAG OVER: 1055 392
+Canvas.tsx:1214 Candidate IDs: []
+Canvas.tsx:1210 DRAG OVER: 1055 392
+Canvas.tsx:1214 Candidate IDs: []
+Canvas.tsx:1210 DRAG OVER: 1056 390
+Canvas.tsx:1214 Candidate IDs: []
+Canvas.tsx:1210 DRAG OVER: 1056 390
+Canvas.tsx:1214 Candidate IDs: []
+Canvas.tsx:1210 DRAG OVER: 1056 389
+Canvas.tsx:1214 Candidate IDs: []
+Canvas.tsx:1210 DRAG OVER: 1057 388
+Canvas.tsx:1214 Candidate IDs: []
+Canvas.tsx:1210 DRAG OVER: 1057 388
+Canvas.tsx:1214 Candidate IDs: []
+Canvas.tsx:1210 DRAG OVER: 1057 387
+Canvas.tsx:1214 Candidate IDs: []
+Canvas.tsx:1210 DRAG OVER: 1057 387
+Canvas.tsx:1214 Candidate IDs: []
+Canvas.tsx:1210 DRAG OVER: 1058 386
+Canvas.tsx:1214 Candidate IDs: []
+Canvas.tsx:1210 DRAG OVER: 1058 386
+Canvas.tsx:1214 Candidate IDs: []
+Canvas.tsx:1210 DRAG OVER: 1058 385
+Canvas.tsx:1214 Candidate IDs: []
+Canvas.tsx:1210 DRAG OVER: 1058 385
+Canvas.tsx:1214 Candidate IDs: []
+Canvas.tsx:1210 DRAG OVER: 1058 384
+Canvas.tsx:1214 Candidate IDs: []
+Canvas.tsx:1210 DRAG OVER: 1059 384
+Canvas.tsx:1214 Candidate IDs: []
+Canvas.tsx:1210 DRAG OVER: 1059 384
+Canvas.tsx:1214 Candidate IDs: []
+Canvas.tsx:1210 DRAG OVER: 1059 383
+Canvas.tsx:1214 Candidate IDs: []
+Canvas.tsx:1210 DRAG OVER: 1059 382
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1061 381
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1061 379
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1061 379
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1062 379
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1062 378
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1062 378
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1063 377
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1064 375
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1064 375
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1064 374
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1064 374
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1064 373
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1065 373
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1065 373
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1066 373
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1066 373
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1066 372
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1067 371
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1067 371
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1067 370
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1067 370
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1068 370
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1068 369
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1069 369
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1070 368
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1070 368
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1070 368
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1071 368
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1071 368
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1071 367
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1071 367
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1071 366
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1072 366
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1072 366
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1072 366
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1072 365
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1072 365
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1073 365
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1073 365
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1074 365
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1074 364
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1074 364
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1075 364
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1075 363
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1075 363
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1076 362
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1076 362
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1076 361
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1076 361
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1077 361
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1077 361
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1077 361
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1077 361
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1077 361
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1077 361
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1077 361
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1077 361
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1077 361
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1077 361
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1077 361
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+Canvas.tsx:1210 DRAG OVER: 1077 361
+Canvas.tsx:1214 Candidate IDs: ['heading-1756250422500-t0f41v5ox']
+CanvasElement.tsx:1108 DRAG START EVENT FIRED: rectangle-1756250466856-veobcplsp Tool: hand Editing: false ComponentChild: undefined
+CanvasElement.tsx:187 DRAG START: rectangle-1756250466856-veobcplsp
+Canvas.tsx:1210 DRAG OVER: 977 998
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756250466856-veobcplsp']
+Canvas.tsx:1210 DRAG OVER: 992 983
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1000 975
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1000 975
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1008 965
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1017 955
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1017 955
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1021 948
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1029 935
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1029 935
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1040 918
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1045 907
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1045 907
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1056 887
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1061 873
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1061 873
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1075 841
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1082 824
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1082 824
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1092 791
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1099 774
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1099 774
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1104 755
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1109 738
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1113 725
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1116 711
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1116 711
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1119 699
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1121 688
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1121 688
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1124 678
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1126 667
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1127 656
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1127 656
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1128 645
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1128 641
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1128 641
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1128 630
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1128 621
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1128 611
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1128 606
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1128 606
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1128 596
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1128 585
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1128 585
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1127 581
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1126 569
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1126 569
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1122 555
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1122 550
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1122 550
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1117 530
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1117 530
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1114 517
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1113 511
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1113 511
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1110 498
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1108 492
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1104 481
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1103 477
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1103 477
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1098 466
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1094 461
+Canvas.tsx:1214 Candidate IDs: (2) ['text-1756255790426-yflp7n8m4', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1092 457
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1090 455
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1089 453
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1089 453
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1086 451
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1086 450
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1086 450
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1084 448
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1083 447
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1081 445
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1081 445
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1080 444
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1079 443
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1079 443
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1078 442
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1077 441
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1077 441
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1076 439
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1074 439
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1074 439
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1073 438
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1071 437
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1071 437
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1069 436
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1067 436
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1067 436
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1064 436
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1062 435
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1062 435
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1058 435
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1055 435
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1055 435
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1052 435
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1049 435
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1049 435
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1048 435
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1045 435
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1045 435
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1043 435
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1042 435
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1042 435
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1039 435
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1037 434
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1037 434
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1036 434
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1036 434
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1035 434
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1035 434
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1035 434
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+Canvas.tsx:1210 DRAG OVER: 1035 434
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256873161-wazcz2c5a', 'rectangle-1756253022828-porilid81']
+CanvasElement.tsx:1108 DRAG START EVENT FIRED: rectangle-1756250466856-veobcplsp Tool: hand Editing: false ComponentChild: undefined
+CanvasElement.tsx:187 DRAG START: rectangle-1756250466856-veobcplsp
+CanvasElement.tsx:1108 DRAG START EVENT FIRED: rectangle-1756256873161-wazcz2c5a Tool: hand Editing: false ComponentChild: undefined
+CanvasElement.tsx:187 DRAG START: rectangle-1756256873161-wazcz2c5a
+CanvasElement.tsx:1108 DRAG START EVENT FIRED: rectangle-1756253022828-porilid81 Tool: hand Editing: false ComponentChild: undefined
+CanvasElement.tsx:187 DRAG START: rectangle-1756253022828-porilid81
+CanvasElement.tsx:1108 DRAG START EVENT FIRED: image-1756257311949-qzrn0e7fl Tool: hand Editing: false ComponentChild: undefined
+CanvasElement.tsx:187 DRAG START: image-1756257311949-qzrn0e7fl
+CanvasElement.tsx:1108 DRAG START EVENT FIRED: rectangle-1756250466856-veobcplsp Tool: hand Editing: false ComponentChild: undefined
+CanvasElement.tsx:187 DRAG START: rectangle-1756250466856-veobcplsp
+CanvasElement.tsx:1108 DRAG START EVENT FIRED: rectangle-1756256876139-1ostpmfmj Tool: hand Editing: false ComponentChild: undefined
+CanvasElement.tsx:187 DRAG START: rectangle-1756256876139-1ostpmfmj
+CanvasElement.tsx:1108 DRAG START EVENT FIRED: rectangle-1756256868934-t5ex5cyzn Tool: hand Editing: false ComponentChild: undefined
+CanvasElement.tsx:187 DRAG START: rectangle-1756256868934-t5ex5cyzn
+Canvas.tsx:1210 DRAG OVER: 976 697
+Canvas.tsx:1214 Candidate IDs: (4) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp', 'rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 979 700
+Canvas.tsx:1214 Candidate IDs: (4) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp', 'rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 982 703
+Canvas.tsx:1214 Candidate IDs: (4) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp', 'rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 985 706
+Canvas.tsx:1214 Candidate IDs: (4) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp', 'rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 985 706
+Canvas.tsx:1214 Candidate IDs: (4) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp', 'rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 989 710
+Canvas.tsx:1214 Candidate IDs: (4) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp', 'rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 993 713
+Canvas.tsx:1214 Candidate IDs: (4) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp', 'rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 993 713
+Canvas.tsx:1214 Candidate IDs: (4) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp', 'rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 996 717
+Canvas.tsx:1214 Candidate IDs: (4) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp', 'rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1001 722
+Canvas.tsx:1214 Candidate IDs: (4) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp', 'rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1001 722
+Canvas.tsx:1214 Candidate IDs: (4) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp', 'rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1005 728
+Canvas.tsx:1214 Candidate IDs: (4) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp', 'rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1014 738
+Canvas.tsx:1214 Candidate IDs: (4) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp', 'rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1016 741
+Canvas.tsx:1214 Candidate IDs: (4) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp', 'rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1016 741
+Canvas.tsx:1214 Candidate IDs: (4) ['image-1756257311949-qzrn0e7fl', 'rectangle-1756250466856-veobcplsp', 'rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn']
+Canvas.tsx:1210 DRAG OVER: 1024 748
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1024 748
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1031 757
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1035 761
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1035 761
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1038 763
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1041 767
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1048 776
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1048 776
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1050 778
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1050 778
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1052 781
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1054 785
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1054 785
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1058 791
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1060 794
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1060 794
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1061 796
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1061 800
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1062 802
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1062 802
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1062 803
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1062 804
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1062 804
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1062 806
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1062 808
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1062 808
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1062 809
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1062 810
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1062 812
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1062 812
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1062 813
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1062 814
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1062 814
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1062 815
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1062 815
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1062 817
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1062 817
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1062 819
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1061 820
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1061 820
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1061 822
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1061 822
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1060 822
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1059 823
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1059 823
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1059 825
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1057 825
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1057 825
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1056 827
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1055 827
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1055 827
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1053 828
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1052 829
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1052 829
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1051 829
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1050 829
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1050 829
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1049 830
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1047 830
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1044 830
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1044 830
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1041 830
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1038 830
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1038 830
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1035 830
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1032 830
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1032 830
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1028 830
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1025 830
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1025 830
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1023 830
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1020 829
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1020 829
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1019 829
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1019 829
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1019 828
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1018 828
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1018 828
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1018 828
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1018 828
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 1018 828
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+CanvasElement.tsx:1108 DRAG START EVENT FIRED: image-1756257311949-qzrn0e7fl Tool: hand Editing: false ComponentChild: undefined
+CanvasElement.tsx:187 DRAG START: image-1756257311949-qzrn0e7fl
+Canvas.tsx:1210 DRAG OVER: 965 690
+Canvas.tsx:1214 Candidate IDs: ['image-1756257311949-qzrn0e7fl']
+Canvas.tsx:1210 DRAG OVER: 967 687
+Canvas.tsx:1214 Candidate IDs: ['image-1756257311949-qzrn0e7fl']
+Canvas.tsx:1210 DRAG OVER: 967 687
+Canvas.tsx:1214 Candidate IDs: ['image-1756257311949-qzrn0e7fl']
+Canvas.tsx:1210 DRAG OVER: 973 676
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 973 676
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 976 672
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 978 667
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 978 667
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 981 662
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 982 658
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 982 658
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 985 652
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 987 646
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 987 646
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 988 642
+Canvas.tsx:1214 Candidate IDs: ['rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 990 635
+Canvas.tsx:1214 Candidate IDs: (2) ['rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 993 622
+Canvas.tsx:1214 Candidate IDs: (5) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp', 'rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 993 622
+Canvas.tsx:1214 Candidate IDs: (5) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp', 'rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 994 618
+Canvas.tsx:1214 Candidate IDs: (5) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp', 'rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 995 610
+Canvas.tsx:1214 Candidate IDs: (5) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp', 'rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 995 610
+Canvas.tsx:1214 Candidate IDs: (5) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp', 'rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 996 604
+Canvas.tsx:1214 Candidate IDs: (5) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp', 'rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 997 598
+Canvas.tsx:1214 Candidate IDs: (5) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp', 'rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 997 598
+Canvas.tsx:1214 Candidate IDs: (5) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp', 'rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 997 593
+Canvas.tsx:1214 Candidate IDs: (5) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp', 'rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 998 589
+Canvas.tsx:1214 Candidate IDs: (5) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp', 'rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 998 589
+Canvas.tsx:1214 Candidate IDs: (5) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp', 'rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 998 585
+Canvas.tsx:1214 Candidate IDs: (5) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp', 'rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 998 582
+Canvas.tsx:1214 Candidate IDs: (5) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp', 'rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 998 582
+Canvas.tsx:1214 Candidate IDs: (5) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp', 'rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 998 577
+Canvas.tsx:1214 Candidate IDs: (5) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp', 'rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 998 574
+Canvas.tsx:1214 Candidate IDs: (5) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp', 'rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 998 574
+Canvas.tsx:1214 Candidate IDs: (5) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp', 'rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 998 572
+Canvas.tsx:1214 Candidate IDs: (5) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp', 'rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 998 569
+Canvas.tsx:1214 Candidate IDs: (5) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp', 'rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 998 567
+Canvas.tsx:1214 Candidate IDs: (5) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp', 'rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 998 567
+Canvas.tsx:1214 Candidate IDs: (5) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp', 'rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 998 565
+Canvas.tsx:1214 Candidate IDs: (5) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp', 'rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 998 563
+Canvas.tsx:1214 Candidate IDs: (5) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp', 'rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 998 561
+Canvas.tsx:1214 Candidate IDs: (5) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp', 'rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 998 561
+Canvas.tsx:1214 Candidate IDs: (5) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp', 'rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 997 559
+Canvas.tsx:1214 Candidate IDs: (5) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp', 'rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 997 559
+Canvas.tsx:1214 Candidate IDs: (5) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp', 'rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 997 558
+Canvas.tsx:1214 Candidate IDs: (5) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp', 'rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 997 558
+Canvas.tsx:1214 Candidate IDs: (5) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp', 'rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 997 557
+Canvas.tsx:1214 Candidate IDs: (5) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp', 'rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 997 556
+Canvas.tsx:1214 Candidate IDs: (5) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp', 'rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 997 556
+Canvas.tsx:1214 Candidate IDs: (5) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp', 'rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 996 554
+Canvas.tsx:1214 Candidate IDs: (5) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp', 'rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 996 554
+Canvas.tsx:1214 Candidate IDs: (5) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp', 'rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 996 553
+Canvas.tsx:1214 Candidate IDs: (5) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp', 'rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 996 552
+Canvas.tsx:1214 Candidate IDs: (5) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp', 'rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 996 552
+Canvas.tsx:1214 Candidate IDs: (5) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp', 'rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 996 551
+Canvas.tsx:1214 Candidate IDs: (5) ['text-1756251092479-s7yq2ijjr', 'rectangle-1756250466856-veobcplsp', 'rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 995 549
+Canvas.tsx:1214 Candidate IDs: (3) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 994 549
+Canvas.tsx:1214 Candidate IDs: (3) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 994 546
+Canvas.tsx:1214 Candidate IDs: (3) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 994 546
+Canvas.tsx:1214 Candidate IDs: (3) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 992 542
+Canvas.tsx:1214 Candidate IDs: (3) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 992 542
+Canvas.tsx:1214 Candidate IDs: (3) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 992 541
+Canvas.tsx:1214 Candidate IDs: (3) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 989 536
+Canvas.tsx:1214 Candidate IDs: (3) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 989 536
+Canvas.tsx:1214 Candidate IDs: (3) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 988 534
+Canvas.tsx:1214 Candidate IDs: (3) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 988 533
+Canvas.tsx:1214 Candidate IDs: (3) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 988 533
+Canvas.tsx:1214 Candidate IDs: (3) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 985 529
+Canvas.tsx:1214 Candidate IDs: (3) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 985 528
+Canvas.tsx:1214 Candidate IDs: (3) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 984 526
+Canvas.tsx:1214 Candidate IDs: (3) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 984 526
+Canvas.tsx:1214 Candidate IDs: (3) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 983 525
+Canvas.tsx:1214 Candidate IDs: (3) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 982 525
+Canvas.tsx:1214 Candidate IDs: (3) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 982 525
+Canvas.tsx:1214 Candidate IDs: (3) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 982 524
+Canvas.tsx:1214 Candidate IDs: (3) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 982 523
+Canvas.tsx:1214 Candidate IDs: (3) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 982 522
+Canvas.tsx:1214 Candidate IDs: (3) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 982 522
+Canvas.tsx:1214 Candidate IDs: (3) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 982 522
+Canvas.tsx:1214 Candidate IDs: (3) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 982 522
+Canvas.tsx:1214 Candidate IDs: (3) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 981 522
+Canvas.tsx:1214 Candidate IDs: (3) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 981 522
+Canvas.tsx:1214 Candidate IDs: (3) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 981 522
+Canvas.tsx:1214 Candidate IDs: (3) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 981 523
+Canvas.tsx:1214 Candidate IDs: (3) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 981 524
+Canvas.tsx:1214 Candidate IDs: (3) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 981 524
+Canvas.tsx:1214 Candidate IDs: (3) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 981 525
+Canvas.tsx:1214 Candidate IDs: (3) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 981 526
+Canvas.tsx:1214 Candidate IDs: (3) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 981 526
+Canvas.tsx:1214 Candidate IDs: (3) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 981 527
+Canvas.tsx:1214 Candidate IDs: (3) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 980 528
+Canvas.tsx:1214 Candidate IDs: (3) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 980 528
+Canvas.tsx:1214 Candidate IDs: (3) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 980 529
+Canvas.tsx:1214 Candidate IDs: (3) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 980 529
+Canvas.tsx:1214 Candidate IDs: (3) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 980 530
+Canvas.tsx:1214 Candidate IDs: (3) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 980 530
+Canvas.tsx:1214 Candidate IDs: (3) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 980 531
+Canvas.tsx:1214 Candidate IDs: (3) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 980 531
+Canvas.tsx:1214 Candidate IDs: (3) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 980 532
+Canvas.tsx:1214 Candidate IDs: (3) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 980 532
+Canvas.tsx:1214 Candidate IDs: (3) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 979 532
+Canvas.tsx:1214 Candidate IDs: (3) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 979 533
+Canvas.tsx:1214 Candidate IDs: (3) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 979 533
+Canvas.tsx:1214 Candidate IDs: (3) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 979 533
+Canvas.tsx:1214 Candidate IDs: (3) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 979 533
+Canvas.tsx:1214 Candidate IDs: (3) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 979 533
+Canvas.tsx:1214 Candidate IDs: (3) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']
+Canvas.tsx:1210 DRAG OVER: 979 533
+Canvas.tsx:1214 Candidate IDs: (3) ['rectangle-1756256876139-1ostpmfmj', 'rectangle-1756256868934-t5ex5cyzn', 'rectangle-1756255896372-e88tj8ic2']

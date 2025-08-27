@@ -1207,11 +1207,10 @@ const Canvas: React.FC = () => {
     e.preventDefault();
     e.dataTransfer.dropEffect = 'move';
     
-    console.log('DRAG OVER:', e.clientX, e.clientY);
+    console.log('🎯 CANVAS DRAG OVER - HTML5 System Active', e.clientX, e.clientY);
     
     // Use the DnD system to determine drop location and show visual feedback
     const candidateIds = getCandidateContainerIds({ x: e.clientX, y: e.clientY });
-    console.log('Candidate IDs:', candidateIds);
     
     try {
       const dragData = e.dataTransfer.getData('application/json');
@@ -1274,7 +1273,7 @@ const Canvas: React.FC = () => {
         );
         
         if (drop) {
-          console.log('DROP FOUND:', drop);
+          console.log('✅ DROP LOCATION FOUND:', drop);
           // Create visual insertion indicator based on drop location
           let indicatorPosition: 'before' | 'after' | 'inside' | 'canvas-top' | 'canvas-bottom';
           let targetElementId = drop.parentId;
@@ -1344,7 +1343,7 @@ const Canvas: React.FC = () => {
               };
             }
             
-            console.log('SETTING INSERTION INDICATOR:', bounds, indicatorPosition);
+            console.log('📍 SHOWING VISUAL INDICATOR:', indicatorPosition, bounds);
             setInsertionIndicator({
               bounds,
               position: indicatorPosition as any

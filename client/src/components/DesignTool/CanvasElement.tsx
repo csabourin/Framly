@@ -1080,8 +1080,8 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     <ElementContextMenu elementId={element.id}>
       <div
         ref={elementRef}
-        draggable={!isEditing && !isComponentChild && selectedTool !== 'text'} // Enable HTML5 drag and drop, but not for text editing or component children
-        title={`Draggable: ${!isEditing && !isComponentChild && selectedTool !== 'text'} | Tool: ${selectedTool}`}
+        draggable={!isEditing && !isComponentChild} // Enable HTML5 drag and drop, but not for text editing or component children
+        title={`Draggable: ${!isEditing && !isComponentChild} | Tool: ${selectedTool} | Editing: ${isEditing}`}
         className={`
           selectable-block
           canvas-element
@@ -1105,8 +1105,15 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
         }}
         // HTML5 Drag and Drop event handlers
         onDragStart={(e) => {
-          console.log('DRAG START EVENT FIRED:', element.id, 'Tool:', selectedTool, 'Editing:', isEditing, 'ComponentChild:', isComponentChild);
+          console.log('🚀 HTML5 DRAG STARTED:', element.id, 'Tool:', selectedTool);
+          // Add immediate visual feedback that drag started
+          e.currentTarget.style.opacity = '0.5';
           handleDragStart(e);
+        }}
+        onDragEnd={(e) => {
+          console.log('🏁 HTML5 DRAG ENDED:', element.id);
+          // Restore opacity when drag ends
+          e.currentTarget.style.opacity = '1';
         }}
         onDragOver={handleDragOver}
         onDragEnter={handleDragEnter}
@@ -1116,6 +1123,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
           ...minimalInlineStyles,
           userSelect: selectedTool !== 'text' ? 'none' : 'auto',
           WebkitUserSelect: selectedTool !== 'text' ? 'none' : 'auto',
+          cursor: (!isEditing && !isComponentChild) ? 'grab' : 'default'
         }}
         data-element-id={element.id}
         data-container={element.isContainer ? 'true' : 'false'}
