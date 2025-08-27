@@ -1653,6 +1653,10 @@ const Canvas: React.FC = () => {
             dispatch(setHoveredElement({ elementId: null, zone: null }));
           }
         }}
+        // Add HTML5 drag handlers to inner canvas for proper drop zone coverage
+        onDragOver={handleCanvasDragOver}
+        onDrop={handleCanvasDrop}
+        onDragLeave={handleCanvasDragLeave}
         data-testid="canvas-container"
       >
         {/* Enhanced Canvas with CSS isolation wrapper - inherits body styling */}
