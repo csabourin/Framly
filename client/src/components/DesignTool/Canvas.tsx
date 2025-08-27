@@ -1237,15 +1237,33 @@ const Canvas: React.FC = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [dispatch, selectedElementId]);
 
-  // Handle drop events for components
+  // Handle drop events for components and element reordering
   const handleDragOver = useCallback((e: React.DragEvent) => {
     e.preventDefault();
-    e.dataTransfer.dropEffect = 'copy';
     
-    // Check if we're dragging a component from the component panel
-    try {
-      const data = e.dataTransfer.types.includes('application/json');
-      if (data) {
+    // Check if we're dragging an element for reordering (text/plain data from CanvasElement)
+    const isElementReorder = e.dataTransfer.types.includes('text/plain');
+    // Check if we're dragging a component from the component panel (JSON data)
+    const isComponentDrop = e.dataTransfer.types.includes('application/json');
+    
+    if (isElementReorder) {
+      e.dataTransfer.dropEffect = 'move';
+      
+      // Use the existing mouse move logic to update hover states and insertion indicators
+      const rect = canvasRef.current?.getBoundingClientRect();
+      if (rect) {
+        const syntheticEvent = {
+          clientX: e.clientX,
+          clientY: e.clientY,
+          buttons: 1, // Simulate button pressed during drag
+          preventDefault: () => {},
+          stopPropagation: () => {}
+        } as React.MouseEvent;
+        
+        handleMouseMove(syntheticEvent);
+      }
+    } else if (isComponentDrop) {
+      e.dataTransfer.dropEffect = 'copy';
         setIsDraggingComponent(true);
         
         // NEW DnD SYSTEM: Get mouse coordinates and use new system for component drops
@@ -1350,6 +1368,16 @@ const Canvas: React.FC = () => {
 
   // Handle drag leave to clear visual feedback when component drag leaves canvas
   const handleDragLeave = useCallback((e: React.DragEvent) => {
+    // Only handle drag leave if we're actually leaving the main canvas area
+    const rect = canvasRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    
+    const isLeavingCanvas = e.clientX < rect.left || 
+                           e.clientX > rect.right || 
+                           e.clientY < rect.top || 
+                           e.clientY > rect.bottom;
+    
+    if (!isLeavingCanvas) return;
     // Only clear if leaving the canvas container itself, not child elements
     if (e.target === canvasRef.current) {
       console.log('COMPONENT DRAG - Left canvas area');
@@ -1363,6 +1391,21 @@ const Canvas: React.FC = () => {
 
   const handleDrop = useCallback((e: React.DragEvent) => {
     e.preventDefault();
+    
+    // Check if this is an element reordering drop
+    const elementId = e.dataTransfer.getData('text/plain');
+    if (elementId && isDraggingForReorder) {
+      // Handle element reordering drop using existing mouse up logic
+      const syntheticEvent = {
+        clientX: e.clientX,
+        clientY: e.clientY,
+        preventDefault: () => {},
+        stopPropagation: () => {}
+      } as React.MouseEvent;
+      
+      handleMouseUp(syntheticEvent);
+      return;
+    }
     
     // Clear component dragging state
     setIsDraggingComponent(false);
