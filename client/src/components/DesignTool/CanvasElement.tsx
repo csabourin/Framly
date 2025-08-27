@@ -54,6 +54,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
   const buttonEditRef = useRef<HTMLButtonElement>(null);
   const preEditRef = useRef<HTMLPreElement>(null);
   const textareaEditRef = useRef<HTMLTextAreaElement>(null);
+  const dragImageRef = useRef<HTMLDivElement>(null);
   
   // Get hover state from Redux if not provided via props (optimized selectors)
   const actualHoveredElementId = hoveredElementId !== undefined ? hoveredElementId : reduxHoveredElementId;
@@ -206,6 +207,80 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
       setIsEditing(false);
     }
   }, [element.id, dispatch]);
+
+  // HTML5 Drag and Drop Implementation
+  const handleDragStart = useCallback((e: React.DragEvent) => {
+    e.stopPropagation();
+    
+    // Create drag image from the actual element
+    if (elementRef.current) {
+      const rect = elementRef.current.getBoundingClientRect();
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      
+      // Set canvas size to element size
+      canvas.width = rect.width;
+      canvas.height = rect.height;
+      
+      if (ctx) {
+        // Fill with element's background
+        const computedStyle = window.getComputedStyle(elementRef.current);
+        ctx.fillStyle = computedStyle.backgroundColor || '#ffffff';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        // Add border
+        ctx.strokeStyle = computedStyle.borderColor || '#3b82f6';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(1, 1, canvas.width - 2, canvas.height - 2);
+        
+        // Add text content
+        ctx.fillStyle = computedStyle.color || '#000000';
+        ctx.font = `${computedStyle.fontSize || '14px'} ${computedStyle.fontFamily || 'system-ui'}`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        
+        let text = '';
+        if (element.type === 'text') text = element.content?.replace(/<[^>]*>/g, '') || 'Text';
+        else if (element.type === 'button') text = element.buttonText || element.content || 'Button';
+        else if (element.type === 'image') text = 'Image';
+        else text = element.type.charAt(0).toUpperCase() + element.type.slice(1);
+        
+        // Truncate text if too long
+        if (text.length > 20) text = text.substring(0, 17) + '...';
+        
+        ctx.fillText(text, canvas.width / 2, canvas.height / 2);
+        
+        // Convert canvas to data URL and set as drag image
+        const dataURL = canvas.toDataURL();
+        const img = new Image();
+        img.onload = () => {
+          e.dataTransfer.setDragImage(img, rect.width / 2, rect.height / 2);
+        };
+        img.src = dataURL;
+      }
+    }
+    
+    // Set drag data
+    e.dataTransfer.setData('text/plain', element.id);
+    e.dataTransfer.effectAllowed = 'move';
+    
+    // Dispatch drag start action
+    setTimeout(() => {
+      dispatch({ type: 'ui/setDraggedElement', payload: element.id });
+      dispatch({ type: 'ui/setDraggingForReorder', payload: true });
+    }, 0);
+    
+  }, [element.id, element.type, element.content, element.buttonText, dispatch]);
+
+  const handleDragEnd = useCallback((e: React.DragEvent) => {
+    e.stopPropagation();
+    
+    // Reset drag state
+    dispatch({ type: 'ui/setDraggedElement', payload: undefined });
+    dispatch({ type: 'ui/setDraggingForReorder', payload: false });
+    dispatch({ type: 'ui/setHoveredElement', payload: { elementId: null, zone: null } });
+    
+  }, [dispatch]);
 
   // Handle clicking outside to stop text editing and save changes
   React.useEffect(() => {
@@ -1029,10 +1104,9 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
             e.preventDefault();
           }
         }}
-        onDragStart={(e) => {
-          // Prevent default drag behavior that interferes with our custom drag
-          e.preventDefault();
-        }}
+        draggable={selectedTool === 'hand' || selectedTool === 'select'}
+        onDragStart={handleDragStart}
+        onDragEnd={handleDragEnd}
         style={{
           ...minimalInlineStyles,
           userSelect: selectedTool !== 'text' ? 'none' : 'auto',
