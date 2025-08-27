@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { selectCurrentElements } from '../../store/selectors';
-import { generateInsertionAnnouncement } from '../../utils/predictableInsertion';
+
 
 interface DragFeedbackProps {
   hoveredElementId: string | null;
@@ -17,29 +17,38 @@ const DragFeedback: React.FC<DragFeedbackProps> = React.memo(({
   const liveRegionRef = useRef<HTMLDivElement>(null);
   const currentElements = useSelector(selectCurrentElements);
   
-  // Generate announcement using predictable insertion logic
+  // Memoize announcement to prevent unnecessary calculations
   const announcement = useMemo(() => {
     if (!hoveredElementId || !hoveredZone) return '';
     
     const hoveredElement = currentElements[hoveredElementId];
     if (!hoveredElement) return '';
     
-    // Handle special canvas zones
-    if (hoveredZone === 'canvas-top') {
-      return 'Insert at top of canvas';
+    const elementName = hoveredElement.type === 'container' ? 'Container' :
+                       hoveredElement.type === 'text' ? 'Text' :
+                       hoveredElement.type === 'heading' ? 'Heading' :
+                       hoveredElement.type === 'button' ? 'Button' :
+                       hoveredElement.type === 'image' ? 'Image' :
+                       hoveredElement.type === 'list' ? 'List' :
+                       hoveredElement.type === 'section' ? 'Section' :
+                       hoveredElement.type === 'nav' ? 'Navigation' :
+                       hoveredElement.type === 'header' ? 'Header' :
+                       hoveredElement.type === 'footer' ? 'Footer' :
+                       hoveredElement.type === 'article' ? 'Article' :
+                       'Element';
+    
+    if (hoveredZone === 'inside') {
+      return `Insert into ${elementName}`;
+    } else if (hoveredZone === 'before') {
+      return `Insert before ${elementName}`;
+    } else if (hoveredZone === 'after') {
+      return `Insert after ${elementName}`;
+    } else if (hoveredZone === 'canvas-top') {
+      return `Insert at top of canvas`;
     } else if (hoveredZone === 'canvas-bottom') {
-      return 'Insert at bottom of canvas';
+      return `Insert at bottom of canvas`;
     }
-    
-    // Use predictable announcement generation
-    const insertionZone = {
-      elementId: hoveredElementId,
-      position: hoveredZone as 'before' | 'after' | 'inside',
-      bounds: { x: 0, y: 0, width: 0, height: 0 }, // Bounds not needed for announcement
-      confidence: 1
-    };
-    
-    return generateInsertionAnnouncement(insertionZone, hoveredElement);
+    return '';
   }, [hoveredElementId, hoveredZone, currentElements]);
 
   // Update ARIA live announcement (throttled)

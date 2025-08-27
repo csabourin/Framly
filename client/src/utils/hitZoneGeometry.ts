@@ -101,14 +101,15 @@ export function clampToCanvas(
   y: number,
   canvasWidth: number,
   canvasHeight: number,
-  padding: number = 20
+  padding: number = 0
 ): { x: number; y: number; clamped: boolean } {
   
   const originalX = x;
   const originalY = y;
   
-  const clampedX = Math.max(padding, Math.min(x, canvasWidth - padding));
-  const clampedY = Math.max(padding, Math.min(y, canvasHeight - padding));
+  // Allow reasonable working area without being too restrictive
+  const clampedX = Math.max(-50, Math.min(x, canvasWidth + 50)); // Allow 50px overflow
+  const clampedY = Math.max(-50, Math.min(y, canvasHeight + 50)); // Allow 50px overflow
   
   const clamped = clampedX !== originalX || clampedY !== originalY;
   
