@@ -1,0 +1,177 @@
+CanvasElement.tsx:1100 🖱️ MOUSE DOWN on element: rectangle-1756256868934-t5ex5cyzn Tool: hand Draggable: true
+CanvasElement.tsx:1101    - Target: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​858:​11" data-component-name=​"div" class=​"h-full" style=​"--element-background-color:​ #ff8080;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 8px;​ --element-width:​ 100%;​ --element-min-height:​ 80px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 0px;​ --element-height:​ 205px;​ --element-background:​ [object Object]​;​">​</div>​ CurrentTarget: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​1081:​6" data-component-name=​"div" draggable=​"true" title=​"DRAG TEST:​ Always draggable | Tool:​ hand | Editing:​ false" class=​"
+          selectable-block
+          canvas-element
+          rectangle-1756256868935
+          sibling-spacing-reset
+          
+          
+        " data-state=​"selected" data-locked=​"false" data-invalid=​"false" aria-selected=​"true" tabindex=​"0" data-element-id=​"rectangle-1756256868934-t5ex5cyzn" data-container=​"true" data-accepts=​"text,image,button,rectangle,heading,container" data-element-type=​"rectangle" data-testid=​"canvas-element-rectangle-1756256868934-t5ex5cyzn" style=​"position:​ relative;​ width:​ 100%;​ height:​ 205px;​ min-height:​ 80px;​ background-color:​ rgb(255, 128, 128)​;​ border:​ 1px solid rgb(209, 213, 219)​;​ border-radius:​ 6px;​ padding:​ 8px;​ display:​ flex;​ flex-direction:​ column;​ gap:​ 0px;​ --element-background-color:​ #ff8080;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 8px;​ --element-width:​ 100%;​ --element-min-height:​ 80px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 0px;​ --element-height:​ 205px;​ user-select:​ none;​ cursor:​ grab;​ --element-background:​ [object Object]​;​ z-index:​ 1000;​">​…​</div>​flex
+CanvasElement.tsx:1102    - Buttons: 1 Button: 0
+CanvasElement.tsx:1106    - Hand tool active - HTML5 drag should work
+Canvas.tsx:899 🔄 OLD DRAG SYSTEM: Skipping because HTML5 drag active
+Canvas.tsx:899 🔄 OLD DRAG SYSTEM: Skipping because HTML5 drag active
+Canvas.tsx:899 🔄 OLD DRAG SYSTEM: Skipping because HTML5 drag active
+Canvas.tsx:899 🔄 OLD DRAG SYSTEM: Skipping because HTML5 drag active
+CanvasElement.tsx:1111 🚀🚀🚀 HTML5 DRAG STARTED!!! rectangle-1756256868934-t5ex5cyzn Tool: hand
+CanvasElement.tsx:1112    - DataTransfer: DataTransfer {dropEffect: 'none', effectAllowed: 'uninitialized', items: DataTransferItemList, types: Array(0), files: FileList}
+CanvasElement.tsx:1113    - Target draggable: true
+CanvasElement.tsx:1133 🏁 HTML5 DRAG ENDED: rectangle-1756256868934-t5ex5cyzn
+CanvasElement.tsx:1134    - DropEffect: none
+Canvas.tsx:899 🔄 OLD DRAG SYSTEM: Skipping because HTML5 drag active
+CanvasElement.tsx:1100 🖱️ MOUSE DOWN on element: image-1756257311949-qzrn0e7fl Tool: hand Draggable: true
+CanvasElement.tsx:1101    - Target: <img data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​527:​10" data-component-name=​"img" src=​"data:​image/​jpeg;​base64,/​9j…A9VP9K5WfXY5LXZPJhiTyvr6iv/​Z" alt=​"IMG_1476" class=​"h-full" style=​"object-fit:​ contain;​ object-position:​ center center;​ width:​ auto;​ max-width:​ 100%;​">​ CurrentTarget: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​1081:​6" data-component-name=​"div" draggable=​"true" title=​"DRAG TEST:​ Always draggable | Tool:​ hand | Editing:​ false" class=​"
+          selectable-block
+          canvas-element
+          image-1756257311949
+          sibling-spacing-reset
+          
+          
+        " data-state=​"selected" data-locked=​"false" data-invalid=​"false" aria-selected=​"true" tabindex=​"0" data-element-id=​"image-1756257311949-qzrn0e7fl" data-container=​"false" data-accepts data-element-type=​"image" data-testid=​"canvas-element-image-1756257311949-qzrn0e7fl" style=​"position:​ relative;​ width:​ 174px;​ height:​ 162px;​ min-height:​ 162px;​ background-color:​ transparent;​ border-radius:​ 6px;​ object-fit:​ cover;​ --element-background-color:​ transparent;​ --element-border-radius:​ 6px;​ --element-object-fit:​ cover;​ --element-width:​ 174px;​ --element-height:​ 162px;​ --element-min-height:​ 162px;​ user-select:​ none;​ cursor:​ grab;​ z-index:​ 1000;​ outline:​ rgb(59, 130, 246)​ solid 2px;​ box-shadow:​ rgba(59, 130, 246, 0.3)​ 0px 0px 0px 1px;​">​…​</div>​flex
+CanvasElement.tsx:1102    - Buttons: 1 Button: 0
+CanvasElement.tsx:1106    - Hand tool active - HTML5 drag should work
+CanvasElement.tsx:1100 🖱️ MOUSE DOWN on element: rectangle-1756255896372-e88tj8ic2 Tool: hand Draggable: true
+CanvasElement.tsx:1101    - Target: <img data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​527:​10" data-component-name=​"img" src=​"data:​image/​jpeg;​base64,/​9j…A9VP9K5WfXY5LXZPJhiTyvr6iv/​Z" alt=​"IMG_1476" class=​"h-full" style=​"object-fit:​ contain;​ object-position:​ center center;​ width:​ auto;​ max-width:​ 100%;​">​ CurrentTarget: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​1081:​6" data-component-name=​"div" draggable=​"true" title=​"DRAG TEST:​ Always draggable | Tool:​ hand | Editing:​ false" class=​"
+          selectable-block
+          canvas-element
+          rectangle-1756255896372
+          sibling-spacing-reset
+          
+          
+        " data-state=​"idle" data-locked=​"false" data-invalid=​"false" aria-selected=​"false" tabindex=​"0" data-element-id=​"rectangle-1756255896372-e88tj8ic2" data-container=​"true" data-accepts=​"text,image,button,rectangle,heading,container" data-element-type=​"rectangle" data-testid=​"canvas-element-rectangle-1756255896372-e88tj8ic2" style=​"position:​ relative;​ width:​ 100%;​ height:​ 100%;​ min-height:​ 253px;​ background-color:​ rgb(243, 244, 246)​;​ border:​ 1px solid rgb(209, 213, 219)​;​ border-radius:​ 6px;​ padding:​ 8px;​ display:​ flex;​ flex-direction:​ column;​ gap:​ 0px;​ --element-background-color:​ #f3f4f6;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 8px;​ --element-width:​ 100%;​ --element-min-height:​ 253px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 0px;​ --element-height:​ 100%;​ user-select:​ none;​ cursor:​ grab;​">​…​</div>​flex
+CanvasElement.tsx:1102    - Buttons: 1 Button: 0
+CanvasElement.tsx:1106    - Hand tool active - HTML5 drag should work
+Canvas.tsx:899 🔄 OLD DRAG SYSTEM: Skipping because HTML5 drag active
+Canvas.tsx:899 🔄 OLD DRAG SYSTEM: Skipping because HTML5 drag active
+CanvasElement.tsx:1111 🚀🚀🚀 HTML5 DRAG STARTED!!! image-1756257311949-qzrn0e7fl Tool: hand
+CanvasElement.tsx:1112    - DataTransfer: DataTransfer {dropEffect: 'none', effectAllowed: 'uninitialized', items: DataTransferItemList, types: Array(0), files: FileList}
+CanvasElement.tsx:1113    - Target draggable: true
+CanvasElement.tsx:1111 🚀🚀🚀 HTML5 DRAG STARTED!!! rectangle-1756255896372-e88tj8ic2 Tool: hand
+CanvasElement.tsx:1112    - DataTransfer: DataTransfer {dropEffect: 'none', effectAllowed: 'move', items: DataTransferItemList, types: Array(2), files: FileList}
+CanvasElement.tsx:1113    - Target draggable: true
+CanvasElement.tsx:1133 🏁 HTML5 DRAG ENDED: image-1756257311949-qzrn0e7fl
+CanvasElement.tsx:1134    - DropEffect: none
+CanvasElement.tsx:1133 🏁 HTML5 DRAG ENDED: rectangle-1756255896372-e88tj8ic2
+CanvasElement.tsx:1134    - DropEffect: none
+Canvas.tsx:899 🔄 OLD DRAG SYSTEM: Skipping because HTML5 drag active
+CanvasElement.tsx:1111 🚀🚀🚀 HTML5 DRAG STARTED!!! text-1756255790426-yflp7n8m4 Tool: hand
+CanvasElement.tsx:1112    - DataTransfer: DataTransfer {dropEffect: 'none', effectAllowed: 'uninitialized', items: DataTransferItemList, types: Array(0), files: FileList}
+CanvasElement.tsx:1113    - Target draggable: true
+CanvasElement.tsx:1111 🚀🚀🚀 HTML5 DRAG STARTED!!! rectangle-1756253022828-porilid81 Tool: hand
+CanvasElement.tsx:1112    - DataTransfer: DataTransfer {dropEffect: 'none', effectAllowed: 'move', items: DataTransferItemList, types: Array(2), files: FileList}
+CanvasElement.tsx:1113    - Target draggable: true
+CanvasElement.tsx:1133 🏁 HTML5 DRAG ENDED: text-1756255790426-yflp7n8m4
+CanvasElement.tsx:1134    - DropEffect: none
+CanvasElement.tsx:1133 🏁 HTML5 DRAG ENDED: rectangle-1756253022828-porilid81
+CanvasElement.tsx:1134    - DropEffect: none
+Canvas.tsx:899 🔄 OLD DRAG SYSTEM: Skipping because HTML5 drag active
+Canvas.tsx:899 🔄 OLD DRAG SYSTEM: Skipping because HTML5 drag active
+CanvasElement.tsx:1111 🚀🚀🚀 HTML5 DRAG STARTED!!! text-1756255790426-yflp7n8m4 Tool: hand
+CanvasElement.tsx:1112    - DataTransfer: DataTransfer {dropEffect: 'none', effectAllowed: 'uninitialized', items: DataTransferItemList, types: Array(0), files: FileList}
+CanvasElement.tsx:1113    - Target draggable: true
+CanvasElement.tsx:1111 🚀🚀🚀 HTML5 DRAG STARTED!!! rectangle-1756253022828-porilid81 Tool: hand
+CanvasElement.tsx:1112    - DataTransfer: DataTransfer {dropEffect: 'none', effectAllowed: 'move', items: DataTransferItemList, types: Array(2), files: FileList}
+CanvasElement.tsx:1113    - Target draggable: true
+CanvasElement.tsx:1133 🏁 HTML5 DRAG ENDED: text-1756255790426-yflp7n8m4
+CanvasElement.tsx:1134    - DropEffect: none
+CanvasElement.tsx:1133 🏁 HTML5 DRAG ENDED: rectangle-1756253022828-porilid81
+CanvasElement.tsx:1134    - DropEffect: none
+Canvas.tsx:899 🔄 OLD DRAG SYSTEM: Skipping because HTML5 drag active
+Canvas.tsx:899 🔄 OLD DRAG SYSTEM: Skipping because HTML5 drag active
+CanvasElement.tsx:1111 🚀🚀🚀 HTML5 DRAG STARTED!!! text-1756255790426-yflp7n8m4 Tool: hand
+CanvasElement.tsx:1112    - DataTransfer: DataTransfer {dropEffect: 'none', effectAllowed: 'uninitialized', items: DataTransferItemList, types: Array(0), files: FileList}
+CanvasElement.tsx:1113    - Target draggable: true
+CanvasElement.tsx:1111 🚀🚀🚀 HTML5 DRAG STARTED!!! rectangle-1756253022828-porilid81 Tool: hand
+CanvasElement.tsx:1112    - DataTransfer: DataTransfer {dropEffect: 'none', effectAllowed: 'move', items: DataTransferItemList, types: Array(2), files: FileList}
+CanvasElement.tsx:1113    - Target draggable: true
+CanvasElement.tsx:1133 🏁 HTML5 DRAG ENDED: text-1756255790426-yflp7n8m4
+CanvasElement.tsx:1134    - DropEffect: none
+CanvasElement.tsx:1133 🏁 HTML5 DRAG ENDED: rectangle-1756253022828-porilid81
+CanvasElement.tsx:1134    - DropEffect: none
+Canvas.tsx:899 🔄 OLD DRAG SYSTEM: Skipping because HTML5 drag active
+Canvas.tsx:899 🔄 OLD DRAG SYSTEM: Skipping because HTML5 drag active
+CanvasElement.tsx:1111 🚀🚀🚀 HTML5 DRAG STARTED!!! text-1756255790426-yflp7n8m4 Tool: hand
+CanvasElement.tsx:1112    - DataTransfer: DataTransfer {dropEffect: 'none', effectAllowed: 'uninitialized', items: DataTransferItemList, types: Array(0), files: FileList}
+CanvasElement.tsx:1113    - Target draggable: true
+CanvasElement.tsx:1111 🚀🚀🚀 HTML5 DRAG STARTED!!! rectangle-1756253022828-porilid81 Tool: hand
+CanvasElement.tsx:1112    - DataTransfer: DataTransfer {dropEffect: 'none', effectAllowed: 'move', items: DataTransferItemList, types: Array(2), files: FileList}
+CanvasElement.tsx:1113    - Target draggable: true
+CanvasElement.tsx:1133 🏁 HTML5 DRAG ENDED: text-1756255790426-yflp7n8m4
+CanvasElement.tsx:1134    - DropEffect: none
+CanvasElement.tsx:1133 🏁 HTML5 DRAG ENDED: rectangle-1756253022828-porilid81
+CanvasElement.tsx:1134    - DropEffect: none
+CanvasElement.tsx:1100 🖱️ MOUSE DOWN on element: heading-1756250422500-t0f41v5ox Tool: hand Draggable: false
+CanvasElement.tsx:1101    - Target: <h1 data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​410:​10" data-component-name=​"HeadingTag" class=​"h-full outline-none cursor-text text-element" style=​"min-height:​ inherit;​ padding:​ 4px;​ width:​ 100%;​ height:​ 100%;​ box-sizing:​ border-box;​ margin:​ 0px;​">​Gardiennage Maxime​</h1>​ CurrentTarget: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​1081:​6" data-component-name=​"div" draggable=​"true" title=​"DRAG TEST:​ Always draggable | Tool:​ hand | Editing:​ true" class=​"
+          selectable-block
+          canvas-element
+          heading-1756250422500
+          sibling-spacing-reset
+          
+          
+        " data-state=​"editing" data-locked=​"false" data-invalid=​"false" aria-selected=​"false" tabindex=​"0" data-element-id=​"heading-1756250422500-t0f41v5ox" data-container=​"false" data-accepts data-element-type=​"heading" data-testid=​"canvas-element-heading-1756250422500-t0f41v5ox" style=​"position:​ relative;​ width:​ 100%;​ height:​ 94px;​ min-height:​ 1.2em;​ font-size:​ 32px;​ font-weight:​ 700;​ color:​ rgb(17, 24, 39)​;​ padding:​ 8px;​ display:​ block;​ line-height:​ 1.2;​ margin-bottom:​ 16px;​ --element-font-size:​ 32px;​ --element-font-weight:​ 700;​ --element-color:​ #111827;​ --element-padding:​ 8px;​ --element-display:​ block;​ --element-line-height:​ 1.2;​ --element-margin-bottom:​ 16px;​ --element-width:​ 100%;​ --element-height:​ 94px;​ user-select:​ none;​ cursor:​ default;​ z-index:​ 1000;​">​…​</div>​
+CanvasElement.tsx:1102    - Buttons: 1 Button: 0
+CanvasElement.tsx:1106    - Hand tool active - HTML5 drag should work
+Canvas.tsx:899 🔄 OLD DRAG SYSTEM: Skipping because HTML5 drag active
+Canvas.tsx:899 🔄 OLD DRAG SYSTEM: Skipping because HTML5 drag active
+Canvas.tsx:899 🔄 OLD DRAG SYSTEM: Skipping because HTML5 drag active
+Canvas.tsx:899 🔄 OLD DRAG SYSTEM: Skipping because HTML5 drag active
+CanvasElement.tsx:1111 🚀🚀🚀 HTML5 DRAG STARTED!!! heading-1756250422500-t0f41v5ox Tool: hand
+CanvasElement.tsx:1112    - DataTransfer: DataTransfer {dropEffect: 'none', effectAllowed: 'uninitialized', items: DataTransferItemList, types: Array(0), files: FileList}
+CanvasElement.tsx:1113    - Target draggable: true
+CanvasElement.tsx:1133 🏁 HTML5 DRAG ENDED: heading-1756250422500-t0f41v5ox
+CanvasElement.tsx:1134    - DropEffect: none
+Canvas.tsx:899 🔄 OLD DRAG SYSTEM: Skipping because HTML5 drag active
+CanvasElement.tsx:1100 🖱️ MOUSE DOWN on element: rectangle-1756256873161-wazcz2c5a Tool: hand Draggable: true
+CanvasElement.tsx:1101    - Target: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​858:​11" data-component-name=​"div" class=​"h-full" style=​"--element-background-color:​ #f3f4f6;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 8px;​ --element-width:​ 100%;​ --element-min-height:​ 59px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 8px;​ --element-height:​ 59px;​">​</div>​ CurrentTarget: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​1081:​6" data-component-name=​"div" draggable=​"true" title=​"DRAG TEST:​ Always draggable | Tool:​ hand | Editing:​ false" class=​"
+          selectable-block
+          canvas-element
+          rectangle-1756256873161
+          sibling-spacing-reset
+          
+          
+        " data-state=​"selected" data-locked=​"false" data-invalid=​"false" aria-selected=​"true" tabindex=​"0" data-element-id=​"rectangle-1756256873161-wazcz2c5a" data-container=​"true" data-accepts=​"text,image,button,rectangle,heading,container" data-element-type=​"rectangle" data-testid=​"canvas-element-rectangle-1756256873161-wazcz2c5a" style=​"position:​ relative;​ width:​ 100%;​ height:​ 59px;​ min-height:​ 59px;​ background-color:​ rgb(243, 244, 246)​;​ border:​ 1px solid rgb(209, 213, 219)​;​ border-radius:​ 6px;​ padding:​ 8px;​ display:​ flex;​ flex-direction:​ column;​ gap:​ 8px;​ --element-background-color:​ #f3f4f6;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 8px;​ --element-width:​ 100%;​ --element-min-height:​ 59px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 8px;​ --element-height:​ 59px;​ user-select:​ none;​ cursor:​ grab;​ z-index:​ 1000;​">​…​</div>​flex
+CanvasElement.tsx:1102    - Buttons: 1 Button: 0
+CanvasElement.tsx:1106    - Hand tool active - HTML5 drag should work
+Canvas.tsx:899 🔄 OLD DRAG SYSTEM: Skipping because HTML5 drag active
+Canvas.tsx:899 🔄 OLD DRAG SYSTEM: Skipping because HTML5 drag active
+Canvas.tsx:899 🔄 OLD DRAG SYSTEM: Skipping because HTML5 drag active
+CanvasElement.tsx:1111 🚀🚀🚀 HTML5 DRAG STARTED!!! rectangle-1756256873161-wazcz2c5a Tool: hand
+CanvasElement.tsx:1112    - DataTransfer: DataTransfer {dropEffect: 'none', effectAllowed: 'uninitialized', items: DataTransferItemList, types: Array(0), files: FileList}
+CanvasElement.tsx:1113    - Target draggable: true
+CanvasElement.tsx:1133 🏁 HTML5 DRAG ENDED: rectangle-1756256873161-wazcz2c5a
+CanvasElement.tsx:1134    - DropEffect: none
+Canvas.tsx:899 🔄 OLD DRAG SYSTEM: Skipping because HTML5 drag active
+CanvasElement.tsx:1100 🖱️ MOUSE DOWN on element: rectangle-1756256873161-wazcz2c5a Tool: hand Draggable: true
+CanvasElement.tsx:1101    - Target: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​858:​11" data-component-name=​"div" class=​"h-full" style=​"--element-background-color:​ #f3f4f6;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 8px;​ --element-width:​ 100%;​ --element-min-height:​ 59px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 8px;​ --element-height:​ 59px;​">​</div>​ CurrentTarget: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​1081:​6" data-component-name=​"div" draggable=​"true" title=​"DRAG TEST:​ Always draggable | Tool:​ hand | Editing:​ false" class=​"
+          selectable-block
+          canvas-element
+          rectangle-1756256873161
+          sibling-spacing-reset
+          
+          
+        " data-state=​"hover" data-locked=​"false" data-invalid=​"false" aria-selected=​"false" tabindex=​"0" data-element-id=​"rectangle-1756256873161-wazcz2c5a" data-container=​"true" data-accepts=​"text,image,button,rectangle,heading,container" data-element-type=​"rectangle" data-testid=​"canvas-element-rectangle-1756256873161-wazcz2c5a" style=​"position:​ relative;​ width:​ 100%;​ height:​ 59px;​ min-height:​ 59px;​ background-color:​ rgb(243, 244, 246)​;​ border:​ 1px solid rgb(209, 213, 219)​;​ border-radius:​ 6px;​ padding:​ 8px;​ display:​ flex;​ flex-direction:​ column;​ gap:​ 8px;​ --element-background-color:​ #f3f4f6;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 8px;​ --element-width:​ 100%;​ --element-min-height:​ 59px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 8px;​ --element-height:​ 59px;​ user-select:​ none;​ cursor:​ grab;​ z-index:​ 1000;​">​…​</div>​flex
+CanvasElement.tsx:1102    - Buttons: 1 Button: 0
+CanvasElement.tsx:1106    - Hand tool active - HTML5 drag should work
+CanvasElement.tsx:1111 🚀🚀🚀 HTML5 DRAG STARTED!!! rectangle-1756256873161-wazcz2c5a Tool: hand
+CanvasElement.tsx:1112    - DataTransfer: DataTransfer {dropEffect: 'none', effectAllowed: 'uninitialized', items: DataTransferItemList, types: Array(0), files: FileList}
+CanvasElement.tsx:1113    - Target draggable: true
+CanvasElement.tsx:1133 🏁 HTML5 DRAG ENDED: rectangle-1756256873161-wazcz2c5a
+CanvasElement.tsx:1134    - DropEffect: none
+CanvasElement.tsx:1100 🖱️ MOUSE DOWN on element: rectangle-1756256873161-wazcz2c5a Tool: hand Draggable: true
+CanvasElement.tsx:1101    - Target: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​858:​11" data-component-name=​"div" class=​"h-full" style=​"--element-background-color:​ #f3f4f6;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 8px;​ --element-width:​ 100%;​ --element-min-height:​ 59px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 8px;​ --element-height:​ 59px;​">​</div>​ CurrentTarget: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​1081:​6" data-component-name=​"div" draggable=​"true" title=​"DRAG TEST:​ Always draggable | Tool:​ hand | Editing:​ false" class=​"
+          selectable-block
+          canvas-element
+          rectangle-1756256873161
+          sibling-spacing-reset
+          
+          
+        " data-state=​"selected" data-locked=​"false" data-invalid=​"false" aria-selected=​"true" tabindex=​"0" data-element-id=​"rectangle-1756256873161-wazcz2c5a" data-container=​"true" data-accepts=​"text,image,button,rectangle,heading,container" data-element-type=​"rectangle" data-testid=​"canvas-element-rectangle-1756256873161-wazcz2c5a" style=​"position:​ relative;​ width:​ 100%;​ height:​ 59px;​ min-height:​ 59px;​ background-color:​ rgb(243, 244, 246)​;​ border:​ 1px solid rgb(209, 213, 219)​;​ border-radius:​ 6px;​ padding:​ 8px;​ display:​ flex;​ flex-direction:​ column;​ gap:​ 8px;​ --element-background-color:​ #f3f4f6;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 8px;​ --element-width:​ 100%;​ --element-min-height:​ 59px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 8px;​ --element-height:​ 59px;​ user-select:​ none;​ cursor:​ grab;​ z-index:​ 1000;​">​…​</div>​flex
+CanvasElement.tsx:1102    - Buttons: 1 Button: 0
+CanvasElement.tsx:1106    - Hand tool active - HTML5 drag should work
+Canvas.tsx:899 🔄 OLD DRAG SYSTEM: Skipping because HTML5 drag active
+Canvas.tsx:899 🔄 OLD DRAG SYSTEM: Skipping because HTML5 drag active
+CanvasElement.tsx:1111 🚀🚀🚀 HTML5 DRAG STARTED!!! rectangle-1756256873161-wazcz2c5a Tool: hand
+CanvasElement.tsx:1112    - DataTransfer: DataTransfer {dropEffect: 'none', effectAllowed: 'uninitialized', items: DataTransferItemList, types: Array(0), files: FileList}
+CanvasElement.tsx:1113    - Target draggable: true
+CanvasElement.tsx:1133 🏁 HTML5 DRAG ENDED: rectangle-1756256873161-wazcz2c5a
+CanvasElement.tsx:1134    - DropEffect: none
