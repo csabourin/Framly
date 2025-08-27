@@ -98,8 +98,8 @@ const DragFeedback: React.FC<DragFeedbackProps> = React.memo(({
         role="status"
       />
       
-      {/* Ghost object during drag - visual clone of the actual element */}
-      {isDraggingForReorder && draggedElement && (
+      {/* HTML5 drag and drop doesn't need custom ghost - browser handles it */}
+      {false && isDraggingForReorder && draggedElement && (
         <div
           className="fixed z-[10000] pointer-events-none opacity-75"
           style={{

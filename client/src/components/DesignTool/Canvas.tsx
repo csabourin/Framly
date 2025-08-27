@@ -1202,6 +1202,208 @@ const Canvas: React.FC = () => {
     setIsDragFromHandle(false);
   }, [dispatch, isDraggingForReorder, draggedElementId, hoveredElementId, hoveredZone, insertionIndicator, currentElements, dragThreshold, setDragThreshold, isDragFromHandle, drawingState, selectedTool, commitDrawnRect]);
 
+  // HTML5 Drag and Drop event handlers for the canvas
+  const handleCanvasDragOver = useCallback((e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    
+    // Use the DnD system to determine drop location and show visual feedback
+    const candidateIds = getCandidateContainerIds({ x: e.clientX, y: e.clientY });
+    
+    try {
+      const dragData = e.dataTransfer.getData('application/json');
+      if (!dragData) return;
+      
+      const data = JSON.parse(dragData);
+      if (data.type === 'canvas-element' && data.elementId) {
+        const draggedElement = currentElements[data.elementId];
+        if (!draggedElement) return;
+        
+        const draggedMeta = createComponentMeta(draggedElement);
+        
+        // Helper functions for DnD system
+        const getMeta = (id: string) => {
+          if (id === "root") {
+            return { id: "root", tag: "DIV", acceptsChildren: true };
+          }
+          if (id === data.elementId) {
+            return draggedMeta;
+          }
+          const element = currentElements[id];
+          return element ? createComponentMeta(element) : null;
+        };
+        
+        const getParentId = (id: string) => {
+          if (id === "root") return null;
+          const element = currentElements[id];
+          return element?.parent || "root";
+        };
+        
+        const indexOf = (parentId: string, childId: string) => {
+          if (parentId === "root") {
+            return Object.values(currentElements)
+              .filter(el => el.parent === "root" || !el.parent)
+              .findIndex(el => el.id === childId);
+          }
+          const parent = currentElements[parentId];
+          return parent?.children?.indexOf(childId) || 0;
+        };
+        
+        const getChildren = (parentId: string) => {
+          if (parentId === "root") {
+            return Object.values(currentElements)
+              .filter(el => el.parent === "root" || !el.parent)
+              .map(el => el.id);
+          }
+          const parent = currentElements[parentId];
+          return parent?.children || [];
+        };
+        
+        // Get legal drop location
+        const drop = chooseDropForNewElement(
+          { x: e.clientX, y: e.clientY },
+          candidateIds,
+          draggedMeta,
+          getMeta,
+          getParentId,
+          indexOf,
+          getChildren
+        );
+        
+        if (drop) {
+          const insertionPosition = drop.kind === "into" ? "inside" : "inside";
+          
+          setHoveredElementId(drop.parentId);
+          setHoveredZone(insertionPosition);
+          dispatch(setHoveredElement({ 
+            elementId: drop.parentId, 
+            zone: insertionPosition
+          }));
+        } else {
+          setHoveredElementId(null);
+          setHoveredZone(null);
+          dispatch(setHoveredElement({ elementId: null, zone: null }));
+        }
+      }
+    } catch (error) {
+      // Invalid drag data
+    }
+  }, [currentElements, dispatch]);
+
+  const handleCanvasDrop = useCallback((e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    
+    try {
+      const dragData = e.dataTransfer.getData('application/json');
+      if (!dragData) return;
+      
+      const data = JSON.parse(dragData);
+      if (data.type === 'canvas-element' && data.elementId) {
+        const draggedElement = currentElements[data.elementId];
+        if (!draggedElement) return;
+        
+        const candidateIds = getCandidateContainerIds({ x: e.clientX, y: e.clientY });
+        const draggedMeta = createComponentMeta(draggedElement);
+        
+        // Same helper functions as dragOver
+        const getMeta = (id: string) => {
+          if (id === "root") {
+            return { id: "root", tag: "DIV", acceptsChildren: true };
+          }
+          if (id === data.elementId) {
+            return draggedMeta;
+          }
+          const element = currentElements[id];
+          return element ? createComponentMeta(element) : null;
+        };
+        
+        const getParentId = (id: string) => {
+          if (id === "root") return null;
+          const element = currentElements[id];
+          return element?.parent || "root";
+        };
+        
+        const indexOf = (parentId: string, childId: string) => {
+          if (parentId === "root") {
+            return Object.values(currentElements)
+              .filter(el => el.parent === "root" || !el.parent)
+              .findIndex(el => el.id === childId);
+          }
+          const parent = currentElements[parentId];
+          return parent?.children?.indexOf(childId) || 0;
+        };
+        
+        const getChildren = (parentId: string) => {
+          if (parentId === "root") {
+            return Object.values(currentElements)
+              .filter(el => el.parent === "root" || !el.parent)
+              .map(el => el.id);
+          }
+          const parent = currentElements[parentId];
+          return parent?.children || [];
+        };
+        
+        // Get legal drop location
+        const drop = chooseDropForNewElement(
+          { x: e.clientX, y: e.clientY },
+          candidateIds,
+          draggedMeta,
+          getMeta,
+          getParentId,
+          indexOf,
+          getChildren
+        );
+        
+        if (drop) {
+          // Convert to reorder parameters
+          let insertPosition: 'before' | 'after' | 'inside' = drop.kind === "into" ? 'inside' : 'before';
+          let referenceElementId: string | undefined;
+          
+          if (drop.kind === "between" && typeof drop.index === "number") {
+            const siblings = getChildren(drop.parentId);
+            if (drop.index < siblings.length) {
+              referenceElementId = siblings[drop.index];
+              insertPosition = 'before';
+            } else {
+              insertPosition = 'inside';
+            }
+          }
+          
+          // Perform the reordering
+          dispatch(reorderElement({
+            elementId: data.elementId,
+            newParentId: drop.parentId,
+            insertPosition,
+            referenceElementId
+          }));
+        } else {
+          // Fallback to root
+          dispatch(reorderElement({
+            elementId: data.elementId,
+            newParentId: 'root',
+            insertPosition: 'inside'
+          }));
+        }
+        
+        // Clear visual feedback
+        setHoveredElementId(null);
+        setHoveredZone(null);
+        dispatch(setHoveredElement({ elementId: null, zone: null }));
+      }
+    } catch (error) {
+      // Invalid drag data
+    }
+  }, [currentElements, dispatch]);
+
+  const handleCanvasDragLeave = useCallback((e: React.DragEvent<HTMLDivElement>) => {
+    // Only clear feedback if leaving the canvas entirely
+    if (!canvasRef.current?.contains(e.relatedTarget as Node)) {
+      setHoveredElementId(null);
+      setHoveredZone(null);
+      dispatch(setHoveredElement({ elementId: null, zone: null }));
+    }
+  }, [dispatch]);
+
   // Keyboard shortcuts for copy/cut/paste
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -1673,9 +1875,9 @@ const Canvas: React.FC = () => {
           ? (isComponentPanelVisible ? 'left-80 right-[576px]' : 'left-80 right-80')
           : (isComponentPanelVisible ? 'left-16 right-[576px]' : 'left-16 right-80')
       }`}
-      onDragOver={handleDragOver}
-      onDrop={handleDrop}
-      onDragLeave={handleDragLeave}
+      onDragOver={handleCanvasDragOver}
+      onDrop={handleCanvasDrop}
+      onDragLeave={handleCanvasDragLeave}
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
       onMouseUp={() => handleMouseUp()}

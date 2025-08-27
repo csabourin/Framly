@@ -182,6 +182,75 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     setIsEditing(false);
   }, [element.id, dispatch]);
 
+  // HTML5 Drag and Drop event handlers
+  const handleDragStart = useCallback((e: React.DragEvent<HTMLDivElement>) => {
+    // Don't allow dragging while editing text
+    if (isEditing) {
+      e.preventDefault();
+      return;
+    }
+    
+    // Set drag data
+    e.dataTransfer.setData('application/json', JSON.stringify({
+      type: 'canvas-element',
+      elementId: element.id
+    }));
+    
+    // Set drag effect
+    e.dataTransfer.effectAllowed = 'move';
+    
+    // Create custom drag image from the element
+    const dragImage = elementRef.current?.cloneNode(true) as HTMLElement;
+    if (dragImage) {
+      dragImage.style.opacity = '0.8';
+      dragImage.style.transform = 'scale(0.9)';
+      document.body.appendChild(dragImage);
+      e.dataTransfer.setDragImage(dragImage, 0, 0);
+      
+      // Clean up drag image after drag starts
+      setTimeout(() => {
+        if (document.body.contains(dragImage)) {
+          document.body.removeChild(dragImage);
+        }
+      }, 0);
+    }
+    
+    // Select this element when drag starts
+    dispatch(selectElement(element.id));
+  }, [element.id, dispatch, isEditing]);
+
+  const handleDragOver = useCallback((e: React.DragEvent<HTMLDivElement>) => {
+    // Prevent default to allow drop
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+  }, []);
+
+  const handleDragEnter = useCallback((e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    // Visual feedback will be handled by the new DnD system
+  }, []);
+
+  const handleDragLeave = useCallback((e: React.DragEvent<HTMLDivElement>) => {
+    // Only clear if leaving the element entirely
+    if (!elementRef.current?.contains(e.relatedTarget as Node)) {
+      // Clear visual feedback
+    }
+  }, []);
+
+  const handleDrop = useCallback((e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    
+    try {
+      const data = JSON.parse(e.dataTransfer.getData('application/json'));
+      if (data.type === 'canvas-element' && data.elementId) {
+        // The drop logic will be handled by the Canvas component's drop handlers
+        // This is just to prevent the default behavior
+      }
+    } catch (error) {
+      // Invalid drag data
+    }
+  }, []);
+
   const handleKeyDown = useCallback((e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === 'Enter') {
       if (e.shiftKey) {
@@ -1008,6 +1077,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     <ElementContextMenu elementId={element.id}>
       <div
         ref={elementRef}
+        draggable={!isEditing && !isComponentChild} // Enable HTML5 drag and drop, but not for text editing or component children
         className={`
           selectable-block
           canvas-element
@@ -1029,10 +1099,12 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
             e.preventDefault();
           }
         }}
-        onDragStart={(e) => {
-          // Prevent default drag behavior that interferes with our custom drag
-          e.preventDefault();
-        }}
+        // HTML5 Drag and Drop event handlers
+        onDragStart={handleDragStart}
+        onDragOver={handleDragOver}
+        onDragEnter={handleDragEnter}
+        onDragLeave={handleDragLeave}
+        onDrop={handleDrop}
         style={{
           ...minimalInlineStyles,
           userSelect: selectedTool !== 'text' ? 'none' : 'auto',
