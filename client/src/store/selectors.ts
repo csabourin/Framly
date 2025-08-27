@@ -125,32 +125,19 @@ export const selectElementExists = createSelector(
 // UI state selectors to prevent inline object creation
 export const selectUIState = createSelector(
   [(state: RootState) => state.ui],
-  (ui) => ({
-    selectedTool: ui.selectedTool,
-    isDraggingForReorder: ui.isDraggingForReorder,
-    draggedElementId: ui.draggedElementId,
-    insertionIndicator: ui.insertionIndicator,
-    isComponentPanelVisible: ui.isComponentPanelVisible,
-    isDOMTreePanelVisible: ui.isDOMTreePanelVisible,
-    isClassEditorOpen: ui.isClassEditorOpen,
-    isComponentEditorOpen: ui.isComponentEditorOpen,
-    editingComponentId: ui.editingComponentId,
-    isButtonDesignerOpen: ui.isButtonDesignerOpen,
-    isCodeModalOpen: ui.isCodeModalOpen,
-    isCSSOptimizationModalOpen: ui.isCSSOptimizationModalOpen,
-    hoveredElementId: ui.hoveredElementId || null,
-    hoveredZone: ui.hoveredZone || null,
-    settings: ui.settings || { enableHandToolDragging: false, enableClickToMove: false }
-  })
+  (ui) => ui  // Return ui state directly to prevent object recreation
 );
 
 // Hover state selector to prevent inline object creation
-export const selectHoverState = createSelector(
-  [(state: RootState) => state.ui],
-  (ui) => ({
-    hoveredElementId: ui.hoveredElementId || null,
-    hoveredZone: ui.hoveredZone || null,
-  })
+// Optimized hover state selectors to prevent object recreation
+export const selectHoveredElementId = createSelector(
+  [(state: RootState) => state.ui.hoveredElementId],
+  (hoveredElementId) => hoveredElementId || null
+);
+
+export const selectHoveredZone = createSelector(
+  [(state: RootState) => state.ui.hoveredZone],
+  (hoveredZone) => hoveredZone || null
 );
 
 // Canvas project selector - CRITICAL: prevents browser crashes
@@ -160,22 +147,25 @@ export const selectCanvasProject = createSelector(
 );
 
 // Canvas UI state selector - CRITICAL: prevents browser crashes  
-export const selectCanvasUIState = createSelector(
-  [(state: RootState) => state.ui],
-  (ui) => ({
-    selectedTool: ui.selectedTool,
-    isDragging: ui.isDragging,
-    dragStart: ui.dragStart,
-    isResizing: ui.isResizing,
-    resizeHandle: ui.resizeHandle,
-    zoomLevel: ui.zoomLevel,
-    isGridVisible: ui.isGridVisible,
-    draggedElementId: ui.draggedElementId,
-    isDraggingForReorder: ui.isDraggingForReorder,
-    isDOMTreePanelVisible: ui.isDOMTreePanelVisible,
-    isComponentPanelVisible: ui.isComponentPanelVisible,
-    settings: ui.settings
-  })
+// Optimized individual selectors instead of object recreation
+export const selectSelectedTool = createSelector(
+  [(state: RootState) => state.ui.selectedTool],
+  (selectedTool) => selectedTool
+);
+
+export const selectIsDraggingForReorder = createSelector(
+  [(state: RootState) => state.ui.isDraggingForReorder],
+  (isDraggingForReorder) => isDraggingForReorder
+);
+
+export const selectDraggedElementId = createSelector(
+  [(state: RootState) => state.ui.draggedElementId],
+  (draggedElementId) => draggedElementId
+);
+
+export const selectZoomLevel = createSelector(
+  [(state: RootState) => state.ui.zoomLevel],
+  (zoomLevel) => zoomLevel
 );
 
 // Custom classes selector - CRITICAL: prevents browser crashes

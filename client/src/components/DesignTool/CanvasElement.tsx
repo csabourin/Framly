@@ -1,7 +1,7 @@
 import React, { useRef, useCallback, memo, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
-import { selectUIState, selectHoverState, selectSelectedElementId, selectCustomClasses } from '../../store/selectors';
+import { selectUIState, selectHoveredElementId, selectHoveredZone, selectSelectedElementId, selectCustomClasses } from '../../store/selectors';
 import { selectElement, updateElement } from '../../store/canvasSlice';
 import { setSelectedTool } from '../../store/uiSlice';
 import { CanvasElement as CanvasElementType } from '../../types/canvas';
@@ -45,7 +45,8 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
   const selectedElementId = useSelector(selectSelectedElementId);
   const { selectedTool, isDraggingForReorder, draggedElementId, insertionIndicator, settings } = useSelector(selectUIState);
   const customClasses = useSelector(selectCustomClasses);
-  const reduxHoverState = useSelector(selectHoverState);
+  const reduxHoveredElementId = useSelector(selectHoveredElementId);
+  const reduxHoveredZone = useSelector(selectHoveredZone);
   const { resolvedMode } = useColorMode(); // Add color mode support
   const elementRef = useRef<HTMLDivElement>(null);
   const [isEditing, setIsEditing] = React.useState(false);
@@ -54,9 +55,9 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
   const preEditRef = useRef<HTMLPreElement>(null);
   const textareaEditRef = useRef<HTMLTextAreaElement>(null);
   
-  // Get hover state from Redux if not provided via props (already called above)
-  const actualHoveredElementId = hoveredElementId !== undefined ? hoveredElementId : reduxHoverState.hoveredElementId;
-  const actualHoveredZone = hoveredZone !== undefined ? hoveredZone : reduxHoverState.hoveredZone;
+  // Get hover state from Redux if not provided via props (optimized selectors)
+  const actualHoveredElementId = hoveredElementId !== undefined ? hoveredElementId : reduxHoveredElementId;
+  const actualHoveredZone = hoveredZone !== undefined ? hoveredZone : reduxHoveredZone;
   
   // CRITICAL: Component instances are now expanded - check for component children and roots
   const isComponentChild = element.isComponentChild;

@@ -5,13 +5,24 @@ import { RootState } from '../../store';
 import { selectElement, addElement, moveElement, resizeElement, reorderElement, deleteElement, copyElement, cutElement, pasteElement } from '../../store/canvasSlice';
 import { setDragging, setDragStart, setResizing, setResizeHandle, resetUI, setDraggedElement, setDraggingForReorder, setHoveredElement, setSelectedTool } from '../../store/uiSlice';
 import { createDefaultElement, getElementAtPoint, calculateSnapPosition, isValidDropTarget, isPointAndClickTool, isDrawingTool, canAcceptChildren } from '../../utils/canvas';
-import { selectCurrentElements, selectSelectedElementId, selectCanvasProject, selectCanvasUIState } from '../../store/selectors';
+import { 
+  selectCurrentElements, 
+  selectSelectedElementId, 
+  selectCanvasProject, 
+  selectSelectedTool,
+  selectIsDraggingForReorder,
+  selectDraggedElementId,
+  selectZoomLevel,
+  selectHoveredElementId,
+  selectHoveredZone
+} from '../../store/selectors';
 import { ComponentDef, CanvasElement as CanvasElementType, Tool } from '../../types/canvas';
 import CanvasElement from './CanvasElement';
 import { useExpandedElements } from '../../hooks/useExpandedElements';
 import { useColorModeCanvasSync } from '../../hooks/useColorModeCanvasSync';
 import { useDrawingCommitter } from './DrawingCommitter';
 import DragFeedback from './DragFeedback';
+import { useThrottledMouseMove } from '../../hooks/useThrottledMouseMove';
 
 import { Plus, Minus, Maximize } from 'lucide-react';
 
@@ -50,26 +61,42 @@ const Canvas: React.FC = () => {
     isShiftPressed: boolean;
     isAltPressed: boolean;
   } | null>(null);
+  // Essential selectors for Canvas functionality (optimized)
+  const currentElements = useSelector(selectCurrentElements);
+  const selectedElementId = useSelector(selectSelectedElementId);
   const project = useSelector(selectCanvasProject);
-  const { selectedTool, isDragging, dragStart, isResizing, resizeHandle, zoomLevel, isGridVisible, draggedElementId, isDraggingForReorder, isDOMTreePanelVisible, isComponentPanelVisible, settings } = useSelector(selectCanvasUIState);
+  const selectedTool = useSelector(selectSelectedTool);
+  const isDraggingForReorder = useSelector(selectIsDraggingForReorder);
+  const draggedElementId = useSelector(selectDraggedElementId);
+  const zoomLevel = useSelector(selectZoomLevel);
+  
+  // Extract additional UI state individually (optimized)
+  const isDragging = useSelector((state: RootState) => state.ui.isDragging);
+  const dragStart = useSelector((state: RootState) => state.ui.dragStart);
+  const isResizing = useSelector((state: RootState) => state.ui.isResizing);
+  const resizeHandle = useSelector((state: RootState) => state.ui.resizeHandle);
+  const isGridVisible = useSelector((state: RootState) => state.ui.isGridVisible);
+  const isDOMTreePanelVisible = useSelector((state: RootState) => state.ui.isDOMTreePanelVisible);
+  const isComponentPanelVisible = useSelector((state: RootState) => state.ui.isComponentPanelVisible);
+  const settings = useSelector((state: RootState) => state.ui.settings);
+  
   const currentBreakpoint = useSelector((state: RootState) => state.canvas.project.currentBreakpoint);
   const breakpoints = useSelector((state: RootState) => state.canvas.project.breakpoints);
   
-  // Use centralized selectors for tab-based data
-  const rawElements = useSelector(selectCurrentElements);
-  const selectedElementId = useSelector(selectSelectedElementId);
+  // Use centralized selectors for tab-based data (reusing currentElements)
+  const rawElements = currentElements;
   
   // CRITICAL: Expand component instances to show their template children
-  const currentElements = useExpandedElements(rawElements);
+  const expandedElements = useExpandedElements(rawElements);
 
-  const rootElement = currentElements.root;
+  const rootElement = expandedElements.root;
   
   // Override root width based on current breakpoint
   const canvasWidth = breakpoints[currentBreakpoint]?.width || rootElement?.width || 375;
 
   // Initialize drawing committer for the new drawing-based UX
   const { commitDrawnRect } = useDrawingCommitter({
-    currentElements,
+    currentElements: expandedElements,
     zoomLevel,
     canvasRef,
     currentBreakpointWidth: canvasWidth
@@ -653,7 +680,7 @@ const Canvas: React.FC = () => {
     return () => window.removeEventListener('dragHandleMouseDown', handleDragHandleMouseDown as EventListener);
   }, [zoomLevel, dispatch]);
 
-  const handleMouseMove = useCallback((e: React.MouseEvent) => {
+  const handleMouseMoveInternal = useCallback((e: React.MouseEvent) => {
     const rect = canvasRef.current?.getBoundingClientRect();
     if (!rect) return;
     
@@ -885,7 +912,10 @@ const Canvas: React.FC = () => {
       dispatch(setHoveredElement({ elementId: null, zone: null }));
       setInsertionIndicator(null);
     }
-  }, [isDragging, isDraggingForReorder, selectedElement, draggedElementId, dragStart, zoomLevel, dispatch, selectedTool, currentElements, dragThreshold, drawingState]);
+  }, [isDragging, isDraggingForReorder, selectedElementId, draggedElementId, dragStart, zoomLevel, dispatch, selectedTool, expandedElements, dragThreshold, drawingState]);
+
+  // Throttled mouse move handler to improve performance
+  const handleMouseMove = useThrottledMouseMove(handleMouseMoveInternal, 16);
 
   const handleMouseUp = useCallback((e?: MouseEvent) => {
     // Handle drawing completion FIRST
@@ -1796,7 +1826,6 @@ const Canvas: React.FC = () => {
           hoveredElementId={hoveredElementId}
           hoveredZone={hoveredZone}
           draggedElementId={draggedElementId}
-          currentElements={currentElements}
         />
 
       </div>
