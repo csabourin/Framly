@@ -1139,10 +1139,10 @@ const Canvas: React.FC = () => {
       };
       
       // Get legal drop location using new DnD system
-      const candidateIds = getCandidateContainerIds({ x: lastMousePos.current.x, y: lastMousePos.current.y });
+      const candidateIds2 = getCandidateContainerIds({ x: lastMousePos.current.x, y: lastMousePos.current.y });
       const drop = chooseDropForNewElement(
         { x: lastMousePos.current.x, y: lastMousePos.current.y },
-        candidateIds,
+        candidateIds2,
         draggedMeta,
         getMeta,
         getParentId,
