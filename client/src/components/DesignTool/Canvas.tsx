@@ -25,7 +25,9 @@ import DragFeedback from './DragFeedback';
 import { useThrottledMouseMove } from '../../hooks/useThrottledMouseMove';
 import { useStableDragTarget } from '../../hooks/useStableDragTarget';
 import DragIndicatorOverlay from './DragIndicatorOverlay';
+import InsertionDebugPanel from './InsertionDebugPanel';
 import { calculateHitZone, clampToCanvas, areZonesMutuallyExclusive } from '../../utils/hitZoneGeometry';
+import { calculatePredictableInsertion, getIndicatorType, validateInsertionMatch } from '../../utils/predictableInsertion';
 
 import { Plus, Minus, Maximize } from 'lucide-react';
 
@@ -728,43 +730,63 @@ const Canvas: React.FC = () => {
          'section', 'nav', 'header', 'footer', 'article',
          'video', 'audio', 'link', 'code', 'divider'].includes(selectedTool)) {
       
-      // Show insertion indicators for point-and-click tools
+      // Show insertion indicators for point-and-click tools using predictable logic
       if (isPointAndClickTool(selectedTool as Tool)) {
-        const insertionZone = detectInsertionZone(x, y, false);
+        // Use new predictable insertion detection
+        const targetElement = getElementAtPoint(x, y, expandedElements);
         
-        if (insertionZone) {
-          // Use stable drag target to prevent flicker
-          const targetZone = (insertionZone as any).position === 'between' ? 'inside' : (insertionZone as any).position;
-          
-          // Only update stable target for basic zones (exclude canvas-top/bottom)
-          if (['before', 'after', 'inside'].includes(targetZone)) {
-            stableDragTarget.updateTarget({
-              elementId: insertionZone.elementId,
-              zone: targetZone as 'before' | 'after' | 'inside',
-              bounds: insertionZone.bounds
-            }, x, y, (target) => {
-              // Debounced update - only fires when target actually changes
-              setHoveredElementId(target.elementId);
-              setHoveredZone(target.zone);
-              dispatch(setHoveredElement({ 
-                elementId: target.elementId, 
-                zone: target.zone
-              }));
-              setInsertionIndicator(insertionZone);
-            });
-          } else {
-            // Handle canvas-top/bottom directly without stable target
-            setHoveredElementId(insertionZone.elementId);
-            setHoveredZone(targetZone);
-            dispatch(setHoveredElement({ 
-              elementId: insertionZone.elementId, 
-              zone: targetZone
-            }));
-            setInsertionIndicator(insertionZone);
+        if (targetElement) {
+          // Get element bounds for hit testing
+          const elementDiv = document.querySelector(`[data-element-id="${targetElement.id}"]`) as HTMLElement;
+          if (elementDiv && canvasRef.current) {
+            const canvasRect = canvasRef.current.getBoundingClientRect();
+            const elementRect = elementDiv.getBoundingClientRect();
+            
+            const elementBounds = {
+              x: (elementRect.left - canvasRect.left) / zoomLevel,
+              y: (elementRect.top - canvasRect.top) / zoomLevel,
+              width: elementRect.width / zoomLevel,
+              height: elementRect.height / zoomLevel
+            };
+            
+            // Calculate predictable insertion zone
+            const insertionZone = calculatePredictableInsertion(
+              x, y, targetElement, elementBounds, expandedElements, hoveredZone
+            );
+            
+            if (insertionZone && validateInsertionMatch(insertionZone, targetElement, expandedElements)) {
+              // Use stable drag target to prevent flicker
+              stableDragTarget.updateTarget({
+                elementId: insertionZone.elementId,
+                zone: insertionZone.position,
+                bounds: insertionZone.bounds
+              }, x, y, (target) => {
+                // Debounced update - only fires when target actually changes
+                setHoveredElementId(target.elementId);
+                setHoveredZone(target.zone);
+                dispatch(setHoveredElement({ 
+                  elementId: target.elementId, 
+                  zone: target.zone
+                }));
+                
+                // Store insertion indicator with predictable format
+                setInsertionIndicator({
+                  position: target.zone,
+                  elementId: target.elementId,
+                  bounds: target.bounds
+                });
+              });
+            } else {
+              // No valid insertion zone
+              stableDragTarget.clearTarget();
+              setInsertionIndicator(null);
+              setHoveredElementId(null);
+              setHoveredZone(null);
+              dispatch(setHoveredElement({ elementId: null, zone: null }));
+            }
           }
-
         } else {
-          // No valid insertion zone
+          // No target element found
           stableDragTarget.clearTarget();
           setInsertionIndicator(null);
           setHoveredElementId(null);
