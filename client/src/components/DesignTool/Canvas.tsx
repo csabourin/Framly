@@ -900,7 +900,7 @@ const Canvas: React.FC = () => {
         const draggedElement = currentElements[draggedElementId];
         if (!draggedElement) return;
         
-        console.log('Drag visual feedback - dragging:', draggedElement.id, 'at:', { x: e.clientX, y: e.clientY });
+
         
         // Get candidate containers for the dragged element
         const candidateIds = getCandidateContainerIds({ x: e.clientX, y: e.clientY });
@@ -956,7 +956,7 @@ const Canvas: React.FC = () => {
         );
         
         if (drop) {
-          console.log('Drag drop zone found:', drop);
+
           
           // Convert new DnD format to old insertion zone format for compatibility
           const insertionZone = {
@@ -986,7 +986,7 @@ const Canvas: React.FC = () => {
             setExpandedContainerId(drop.parentId);
           }
         } else {
-          console.log('Drag no valid drop zone found');
+
           // No valid drop location found, clear feedback
           setHoveredElementId(null);
           setHoveredZone(null);
@@ -1145,8 +1145,6 @@ const Canvas: React.FC = () => {
       );
       
       if (drop) {
-        console.log('Mouse up - valid drop found:', drop, 'for element:', draggedElementId);
-        
         // Convert new DnD format to reorder parameters
         let insertPosition: 'before' | 'after' | 'inside' = drop.kind === "into" ? 'inside' : 'before';
         let referenceElementId: string | undefined;
@@ -1163,13 +1161,6 @@ const Canvas: React.FC = () => {
           }
         }
         
-        console.log('Mouse up - performing reorder:', {
-          elementId: draggedElementId,
-          newParentId: drop.parentId,
-          insertPosition,
-          referenceElementId
-        });
-        
         // Perform the reordering using validated drop location
         dispatch(reorderElement({
           elementId: draggedElementId,
@@ -1178,7 +1169,6 @@ const Canvas: React.FC = () => {
           referenceElementId
         }));
       } else {
-        console.log('Mouse up - no valid drop found, falling back to root for element:', draggedElementId);
         // Fallback to root insertion if no valid drop found
         dispatch(reorderElement({
           elementId: draggedElementId,

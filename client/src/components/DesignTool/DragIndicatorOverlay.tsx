@@ -105,29 +105,79 @@ const DragIndicatorOverlay: React.FC<DragIndicatorOverlayProps> = React.memo(({
       style={{ zIndex: 9999 }}
     >
       {indicatorStyle.type === 'inside' && (
-        <div
-          className="absolute border-2 border-blue-500 bg-blue-500/20 rounded"
-          style={{
-            left: `${indicatorStyle.left}px`,
-            top: `${indicatorStyle.top}px`,
-            width: `${indicatorStyle.width}px`,
-            height: `${indicatorStyle.height}px`,
-            transition: 'none' // Prevent transition artifacts
-          }}
-        />
+        <>
+          {/* Container highlight - blue background */}
+          <div
+            className="absolute border-2 border-blue-500 bg-blue-500/30 rounded animate-pulse"
+            style={{
+              left: `${indicatorStyle.left}px`,
+              top: `${indicatorStyle.top}px`,
+              width: `${indicatorStyle.width}px`,
+              height: `${indicatorStyle.height}px`,
+              transition: 'none'
+            }}
+          />
+          {/* Landing zone preview */}
+          <div
+            className="absolute border-2 border-blue-600 bg-blue-600/40 rounded-sm"
+            style={{
+              left: `${indicatorStyle.left + 8}px`,
+              top: `${indicatorStyle.top + 8}px`,
+              width: `${Math.max(60, indicatorStyle.width - 16)}px`,
+              height: `${Math.max(30, indicatorStyle.height - 16)}px`,
+              transition: 'none'
+            }}
+          />
+          {/* Text label */}
+          <div
+            className="absolute bg-blue-600 text-white text-xs px-2 py-1 rounded-sm font-medium pointer-events-none"
+            style={{
+              left: `${indicatorStyle.left + 4}px`,
+              top: `${indicatorStyle.top - 20}px`,
+              transition: 'none'
+            }}
+          >
+            Drop inside
+          </div>
+        </>
       )}
       
       {indicatorStyle.type === 'line' && (
-        <div
-          className="absolute bg-green-500 rounded-full"
-          style={{
-            left: `${indicatorStyle.left}px`,
-            top: `${indicatorStyle.top}px`,
-            width: `${indicatorStyle.width}px`,
-            height: `${indicatorStyle.height}px`,
-            transition: 'none' // Prevent transition artifacts
-          }}
-        />
+        <>
+          {/* Green insertion line */}
+          <div
+            className="absolute bg-green-500 shadow-lg"
+            style={{
+              left: `${indicatorStyle.left}px`,
+              top: `${indicatorStyle.top}px`,
+              width: `${indicatorStyle.width}px`,
+              height: `${indicatorStyle.height}px`,
+              transition: 'none'
+            }}
+          />
+          {/* Landing zone preview box */}
+          <div
+            className="absolute border-2 border-green-500 bg-green-500/20 rounded-sm"
+            style={{
+              left: `${indicatorStyle.left + 8}px`,
+              top: `${indicatorStyle.top - 15}px`,
+              width: `${Math.min(120, indicatorStyle.width - 16)}px`,
+              height: `30px`,
+              transition: 'none'
+            }}
+          />
+          {/* Text label */}
+          <div
+            className="absolute bg-green-600 text-white text-xs px-2 py-1 rounded-sm font-medium pointer-events-none"
+            style={{
+              left: `${indicatorStyle.left + 4}px`,
+              top: `${indicatorStyle.top - 35}px`,
+              transition: 'none'
+            }}
+          >
+            Drop here
+          </div>
+        </>
       )}
     </div>
   );

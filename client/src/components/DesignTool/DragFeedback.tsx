@@ -69,15 +69,18 @@ const DragFeedback: React.FC<DragFeedbackProps> = React.memo(({
     return () => clearTimeout(timer);
   }, [announcement]);
 
-  // Track mouse position for ghost object
+  // Track mouse position for ghost object with better precision
   useEffect(() => {
     if (!isDraggingForReorder) return;
     
     const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
+      // Use RAF for smooth positioning
+      requestAnimationFrame(() => {
+        setMousePosition({ x: e.clientX, y: e.clientY });
+      });
     };
     
-    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mousemove', handleMouseMove, { passive: true });
     return () => document.removeEventListener('mousemove', handleMouseMove);
   }, [isDraggingForReorder]);
 
@@ -95,24 +98,72 @@ const DragFeedback: React.FC<DragFeedbackProps> = React.memo(({
         role="status"
       />
       
-      {/* Ghost object during drag */}
+      {/* Ghost object during drag - visual clone of the actual element */}
       {isDraggingForReorder && draggedElement && (
         <div
-          className="fixed z-[10000] pointer-events-none opacity-70"
+          className="fixed z-[10000] pointer-events-none opacity-75"
           style={{
-            left: `${mousePosition.x + 10}px`,
-            top: `${mousePosition.y + 10}px`,
-            transform: 'translate(0, 0)'
+            left: `${mousePosition.x}px`,
+            top: `${mousePosition.y}px`,
+            transform: 'translate(-50%, -50%)',
+            width: `${Math.min(draggedElement.width || 100, 200)}px`,
+            height: `${Math.min(draggedElement.height || 40, 100)}px`
           }}
         >
-          <div className="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded shadow-lg p-2 min-w-[100px] min-h-[30px] flex items-center justify-center text-sm font-medium text-gray-700 dark:text-gray-300">
-            {draggedElement.type === 'text' && draggedElement.content ? 
-              draggedElement.content.substring(0, 20) + (draggedElement.content.length > 20 ? '...' : '') :
-              draggedElement.type === 'button' && draggedElement.buttonText ?
-              draggedElement.buttonText :
-              draggedElement.type === 'image' ? 'Image' :
-              draggedElement.type.charAt(0).toUpperCase() + draggedElement.type.slice(1)
-            }
+          {/* Visual clone that matches the original element */}
+          <div 
+            className="relative w-full h-full border-2 border-blue-500 rounded shadow-lg"
+            style={{
+              backgroundColor: draggedElement.styles?.backgroundColor || 'white',
+              borderColor: draggedElement.styles?.borderColor || '#3b82f6',
+              borderRadius: draggedElement.styles?.borderRadius || '4px',
+              fontSize: draggedElement.styles?.fontSize || '14px',
+              fontWeight: draggedElement.styles?.fontWeight || 'normal',
+              color: draggedElement.styles?.color || '#1f2937'
+            }}
+          >
+            {/* Element-specific content rendering */}
+            {draggedElement.type === 'text' && (
+              <div className="p-2 overflow-hidden">
+                {draggedElement.content?.substring(0, 50) || 'Text Element'}
+              </div>
+            )}
+            {draggedElement.type === 'button' && (
+              <div className="w-full h-full flex items-center justify-center font-medium">
+                {draggedElement.buttonText || draggedElement.content || 'Button'}
+              </div>
+            )}
+            {draggedElement.type === 'image' && (
+              <div className="w-full h-full flex items-center justify-center bg-gray-100 dark:bg-gray-700">
+                {draggedElement.imageBase64 || draggedElement.imageUrl ? (
+                  <img 
+                    src={draggedElement.imageBase64 || draggedElement.imageUrl} 
+                    alt=""
+                    className="w-full h-full object-cover rounded"
+                  />
+                ) : (
+                  <span className="text-gray-500 text-sm">Image</span>
+                )}
+              </div>
+            )}
+            {draggedElement.type === 'rectangle' && (
+              <div className="w-full h-full flex items-center justify-center text-sm text-gray-500">
+                Rectangle
+              </div>
+            )}
+            {draggedElement.type === 'container' && (
+              <div className="w-full h-full flex items-center justify-center text-sm text-gray-500 border-2 border-dashed border-gray-300">
+                Container
+              </div>
+            )}
+            {!['text', 'button', 'image', 'rectangle', 'container'].includes(draggedElement.type) && (
+              <div className="w-full h-full flex items-center justify-center text-sm text-gray-500">
+                {draggedElement.type.charAt(0).toUpperCase() + draggedElement.type.slice(1)}
+              </div>
+            )}
+            
+            {/* Dragging indicator overlay */}
+            <div className="absolute inset-0 bg-blue-500/20 rounded pointer-events-none" />
           </div>
         </div>
       )}
