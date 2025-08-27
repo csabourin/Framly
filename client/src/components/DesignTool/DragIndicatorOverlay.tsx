@@ -108,7 +108,7 @@ const DragIndicatorOverlay: React.FC<DragIndicatorOverlayProps> = React.memo(({
         <>
           {/* Container highlight - blue background */}
           <div
-            className="absolute border-2 border-blue-500 bg-blue-500/30 rounded animate-pulse"
+            className="absolute border-2 border-blue-500 bg-blue-500/20 rounded animate-pulse"
             style={{
               left: `${indicatorStyle.left}px`,
               top: `${indicatorStyle.top}px`,
@@ -117,9 +117,30 @@ const DragIndicatorOverlay: React.FC<DragIndicatorOverlayProps> = React.memo(({
               transition: 'none'
             }}
           />
+          
+          {/* Container corners for better visual clarity */}
+          {[
+            { left: indicatorStyle.left - 4, top: indicatorStyle.top - 4 },
+            { left: indicatorStyle.left + indicatorStyle.width - 8, top: indicatorStyle.top - 4 },
+            { left: indicatorStyle.left - 4, top: indicatorStyle.top + indicatorStyle.height - 8 },
+            { left: indicatorStyle.left + indicatorStyle.width - 8, top: indicatorStyle.top + indicatorStyle.height - 8 }
+          ].map((corner, index) => (
+            <div
+              key={index}
+              className="absolute bg-blue-600 rounded-sm"
+              style={{
+                left: `${corner.left}px`,
+                top: `${corner.top}px`,
+                width: '12px',
+                height: '12px',
+                transition: 'none'
+              }}
+            />
+          ))}
+          
           {/* Landing zone preview */}
           <div
-            className="absolute border-2 border-blue-600 bg-blue-600/40 rounded-sm"
+            className="absolute border-2 border-dashed border-blue-600 bg-blue-600/10 rounded-sm"
             style={{
               left: `${indicatorStyle.left + 8}px`,
               top: `${indicatorStyle.top + 8}px`,
@@ -128,54 +149,86 @@ const DragIndicatorOverlay: React.FC<DragIndicatorOverlayProps> = React.memo(({
               transition: 'none'
             }}
           />
-          {/* Text label */}
+          
+          {/* Enhanced text label */}
           <div
-            className="absolute bg-blue-600 text-white text-xs px-2 py-1 rounded-sm font-medium pointer-events-none"
+            className="absolute bg-blue-600 text-white text-xs px-3 py-1 rounded-md font-medium pointer-events-none flex items-center gap-1 shadow-lg"
             style={{
               left: `${indicatorStyle.left + 4}px`,
-              top: `${indicatorStyle.top - 20}px`,
+              top: `${indicatorStyle.top - 25}px`,
               transition: 'none'
             }}
           >
-            Drop inside
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
+              <path d="M2 2V10H10V2H2ZM9 9H3V3H9V9Z"/>
+            </svg>
+            Drop inside container
           </div>
         </>
       )}
       
       {indicatorStyle.type === 'line' && (
         <>
-          {/* Green insertion line */}
+          {/* Enhanced insertion line with better visibility */}
           <div
-            className="absolute bg-green-500 shadow-lg"
+            className="absolute bg-green-500 shadow-lg animate-pulse"
             style={{
               left: `${indicatorStyle.left}px`,
               top: `${indicatorStyle.top}px`,
               width: `${indicatorStyle.width}px`,
               height: `${indicatorStyle.height}px`,
+              transition: 'none',
+              borderRadius: '2px'
+            }}
+          />
+          
+          {/* Side markers for better insertion visibility */}
+          <div
+            className="absolute bg-green-500 rounded-full animate-pulse"
+            style={{
+              left: `${indicatorStyle.left - 6}px`,
+              top: `${indicatorStyle.top - 3}px`,
+              width: '12px',
+              height: `${indicatorStyle.height + 6}px`,
               transition: 'none'
             }}
           />
+          <div
+            className="absolute bg-green-500 rounded-full animate-pulse"
+            style={{
+              left: `${indicatorStyle.left + indicatorStyle.width - 6}px`,
+              top: `${indicatorStyle.top - 3}px`,
+              width: '12px',
+              height: `${indicatorStyle.height + 6}px`,
+              transition: 'none'
+            }}
+          />
+          
           {/* Landing zone preview box */}
           <div
-            className="absolute border-2 border-green-500 bg-green-500/20 rounded-sm"
+            className="absolute border-2 border-green-500 bg-green-500/20 rounded-sm animate-pulse"
             style={{
-              left: `${indicatorStyle.left + 8}px`,
-              top: `${indicatorStyle.top - 15}px`,
-              width: `${Math.min(120, indicatorStyle.width - 16)}px`,
-              height: `30px`,
+              left: `${indicatorStyle.left}px`,
+              top: `${indicatorStyle.top - 20}px`,
+              width: `${indicatorStyle.width}px`,
+              height: `35px`,
               transition: 'none'
             }}
           />
-          {/* Text label */}
+          
+          {/* Enhanced text label with arrow */}
           <div
-            className="absolute bg-green-600 text-white text-xs px-2 py-1 rounded-sm font-medium pointer-events-none"
+            className="absolute bg-green-600 text-white text-xs px-3 py-1 rounded-md font-medium pointer-events-none flex items-center gap-1 shadow-lg"
             style={{
               left: `${indicatorStyle.left + 4}px`,
-              top: `${indicatorStyle.top - 35}px`,
+              top: `${indicatorStyle.top - 40}px`,
               transition: 'none'
             }}
           >
-            Drop here
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
+              <path d="M6 2L10 6H8V10H4V6H2L6 2Z"/>
+            </svg>
+            Insert between
           </div>
         </>
       )}

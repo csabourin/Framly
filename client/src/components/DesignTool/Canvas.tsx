@@ -1271,14 +1271,69 @@ const Canvas: React.FC = () => {
         );
         
         if (drop) {
-          const insertionPosition = drop.kind === "into" ? "inside" : "inside";
-          
-          setHoveredElementId(drop.parentId);
-          setHoveredZone(insertionPosition);
-          dispatch(setHoveredElement({ 
-            elementId: drop.parentId, 
-            zone: insertionPosition
-          }));
+          // Convert between drops to precise before/after zones for better visual feedback
+          if (drop.kind === "between" && typeof drop.index === "number") {
+            const siblings = getChildren(drop.parentId);
+            
+            if (drop.index === 0) {
+              // Insert at beginning - show "before" the first child
+              const firstChild = siblings[0];
+              if (firstChild) {
+                setHoveredElementId(firstChild);
+                setHoveredZone('before');
+                dispatch(setHoveredElement({ 
+                  elementId: firstChild, 
+                  zone: 'before'
+                }));
+              } else {
+                // No children - show inside container
+                setHoveredElementId(drop.parentId);
+                setHoveredZone('inside');
+                dispatch(setHoveredElement({ 
+                  elementId: drop.parentId, 
+                  zone: 'inside'
+                }));
+              }
+            } else if (drop.index >= siblings.length) {
+              // Insert at end - show "after" the last child
+              const lastChild = siblings[siblings.length - 1];
+              if (lastChild) {
+                setHoveredElementId(lastChild);
+                setHoveredZone('after');
+                dispatch(setHoveredElement({ 
+                  elementId: lastChild, 
+                  zone: 'after'
+                }));
+              } else {
+                // No children - show inside container
+                setHoveredElementId(drop.parentId);
+                setHoveredZone('inside');
+                dispatch(setHoveredElement({ 
+                  elementId: drop.parentId, 
+                  zone: 'inside'
+                }));
+              }
+            } else {
+              // Insert between siblings - show "before" the child at index
+              const targetChild = siblings[drop.index];
+              if (targetChild) {
+                setHoveredElementId(targetChild);
+                setHoveredZone('before');
+                dispatch(setHoveredElement({ 
+                  elementId: targetChild, 
+                  zone: 'before'
+                }));
+              }
+            }
+          } else {
+            // "into" drop - show inside container
+            setHoveredElementId(drop.parentId);
+            setHoveredZone('inside');
+            dispatch(setHoveredElement({ 
+              elementId: drop.parentId, 
+              zone: 'inside'
+            }));
+          }
         } else {
           setHoveredElementId(null);
           setHoveredZone(null);
@@ -1355,18 +1410,36 @@ const Canvas: React.FC = () => {
         );
         
         if (drop) {
-          // Convert to reorder parameters
-          let insertPosition: 'before' | 'after' | 'inside' = drop.kind === "into" ? 'inside' : 'before';
+          // Convert to reorder parameters with precise positioning
+          let insertPosition: 'before' | 'after' | 'inside' = 'inside';
           let referenceElementId: string | undefined;
           
           if (drop.kind === "between" && typeof drop.index === "number") {
             const siblings = getChildren(drop.parentId);
-            if (drop.index < siblings.length) {
+            
+            if (drop.index === 0) {
+              // Insert at beginning
+              if (siblings.length > 0) {
+                referenceElementId = siblings[0];
+                insertPosition = 'before';
+              } else {
+                insertPosition = 'inside'; // Empty container
+              }
+            } else if (drop.index >= siblings.length) {
+              // Insert at end
+              if (siblings.length > 0) {
+                referenceElementId = siblings[siblings.length - 1];
+                insertPosition = 'after';
+              } else {
+                insertPosition = 'inside'; // Empty container
+              }
+            } else {
+              // Insert between siblings - before the element at index
               referenceElementId = siblings[drop.index];
               insertPosition = 'before';
-            } else {
-              insertPosition = 'inside';
             }
+          } else if (drop.kind === "into") {
+            insertPosition = 'inside';
           }
           
           // Perform the reordering
