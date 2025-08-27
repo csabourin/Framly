@@ -1301,9 +1301,122 @@ const Canvas: React.FC = () => {
         if (data.type === 'canvas-element' && data.elementId) {
           console.log('   - Canvas element drop detected:', data.elementId);
           
-          // TODO: Implement canvas element drop logic here
-          // This should use the same logic as the Canvas dragOver handler
-          // to determine drop location and perform element reordering
+          // Implement canvas element drop logic using the DnD system
+          const draggedElement = currentElements[data.elementId];
+          if (!draggedElement) {
+            console.log('   - Dragged element not found in currentElements');
+            return;
+          }
+          
+          const candidateIds = getCandidateContainerIds({ x: e.clientX, y: e.clientY });
+          const draggedMeta = createComponentMeta(draggedElement);
+          
+          // Helper functions for DnD system  
+          const getMeta = (id: string) => {
+            if (id === "root") {
+              return { id: "root", tag: "DIV", acceptsChildren: true };
+            }
+            if (id === data.elementId) {
+              return draggedMeta;
+            }
+            const element = currentElements[id];
+            return element ? createComponentMeta(element) : null;
+          };
+          
+          const getParentId = (id: string) => {
+            if (id === "root") return null;
+            const element = currentElements[id];
+            return element?.parent || "root";
+          };
+          
+          const indexOf = (parentId: string, childId: string) => {
+            if (parentId === "root") {
+              return Object.values(currentElements)
+                .filter(el => el.parent === "root" || !el.parent)
+                .findIndex(el => el.id === childId);
+            }
+            const parent = currentElements[parentId];
+            return parent?.children?.indexOf(childId) || 0;
+          };
+          
+          const getChildren = (parentId: string) => {
+            if (parentId === "root") {
+              return Object.values(currentElements)
+                .filter(el => el.parent === "root" || !el.parent)
+                .map(el => el.id);
+            }
+            const parent = currentElements[parentId];
+            return parent?.children || [];
+          };
+          
+          // Get legal drop location using DnD system
+          const drop = chooseDropForNewElement(
+            { x: e.clientX, y: e.clientY },
+            candidateIds,
+            draggedMeta,
+            getMeta,
+            getParentId,
+            indexOf,
+            getChildren
+          );
+          
+          if (drop) {
+            console.log('   - Drop location found:', drop);
+            
+            // Convert to reorder parameters
+            let insertPosition: 'before' | 'after' | 'inside' = 'inside';
+            let referenceElementId: string | undefined;
+            
+            if (drop.kind === "between" && typeof drop.index === "number") {
+              const siblings = getChildren(drop.parentId);
+              
+              if (drop.index === 0 && siblings.length > 0) {
+                referenceElementId = siblings[0];
+                insertPosition = 'before';
+              } else if (drop.index >= siblings.length && siblings.length > 0) {
+                referenceElementId = siblings[siblings.length - 1];
+                insertPosition = 'after';
+              } else if (siblings[drop.index]) {
+                referenceElementId = siblings[drop.index];
+                insertPosition = 'before';
+              }
+            } else if (drop.kind === "into") {
+              insertPosition = 'inside';
+            }
+            
+            console.log('   - Performing reorder:', {
+              elementId: data.elementId,
+              newParentId: drop.parentId,
+              insertPosition,
+              referenceElementId
+            });
+            
+            // Perform the actual reordering
+            dispatch(reorderElement({
+              elementId: data.elementId,
+              newParentId: drop.parentId,
+              insertPosition,
+              referenceElementId
+            }));
+            
+            console.log('   - ✅ CANVAS ELEMENT REORDER COMPLETED!');
+          } else {
+            console.log('   - No valid drop location, moving to root');
+            // Fallback to root container
+            dispatch(reorderElement({
+              elementId: data.elementId,
+              newParentId: 'root',
+              insertPosition: 'inside'
+            }));
+          }
+          
+          // Clear drag states
+          dispatch(setDraggingForReorder(false));
+          dispatch(setDraggedElement(undefined));
+          setInsertionIndicator(null);
+          setHoveredElementId(null);
+          setHoveredZone(null);
+          dispatch(setHoveredElement({ elementId: null, zone: null }));
           
           return; // Return early for canvas element drops
         }

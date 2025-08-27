@@ -1,0 +1,2079 @@
+CanvasElement.tsx:1100 🖱️ MOUSE DOWN on element: rectangle-1756256873161-wazcz2c5a Tool: hand Draggable: true
+CanvasElement.tsx:1101    - Target: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​858:​11" data-component-name=​"div" class=​"h-full" style=​"--element-background-color:​ #f3f4f6;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 8px;​ --element-width:​ 100%;​ --element-min-height:​ 59px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 8px;​ --element-height:​ 59px;​">​</div>​ CurrentTarget: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​1081:​6" data-component-name=​"div" draggable=​"true" title=​"DRAG TEST:​ Always draggable | Tool:​ hand | Editing:​ false" class=​"
+          selectable-block
+          canvas-element
+          rectangle-1756256873161
+          sibling-spacing-reset
+          
+          
+        " data-state=​"selected" data-locked=​"false" data-invalid=​"false" aria-selected=​"true" tabindex=​"0" data-element-id=​"rectangle-1756256873161-wazcz2c5a" data-container=​"true" data-accepts=​"text,image,button,rectangle,heading,container" data-element-type=​"rectangle" data-testid=​"canvas-element-rectangle-1756256873161-wazcz2c5a" style=​"position:​ relative;​ width:​ 100%;​ height:​ 59px;​ min-height:​ 59px;​ background-color:​ rgb(243, 244, 246)​;​ border:​ 1px solid rgb(209, 213, 219)​;​ border-radius:​ 6px;​ padding:​ 8px;​ display:​ flex;​ flex-direction:​ column;​ gap:​ 8px;​ --element-background-color:​ #f3f4f6;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 8px;​ --element-width:​ 100%;​ --element-min-height:​ 59px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 8px;​ --element-height:​ 59px;​ user-select:​ none;​ cursor:​ grab;​ z-index:​ 1000;​">​…​</div>​flex
+CanvasElement.tsx:1102    - Buttons: 1 Button: 0
+CanvasElement.tsx:1106    - Hand tool active - HTML5 drag should work
+Canvas.tsx:899 🔄 OLD DRAG SYSTEM: Skipping because HTML5 drag active
+Canvas.tsx:899 🔄 OLD DRAG SYSTEM: Skipping because HTML5 drag active
+CanvasElement.tsx:1111 🚀🚀🚀 HTML5 DRAG STARTED!!! rectangle-1756256873161-wazcz2c5a Tool: hand
+CanvasElement.tsx:1112    - DataTransfer: DataTransfer {dropEffect: 'none', effectAllowed: 'uninitialized', items: DataTransferItemList, types: Array(0), files: FileList}
+CanvasElement.tsx:1113    - Target draggable: true
+CanvasElement.tsx:1133 🏁 HTML5 DRAG ENDED: rectangle-1756256873161-wazcz2c5a
+CanvasElement.tsx:1134    - DropEffect: none
+Canvas.tsx:899 🔄 OLD DRAG SYSTEM: Skipping because HTML5 drag active
+CanvasElement.tsx:1100 🖱️ MOUSE DOWN on element: rectangle-1756256873161-wazcz2c5a Tool: hand Draggable: true
+CanvasElement.tsx:1101    - Target: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​858:​11" data-component-name=​"div" class=​"h-full" style=​"--element-background-color:​ #f3f4f6;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 8px;​ --element-width:​ 100%;​ --element-min-height:​ 59px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 8px;​ --element-height:​ 59px;​">​</div>​ CurrentTarget: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​1081:​6" data-component-name=​"div" draggable=​"true" title=​"DRAG TEST:​ Always draggable | Tool:​ hand | Editing:​ false" class=​"
+          selectable-block
+          canvas-element
+          rectangle-1756256873161
+          sibling-spacing-reset
+          
+          
+        " data-state=​"selected" data-locked=​"false" data-invalid=​"false" aria-selected=​"true" tabindex=​"0" data-element-id=​"rectangle-1756256873161-wazcz2c5a" data-container=​"true" data-accepts=​"text,image,button,rectangle,heading,container" data-element-type=​"rectangle" data-testid=​"canvas-element-rectangle-1756256873161-wazcz2c5a" style=​"position:​ relative;​ width:​ 100%;​ height:​ 59px;​ min-height:​ 59px;​ background-color:​ rgb(243, 244, 246)​;​ border:​ 1px solid rgb(209, 213, 219)​;​ border-radius:​ 6px;​ padding:​ 8px;​ display:​ flex;​ flex-direction:​ column;​ gap:​ 8px;​ --element-background-color:​ #f3f4f6;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 8px;​ --element-width:​ 100%;​ --element-min-height:​ 59px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 8px;​ --element-height:​ 59px;​ user-select:​ none;​ cursor:​ grab;​ z-index:​ 1000;​">​…​</div>​flex
+CanvasElement.tsx:1102    - Buttons: 1 Button: 0
+CanvasElement.tsx:1106    - Hand tool active - HTML5 drag should work
+CanvasElement.tsx:1111 🚀🚀🚀 HTML5 DRAG STARTED!!! rectangle-1756256873161-wazcz2c5a Tool: hand
+CanvasElement.tsx:1112    - DataTransfer: DataTransfer {dropEffect: 'none', effectAllowed: 'uninitialized', items: DataTransferItemList, types: Array(0), files: FileList}
+CanvasElement.tsx:1113    - Target draggable: true
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 550 655
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 550 655
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 553 658
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 553 658
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 554 661
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 554 661
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 554 661
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 554 661
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 555 663
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 555 663
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 556 663
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 556 663
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 556 663
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 556 663
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 556 664
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 556 664
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 556 665
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 556 665
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 556 665
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 556 665
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 557 665
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 557 665
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 557 665
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 557 665
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 557 666
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 557 666
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 557 666
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 557 666
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 558 667
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 558 667
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 558 667
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 558 667
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 559 667
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 559 667
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 559 669
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 559 669
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 559 669
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 559 669
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1121 🎯 CANVAS DRAG LEAVE
+Canvas.tsx:1121 🎯 CANVAS DRAG LEAVE
+Canvas.tsx:1121 🎯 CANVAS DRAG LEAVE
+Canvas.tsx:1121 🎯 CANVAS DRAG LEAVE
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 561 672
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 561 672
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 562 674
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 562 674
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 563 675
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 563 675
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 563 676
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 563 676
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 564 678
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 564 678
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 566 679
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 566 679
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 566 679
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 566 679
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 566 680
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 566 680
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 568 683
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 568 683
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 568 683
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 568 683
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 569 686
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 569 686
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 572 689
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 572 689
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 572 689
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 572 689
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 574 693
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 574 693
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 575 695
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 575 695
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 575 695
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 575 695
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 577 699
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 577 699
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1121 🎯 CANVAS DRAG LEAVE
+Canvas.tsx:1121 🎯 CANVAS DRAG LEAVE
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 580 704
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 580 704
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 584 710
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 584 710
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 587 716
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 587 716
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 587 716
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 587 716
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 588 718
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 588 718
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 592 723
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 592 723
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 592 723
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 592 723
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 595 730
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 595 730
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 596 733
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 596 733
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 596 733
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 596 733
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 600 738
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 600 738
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 603 744
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 603 744
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 603 744
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 603 744
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 604 746
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 604 746
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 607 753
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 607 753
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 607 753
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 607 753
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 608 755
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 608 755
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 611 762
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 611 762
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 611 762
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 611 762
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 612 765
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 612 765
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 615 773
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 615 773
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 615 773
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 615 773
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 616 776
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 616 776
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 620 786
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 620 786
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 620 786
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 620 786
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 620 789
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 620 789
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 624 800
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 624 800
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 624 800
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 624 800
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 625 803
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 625 803
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 627 813
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 627 813
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 627 813
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 627 813
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 628 817
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 628 817
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 628 820
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 628 820
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 628 828
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 628 828
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 628 828
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 628 828
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 628 831
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 628 831
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1121 🎯 CANVAS DRAG LEAVE
+Canvas.tsx:1121 🎯 CANVAS DRAG LEAVE
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 629 839
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 629 839
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 629 843
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 629 843
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 629 846
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 629 846
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 629 846
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 629 846
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 629 856
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 629 856
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 629 856
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 629 856
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 629 859
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 629 859
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 629 864
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 629 864
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 629 864
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 629 864
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 629 866
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 629 866
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 629 868
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 629 868
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 629 868
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 629 868
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 629 869
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 629 869
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 629 871
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 629 871
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 629 871
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 629 871
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 629 873
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 629 873
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 629 873
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 629 873
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 628 874
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 628 874
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 628 874
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 628 874
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 628 875
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 628 875
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 628 875
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 628 875
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 627 875
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 627 875
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 627 875
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 627 875
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 627 876
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 627 876
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 627 877
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 627 877
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 627 877
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 627 877
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 626 877
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 626 877
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 625 878
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 625 878
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 625 878
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 625 878
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 624 878
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 624 878
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 622 880
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 622 880
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 622 880
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 622 880
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 621 880
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 621 880
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 620 881
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 620 881
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 619 882
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 619 882
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 619 882
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 619 882
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 618 882
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 618 882
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 618 882
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 618 882
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 617 883
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 617 883
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 617 883
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 617 883
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 616 883
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 616 883
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 615 884
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 615 884
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 615 884
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 615 884
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 613 885
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 613 885
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 612 885
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 612 885
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 612 885
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 612 885
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 611 886
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 611 886
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 610 887
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 610 887
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 610 887
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 610 887
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 609 887
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 609 887
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 608 887
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 608 887
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 608 887
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 608 887
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 607 888
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 607 888
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 606 888
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 606 888
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 606 888
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 606 888
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 605 888
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 605 888
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 604 889
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 604 889
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 604 889
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 604 889
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 603 890
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 603 890
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 602 890
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 602 890
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 602 890
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 602 890
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 599 891
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 599 891
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 598 891
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 598 891
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 598 891
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 598 891
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 597 892
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 597 892
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 596 892
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 596 892
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 596 892
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 596 892
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 595 892
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 595 892
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 594 892
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 594 892
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 594 892
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 594 892
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 594 893
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 594 893
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 594 893
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 594 893
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 593 893
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 593 893
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 593 893
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 593 893
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 592 894
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 592 894
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 592 894
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 592 894
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 591 894
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 591 894
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 590 894
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 590 894
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 590 894
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 590 894
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 589 895
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 589 895
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 589 895
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 589 895
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 588 895
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 588 895
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 588 895
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 588 895
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 587 895
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 587 895
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 586 895
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 586 895
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 586 895
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 586 895
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 586 896
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 586 896
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 586 896
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 586 896
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 585 896
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 585 896
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 584 897
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 584 897
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 584 897
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 584 897
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 583 898
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 583 898
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 581 898
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 581 898
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 581 898
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 581 898
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 581 899
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 581 899
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 580 899
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 580 899
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 580 899
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 580 899
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 579 899
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 579 899
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 579 900
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 579 900
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 579 900
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 579 900
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 578 900
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 578 900
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 578 900
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 578 900
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 578 901
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 578 901
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 578 901
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 578 901
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 577 901
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 577 901
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 577 901
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 577 901
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 577 902
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 577 902
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 577 902
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 577 902
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 577 902
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 577 902
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 577 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 577 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 577 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 577 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 577 904
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 577 904
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 577 905
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 577 905
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 577 905
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 577 905
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 577 906
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 577 906
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 577 906
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 577 906
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 577 907
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 577 907
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 576 907
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 576 907
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 576 907
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 576 907
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 576 908
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 576 908
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 576 908
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 576 908
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 575 908
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 575 908
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 574 908
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 574 908
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 573 908
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 573 908
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 573 908
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 573 908
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 573 909
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 573 909
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 572 909
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 572 909
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 572 909
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 572 909
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 570 909
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 570 909
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 569 909
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 569 909
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 569 909
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 569 909
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 568 909
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 568 909
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 566 909
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 566 909
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 566 909
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 566 909
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 565 909
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 565 909
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 565 909
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 565 909
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 564 909
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 564 909
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 564 909
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 564 909
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 563 909
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 563 909
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 563 909
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 563 909
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 562 909
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 562 909
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 562 909
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 562 909
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 561 909
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 561 909
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 561 909
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 561 909
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 560 909
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 560 909
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 559 909
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 559 909
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 558 909
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 558 909
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 558 909
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 558 909
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 557 908
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 557 908
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 557 908
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 557 908
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 555 907
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 555 907
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 555 907
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 555 907
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 555 906
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 555 906
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 555 906
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 555 906
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 555 906
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 555 906
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 556 906
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 556 906
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 557 905
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 557 905
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 557 905
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 557 905
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 562 905
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 562 905
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 562 905
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 562 905
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 566 905
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 566 905
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 568 904
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 568 904
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 568 904
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 568 904
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 572 904
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 572 904
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 575 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 575 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 575 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 575 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 582 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 582 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 584 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 584 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 584 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 584 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 591 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 591 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 594 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 594 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 602 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 602 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 605 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 605 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 607 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 607 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 607 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 607 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 611 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 611 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 611 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 611 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 613 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 613 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 613 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 613 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 614 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 614 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 614 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 614 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 615 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 615 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 615 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 615 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 616 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 616 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 616 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 616 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 617 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 617 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 618 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 618 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 618 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 618 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 619 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 619 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 620 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 620 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 620 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 620 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 622 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 622 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 622 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 622 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 624 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 624 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 625 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 625 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 625 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 625 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 625 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 625 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 625 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 625 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1292 🎯🎯🎯 CANVAS DROP EVENT FIRED! 625 903
+Canvas.tsx:1293    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1302    - Canvas element drop detected: rectangle-1756256873161-wazcz2c5a
+Canvas.tsx:1292 🎯🎯🎯 CANVAS DROP EVENT FIRED! 625 903
+Canvas.tsx:1293    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1302    - Canvas element drop detected: rectangle-1756256873161-wazcz2c5a
+CanvasElement.tsx:1133 🏁 HTML5 DRAG ENDED: rectangle-1756256873161-wazcz2c5a
+CanvasElement.tsx:1134    - DropEffect: move
+CanvasElement.tsx:1100 🖱️ MOUSE DOWN on element: rectangle-1756256873161-wazcz2c5a Tool: hand Draggable: true
+CanvasElement.tsx:1101    - Target: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​858:​11" data-component-name=​"div" class=​"h-full" style=​"--element-background-color:​ #f3f4f6;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 8px;​ --element-width:​ 100%;​ --element-min-height:​ 59px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 8px;​ --element-height:​ 59px;​">​</div>​ CurrentTarget: <div data-replit-metadata=​"client/​src/​components/​DesignTool/​CanvasElement.tsx:​1081:​6" data-component-name=​"div" draggable=​"true" title=​"DRAG TEST:​ Always draggable | Tool:​ hand | Editing:​ false" class=​"
+          selectable-block
+          canvas-element
+          rectangle-1756256873161
+          sibling-spacing-reset
+          
+          
+        " data-state=​"selected" data-locked=​"false" data-invalid=​"false" aria-selected=​"true" tabindex=​"0" data-element-id=​"rectangle-1756256873161-wazcz2c5a" data-container=​"true" data-accepts=​"text,image,button,rectangle,heading,container" data-element-type=​"rectangle" data-testid=​"canvas-element-rectangle-1756256873161-wazcz2c5a" style=​"position:​ relative;​ width:​ 100%;​ height:​ 59px;​ min-height:​ 59px;​ background-color:​ rgb(243, 244, 246)​;​ border:​ 1px solid rgb(209, 213, 219)​;​ border-radius:​ 6px;​ padding:​ 8px;​ display:​ flex;​ flex-direction:​ column;​ gap:​ 8px;​ --element-background-color:​ #f3f4f6;​ --element-border:​ 1px solid #d1d5db;​ --element-border-radius:​ 6px;​ --element-padding:​ 8px;​ --element-width:​ 100%;​ --element-min-height:​ 59px;​ --element-display:​ flex;​ --element-flex-direction:​ column;​ --element-gap:​ 8px;​ --element-height:​ 59px;​ user-select:​ none;​ cursor:​ grab;​ z-index:​ 1000;​ outline:​ rgb(59, 130, 246)​ solid 2px;​ box-shadow:​ rgba(59, 130, 246, 0.3)​ 0px 0px 0px 1px;​">​…​</div>​flex
+CanvasElement.tsx:1102    - Buttons: 1 Button: 0
+CanvasElement.tsx:1106    - Hand tool active - HTML5 drag should work
+CanvasElement.tsx:1111 🚀🚀🚀 HTML5 DRAG STARTED!!! rectangle-1756256873161-wazcz2c5a Tool: hand
+CanvasElement.tsx:1112    - DataTransfer: DataTransfer {dropEffect: 'none', effectAllowed: 'uninitialized', items: DataTransferItemList, types: Array(0), files: FileList}
+CanvasElement.tsx:1113    - Target draggable: true
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 503 660
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 503 660
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 509 666
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 509 666
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1121 🎯 CANVAS DRAG LEAVE
+Canvas.tsx:1121 🎯 CANVAS DRAG LEAVE
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 512 671
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 512 671
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1121 🎯 CANVAS DRAG LEAVE
+Canvas.tsx:1121 🎯 CANVAS DRAG LEAVE
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 521 682
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 521 682
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 521 682
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 521 682
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1121 🎯 CANVAS DRAG LEAVE
+Canvas.tsx:1121 🎯 CANVAS DRAG LEAVE
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 531 694
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 531 694
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 531 694
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 531 694
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 541 706
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 541 706
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 541 706
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 541 706
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 544 711
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 544 711
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 547 714
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 547 714
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 547 714
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 547 714
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 552 722
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 552 722
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 556 729
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 556 729
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 556 729
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 556 729
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 559 734
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 559 734
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 566 744
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 566 744
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 566 744
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 566 744
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 569 751
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 569 751
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 573 757
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 573 757
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 576 764
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 576 764
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 576 764
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 576 764
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1121 🎯 CANVAS DRAG LEAVE
+Canvas.tsx:1121 🎯 CANVAS DRAG LEAVE
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 586 785
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 586 785
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 586 785
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 586 785
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 589 792
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 589 792
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 592 799
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 592 799
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 592 799
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 592 799
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 596 807
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 596 807
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 599 815
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 599 815
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 599 815
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 599 815
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 603 822
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 603 822
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 605 829
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 605 829
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 605 829
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 605 829
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1121 🎯 CANVAS DRAG LEAVE
+Canvas.tsx:1121 🎯 CANVAS DRAG LEAVE
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 609 841
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 609 841
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 609 841
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 609 841
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 613 849
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 613 849
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 615 858
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 615 858
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 615 858
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 615 858
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 618 866
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 618 866
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 620 874
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 620 874
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 620 874
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 620 874
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 621 877
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 621 877
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 623 886
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 623 886
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 623 886
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 623 886
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 625 894
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 625 894
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 625 896
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 625 896
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 625 896
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 625 896
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 627 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 627 903
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 628 907
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 628 907
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 628 907
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 628 907
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 629 913
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 629 913
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 631 918
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 631 918
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 631 918
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 631 918
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 632 922
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 632 922
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 632 922
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 632 922
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 632 924
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 632 924
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 632 924
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 632 924
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 632 924
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 632 924
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 632 924
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 632 924
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 632 924
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 632 924
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 632 924
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 632 924
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 632 924
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 632 924
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 632 924
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1108 🎯 CANVAS DRAG OVER - HTML5 System Active 632 924
+Canvas.tsx:1109    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1114    - Canvas element reorder detected (by types), accepting drop
+Canvas.tsx:1292 🎯🎯🎯 CANVAS DROP EVENT FIRED! 632 924
+Canvas.tsx:1293    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1302    - Canvas element drop detected: rectangle-1756256873161-wazcz2c5a
+Canvas.tsx:1292 🎯🎯🎯 CANVAS DROP EVENT FIRED! 632 924
+Canvas.tsx:1293    - DataTransfer types: (2) ['text/plain', 'application/json']
+Canvas.tsx:1302    - Canvas element drop detected: rectangle-1756256873161-wazcz2c5a
+CanvasElement.tsx:1133 🏁 HTML5 DRAG ENDED: rectangle-1756256873161-wazcz2c5a
+CanvasElement.tsx:1134    - DropEffect: move
