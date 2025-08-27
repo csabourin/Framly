@@ -1271,73 +1271,82 @@ const Canvas: React.FC = () => {
         );
         
         if (drop) {
-          // Convert between drops to precise before/after zones for better visual feedback
+          // Create visual insertion indicator based on drop location
+          let indicatorPosition: 'before' | 'after' | 'inside' | 'canvas-top' | 'canvas-bottom';
+          let targetElementId = drop.parentId;
+          
           if (drop.kind === "between" && typeof drop.index === "number") {
             const siblings = getChildren(drop.parentId);
             
             if (drop.index === 0) {
-              // Insert at beginning - show "before" the first child
-              const firstChild = siblings[0];
-              if (firstChild) {
-                setHoveredElementId(firstChild);
-                setHoveredZone('before');
-                dispatch(setHoveredElement({ 
-                  elementId: firstChild, 
-                  zone: 'before'
-                }));
+              // Insert at beginning
+              if (siblings.length > 0) {
+                targetElementId = siblings[0];
+                indicatorPosition = 'before';
               } else {
-                // No children - show inside container
-                setHoveredElementId(drop.parentId);
-                setHoveredZone('inside');
-                dispatch(setHoveredElement({ 
-                  elementId: drop.parentId, 
-                  zone: 'inside'
-                }));
+                indicatorPosition = 'inside'; // Empty container
               }
             } else if (drop.index >= siblings.length) {
-              // Insert at end - show "after" the last child
-              const lastChild = siblings[siblings.length - 1];
-              if (lastChild) {
-                setHoveredElementId(lastChild);
-                setHoveredZone('after');
-                dispatch(setHoveredElement({ 
-                  elementId: lastChild, 
-                  zone: 'after'
-                }));
+              // Insert at end
+              if (siblings.length > 0) {
+                targetElementId = siblings[siblings.length - 1];
+                indicatorPosition = 'after';
               } else {
-                // No children - show inside container
-                setHoveredElementId(drop.parentId);
-                setHoveredZone('inside');
-                dispatch(setHoveredElement({ 
-                  elementId: drop.parentId, 
-                  zone: 'inside'
-                }));
+                indicatorPosition = 'inside'; // Empty container
               }
             } else {
-              // Insert between siblings - show "before" the child at index
-              const targetChild = siblings[drop.index];
-              if (targetChild) {
-                setHoveredElementId(targetChild);
-                setHoveredZone('before');
-                dispatch(setHoveredElement({ 
-                  elementId: targetChild, 
-                  zone: 'before'
-                }));
-              }
+              // Insert between siblings
+              targetElementId = siblings[drop.index];
+              indicatorPosition = 'before';
             }
           } else {
-            // "into" drop - show inside container
-            setHoveredElementId(drop.parentId);
-            setHoveredZone('inside');
-            dispatch(setHoveredElement({ 
-              elementId: drop.parentId, 
-              zone: 'inside'
-            }));
+            // "into" drop
+            indicatorPosition = 'inside';
+          }
+          
+          // Get element bounds for visual indicator
+          const targetElement = document.querySelector(`[data-element-id="${targetElementId}"]`) as HTMLElement;
+          if (targetElement) {
+            const canvasRect = canvasRef.current!.getBoundingClientRect();
+            const elementRect = targetElement.getBoundingClientRect();
+            
+            const relativeX = (elementRect.left - canvasRect.left) / zoomLevel;
+            const relativeY = (elementRect.top - canvasRect.top) / zoomLevel;
+            const relativeWidth = elementRect.width / zoomLevel;
+            const relativeHeight = elementRect.height / zoomLevel;
+            
+            let bounds;
+            if (indicatorPosition === 'before') {
+              bounds = {
+                x: relativeX,
+                y: relativeY - 1,
+                width: relativeWidth,
+                height: 2
+              };
+            } else if (indicatorPosition === 'after') {
+              bounds = {
+                x: relativeX,
+                y: relativeY + relativeHeight - 1,
+                width: relativeWidth,
+                height: 2
+              };
+            } else {
+              // inside
+              bounds = {
+                x: relativeX,
+                y: relativeY,
+                width: relativeWidth,
+                height: relativeHeight
+              };
+            }
+            
+            setInsertionIndicator({
+              bounds,
+              position: indicatorPosition as any
+            });
           }
         } else {
-          setHoveredElementId(null);
-          setHoveredZone(null);
-          dispatch(setHoveredElement({ elementId: null, zone: null }));
+          setInsertionIndicator(null);
         }
       }
     } catch (error) {
@@ -1459,6 +1468,7 @@ const Canvas: React.FC = () => {
         }
         
         // Clear visual feedback
+        setInsertionIndicator(null);
         setHoveredElementId(null);
         setHoveredZone(null);
         dispatch(setHoveredElement({ elementId: null, zone: null }));
@@ -1471,6 +1481,7 @@ const Canvas: React.FC = () => {
   const handleCanvasDragLeave = useCallback((e: React.DragEvent<HTMLDivElement>) => {
     // Only clear feedback if leaving the canvas entirely
     if (!canvasRef.current?.contains(e.relatedTarget as Node)) {
+      setInsertionIndicator(null);
       setHoveredElementId(null);
       setHoveredZone(null);
       dispatch(setHoveredElement({ elementId: null, zone: null }));
