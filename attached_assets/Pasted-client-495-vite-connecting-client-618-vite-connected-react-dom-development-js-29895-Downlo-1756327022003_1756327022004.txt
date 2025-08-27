@@ -1,0 +1,2276 @@
+client:495 [vite] connecting...
+client:618 [vite] connected.
+react-dom.development.js:29895 Download the React DevTools for a better development experience: https://reactjs.org/link/react-devtools
+useComponentPropagation.ts:15  The result function returned its own inputs without modification. e.g
+`createSelector([state => state.todos], todos => todos)`
+This could lead to inefficient memoization and unnecessary re-renders.
+Ensure transformation logic is in the result function, and extraction logic is in the input selectors. {stack: 'Error\n    at Object.runIdentityFunctionCheck [as r…dules/.vite/deps/react-redux.js?v=b492906c:60:21)'}
+runIdentityFunctionCheck @ identityFunctionCheck.ts:44
+dependenciesChecker @ createSelectorCreator.ts:418
+memoized @ weakMapMemoize.ts:228
+memoized @ useSelector.ts:171
+memoizedSelector @ use-sync-external-store-with-selector.development.js:46
+(anonymous) @ use-sync-external-store-with-selector.development.js:70
+mountSyncExternalStore @ react-dom.development.js:15980
+useSyncExternalStore @ react-dom.development.js:16908
+useSyncExternalStore @ react.development.js:1676
+exports.useSyncExternalStoreWithSelector @ use-sync-external-store-with-selector.development.js:81
+useSelector2 @ useSelector.ts:243
+useComponentPropagation @ useComponentPropagation.ts:15
+DesignToolContent @ index.tsx:36
+renderWithHooks @ react-dom.development.js:15486
+mountIndeterminateComponent @ react-dom.development.js:20103
+beginWork @ react-dom.development.js:21626
+beginWork$1 @ react-dom.development.js:27465
+performUnitOfWork @ react-dom.development.js:26596
+workLoopSync @ react-dom.development.js:26505
+renderRootSync @ react-dom.development.js:26473
+performConcurrentWorkOnRoot @ react-dom.development.js:25777
+workLoop @ scheduler.development.js:266
+flushWork @ scheduler.development.js:239
+performWorkUntilDeadline @ scheduler.development.js:533
+index.tsx:51  The result function returned its own inputs without modification. e.g
+`createSelector([state => state.todos], todos => todos)`
+This could lead to inefficient memoization and unnecessary re-renders.
+Ensure transformation logic is in the result function, and extraction logic is in the input selectors. {stack: 'Error\n    at Object.runIdentityFunctionCheck [as r…dules/.vite/deps/react-redux.js?v=b492906c:60:21)'}
+runIdentityFunctionCheck @ identityFunctionCheck.ts:44
+dependenciesChecker @ createSelectorCreator.ts:418
+memoized @ weakMapMemoize.ts:228
+memoized @ useSelector.ts:171
+memoizedSelector @ use-sync-external-store-with-selector.development.js:46
+(anonymous) @ use-sync-external-store-with-selector.development.js:70
+mountSyncExternalStore @ react-dom.development.js:15980
+useSyncExternalStore @ react-dom.development.js:16908
+useSyncExternalStore @ react.development.js:1676
+exports.useSyncExternalStoreWithSelector @ use-sync-external-store-with-selector.development.js:81
+useSelector2 @ useSelector.ts:243
+DesignToolContent @ index.tsx:51
+renderWithHooks @ react-dom.development.js:15486
+mountIndeterminateComponent @ react-dom.development.js:20103
+beginWork @ react-dom.development.js:21626
+beginWork$1 @ react-dom.development.js:27465
+performUnitOfWork @ react-dom.development.js:26596
+workLoopSync @ react-dom.development.js:26505
+renderRootSync @ react-dom.development.js:26473
+performConcurrentWorkOnRoot @ react-dom.development.js:25777
+workLoop @ scheduler.development.js:266
+flushWork @ scheduler.development.js:239
+performWorkUntilDeadline @ scheduler.development.js:533
+Canvas.tsx:83  The result function returned its own inputs without modification. e.g
+`createSelector([state => state.todos], todos => todos)`
+This could lead to inefficient memoization and unnecessary re-renders.
+Ensure transformation logic is in the result function, and extraction logic is in the input selectors. {stack: 'Error\n    at Object.runIdentityFunctionCheck [as r…dules/.vite/deps/react-redux.js?v=b492906c:60:21)'}
+runIdentityFunctionCheck @ identityFunctionCheck.ts:44
+dependenciesChecker @ createSelectorCreator.ts:418
+memoized @ weakMapMemoize.ts:228
+memoized @ useSelector.ts:171
+memoizedSelector @ use-sync-external-store-with-selector.development.js:46
+(anonymous) @ use-sync-external-store-with-selector.development.js:70
+mountSyncExternalStore @ react-dom.development.js:15980
+useSyncExternalStore @ react-dom.development.js:16908
+useSyncExternalStore @ react.development.js:1676
+exports.useSyncExternalStoreWithSelector @ use-sync-external-store-with-selector.development.js:81
+useSelector2 @ useSelector.ts:243
+Canvas @ Canvas.tsx:83
+renderWithHooks @ react-dom.development.js:15486
+mountIndeterminateComponent @ react-dom.development.js:20103
+beginWork @ react-dom.development.js:21626
+beginWork$1 @ react-dom.development.js:27465
+performUnitOfWork @ react-dom.development.js:26596
+workLoopSync @ react-dom.development.js:26505
+renderRootSync @ react-dom.development.js:26473
+performConcurrentWorkOnRoot @ react-dom.development.js:25777
+workLoop @ scheduler.development.js:266
+flushWork @ scheduler.development.js:239
+performWorkUntilDeadline @ scheduler.development.js:533
+Canvas.tsx:84  The result function returned its own inputs without modification. e.g
+`createSelector([state => state.todos], todos => todos)`
+This could lead to inefficient memoization and unnecessary re-renders.
+Ensure transformation logic is in the result function, and extraction logic is in the input selectors. {stack: 'Error\n    at Object.runIdentityFunctionCheck [as r…dules/.vite/deps/react-redux.js?v=b492906c:60:21)'}
+runIdentityFunctionCheck @ identityFunctionCheck.ts:44
+dependenciesChecker @ createSelectorCreator.ts:418
+memoized @ weakMapMemoize.ts:228
+memoized @ useSelector.ts:171
+memoizedSelector @ use-sync-external-store-with-selector.development.js:46
+(anonymous) @ use-sync-external-store-with-selector.development.js:70
+mountSyncExternalStore @ react-dom.development.js:15980
+useSyncExternalStore @ react-dom.development.js:16908
+useSyncExternalStore @ react.development.js:1676
+exports.useSyncExternalStoreWithSelector @ use-sync-external-store-with-selector.development.js:81
+useSelector2 @ useSelector.ts:243
+Canvas @ Canvas.tsx:84
+renderWithHooks @ react-dom.development.js:15486
+mountIndeterminateComponent @ react-dom.development.js:20103
+beginWork @ react-dom.development.js:21626
+beginWork$1 @ react-dom.development.js:27465
+performUnitOfWork @ react-dom.development.js:26596
+workLoopSync @ react-dom.development.js:26505
+renderRootSync @ react-dom.development.js:26473
+performConcurrentWorkOnRoot @ react-dom.development.js:25777
+workLoop @ scheduler.development.js:266
+flushWork @ scheduler.development.js:239
+performWorkUntilDeadline @ scheduler.development.js:533
+Canvas.tsx:85  The result function returned its own inputs without modification. e.g
+`createSelector([state => state.todos], todos => todos)`
+This could lead to inefficient memoization and unnecessary re-renders.
+Ensure transformation logic is in the result function, and extraction logic is in the input selectors. {stack: 'Error\n    at Object.runIdentityFunctionCheck [as r…dules/.vite/deps/react-redux.js?v=b492906c:60:21)'}
+runIdentityFunctionCheck @ identityFunctionCheck.ts:44
+dependenciesChecker @ createSelectorCreator.ts:418
+memoized @ weakMapMemoize.ts:228
+memoized @ useSelector.ts:171
+memoizedSelector @ use-sync-external-store-with-selector.development.js:46
+(anonymous) @ use-sync-external-store-with-selector.development.js:70
+mountSyncExternalStore @ react-dom.development.js:15980
+useSyncExternalStore @ react-dom.development.js:16908
+useSyncExternalStore @ react.development.js:1676
+exports.useSyncExternalStoreWithSelector @ use-sync-external-store-with-selector.development.js:81
+useSelector2 @ useSelector.ts:243
+Canvas @ Canvas.tsx:85
+renderWithHooks @ react-dom.development.js:15486
+mountIndeterminateComponent @ react-dom.development.js:20103
+beginWork @ react-dom.development.js:21626
+beginWork$1 @ react-dom.development.js:27465
+performUnitOfWork @ react-dom.development.js:26596
+workLoopSync @ react-dom.development.js:26505
+renderRootSync @ react-dom.development.js:26473
+performConcurrentWorkOnRoot @ react-dom.development.js:25777
+workLoop @ scheduler.development.js:266
+flushWork @ scheduler.development.js:239
+performWorkUntilDeadline @ scheduler.development.js:533
+Canvas.tsx:86  The result function returned its own inputs without modification. e.g
+`createSelector([state => state.todos], todos => todos)`
+This could lead to inefficient memoization and unnecessary re-renders.
+Ensure transformation logic is in the result function, and extraction logic is in the input selectors. {stack: 'Error\n    at Object.runIdentityFunctionCheck [as r…dules/.vite/deps/react-redux.js?v=b492906c:60:21)'}
+runIdentityFunctionCheck @ identityFunctionCheck.ts:44
+dependenciesChecker @ createSelectorCreator.ts:418
+memoized @ weakMapMemoize.ts:228
+memoized @ useSelector.ts:171
+memoizedSelector @ use-sync-external-store-with-selector.development.js:46
+(anonymous) @ use-sync-external-store-with-selector.development.js:70
+mountSyncExternalStore @ react-dom.development.js:15980
+useSyncExternalStore @ react-dom.development.js:16908
+useSyncExternalStore @ react.development.js:1676
+exports.useSyncExternalStoreWithSelector @ use-sync-external-store-with-selector.development.js:81
+useSelector2 @ useSelector.ts:243
+Canvas @ Canvas.tsx:86
+renderWithHooks @ react-dom.development.js:15486
+mountIndeterminateComponent @ react-dom.development.js:20103
+beginWork @ react-dom.development.js:21626
+beginWork$1 @ react-dom.development.js:27465
+performUnitOfWork @ react-dom.development.js:26596
+workLoopSync @ react-dom.development.js:26505
+renderRootSync @ react-dom.development.js:26473
+performConcurrentWorkOnRoot @ react-dom.development.js:25777
+workLoop @ scheduler.development.js:266
+flushWork @ scheduler.development.js:239
+performWorkUntilDeadline @ scheduler.development.js:533
+CanvasElement.tsx:47  The result function returned its own inputs without modification. e.g
+`createSelector([state => state.todos], todos => todos)`
+This could lead to inefficient memoization and unnecessary re-renders.
+Ensure transformation logic is in the result function, and extraction logic is in the input selectors. {stack: 'Error\n    at Object.runIdentityFunctionCheck [as r…dules/.vite/deps/react-redux.js?v=b492906c:60:21)'}
+runIdentityFunctionCheck @ identityFunctionCheck.ts:44
+dependenciesChecker @ createSelectorCreator.ts:418
+memoized @ weakMapMemoize.ts:228
+memoized @ useSelector.ts:171
+memoizedSelector @ use-sync-external-store-with-selector.development.js:46
+(anonymous) @ use-sync-external-store-with-selector.development.js:70
+mountSyncExternalStore @ react-dom.development.js:15980
+useSyncExternalStore @ react-dom.development.js:16908
+useSyncExternalStore @ react.development.js:1676
+exports.useSyncExternalStoreWithSelector @ use-sync-external-store-with-selector.development.js:81
+useSelector2 @ useSelector.ts:243
+CanvasElement @ CanvasElement.tsx:47
+renderWithHooks @ react-dom.development.js:15486
+updateFunctionComponent @ react-dom.development.js:19617
+updateSimpleMemoComponent @ react-dom.development.js:19454
+updateMemoComponent @ react-dom.development.js:19303
+beginWork @ react-dom.development.js:21712
+beginWork$1 @ react-dom.development.js:27465
+performUnitOfWork @ react-dom.development.js:26596
+workLoopSync @ react-dom.development.js:26505
+renderRootSync @ react-dom.development.js:26473
+performConcurrentWorkOnRoot @ react-dom.development.js:25777
+workLoop @ scheduler.development.js:266
+flushWork @ scheduler.development.js:239
+performWorkUntilDeadline @ scheduler.development.js:533
+CanvasElement.tsx:48  The result function returned its own inputs without modification. e.g
+`createSelector([state => state.todos], todos => todos)`
+This could lead to inefficient memoization and unnecessary re-renders.
+Ensure transformation logic is in the result function, and extraction logic is in the input selectors. {stack: 'Error\n    at Object.runIdentityFunctionCheck [as r…dules/.vite/deps/react-redux.js?v=b492906c:60:21)'}
+runIdentityFunctionCheck @ identityFunctionCheck.ts:44
+dependenciesChecker @ createSelectorCreator.ts:418
+memoized @ weakMapMemoize.ts:228
+memoized @ useSelector.ts:171
+memoizedSelector @ use-sync-external-store-with-selector.development.js:46
+(anonymous) @ use-sync-external-store-with-selector.development.js:70
+mountSyncExternalStore @ react-dom.development.js:15980
+useSyncExternalStore @ react-dom.development.js:16908
+useSyncExternalStore @ react.development.js:1676
+exports.useSyncExternalStoreWithSelector @ use-sync-external-store-with-selector.development.js:81
+useSelector2 @ useSelector.ts:243
+CanvasElement @ CanvasElement.tsx:48
+renderWithHooks @ react-dom.development.js:15486
+updateFunctionComponent @ react-dom.development.js:19617
+updateSimpleMemoComponent @ react-dom.development.js:19454
+updateMemoComponent @ react-dom.development.js:19303
+beginWork @ react-dom.development.js:21712
+beginWork$1 @ react-dom.development.js:27465
+performUnitOfWork @ react-dom.development.js:26596
+workLoopSync @ react-dom.development.js:26505
+renderRootSync @ react-dom.development.js:26473
+performConcurrentWorkOnRoot @ react-dom.development.js:25777
+workLoop @ scheduler.development.js:266
+flushWork @ scheduler.development.js:239
+performWorkUntilDeadline @ scheduler.development.js:533
+CanvasElement.tsx:49  The result function returned its own inputs without modification. e.g
+`createSelector([state => state.todos], todos => todos)`
+This could lead to inefficient memoization and unnecessary re-renders.
+Ensure transformation logic is in the result function, and extraction logic is in the input selectors. {stack: 'Error\n    at Object.runIdentityFunctionCheck [as r…dules/.vite/deps/react-redux.js?v=b492906c:60:21)'}
+runIdentityFunctionCheck @ identityFunctionCheck.ts:44
+dependenciesChecker @ createSelectorCreator.ts:418
+memoized @ weakMapMemoize.ts:228
+memoized @ useSelector.ts:171
+memoizedSelector @ use-sync-external-store-with-selector.development.js:46
+(anonymous) @ use-sync-external-store-with-selector.development.js:70
+mountSyncExternalStore @ react-dom.development.js:15980
+useSyncExternalStore @ react-dom.development.js:16908
+useSyncExternalStore @ react.development.js:1676
+exports.useSyncExternalStoreWithSelector @ use-sync-external-store-with-selector.development.js:81
+useSelector2 @ useSelector.ts:243
+CanvasElement @ CanvasElement.tsx:49
+renderWithHooks @ react-dom.development.js:15486
+updateFunctionComponent @ react-dom.development.js:19617
+updateSimpleMemoComponent @ react-dom.development.js:19454
+updateMemoComponent @ react-dom.development.js:19303
+beginWork @ react-dom.development.js:21712
+beginWork$1 @ react-dom.development.js:27465
+performUnitOfWork @ react-dom.development.js:26596
+workLoopSync @ react-dom.development.js:26505
+renderRootSync @ react-dom.development.js:26473
+performConcurrentWorkOnRoot @ react-dom.development.js:25777
+workLoop @ scheduler.development.js:266
+flushWork @ scheduler.development.js:239
+performWorkUntilDeadline @ scheduler.development.js:533
+CreateComponentModal.tsx:39  The result function returned its own inputs without modification. e.g
+`createSelector([state => state.todos], todos => todos)`
+This could lead to inefficient memoization and unnecessary re-renders.
+Ensure transformation logic is in the result function, and extraction logic is in the input selectors. {stack: 'Error\n    at Object.runIdentityFunctionCheck [as r…dules/.vite/deps/react-redux.js?v=b492906c:60:21)'}
+runIdentityFunctionCheck @ identityFunctionCheck.ts:44
+dependenciesChecker @ createSelectorCreator.ts:418
+memoized @ weakMapMemoize.ts:228
+memoized @ useSelector.ts:171
+memoizedSelector @ use-sync-external-store-with-selector.development.js:46
+(anonymous) @ use-sync-external-store-with-selector.development.js:70
+mountSyncExternalStore @ react-dom.development.js:15980
+useSyncExternalStore @ react-dom.development.js:16908
+useSyncExternalStore @ react.development.js:1676
+exports.useSyncExternalStoreWithSelector @ use-sync-external-store-with-selector.development.js:81
+useSelector2 @ useSelector.ts:243
+CreateComponentModal @ CreateComponentModal.tsx:39
+renderWithHooks @ react-dom.development.js:15486
+mountIndeterminateComponent @ react-dom.development.js:20103
+beginWork @ react-dom.development.js:21626
+beginWork$1 @ react-dom.development.js:27465
+performUnitOfWork @ react-dom.development.js:26596
+workLoopSync @ react-dom.development.js:26505
+renderRootSync @ react-dom.development.js:26473
+performConcurrentWorkOnRoot @ react-dom.development.js:25777
+workLoop @ scheduler.development.js:266
+flushWork @ scheduler.development.js:239
+performWorkUntilDeadline @ scheduler.development.js:533
+scheduler.development.js:517 [Violation] 'message' handler took 158ms
+(index):1 Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+CanvasElement.tsx:1108 🚀 HTML5 DRAG STARTED: image-1756257311949-qzrn0e7fl Tool: hand
+CanvasElement.tsx:187 DRAG START: image-1756257311949-qzrn0e7fl
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 960 816
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 960 816
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 960 815
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 960 815
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 961 813
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 961 813
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 962 811
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 963 810
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 963 810
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 964 809
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 966 806
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 967 805
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 968 803
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 968 803
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 972 799
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 972 799
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 973 797
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 975 794
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 979 789
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 979 789
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 981 786
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 982 783
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 984 781
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 984 781
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 985 780
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 985 778
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 985 778
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 987 777
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 987 777
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 987 776
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 988 775
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 988 775
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 988 774
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 989 774
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 989 774
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 990 773
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 990 772
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 990 772
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 991 771
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 991 770
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 991 770
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 993 768
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 993 768
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 995 764
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 995 764
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 997 763
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 998 760
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 998 760
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 999 759
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1000 758
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1000 758
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1002 756
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1002 755
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1002 755
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1004 753
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1004 751
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1004 751
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1005 750
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1007 748
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1007 748
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1007 747
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1007 747
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1008 745
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1009 743
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1009 743
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1010 741
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1012 740
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1012 740
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1012 738
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1012 738
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1014 737
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1014 736
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1014 736
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1014 735
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1015 734
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1015 734
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1016 733
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1016 733
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1016 732
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1016 732
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1017 731
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1017 731
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1017 730
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1017 730
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1019 728
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1019 726
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1019 726
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1020 725
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1020 725
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1022 722
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1023 720
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1024 717
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1024 717
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1024 716
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1024 716
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1026 714
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1027 712
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1027 712
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1027 711
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1027 711
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1028 709
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1029 708
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1029 708
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1029 707
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1029 707
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1030 705
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1031 702
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1031 702
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1032 700
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1032 700
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1032 698
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1032 695
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1032 695
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1034 692
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1034 692
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1036 684
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1036 684
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1036 680
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1036 677
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1037 675
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1037 675
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1037 673
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1037 673
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1038 670
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1039 667
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1039 667
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1039 664
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1039 661
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1039 658
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1039 658
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1039 655
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1040 652
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1040 652
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1040 649
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1040 646
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1040 646
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1040 643
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1040 640
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1040 640
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1040 638
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1040 634
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1040 623
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1040 623
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1040 619
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1040 615
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1040 615
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1040 609
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1040 605
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1040 605
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1040 599
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1040 595
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1040 595
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1040 590
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1040 586
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1040 586
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1040 580
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1040 575
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1040 575
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1040 570
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1040 564
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1040 552
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1040 552
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1040 541
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1040 541
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1040 536
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1040 530
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1040 530
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1041 524
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1042 519
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1043 513
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1045 506
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1046 501
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1046 501
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1047 494
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1048 488
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1048 488
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1048 483
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1049 476
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1049 476
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1049 470
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1049 465
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1049 465
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1049 460
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1049 454
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1049 454
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1049 450
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1049 446
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1049 446
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1049 443
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1049 440
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1049 440
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1049 438
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1049 435
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1049 435
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1049 432
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1049 428
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1050 425
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1050 421
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1050 421
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1050 418
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1050 415
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1050 415
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1050 412
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1050 409
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1050 409
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1050 406
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1050 406
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1050 405
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1050 404
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1050 404
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1050 402
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1050 401
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1050 401
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1050 398
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1050 397
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1050 397
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1050 393
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1050 392
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1050 392
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1049 389
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1048 385
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1048 385
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1048 383
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1048 383
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1047 381
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1046 379
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1046 379
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1045 377
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1045 377
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1044 375
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1044 375
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1043 373
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1042 373
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1042 373
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1040 370
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1040 369
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1040 369
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1039 369
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1038 368
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1038 368
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1037 366
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1037 365
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1037 365
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1035 365
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1035 363
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1035 363
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1034 363
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1033 362
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1033 362
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1032 361
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1032 360
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1031 360
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1031 360
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1030 360
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1030 360
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1029 359
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1029 359
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1028 359
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1028 359
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1027 359
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1027 359
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1027 358
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1027 358
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1026 358
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1026 358
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1025 358
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1025 358
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1024 357
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1024 356
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1023 356
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1023 356
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1023 356
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1023 356
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1023 356
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1023 356
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1023 357
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1025 360
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1026 361
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1026 361
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1030 367
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1030 367
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1030 367
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1031 369
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1033 373
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1033 373
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1035 376
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1036 381
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1036 381
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1037 382
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1039 385
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1040 388
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1041 390
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1041 390
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1041 391
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1042 393
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1042 393
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1042 395
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1043 395
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1043 395
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1044 397
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1044 399
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1044 399
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1044 400
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1045 401
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1045 401
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1046 405
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1046 407
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1046 407
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1047 409
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1048 410
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1048 410
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1049 414
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1049 417
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1049 419
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1049 419
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1050 422
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1051 425
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1051 425
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1055 439
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1055 439
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1056 443
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1057 448
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1057 448
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1059 453
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1061 468
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1061 468
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1062 475
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1063 490
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1063 490
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1064 497
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1067 514
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1067 514
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1069 543
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1069 543
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1070 579
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1070 579
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1070 590
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1070 601
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1070 601
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1070 609
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1070 612
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1070 612
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1070 619
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1070 627
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1070 627
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1071 644
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1071 644
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1071 652
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1071 655
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1071 655
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1071 664
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1071 672
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1071 672
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1071 674
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1072 680
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1072 687
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1072 689
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1073 694
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1073 696
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1073 700
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1073 700
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1073 706
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1073 708
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1073 708
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1073 712
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1073 714
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1073 714
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1073 716
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1073 722
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1073 722
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1073 724
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1073 730
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1073 730
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1073 733
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1073 739
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1073 739
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1073 742
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1073 744
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1073 744
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1073 749
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1073 751
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1073 751
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1073 753
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1073 757
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1073 757
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1073 759
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1074 761
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1074 761
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1075 769
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1075 769
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1075 771
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1077 776
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1077 776
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1079 782
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1079 782
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1080 787
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1088 803
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1088 803
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1089 806
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1092 811
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1092 811
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1096 817
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1097 818
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1097 818
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1099 820
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1100 822
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1100 822
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1101 822
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1102 823
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1102 823
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1103 823
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1103 823
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1103 824
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1104 825
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1104 825
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1106 825
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1106 825
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1106 826
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1108 826
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1108 826
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1110 827
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1111 827
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1112 827
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1114 827
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1114 827
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1116 827
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1116 827
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1117 827
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1118 827
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1118 827
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1119 827
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1120 827
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1121 827
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1121 827
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1121 826
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1122 826
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1122 826
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1123 826
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1123 825
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1123 825
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1125 824
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1125 824
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1127 823
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1129 821
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1129 821
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1133 818
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1136 814
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1136 814
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1138 812
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1142 808
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1142 808
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1149 801
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1150 799
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1150 799
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1156 794
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1161 788
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1161 788
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1162 787
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1166 783
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1166 783
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1167 780
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1170 776
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1170 775
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1173 769
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1173 769
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1174 767
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1176 763
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1177 760
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1179 754
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1179 754
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1180 751
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1180 748
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1180 748
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1182 740
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1182 737
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1183 731
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1183 731
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1183 728
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1183 726
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1183 726
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1184 720
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1184 718
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1184 718
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1184 716
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1184 710
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1184 710
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1184 708
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1184 706
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1184 706
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1184 700
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1184 697
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1184 697
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1183 685
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1183 685
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1174 651
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1174 651
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1170 639
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1167 627
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1158 599
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1151 579
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1151 579
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1141 546
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1137 534
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1134 523
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1134 523
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1129 504
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1129 504
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1126 495
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1124 488
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1122 481
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1122 481
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1120 474
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1120 474
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1119 471
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1116 465
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1114 458
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1114 458
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1112 451
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1111 449
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1111 449
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1109 442
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1106 435
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1106 435
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1104 432
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1100 425
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1097 416
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1095 414
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1095 414
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1093 409
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1091 407
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1091 407
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1089 402
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1087 401
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1087 401
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1085 397
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1084 395
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1084 395
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1082 393
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1081 391
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1081 391
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1079 390
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1078 389
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1078 389
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1076 388
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1076 388
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1074 386
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1074 386
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1073 386
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1073 385
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1071 384
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1069 383
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1069 382
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1069 382
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1067 382
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1067 382
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1063 379
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1062 378
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1060 377
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1060 377
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1055 374
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1053 372
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1053 372
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1050 371
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1047 368
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1047 368
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1039 363
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1033 359
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1030 356
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1026 355
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1019 350
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1019 350
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1017 349
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1014 347
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1012 345
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1010 344
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1010 344
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1008 342
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1005 340
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1005 340
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1001 336
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 998 334
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 998 334
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 997 333
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 997 333
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 996 333
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 996 333
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 996 332
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 996 332
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 996 332
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 995 332
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 995 332
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 995 331
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 995 331
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 995 330
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 995 330
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 995 330
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 995 330
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 995 331
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 995 331
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 995 332
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 995 332
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 996 334
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 996 335
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 996 335
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 997 336
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 998 338
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 998 338
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 998 339
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 999 341
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 999 341
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1000 341
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1001 343
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1001 343
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1002 345
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1004 347
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1004 347
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1008 350
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1008 350
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1010 354
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1014 358
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1015 359
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1019 361
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1019 361
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1024 367
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1024 367
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1027 369
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1028 370
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1028 370
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1032 373
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1034 375
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1034 375
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1035 376
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1038 377
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1038 378
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1038 378
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1039 379
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1040 380
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1040 380
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1041 380
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1041 381
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1041 381
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1042 381
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1043 382
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1043 382
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1044 383
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1044 383
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1045 383
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1045 384
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1045 384
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1048 385
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1048 385
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1049 385
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1051 385
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1051 385
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1053 385
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1055 385
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1055 385
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1063 377
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1063 377
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1070 370
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1074 365
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1074 365
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1086 349
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1097 333
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1097 333
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1103 324
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1108 317
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1108 317
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1113 311
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1116 306
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1116 306
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1119 303
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1121 300
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1124 296
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1124 296
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1126 294
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1129 288
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1133 281
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1133 281
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1137 273
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1139 268
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1139 268
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1140 263
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1142 258
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1142 258
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1143 256
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1144 254
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1144 254
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1144 253
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1144 252
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1144 252
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1144 252
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1144 252
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1144 253
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1144 254
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1144 254
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1144 257
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1144 258
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1144 258
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1144 263
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1144 266
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1144 266
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1144 269
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1144 276
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1144 276
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1144 279
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1144 287
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1144 287
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1145 296
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1145 296
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1145 308
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1145 312
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1145 312
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1145 316
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1145 319
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1145 319
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1145 325
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1145 328
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1145 328
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1145 329
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1145 330
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1145 330
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1145 331
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1145 331
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1145 331
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1145 331
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1145 332
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1145 333
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1145 334
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1145 334
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1145 337
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1145 341
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1145 342
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1145 342
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1145 346
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1145 352
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1145 356
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1145 358
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1145 366
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1144 368
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1143 372
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1143 372
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1143 373
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1142 378
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1142 378
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1140 384
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1140 386
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1139 394
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1138 396
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1138 396
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1136 403
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1136 406
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1136 406
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1134 414
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1134 416
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1134 416
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1133 421
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1132 423
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1132 424
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1132 424
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1131 427
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1131 429
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1130 432
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1130 433
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1130 434
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1130 434
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1129 437
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1128 438
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1128 438
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1128 440
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1127 445
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1127 445
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1126 451
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1125 455
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1125 455
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1123 461
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1123 463
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1123 463
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1122 467
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1120 471
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1120 471
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1120 473
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1120 476
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1120 476
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1119 480
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1119 481
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1119 481
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1118 484
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1117 488
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1117 488
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1116 490
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1116 494
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1116 494
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1116 496
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1115 502
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1115 502
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1114 505
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1113 513
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1113 513
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1112 517
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1111 526
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1110 529
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1110 532
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1110 532
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1109 539
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1109 542
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1109 542
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1108 546
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1107 548
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1107 548
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1107 549
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1106 551
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1106 552
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1106 553
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1106 553
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1106 553
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1106 555
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1106 555
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1106 559
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1106 562
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1106 565
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1106 566
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1106 569
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1106 569
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1106 572
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1106 574
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1106 574
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1106 577
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1106 581
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1106 581
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1106 583
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1106 588
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1106 588
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1106 592
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1106 600
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1106 600
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1106 606
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1106 611
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1106 611
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1105 622
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1104 627
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1103 633
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1102 638
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1102 638
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1101 639
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1101 639
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1101 640
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1101 640
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1101 640
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1101 641
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1101 641
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1100 644
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1098 649
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1098 649
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1096 654
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1094 663
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1094 663
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1091 670
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1089 678
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1089 678
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1086 687
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1086 687
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1086 689
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1085 693
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1084 696
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1084 697
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1084 697
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1083 700
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1083 702
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1083 702
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1083 704
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1083 706
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1083 708
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1083 708
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1083 711
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1082 715
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1082 715
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1082 719
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1081 722
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1081 722
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1081 726
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1081 730
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1081 730
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1081 734
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1081 735
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1081 735
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1080 741
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1080 746
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1080 746
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1080 753
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1080 755
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1080 755
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1080 760
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1080 763
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1080 763
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1080 764
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1080 766
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1080 766
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1080 766
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1080 767
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1080 768
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1080 768
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1080 769
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1081 770
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1082 770
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1082 771
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1082 771
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1083 771
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1083 771
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1084 771
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1084 771
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1084 772
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1084 772
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1085 772
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1085 772
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1086 772
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1086 772
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1087 772
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1087 773
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1087 773
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1088 773
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1088 773
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1089 775
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1091 775
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1091 775
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1091 776
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1092 776
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1092 776
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1093 776
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1093 777
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1094 777
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1094 777
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1095 777
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1097 777
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1097 777
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1097 778
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1098 778
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1098 778
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1101 778
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1102 778
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1102 778
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1103 778
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1105 778
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1105 778
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1106 778
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1107 778
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1107 778
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1108 778
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1111 778
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1111 778
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1112 778
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1112 778
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1113 777
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1116 776
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1116 776
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1116 775
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1116 774
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1116 774
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1117 773
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1117 773
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1118 773
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1118 773
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1118 772
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1118 772
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1118 772
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1118 772
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1118 772
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1119 772
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1119 772
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1120 772
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1120 772
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1121 772
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1121 772
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1122 772
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1122 772
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1123 772
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1123 772
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1124 772
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1124 772
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1125 772
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1125 772
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1127 772
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1127 772
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1128 772
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1128 772
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1130 772
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1131 774
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1131 774
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1132 774
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1134 775
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1134 775
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1134 776
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1135 776
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1135 776
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1137 777
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1137 777
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1137 778
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1139 779
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1139 779
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1139 780
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1141 781
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1141 781
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1142 782
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1143 783
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1143 783
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1144 783
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1144 783
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1144 784
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1145 784
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1145 784
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1146 785
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1146 785
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1146 786
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1146 786
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1147 787
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1147 787
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1147 788
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1147 788
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1147 788
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1147 788
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1149 788
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1149 788
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1150 788
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1152 787
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1152 787
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1154 785
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1157 784
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1157 784
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1159 781
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1162 779
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1162 779
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1167 773
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1167 773
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1170 771
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1171 769
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1171 769
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1172 767
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1173 765
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1175 764
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1175 764
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1175 763
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1176 763
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1176 763
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1176 762
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1176 762
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1176 761
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1176 761
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1177 761
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1177 761
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1177 760
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1177 760
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1178 758
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1180 757
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1180 756
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1181 755
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1181 755
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1182 753
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1183 751
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1183 751
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1184 750
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1184 748
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1184 748
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1185 748
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1185 746
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1185 746
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1186 746
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1186 745
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1186 745
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1187 744
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1187 743
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1187 743
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1187 742
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1187 742
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1187 741
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1188 741
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1188 741
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1188 740
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1188 739
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1188 739
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1188 738
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1188 738
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1188 736
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1188 736
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1188 735
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1188 735
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1188 733
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1188 732
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1188 732
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1188 731
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1188 730
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1188 730
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1188 728
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1188 727
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1188 725
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1188 725
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1188 724
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1187 723
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1187 723
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1186 721
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1186 719
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1186 719
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1186 718
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1185 716
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1185 716
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1182 709
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1181 706
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1181 706
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1180 703
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1179 699
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1179 699
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1177 694
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1174 682
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1167 668
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1167 668
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1167 665
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1164 656
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1164 656
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1163 655
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1162 653
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1162 653
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1161 648
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1161 647
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1161 647
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1159 645
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1159 644
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1158 641
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1158 641
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1157 638
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1157 636
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1157 636
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1154 629
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1154 628
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1153 626
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1151 622
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1151 620
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1151 620
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1150 618
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1149 617
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1149 617
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1148 614
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1148 612
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1148 612
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1148 611
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1147 610
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1147 610
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1146 608
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1146 606
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1146 606
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1146 605
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1145 604
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1145 604
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1144 602
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1144 601
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1144 601
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1143 597
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1142 595
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1142 595
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1141 593
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1141 590
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1141 590
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1140 588
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1139 587
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1139 587
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1138 585
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1137 580
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1137 580
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1137 579
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1136 577
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1134 575
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1134 575
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1134 572
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1133 569
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1133 569
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1131 566
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1130 563
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1126 555
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1126 555
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1125 552
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1123 548
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1121 545
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1120 542
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1120 542
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1115 534
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1114 532
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1114 532
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1113 530
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1112 528
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1112 528
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1110 525
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1109 522
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1109 522
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1106 520
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1105 517
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1102 514
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1100 511
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1100 511
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1097 509
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1095 506
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1095 506
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1093 503
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1089 500
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1089 500
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1086 498
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1083 495
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1083 495
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1081 494
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1078 491
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1078 491
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1076 490
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1073 488
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1072 488
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1070 486
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1067 485
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1067 485
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1065 485
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1065 485
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1063 484
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1061 483
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1061 483
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1059 483
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1057 483
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1057 483
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1054 482
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1052 481
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1052 481
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1050 481
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1048 481
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1048 481
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1046 480
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1044 480
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1044 480
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1041 480
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1041 480
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1039 480
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1038 480
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1038 480
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1037 480
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1034 479
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1034 479
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1033 479
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1031 479
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1031 479
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1030 478
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1030 478
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1028 478
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1027 478
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1027 478
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1026 477
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1023 476
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1023 476
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1022 475
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1021 474
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1018 472
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1017 471
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1017 471
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1015 470
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1013 468
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1013 468
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1012 467
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1012 467
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1010 464
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1009 463
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1009 463
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1008 462
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1008 462
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1007 459
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1006 458
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1006 458
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1005 457
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1005 456
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1005 456
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1005 456
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1005 456
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1005 456
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1005 456
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1005 456
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1005 456
+CanvasElement.tsx:1114 🏁 HTML5 DRAG ENDED: image-1756257311949-qzrn0e7fl
+CanvasElement.tsx:1108 🚀 HTML5 DRAG STARTED: image-1756257311949-qzrn0e7fl Tool: hand
+CanvasElement.tsx:187 DRAG START: image-1756257311949-qzrn0e7fl
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 972 807
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 979 798
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 982 796
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 985 790
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 987 788
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 989 786
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 989 786
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 990 782
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 991 781
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 992 779
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 994 777
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 994 777
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 997 771
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 997 771
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 998 769
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1000 766
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1002 761
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1004 758
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1004 758
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1006 754
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1007 753
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1007 753
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1009 749
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1011 744
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1013 742
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1013 742
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1015 737
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1015 737
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1018 731
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1020 727
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1020 727
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1024 720
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1026 717
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1030 708
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1030 708
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1034 701
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1036 698
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1036 698
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1043 686
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1043 686
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1050 673
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1050 673
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1054 664
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1056 661
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1056 661
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1057 658
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1061 649
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1061 649
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1062 645
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1066 636
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1066 636
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1068 629
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1068 629
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1071 618
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1073 613
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1073 613
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1074 609
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1076 598
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1076 598
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1077 594
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1078 589
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1078 589
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1080 580
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1081 576
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1081 576
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1081 571
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1082 567
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1083 556
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1084 552
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1084 548
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1085 544
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1085 539
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1085 539
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1086 529
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1086 525
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1086 525
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1087 520
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1087 515
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1087 511
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1087 500
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1087 500
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1087 496
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1087 492
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1087 492
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1087 486
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1087 482
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1087 482
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1087 478
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1086 472
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1086 472
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1082 459
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1081 453
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1081 453
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1079 446
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1076 439
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1076 439
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1073 432
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1070 425
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1068 419
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1066 413
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1066 413
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1064 407
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1061 403
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1061 403
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1055 392
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1055 392
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1052 386
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1040 367
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1040 367
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1033 356
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1030 352
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1026 346
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1023 341
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1020 336
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1020 336
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1017 332
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1013 327
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1013 327
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1010 322
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1007 319
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1007 319
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1006 314
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1003 312
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1003 312
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1002 310
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1001 308
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1001 308
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1000 307
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1000 305
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1000 305
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 999 305
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 999 305
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 999 304
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 999 304
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 999 304
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 999 304
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 998 304
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 997 304
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 996 304
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 994 304
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 994 304
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 992 304
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 990 304
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 990 304
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 987 304
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 984 304
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 984 304
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 981 304
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 978 304
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 978 304
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 976 304
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 974 304
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 974 304
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 973 304
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 972 304
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 972 304
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 971 304
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 971 304
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 971 304
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 971 304
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 971 304
+CanvasElement.tsx:1114 🏁 HTML5 DRAG ENDED: image-1756257311949-qzrn0e7fl
+CanvasElement.tsx:1108 🚀 HTML5 DRAG STARTED: image-1756257311949-qzrn0e7fl Tool: hand
+CanvasElement.tsx:187 DRAG START: image-1756257311949-qzrn0e7fl
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 973 800
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 979 788
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 985 780
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 991 769
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1006 746
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1006 746
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1014 737
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1022 727
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1022 727
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1028 717
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1036 708
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1036 708
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1040 702
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1047 694
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1047 694
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1057 679
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1061 672
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1065 666
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1065 666
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1071 656
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1074 647
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1074 647
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1077 640
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1081 633
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1087 616
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1087 616
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1089 609
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1092 602
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1092 602
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1094 596
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1096 589
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1096 589
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1097 584
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1099 578
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1099 575
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1099 575
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1100 570
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1101 562
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1101 551
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1101 551
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1101 532
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1101 532
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1100 527
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1097 515
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1093 500
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1090 492
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1090 492
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1084 476
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1081 469
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1081 469
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1075 455
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1072 449
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1072 449
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1066 435
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1063 430
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1056 416
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1056 416
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1053 407
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1051 404
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1051 404
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1050 401
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1045 394
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1045 394
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1045 391
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1041 384
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1039 382
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1038 380
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1038 380
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1035 376
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1034 373
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1034 373
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1032 372
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1029 368
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1027 365
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1027 365
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1026 364
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1025 363
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1025 363
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1020 359
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1020 359
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1020 358
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1019 358
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1019 358
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1019 356
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1019 356
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1018 356
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1018 356
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1017 356
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1017 356
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1016 355
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1015 355
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1015 355
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1013 355
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1011 354
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1011 354
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1009 353
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1007 352
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1007 352
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1003 351
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1001 350
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1001 350
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 998 349
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 996 349
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 994 348
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 994 348
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 992 348
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 991 348
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 991 348
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 990 348
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 990 348
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 989 348
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 988 348
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 988 348
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 986 348
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 986 348
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 985 348
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 985 348
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 984 348
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 983 349
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 983 349
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 982 350
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 980 354
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 980 354
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 978 356
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 974 363
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 973 365
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 969 371
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 969 371
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 968 374
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 966 377
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 966 377
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 964 379
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 964 379
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 964 380
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 964 381
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 964 381
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 963 381
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 963 381
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 963 381
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 963 380
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 963 377
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 963 377
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 963 374
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 963 369
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 963 369
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 963 364
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 963 360
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 963 347
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 964 342
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 964 338
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 964 338
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 965 335
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 965 331
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 965 331
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 966 328
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 966 327
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 966 327
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 966 325
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 966 324
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 966 324
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 967 322
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 967 321
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 967 319
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 967 319
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 967 318
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 968 317
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 968 316
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 968 315
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 968 315
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 968 314
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 968 313
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 968 313
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 968 312
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 968 312
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 968 311
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 968 311
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 968 310
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 968 310
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 968 309
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 968 309
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 968 308
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 968 308
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 968 308
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 968 308
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 969 308
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 969 308
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 971 308
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 971 308
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 972 308
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 973 307
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 973 307
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 974 307
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 975 307
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 975 307
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 976 306
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 976 306
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 977 306
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 977 306
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 978 306
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 978 306
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 979 306
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 979 306
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 979 306
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 979 306
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 979 307
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 979 307
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 979 308
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 979 310
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 979 310
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 979 311
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 980 314
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 980 314
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 980 315
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 981 317
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 981 317
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 981 319
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 981 321
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 981 321
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 981 323
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 981 323
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 981 324
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 982 325
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 983 329
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 983 329
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 983 331
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 984 334
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 984 334
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 985 339
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 986 341
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 986 341
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 988 347
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 989 350
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 990 353
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 991 356
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 991 356
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 998 370
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 998 370
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1000 375
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1004 383
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1004 383
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1007 389
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1007 389
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1008 391
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1011 395
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1011 395
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1012 397
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1013 399
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1013 399
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1014 401
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1015 403
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1015 403
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1019 409
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1020 410
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1020 410
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1021 412
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1022 415
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1022 415
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1023 416
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1025 418
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1025 418
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1027 423
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1029 425
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1029 425
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1030 427
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1033 431
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1035 434
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1035 434
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1035 434
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1035 434
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1035 434
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1035 433
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1035 433
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1035 432
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1036 432
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1036 432
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1036 431
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1036 431
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1038 428
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1039 428
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1040 427
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1040 427
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1041 426
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1041 426
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1043 426
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1045 425
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1045 425
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1046 425
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1047 425
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1047 425
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1049 425
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1053 425
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1053 425
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1055 425
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1059 425
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1059 425
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1061 425
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1066 427
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1066 427
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1068 427
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1075 430
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1085 435
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1085 435
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1087 437
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1094 440
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1095 442
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1095 442
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1100 445
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1101 447
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1101 447
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1104 450
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1107 451
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1107 451
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1108 454
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1114 459
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1114 459
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1116 462
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1119 465
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1119 465
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1125 472
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1129 476
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1129 476
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1131 481
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1139 489
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1139 489
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1142 493
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1143 496
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1143 496
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1149 504
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1149 505
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1149 505
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1151 508
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1152 510
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1152 510
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1152 512
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1153 513
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1153 513
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1154 517
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1154 519
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1155 523
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1155 526
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1155 526
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1155 530
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1155 531
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1155 531
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1155 534
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1155 535
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1155 535
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1155 537
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1155 539
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1155 540
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1155 540
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1155 544
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1155 545
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1155 545
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1155 547
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1154 551
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1154 553
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1153 556
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1153 556
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1152 565
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1151 568
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1150 571
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1150 571
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1148 579
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1147 583
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1147 583
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1146 585
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1146 588
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1146 588
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1146 593
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1146 595
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1146 595
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1146 598
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1146 601
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1146 601
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1146 604
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1146 612
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1146 612
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1146 614
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1146 618
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1146 618
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1146 620
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1146 626
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1146 626
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1146 631
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1146 634
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1147 643
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1147 643
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1147 649
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1148 652
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1148 654
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1148 654
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1149 660
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1149 662
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1149 662
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1150 666
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1150 668
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1150 668
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1150 670
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1150 672
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1150 672
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1150 673
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1150 676
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1150 676
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1151 677
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1151 679
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1151 679
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1152 681
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1153 685
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1153 686
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1153 688
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1153 688
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1153 694
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1153 694
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1153 696
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1153 697
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1153 697
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1152 701
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1152 702
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1152 702
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1151 703
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1151 704
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1151 704
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1151 706
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1151 710
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1151 710
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1151 711
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1150 713
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1150 713
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1150 714
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1150 715
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1150 717
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1149 718
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1149 718
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1149 719
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1149 721
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1149 721
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1149 722
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1148 724
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1148 724
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1148 726
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1147 728
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1147 728
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1146 732
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1146 732
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1146 732
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1146 731
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1146 729
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1146 729
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1145 726
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1144 719
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1144 719
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1142 708
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1139 693
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1139 693
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1128 630
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1124 611
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1114 569
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1114 569
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1099 492
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1099 492
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1098 480
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1096 469
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1096 469
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1095 462
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1094 459
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1094 459
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1094 458
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1094 456
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1094 456
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1094 455
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1094 455
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1094 454
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1094 453
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1094 453
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1094 453
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1094 453
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1093 453
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1093 452
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1093 452
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1092 451
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1092 451
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1092 450
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1092 450
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1092 449
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1091 449
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1091 449
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1091 448
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1090 448
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1090 448
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1090 447
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1090 447
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1090 446
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1089 445
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1089 445
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1089 444
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1089 444
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1088 443
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1088 443
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1088 442
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1088 442
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1088 442
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1088 442
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1088 442
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1088 442
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1088 442
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1088 442
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1088 442
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1088 442
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1088 442
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1088 442
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1088 442
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1088 442
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1088 442
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1088 442
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1088 442
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1088 442
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1088 442
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1088 442
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1088 442
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1088 442
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1088 442
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1088 442
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1088 442
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1088 442
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1088 442
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1088 442
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1088 442
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1088 442
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1089 442
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1089 442
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1089 441
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1089 441
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1089 441
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1089 441
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1089 440
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1089 440
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1089 440
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1089 440
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1089 440
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1089 440
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1089 440
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1089 440
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1089 440
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1089 440
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1089 440
+Canvas.tsx:1210 🎯 CANVAS DRAG OVER - HTML5 System Active 1089 440
+CanvasElement.tsx:1114 🏁 HTML5 DRAG ENDED: image-1756257311949-qzrn0e7fl

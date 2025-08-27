@@ -894,8 +894,12 @@ const Canvas: React.FC = () => {
       //   thresholdExceeded: dragThreshold.exceeded
       // });
       
+      // DISABLE OLD DRAG SYSTEM entirely - HTML5 drag will handle this
+      return; // Skip the entire old drag system
+      
+      // OLD SYSTEM BELOW (disabled) - keeping for reference
       // NEW DnD SYSTEM: Only show insertion feedback if we're actually dragging
-      if (isDraggingForReorder) {
+      if (isDraggingForReorder && draggedElementId) {
         // Use new DnD system for element reordering validation
         const draggedElement = currentElements[draggedElementId];
         if (!draggedElement) return;

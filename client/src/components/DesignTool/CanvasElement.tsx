@@ -182,9 +182,9 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     setIsEditing(false);
   }, [element.id, dispatch]);
 
-  // HTML5 Drag and Drop event handlers
+  // HTML5 Drag and Drop event handlers - SIMPLIFIED
   const handleDragStart = useCallback((e: React.DragEvent<HTMLDivElement>) => {
-    console.log('DRAG START:', element.id);
+    console.log('🚀 HTML5 DRAG START (handler):', element.id);
     
     // Don't allow dragging while editing text
     if (isEditing) {
@@ -193,7 +193,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
       return;
     }
     
-    // Set drag data
+    // Set drag data for HTML5 system
     e.dataTransfer.setData('application/json', JSON.stringify({
       type: 'canvas-element',
       elementId: element.id
@@ -1098,9 +1098,10 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
         onClick={handleClick}
         onMouseDown={(e) => {
           // Allow drawing system to work - don't prevent default for creation tools
-          // Only prevent text selection during drag operations
+          // For hand tool, allow HTML5 drag to start naturally - don't prevent default
           if (selectedTool === 'hand') {
-            e.preventDefault();
+            console.log('✅ Hand tool: allowing HTML5 drag to start naturally');
+            // Don't call e.preventDefault() - this was blocking HTML5 drag
           }
         }}
         // HTML5 Drag and Drop event handlers
