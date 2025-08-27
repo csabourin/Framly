@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
 import { selectUIState, selectHoveredElementId, selectHoveredZone, selectSelectedElementId, selectCustomClasses } from '../../store/selectors';
 import { selectElement, updateElement } from '../../store/canvasSlice';
-import { setSelectedTool } from '../../store/uiSlice';
+import { setSelectedTool, setDraggingForReorder, setDraggedElement } from '../../store/uiSlice';
 import { CanvasElement as CanvasElementType } from '../../types/canvas';
 import ButtonElement from './CanvasElements/ButtonElement';
 import { isValidDropTarget } from '../../utils/canvas';
