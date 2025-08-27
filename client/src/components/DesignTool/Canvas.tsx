@@ -894,8 +894,11 @@ const Canvas: React.FC = () => {
       //   thresholdExceeded: dragThreshold.exceeded
       // });
       
-      // DISABLE OLD DRAG SYSTEM entirely - HTML5 drag will handle this
-      return; // Skip the entire old drag system
+      // DISABLE OLD DRAG SYSTEM when HTML5 is active
+      if (isDraggingForReorder) {
+        console.log('🔄 OLD DRAG SYSTEM: Skipping because HTML5 drag active');
+        return; // Skip old system when HTML5 drag is active
+      }
     } else if (selectedTool === 'select' || selectedTool === 'hand') {
       // Handle selection/hand tool hover detection - NO insertion indicators
       const hoveredElement = getElementAtPoint(x, y, currentElements, zoomLevel, draggedElementId);
@@ -1103,13 +1106,21 @@ const Canvas: React.FC = () => {
     e.dataTransfer.dropEffect = 'move';
     
     console.log('🎯 CANVAS DRAG OVER - HTML5 System Active', e.clientX, e.clientY);
+    console.log('   - DataTransfer types:', Array.from(e.dataTransfer.types));
     
     // Use the DnD system to determine drop location and show visual feedback
     const candidateIds = getCandidateContainerIds({ x: e.clientX, y: e.clientY });
     
     try {
       const dragData = e.dataTransfer.getData('application/json');
-      if (!dragData) return;
+      console.log('   - Drag data:', dragData);
+      
+      if (!dragData) {
+        console.log('   - No JSON data, checking text/plain');
+        const textData = e.dataTransfer.getData('text/plain');
+        console.log('   - Text data:', textData);
+        return;
+      }
       
       const data = JSON.parse(dragData);
       if (data.type === 'canvas-element' && data.elementId) {

@@ -1097,23 +1097,49 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
         tabIndex={0}
         onClick={handleClick}
         onMouseDown={(e) => {
-          console.log('🖱️ MOUSE DOWN on element:', element.id, 'Event target:', e.target);
-          // NEVER prevent default - let HTML5 drag work
+          console.log('🖱️ MOUSE DOWN on element:', element.id, 'Tool:', selectedTool, 'Draggable:', !isEditing && !isComponentChild);
+          console.log('   - Target:', e.target, 'CurrentTarget:', e.currentTarget);
+          console.log('   - Buttons:', e.buttons, 'Button:', e.button);
+          
+          // DEBUG: Check what might prevent HTML5 drag
+          if (selectedTool === 'hand') {
+            console.log('   - Hand tool active - HTML5 drag should work');
+          }
         }}
         // HTML5 Drag and Drop event handlers
         onDragStart={(e) => {
           console.log('🚀🚀🚀 HTML5 DRAG STARTED!!!', element.id, 'Tool:', selectedTool);
+          console.log('   - DataTransfer:', e.dataTransfer);
+          console.log('   - Target draggable:', e.currentTarget.draggable);
+          
           // Add immediate visual feedback that drag started
           e.currentTarget.style.opacity = '0.5';
           e.currentTarget.style.transform = 'scale(0.95)';
-          // Simple drag data
+          
+          // Set comprehensive drag data
           e.dataTransfer.setData('text/plain', element.id);
+          e.dataTransfer.setData('application/json', JSON.stringify({
+            type: 'canvas-element',
+            elementId: element.id,
+            tool: selectedTool
+          }));
           e.dataTransfer.effectAllowed = 'move';
+          
+          // Activate the drag state in Redux
+          dispatch(setDraggingForReorder(true));
+          dispatch(setDraggedElement(element.id));
         }}
         onDragEnd={(e) => {
           console.log('🏁 HTML5 DRAG ENDED:', element.id);
-          // Restore opacity when drag ends
-          e.currentTarget.style.opacity = '1';
+          console.log('   - DropEffect:', e.dataTransfer.dropEffect);
+          
+          // Reset visual feedback
+          e.currentTarget.style.opacity = '';
+          e.currentTarget.style.transform = '';
+          
+          // Clear drag state
+          dispatch(setDraggingForReorder(false));
+          dispatch(setDraggedElement(undefined));
         }}
         onDragOver={handleDragOver}
         onDragEnter={handleDragEnter}
