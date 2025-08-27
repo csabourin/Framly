@@ -954,7 +954,7 @@ const Canvas: React.FC = () => {
         };
         
         // Get legal drop location using new DnD system
-        const drop = chooseDropWithFallback(
+        const drop = chooseDropForNewElement(
           { x: e.clientX, y: e.clientY },
           candidateIds,
           draggedMeta,
@@ -973,7 +973,7 @@ const Canvas: React.FC = () => {
             index: drop.index
           };
           
-          const insertionPosition = drop.kind === "into" ? "inside" : "between";
+          const insertionPosition = drop.kind === "into" ? "inside" : "inside";
           
           setHoveredElementId(drop.parentId);
           setHoveredZone(insertionPosition);
@@ -1139,7 +1139,8 @@ const Canvas: React.FC = () => {
       };
       
       // Get legal drop location using new DnD system
-      const drop = chooseDropWithFallback(
+      const candidateIds = getCandidateContainerIds({ x: lastMousePos.current.x, y: lastMousePos.current.y });
+      const drop = chooseDropForNewElement(
         { x: lastMousePos.current.x, y: lastMousePos.current.y },
         candidateIds,
         draggedMeta,
@@ -1180,15 +1181,6 @@ const Canvas: React.FC = () => {
           newParentId: 'root',
           insertPosition: 'inside'
         }));
-        if (!insertedBefore) {
-          const lastChild = sortedChildren[sortedChildren.length - 1];
-          dispatch(reorderElement({
-            elementId: draggedElementId,
-            newParentId: targetElement.id,
-            insertPosition: 'after',
-            referenceElementId: lastChild.id
-          }));
-        }
       }
     }
     
@@ -1331,12 +1323,12 @@ const Canvas: React.FC = () => {
               };
               
               setHoveredElementId(drop.parentId);
-              setHoveredZone(drop.kind === "into" ? "inside" : "between");
+              setHoveredZone(drop.kind === "into" ? "inside" : "inside");
               
               // Update Redux state for visual feedback 
               dispatch(setHoveredElement({ 
                 elementId: drop.parentId, 
-                zone: drop.kind === "into" ? "inside" : "between"
+                zone: drop.kind === "into" ? "inside" : "inside"
               }));
               
               // Store the insertion indicator for visual feedback
