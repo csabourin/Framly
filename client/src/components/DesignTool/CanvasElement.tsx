@@ -184,8 +184,11 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
 
   // HTML5 Drag and Drop event handlers
   const handleDragStart = useCallback((e: React.DragEvent<HTMLDivElement>) => {
+    console.log('DRAG START:', element.id);
+    
     // Don't allow dragging while editing text
     if (isEditing) {
+      console.log('DRAG PREVENTED: editing');
       e.preventDefault();
       return;
     }
@@ -1077,7 +1080,8 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     <ElementContextMenu elementId={element.id}>
       <div
         ref={elementRef}
-        draggable={!isEditing && !isComponentChild} // Enable HTML5 drag and drop, but not for text editing or component children
+        draggable={!isEditing && !isComponentChild && selectedTool !== 'text'} // Enable HTML5 drag and drop, but not for text editing or component children
+        title={`Draggable: ${!isEditing && !isComponentChild && selectedTool !== 'text'} | Tool: ${selectedTool}`}
         className={`
           selectable-block
           canvas-element
@@ -1100,7 +1104,10 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
           }
         }}
         // HTML5 Drag and Drop event handlers
-        onDragStart={handleDragStart}
+        onDragStart={(e) => {
+          console.log('DRAG START EVENT FIRED:', element.id, 'Tool:', selectedTool, 'Editing:', isEditing, 'ComponentChild:', isComponentChild);
+          handleDragStart(e);
+        }}
         onDragOver={handleDragOver}
         onDragEnter={handleDragEnter}
         onDragLeave={handleDragLeave}
