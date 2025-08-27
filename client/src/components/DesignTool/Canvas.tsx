@@ -23,6 +23,9 @@ import { useColorModeCanvasSync } from '../../hooks/useColorModeCanvasSync';
 import { useDrawingCommitter } from './DrawingCommitter';
 import DragFeedback from './DragFeedback';
 import { useThrottledMouseMove } from '../../hooks/useThrottledMouseMove';
+import { useStableDragTarget } from '../../hooks/useStableDragTarget';
+import DragIndicatorOverlay from './DragIndicatorOverlay';
+import { calculateHitZone, clampToCanvas, areZonesMutuallyExclusive } from '../../utils/hitZoneGeometry';
 
 import { Plus, Minus, Maximize } from 'lucide-react';
 
@@ -53,6 +56,13 @@ const Canvas: React.FC = () => {
   const [expandedContainerId, setExpandedContainerId] = useState<string | null>(null);
   const [inputModality, setInputModality] = useState<'mouse' | 'keyboard'>('mouse');
   const [isDragFromHandle, setIsDragFromHandle] = useState(false);
+  
+  // Stable drag target management for artifact-free feedback
+  const stableDragTarget = useStableDragTarget({
+    bufferX: 5,
+    bufferY: 8,
+    hysteresisBuffer: 8
+  });
   
   // Drawing state for rubber-band rectangle
   const [drawingState, setDrawingState] = useState<{
@@ -687,9 +697,19 @@ const Canvas: React.FC = () => {
     // Track mouse position for drag operations
     lastMousePos.current = { x: e.clientX, y: e.clientY };
     
-    // Simple coordinate conversion without complex offsets
-    let x = (e.clientX - rect.left) / zoomLevel;
-    let y = (e.clientY - rect.top) / zoomLevel;
+    // Simple coordinate conversion with clamping to prevent ghost growth
+    const rawX = (e.clientX - rect.left) / zoomLevel;
+    const rawY = (e.clientY - rect.top) / zoomLevel;
+    
+    // Clamp coordinates to canvas bounds to prevent artifacts
+    const canvasWidth = rect.width / zoomLevel;
+    const canvasHeight = rect.height / zoomLevel;
+    const { x, y, clamped } = clampToCanvas(rawX, rawY, canvasWidth, canvasHeight);
+    
+    // If cursor is outside canvas and we're drawing, freeze the preview
+    if (clamped && drawingState) {
+      return; // Don't update drawing state when clamped
+    }
     
     // Handle active drawing
     if (drawingState) {
@@ -713,16 +733,39 @@ const Canvas: React.FC = () => {
         const insertionZone = detectInsertionZone(x, y, false);
         
         if (insertionZone) {
-          // Valid insertion zone - show visual feedback
-          setHoveredElementId(insertionZone.elementId);
-          setHoveredZone((insertionZone as any).position === 'between' ? 'inside' : (insertionZone as any).position);
-          dispatch(setHoveredElement({ 
-            elementId: insertionZone.elementId, 
-            zone: (insertionZone as any).position === 'between' ? 'inside' : (insertionZone as any).position
-          }));
-          setInsertionIndicator(insertionZone);
+          // Use stable drag target to prevent flicker
+          const targetZone = (insertionZone as any).position === 'between' ? 'inside' : (insertionZone as any).position;
+          
+          // Only update stable target for basic zones (exclude canvas-top/bottom)
+          if (['before', 'after', 'inside'].includes(targetZone)) {
+            stableDragTarget.updateTarget({
+              elementId: insertionZone.elementId,
+              zone: targetZone as 'before' | 'after' | 'inside',
+              bounds: insertionZone.bounds
+            }, x, y, (target) => {
+              // Debounced update - only fires when target actually changes
+              setHoveredElementId(target.elementId);
+              setHoveredZone(target.zone);
+              dispatch(setHoveredElement({ 
+                elementId: target.elementId, 
+                zone: target.zone
+              }));
+              setInsertionIndicator(insertionZone);
+            });
+          } else {
+            // Handle canvas-top/bottom directly without stable target
+            setHoveredElementId(insertionZone.elementId);
+            setHoveredZone(targetZone);
+            dispatch(setHoveredElement({ 
+              elementId: insertionZone.elementId, 
+              zone: targetZone
+            }));
+            setInsertionIndicator(insertionZone);
+          }
+
         } else {
           // No valid insertion zone
+          stableDragTarget.clearTarget();
           setInsertionIndicator(null);
           setHoveredElementId(null);
           setHoveredZone(null);
@@ -912,7 +955,7 @@ const Canvas: React.FC = () => {
       dispatch(setHoveredElement({ elementId: null, zone: null }));
       setInsertionIndicator(null);
     }
-  }, [isDragging, isDraggingForReorder, selectedElementId, draggedElementId, dragStart, zoomLevel, dispatch, selectedTool, expandedElements, dragThreshold, drawingState]);
+  }, [isDragging, isDraggingForReorder, selectedElementId, draggedElementId, dragStart, zoomLevel, dispatch, selectedTool, expandedElements, dragThreshold, drawingState, stableDragTarget]);
 
   // Throttled mouse move handler to improve performance
   const handleMouseMove = useThrottledMouseMove(handleMouseMoveInternal, 16);
@@ -1821,7 +1864,16 @@ const Canvas: React.FC = () => {
           })()
         )}
 
-        {/* DRAG FEEDBACK SYSTEM */}
+        {/* DRAG FEEDBACK SYSTEM - New overlay approach for artifact-free indicators */}
+        <DragIndicatorOverlay
+          hoveredElementId={hoveredElementId}
+          hoveredZone={hoveredZone}
+          currentElements={expandedElements}
+          zoomLevel={zoomLevel}
+          canvasRef={canvasRef}
+        />
+        
+        {/* Keep original feedback for ARIA announcements */}
         <DragFeedback
           hoveredElementId={hoveredElementId}
           hoveredZone={hoveredZone}

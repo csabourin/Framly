@@ -1,0 +1,94 @@
+Fixing Drag & Drop Artefacts
+1. Stabilize Target Resolution
+
+Current issue: As you move, the system is constantly re-evaluating all potential drop zones, causing flicker.
+
+Fix:
+
+Use a single pass hit-test per requestAnimationFrame (not every mousemove).
+
+Cache the last valid target and only update if the cursor has moved beyond a buffer (e.g., 8px vertically, 5px horizontally).
+
+This prevents indicators jumping around when the cursor wiggles.
+
+2. Mutual Exclusivity of Indicators
+
+Current issue: Sometimes “inside highlight” and “before/after line” both show.
+
+Fix:
+
+When a container accepts children → suppress before/after lines inside its bounds.
+
+When container rejects children → only before/after lines are eligible.
+
+At no time should both appear.
+
+3. Hit Zone Geometry
+
+Current issue: Cursor near edges triggers rapid inside/outside switching.
+
+Fix:
+
+Split bounding box:
+
+Top 25% → “insert before”
+
+Bottom 25% → “insert after”
+
+Middle 50% → “insert inside” (if valid)
+
+Apply hysteresis buffer: once a mode is selected, don’t switch until cursor crosses a threshold (±8px).
+
+4. Indicator Anchoring
+
+Current issue: Lines look detached from DOM or misaligned.
+
+Fix:
+
+Always anchor lines to element edges, spanning full width of the parent container.
+
+Don’t draw based on cursor position.
+
+For “document start/end,” snap to top/bottom padding regions, not arbitrary cursor Y.
+
+5. Prevent “Ghost Growth” on Drag
+
+Current issue: Rectangle keeps morphing when cursor exits canvas.
+
+Fix:
+
+Clamp coordinates to canvas bounds.
+
+If cursor leaves canvas, freeze the preview at the last valid point until mouseup.
+
+6. Debounce Visual Updates
+
+Current issue: Visual artefacts appear because indicators are re-rendered too often.
+
+Fix:
+
+Update DOM indicators only when target actually changes (not on every mouse pixel).
+
+Use React state keyed by dropTargetId + mode (inside/before/after) → no re-mount if same target.
+
+7. Layer Management
+
+Current issue: Artefacts overlap with text/images.
+
+Fix:
+
+Render all indicators in a single overlay layer (position: absolute; pointer-events: none; z-index: 9999).
+
+Never insert markers inside the actual content DOM.
+
+✅ Success Criteria
+
+Indicators never flicker while cursor is jittering.
+
+Only one indicator type visible at any time.
+
+Drops always match indicator location, no surprises.
+
+Dragging outside canvas does not leave ghost rectangles.
+
+Undo/redo restores exactly as shown during preview.
