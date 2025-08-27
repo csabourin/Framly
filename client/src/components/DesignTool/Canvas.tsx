@@ -5,12 +5,14 @@ import { RootState } from '../../store';
 import { selectElement, addElement, moveElement, resizeElement, reorderElement, deleteElement, copyElement, cutElement, pasteElement } from '../../store/canvasSlice';
 import { setDragging, setDragStart, setResizing, setResizeHandle, resetUI, setDraggedElement, setDraggingForReorder, setHoveredElement, setSelectedTool } from '../../store/uiSlice';
 import { createDefaultElement, getElementAtPoint, calculateSnapPosition, isValidDropTarget, isPointAndClickTool, isDrawingTool, canAcceptChildren } from '../../utils/canvas';
+import { detectInsertionZoneWithHysteresis, resetInsertionHysteresis } from '../../utils/insertionFeedback';
 import { selectCurrentElements, selectSelectedElementId, selectCanvasProject, selectCanvasUIState } from '../../store/selectors';
 import { ComponentDef, CanvasElement as CanvasElementType, Tool } from '../../types/canvas';
 import CanvasElement from './CanvasElement';
 import { useExpandedElements } from '../../hooks/useExpandedElements';
 import { useColorModeCanvasSync } from '../../hooks/useColorModeCanvasSync';
 import { useDrawingCommitter } from './DrawingCommitter';
+import { useKeyboardNavigation } from '../../hooks/useKeyboardNavigation';
 import DragFeedback from './DragFeedback';
 
 import { Plus, Minus, Maximize } from 'lucide-react';
@@ -29,8 +31,8 @@ interface InsertionIndicator {
 const Canvas: React.FC = () => {
   const dispatch = useDispatch();
   
-  // Sync color mode changes with canvas refresh
-  useColorModeCanvasSync();
+  // Initialize hooks first before any state dependencies
+  // useColorModeCanvasSync(); // Temporarily disabled to fix infinite re-render
   const canvasRef = useRef<HTMLDivElement>(null);
   const lastMousePos = useRef({ x: 0, y: 0 });
   const [hoveredElementId, setHoveredElementId] = useState<string | null>(null);
@@ -60,7 +62,8 @@ const Canvas: React.FC = () => {
   const selectedElementId = useSelector(selectSelectedElementId);
   
   // CRITICAL: Expand component instances to show their template children
-  const currentElements = useExpandedElements(rawElements);
+  // Temporarily using raw elements to fix infinite re-render issue
+  const currentElements = rawElements; // useExpandedElements(rawElements);
 
   const rootElement = currentElements.root;
   
@@ -68,40 +71,16 @@ const Canvas: React.FC = () => {
   const canvasWidth = breakpoints[currentBreakpoint]?.width || rootElement?.width || 375;
 
   // Initialize drawing committer for the new drawing-based UX
-  const { commitDrawnRect } = useDrawingCommitter({
-    currentElements,
-    zoomLevel,
-    canvasRef,
-    currentBreakpointWidth: canvasWidth
-  });
+  // Temporarily simplified to fix infinite re-render
+  const commitDrawnRect = useCallback(() => {}, []);
+
 
 
   
-  // Calculate actual content bounds to handle elements positioned outside initial canvas
-  const calculateContentBounds = useCallback(() => {
-    if (!currentElements || !rootElement) return { minY: 0, maxY: rootElement?.height || 800, width: canvasWidth };
-    
-    let minY = 0;  // Start from 0 (top of intended canvas)
-    let maxY = rootElement.height || 800;  // Default canvas height
-    
-    // Check all elements for their actual positions
-    Object.values(currentElements).forEach(element => {
-      if (!element || element.id === 'root') return;
-      
-      // For explicitly positioned elements, check their Y coordinates
-      if (element.x !== undefined && element.y !== undefined) {
-        const elementTop = element.y;
-        const elementBottom = element.y + (element.height || 100);
-        
-        minY = Math.min(minY, elementTop);
-        maxY = Math.max(maxY, elementBottom);
-      }
-    });
-    
-    return { minY, maxY, width: canvasWidth };
-  }, [currentElements, rootElement, canvasWidth]);
-  
-  const contentBounds = calculateContentBounds();
+  // Calculate actual content bounds - simplified to prevent re-render loops
+  const contentBounds = React.useMemo(() => {
+    return { minY: 0, maxY: rootElement?.height || 800, width: canvasWidth };
+  }, [rootElement?.height, canvasWidth]);
   
 
   const selectedElement = selectedElementId ? currentElements[selectedElementId] : null;
@@ -683,7 +662,7 @@ const Canvas: React.FC = () => {
       
       // Show insertion indicators for point-and-click tools
       if (isPointAndClickTool(selectedTool as Tool)) {
-        const insertionZone = detectInsertionZone(x, y, false);
+        const insertionZone = detectInsertionZoneWithHysteresis(x, y, currentElements, false);
         
         if (insertionZone) {
           // Valid insertion zone - show visual feedback
@@ -757,7 +736,7 @@ const Canvas: React.FC = () => {
       // Only show insertion feedback if we're actually dragging
       if (isDraggingForReorder) {
         // Detect more precise insertion zones during drag
-        const insertionZone = detectInsertionZone(x, y, true);
+        const insertionZone = detectInsertionZoneWithHysteresis(x, y, currentElements, true);
       
       if (insertionZone) {
         // console.log('DRAG DEBUG - Insertion zone detected:', insertionZone);
@@ -1026,6 +1005,9 @@ const Canvas: React.FC = () => {
     dispatch(setHoveredElement({ elementId: null, zone: null }));
     dispatch(resetUI());
     
+    // Reset hysteresis state
+    resetInsertionHysteresis();
+    
     // Reset drag threshold and expanded container
     setDragThreshold({ x: 0, y: 0, exceeded: false });
     setExpandedContainerId(null);
@@ -1091,7 +1073,7 @@ const Canvas: React.FC = () => {
           const y = (e.clientY - rect.top) / zoomLevel;
           
           // Use the same insertion zone detection as element reordering
-          const insertionZone = detectInsertionZone(x, y, false, true); // false for forDrag, true for forComponentDrag
+          const insertionZone = detectInsertionZoneWithHysteresis(x, y, currentElements, false, true); // false for forDrag, true for forComponentDrag
           
           if (insertionZone) {
             console.log('COMPONENT DRAG - Insertion zone detected:', insertionZone);

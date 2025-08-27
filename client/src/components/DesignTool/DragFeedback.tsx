@@ -75,12 +75,12 @@ const DragFeedback: React.FC<DragFeedbackProps> = ({
         role="status"
       />
       
-      {/* Visual feedback tooltip */}
-      {hoveredElementId && hoveredZone && (
+      {/* Visual feedback tooltip - only show during drag operations */}
+      {hoveredElementId && hoveredZone && draggedElementId && (
         <div
-          className="fixed z-50 px-2 py-1 text-xs font-medium text-white bg-gray-900 rounded shadow-lg pointer-events-none"
+          className="fixed z-50 px-3 py-2 text-xs font-medium text-white bg-gray-900/90 backdrop-blur-sm rounded-lg shadow-xl pointer-events-none border border-gray-700"
           style={{
-            top: '20px',
+            top: '24px',
             left: '50%',
             transform: 'translateX(-50%)',
             zIndex: 9999
