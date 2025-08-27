@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState, useCallback } from 'react';
+import * as React from 'react';
 
 export type ColorMode = 'light' | 'dark' | 'auto' | 'high-contrast';
 
@@ -12,7 +12,7 @@ export interface ColorModeContextValue {
   setColorModeDesignEnabled: (enabled: boolean) => void;
 }
 
-const ColorModeContext = createContext<ColorModeContextValue | null>(null);
+const ColorModeContext = React.createContext<ColorModeContextValue | null>(null);
 
 export interface ColorModeProviderProps {
   children: React.ReactNode;
@@ -21,7 +21,7 @@ export interface ColorModeProviderProps {
 
 export function ColorModeProvider({ children, defaultMode = 'auto' }: ColorModeProviderProps) {
   
-  const [mode, setModeState] = useState<ColorMode>(() => {
+  const [mode, setModeState] = React.useState<ColorMode>(() => {
     if (typeof window === 'undefined') {
       return defaultMode;
     }
@@ -39,17 +39,17 @@ export function ColorModeProvider({ children, defaultMode = 'auto' }: ColorModeP
     return defaultMode;
   });
 
-  const [systemPreference, setSystemPreference] = useState<'light' | 'dark'>(() => {
+  const [systemPreference, setSystemPreference] = React.useState<'light' | 'dark'>(() => {
     if (typeof window === 'undefined') return 'light';
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   });
 
-  const [supportsHighContrast] = useState(() => {
+  const [supportsHighContrast] = React.useState(() => {
     if (typeof window === 'undefined') return false;
     return window.matchMedia('(prefers-contrast: more)').media !== 'not all';
   });
 
-  const [isColorModeDesignEnabled, setColorModeDesignEnabledState] = useState<boolean>(() => {
+  const [isColorModeDesignEnabled, setColorModeDesignEnabledState] = React.useState<boolean>(() => {
     if (typeof window === 'undefined') {
       return false;
     }
@@ -74,7 +74,7 @@ export function ColorModeProvider({ children, defaultMode = 'auto' }: ColorModeP
   }, [mode, systemPreference]);
 
   // Update system preference when media query changes
-  useEffect(() => {
+  React.useEffect(() => {
     if (typeof window === 'undefined') return;
 
     const darkMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
@@ -88,7 +88,7 @@ export function ColorModeProvider({ children, defaultMode = 'auto' }: ColorModeP
   }, []);
 
   // Apply the resolved mode to document
-  useEffect(() => {
+  React.useEffect(() => {
     if (typeof window === 'undefined') return;
 
     const root = document.documentElement;
@@ -110,13 +110,13 @@ export function ColorModeProvider({ children, defaultMode = 'auto' }: ColorModeP
   }, [resolvedMode]);
 
   // Save to localStorage when mode changes
-  const setMode = useCallback((newMode: ColorMode) => {
+  const setMode = React.useCallback((newMode: ColorMode) => {
     setModeState(newMode);
     localStorage.setItem('design-tool-color-mode', newMode);
   }, []);
 
   // Save color mode design enabled state
-  const setColorModeDesignEnabled = useCallback((enabled: boolean) => {
+  const setColorModeDesignEnabled = React.useCallback((enabled: boolean) => {
     setColorModeDesignEnabledState(enabled);
     try {
       localStorage.setItem('design-tool-color-mode-design-enabled', enabled.toString());
@@ -144,7 +144,7 @@ export function ColorModeProvider({ children, defaultMode = 'auto' }: ColorModeP
 }
 
 export function useColorMode(): ColorModeContextValue {
-  const context = useContext(ColorModeContext);
+  const context = React.useContext(ColorModeContext);
   if (!context) {
     throw new Error('useColorMode must be used within a ColorModeProvider');
   }
