@@ -28,19 +28,17 @@ const DragIndicatorOverlay: React.FC<DragIndicatorOverlayProps> = React.memo(({
     if (!element) return null;
     
     // Get element bounds in canvas coordinate space
-    const elementRef = canvasRef.current?.querySelector(`[data-element-id="${hoveredElementId}"]`) as HTMLElement;
+    const elementRef = canvasRef.current.querySelector(`[data-element-id="${hoveredElementId}"]`) as HTMLElement;
     if (!elementRef) return null;
     
-    const canvasRect = canvasRef.current?.getBoundingClientRect();
-    if (!canvasRect) return null;
-    
+    const canvasRect = canvasRef.current.getBoundingClientRect();
     const elementRect = elementRef.getBoundingClientRect();
     
-    // Calculate position relative to canvas viewport (not scaled)
-    const relativeX = (elementRect.left - canvasRect.left);
-    const relativeY = (elementRect.top - canvasRect.top);
-    const relativeWidth = elementRect.width;
-    const relativeHeight = elementRect.height;
+    // Calculate relative position within canvas
+    const relativeX = (elementRect.left - canvasRect.left) / zoomLevel;
+    const relativeY = (elementRect.top - canvasRect.top) / zoomLevel;
+    const relativeWidth = elementRect.width / zoomLevel;
+    const relativeHeight = elementRect.height / zoomLevel;
     
     // Determine indicator type and style based on zone and element capabilities
     const canAcceptChildren = element.type === 'container' || 
@@ -65,20 +63,16 @@ const DragIndicatorOverlay: React.FC<DragIndicatorOverlayProps> = React.memo(({
       const lineY = hoveredZone === 'before' ? relativeY : relativeY + relativeHeight;
       
       // Find parent container for full-width line anchoring
-      const parentElement = element.parent ? currentElements[element.parent] : null;
-      const parentRef = parentElement ? canvasRef.current?.querySelector(`[data-element-id="${parentElement.id}"]`) as HTMLElement : canvasRef.current;
+      const parentElement = element.parent ? currentElements[element.parent] : currentElements.root;
+      const parentRef = canvasRef.current.querySelector(`[data-element-id="${parentElement?.id || 'root'}"]`) as HTMLElement;
       
       let lineWidth = relativeWidth;
       let lineX = relativeX;
       
-      if (parentRef && parentRef !== canvasRef.current) {
+      if (parentRef) {
         const parentRect = parentRef.getBoundingClientRect();
-        lineWidth = parentRect.width;
-        lineX = (parentRect.left - canvasRect.left);
-      } else if (parentRef === canvasRef.current) {
-        // Use full canvas width for root-level elements
-        lineWidth = canvasRect.width;
-        lineX = 0;
+        lineWidth = parentRect.width / zoomLevel;
+        lineX = (parentRect.left - canvasRect.left) / zoomLevel;
       }
       
       return {
@@ -90,11 +84,11 @@ const DragIndicatorOverlay: React.FC<DragIndicatorOverlayProps> = React.memo(({
       };
     } else if (hoveredZone === 'canvas-top' || hoveredZone === 'canvas-bottom') {
       // Document start/end indicators
-      const canvasWidth = canvasRef.current.offsetWidth;
+      const canvasWidth = canvasRef.current.offsetWidth / zoomLevel;
       return {
         type: 'line',
         left: 0,
-        top: hoveredZone === 'canvas-top' ? 0 : canvasRef.current.offsetHeight - 2,
+        top: hoveredZone === 'canvas-top' ? 0 : canvasRef.current.offsetHeight / zoomLevel - 2,
         width: canvasWidth,
         height: 2
       };
