@@ -904,35 +904,25 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     return resolvedStyles;
   }, [element.styles, element.classes, customClasses, currentBreakpoint, resolvedMode]);
 
-  // CRITICAL: FIXED HTML positioning logic - exactly like real HTML
-  // Elements follow normal document flow unless explicitly positioned by dragging
+  // CRITICAL: Fixed DOM order positioning - all elements follow document flow
+  // Never use absolute positioning that breaks DOM order
   
   let basePosition: string;
   let baseLeft: number | undefined;
   let baseTop: number | undefined;
   
-  if (isComponentChild || isComponentRoot) {
-    // Component elements use relative positioning within containers
-    basePosition = 'relative';
-    baseLeft = undefined;
-    baseTop = undefined;
-  } else if (element.isExplicitlyPositioned && element.x !== undefined && element.y !== undefined) {
-    // Only use absolute positioning for elements that were explicitly dragged
-    basePosition = 'absolute';
-    baseLeft = element.x;
-    baseTop = element.y;
-    // console.log('POSITIONING DEBUG - Explicitly positioned element:', {
-    //   id: element.id.substring(0, 15) + '...',
-    //   x: element.x,
-    //   y: element.y,
-    //   left: baseLeft,
-    //   top: baseTop
-    // });
-  } else {
-    // ALL other elements follow normal document flow
-    basePosition = element.parent && element.parent !== 'root' ? 'static' : 'relative';
-    baseLeft = undefined;
-    baseTop = undefined;
+  // ALL elements use relative positioning to maintain DOM order
+  // Absolute positioning breaks DOM stacking order
+  basePosition = 'relative';
+  baseLeft = undefined;
+  baseTop = undefined;
+  
+  // For explicitly positioned elements, use transform instead of absolute positioning
+  // This maintains DOM order while allowing visual positioning
+  let transformStyle: string | undefined;
+  if (element.isExplicitlyPositioned && element.x !== undefined && element.y !== undefined) {
+    // Use transform to position without breaking DOM order
+    transformStyle = `translate(${element.x}px, ${element.y}px)`;
   }
 
   // Check if element is inside a flex container to determine width behavior
@@ -970,10 +960,10 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
       width: mergedStyles.width || 'auto',
       height: mergedStyles.height || 'auto',
     } : {
-      // Canvas element positioning
+      // Canvas element positioning - always relative to maintain DOM order
       position: basePosition as any,
-      left: baseLeft,
-      top: baseTop,
+      // Use transform for positioning instead of absolute left/top
+      transform: transformStyle,
       // Essential width behavior - FORCE auto width for text elements in row containers
       ...((['text', 'heading', 'list'].includes(element.type) && isInFlexContainer && parentFlexDirection === 'row') 
           ? { width: 'auto' } // FORCE auto width for text elements in row flex containers

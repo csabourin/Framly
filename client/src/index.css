@@ -284,9 +284,8 @@
   pointer-events: none; 
 }
 
-.canvas-element { 
-  z-index: 1; 
-}
+/* REMOVED: Canvas elements get NO z-index to maintain DOM order */
+/* .canvas-element { z-index: 1; } */
 
 /* Selection handle positioning */
 .selection-handle {
