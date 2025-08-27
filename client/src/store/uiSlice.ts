@@ -9,6 +9,7 @@ interface UIState {
   isGridVisible: boolean;
   isComponentPanelVisible: boolean;
   isDOMTreePanelVisible: boolean;
+  isPropertiesPanelVisible: boolean;
   isComponentEditorOpen: boolean;
   editingComponentId: string | null;
   isButtonDesignerOpen: boolean;
@@ -48,6 +49,7 @@ const initialState: UIState = {
   isGridVisible: true,
   isComponentPanelVisible: true,
   isDOMTreePanelVisible: true,
+  isPropertiesPanelVisible: true,
   isComponentEditorOpen: false,
   editingComponentId: null,
   isButtonDesignerOpen: false,
@@ -109,6 +111,14 @@ const uiSlice = createSlice({
     
     toggleDOMTreePanel: (state) => {
       state.isDOMTreePanelVisible = !state.isDOMTreePanelVisible;
+      // Auto-save UI settings when panel visibility changes
+      import('../utils/persistence').then(({ persistenceManager }) => {
+        persistenceManager.saveCurrentProject();
+      });
+    },
+    
+    togglePropertiesPanel: (state) => {
+      state.isPropertiesPanelVisible = !state.isPropertiesPanelVisible;
       // Auto-save UI settings when panel visibility changes
       import('../utils/persistence').then(({ persistenceManager }) => {
         persistenceManager.saveCurrentProject();
@@ -274,6 +284,7 @@ export const {
   setGridVisible,
   toggleComponentPanel,
   toggleDOMTreePanel,
+  togglePropertiesPanel,
   setComponentEditorOpen,
   setEditingComponent,
   setButtonDesignerOpen,

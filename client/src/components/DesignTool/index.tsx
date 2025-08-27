@@ -52,7 +52,8 @@ const DesignToolContent: React.FC = () => {
   
   const { 
     isComponentPanelVisible, 
-    isDOMTreePanelVisible, 
+    isDOMTreePanelVisible,
+    isPropertiesPanelVisible,
     isClassEditorOpen, 
     isComponentEditorOpen, 
     editingComponentId,
@@ -82,8 +83,8 @@ const DesignToolContent: React.FC = () => {
         <Toolbar onShowKeyboardShortcuts={() => setShowKeyboardShortcuts(true)} />
         {isDOMTreePanelVisible && <DOMTreePanel />}
         <Canvas />
-        <ComponentPanel />
-        <PropertiesPanel />
+        {isComponentPanelVisible && <ComponentPanel />}
+        {isPropertiesPanelVisible && <PropertiesPanel />}
       </div>
       <div className="flex flex-col">
         <TabBar />

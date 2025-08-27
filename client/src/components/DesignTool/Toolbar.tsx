@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { RootState } from '../../store';
 import { selectUIState } from '../../store/selectors';
-import { setSelectedTool, toggleComponentPanel, toggleDOMTreePanel } from '../../store/uiSlice';
+import { setSelectedTool, toggleComponentPanel, toggleDOMTreePanel, togglePropertiesPanel } from '../../store/uiSlice';
 import { Tool } from '../../types/canvas';
 import { 
   MousePointer, 
@@ -15,6 +15,7 @@ import {
   Heading,
   List,
   MousePointer2,
+  Settings,
   // Form elements
   FormInput,
   TextCursorInput,
@@ -46,7 +47,7 @@ interface ToolbarProps {
 const Toolbar: React.FC<ToolbarProps> = ({ onShowKeyboardShortcuts }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const { selectedTool, isComponentPanelVisible, isDOMTreePanelVisible } = useSelector(selectUIState);
+  const { selectedTool, isComponentPanelVisible, isDOMTreePanelVisible, isPropertiesPanelVisible } = useSelector(selectUIState);
   const [expandedCategory, setExpandedCategory] = React.useState<string | null>(null);
 
   // Essential tools shown by default
@@ -132,6 +133,10 @@ const Toolbar: React.FC<ToolbarProps> = ({ onShowKeyboardShortcuts }) => {
 
   const handleDOMTreeToggle = () => {
     dispatch(toggleDOMTreePanel());
+  };
+
+  const handlePropertiesToggle = () => {
+    dispatch(togglePropertiesPanel());
   };
 
   const toggleCategory = (categoryId: string) => {
@@ -286,6 +291,27 @@ const Toolbar: React.FC<ToolbarProps> = ({ onShowKeyboardShortcuts }) => {
         {/* Tooltip */}
         <div className="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-xs rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50">
 {t('toolbar.components')} <span className="ml-1 text-gray-400">(C)</span>
+        </div>
+      </button>
+
+      {/* Properties Panel Toggle */}
+      <button
+        onClick={handlePropertiesToggle}
+        className={`
+          w-10 h-10 mx-1 rounded-lg flex items-center justify-center transition-colors group relative
+          ${isPropertiesPanelVisible 
+            ? 'bg-primary text-white' 
+            : 'hover:bg-gray-100 text-gray-600'
+          }
+        `}
+        title="Properties (P)"
+        data-testid="button-toggle-properties"
+      >
+        <Settings className="w-4 h-4" />
+        
+        {/* Tooltip */}
+        <div className="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-xs rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50">
+          Properties <span className="ml-1 text-gray-400">(P)</span>
         </div>
       </button>
 
