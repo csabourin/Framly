@@ -27,8 +27,6 @@ import {
   isDrawingTool 
 } from '../../utils/canvas';
 import { addElement } from '../../store/canvasSlice';
-import { chooseDropForNewElement, getCandidateContainerIds, createElementMetaForInsertion } from '../../dnd/chooseDropForNew';
-import { createComponentMeta } from '../../dnd/resolveDrop';
 
 // Modular hooks
 import { useCanvasEvents } from './hooks/useCanvasEvents';
@@ -102,108 +100,25 @@ const Canvas: React.FC = () => {
   
   const dragAndDrop = useDragAndDrop(canvasRef);
 
-  // CRITICAL: Handle point-and-click insertion for toolbar elements
+  // CRITICAL: Simple point-and-click insertion for toolbar elements
   const handlePointAndClickInsertion = useCallback((x: number, y: number, tool: string, isShiftPressed: boolean, isAltPressed: boolean) => {
-    // Convert canvas coordinates to screen coordinates for the new DnD system
-    const rect = canvasRef.current?.getBoundingClientRect();
-    if (!rect) return;
+    console.log('Point-and-click insertion called:', { tool, x, y });
     
-    const screenX = x * zoomLevel + rect.left;
-    const screenY = y * zoomLevel + rect.top;
-    
-    // Get candidate containers and element metadata for the new DnD system
-    const candidateIds = getCandidateContainerIds({ x: screenX, y: screenY });
-    const elementMeta = createElementMetaForInsertion(tool);
-    
-    // Create helper functions for the new DnD system
-    const getMeta = (id: string) => {
-      if (id === "root") {
-        return { id: "root", tag: "DIV", acceptsChildren: true };
-      }
-      const element = expandedElements[id];
-      return element ? createComponentMeta(element) : null;
-    };
-    
-    const getParentId = (id: string) => {
-      if (id === "root") return null;
-      const element = expandedElements[id];
-      return element?.parent || "root";
-    };
-    
-    const indexOf = (parentId: string, childId: string) => {
-      if (parentId === "root") {
-        return Object.values(expandedElements)
-          .filter(el => el.parent === "root" || !el.parent)
-          .findIndex(el => el.id === childId);
-      }
-      const parent = expandedElements[parentId];
-      return parent?.children?.indexOf(childId) || 0;
-    };
-    
-    const getChildren = (parentId: string) => {
-      if (parentId === "root") {
-        return Object.values(expandedElements)
-          .filter(el => el.parent === "root" || !el.parent)
-          .map(el => el.id);
-      }
-      const parent = expandedElements[parentId];
-      return parent?.children || [];
-    };
-    
-    // Get legal drop location using new DnD system
-    const drop = chooseDropForNewElement(
-      { x: screenX, y: screenY },
-      candidateIds,
-      elementMeta,
-      getMeta,
-      getParentId,
-      indexOf,
-      getChildren
-    );
-    
-    if (!drop) {
-      // Fallback to root insertion if no valid drop found
-      const newElement = createDefaultElement(tool as any);
-      dispatch(addElement({
-        element: newElement,
-        parentId: 'root',
-        insertPosition: 'inside'
-      }));
-      dispatch(selectElement(newElement.id));
-      return;
-    }
-
-    // Create the new element
+    // Create the new element with default positioning
     const newElement = createDefaultElement(tool as any);
     
-    // Convert new DnD format to insertion parameters
-    let parentId = drop.parentId;
-    let insertPosition: 'before' | 'after' | 'inside' = drop.kind === "into" ? 'inside' : 'before';
-    let referenceElementId: string | undefined;
-    
-    if (drop.kind === "between" && typeof drop.index === "number") {
-      // For between insertion, find the reference element
-      const siblings = getChildren(parentId);
-      if (drop.index < siblings.length) {
-        referenceElementId = siblings[drop.index];
-        insertPosition = 'before';
-      } else {
-        // Insert at end
-        insertPosition = 'inside';
-      }
-    }
-
-    // Insert the element using validated drop location
+    // For now, always insert at root level to get basic functionality working
     dispatch(addElement({
       element: newElement,
-      parentId,
-      insertPosition,
-      referenceElementId
+      parentId: 'root',
+      insertPosition: 'inside'
     }));
 
     // Select the newly created element
     dispatch(selectElement(newElement.id));
-  }, [expandedElements, dispatch, zoomLevel]);
+    
+    console.log('Element created:', newElement.id);
+  }, [dispatch]);
   
   // Orchestrate event handlers
   const handleMouseDown = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
@@ -213,11 +128,6 @@ const Canvas: React.FC = () => {
     const isTextEditingActive = document.querySelector('.text-editing') !== null;
     
     if (isClickingText || isTextEditingActive) {
-      return;
-    }
-
-    // Only handle if clicking on canvas background
-    if (e.target !== e.currentTarget) {
       return;
     }
 
@@ -237,15 +147,10 @@ const Canvas: React.FC = () => {
       e.preventDefault();
       e.stopPropagation();
       
-      // Check if this is a point-and-click tool (toolbar insertion)
-      if (isPointAndClickTool(selectedTool as Tool)) {
-        // Point-and-click insertion for content elements
-        handlePointAndClickInsertion(x, y, selectedTool, e.shiftKey, e.altKey || e.metaKey);
-        return;
-      }
-      
-      // Drawing tools (rectangle, text, image) use drawing events
-      drawingEvents.handleDrawingMouseDown(e);
+      // For toolbar element insertion, always use point-and-click logic
+      // (Drawing tools like 'r', 't', 'i' keys are handled separately)
+      console.log('Toolbar insertion:', selectedTool, 'at position:', x, y);
+      handlePointAndClickInsertion(x, y, selectedTool, e.shiftKey, e.altKey || e.metaKey);
       return;
     }
     
