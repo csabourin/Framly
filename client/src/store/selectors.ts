@@ -122,23 +122,12 @@ export const selectElementExists = createSelector(
   (elements, elementId): boolean => !!elements[elementId]
 );
 
-// UI state selectors to prevent inline object creation
-export const selectUIState = createSelector(
-  [(state: RootState) => state.ui],
-  (ui) => ui  // Return ui state directly to prevent object recreation
-);
+// UI state selector - direct access for better performance
+export const selectUIState = (state: RootState) => state.ui;
 
-// Hover state selector to prevent inline object creation
-// Optimized hover state selectors to prevent object recreation
-export const selectHoveredElementId = createSelector(
-  [(state: RootState) => state.ui.hoveredElementId],
-  (hoveredElementId) => hoveredElementId || null
-);
-
-export const selectHoveredZone = createSelector(
-  [(state: RootState) => state.ui.hoveredZone],
-  (hoveredZone) => hoveredZone || null
-);
+// Direct hover state selectors for better performance
+export const selectHoveredElementId = (state: RootState) => state.ui.hoveredElementId || null;
+export const selectHoveredZone = (state: RootState) => state.ui.hoveredZone || null;
 
 // Canvas project selector - CRITICAL: prevents browser crashes
 export const selectCanvasProject = createSelector(
@@ -146,27 +135,12 @@ export const selectCanvasProject = createSelector(
   (canvas) => canvas.project
 );
 
-// Canvas UI state selector - CRITICAL: prevents browser crashes  
-// Optimized individual selectors instead of object recreation
-export const selectSelectedTool = createSelector(
-  [(state: RootState) => state.ui.selectedTool],
-  (selectedTool) => selectedTool
-);
+// Direct UI state selectors for better performance
+export const selectSelectedTool = (state: RootState) => state.ui.selectedTool;
+export const selectIsDraggingForReorder = (state: RootState) => state.ui.isDraggingForReorder;
+export const selectDraggedElementId = (state: RootState) => state.ui.draggedElementId;
 
-export const selectIsDraggingForReorder = createSelector(
-  [(state: RootState) => state.ui.isDraggingForReorder],
-  (isDraggingForReorder) => isDraggingForReorder
-);
-
-export const selectDraggedElementId = createSelector(
-  [(state: RootState) => state.ui.draggedElementId],
-  (draggedElementId) => draggedElementId
-);
-
-export const selectZoomLevel = createSelector(
-  [(state: RootState) => state.ui.zoomLevel],
-  (zoomLevel) => zoomLevel
-);
+export const selectZoomLevel = (state: RootState) => state.ui.zoomLevel;
 
 // Custom classes selector - CRITICAL: prevents browser crashes
 export const selectCustomClasses = createSelector(
@@ -174,17 +148,9 @@ export const selectCustomClasses = createSelector(
   (customClasses) => customClasses || {}
 );
 
-// Components state selectors - CRITICAL: prevents browser crashes
-export const selectComponentsState = createSelector(
-  [(state: RootState) => state.components],
-  (components) => components
-);
-
-// Component definitions selectors (spec-compliant)
-export const selectComponentDefinitionsState = createSelector(
-  [(state: RootState) => state.componentDefinitions],
-  (componentDefinitions) => componentDefinitions
-);
+// Direct state selectors for better performance
+export const selectComponentsState = (state: RootState) => state.components;
+export const selectComponentDefinitionsState = (state: RootState) => state.componentDefinitions;
 
 export const selectComponentDefinitions = createSelector(
   [selectComponentDefinitionsState],
