@@ -1,5 +1,5 @@
-import { useState, useCallback, useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useState, useCallback } from 'react';
+import { useSelector } from 'react-redux';
 import { selectSelectedTool, selectZoomLevel } from '../../../store/selectors';
 import { useDrawingCommitter } from '../DrawingCommitter';
 
@@ -19,7 +19,6 @@ export const useDrawingEvents = (
   canvasRef: React.RefObject<HTMLDivElement>,
   currentBreakpointWidth: number
 ) => {
-  const dispatch = useDispatch();
   const selectedTool = useSelector(selectSelectedTool);
   const zoomLevel = useSelector(selectZoomLevel);
   
@@ -41,11 +40,12 @@ export const useDrawingEvents = (
       x: (clientX - rect.left) / zoomLevel,
       y: (clientY - rect.top) / zoomLevel
     };
-  }, [zoomLevel]);
+  }, [canvasRef, zoomLevel]);
 
   const handleDrawingMouseDown = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     // Only handle drawing tools
     if (!['rectangle', 'text', 'image'].includes(selectedTool)) return;
+    if (e.target !== e.currentTarget) return;
     
     e.preventDefault();
     e.stopPropagation();
@@ -106,7 +106,7 @@ export const useDrawingEvents = (
     }
     
     setDrawingState(null);
-  }, [drawingState, selectedTool, commitDrawnRect, getCanvasCoordinates]);
+  }, [drawingState, selectedTool, commitDrawnRect, getCanvasCoordinates, canvasRef, zoomLevel]);
 
   const calculateDrawingRect = useCallback(() => {
     if (!drawingState) return null;

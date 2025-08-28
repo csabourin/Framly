@@ -1,5 +1,5 @@
-import { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import { useCallback, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { 
   setSelectedTool,
   setDragging,
@@ -10,6 +10,7 @@ import {
   resetUI
 } from '../../../store/uiSlice';
 import { selectElement } from '../../../store/canvasSlice';
+import { selectSelectedTool } from '../../../store/selectors';
 
 /**
  * Hook for handling core canvas events (mouse, keyboard, touch)
@@ -17,17 +18,26 @@ import { selectElement } from '../../../store/canvasSlice';
  */
 export const useCanvasEvents = () => {
   const dispatch = useDispatch();
+  const selectedTool = useSelector(selectSelectedTool);
+  const lastMousePos = useRef({ x: 0, y: 0 });
+  const [inputModality, setInputModality] = useState<'mouse' | 'keyboard'>('mouse');
 
   const handleCanvasMouseDown = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-    // Prevent default to avoid unwanted selections
-    e.preventDefault();
+    if (e.target !== e.currentTarget) return;
     
-    // If clicking on empty canvas, select root and switch to select tool
-    if (e.target === e.currentTarget) {
+    e.preventDefault();
+    setInputModality('mouse');
+    
+    lastMousePos.current = { x: e.clientX, y: e.clientY };
+    
+    // Clear any existing drag states
+    dispatch(resetUI());
+    
+    if (selectedTool === 'select') {
+      // Click on empty canvas area - select root
       dispatch(selectElement('root'));
-      dispatch(setSelectedTool('select'));
     }
-  }, [dispatch]);
+  }, [selectedTool, dispatch]);
 
   const handleCanvasClick = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     // Handle canvas-level clicks
@@ -50,18 +60,19 @@ export const useCanvasEvents = () => {
   }, []);
 
   const handleCanvasKeyDown = useCallback((e: React.KeyboardEvent<HTMLDivElement>) => {
-    // Canvas-specific keyboard shortcuts
-    switch (e.key) {
-      case 'Escape':
-        // Clear selections, reset states
-        dispatch(resetUI());
-        break;
-      case 'Delete':
-      case 'Backspace':
-        // Delete selected element (if not root)
-        break;
-      default:
-        break;
+    setInputModality('keyboard');
+    
+    // Handle keyboard shortcuts
+    if (e.key === 'Escape') {
+      dispatch(resetUI());
+    } else if (e.key === 'v' && !e.ctrlKey && !e.metaKey) {
+      dispatch(setSelectedTool('select'));
+    } else if (e.key === 'r' && !e.ctrlKey && !e.metaKey) {
+      dispatch(setSelectedTool('rectangle'));
+    } else if (e.key === 't' && !e.ctrlKey && !e.metaKey) {
+      dispatch(setSelectedTool('text'));
+    } else if (e.key === 'i' && !e.ctrlKey && !e.metaKey) {
+      dispatch(setSelectedTool('image'));
     }
   }, [dispatch]);
 
@@ -70,6 +81,8 @@ export const useCanvasEvents = () => {
     handleCanvasClick,
     handleCanvasDoubleClick,
     handleCanvasContextMenu,
-    handleCanvasKeyDown
+    handleCanvasKeyDown,
+    inputModality,
+    lastMousePos: lastMousePos.current
   };
 };

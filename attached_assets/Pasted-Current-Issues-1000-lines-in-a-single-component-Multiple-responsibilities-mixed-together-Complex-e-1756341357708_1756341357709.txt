@@ -1,0 +1,148 @@
+Current Issues
+
+1000+ lines in a single component
+Multiple responsibilities mixed together
+Complex event handling logic scattered throughout
+Difficult to test individual features
+Hard to maintain and debug
+
+Proposed Module Structure
+1. Core Canvas Component (Canvas.tsx)
+Responsibilities: Coordinate child components, manage global state
+typescript// Simplified main component focusing on:
+- Layout and positioning
+- Child component orchestration  
+- Global state management
+- Keyboard shortcuts
+2. Event Handling Modules
+hooks/useCanvasEvents.ts
+typescript// Mouse/touch events, drag detection, keyboard handling
+export const useCanvasEvents = () => {
+  // handleMouseDown, handleMouseMove, handleMouseUp
+  // handleKeyDown, handleDragStart, etc.
+}
+hooks/useDrawingEvents.ts
+typescript// Drawing-specific event handling
+export const useDrawingEvents = () => {
+  // Drawing state, rubber band rectangle
+  // Tool-specific drawing logic
+}
+hooks/useDragAndDrop.ts
+typescript// HTML5 drag/drop, reordering, insertion zones
+export const useDragAndDrop = () => {
+  // handleDragOver, handleDrop
+  // Insertion indicator logic
+}
+3. Visual Feedback Components
+components/InsertionIndicator.tsx
+typescript// Handles all insertion zone visual feedback
+// Replaces the large inline insertion indicator logic
+components/DrawingOverlay.tsx
+typescript// Rubber band rectangle and drawing feedback
+// Size indicators, modifier key hints
+components/SelectionOverlay.tsx
+typescript// Element selection highlighting
+// Hover states, focus indicators
+4. Coordinate & Geometry Utils
+utils/canvasGeometry.ts
+typescript// calculateContentBounds, coordinate conversions
+// Hit testing, zone detection
+export const useCanvasGeometry = () => { ... }
+utils/insertionZones.ts
+typescript// detectInsertionZone, detectSiblingInsertionPoint
+// All the complex zone detection logic
+5. Tool-Specific Handlers
+tools/SelectionTool.ts
+typescript// Selection tool behavior
+// Click-to-select, hover feedback
+tools/DrawingTools.ts
+typescript// Rectangle, text, image creation tools
+// Point-and-click vs drawing behaviors
+tools/HandTool.ts
+typescript// Drag and reorder functionality
+// Hand tool specific interactions
+6. Component Integration
+components/CanvasContainer.tsx
+typescript// The actual canvas container with proper styling
+// Grid, zoom, responsive behavior
+components/CanvasRenderer.tsx
+typescript// Element rendering logic
+// Shadow DOM handling for imported elements
+Refactoring Strategy
+Phase 1: Extract Event Handlers
+
+Move mouse/keyboard events to custom hooks
+Extract drag & drop logic to separate hook
+Move drawing logic to dedicated hook
+
+Phase 2: Extract Visual Components
+
+Create InsertionIndicator component
+Create DrawingOverlay component
+Create SelectionOverlay component
+
+Phase 3: Extract Utilities
+
+Move geometry calculations to utils
+Extract insertion zone detection
+Create tool-specific handlers
+
+Phase 4: Restructure Main Component
+
+Compose the modularized pieces
+Simplify main Canvas component
+Improve error boundaries and loading states
+
+Benefits After Modularization
+✅ Maintainability
+
+Each module has single responsibility
+Easier to locate and fix bugs
+Clear separation of concerns
+
+✅ Testability
+
+Unit test individual hooks and utils
+Mock dependencies easily
+Test tool behaviors in isolation
+
+✅ Performance
+
+Selective re-renders with proper memoization
+Lazy loading of tool-specific code
+Better bundle splitting opportunities
+
+✅ Developer Experience
+
+Smaller files are easier to navigate
+Clear interfaces between modules
+Better TypeScript inference and errors
+
+Example Refactored Structure
+src/canvas/
+├── Canvas.tsx                 (150 lines - orchestration)
+├── hooks/
+│   ├── useCanvasEvents.ts     (200 lines)
+│   ├── useDrawingEvents.ts    (150 lines) 
+│   ├── useDragAndDrop.ts      (200 lines)
+│   └── useCanvasGeometry.ts   (100 lines)
+├── components/
+│   ├── InsertionIndicator.tsx (100 lines)
+│   ├── DrawingOverlay.tsx     (80 lines)
+│   ├── SelectionOverlay.tsx   (60 lines)
+│   └── CanvasContainer.tsx    (100 lines)
+├── tools/
+│   ├── SelectionTool.ts       (80 lines)
+│   ├── DrawingTools.ts        (120 lines)
+│   └── HandTool.ts            (100 lines)
+└── utils/
+    ├── canvasGeometry.ts      (80 lines)
+    ├── insertionZones.ts      (120 lines)
+    └── dndHelpers.ts          (60 lines)
+Implementation Notes
+
+Use custom hooks for stateful logic
+Use render props or children functions for flexible composition
+Implement proper TypeScript interfaces between modules
+Add error boundaries around each major section
+Use React.memo and useMemo for performance optimization
