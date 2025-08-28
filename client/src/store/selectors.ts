@@ -142,11 +142,8 @@ export const selectDraggedElementId = (state: RootState) => state.ui.draggedElem
 
 export const selectZoomLevel = (state: RootState) => state.ui.zoomLevel;
 
-// Custom classes selector - CRITICAL: prevents browser crashes
-export const selectCustomClasses = createSelector(
-  [(state: RootState) => (state as any).classes?.customClasses],
-  (customClasses) => customClasses || {}
-);
+// Direct custom classes selector for better performance
+export const selectCustomClasses = (state: RootState) => (state as any).classes?.customClasses || {};
 
 // Direct state selectors for better performance
 export const selectComponentsState = (state: RootState) => state.components;

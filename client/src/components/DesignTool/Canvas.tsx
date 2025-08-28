@@ -1099,6 +1099,56 @@ const Canvas: React.FC = () => {
     setIsDragFromHandle(false);
   }, [dispatch, isDraggingForReorder, draggedElementId, hoveredElementId, hoveredZone, insertionIndicator, currentElements, dragThreshold, setDragThreshold, isDragFromHandle, drawingState, selectedTool, commitDrawnRect]);
 
+  // Helper function to calculate insertion indicator bounds
+  const calculateInsertionBounds = useCallback((elementId: string, position: 'before' | 'after' | 'inside') => {
+    const element = currentElements[elementId];
+    if (!element) return null;
+
+    const canvasRect = canvasRef.current?.getBoundingClientRect();
+    if (!canvasRect) return null;
+
+    // Base element bounds
+    const elementX = element.x || 0;
+    const elementY = element.y || 0;
+    const elementWidth = element.width || 100;
+    const elementHeight = element.height || 20;
+
+    let bounds = {
+      x: elementX,
+      y: elementY,
+      width: elementWidth,
+      height: elementHeight
+    };
+
+    if (position === 'before') {
+      // Line above element
+      bounds = {
+        x: elementX,
+        y: elementY - 2,
+        width: elementWidth,
+        height: 4
+      };
+    } else if (position === 'after') {
+      // Line below element
+      bounds = {
+        x: elementX,
+        y: elementY + elementHeight - 2,
+        width: elementWidth,
+        height: 4
+      };
+    } else if (position === 'inside') {
+      // Highlight entire element with padding
+      bounds = {
+        x: elementX,
+        y: elementY,
+        width: elementWidth,
+        height: elementHeight
+      };
+    }
+
+    return bounds;
+  }, [currentElements]);
+
   // HTML5 Drag and Drop event handlers for the canvas
   const handleCanvasDragOver = useCallback((e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -1170,38 +1220,54 @@ const Canvas: React.FC = () => {
           
           if (drop.index === 0 && siblings.length > 0) {
             // Inserting before first sibling
-            setInsertionIndicator({
-              elementId: siblings[0],
-              position: 'before'
-            });
+            const bounds = calculateInsertionBounds(siblings[0], 'before');
+            if (bounds) {
+              setInsertionIndicator({
+                elementId: siblings[0],
+                position: 'before',
+                bounds
+              });
+            }
             setHoveredElementId(siblings[0]);
             setHoveredZone('before');
             dispatch(setHoveredElement({ elementId: siblings[0], zone: 'before' }));
           } else if (drop.index >= siblings.length && siblings.length > 0) {
             // Inserting after last sibling
-            setInsertionIndicator({
-              elementId: siblings[siblings.length - 1],
-              position: 'after'
-            });
+            const bounds = calculateInsertionBounds(siblings[siblings.length - 1], 'after');
+            if (bounds) {
+              setInsertionIndicator({
+                elementId: siblings[siblings.length - 1],
+                position: 'after',
+                bounds
+              });
+            }
             setHoveredElementId(siblings[siblings.length - 1]);
             setHoveredZone('after');
             dispatch(setHoveredElement({ elementId: siblings[siblings.length - 1], zone: 'after' }));
           } else if (siblings[drop.index]) {
             // Inserting before specific sibling
-            setInsertionIndicator({
-              elementId: siblings[drop.index],
-              position: 'before'
-            });
+            const bounds = calculateInsertionBounds(siblings[drop.index], 'before');
+            if (bounds) {
+              setInsertionIndicator({
+                elementId: siblings[drop.index],
+                position: 'before',
+                bounds
+              });
+            }
             setHoveredElementId(siblings[drop.index]);
             setHoveredZone('before');
             dispatch(setHoveredElement({ elementId: siblings[drop.index], zone: 'before' }));
           }
         } else if (drop.kind === "into") {
           // Inserting inside container
-          setInsertionIndicator({
-            elementId: drop.parentId,
-            position: 'inside'
-          });
+          const bounds = calculateInsertionBounds(drop.parentId, 'inside');
+          if (bounds) {
+            setInsertionIndicator({
+              elementId: drop.parentId,
+              position: 'inside',
+              bounds
+            });
+          }
           setHoveredElementId(drop.parentId);
           setHoveredZone('inside');
           dispatch(setHoveredElement({ elementId: drop.parentId, zone: 'inside' }));
@@ -1216,29 +1282,41 @@ const Canvas: React.FC = () => {
           if (relativeY < 50 || e.clientY < rect.top) {
             const rootChildren = getChildren('root');
             if (rootChildren.length > 0) {
-              setInsertionIndicator({
-                elementId: rootChildren[0],
-                position: 'before'
-              });
+              const bounds = calculateInsertionBounds(rootChildren[0], 'before');
+              if (bounds) {
+                setInsertionIndicator({
+                  elementId: rootChildren[0],
+                  position: 'before',
+                  bounds
+                });
+              }
               setHoveredElementId(rootChildren[0]);
               setHoveredZone('before');
               dispatch(setHoveredElement({ elementId: rootChildren[0], zone: 'before' }));
             } else {
               // Empty canvas - insert into root
-              setInsertionIndicator({
-                elementId: 'root',
-                position: 'inside'
-              });
+              const bounds = calculateInsertionBounds('root', 'inside');
+              if (bounds) {
+                setInsertionIndicator({
+                  elementId: 'root',
+                  position: 'inside',
+                  bounds
+                });
+              }
               setHoveredElementId('root');
               setHoveredZone('inside');
               dispatch(setHoveredElement({ elementId: 'root', zone: 'inside' }));
             }
           } else {
             // Default to root container
-            setInsertionIndicator({
-              elementId: 'root',
-              position: 'inside'
-            });
+            const bounds = calculateInsertionBounds('root', 'inside');
+            if (bounds) {
+              setInsertionIndicator({
+                elementId: 'root',
+                position: 'inside',
+                bounds
+              });
+            }
             setHoveredElementId('root');
             setHoveredZone('inside');
             dispatch(setHoveredElement({ elementId: 'root', zone: 'inside' }));
@@ -1958,7 +2036,7 @@ const Canvas: React.FC = () => {
         {/* Component children are now rendered by their parent elements - no separate rendering needed */}
         
         {/* LARGE, OBVIOUS DROP ZONES */}
-        {insertionIndicator && (
+        {insertionIndicator && insertionIndicator.bounds && (
           <div
             className="absolute pointer-events-none z-[60] transition-all duration-150"
             style={{
