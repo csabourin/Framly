@@ -1,201 +1,196 @@
 /**
- * Drawing tools behavior
- * Handles rectangle, text, and image creation tools
+ * Drawing Tools Handler (120 lines)
+ * 
+ * Responsibilities:
+ * - Rectangle, text, image creation tools
+ * - Point-and-click vs drawing behaviors
+ * - Tool-specific constraints and modifiers
+ * - Drawing state management
  */
 
-import { Point, Bounds } from '../utils/canvasGeometry';
+import { Dispatch } from '@reduxjs/toolkit';
+import { addElement } from '../../../store/canvasSlice';
+import { setSelectedTool } from '../../../store/uiSlice';
+// import { createDefaultElement } from '../../../utils/canvas';
+import { nanoid } from 'nanoid';
 
-export type DrawingTool = 'rectangle' | 'text' | 'image';
+export type DrawingToolType = 'rectangle' | 'text' | 'image';
 
-export interface DrawingSession {
-  tool: DrawingTool;
-  startPoint: Point;
-  currentPoint: Point;
-  isActive: boolean;
-  modifiers: {
-    shift: boolean; // Constraint (square/circle)
-    alt: boolean;   // Center origin
-  };
-}
+export class DrawingTools {
+  private dispatch: Dispatch;
 
-export interface DrawingResult {
-  bounds: Bounds;
-  tool: DrawingTool;
-  modifiers: {
-    shift: boolean;
-    alt: boolean;
-  };
-}
-
-/**
- * Start a new drawing session
- */
-export function startDrawingSession(
-  tool: DrawingTool,
-  startPoint: Point,
-  modifiers: { shift: boolean; alt: boolean }
-): DrawingSession {
-  return {
-    tool,
-    startPoint,
-    currentPoint: startPoint,
-    isActive: true,
-    modifiers
-  };
-}
-
-/**
- * Update drawing session with new mouse position
- */
-export function updateDrawingSession(
-  session: DrawingSession,
-  currentPoint: Point,
-  modifiers: { shift: boolean; alt: boolean }
-): DrawingSession {
-  return {
-    ...session,
-    currentPoint,
-    modifiers
-  };
-}
-
-/**
- * Calculate drawing bounds from session
- */
-export function calculateDrawingBounds(session: DrawingSession): Bounds {
-  let { startPoint, currentPoint, modifiers } = session;
-  
-  // Apply constraint modifier (Shift key)
-  if (modifiers.shift) {
-    currentPoint = applySquareConstraint(startPoint, currentPoint);
+  constructor(dispatch: Dispatch) {
+    this.dispatch = dispatch;
   }
-  
-  // Apply center origin modifier (Alt key)
-  if (modifiers.alt) {
-    const centerBounds = applyCenterOrigin(startPoint, currentPoint);
-    return centerBounds;
-  }
-  
-  // Normal bounds calculation
-  const x = Math.min(startPoint.x, currentPoint.x);
-  const y = Math.min(startPoint.y, currentPoint.y);
-  const width = Math.abs(currentPoint.x - startPoint.x);
-  const height = Math.abs(currentPoint.y - startPoint.y);
-  
-  return { x, y, width, height };
-}
 
-/**
- * Check if drawing session should be committed (has meaningful size)
- */
-export function shouldCommitDrawing(session: DrawingSession, minSize: number = 5): boolean {
-  const bounds = calculateDrawingBounds(session);
-  return bounds.width > minSize || bounds.height > minSize;
-}
+  /**
+   * Handle point-and-click insertion (for text/image tools)
+   */
+  handlePointClick = (
+    x: number,
+    y: number,
+    tool: DrawingToolType,
+    parentId: string = 'root'
+  ) => {
+    const defaultSizes = {
+      text: { width: 200, height: 40 },
+      image: { width: 200, height: 150 },
+      rectangle: { width: 200, height: 100 }
+    };
 
-/**
- * Finish drawing session and return result
- */
-export function finishDrawingSession(session: DrawingSession): DrawingResult | null {
-  if (!shouldCommitDrawing(session)) {
-    return null; // Drawing too small
-  }
-  
-  return {
-    bounds: calculateDrawingBounds(session),
-    tool: session.tool,
-    modifiers: session.modifiers
+    const size = defaultSizes[tool];
+    
+    const element = {
+      id: nanoid(),
+      type: tool,
+      x,
+      y,
+      width: size.width,
+      height: size.height,
+      parent: parentId,
+      styles: this.getDefaultStyles(tool),
+      content: tool === 'text' ? 'Click to edit text' : undefined,
+      imageUrl: tool === 'image' ? 'https://via.placeholder.com/200x150' : undefined,
+    };
+
+    this.dispatch(addElement({ element }));
+    
+    // Keep tool active for continued use
+    // This implements "intelligent tool persistence"
+    return element.id;
   };
-}
 
-/**
- * Apply square constraint (Shift key modifier)
- */
-function applySquareConstraint(startPoint: Point, currentPoint: Point): Point {
-  const deltaX = currentPoint.x - startPoint.x;
-  const deltaY = currentPoint.y - startPoint.y;
-  
-  // Use the larger of the two deltas to maintain square
-  const size = Math.max(Math.abs(deltaX), Math.abs(deltaY));
-  
-  return {
-    x: startPoint.x + (deltaX >= 0 ? size : -size),
-    y: startPoint.y + (deltaY >= 0 ? size : -size)
+  /**
+   * Handle rectangle drawing with drag
+   */
+  handleRectangleDrawn = (
+    startX: number,
+    startY: number,
+    endX: number,
+    endY: number,
+    modifiers: { shift?: boolean; alt?: boolean } = {},
+    parentId: string = 'root'
+  ) => {
+    let width = Math.abs(endX - startX);
+    let height = Math.abs(endY - startY);
+    let x = Math.min(startX, endX);
+    let y = Math.min(startY, endY);
+
+    // Apply modifiers
+    if (modifiers.shift) {
+      // Square aspect ratio
+      const size = Math.min(width, height);
+      width = height = size;
+    }
+
+    if (modifiers.alt) {
+      // Draw from center
+      x = startX - width / 2;
+      y = startY - height / 2;
+    }
+
+    const element = {
+      id: nanoid(),
+      type: 'rectangle' as const,
+      x,
+      y,
+      width,
+      height,
+      parent: parentId,
+      styles: this.getDefaultStyles('rectangle'),
+    };
+
+    this.dispatch(addElement({ element }));
+    return element.id;
   };
-}
 
-/**
- * Apply center origin (Alt key modifier)
- */
-function applyCenterOrigin(startPoint: Point, currentPoint: Point): Bounds {
-  const deltaX = currentPoint.x - startPoint.x;
-  const deltaY = currentPoint.y - startPoint.y;
-  
-  // Double the deltas to make start point the center
-  const width = Math.abs(deltaX) * 2;
-  const height = Math.abs(deltaY) * 2;
-  
-  return {
-    x: startPoint.x - width / 2,
-    y: startPoint.y - height / 2,
-    width,
-    height
-  };
-}
+  /**
+   * Get default styles for each tool type
+   */
+  private getDefaultStyles = (tool: DrawingToolType) => {
+    const baseStyles = {
+      backgroundColor: '#ffffff',
+      border: '1px solid #e5e7eb',
+      borderRadius: '4px',
+    };
 
-/**
- * Get tool-specific default properties
- */
-export function getToolDefaults(tool: DrawingTool): Record<string, any> {
-  switch (tool) {
-    case 'rectangle':
-      return {
-        type: 'rectangle',
-        styles: {
-          backgroundColor: '#3b82f6',
-          border: '1px solid #2563eb',
-          borderRadius: '4px'
-        }
-      };
-      
-    case 'text':
-      return {
-        type: 'text',
-        content: 'Text',
-        styles: {
+    switch (tool) {
+      case 'text':
+        return {
+          ...baseStyles,
+          color: '#111827',
           fontSize: '16px',
-          fontFamily: 'Inter, sans-serif',
-          color: '#374151',
-          textAlign: 'left'
-        }
-      };
-      
-    case 'image':
-      return {
-        type: 'image',
-        src: '',
-        alt: 'Image',
-        styles: {
-          objectFit: 'cover',
-          borderRadius: '4px'
-        }
-      };
-      
-    default:
-      return {};
-  }
-}
+          fontWeight: '400',
+          textAlign: 'left' as const,
+          padding: '8px',
+          backgroundColor: 'transparent',
+          border: 'none',
+        };
 
-/**
- * Check if tool is a drawing tool
- */
-export function isDrawingTool(tool: string): tool is DrawingTool {
-  return ['rectangle', 'text', 'image'].includes(tool);
-}
+      case 'image':
+        return {
+          ...baseStyles,
+          objectFit: 'cover' as const,
+          borderRadius: '8px',
+        };
 
-/**
- * Check if tool requires point-and-click vs drawing
- */
-export function isPointAndClickTool(tool: DrawingTool): boolean {
-  return tool === 'text'; // Text elements are typically point-and-click
+      case 'rectangle':
+        return {
+          ...baseStyles,
+          backgroundColor: '#f3f4f6',
+          border: '1px solid #d1d5db',
+        };
+
+      default:
+        return baseStyles;
+    }
+  };
+
+  /**
+   * Validate drawing constraints
+   */
+  validateDrawing = (
+    width: number,
+    height: number,
+    tool: DrawingToolType
+  ): boolean => {
+    const minSizes = {
+      rectangle: { width: 10, height: 10 },
+      text: { width: 20, height: 20 },
+      image: { width: 30, height: 30 }
+    };
+
+    const min = minSizes[tool];
+    return width >= min.width && height >= min.height;
+  };
+
+  /**
+   * Get tool cursor style
+   */
+  getToolCursor = (tool: DrawingToolType): string => {
+    switch (tool) {
+      case 'rectangle':
+        return 'crosshair';
+      case 'text':
+        return 'text';
+      case 'image':
+        return 'copy';
+      default:
+        return 'default';
+    }
+  };
+
+  /**
+   * Check if tool supports drawing (vs point-and-click)
+   */
+  supportsDrawing = (tool: DrawingToolType): boolean => {
+    return ['rectangle', 'text', 'image'].includes(tool);
+  };
+
+  /**
+   * Check if tool supports point-and-click
+   */
+  supportsPointClick = (tool: DrawingToolType): boolean => {
+    return ['text', 'image'].includes(tool);
+  };
 }

@@ -8,76 +8,75 @@ interface SelectionOverlayProps {
 }
 
 /**
- * Visual feedback for element selection and hover states
- * Extracted from Canvas.tsx for better maintainability
+ * Selection Overlay Component (60 lines)
+ * 
+ * Responsibilities:
+ * - Element selection highlighting
+ * - Hover state visual feedback
+ * - Focus indicators for accessibility
  */
-export const SelectionOverlay: React.FC<SelectionOverlayProps> = ({ 
+const SelectionOverlay: React.FC<SelectionOverlayProps> = ({
   selectedElementId,
   hoveredElementId,
   elements,
   zoomLevel
 }) => {
-  const renderElementOutline = (elementId: string, type: 'selected' | 'hovered') => {
-    const element = elements[elementId];
+  const getElementBounds = (elementId: string) => {
+    const element = document.querySelector(`[data-element-id="${elementId}"]`);
     if (!element) return null;
+    
+    const rect = element.getBoundingClientRect();
+    const canvas = document.querySelector('[data-canvas="true"]');
+    if (!canvas) return null;
+    
+    const canvasRect = canvas.getBoundingClientRect();
+    
+    return {
+      x: (rect.left - canvasRect.left) / zoomLevel,
+      y: (rect.top - canvasRect.top) / zoomLevel,
+      width: rect.width / zoomLevel,
+      height: rect.height / zoomLevel,
+    };
+  };
 
-    const isSelected = type === 'selected';
-    const outlineColor = isSelected ? 'border-blue-500' : 'border-gray-400';
-    const bgColor = isSelected ? 'bg-blue-500/10' : 'bg-gray-400/5';
+  const renderSelectionOutline = (elementId: string, isSelected: boolean, isHovered: boolean) => {
+    const bounds = getElementBounds(elementId);
+    if (!bounds) return null;
 
-    return (
-      <div
-        key={`${type}-${elementId}`}
-        className={`absolute pointer-events-none z-[40] border-2 ${outlineColor} ${bgColor} rounded transition-all duration-150`}
-        style={{
-          left: element.x || 0,
-          top: element.y || 0,
-          width: element.width || 100,
-          height: element.height || 20,
-        }}
-      >
-        {/* Element type label */}
-        {isSelected && (
-          <div
-            className="absolute -top-6 left-0 bg-blue-600 text-white px-1.5 py-0.5 rounded text-xs font-medium shadow-sm"
-            style={{ fontSize: `${Math.max(10, 12 / zoomLevel)}px` }}
-          >
-            {element.type}
-          </div>
-        )}
-        
-        {/* Selection handles for selected element */}
-        {isSelected && (
-          <>
-            {/* Corner handles */}
-            <div className="absolute -top-1 -left-1 w-2 h-2 bg-blue-600 border border-white rounded-sm cursor-nw-resize" />
-            <div className="absolute -top-1 -right-1 w-2 h-2 bg-blue-600 border border-white rounded-sm cursor-ne-resize" />
-            <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-blue-600 border border-white rounded-sm cursor-sw-resize" />
-            <div className="absolute -bottom-1 -right-1 w-2 h-2 bg-blue-600 border border-white rounded-sm cursor-se-resize" />
-            
-            {/* Edge handles */}
-            <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-blue-600 border border-white rounded-sm cursor-n-resize" />
-            <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-blue-600 border border-white rounded-sm cursor-s-resize" />
-            <div className="absolute top-1/2 -left-1 transform -translate-y-1/2 w-2 h-2 bg-blue-600 border border-white rounded-sm cursor-w-resize" />
-            <div className="absolute top-1/2 -right-1 transform -translate-y-1/2 w-2 h-2 bg-blue-600 border border-white rounded-sm cursor-e-resize" />
-          </>
-        )}
-      </div>
-    );
+    const style = {
+      position: 'absolute' as const,
+      left: `${bounds.x - 2}px`,
+      top: `${bounds.y - 2}px`,
+      width: `${bounds.width + 4}px`,
+      height: `${bounds.height + 4}px`,
+      pointerEvents: 'none' as const,
+      zIndex: isSelected ? 998 : 997,
+      border: isSelected 
+        ? '2px solid #3b82f6' 
+        : isHovered 
+          ? '2px solid rgba(59, 130, 246, 0.5)'
+          : 'none',
+      borderRadius: '2px',
+      backgroundColor: isHovered && !isSelected 
+        ? 'rgba(59, 130, 246, 0.05)' 
+        : 'transparent',
+    };
+
+    return <div key={`${elementId}-${isSelected ? 'selected' : 'hovered'}`} style={style} />;
   };
 
   return (
-    <div className="absolute inset-0 pointer-events-none">
+    <>
       {/* Hovered element outline */}
-      {hoveredElementId && hoveredElementId !== selectedElementId && 
-        renderElementOutline(hoveredElementId, 'hovered')
-      }
+      {hoveredElementId && hoveredElementId !== selectedElementId && (
+        renderSelectionOutline(hoveredElementId, false, true)
+      )}
       
-      {/* Selected element outline (renders on top) */}
-      {selectedElementId && 
-        renderElementOutline(selectedElementId, 'selected')
-      }
-    </div>
+      {/* Selected element outline */}
+      {selectedElementId && selectedElementId !== 'root' && (
+        renderSelectionOutline(selectedElementId, true, false)
+      )}
+    </>
   );
 };
 

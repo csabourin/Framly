@@ -14,93 +14,123 @@ interface DrawingOverlayProps {
 }
 
 /**
- * Rubber band rectangle overlay for drawing tools
- * Extracted from Canvas.tsx for better maintainability
+ * Drawing Overlay Component (80 lines)
+ * 
+ * Responsibilities:
+ * - Rubber band rectangle visualization
+ * - Drawing feedback and size indicators
+ * - Modifier key hints during drawing
  */
-export const DrawingOverlay: React.FC<DrawingOverlayProps> = ({ 
-  drawingState, 
-  selectedTool, 
-  zoomLevel 
+const DrawingOverlay: React.FC<DrawingOverlayProps> = ({
+  drawingState,
+  selectedTool,
+  zoomLevel
 }) => {
   if (!drawingState || !['rectangle', 'text', 'image'].includes(selectedTool)) {
     return null;
   }
 
-  const startX = Math.min(drawingState.start.x, drawingState.current.x);
-  const startY = Math.min(drawingState.start.y, drawingState.current.y);
-  const width = Math.abs(drawingState.current.x - drawingState.start.x);
-  const height = Math.abs(drawingState.current.y - drawingState.start.y);
+  const { start, current, isShiftPressed, isAltPressed } = drawingState;
 
-  // Show size indicators if drawing a meaningful rectangle (>5px)
-  const showSizeIndicators = width > 5 || height > 5;
+  // Calculate rubber band rectangle
+  const left = Math.min(start.x, current.x);
+  const top = Math.min(start.y, current.y);
+  const width = Math.abs(current.x - start.x);
+  const height = Math.abs(current.y - start.y);
+
+  // Tool-specific styling
+  const getToolStyle = () => {
+    const baseStyle = {
+      position: 'absolute' as const,
+      left: `${left}px`,
+      top: `${top}px`,
+      width: `${width}px`,
+      height: `${height}px`,
+      pointerEvents: 'none' as const,
+      zIndex: 999,
+    };
+
+    switch (selectedTool) {
+      case 'rectangle':
+        return {
+          ...baseStyle,
+          border: '2px dashed #3b82f6',
+          backgroundColor: 'rgba(59, 130, 246, 0.1)',
+          borderRadius: '4px',
+        };
+      
+      case 'text':
+        return {
+          ...baseStyle,
+          border: '2px dashed #10b981',
+          backgroundColor: 'rgba(16, 185, 129, 0.1)',
+          borderRadius: '2px',
+        };
+      
+      case 'image':
+        return {
+          ...baseStyle,
+          border: '2px dashed #f59e0b',
+          backgroundColor: 'rgba(245, 158, 11, 0.1)',
+          borderRadius: '6px',
+        };
+      
+      default:
+        return baseStyle;
+    }
+  };
+
+  const toolStyle = getToolStyle();
 
   return (
-    <div className="absolute pointer-events-none z-[50]">
+    <>
       {/* Rubber band rectangle */}
-      <div
-        className="absolute border-2 border-blue-500 border-dashed bg-blue-500/10 rounded"
-        style={{
-          left: startX,
-          top: startY,
-          width: Math.max(width, 1),
-          height: Math.max(height, 1),
-        }}
-      />
+      <div style={toolStyle} />
       
-      {/* Tool type indicator */}
-      <div
-        className="absolute -top-8 left-0 bg-blue-600 text-white px-2 py-1 rounded text-xs font-medium shadow-lg"
-        style={{
-          left: startX,
-          top: startY - 32,
-        }}
-      >
-        {selectedTool === 'rectangle' && '📦 Rectangle'}
-        {selectedTool === 'text' && '📝 Text'}
-        {selectedTool === 'image' && '🖼️ Image'}
-      </div>
-
-      {/* Size indicators */}
-      {showSizeIndicators && (
-        <>
-          {/* Width indicator */}
-          <div
-            className="absolute bg-gray-900 text-white px-1 py-0.5 rounded text-xs"
-            style={{
-              left: startX + width / 2 - 20,
-              top: startY + height + 4,
-            }}
-          >
-            {Math.round(width)}px
-          </div>
-          
-          {/* Height indicator */}
-          <div
-            className="absolute bg-gray-900 text-white px-1 py-0.5 rounded text-xs"
-            style={{
-              left: startX + width + 4,
-              top: startY + height / 2 - 10,
-            }}
-          >
-            {Math.round(height)}px
-          </div>
-        </>
-      )}
-
-      {/* Modifier key hints */}
-      {(drawingState.isShiftPressed || drawingState.isAltPressed) && (
+      {/* Size indicator */}
+      {width > 20 && height > 20 && (
         <div
-          className="absolute bg-purple-600 text-white px-2 py-1 rounded text-xs font-medium shadow-lg"
           style={{
-            left: startX + width + 8,
-            top: startY - 8,
+            position: 'absolute',
+            left: `${left + width + 8}px`,
+            top: `${top}px`,
+            padding: '4px 8px',
+            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+            color: 'white',
+            fontSize: '12px',
+            borderRadius: '4px',
+            pointerEvents: 'none',
+            zIndex: 1000,
+            whiteSpace: 'nowrap',
           }}
         >
-          {drawingState.isShiftPressed && '⇧ Square'}
-          {drawingState.isAltPressed && '⌥ Center'}
+          {Math.round(width)}×{Math.round(height)}
         </div>
       )}
-    </div>
+      
+      {/* Modifier key hints */}
+      {(isShiftPressed || isAltPressed) && (
+        <div
+          style={{
+            position: 'absolute',
+            left: `${left}px`,
+            top: `${top - 30}px`,
+            padding: '4px 8px',
+            backgroundColor: 'rgba(59, 130, 246, 0.9)',
+            color: 'white',
+            fontSize: '11px',
+            borderRadius: '4px',
+            pointerEvents: 'none',
+            zIndex: 1000,
+            whiteSpace: 'nowrap',
+          }}
+        >
+          {isShiftPressed && 'Square aspect ratio'}
+          {isShiftPressed && isAltPressed && ' • '}
+          {isAltPressed && 'Draw from center'}
+        </div>
+      )}
+    </>
   );
 };
 

@@ -1,125 +1,110 @@
 /**
- * Selection tool behavior
- * Handles click-to-select and hover feedback
+ * Selection Tool Handler (80 lines)
+ * 
+ * Responsibilities:
+ * - Click-to-select behavior
+ * - Hover feedback management
+ * - Selection state management
+ * - Multi-select support (future)
  */
 
-import { Point } from '../utils/canvasGeometry';
+import { Dispatch } from '@reduxjs/toolkit';
+import { selectElement } from '../../../store/canvasSlice';
+import { setHoveredElement } from '../../../store/uiSlice';
 
-export interface SelectionToolOptions {
-  multiSelect: boolean;
-  dragThreshold: number;
-}
+export class SelectionTool {
+  private dispatch: Dispatch;
 
-export interface SelectionResult {
-  elementId: string | null;
-  action: 'select' | 'toggle' | 'extend';
-}
-
-/**
- * Handle selection tool mouse down
- */
-export function handleSelectionMouseDown(
-  point: Point,
-  elements: Record<string, any>,
-  currentSelection: string | null,
-  options: SelectionToolOptions = { multiSelect: false, dragThreshold: 5 }
-): SelectionResult {
-  // Find element at point
-  const hitElementId = getElementAtPoint(point, elements);
-  
-  if (!hitElementId) {
-    // Clicked on empty space - deselect
-    return { elementId: null, action: 'select' };
+  constructor(dispatch: Dispatch) {
+    this.dispatch = dispatch;
   }
 
-  if (options.multiSelect) {
-    // Multi-select mode (Ctrl/Cmd held)
-    if (currentSelection === hitElementId) {
-      // Toggle off if already selected
-      return { elementId: null, action: 'toggle' };
+  /**
+   * Handle click selection
+   */
+  handleClick = (
+    e: React.MouseEvent,
+    elementId: string | null,
+    elements: Record<string, any>
+  ) => {
+    e.stopPropagation();
+    
+    // If clicking on an element, select it
+    if (elementId && elements[elementId]) {
+      this.dispatch(selectElement(elementId));
     } else {
-      // Add to selection
-      return { elementId: hitElementId, action: 'extend' };
+      // Clicking on empty canvas selects root
+      this.dispatch(selectElement('root'));
     }
-  } else {
-    // Single select mode
-    return { elementId: hitElementId, action: 'select' };
-  }
-}
+  };
 
-/**
- * Handle selection tool hover
- */
-export function handleSelectionHover(
-  point: Point,
-  elements: Record<string, any>,
-  currentSelection: string | null
-): string | null {
-  const hitElementId = getElementAtPoint(point, elements);
-  
-  // Don't show hover for already selected element
-  if (hitElementId === currentSelection) {
-    return null;
-  }
-  
-  return hitElementId;
-}
+  /**
+   * Handle hover state changes
+   */
+  handleMouseEnter = (elementId: string) => {
+    this.dispatch(setHoveredElement({ elementId, zone: null }));
+  };
 
-/**
- * Check if drag threshold is exceeded
- */
-export function isDragThresholdExceeded(
-  startPoint: Point,
-  currentPoint: Point,
-  threshold: number = 5
-): boolean {
-  const dx = currentPoint.x - startPoint.x;
-  const dy = currentPoint.y - startPoint.y;
-  const distance = Math.sqrt(dx * dx + dy * dy);
-  
-  return distance > threshold;
-}
+  /**
+   * Handle hover state cleanup
+   */
+  handleMouseLeave = () => {
+    this.dispatch(setHoveredElement({ elementId: null, zone: null }));
+  };
 
-/**
- * Get element at point (simplified version for tools)
- */
-function getElementAtPoint(
-  point: Point,
-  elements: Record<string, any>
-): string | null {
-  // Check elements in reverse order (top to bottom)
-  const elementIds = Object.keys(elements).reverse();
-  
-  for (const elementId of elementIds) {
+  /**
+   * Handle double-click for text editing
+   */
+  handleDoubleClick = (
+    e: React.MouseEvent,
+    elementId: string,
+    elements: Record<string, any>
+  ) => {
+    e.stopPropagation();
+    
     const element = elements[elementId];
-    if (!element || elementId === 'root') continue;
-    
-    const bounds = {
-      x: element.x || 0,
-      y: element.y || 0,
-      width: element.width || 100,
-      height: element.height || 20
-    };
-    
-    if (isPointInBounds(point, bounds)) {
-      return elementId;
-    }
-  }
-  
-  return null;
-}
+    if (!element) return;
 
-/**
- * Check if point is within bounds
- */
-function isPointInBounds(
-  point: Point,
-  bounds: { x: number; y: number; width: number; height: number }
-): boolean {
-  return (
-    point.x >= bounds.x &&
-    point.x <= bounds.x + bounds.width &&
-    point.y >= bounds.y &&
-    point.y <= bounds.y + bounds.height
-  );
+    // Enable text editing for text elements
+    if (element.type === 'text' || element.type === 'button') {
+      // Text editing would be handled by the parent component
+      // This tool just validates the action
+      return { startTextEditing: true, elementId };
+    }
+
+    return { startTextEditing: false };
+  };
+
+  /**
+   * Check if element is selectable
+   */
+  isSelectable = (elementId: string, elements: Record<string, any>): boolean => {
+    const element = elements[elementId];
+    if (!element) return false;
+
+    // All elements are selectable except for certain special types
+    // This could be extended for locked elements, etc.
+    return true;
+  };
+
+  /**
+   * Get selection bounds for visual feedback
+   */
+  getSelectionBounds = (elementId: string) => {
+    const element = document.querySelector(`[data-element-id="${elementId}"]`);
+    if (!element) return null;
+
+    const rect = element.getBoundingClientRect();
+    const canvas = document.querySelector('[data-canvas="true"]');
+    if (!canvas) return null;
+
+    const canvasRect = canvas.getBoundingClientRect();
+
+    return {
+      x: rect.left - canvasRect.left,
+      y: rect.top - canvasRect.top,
+      width: rect.width,
+      height: rect.height,
+    };
+  };
 }
