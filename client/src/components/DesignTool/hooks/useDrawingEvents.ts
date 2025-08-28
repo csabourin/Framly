@@ -1,0 +1,130 @@
+import { useState, useCallback, useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectSelectedTool, selectZoomLevel } from '../../../store/selectors';
+import { useDrawingCommitter } from '../DrawingCommitter';
+
+interface DrawingState {
+  start: { x: number; y: number };
+  current: { x: number; y: number };
+  isShiftPressed: boolean;
+  isAltPressed: boolean;
+}
+
+/**
+ * Hook for handling drawing events and rubber-band rectangle creation
+ * Extracted from Canvas.tsx for better maintainability
+ */
+export const useDrawingEvents = (
+  currentElements: Record<string, any>,
+  canvasRef: React.RefObject<HTMLDivElement>,
+  currentBreakpointWidth: number
+) => {
+  const dispatch = useDispatch();
+  const selectedTool = useSelector(selectSelectedTool);
+  const zoomLevel = useSelector(selectZoomLevel);
+  
+  const [drawingState, setDrawingState] = useState<DrawingState | null>(null);
+  
+  // Initialize drawing committer for the new drawing-based UX
+  const { commitDrawnRect } = useDrawingCommitter({
+    currentElements,
+    zoomLevel,
+    canvasRef,
+    currentBreakpointWidth
+  });
+
+  const getCanvasCoordinates = useCallback((clientX: number, clientY: number) => {
+    const rect = canvasRef.current?.getBoundingClientRect();
+    if (!rect) return { x: 0, y: 0 };
+    
+    return {
+      x: (clientX - rect.left) / zoomLevel,
+      y: (clientY - rect.top) / zoomLevel
+    };
+  }, [zoomLevel]);
+
+  const handleDrawingMouseDown = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    // Only handle drawing tools
+    if (!['rectangle', 'text', 'image'].includes(selectedTool)) return;
+    
+    e.preventDefault();
+    e.stopPropagation();
+    
+    const coords = getCanvasCoordinates(e.clientX, e.clientY);
+    
+    setDrawingState({
+      start: coords,
+      current: coords,
+      isShiftPressed: e.shiftKey,
+      isAltPressed: e.altKey
+    });
+  }, [selectedTool, getCanvasCoordinates]);
+
+  const handleDrawingMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    if (!drawingState) return;
+    
+    e.preventDefault();
+    const coords = getCanvasCoordinates(e.clientX, e.clientY);
+    
+    setDrawingState(prev => prev ? {
+      ...prev,
+      current: coords,
+      isShiftPressed: e.shiftKey,
+      isAltPressed: e.altKey
+    } : null);
+  }, [drawingState, getCanvasCoordinates]);
+
+  const handleDrawingMouseUp = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    if (!drawingState) return;
+    
+    e.preventDefault();
+    e.stopPropagation();
+    
+    const coords = getCanvasCoordinates(e.clientX, e.clientY);
+    
+    // Calculate final rectangle
+    const startX = Math.min(drawingState.start.x, coords.x);
+    const startY = Math.min(drawingState.start.y, coords.y);
+    const width = Math.abs(coords.x - drawingState.start.x);
+    const height = Math.abs(coords.y - drawingState.start.y);
+    
+    // Only create element if there's meaningful size (>5px)
+    if (width > 5 || height > 5) {
+      const rect = canvasRef.current?.getBoundingClientRect();
+      if (rect) {
+        commitDrawnRect(
+          { 
+            left: rect.left + startX * zoomLevel, 
+            top: rect.top + startY * zoomLevel, 
+            width: width * zoomLevel, 
+            height: height * zoomLevel 
+          },
+          selectedTool as 'rectangle' | 'text' | 'image',
+          { shift: drawingState.isShiftPressed, alt: drawingState.isAltPressed }
+        );
+      }
+    }
+    
+    setDrawingState(null);
+  }, [drawingState, selectedTool, commitDrawnRect, getCanvasCoordinates]);
+
+  const calculateDrawingRect = useCallback(() => {
+    if (!drawingState) return null;
+    
+    const startX = Math.min(drawingState.start.x, drawingState.current.x);
+    const startY = Math.min(drawingState.start.y, drawingState.current.y);
+    const width = Math.abs(drawingState.current.x - drawingState.start.x);
+    const height = Math.abs(drawingState.current.y - drawingState.start.y);
+    
+    return { x: startX, y: startY, width, height };
+  }, [drawingState]);
+
+  return {
+    drawingState,
+    handleDrawingMouseDown,
+    handleDrawingMouseMove,
+    handleDrawingMouseUp,
+    calculateDrawingRect,
+    isDrawing: drawingState !== null
+  };
+};

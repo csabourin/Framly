@@ -21,6 +21,14 @@ Preferred communication style: Simple, everyday language.
 - **Build System**: Vite.
 - **Routing**: Wouter.
 
+## Modular Design System Architecture (August 28, 2025)
+- **Canvas Modularization**: Refactored 1000+ line Canvas component into modular architecture:
+  - **Event Hooks**: `useCanvasEvents`, `useDrawingEvents`, `useDragAndDrop` for separated event handling
+  - **Visual Components**: `InsertionIndicator`, `DrawingOverlay`, `SelectionOverlay`, `CanvasContainer` for reusable UI feedback
+  - **Utility Modules**: `canvasGeometry`, `insertionZones` for coordinate math and zone detection
+  - **Tool Handlers**: `SelectionTool`, `DrawingTools` for tool-specific behavior
+- **Benefits**: Improved maintainability (single responsibility), better testability (isolated modules), enhanced performance (selective re-renders), superior developer experience (smaller focused files)
+
 ## Backend Architecture
 - **Runtime**: Node.js with Express.js.
 - **Language**: TypeScript.
@@ -48,6 +56,7 @@ Preferred communication style: Simple, everyday language.
 - **Website Import**: Imports HTML structure, extracts and scopes CSS, integrates custom classes, and manages assets.
 - **Drag and Drop**: Full HTML5 drag and drop system for element reordering and placement.
 - **Keyboard Shortcuts**: Comprehensive, platform-aware keyboard shortcut system with searchable cheatsheet.
+- **Modular Architecture**: Refactored Canvas component from 1000+ lines to modular architecture with separated concerns for better maintainability and testing.
 
 ## Authentication and Authorization
 - **Current Implementation**: Basic session-based authentication.
