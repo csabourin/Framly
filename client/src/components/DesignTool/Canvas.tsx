@@ -1105,11 +1105,148 @@ const Canvas: React.FC = () => {
     e.dataTransfer.dropEffect = 'move';
     
     // Check if this is a canvas element reorder by checking types
-    // NOTE: For security reasons, drag data is only readable during 'drop' event, not 'dragOver'
-    if (e.dataTransfer.types.includes('application/json')) {
-      // Visual feedback will be handled by drop event when we can actually read the data
+    if (e.dataTransfer.types.includes('application/json') && isDraggingForReorder && draggedElementId) {
+      // Provide visual feedback during HTML5 drag operations
+      const draggedElement = currentElements[draggedElementId];
+      if (!draggedElement) return;
+      
+      // Calculate insertion point using DnD system
+      const candidateIds = getCandidateContainerIds({ x: e.clientX, y: e.clientY });
+      const draggedMeta = createComponentMeta(draggedElement);
+      
+      // Helper functions for DnD system  
+      const getMeta = (id: string) => {
+        if (id === "root") {
+          return { id: "root", tag: "DIV", acceptsChildren: true };
+        }
+        if (id === draggedElementId) {
+          return draggedMeta;
+        }
+        const element = currentElements[id];
+        return element ? createComponentMeta(element) : null;
+      };
+      
+      const getParentId = (id: string) => {
+        if (id === "root") return null;
+        const element = currentElements[id];
+        return element?.parent || "root";
+      };
+      
+      const indexOf = (parentId: string, childId: string) => {
+        if (parentId === "root") {
+          return Object.values(currentElements)
+            .filter(el => el.parent === "root" || !el.parent)
+            .findIndex(el => el.id === childId);
+        }
+        const parent = currentElements[parentId];
+        return parent?.children?.indexOf(childId) || 0;
+      };
+      
+      const getChildren = (parentId: string) => {
+        if (parentId === "root") {
+          return Object.values(currentElements)
+            .filter(el => el.parent === "root" || !el.parent)
+            .map(el => el.id);
+        }
+        const parent = currentElements[parentId];
+        return parent?.children || [];
+      };
+      
+      // Get drop location for visual feedback
+      const drop = chooseDropForNewElement(
+        { x: e.clientX, y: e.clientY },
+        candidateIds,
+        draggedMeta,
+        getMeta,
+        getParentId,
+        indexOf,
+        getChildren
+      );
+      
+      if (drop) {
+        // Convert drop location to insertion indicator
+        if (drop.kind === "between" && typeof drop.index === "number") {
+          const siblings = getChildren(drop.parentId);
+          
+          if (drop.index === 0 && siblings.length > 0) {
+            // Inserting before first sibling
+            setInsertionIndicator({
+              elementId: siblings[0],
+              position: 'before'
+            });
+            setHoveredElementId(siblings[0]);
+            setHoveredZone('before');
+            dispatch(setHoveredElement({ elementId: siblings[0], zone: 'before' }));
+          } else if (drop.index >= siblings.length && siblings.length > 0) {
+            // Inserting after last sibling
+            setInsertionIndicator({
+              elementId: siblings[siblings.length - 1],
+              position: 'after'
+            });
+            setHoveredElementId(siblings[siblings.length - 1]);
+            setHoveredZone('after');
+            dispatch(setHoveredElement({ elementId: siblings[siblings.length - 1], zone: 'after' }));
+          } else if (siblings[drop.index]) {
+            // Inserting before specific sibling
+            setInsertionIndicator({
+              elementId: siblings[drop.index],
+              position: 'before'
+            });
+            setHoveredElementId(siblings[drop.index]);
+            setHoveredZone('before');
+            dispatch(setHoveredElement({ elementId: siblings[drop.index], zone: 'before' }));
+          }
+        } else if (drop.kind === "into") {
+          // Inserting inside container
+          setInsertionIndicator({
+            elementId: drop.parentId,
+            position: 'inside'
+          });
+          setHoveredElementId(drop.parentId);
+          setHoveredZone('inside');
+          dispatch(setHoveredElement({ elementId: drop.parentId, zone: 'inside' }));
+        }
+      } else {
+        // Check if dragging to top area for "insert at beginning" behavior
+        const rect = canvasRef.current?.getBoundingClientRect();
+        if (rect) {
+          const relativeY = (e.clientY - rect.top) / zoomLevel;
+          
+          // If dragging to top 50px of canvas or above canvas, insert at beginning
+          if (relativeY < 50 || e.clientY < rect.top) {
+            const rootChildren = getChildren('root');
+            if (rootChildren.length > 0) {
+              setInsertionIndicator({
+                elementId: rootChildren[0],
+                position: 'before'
+              });
+              setHoveredElementId(rootChildren[0]);
+              setHoveredZone('before');
+              dispatch(setHoveredElement({ elementId: rootChildren[0], zone: 'before' }));
+            } else {
+              // Empty canvas - insert into root
+              setInsertionIndicator({
+                elementId: 'root',
+                position: 'inside'
+              });
+              setHoveredElementId('root');
+              setHoveredZone('inside');
+              dispatch(setHoveredElement({ elementId: 'root', zone: 'inside' }));
+            }
+          } else {
+            // Default to root container
+            setInsertionIndicator({
+              elementId: 'root',
+              position: 'inside'
+            });
+            setHoveredElementId('root');
+            setHoveredZone('inside');
+            dispatch(setHoveredElement({ elementId: 'root', zone: 'inside' }));
+          }
+        }
+      }
     }
-  }, []);
+  }, [isDraggingForReorder, draggedElementId, currentElements, zoomLevel, dispatch]);
 
   // Add missing Canvas dragLeave handler
   const handleCanvasDragLeave = useCallback((e: React.DragEvent) => {
@@ -1379,12 +1516,45 @@ const Canvas: React.FC = () => {
               referenceElementId
             }));
           } else {
-            // Fallback to root container
-            dispatch(reorderElement({
-              elementId: data.elementId,
-              newParentId: 'root',
-              insertPosition: 'inside'
-            }));
+            // Check if dropping to top area for "insert at beginning" behavior
+            const rect = canvasRef.current?.getBoundingClientRect();
+            if (rect) {
+              const relativeY = (e.clientY - rect.top) / zoomLevel;
+              
+              // If dropping to top 50px of canvas or above canvas, insert at beginning
+              if (relativeY < 50 || e.clientY < rect.top) {
+                const rootChildren = getChildren('root');
+                if (rootChildren.length > 0) {
+                  dispatch(reorderElement({
+                    elementId: data.elementId,
+                    newParentId: 'root',
+                    insertPosition: 'before',
+                    referenceElementId: rootChildren[0]
+                  }));
+                } else {
+                  // Empty canvas - insert into root
+                  dispatch(reorderElement({
+                    elementId: data.elementId,
+                    newParentId: 'root',
+                    insertPosition: 'inside'
+                  }));
+                }
+              } else {
+                // Default to root container
+                dispatch(reorderElement({
+                  elementId: data.elementId,
+                  newParentId: 'root',
+                  insertPosition: 'inside'
+                }));
+              }
+            } else {
+              // Fallback to root container
+              dispatch(reorderElement({
+                elementId: data.elementId,
+                newParentId: 'root',
+                insertPosition: 'inside'
+              }));
+            }
           }
           
           // Clear drag states
