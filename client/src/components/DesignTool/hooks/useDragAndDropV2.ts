@@ -2,7 +2,7 @@ import { useState, useCallback, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { CanvasElement } from '../../../types/canvas';
 import { selectCurrentElements } from '../../../store/selectors';
-import { addElement, moveElement, selectElement } from '../../../store/canvasSlice';
+import { addElement, reorderElement, selectElement } from '../../../store/canvasSlice';
 import { createDefaultElement } from '../../../utils/canvas';
 
 // Constants for drop zones
@@ -172,11 +172,40 @@ export const useDragAndDropV2 = () => {
     
     if (dragState.draggedElement) {
       // Moving existing element
-      console.log('Moving element:', dragState.draggedElement.id, 'to:', targetElementId, 'position:', dragState.dropZone);
+      console.log('🚀 Reordering element:', dragState.draggedElement.id, 'to:', targetElementId, 'position:', dragState.dropZone);
       
-      dispatch(moveElement({
-        id: dragState.draggedElement.id,
-        x: 0, y: 0 // Position will be calculated by the reducer based on target
+      // Determine the correct parent and position for reordering
+      const targetElement = currentElements[targetElementId];
+      if (!targetElement) return;
+      
+      let newParentId: string;
+      let insertPosition: 'before' | 'after' | 'inside';
+      let referenceElementId: string | undefined;
+      
+      if (dragState.dropZone === DROP_ZONES.INSIDE) {
+        // Insert inside the target element
+        newParentId = targetElementId;
+        insertPosition = 'inside';
+        referenceElementId = undefined;
+      } else {
+        // Insert before/after the target element  
+        newParentId = targetElement.parent || 'root';
+        insertPosition = dragState.dropZone === DROP_ZONES.BEFORE ? 'before' : 'after';
+        referenceElementId = targetElementId;
+      }
+      
+      console.log('📍 Reorder details:', {
+        elementId: dragState.draggedElement.id,
+        newParentId,
+        insertPosition,
+        referenceElementId
+      });
+      
+      dispatch(reorderElement({
+        elementId: dragState.draggedElement.id,
+        newParentId,
+        insertPosition,
+        referenceElementId
       }));
       
     } else if (dragState.draggedToolbarItem) {
