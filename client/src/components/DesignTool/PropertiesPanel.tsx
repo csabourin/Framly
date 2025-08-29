@@ -85,11 +85,13 @@ const PropertiesPanel: React.FC = () => {
 
   if (!selectedElement) {
     return (
-      <aside className="absolute right-0 top-12 bottom-8 w-80 bg-white border-l border-gray-200 overflow-y-auto z-40">
-        <div className="p-4 text-center text-gray-500">
-          <div className="mb-2 text-lg">👆</div>
-          <div className="font-medium">{t('properties.clickElement')}</div>
-          <div className="text-sm mt-1">{t('properties.selectElementToEdit')}</div>
+      <aside className="absolute right-0 top-16 bottom-0 w-80 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-l border-gray-200/60 dark:border-gray-700/60 overflow-y-auto z-40 shadow-lg">
+        <div className="p-8 text-center text-gray-500 dark:text-gray-400 h-full flex flex-col items-center justify-center">
+          <div className="w-16 h-16 bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 rounded-xl flex items-center justify-center mb-4 shadow-sm">
+            <SettingsIcon className="w-8 h-8 text-blue-500 dark:text-blue-400" />
+          </div>
+          <div className="font-semibold text-gray-700 dark:text-gray-300 mb-2">{t('properties.clickElement')}</div>
+          <div className="text-sm text-gray-500 dark:text-gray-400 max-w-sm">{t('properties.selectElementToEdit')}</div>
         </div>
       </aside>
     );
@@ -98,7 +100,7 @@ const PropertiesPanel: React.FC = () => {
   // CRITICAL: Special Properties Panel for Component Instances
   if (isComponentInstance) {
     return (
-      <aside className="absolute right-0 top-12 bottom-8 w-80 bg-white border-l border-gray-200 overflow-y-auto z-40" data-testid="properties-panel">
+      <aside className="absolute right-0 top-16 bottom-0 w-80 bg-white/95 backdrop-blur-md border-l border-gray-200/60 overflow-y-auto z-40 shadow-lg" data-testid="properties-panel">
         <div className="p-4">
           <div className="flex items-center gap-2 mb-4">
             <Component className="w-5 h-5 text-blue-600" />
@@ -562,24 +564,29 @@ const PropertiesPanel: React.FC = () => {
 
   return (
     <aside 
-      className="absolute right-0 top-12 bottom-8 w-80 bg-white border-l border-gray-200 overflow-y-auto z-40"
+      className="absolute right-0 top-16 bottom-0 w-80 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-l border-gray-200/60 dark:border-gray-700/60 overflow-y-auto z-40 shadow-lg"
       data-testid="properties-panel"
     >
       {/* Panel Header */}
-      <div className="p-4 border-b border-gray-200" data-testid="panel-header">
+      <div className="p-6 border-b border-gray-200/60 dark:border-gray-700/60 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20" data-testid="panel-header">
         <div className="flex items-center justify-between">
-          <div>
-            <h2 className="font-semibold text-gray-900">{t('propertiesPanel.properties')}</h2>
-            <p className="text-sm text-gray-600 mt-1 capitalize">
-              {selectedElement.type.replace(/([A-Z])/g, ' $1').trim()}
-            </p>
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-md">
+              <SettingsIcon className="w-5 h-5 text-white" />
+            </div>
+            <div>
+              <h2 className="font-bold text-gray-900 dark:text-gray-100 text-lg">{t('propertiesPanel.properties')}</h2>
+              <p className="text-sm text-gray-600 dark:text-gray-400 capitalize">
+                {selectedElement.type.replace(/([A-Z])/g, ' $1').trim()}
+              </p>
+            </div>
           </div>
           {selectedElement.id !== 'root' && (
             <Button
               variant="outline"
               size="sm"
               onClick={handleDeleteElement}
-              className="text-red-600 hover:text-red-700 hover:bg-red-50"
+              className="text-red-600 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-900/20 border-red-200 dark:border-red-700 hover:border-red-300 dark:hover:border-red-600 rounded-xl transition-all duration-200 shadow-sm hover:shadow-md"
               data-testid="delete-element-button"
             >
               <Trash2 className="h-4 w-4" />
@@ -589,28 +596,28 @@ const PropertiesPanel: React.FC = () => {
       </div>
 
       {/* Class Editing Section - Top Priority */}
-      <div className="border-b border-gray-200 bg-blue-50">
-        <div className="p-4">
-          <h3 className="font-medium text-gray-900 mb-3 flex items-center gap-2">
-            <Palette className="w-4 h-4 text-blue-600" />
-{t('propertiesPanel.classEditing')}
+      <div className="border-b border-gray-200/60 dark:border-gray-700/60 bg-gradient-to-br from-blue-50 to-blue-100/50 dark:from-blue-900/20 dark:to-blue-800/20">
+        <div className="p-6">
+          <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-4 flex items-center gap-2">
+            <Palette className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+            {t('propertiesPanel.classEditing')}
           </h3>
           
           {/* Style Editing Status */}
           {!selectedClassForEditing && (!selectedElement.classes || selectedElement.classes.length === 0) && (
-            <div className="p-3 bg-green-50 border border-green-200 rounded-md mb-3">
-              <p className="text-sm text-green-800">
-                <strong>{t('propertiesPanel.elementSelectedReady')}</strong><br/>
-{t('propertiesPanel.startEditingHint')}
+            <div className="p-4 bg-green-50 dark:bg-green-900/20 border border-green-200/60 dark:border-green-700/60 rounded-xl mb-4 shadow-sm">
+              <p className="text-sm text-green-800 dark:text-green-400 leading-relaxed">
+                <strong className="block mb-1">{t('propertiesPanel.elementSelectedReady')}</strong>
+                {t('propertiesPanel.startEditingHint')}
               </p>
             </div>
           )}
           
           {!selectedClassForEditing && selectedElement.classes && selectedElement.classes.length > 1 && (
-            <div className="p-3 bg-blue-50 border border-blue-200 rounded-md mb-3">
-              <p className="text-sm text-blue-800">
-                <strong>{t('propertiesPanel.clickClassHint')}</strong><br/>
-{t('propertiesPanel.selectClassHint')}
+            <div className="p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200/60 dark:border-blue-700/60 rounded-xl mb-4 shadow-sm">
+              <p className="text-sm text-blue-800 dark:text-blue-400 leading-relaxed">
+                <strong className="block mb-1">{t('propertiesPanel.clickClassHint')}</strong>
+                {t('propertiesPanel.selectClassHint')}
               </p>
             </div>
           )}
@@ -619,24 +626,24 @@ const PropertiesPanel: React.FC = () => {
 
           {/* Current Classes with Edit Selection */}
           {selectedElement.classes && selectedElement.classes.length > 0 ? (
-            <div className="space-y-3">
+            <div className="space-y-4">
               <div>
-                <Label className="text-sm font-medium text-gray-700 mb-2">{t('propertiesPanel.appliedClasses')}</Label>
+                <Label className="text-sm font-semibold text-gray-700 mb-3 block">{t('propertiesPanel.appliedClasses')}</Label>
                 <div className="flex flex-wrap gap-2">
                   {selectedElement.classes.map((className) => (
                     <button
                       key={className}
                       onClick={() => setSelectedClassForEditing(className === selectedClassForEditing ? null : className)}
-                      className={`flex items-center gap-2 px-3 py-1 border rounded-full transition-colors ${
+                      className={`flex items-center gap-2 px-4 py-2 border rounded-xl transition-all duration-200 shadow-sm hover:shadow-md ${
                         selectedClassForEditing === className
-                          ? 'bg-blue-100 border-blue-300 text-blue-800'
-                          : 'bg-white border-gray-200 hover:border-blue-200'
+                          ? 'bg-gradient-to-r from-blue-100 to-blue-200 border-blue-300 text-blue-800 scale-105'
+                          : 'bg-white border-gray-200 hover:border-blue-200 hover:bg-blue-50'
                       }`}
                       title={`Click to edit .${className}`}
                     >
-                      <span className="text-sm font-mono">.{className}</span>
+                      <span className="text-sm font-mono font-medium">.{className}</span>
                       {selectedClassForEditing === className && (
-                        <span className="text-xs text-blue-600">✓</span>
+                        <span className="text-xs text-blue-600 bg-blue-200 px-1.5 py-0.5 rounded-full">✓</span>
                       )}
                     </button>
                   ))}
@@ -645,14 +652,14 @@ const PropertiesPanel: React.FC = () => {
               
               {/* Current Editing Mode Indicator */}
               {selectedClassForEditing && (
-                <div className="p-2 bg-white rounded border-l-4 border-blue-400">
-                  <div className="text-sm font-medium">
+                <div className="p-4 bg-white rounded-xl border-l-4 border-blue-400 shadow-sm">
+                  <div className="text-sm font-semibold">
                     <span className="text-blue-700">
-                      {t('propertiesPanel.editing')} <span className="font-mono">.{selectedClassForEditing}</span>
+                      {t('propertiesPanel.editing')} <span className="font-mono bg-blue-100 px-2 py-1 rounded">.{selectedClassForEditing}</span>
                     </span>
                   </div>
-                  <div className="text-xs text-gray-500 mt-1">
-{t('propertiesPanel.propertyChangesApply')}
+                  <div className="text-xs text-gray-600 mt-2">
+                    {t('propertiesPanel.propertyChangesApply')}
                   </div>
                 </div>
               )}
@@ -660,22 +667,22 @@ const PropertiesPanel: React.FC = () => {
           ) : null}
           
           {/* Add New Class */}
-          <div className="mt-4 p-3 bg-white rounded border">
-            <Label className="text-sm font-medium text-gray-700 mb-2">{t('propertiesPanel.addNewClass')}</Label>
+          <div className="mt-6 p-4 bg-white rounded-xl border border-gray-200/60 shadow-sm">
+            <Label className="text-sm font-semibold text-gray-700 mb-3 block">{t('propertiesPanel.addNewClass')}</Label>
             <div className="flex gap-2">
               <Input
                 type="text"
                 placeholder={t('propertiesPanel.classNamePlaceholder')}
                 value={newClassName}
                 onChange={(e) => setNewClassName(e.target.value)}
-                className="flex-1 font-mono"
+                className="flex-1 font-mono rounded-xl border-gray-200 focus:border-blue-300 focus:ring-2 focus:ring-blue-200"
                 onKeyPress={(e) => e.key === 'Enter' && handleAddClass()}
                 data-testid="input-new-class"
               />
               <Button
                 onClick={handleAddClass}
                 size="sm"
-                className="bg-blue-600 text-white hover:bg-blue-700"
+                className="bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 rounded-xl shadow-md hover:shadow-lg transition-all duration-200"
                 disabled={!newClassName || !cssClassGenerator.validateCSSClassName(newClassName)}
                 data-testid="button-add-class"
               >
@@ -684,16 +691,16 @@ const PropertiesPanel: React.FC = () => {
             </div>
             
             {/* Class Suggestions */}
-            <div className="space-y-2 mt-2">
-              <div className="text-xs font-medium text-gray-600">{t('propertiesPanel.suggestions')}</div>
-              <div className="flex flex-wrap gap-1">
+            <div className="space-y-3 mt-4">
+              <div className="text-xs font-semibold text-gray-600">{t('propertiesPanel.suggestions')}</div>
+              <div className="flex flex-wrap gap-1.5">
                 {cssClassGenerator.generateCSSClassSuggestions(selectedElement.type).slice(0, 6).map(suggestion => (
                   <Button
                     key={suggestion.name}
                     variant="outline"
                     size="sm"
                     onClick={() => setNewClassName(suggestion.name)}
-                    className="text-xs h-6 px-2"
+                    className="text-xs h-7 px-3 rounded-lg border-gray-200 hover:border-blue-300 hover:bg-blue-50 transition-all duration-200"
                     title={suggestion.description}
                     data-testid={`button-suggestion-${suggestion.name}`}
                   >
@@ -708,18 +715,18 @@ const PropertiesPanel: React.FC = () => {
 
       {/* Button-Specific Properties */}
       {selectedElement.type === 'button' && (
-        <div className="border-b border-gray-200 bg-orange-50">
-          <div className="p-4">
-            <h3 className="font-medium text-gray-900 mb-3 flex items-center gap-2">
-              <Type className="w-4 h-4 text-orange-600" />
-{t('propertiesPanel.buttonProperties')}
+        <div className="border-b border-gray-200/60 bg-gradient-to-br from-orange-50 to-orange-100/50">
+          <div className="p-6">
+            <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
+              <Type className="w-5 h-5 text-orange-600" />
+              {t('propertiesPanel.buttonProperties')}
             </h3>
             
             {/* Button Properties */}
-            <div className="space-y-3">
-              <div className="p-2 bg-blue-50 border border-blue-200 rounded">
-                <p className="text-xs text-blue-700">
-{t('propertiesPanel.buttonDoubleClickHint')}
+            <div className="space-y-4">
+              <div className="p-3 bg-blue-50 border border-blue-200/60 rounded-xl shadow-sm">
+                <p className="text-sm text-blue-700">
+                  {t('propertiesPanel.buttonDoubleClickHint')}
                 </p>
               </div>
               
@@ -737,7 +744,7 @@ const PropertiesPanel: React.FC = () => {
               />
               
               {/* Make Default Button */}
-              <div className="pt-2 border-t border-orange-200">
+              <div className="pt-4 border-t border-orange-200/60">
                 <Button
                   variant="outline"
                   size="sm"
@@ -764,13 +771,13 @@ const PropertiesPanel: React.FC = () => {
                       localStorage.setItem('defaultButtonStyles', JSON.stringify(currentStyles));
                     }
                   }}
-                  className="w-full text-orange-700 border-orange-300 hover:bg-orange-50"
+                  className="w-full text-orange-700 border-orange-300 hover:bg-orange-50 rounded-xl transition-all duration-200 shadow-sm hover:shadow-md"
                   data-testid="make-default-button"
                 >
-{t('propertiesPanel.makeDefaultButton')}
+                  {t('propertiesPanel.makeDefaultButton')}
                 </Button>
-                <p className="text-xs text-orange-600 mt-1">
-{t('propertiesPanel.newButtonsUseDefault')}
+                <p className="text-xs text-orange-600 mt-2 leading-relaxed">
+                  {t('propertiesPanel.newButtonsUseDefault')}
                 </p>
               </div>
             </div>
@@ -785,30 +792,34 @@ const PropertiesPanel: React.FC = () => {
           const IconComponent = getCategoryIcon(group.category);
           
           return (
-            <div key={group.category} className="border-b border-gray-200">
+            <div key={group.category} className="border-b border-gray-200/60 last:border-b-0">
               {/* Group Header */}
               <button
                 onClick={() => toggleGroup(group.category)}
-                className="w-full p-4 flex items-center justify-between text-left hover:bg-gray-50 transition-colors"
+                className="w-full p-5 flex items-center justify-between text-left hover:bg-gradient-to-r hover:from-gray-50 hover:to-gray-100/50 transition-all duration-200"
                 data-testid={`group-header-${group.category}`}
               >
-                <div className="flex items-center gap-2">
-                  <IconComponent className="w-4 h-4 text-gray-600" />
-                  <h3 className="font-medium text-gray-900">{getTranslatedGroupLabel(group.category, group.label)}</h3>
-                  <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full">
-                    {group.properties.length}
-                  </span>
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-gradient-to-br from-blue-100 to-purple-100 rounded-xl flex items-center justify-center shadow-sm">
+                    <IconComponent className="w-4 h-4 text-blue-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900">{getTranslatedGroupLabel(group.category, group.label)}</h3>
+                    <span className="text-xs text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full mt-1 inline-block">
+                      {group.properties.length} properties
+                    </span>
+                  </div>
                 </div>
                 {isExpanded ? (
-                  <ChevronDown className="w-4 h-4 text-gray-400" />
+                  <ChevronDown className="w-5 h-5 text-blue-500 transition-transform duration-200" />
                 ) : (
-                  <ChevronRight className="w-4 h-4 text-gray-400" />
+                  <ChevronRight className="w-5 h-5 text-gray-400 transition-transform duration-200" />
                 )}
               </button>
 
               {/* Group Properties */}
               {isExpanded && (
-                <div className="px-4 pb-4 space-y-4" data-testid={`group-content-${group.category}`}>
+                <div className="px-6 pb-6 space-y-4 bg-gradient-to-br from-gray-50/50 to-transparent" data-testid={`group-content-${group.category}`}>
                   {group.properties.map((property) => (
                     <div key={property.key}>
                       {property.responsive ? (

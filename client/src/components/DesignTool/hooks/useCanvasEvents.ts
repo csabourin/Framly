@@ -1,24 +1,19 @@
 import { useCallback, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { 
-  setSelectedTool,
-  setDragging,
-  setResizing,
-  setDraggedElement,
-  setDraggingForReorder,
-  setHoveredElement,
-  resetUI
-} from '../../../store/uiSlice';
-import { selectElement } from '../../../store/canvasSlice';
-import { selectSelectedTool } from '../../../store/selectors';
+import { useDispatch } from 'react-redux';
+import { resetUI } from '../../../store/uiSlice';
+import { useToolHandler } from './useToolHandler';
+import { useElementSelection } from './useElementSelection';
+import { useKeyboardShortcuts } from './useKeyboardShortcuts';
 
 /**
  * Hook for handling core canvas events (mouse, keyboard, touch)
  * Extracted from Canvas.tsx for better maintainability
  */
-export const useCanvasEvents = () => {
+export const useCanvasEvents = (expandedElements?: Record<string, any>, zoomLevel?: number) => {
   const dispatch = useDispatch();
-  const selectedTool = useSelector(selectSelectedTool);
+  const toolHandler = useToolHandler(expandedElements || {}, zoomLevel || 1);
+  const elementSelection = useElementSelection(zoomLevel || 1);
+  const keyboardShortcuts = useKeyboardShortcuts();
   const lastMousePos = useRef({ x: 0, y: 0 });
   const [inputModality, setInputModality] = useState<'mouse' | 'keyboard'>('mouse');
 
@@ -33,18 +28,18 @@ export const useCanvasEvents = () => {
     // Clear any existing drag states
     dispatch(resetUI());
     
-    if (selectedTool === 'select') {
+    if (toolHandler.selectedTool === 'select') {
       // Click on empty canvas area - select root
-      dispatch(selectElement('root'));
+      elementSelection.handleCanvasBackgroundClick();
     }
-  }, [selectedTool, dispatch]);
+  }, [toolHandler.selectedTool, elementSelection, dispatch]);
 
   const handleCanvasClick = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     // Handle canvas-level clicks
     if (e.target === e.currentTarget) {
-      dispatch(selectElement('root'));
+      elementSelection.handleCanvasBackgroundClick();
     }
-  }, [dispatch]);
+  }, [elementSelection]);
 
   const handleCanvasDoubleClick = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -61,20 +56,8 @@ export const useCanvasEvents = () => {
 
   const handleCanvasKeyDown = useCallback((e: React.KeyboardEvent<HTMLDivElement>) => {
     setInputModality('keyboard');
-    
-    // Handle keyboard shortcuts
-    if (e.key === 'Escape') {
-      dispatch(resetUI());
-    } else if (e.key === 'v' && !e.ctrlKey && !e.metaKey) {
-      dispatch(setSelectedTool('select'));
-    } else if (e.key === 'r' && !e.ctrlKey && !e.metaKey) {
-      dispatch(setSelectedTool('rectangle'));
-    } else if (e.key === 't' && !e.ctrlKey && !e.metaKey) {
-      dispatch(setSelectedTool('text'));
-    } else if (e.key === 'i' && !e.ctrlKey && !e.metaKey) {
-      dispatch(setSelectedTool('image'));
-    }
-  }, [dispatch]);
+    keyboardShortcuts.handleKeyDown(e);
+  }, [keyboardShortcuts]);
 
   return {
     handleCanvasMouseDown,

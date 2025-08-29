@@ -77,7 +77,7 @@ const DesignToolContent: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen relative bg-gray-50 font-inter overflow-hidden">
+    <div className="flex flex-col h-screen relative bg-gradient-to-br from-gray-50 to-gray-100/50 font-inter overflow-hidden">
       <Header />
       <div className="flex flex-1 overflow-hidden">
         <Toolbar onShowKeyboardShortcuts={() => setShowKeyboardShortcuts(true)} />

@@ -13,6 +13,7 @@ interface CanvasContainerProps {
   onDragOver: (e: React.DragEvent<HTMLDivElement>) => void;
   onDragLeave: (e: React.DragEvent<HTMLDivElement>) => void;
   onDrop: (e: React.DragEvent<HTMLDivElement>) => void;
+  onDragEnd?: (e: React.DragEvent<HTMLDivElement>) => void;
   onClick: (e: React.MouseEvent<HTMLDivElement>) => void;
   onDoubleClick: (e: React.MouseEvent<HTMLDivElement>) => void;
   onContextMenu: (e: React.MouseEvent<HTMLDivElement>) => void;
@@ -41,6 +42,7 @@ const CanvasContainer: React.FC<CanvasContainerProps> = ({
   onDragOver,
   onDragLeave,
   onDrop,
+  onDragEnd,
   onClick,
   onDoubleClick,
   onContextMenu,
@@ -51,14 +53,14 @@ const CanvasContainer: React.FC<CanvasContainerProps> = ({
 
   return (
     <div 
-      className="flex-1 overflow-auto bg-gray-50 dark:bg-gray-900 p-8 relative"
+      className="flex-1 overflow-auto bg-gradient-to-br from-gray-50 to-gray-100/30 dark:from-gray-900 dark:to-gray-800/50 p-8 relative"
       tabIndex={0}
       onKeyDown={onKeyDown}
     >
       <div className="flex justify-center items-start min-h-full">
         <div 
           ref={canvasRef}
-          className="relative bg-white dark:bg-gray-800 shadow-lg border border-gray-200 dark:border-gray-700 cursor-crosshair"
+          className="relative bg-white dark:bg-gray-800 shadow-2xl border border-gray-200/60 dark:border-gray-700 cursor-crosshair rounded-xl overflow-hidden"
           style={{
             transform: `scale(${zoomLevel})`,
             transformOrigin: 'top center',
@@ -72,6 +74,7 @@ const CanvasContainer: React.FC<CanvasContainerProps> = ({
           onDragOver={onDragOver}
           onDragLeave={onDragLeave}
           onDrop={onDrop}
+          onDragEnd={onDragEnd}
           onClick={onClick}
           onDoubleClick={onDoubleClick}
           onContextMenu={onContextMenu}

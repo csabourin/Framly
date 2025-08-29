@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import express, { type Request, Response, NextFunction } from "express";
 import { createServer } from "http";
 import { setupVite, serveStatic, log } from "./vite";
@@ -19,7 +20,7 @@ app.use((req, res, next) => {
     "worker-src 'self' blob:",
     "manifest-src 'self'"
   ].join('; ');
-  
+
   res.setHeader('Content-Security-Policy', csp);
   next();
 });
@@ -74,16 +75,11 @@ app.use((req, res, next) => {
     serveStatic(app);
   }
 
-  // ALWAYS serve the app on the port specified in the environment variable PORT
-  // Other ports are firewalled. Default to 5000 if not specified.
-  // this serves both the API and the client.
-  // It is the only port that is not firewalled.
-  const port = parseInt(process.env.PORT || '5000', 10);
-  server.listen({
-    port,
-    host: "0.0.0.0",
-    reusePort: true,
-  }, () => {
-    log(`serving on port ${port}`);
+  // Host/port configurables ; par défaut on reste en local
+  const port = Number(process.env.PORT ?? 5174);
+  const host = process.env.HOST ?? '127.0.0.1';
+  server.listen(port, host, () => {
+    log(`serving at http://${host}:${port}`);
   });
+
 })();

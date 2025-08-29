@@ -242,16 +242,11 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
 
   const handleDrop = useCallback((e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
+    e.stopPropagation();
     
-    try {
-      const data = JSON.parse(e.dataTransfer.getData('application/json'));
-      if (data.type === 'canvas-element' && data.elementId) {
-        // The drop logic will be handled by the Canvas component's drop handlers
-        // This is just to prevent the default behavior
-      }
-    } catch (error) {
-      // Invalid drag data
-    }
+    // Let the Canvas-level drop handlers process this drop
+    // Don't handle drops at element level to avoid conflicts
+    // The useDragAndDrop hook in Canvas will handle the drop processing
   }, []);
 
   const handleKeyDown = useCallback((e: React.KeyboardEvent<HTMLDivElement>) => {

@@ -108,37 +108,43 @@ const Header: React.FC = () => {
 
   return (
     <header 
-      className="absolute top-0 left-0 right-0 h-12 bg-white border-b border-gray-200 flex items-center px-4 z-50 gap-4"
+      className="absolute top-0 left-0 right-0 h-16 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-b border-gray-200/60 dark:border-gray-700/60 flex items-center px-6 z-50 gap-6 shadow-sm"
       data-testid="header-main"
     >
       {/* Logo */}
-      <div className="flex items-center gap-2" data-testid="logo-container">
+      <div className="flex items-center gap-4" data-testid="logo-container">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
+            <Component className="w-5 h-5 text-white" />
+          </div>
+          <span className="font-bold text-xl text-gray-900 dark:text-gray-100 tracking-tight">Framly</span>
+        </div>
         <button
           onClick={handleOpenSettings}
-          className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center hover:bg-primary/90 transition-colors"
+          className="w-8 h-8 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 rounded-lg flex items-center justify-center transition-colors"
           data-testid="settings-button"
         >
-          <Settings className="w-4 h-4 text-white" />
+          <Settings className="w-4 h-4 text-gray-600 dark:text-gray-400" />
         </button>
-        <span className="font-bold text-lg text-primary">DesignLab</span>
       </div>
       
       {/* Project Info */}
-      <div className="flex items-center gap-2 text-sm text-gray-600" data-testid="project-info">
+      <div className="flex items-center gap-3" data-testid="project-info">
+        <div className="h-6 w-px bg-gray-300 dark:bg-gray-600" />
         <input
           type="text"
           value={project.name}
           onChange={(e) => dispatch(updateProjectName(e.target.value))}
-          className="bg-transparent border-none outline-none font-medium"
+          className="bg-transparent border-none outline-none font-semibold text-gray-700 dark:text-gray-300 text-sm hover:bg-gray-50 dark:hover:bg-gray-800 px-3 py-2 rounded-lg transition-colors focus:bg-gray-50 dark:focus:bg-gray-800 focus:ring-2 focus:ring-blue-500/20"
           data-testid="input-project-name"
+          placeholder="Project Name"
         />
-        <span className="w-1 h-1 bg-gray-400 rounded-full"></span>
       </div>
       
       {/* Header Actions */}
       <div className="ml-auto flex items-center gap-2" data-testid="header-actions">
         {/* Breakpoint Switcher */}
-        <div className="flex bg-gray-100 rounded-lg p-1" data-testid="breakpoint-switcher">
+        <div className="flex bg-gray-50 dark:bg-gray-800 rounded-xl p-1 shadow-inner border border-gray-200/50 dark:border-gray-700/50" data-testid="breakpoint-switcher">
           {breakpoints.map((breakpoint) => {
             const Icon = breakpointIcons[breakpoint.name] || Monitor;
             const isActive = project.currentBreakpoint === breakpoint.name;
@@ -147,16 +153,16 @@ const Header: React.FC = () => {
               <button
                 key={breakpoint.name}
                 onClick={() => handleBreakpointChange(breakpoint.name)}
-                className={`px-2 py-1 text-xs font-medium rounded flex items-center gap-1 transition-colors ${
+                className={`px-3 py-2 text-xs font-semibold rounded-lg flex items-center gap-2 transition-all duration-200 ${
                   isActive
-                    ? 'bg-white shadow-sm border border-gray-200 text-gray-900'
-                    : 'text-gray-600 hover:text-gray-900'
+                    ? 'bg-white dark:bg-gray-700 shadow-md border border-gray-200/80 dark:border-gray-600/80 text-blue-600 dark:text-blue-400 scale-105'
+                    : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-white/60 dark:hover:bg-gray-700/60'
                 }`}
                 data-testid={`button-breakpoint-${breakpoint.name}`}
                 title={`${breakpoint.label} (${breakpoint.width}px)`}
               >
                 <Icon className="w-4 h-4" />
-                <span className="hidden md:inline text-xs">{breakpoint.label}</span>
+                <span className="hidden lg:inline text-xs">{breakpoint.label}</span>
               </button>
             );
           })}
@@ -164,36 +170,36 @@ const Header: React.FC = () => {
         
 
         {/* Zoom Controls */}
-        <div className="flex items-center gap-1 bg-gray-100 rounded-lg p-1" data-testid="zoom-controls">
+        <div className="flex items-center gap-0.5 bg-gray-50 dark:bg-gray-800 rounded-xl p-1 shadow-inner border border-gray-200/50 dark:border-gray-700/50" data-testid="zoom-controls">
           <Button
             variant="ghost"
             size="sm"
             onClick={handleZoomOut}
-            className="p-2 hover:bg-white hover:shadow-sm"
+            className="p-2 hover:bg-white dark:hover:bg-gray-700 hover:shadow-sm rounded-lg transition-all duration-200"
             data-testid="button-zoom-out"
             title="Zoom Out"
           >
-            <Minus className="w-3 h-3" />
+            <Minus className="w-4 h-4 text-gray-600 dark:text-gray-400" />
           </Button>
           <Button
             variant="ghost"
             size="sm"
             onClick={handleFitToScreen}
-            className="p-2 hover:bg-white hover:shadow-sm"
+            className="p-2 hover:bg-white dark:hover:bg-gray-700 hover:shadow-sm rounded-lg transition-all duration-200"
             data-testid="button-fit-screen"
             title="Fit to Screen"
           >
-            <Maximize className="w-3 h-3" />
+            <Maximize className="w-4 h-4 text-gray-600 dark:text-gray-400" />
           </Button>
           <Button
             variant="ghost"
             size="sm"
             onClick={handleZoomIn}
-            className="p-2 hover:bg-white hover:shadow-sm"
+            className="p-2 hover:bg-white dark:hover:bg-gray-700 hover:shadow-sm rounded-lg transition-all duration-200"
             data-testid="button-zoom-in"
             title="Zoom In"
           >
-            <Plus className="w-3 h-3" />
+            <Plus className="w-4 h-4 text-gray-600 dark:text-gray-400" />
           </Button>
         </div>
 
@@ -201,12 +207,12 @@ const Header: React.FC = () => {
         {/* <WebsiteImport /> */}
 
         {/* Advanced Tools */}
-        <div className="flex items-center gap-1 bg-gray-100 rounded-lg p-1" data-testid="advanced-tools">
+        <div className="flex items-center gap-0.5 bg-gray-50 dark:bg-gray-800 rounded-xl p-1 shadow-inner border border-gray-200/50 dark:border-gray-700/50" data-testid="advanced-tools">
           <Button
             variant="ghost"
             size="sm"
             onClick={handleOpenClassEditor}
-            className="p-2 hover:bg-white hover:shadow-sm text-gray-600"
+            className="p-2 hover:bg-white dark:hover:bg-gray-700 hover:shadow-md rounded-lg transition-all duration-200 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100"
             data-testid="button-open-class-editor"
             title="Open Class Editor"
           >
@@ -216,7 +222,7 @@ const Header: React.FC = () => {
             variant="ghost"
             size="sm"
             onClick={handleOpenComponentEditor}
-            className="p-2 hover:bg-white hover:shadow-sm text-gray-600"
+            className="p-2 hover:bg-white dark:hover:bg-gray-700 hover:shadow-md rounded-lg transition-all duration-200 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100"
             data-testid="button-open-component-editor"
             title="Open Component Editor"
           >
@@ -226,7 +232,7 @@ const Header: React.FC = () => {
             variant="ghost"
             size="sm"
             onClick={handleOpenButtonDesigner}
-            className="p-2 hover:bg-white hover:shadow-sm text-gray-600"
+            className="p-2 hover:bg-white dark:hover:bg-gray-700 hover:shadow-md rounded-lg transition-all duration-200 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100"
             data-testid="button-open-button-designer"
             title="Button Designer & States"
           >
@@ -235,16 +241,18 @@ const Header: React.FC = () => {
         </div>
 
         {/* Action Buttons */}
-        <div className="flex items-center gap-2" data-testid="action-buttons">
+        <div className="flex items-center gap-3" data-testid="action-buttons">
+          <div className="h-6 w-px bg-gray-300 dark:bg-gray-600" />
+          
           <Button
             variant="ghost"
             size="sm"
             onClick={handlePreview}
-            className="p-2 hover:bg-gray-100"
+            className="p-2.5 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
             data-testid="button-preview"
             title={t('canvas.preview')}
           >
-            <Eye className="w-4 h-4" />
+            <Eye className="w-4 h-4 text-gray-600 dark:text-gray-400" />
           </Button>
           
           {/* Undo/Redo Controls with History Management */}
@@ -253,30 +261,31 @@ const Header: React.FC = () => {
           {/* Color Mode Toggle with contextual menu */}
           <ColorModeToggle />
           
-          
           <Button
             variant="ghost"
             size="sm"
             onClick={handleCSSOptimization}
-            className="p-2 hover:bg-gray-100"
+            className="p-2.5 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
             data-testid="button-css-optimization"
             title="CSS Optimization"
           >
-            <Zap className="w-4 h-4" />
+            <Zap className="w-4 h-4 text-gray-600 dark:text-gray-400" />
           </Button>
           
           {/* Language Switcher */}
           <LanguageSwitcher />
           
+          <div className="h-6 w-px bg-gray-300 dark:bg-gray-600" />
+          
           <Button
             onClick={handleExport}
             size="sm"
-            className="bg-primary text-white hover:bg-blue-600"
+            className="bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:from-blue-600 hover:to-purple-700 shadow-lg hover:shadow-xl transition-all duration-200 px-4 py-2"
             data-testid="button-export"
             title={t('common.export')}
           >
             <Download className="w-4 h-4 mr-2" />
-            {t('common.export')}
+            <span className="font-semibold">{t('common.export')}</span>
           </Button>
         </div>
       </div>

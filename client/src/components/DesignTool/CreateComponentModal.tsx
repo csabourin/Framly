@@ -151,51 +151,61 @@ t('components.containsInstancesConfirm', { count: instanceIds.length })
 
   return (
     <Dialog open={isCreatingComponent} onOpenChange={handleCancel}>
-      <DialogContent className="sm:max-w-md">
-        <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
-            <Package size={20} />
-            Create Component
-          </DialogTitle>
+      <DialogContent className="sm:max-w-lg bg-white/95 backdrop-blur-md border-gray-200/60 shadow-2xl rounded-2xl">
+        <DialogHeader className="pb-6 border-b border-gray-200/60">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
+              <Package className="w-6 h-6 text-white" />
+            </div>
+            <div>
+              <DialogTitle className="text-xl font-bold text-gray-900">Create Component</DialogTitle>
+              <p className="text-gray-600 text-sm mt-1">Turn selected elements into a reusable component</p>
+            </div>
+          </div>
         </DialogHeader>
         
-        <div className="space-y-4 py-4">
+        <div className="space-y-6 py-6">
           {!selectedElement ? (
-            <div className="flex items-center gap-2 p-3 bg-amber-50 border border-amber-200 rounded-md">
-              <AlertCircle size={16} className="text-amber-600" />
-              <span className="text-sm text-amber-800">
-{t('components.selectElementFirst')}
+            <div className="flex items-center gap-3 p-4 bg-gradient-to-r from-amber-50 to-yellow-50 border border-amber-200/60 rounded-xl shadow-sm">
+              <div className="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center">
+                <AlertCircle className="w-5 h-5 text-amber-600" />
+              </div>
+              <span className="text-sm text-amber-800 font-medium">
+                {t('components.selectElementFirst')}
               </span>
             </div>
           ) : (
-            <div className="flex items-center gap-2 p-3 bg-blue-50 border border-blue-200 rounded-md">
-              <Package size={16} className="text-blue-600" />
-              <span className="text-sm text-blue-800">
-{t('components.creatingFromElement', { type: selectedElement.type })}
+            <div className="flex items-center gap-3 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200/60 rounded-xl shadow-sm">
+              <div className="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center">
+                <Package className="w-5 h-5 text-blue-600" />
+              </div>
+              <span className="text-sm text-blue-800 font-medium">
+                {t('components.creatingFromElement', { type: selectedElement.type })}
               </span>
             </div>
           )}
           
-          <div className="space-y-2">
-            <Label htmlFor="component-name">{t('components.componentName')}</Label>
+          <div className="space-y-3">
+            <Label htmlFor="component-name" className="text-sm font-semibold text-gray-700">{t('components.componentName')}</Label>
             <Input
               id="component-name"
               placeholder={t('components.enterComponentName')}
               value={componentName}
               onChange={(e) => setComponentName(e.target.value)}
               data-testid="input-component-name"
+              className="rounded-xl border-gray-200 focus:border-blue-300 focus:ring-2 focus:ring-blue-200 h-12"
             />
           </div>
           
-          <div className="space-y-2">
-            <Label htmlFor="component-category">{t('components.componentCategory')}</Label>
+          <div className="space-y-3">
+            <Label htmlFor="component-category" className="text-sm font-semibold text-gray-700">{t('components.componentCategory')}</Label>
             <Select value={componentCategory} onValueChange={setComponentCategory}>
-              <SelectTrigger data-testid="select-component-category">
+              <SelectTrigger data-testid="select-component-category" className="rounded-xl border-gray-200 h-12">
                 <SelectValue placeholder={t('components.selectCategory')} />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="rounded-xl border-gray-200/60 shadow-2xl">
                 {categories.map((category) => (
-                  <SelectItem key={category.id} value={category.id}>
+                  <SelectItem key={category.id} value={category.id} className="rounded-lg">
                     {category.name}
                   </SelectItem>
                 ))}
@@ -203,8 +213,8 @@ t('components.containsInstancesConfirm', { count: instanceIds.length })
             </Select>
           </div>
           
-          <div className="space-y-2">
-            <Label htmlFor="component-description">{t('components.descriptionOptional')}</Label>
+          <div className="space-y-3">
+            <Label htmlFor="component-description" className="text-sm font-semibold text-gray-700">{t('components.descriptionOptional')}</Label>
             <Textarea
               id="component-description"
               placeholder={t('components.describeComponent')}
@@ -212,15 +222,17 @@ t('components.containsInstancesConfirm', { count: instanceIds.length })
               onChange={(e) => setDescription(e.target.value)}
               rows={3}
               data-testid="textarea-component-description"
+              className="rounded-xl border-gray-200 focus:border-blue-300 focus:ring-2 focus:ring-blue-200 resize-none"
             />
           </div>
         </div>
         
-        <DialogFooter className="flex gap-2">
+        <DialogFooter className="flex gap-4 pt-6 border-t border-gray-200/60">
           <Button 
             variant="outline" 
             onClick={handleCancel}
             data-testid="button-cancel-component"
+            className="flex-1 h-12 rounded-xl border-gray-300 hover:bg-gray-100 transition-all duration-200 font-semibold"
           >
             Cancel
           </Button>
@@ -228,6 +240,7 @@ t('components.containsInstancesConfirm', { count: instanceIds.length })
             onClick={handleSave}
             disabled={!isValid}
             data-testid="button-save-component"
+            className="flex-1 h-12 bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 disabled:from-gray-300 disabled:to-gray-400 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 font-semibold"
           >
             Create Component
           </Button>

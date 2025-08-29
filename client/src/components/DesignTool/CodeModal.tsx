@@ -104,55 +104,79 @@ const CodeModal: React.FC = () => {
 
   return (
     <Dialog open={isCodeModalOpen} onOpenChange={handleClose}>
-      <DialogContent className="max-w-4xl h-[80vh] flex flex-col" data-testid="code-modal">
-        <DialogHeader className="flex-shrink-0">
-          <div className="flex items-center justify-between">
-            <DialogTitle>Generated Code</DialogTitle>
+      <DialogContent className="max-w-6xl h-[85vh] flex flex-col bg-white/95 backdrop-blur-md border-gray-200/60 shadow-2xl rounded-2xl" data-testid="code-modal">
+        <DialogHeader className="flex-shrink-0 pb-6 border-b border-gray-200/60">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
+              <Copy className="w-6 h-6 text-white" />
+            </div>
+            <div className="flex-1">
+              <DialogTitle className="text-xl font-bold text-gray-900">Generated Code</DialogTitle>
+              <p className="text-gray-600 text-sm mt-1">Preview and export your design as code</p>
+            </div>
             <Button
               variant="ghost"
               size="sm"
               onClick={handleClose}
-              className="p-1"
+              className="p-2 hover:bg-gray-100 rounded-xl transition-all duration-200"
               data-testid="button-close-code"
             >
-              <X className="w-4 h-4" />
+              <X className="w-5 h-5" />
             </Button>
           </div>
         </DialogHeader>
         
-        <div className="flex-1 overflow-hidden">
+        <div className="flex-1 overflow-hidden py-4">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="h-full flex flex-col">
-            <TabsList className="grid w-full grid-cols-3 mb-4" data-testid="code-tabs">
-              <TabsTrigger value="html" data-testid="tab-html">HTML</TabsTrigger>
-              <TabsTrigger value="css" data-testid="tab-css">CSS</TabsTrigger>
-              <TabsTrigger value="react" data-testid="tab-react">React</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-3 mb-6 bg-gray-100 p-1 rounded-xl shadow-inner h-12" data-testid="code-tabs">
+              <TabsTrigger 
+                value="html" 
+                data-testid="tab-html"
+                className="rounded-lg font-semibold data-[state=active]:bg-white data-[state=active]:shadow-md data-[state=active]:text-blue-600 transition-all duration-200"
+              >
+                HTML
+              </TabsTrigger>
+              <TabsTrigger 
+                value="css" 
+                data-testid="tab-css"
+                className="rounded-lg font-semibold data-[state=active]:bg-white data-[state=active]:shadow-md data-[state=active]:text-blue-600 transition-all duration-200"
+              >
+                CSS
+              </TabsTrigger>
+              <TabsTrigger 
+                value="react" 
+                data-testid="tab-react"
+                className="rounded-lg font-semibold data-[state=active]:bg-white data-[state=active]:shadow-md data-[state=active]:text-blue-600 transition-all duration-200"
+              >
+                React
+              </TabsTrigger>
             </TabsList>
             
             <div className="flex-1 overflow-hidden">
               <TabsContent value="html" className="h-full">
                 <div 
-                  className="bg-gray-900 text-gray-100 p-4 rounded-lg h-full overflow-auto font-mono text-sm"
+                  className="bg-gradient-to-br from-gray-900 to-gray-800 text-gray-100 p-6 rounded-2xl h-full overflow-auto font-mono text-sm shadow-2xl border border-gray-700/50"
                   data-testid="code-content-html"
                 >
-                  <pre className="whitespace-pre-wrap">{generatedCode.html}</pre>
+                  <pre className="whitespace-pre-wrap leading-relaxed">{generatedCode.html}</pre>
                 </div>
               </TabsContent>
               
               <TabsContent value="css" className="h-full">
                 <div 
-                  className="bg-gray-900 text-gray-100 p-4 rounded-lg h-full overflow-auto font-mono text-sm"
+                  className="bg-gradient-to-br from-gray-900 to-gray-800 text-gray-100 p-6 rounded-2xl h-full overflow-auto font-mono text-sm shadow-2xl border border-gray-700/50"
                   data-testid="code-content-css"
                 >
-                  <pre className="whitespace-pre-wrap">{generatedCode.css}</pre>
+                  <pre className="whitespace-pre-wrap leading-relaxed">{generatedCode.css}</pre>
                 </div>
               </TabsContent>
               
               <TabsContent value="react" className="h-full">
                 <div 
-                  className="bg-gray-900 text-gray-100 p-4 rounded-lg h-full overflow-auto font-mono text-sm"
+                  className="bg-gradient-to-br from-gray-900 to-gray-800 text-gray-100 p-6 rounded-2xl h-full overflow-auto font-mono text-sm shadow-2xl border border-gray-700/50"
                   data-testid="code-content-react"
                 >
-                  <pre className="whitespace-pre-wrap">{generatedCode.react}</pre>
+                  <pre className="whitespace-pre-wrap leading-relaxed">{generatedCode.react}</pre>
                 </div>
               </TabsContent>
             </div>
@@ -160,22 +184,22 @@ const CodeModal: React.FC = () => {
         </div>
         
         {/* Actions */}
-        <div className="flex gap-3 mt-4 flex-shrink-0" data-testid="code-actions">
+        <div className="flex gap-4 pt-6 border-t border-gray-200/60 flex-shrink-0" data-testid="code-actions">
           <Button
             variant="outline"
             onClick={handleCopyCode}
-            className="flex-1"
+            className="flex-1 h-12 rounded-xl border-gray-300 hover:bg-gray-100 transition-all duration-200 font-semibold"
             data-testid="button-copy-code"
           >
-            <Copy className="w-4 h-4 mr-2" />
+            <Copy className="w-5 h-5 mr-2" />
             Copy Code
           </Button>
           <Button
             onClick={handleDownloadCode}
-            className="flex-1 bg-primary text-white hover:bg-blue-600"
+            className="flex-1 h-12 bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 font-semibold"
             data-testid="button-download-code"
           >
-            <Download className="w-4 h-4 mr-2" />
+            <Download className="w-5 h-5 mr-2" />
             Download File
           </Button>
         </div>

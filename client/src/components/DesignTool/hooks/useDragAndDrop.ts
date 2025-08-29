@@ -12,10 +12,11 @@ import {
   setHoveredElement,
   resetUI
 } from '../../../store/uiSlice';
-import { reorderElement } from '../../../store/canvasSlice';
+import { reorderElement, addElement, selectElement } from '../../../store/canvasSlice';
 import { chooseDropForNewElement, getCandidateContainerIds } from '../../../dnd/chooseDropForNew';
 import { createComponentMeta } from '../../../dnd/resolveDrop';
 import { calculateHitZone } from '../../../utils/hitZoneGeometry';
+import { createDefaultElement } from '../../../utils/canvas';
 
 /**
  * Hook for handling HTML5 drag and drop operations and visual feedback
@@ -84,9 +85,19 @@ export const useDragAndDrop = (
 
   const handleDragOver = useCallback((e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
-    e.dataTransfer.dropEffect = 'move';
     
-    if (isDraggingForReorder && draggedElementId) {
+    // Check if this is a toolbar element being dragged
+    const dragData = e.dataTransfer.types.includes('application/json');
+    if (dragData) {
+      e.dataTransfer.dropEffect = 'copy'; // For toolbar elements
+    } else {
+      e.dataTransfer.dropEffect = 'move'; // For existing elements
+    }
+    
+    // Handle visual feedback for both existing element reordering and toolbar drops
+    const shouldShowDropZones = isDraggingForReorder || dragData;
+    
+    if (shouldShowDropZones) {
       // Find element at mouse position for drag feedback
       const elementAtPoint = document.elementFromPoint(e.clientX, e.clientY);
       const elementId = elementAtPoint?.closest('[data-element-id]')?.getAttribute('data-element-id');
@@ -107,13 +118,16 @@ export const useDragAndDrop = (
             e.clientX,
             e.clientY,
             elementBounds,
-            element.type === 'container' || element.type === 'section'
+            element.type === 'container' || element.type === 'section' || 
+            element.isContainer === true
           );
           
           if (hitZone.zone) {
             setInsertionIndicator({
               elementId: elementId,
               position: hitZone.zone,
+              referenceElementId: elementId,
+              insertPosition: hitZone.zone,
               bounds: calculateInsertionBounds(elementId, hitZone.zone)
             });
           }
@@ -130,16 +144,69 @@ export const useDragAndDrop = (
     }
   }, [dispatch]);
 
+  const handleDragEnd = useCallback((e: React.DragEvent) => {
+    // Ensure all drag states are cleaned up on drag end
+    setInsertionIndicator(null);
+    dispatch(setHoveredElement({ elementId: null, zone: null }));
+    dispatch(setDraggingForReorder(false));
+    dispatch(setDraggedElement(undefined));
+  }, [dispatch]);
+
   const handleDrop = useCallback((e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     
-    if (isDraggingForReorder && draggedElementId && insertionIndicator) {
-      dispatch(reorderElement({
-        elementId: draggedElementId,
-        newParentId: insertionIndicator.referenceElementId || 'root',
-        insertPosition: insertionIndicator.insertPosition || 'inside',
-        referenceElementId: insertionIndicator.referenceElementId
-      }));
+    try {
+      // Check if this is a toolbar element being dropped
+      const dragDataString = e.dataTransfer.getData('application/json');
+      if (dragDataString) {
+        const dragData = JSON.parse(dragDataString);
+        
+        if (dragData.type === 'toolbar-element') {
+          // Create new element from toolbar
+          const newElement = createDefaultElement(dragData.elementType);
+          
+          // Add to root for now (could be enhanced to use insertion indicator later)
+          dispatch(addElement({
+            element: newElement,
+            parentId: 'root',
+            insertPosition: 'inside'
+          }));
+          
+          // Select the newly created element
+          dispatch(selectElement(newElement.id));
+          
+          console.log('Created new element from toolbar:', newElement.id);
+        }
+      } else if (isDraggingForReorder && draggedElementId && insertionIndicator) {
+        // Handle existing element reordering
+        let newParentId = 'root';
+        let insertPosition = insertionIndicator.insertPosition || 'inside';
+        let referenceElementId = insertionIndicator.referenceElementId;
+        
+        // For before/after positions, we need the parent of the reference element
+        if (insertPosition === 'before' || insertPosition === 'after') {
+          const referenceElement = currentElements[referenceElementId!];
+          if (referenceElement) {
+            // Find the parent by checking which element contains this one as a child
+            const parent = Object.values(currentElements).find(el => 
+              el.children && el.children.includes(referenceElementId!)
+            );
+            newParentId = parent?.id || 'root';
+          }
+        } else if (insertPosition === 'inside') {
+          // For inside position, the reference element becomes the parent
+          newParentId = referenceElementId || 'root';
+        }
+        
+        dispatch(reorderElement({
+          elementId: draggedElementId,
+          newParentId,
+          insertPosition,
+          referenceElementId
+        }));
+      }
+    } catch (error) {
+      console.error('Error processing drop:', error);
     }
     
     // Reset all drag states
@@ -148,13 +215,14 @@ export const useDragAndDrop = (
     setInsertionIndicator(null);
     dispatch(setHoveredElement({ elementId: null, zone: null }));
     dispatch(resetUI());
-  }, [isDraggingForReorder, draggedElementId, insertionIndicator, dispatch]);
+  }, [isDraggingForReorder, draggedElementId, insertionIndicator, currentElements, dispatch]);
 
   return {
     insertionIndicator,
     handleDragOver,
     handleDragLeave,
     handleDrop,
+    handleDragEnd,
     setInsertionIndicator
   };
 };
