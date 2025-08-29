@@ -2,23 +2,26 @@ import React, { useRef, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { 
-  selectCurrentElements, 
-  selectSelectedElementId, 
-  selectCanvasProject,
-  selectSelectedTool,
-  selectIsDraggingForReorder,
-  selectDraggedElementId,
-  selectZoomLevel,
   selectElement, 
   addElement, 
   reorderElement,
-  setHoveredElement,
+} from '../../store/canvasSlice';
+import {
+  selectCurrentElements, 
+  selectSelectedElementId, 
+  selectSelectedTool,
+  selectIsDraggingForReorder,
+  selectDraggedElementId,
+  selectZoomLevel
+} from '../../store/selectors';
+import {
   setDragging,
   setResizing,
   setDraggingForReorder,
   setDraggedElement,
+  setHoveredElement,
   resetUI
-} from '../../store/canvasSlice';
+} from '../../store/uiSlice';
 
 import CanvasElement from './CanvasElement';
 import { useExpandedElements } from '../../hooks/useExpandedElements';
@@ -70,7 +73,7 @@ const Canvas: React.FC = () => {
   // Essential selectors for Canvas functionality
   const currentElements = useSelector(selectCurrentElements);
   const selectedElementId = useSelector(selectSelectedElementId);
-  const project = useSelector(selectCanvasProject);
+  // Project data accessed through state directly since selectCanvasProject doesn't exist
   const selectedTool = useSelector(selectSelectedTool);
   const isDraggingForReorder = useSelector(selectIsDraggingForReorder);
   const draggedElementId = useSelector(selectDraggedElementId);
