@@ -127,6 +127,27 @@ const Toolbar: React.FC<ToolbarProps> = ({ onShowKeyboardShortcuts }) => {
     dispatch(setSelectedTool(tool));
   };
 
+  // Enhanced drag handlers for toolbar items
+  const handleToolDragStart = (e: React.DragEvent, toolId: Tool) => {
+    console.log('🚀 TOOLBAR DRAG START:', toolId);
+    
+    // Set drag data for the comprehensive drag-and-drop system
+    e.dataTransfer.setData('application/json', JSON.stringify({
+      type: 'toolbar-item',
+      toolId: toolId,
+      source: 'toolbar'
+    }));
+    e.dataTransfer.effectAllowed = 'copy';
+    
+    // Visual feedback
+    e.currentTarget.style.opacity = '0.7';
+  };
+
+  const handleToolDragEnd = (e: React.DragEvent) => {
+    // Reset visual feedback
+    e.currentTarget.style.opacity = '';
+  };
+
   const handleComponentToggle = () => {
     dispatch(toggleComponentPanel());
   };
@@ -156,15 +177,18 @@ const Toolbar: React.FC<ToolbarProps> = ({ onShowKeyboardShortcuts }) => {
         return (
           <button
             key={tool.id}
+            draggable={true}
             onClick={() => handleToolSelect(tool.id)}
+            onDragStart={(e) => handleToolDragStart(e, tool.id)}
+            onDragEnd={handleToolDragEnd}
             className={`
-              w-10 h-10 mx-1 rounded-lg flex items-center justify-center transition-colors group relative
+              w-10 h-10 mx-1 rounded-lg flex items-center justify-center transition-colors group relative cursor-grab active:cursor-grabbing
               ${isActive 
                 ? 'bg-primary text-white' 
                 : 'hover:bg-gray-100 text-gray-600'
               }
             `}
-            title={`${tool.label}${tool.shortcut ? ` (${tool.shortcut})` : ''}`}
+            title={`${tool.label}${tool.shortcut ? ` (${tool.shortcut})` : ''} - Click to select or drag to canvas`}
             data-testid={`button-tool-${tool.id}`}
           >
             <Icon className="w-4 h-4" />
@@ -223,18 +247,21 @@ const Toolbar: React.FC<ToolbarProps> = ({ onShowKeyboardShortcuts }) => {
                     return (
                       <button
                         key={tool.id}
+                        draggable={true}
                         onClick={() => {
                           handleToolSelect(tool.id);
                           setExpandedCategory(null);
                         }}
+                        onDragStart={(e) => handleToolDragStart(e, tool.id)}
+                        onDragEnd={handleToolDragEnd}
                         className={`
-                          w-10 h-8 rounded flex items-center justify-center transition-colors
+                          w-10 h-8 rounded flex items-center justify-center transition-colors cursor-grab active:cursor-grabbing
                           ${isActive 
                             ? 'bg-primary text-white' 
                             : 'hover:bg-gray-100 text-gray-600'
                           }
                         `}
-                        title={tool.label}
+                        title={`${tool.label} - Click to select or drag to canvas`}
                         data-testid={`button-tool-${tool.id}`}
                       >
                         <ToolIcon className="w-3 h-3" />

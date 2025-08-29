@@ -23,6 +23,13 @@ interface CanvasElementProps {
   hoveredElementId?: string | null;
   expandedContainerId?: string | null;
   currentElements?: Record<string, CanvasElementType>; // Pass expanded elements from Canvas
+  // Enhanced drag-and-drop props
+  onElementDragStart?: (e: React.DragEvent, elementId: string) => void;
+  onElementDragOver?: (e: React.DragEvent, elementId: string) => void;
+  onElementDragLeave?: (e: React.DragEvent) => void;
+  onElementDrop?: (e: React.DragEvent, elementId: string) => void;
+  onElementDragEnd?: (e: React.DragEvent) => void;
+  getDropClasses?: (elementId: string) => string;
 }
 
 // REMOVED: useHoverState hook - now using memoized selector
@@ -34,7 +41,14 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
   hoveredZone = null,
   hoveredElementId,
   expandedContainerId = null,
-  currentElements: passedCurrentElements
+  currentElements: passedCurrentElements,
+  // Enhanced drag-and-drop props
+  onElementDragStart,
+  onElementDragOver,
+  onElementDragLeave,
+  onElementDrop,
+  onElementDragEnd,
+  getDropClasses
 }) => {
   const dispatch = useDispatch();
   
@@ -182,9 +196,9 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     setIsEditing(false);
   }, [element.id, dispatch]);
 
-  // HTML5 Drag and Drop event handlers - SIMPLIFIED
+  // Enhanced HTML5 Drag and Drop event handlers
   const handleDragStart = useCallback((e: React.DragEvent<HTMLDivElement>) => {
-    console.log('🚀 HTML5 DRAG START (handler):', element.id);
+    console.log('🚀 Enhanced DRAG START:', element.id);
     
     // Don't allow dragging while editing text
     if (isEditing) {
@@ -193,66 +207,51 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
       return;
     }
     
-    // Set drag data for HTML5 system
-    e.dataTransfer.setData('application/json', JSON.stringify({
-      type: 'canvas-element',
-      elementId: element.id
-    }));
-    
-    // Set drag effect
-    e.dataTransfer.effectAllowed = 'move';
-    
-    // Create custom drag image from the element
-    const dragImage = elementRef.current?.cloneNode(true) as HTMLElement;
-    if (dragImage) {
-      dragImage.style.opacity = '0.8';
-      dragImage.style.transform = 'scale(0.9)';
-      document.body.appendChild(dragImage);
-      e.dataTransfer.setDragImage(dragImage, 0, 0);
-      
-      // Clean up drag image after drag starts
-      setTimeout(() => {
-        if (document.body.contains(dragImage)) {
-          document.body.removeChild(dragImage);
-        }
-      }, 0);
+    // Use enhanced drag-and-drop system if available
+    if (onElementDragStart) {
+      onElementDragStart(e, element.id);
+    } else {
+      // Fallback to original drag logic
+      e.dataTransfer.setData('application/json', JSON.stringify({
+        type: 'canvas-element',
+        elementId: element.id
+      }));
+      e.dataTransfer.effectAllowed = 'move';
+      dispatch(selectElement(element.id));
     }
-    
-    // Select this element when drag starts
-    dispatch(selectElement(element.id));
-  }, [element.id, dispatch, isEditing]);
+  }, [element.id, dispatch, isEditing, onElementDragStart]);
 
   const handleDragOver = useCallback((e: React.DragEvent<HTMLDivElement>) => {
-    // Prevent default to allow drop
     e.preventDefault();
-    e.dataTransfer.dropEffect = 'move';
-  }, []);
+    if (onElementDragOver) {
+      onElementDragOver(e, element.id);
+    } else {
+      e.dataTransfer.dropEffect = 'move';
+    }
+  }, [onElementDragOver, element.id]);
 
   const handleDragEnter = useCallback((e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
-    // Visual feedback will be handled by the new DnD system
   }, []);
 
   const handleDragLeave = useCallback((e: React.DragEvent<HTMLDivElement>) => {
-    // Only clear if leaving the element entirely
-    if (!elementRef.current?.contains(e.relatedTarget as Node)) {
-      // Clear visual feedback
+    if (onElementDragLeave) {
+      onElementDragLeave(e);
     }
-  }, []);
+  }, [onElementDragLeave]);
 
   const handleDrop = useCallback((e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
-    
-    try {
-      const data = JSON.parse(e.dataTransfer.getData('application/json'));
-      if (data.type === 'canvas-element' && data.elementId) {
-        // The drop logic will be handled by the Canvas component's drop handlers
-        // This is just to prevent the default behavior
-      }
-    } catch (error) {
-      // Invalid drag data
+    if (onElementDrop) {
+      onElementDrop(e, element.id);
     }
-  }, []);
+  }, [onElementDrop, element.id]);
+
+  const handleDragEnd = useCallback((e: React.DragEvent<HTMLDivElement>) => {
+    if (onElementDragEnd) {
+      onElementDragEnd(e);
+    }
+  }, [onElementDragEnd]);
 
   const handleKeyDown = useCallback((e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === 'Enter') {
@@ -1089,6 +1088,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
           ${getSiblingSpacingClass()}
           ${isDragActive ? 'drag-transition-padding' : ''}
           ${isExpandedContainer ? 'drag-expand-padding' : ''}
+          ${getDropClasses ? getDropClasses(element.id) : ''}
         `}
         data-state={selectionState}
         data-locked="false"
@@ -1096,34 +1096,9 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
         aria-selected={isSelected}
         tabIndex={0}
         onClick={handleClick}
-        // HTML5 Drag and Drop event handlers
-        onDragStart={(e) => {
-          // Add immediate visual feedback that drag started
-          e.currentTarget.style.opacity = '0.5';
-          e.currentTarget.style.transform = 'scale(0.95)';
-          
-          // Set comprehensive drag data
-          e.dataTransfer.setData('text/plain', element.id);
-          e.dataTransfer.setData('application/json', JSON.stringify({
-            type: 'canvas-element',
-            elementId: element.id,
-            tool: selectedTool
-          }));
-          e.dataTransfer.effectAllowed = 'move';
-          
-          // Activate the drag state in Redux
-          dispatch(setDraggingForReorder(true));
-          dispatch(setDraggedElement(element.id));
-        }}
-        onDragEnd={(e) => {
-          // Reset visual feedback
-          e.currentTarget.style.opacity = '';
-          e.currentTarget.style.transform = '';
-          
-          // Clear drag state
-          dispatch(setDraggingForReorder(false));
-          dispatch(setDraggedElement(undefined));
-        }}
+        // Enhanced HTML5 Drag and Drop event handlers
+        onDragStart={handleDragStart}
+        onDragEnd={handleDragEnd}
         onDragOver={handleDragOver}
         onDragEnter={handleDragEnter}
         onDragLeave={handleDragLeave}
