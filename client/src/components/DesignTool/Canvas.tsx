@@ -103,7 +103,16 @@ const Canvas: React.FC = () => {
   const canvasWidth = breakpoints[currentBreakpoint]?.width || rootElement?.width || 375;
 
   // Use the comprehensive drag-and-drop system
-  const { isDragging: isDndActive, draggedItem, dropZones } = useDragAndDropV2();
+  const {
+    dragState,
+    handleElementDragStart,
+    handleToolbarDragStart,
+    handleDragEnd,
+    handleDragOver,
+    handleDragLeave,
+    handleDrop,
+    getDropClasses
+  } = useDragAndDropV2();
 
   // Simplified point-and-click insertion
   const handlePointAndClickInsertion = useCallback((x: number, y: number, tool: string, isShiftPressed: boolean, isAltPressed: boolean) => {
@@ -398,7 +407,6 @@ const Canvas: React.FC = () => {
           >
             {Object.values(expandedElements)
               .filter(el => el.id !== 'root' && (el.parent === 'root' || !el.parent))
-              .sort((a, b) => (a.zIndex || 0) - (b.zIndex || 0))
               .map(element => (
                 <CanvasElement
                   key={element.id}
@@ -406,6 +414,14 @@ const Canvas: React.FC = () => {
                   isSelected={element.id === selectedElementId}
                   zoomLevel={zoomLevel}
                   canvasRef={canvasRef}
+                  currentElements={expandedElements}
+                  // Enhanced drag-and-drop props
+                  onElementDragStart={handleElementDragStart}
+                  onElementDragOver={handleDragOver}
+                  onElementDragLeave={handleDragLeave}
+                  onElementDrop={handleDrop}
+                  onElementDragEnd={handleDragEnd}
+                  getDropClasses={getDropClasses}
                 />
               ))
             }

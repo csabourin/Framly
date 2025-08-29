@@ -23,6 +23,8 @@ interface CanvasElementProps {
   hoveredElementId?: string | null;
   expandedContainerId?: string | null;
   currentElements?: Record<string, CanvasElementType>; // Pass expanded elements from Canvas
+  zoomLevel?: number; // Added zoom level support
+  canvasRef?: React.RefObject<HTMLDivElement>; // Canvas ref for positioning
   // Enhanced drag-and-drop props
   onElementDragStart?: (e: React.DragEvent, elementId: string) => void;
   onElementDragOver?: (e: React.DragEvent, elementId: string) => void;
