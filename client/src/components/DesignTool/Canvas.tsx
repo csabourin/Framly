@@ -114,6 +114,46 @@ const Canvas: React.FC = () => {
     getDropClasses
   } = useDragAndDropV2();
 
+  // Handle canvas-level drops for toolbar items
+  const handleCanvasDragOver = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'copy';
+  }, []);
+
+  const handleCanvasDrop = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    try {
+      const data = JSON.parse(e.dataTransfer.getData('application/json'));
+      console.log('🚀 Canvas drop data:', data);
+      
+      if (data.type === 'toolbar-item' && data.toolId) {
+        // Calculate drop position
+        const rect = canvasRef.current!.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / zoomLevel;
+        const y = (e.clientY - rect.top) / zoomLevel;
+        
+        console.log('Creating element at:', { x, y, toolId: data.toolId });
+        
+        const newElement = createDefaultElement(data.toolId as any);
+        newElement.x = Math.round(x - (newElement.width || 100) / 2);
+        newElement.y = Math.round(y - (newElement.height || 40) / 2);
+        
+        dispatch(addElement({
+          element: newElement,
+          parentId: 'root',
+          insertPosition: 'inside'
+        }));
+        dispatch(selectElement(newElement.id));
+        
+        console.log('✅ Element created successfully:', newElement.id);
+      }
+    } catch (error) {
+      console.error('❌ Error handling canvas drop:', error);
+    }
+  }, [dispatch, zoomLevel]);
+
   // Simplified point-and-click insertion
   const handlePointAndClickInsertion = useCallback((x: number, y: number, tool: string, isShiftPressed: boolean, isAltPressed: boolean) => {
     const newElement = createDefaultElement(tool as any);
@@ -319,8 +359,8 @@ const Canvas: React.FC = () => {
         top = start.y - height / 2;
       }
       
-      if (width > 10 && height > 10) {
-        const newElement = createDefaultElement(selectedTool as Tool);
+      if (width > 10 && height > 10 && selectedTool !== 'select' && selectedTool !== 'hand') {
+        const newElement = createDefaultElement(selectedTool as any);
         newElement.x = Math.round(left);
         newElement.y = Math.round(top);
         newElement.width = Math.round(width);
@@ -404,6 +444,8 @@ const Canvas: React.FC = () => {
             onClick={handleCanvasClick}
             onMouseDown={handleMouseDown}
             onMouseMove={handleMouseMove}
+            onDragOver={handleCanvasDragOver}
+            onDrop={handleCanvasDrop}
           >
             {Object.values(expandedElements)
               .filter(el => el.id !== 'root' && (el.parent === 'root' || !el.parent))
