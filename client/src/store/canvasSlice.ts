@@ -410,13 +410,26 @@ const canvasSlice = createSlice({
       const element = currentTab.elements[elementId];
       const newParent = currentTab.elements[newParentId];
       
-      if (!element || !newParent) {
+      console.log('🔄 Reorder attempt:', { elementId, newParentId, insertPosition, referenceElementId });
+      
+      if (!element) {
+        console.log('❌ Element not found:', elementId);
         return;
       }
 
       // Validate that the target can accept elements
-      if (newParent.type !== 'container' && newParent.type !== 'rectangle' && newParentId !== 'root') {
-        return;
+      // Root is always valid, and containers/rectangles are valid
+      if (newParentId !== 'root') {
+        if (!newParent) {
+          console.log('❌ Parent not found:', newParentId);
+          return;
+        }
+        if (newParent.type !== 'container' && 
+            newParent.type !== 'rectangle' && 
+            !newParent.isContainer) {
+          console.log('❌ Reorder blocked: Invalid parent type', { newParentId, parentType: newParent.type, isContainer: newParent.isContainer });
+          return;
+        }
       }
 
       // Prevent moving element to itself
@@ -429,7 +442,13 @@ const canvasSlice = createSlice({
       const oldParent = currentTab.elements[oldParentId];
       
       // Remove from old parent's children
-      if (oldParent && oldParent.children) {
+      if (oldParentId === 'root') {
+        // Handle root element children
+        const rootChildren = Object.values(currentTab.elements)
+          .filter(el => el.parent === 'root' || !el.parent)
+          .map(el => el.id)
+          .filter(id => id !== elementId);
+      } else if (oldParent && oldParent.children) {
         const newOldParentChildren = oldParent.children.filter((id: string) => id !== elementId);
         currentTab.elements[oldParentId] = {
           ...oldParent,
@@ -437,39 +456,48 @@ const canvasSlice = createSlice({
         };
       }
 
-      // Initialize new parent's children if needed
-      if (!newParent.children) {
+      // Handle reordering differently for root vs container elements
+      if (newParentId === 'root') {
+        // For root-level elements, we don't maintain a children array
+        // Just update the element's parent and let the UI handle ordering
+        console.log('✅ Root-level reorder - setting parent to root');
+      } else {
+        // Initialize new parent's children if needed
+        if (!newParent!.children) {
+          currentTab.elements[newParentId] = {
+            ...newParent!,
+            children: []
+          };
+        }
+
+        // Get fresh reference to the updated parent
+        const targetParent = currentTab.elements[newParentId];
+        const targetChildren = [...(targetParent.children || [])];
+
+        // Add to new parent's children at the correct position
+        if (insertPosition === 'inside' || !referenceElementId) {
+          // Add at the end
+          targetChildren.push(elementId);
+        } else {
+          // Find reference element and insert relative to it
+          const refIndex = targetChildren.indexOf(referenceElementId);
+          if (refIndex !== -1) {
+            const insertIndex = insertPosition === 'before' ? refIndex : refIndex + 1;
+            targetChildren.splice(insertIndex, 0, elementId);
+            console.log(`✅ Inserted ${elementId} at position ${insertIndex} (${insertPosition} ${referenceElementId})`);
+          } else {
+            // If reference not found, add at the end
+            targetChildren.push(elementId);
+            console.log(`⚠️ Reference element ${referenceElementId} not found, added at end`);
+          }
+        }
+
+        // Update new parent with the modified children array
         currentTab.elements[newParentId] = {
-          ...newParent,
-          children: []
+          ...currentTab.elements[newParentId],
+          children: targetChildren
         };
       }
-
-      // Get fresh reference to the updated parent
-      const targetParent = currentTab.elements[newParentId];
-      const targetChildren = [...(targetParent.children || [])];
-
-      // Add to new parent's children at the correct position
-      if (insertPosition === 'inside' || !referenceElementId) {
-        // Add at the end
-        targetChildren.push(elementId);
-      } else {
-        // Find reference element and insert relative to it
-        const refIndex = targetChildren.indexOf(referenceElementId);
-        if (refIndex !== -1) {
-          const insertIndex = insertPosition === 'before' ? refIndex : refIndex + 1;
-          targetChildren.splice(insertIndex, 0, elementId);
-        } else {
-          // If reference not found, add at the end
-          targetChildren.push(elementId);
-        }
-      }
-
-      // Update new parent with the modified children array
-      currentTab.elements[newParentId] = {
-        ...currentTab.elements[newParentId],
-        children: targetChildren
-      };
 
       // Update element's parent reference
       currentTab.elements[elementId] = {

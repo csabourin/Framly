@@ -12,11 +12,11 @@ export const DROP_ZONES = {
   AFTER: 'AFTER'
 } as const;
 
-// Threshold percentages for drop zones
+// Threshold percentages for drop zones  
 const ZONE_THRESHOLDS = {
-  TOP: 0.25,    // Top 25% = before
-  BOTTOM: 0.75  // Bottom 25% = after
-  // Middle 50% = inside (for valid containers)
+  TOP: 0.35,    // Top 35% = before (made larger for easier targeting)
+  BOTTOM: 0.65  // Bottom 35% = after (made larger for easier targeting)
+  // Middle 30% = inside (for valid containers)
 };
 
 // Valid container elements
