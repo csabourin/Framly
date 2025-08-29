@@ -146,6 +146,9 @@ const Canvas: React.FC = () => {
         referenceElementId: undefined
       }));
       
+      // CRITICAL: Call the drag-and-drop system's handleDragEnd to clear all visual states
+      handleDragEnd(e);
+      
       console.log('✅ Element reordered to canvas root successfully');
       return;
     }
