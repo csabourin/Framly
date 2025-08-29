@@ -140,12 +140,14 @@ const Toolbar: React.FC<ToolbarProps> = ({ onShowKeyboardShortcuts }) => {
     e.dataTransfer.effectAllowed = 'copy';
     
     // Visual feedback
-    e.currentTarget.style.opacity = '0.7';
+    const target = e.currentTarget as HTMLElement;
+    target.style.opacity = '0.7';
   };
 
   const handleToolDragEnd = (e: React.DragEvent) => {
     // Reset visual feedback
-    e.currentTarget.style.opacity = '';
+    const target = e.currentTarget as HTMLElement;
+    target.style.opacity = '';
   };
 
   const handleComponentToggle = () => {
