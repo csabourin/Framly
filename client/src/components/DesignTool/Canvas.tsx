@@ -114,16 +114,43 @@ const Canvas: React.FC = () => {
     getDropClasses
   } = useDragAndDropV2();
 
-  // Handle canvas-level drops for toolbar items
+  // Handle canvas-level drops for both toolbar items and element reordering
   const handleCanvasDragOver = useCallback((e: React.DragEvent) => {
     e.preventDefault();
-    e.dataTransfer.dropEffect = 'copy';
-  }, []);
+    
+    // Check if we're dragging an element (for reordering) or a toolbar item (for creation)
+    if (dragState.draggedElement) {
+      e.dataTransfer.dropEffect = 'move'; // Element reordering
+    } else {
+      e.dataTransfer.dropEffect = 'copy'; // Toolbar item creation
+    }
+  }, [dragState.draggedElement]);
 
   const handleCanvasDrop = useCallback((e: React.DragEvent) => {
     e.preventDefault();
     e.stopPropagation();
     
+    // Handle element reordering drops on canvas
+    if (dragState.draggedElement) {
+      console.log('🚀 Canvas reordering drop:', dragState.draggedElement.id, 'moving to root');
+      
+      // Calculate drop position for explicit positioning
+      const rect = canvasRef.current!.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / zoomLevel;
+      const y = (e.clientY - rect.top) / zoomLevel;
+      
+      dispatch(reorderElement({
+        elementId: dragState.draggedElement.id,
+        newParentId: 'root',
+        insertPosition: 'inside',
+        referenceElementId: undefined
+      }));
+      
+      console.log('✅ Element reordered to canvas root successfully');
+      return;
+    }
+    
+    // Handle toolbar item drops (existing functionality)
     try {
       const data = JSON.parse(e.dataTransfer.getData('application/json'));
       console.log('🚀 Canvas drop data:', data);
@@ -152,7 +179,7 @@ const Canvas: React.FC = () => {
     } catch (error) {
       console.error('❌ Error handling canvas drop:', error);
     }
-  }, [dispatch, zoomLevel]);
+  }, [dispatch, zoomLevel, dragState.draggedElement]);
 
   // Simplified point-and-click insertion
   const handlePointAndClickInsertion = useCallback((x: number, y: number, tool: string, isShiftPressed: boolean, isAltPressed: boolean) => {
