@@ -190,6 +190,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ onShowKeyboardShortcuts }) => {
               }
             `}
             title={`${tool.label}${tool.shortcut ? ` (${tool.shortcut})` : ''} - Click to select or drag to canvas`}
+            title={`${tool.label}${tool.shortcut ? ` (${tool.shortcut})` : ''} - Click to select or drag to canvas`}
             data-testid={`button-tool-${tool.id}`}
           >
             <Icon className="w-4 h-4" />
@@ -265,6 +266,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ onShowKeyboardShortcuts }) => {
                             : 'hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 hover:shadow-sm'
                           }
                         `}
+                        title={`${tool.label} - Click to select or drag to canvas`}
                         title={`${tool.label} - Click to select or drag to canvas`}
                         data-testid={`button-tool-${tool.id}`}
                       >

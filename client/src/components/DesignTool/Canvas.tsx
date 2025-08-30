@@ -4,7 +4,8 @@ import {
   selectSelectedElementId,
   selectHoveredElementId,
   selectIsDraggingForReorder,
-  selectDraggedElementId
+  selectDraggedElementId,
+  selectZoomLevel
 } from '../../store/selectors';
 import CanvasElement from './CanvasElement';
 import { useColorModeCanvasSync } from '../../hooks/useColorModeCanvasSync';
@@ -39,7 +40,7 @@ import SelectionOverlay from './components/SelectionOverlay';
 const Canvas: React.FC = () => {
   const canvasRef = useRef<HTMLDivElement>(null);
   
-  // Sync color mode changes with canvas
+  // Sync color mode changes with canvas refresh
   useColorModeCanvasSync();
   
   // Modular state management
