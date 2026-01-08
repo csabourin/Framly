@@ -25,6 +25,7 @@ import CanvasContainer from './components/CanvasContainer';
 import InsertionIndicator from './components/InsertionIndicator';
 import DrawingOverlay from './components/DrawingOverlay';
 import SelectionOverlay from './components/SelectionOverlay';
+import SelectionRectangle from './components/SelectionRectangle';
 
 /**
  * Modular Canvas Component (150 lines - orchestration only)
@@ -204,6 +205,9 @@ const Canvas: React.FC = () => {
         elements={expandedElements}
         zoomLevel={zoomLevel}
       />
+
+      {/* Selection Rectangle for Multi-Select */}
+      <SelectionRectangle />
 
     </CanvasContainer>
   );

@@ -52,7 +52,6 @@
     "warning": "Avertissement",
     "info": "Information"
   },
-
   "header": {
     "title": "Outil de Design Web Visuel",
     "newProject": "Nouveau Projet",
@@ -64,14 +63,12 @@
     "help": "Aide",
     "account": "Compte"
   },
-
   "sidebar": {
     "layers": "Calques",
     "components": "Composants",
     "assets": "Ressources",
     "history": "Historique"
   },
-
   "toolbar": {
     "select": "Sélectionner",
     "hand": "Main",
@@ -80,20 +77,19 @@
     "media": "Média",
     "layout": "Disposition"
   },
-
   "tools": {
     "select": "Outil Sélection",
     "hand": "Outil Main",
     "rectangle": "Rectangle",
     "text": "Texte",
-    "heading": "Titre", 
+    "heading": "Titre",
     "button": "Bouton",
     "image": "Image",
     "formElements": "Éléments de Formulaire",
     "inputField": "Champ de Saisie",
     "textArea": "Zone de Texte",
     "checkbox": "Case à Cocher",
-    "radioButton": "Bouton Radio", 
+    "radioButton": "Bouton Radio",
     "selectDropdown": "Menu Déroulant",
     "structure": "Structure",
     "section": "Section",
@@ -110,7 +106,6 @@
     "video": "Vidéo",
     "audio": "Audio"
   },
-
   "tooltips": {
     "select": "Sélectionner et déplacer les éléments (V)",
     "hand": "Outil main pour faire défiler (H)",
@@ -127,7 +122,7 @@
     "section": "Ajouter un conteneur section",
     "navigation": "Ajouter une navigation",
     "header": "Ajouter un en-tête",
-    "footer": "Ajouter un pied de page", 
+    "footer": "Ajouter un pied de page",
     "article": "Ajouter un conteneur article",
     "list": "Ajouter une liste",
     "codeBlock": "Ajouter un bloc de code",
@@ -138,14 +133,12 @@
     "undo": "Annuler la dernière action (Ctrl+Z)",
     "redo": "Rétablir la dernière action (Ctrl+Y)"
   },
-
   "panels": {
     "properties": "Propriétés",
-    "layers": "Calques", 
+    "layers": "Calques",
     "elementTree": "Arbre des éléments",
     "components": "Composants"
   },
-
   "elements": {
     "select": "Sélectionner",
     "hand": "Main",
@@ -175,7 +168,6 @@
     "video": "Vidéo",
     "audio": "Audio"
   },
-
   "propertiesPanel": {
     "properties": "Propriétés",
     "classEditing": "Édition de classe",
@@ -195,12 +187,10 @@
     "savedAsDefault": "✓ Sauvegardé comme défaut !",
     "newButtonsUseDefault": "Les nouveaux boutons utiliseront le style actuel par défaut"
   },
-
   "properties": {
     "clickElement": "Cliquez sur un élément",
     "selectElementToEdit": "Sélectionnez un élément sur le canevas pour modifier ses propriétés"
   },
-
   "components": {
     "createComponent": "Créer Composant",
     "editComponent": "Modifier Composant",
@@ -225,7 +215,6 @@
     "descriptionOptional": "Description (Facultative)",
     "describeComponent": "Décrivez ce que fait ce composant..."
   },
-
   "customClasses": {
     "customClasses": "Classes Personnalisées",
     "createClass": "Créer Classe",
@@ -235,7 +224,6 @@
     "classStyles": "Styles de Classe",
     "noClasses": "Aucune classe personnalisée encore. Créez votre première classe CSS."
   },
-
   "export": {
     "exportOptions": "Options d'Exportation",
     "exportAsHTML": "Exporter en HTML",
@@ -256,7 +244,6 @@
     "minifyCSS": "Minifier CSS",
     "includeComments": "Inclure les commentaires source"
   },
-
   "import": {
     "importWebsite": "Importer Site Web",
     "websiteUrl": "URL du Site Web",
@@ -265,7 +252,6 @@
     "importSuccess": "Site web importé avec succès !",
     "importError": "Échec de l'importation du site web. Vérifiez l'URL et réessayez."
   },
-
   "contextMenu": {
     "cut": "Couper",
     "copy": "Copier",
@@ -279,7 +265,6 @@
     "lock": "Verrouiller",
     "unlock": "Déverrouiller"
   },
-
   "propertyGroups": {
     "content": "Contenu",
     "layoutPosition": "Disposition & Position",
@@ -291,7 +276,6 @@
     "effects": "Effets",
     "advanced": "Avancé"
   },
-
   "statusBar": {
     "selectionTool": "Outil Sélection",
     "handTool": "Outil Main",
@@ -305,7 +289,6 @@
     "elementCount": "{{count}} Éléments",
     "mobile": "Mobile"
   },
-
   "settings": {
     "settings": "Paramètres",
     "handToolBehavior": "Comportement Outil Main",
@@ -316,7 +299,6 @@
     "interface": "Interface",
     "moreSettingsComingSoon": "Plus de paramètres d'interface bientôt..."
   },
-  
   "validation": {
     "required": "Ce champ est obligatoire",
     "invalidEmail": "Veuillez saisir une adresse email valide",
@@ -327,10 +309,9 @@
     "minValue": "La valeur doit être d'au moins {{min}}",
     "maxValue": "La valeur ne doit pas dépasser {{max}}"
   },
-  
   "messages": {
     "projectSaved": "Projet enregistré avec succès",
-    "projectLoaded": "Projet chargé avec succès", 
+    "projectLoaded": "Projet chargé avec succès",
     "elementDeleted": "Élément supprimé",
     "elementDuplicated": "Élément dupliqué",
     "componentCreated": "Composant créé avec succès",
@@ -344,11 +325,10 @@
     "importSuccess": "Importation réussie",
     "operationFailed": "Opération échouée. Veuillez réessayer."
   },
-  
   "shortcuts": {
     "undo": "Ctrl+Z",
     "redo": "Ctrl+Y",
-    "copy": "Ctrl+C", 
+    "copy": "Ctrl+C",
     "paste": "Ctrl+V",
     "cut": "Ctrl+X",
     "selectAll": "Ctrl+A",
@@ -358,10 +338,9 @@
     "newProject": "Ctrl+N",
     "openProject": "Ctrl+O"
   },
-  
   "breakpoints": {
     "mobile": "Mobile",
-    "tablet": "Tablette", 
+    "tablet": "Tablette",
     "desktop": "Ordinateur",
     "large": "Grand écran",
     "largeDesktop": "Grand Ordinateur",
@@ -372,7 +351,6 @@
     "showBreakpoints": "Afficher les points de rupture",
     "enterValue": "Saisir une valeur"
   },
-
   "classEditor": {
     "classEditor": "Éditeur de Classes",
     "elementClasses": "Classes d'Élément",
@@ -400,16 +378,14 @@
     "renameClass": "Renommer la Classe",
     "deleteClass": "Supprimer la Classe"
   },
-
   "elementTree": {
-    "elementTree": "Arbre des Éléments", 
+    "elementTree": "Arbre des Éléments",
     "dropToReorder": "Déposer pour réorganiser les éléments",
     "dragToReorderClick": "Glisser pour réorganiser • Cliquer pour sélectionner",
     "rootContainer": "Conteneur Racine",
     "textElement": "Texte : \"{{content}}\"",
     "loadingTree": "Chargement de l'arbre des éléments..."
   },
-
   "componentPanel": {
     "componentPanel": "Composants",
     "dragComponentsHint": "💡 Glissez les composants vers le canevas ou cliquez sur le bouton + pour les ajouter",
@@ -422,7 +398,41 @@
     "selectElementsToSave": "Sélectionnez des éléments sur le canevas et enregistrez-les comme composant réutilisable",
     "uncategorized": "Non catégorisé"
   },
-
+  "layout": {
+    "direction": "Direction",
+    "row": "Rangée",
+    "column": "Colonne",
+    "horizontal": "Horizontal",
+    "vertical": "Vertical",
+    "alignment": "Alignement",
+    "gap": "Espacement",
+    "topLeft": "Haut Gauche",
+    "topCenter": "Haut Centre",
+    "topRight": "Haut Droite",
+    "middleLeft": "Milieu Gauche",
+    "center": "Centre",
+    "middleRight": "Milieu Droite",
+    "bottomLeft": "Bas Gauche",
+    "bottomCenter": "Bas Centre",
+    "bottomRight": "Bas Droite",
+    "spaceBetween": "Espace Entre",
+    "spaceAround": "Espace Autour",
+    "stretchInfo": "Les éléments s'étireront pour remplir la hauteur/largeur du conteneur",
+    "padding": "Remplissage",
+    "paddingTop": "Remplissage Haut",
+    "paddingRight": "Remplissage Droite",
+    "paddingBottom": "Remplissage Bas",
+    "paddingLeft": "Remplissage Gauche",
+    "autoLayout": "Disposition Automatique",
+    "flexbox": "Flexbox",
+    "grid": "Grille",
+    "presets": "Préréglages de Disposition",
+    "stack": "Pile (Vertical)",
+    "rowLayout": "Rangée (Horizontal)",
+    "gridTwoCol": "Grille (2 Colonnes)",
+    "gridThreeCol": "Grille (3 Colonnes)",
+    "gridFourCol": "Grille (4 Colonnes)"
+  },
   "units": {
     "px": "Pixels",
     "rem": "Root Em",

@@ -27,6 +27,7 @@ interface DOMTreeNodeProps {
   element: CanvasElement;
   level: number;
   selectedElementId: string | null;
+  selectedIds: string[]; // Multi-select support
   allElements: Record<string, CanvasElement>;
   isExpanded: boolean;
   onToggleExpanded: (elementId: string) => void;
@@ -52,6 +53,7 @@ const DOMTreeNode: React.FC<DOMTreeNodeProps> = ({
   element,
   level,
   selectedElementId,
+  selectedIds,
   allElements,
   isExpanded,
   onToggleExpanded,
@@ -384,6 +386,7 @@ const DOMTreeNode: React.FC<DOMTreeNodeProps> = ({
                 element={child}
                 level={level + 1}
                 selectedElementId={selectedElementId}
+                selectedIds={selectedIds}
                 allElements={allElements}
                 isExpanded={expandedElements[child.id] ?? true}
                 onToggleExpanded={onToggleExpanded}
@@ -410,6 +413,7 @@ const DOMTreePanel: React.FC = () => {
   // Use new selectors for tab-based data
   const rawElements = useSelector(selectCurrentElements);
   const selectedElementId = useSelector(selectSelectedElementId);
+  const selectedIds = useSelector((state: RootState) => state.ui.selectedIds);
   const {
     isTreeDragActive,
     treeDraggedElementId,
@@ -529,6 +533,7 @@ const DOMTreePanel: React.FC = () => {
             element={rootElement}
             level={0}
             selectedElementId={selectedElementId || null}
+            selectedIds={selectedIds}
             allElements={currentElements}
             isExpanded={expandedElements[rootElement.id] ?? true}
             onToggleExpanded={handleToggleExpanded}

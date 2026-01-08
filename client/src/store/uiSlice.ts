@@ -33,6 +33,15 @@ interface UIState {
   treeHoveredElementId: string | null;
   treeHoveredZone: 'before' | 'after' | 'inside' | null;
   autoExpandTimer: NodeJS.Timeout | null;
+  // Multi-select state
+  selectedIds: string[];
+  selectionRectangle: {
+    isActive: boolean;
+    startX: number;
+    startY: number;
+    endX: number;
+    endY: number;
+  } | null;
   // Settings
   settings: {
     enableHandToolDragging: boolean;
@@ -70,6 +79,9 @@ const initialState: UIState = {
   treeHoveredElementId: null,
   treeHoveredZone: null,
   autoExpandTimer: null,
+  // Multi-select state
+  selectedIds: [],
+  selectionRectangle: null,
   settings: {
     enableHandToolDragging: false, // Disabled by default
     enableClickToMove: false, // Disabled by default
@@ -254,6 +266,38 @@ const uiSlice = createSlice({
       state.autoExpandTimer = action.payload;
     },
 
+    // Multi-select actions
+    setSelectedIds: (state, action: PayloadAction<string[]>) => {
+      state.selectedIds = action.payload;
+    },
+
+    addToSelection: (state, action: PayloadAction<string>) => {
+      if (!state.selectedIds.includes(action.payload)) {
+        state.selectedIds.push(action.payload);
+      }
+    },
+
+    removeFromSelection: (state, action: PayloadAction<string>) => {
+      state.selectedIds = state.selectedIds.filter(id => id !== action.payload);
+    },
+
+    toggleSelection: (state, action: PayloadAction<string>) => {
+      const index = state.selectedIds.indexOf(action.payload);
+      if (index >= 0) {
+        state.selectedIds.splice(index, 1);
+      } else {
+        state.selectedIds.push(action.payload);
+      }
+    },
+
+    clearSelection: (state) => {
+      state.selectedIds = [];
+    },
+
+    setSelectionRectangle: (state, action: PayloadAction<UIState['selectionRectangle']>) => {
+      state.selectionRectangle = action.payload;
+    },
+
     loadUISettings: (state, action: PayloadAction<Partial<UIState>>) => {
       // Load persisted UI settings while preserving non-persistent states
       const persistentSettings = action.payload;
@@ -309,6 +353,12 @@ export const {
   setTreeDraggedElement,
   setTreeHoveredElement,
   setAutoExpandTimer,
+  setSelectedIds,
+  addToSelection,
+  removeFromSelection,
+  toggleSelection,
+  clearSelection,
+  setSelectionRectangle,
   loadUISettings,
 } = uiSlice.actions;
 

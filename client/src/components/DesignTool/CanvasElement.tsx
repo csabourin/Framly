@@ -13,6 +13,7 @@ import ComponentInstanceElement from './ComponentInstanceElement';
 import ElementContextMenu from './ElementContextMenu';
 import { useColorMode } from '../../contexts/ColorModeContext';
 import { isColorModeValues } from '../../utils/colorModeHelper';
+import PaddingHandles from './components/PaddingHandles';
 
 
 interface CanvasElementProps {

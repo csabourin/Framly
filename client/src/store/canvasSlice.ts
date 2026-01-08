@@ -937,6 +937,121 @@ const canvasSlice = createSlice({
 
       currentTab.viewSettings.isTextEditing = action.payload;
     },
+
+    // Group/Ungroup actions for multi-select
+    groupElements: (state, action: PayloadAction<string[]>) => {
+      const currentTab = getCurrentTab(state);
+      if (!currentTab || action.payload.length < 2) return;
+
+      const elementIds = action.payload;
+      const elements = elementIds.map(id => currentTab.elements[id]).filter(Boolean);
+      if (elements.length < 2) return;
+
+      // Find common parent
+      const commonParent = elements[0].parent || 'root';
+      if (!elements.every(el => (el.parent || 'root') === commonParent)) {
+        console.log('Cannot group elements with different parents');
+        return;
+      }
+
+      // Calculate bounding box
+      let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+      elements.forEach(el => {
+        const x = el.x || 0;
+        const y = el.y || 0;
+        minX = Math.min(minX, x);
+        minY = Math.min(minY, y);
+        maxX = Math.max(maxX, x + el.width);
+        maxY = Math.max(maxY, y + el.height);
+      });
+
+      // Create group container
+      const groupId = nanoid();
+      const groupElement: CanvasElement = {
+        id: groupId,
+        type: 'container',
+        x: minX,
+        y: minY,
+        width: maxX - minX,
+        height: maxY - minY,
+        styles: {
+          display: 'flex',
+          flexDirection: 'column',
+          position: 'relative'
+        },
+        isContainer: true,
+        children: elementIds,
+        parent: commonParent,
+        classes: []
+      };
+
+      // Update children to be relative to group
+      elements.forEach(el => {
+        el.parent = groupId;
+        if (el.x !== undefined) el.x -= minX;
+        if (el.y !== undefined) el.y -= minY;
+      });
+
+      // Add group to parent's children
+      const parent = currentTab.elements[commonParent];
+      if (parent && parent.children) {
+        // Remove individual elements from parent
+        parent.children = parent.children.filter(id => !elementIds.includes(id));
+        // Add group
+        parent.children.push(groupId);
+      }
+
+      // Add group to elements
+      currentTab.elements[groupId] = groupElement;
+
+      // Select the new group
+      currentTab.viewSettings.selectedElementId = groupId;
+
+      canvasSlice.caseReducers.saveToHistory(state);
+    },
+
+    ungroupElements: (state, action: PayloadAction<string>) => {
+      const currentTab = getCurrentTab(state);
+      if (!currentTab) return;
+
+      const groupId = action.payload;
+      const group = currentTab.elements[groupId];
+      if (!group || !group.children || group.children.length === 0) return;
+
+      const groupParent = group.parent || 'root';
+      const groupX = group.x || 0;
+      const groupY = group.y || 0;
+
+      // Move children to group's parent
+      group.children.forEach(childId => {
+        const child = currentTab.elements[childId];
+        if (child) {
+          child.parent = groupParent;
+          // Convert relative position to absolute
+          if (child.x !== undefined) child.x += groupX;
+          if (child.y !== undefined) child.y += groupY;
+        }
+      });
+
+      // Add children to parent
+      const parent = currentTab.elements[groupParent];
+      if (parent && parent.children) {
+        const groupIndex = parent.children.indexOf(groupId);
+        if (groupIndex >= 0) {
+          parent.children.splice(groupIndex, 1, ...group.children);
+        }
+      }
+
+      // Delete the group
+      delete currentTab.elements[groupId];
+
+      // Select first child
+      if (group.children.length > 0) {
+        currentTab.viewSettings.selectedElementId = group.children[0];
+      }
+
+      canvasSlice.caseReducers.saveToHistory(state);
+    },
   },
 });
 
@@ -976,6 +1091,9 @@ export const {
   forceCanvasRefresh,
   // Text editing actions
   setTextEditing,
+  // Group/Ungroup actions
+  groupElements,
+  ungroupElements,
 } = canvasSlice.actions;
 
 export default canvasSlice.reducer;
