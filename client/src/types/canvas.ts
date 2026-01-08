@@ -1,14 +1,14 @@
 export interface CanvasElement {
   id: string;
   type: 'rectangle' | 'text' | 'image' | 'container' | 'heading' | 'list' | 'component' | 'button' | 'element' |
-        // Form elements
-        'input' | 'textarea' | 'checkbox' | 'radio' | 'select' |
-        // Structural elements
-        'section' | 'nav' | 'header' | 'footer' | 'article' |
-        // Media elements
-        'video' | 'audio' |
-        // Content elements
-        'link' | 'code' | 'divider';
+  // Form elements
+  'input' | 'textarea' | 'checkbox' | 'radio' | 'select' |
+  // Structural elements
+  'section' | 'nav' | 'header' | 'footer' | 'article' |
+  // Media elements
+  'video' | 'audio' |
+  // Content elements
+  'link' | 'code' | 'divider';
   x?: number; // Optional for document flow elements
   y?: number; // Optional for document flow elements
   width: number;
@@ -23,24 +23,24 @@ export interface CanvasElement {
   justifyContent?: 'flex-start' | 'center' | 'flex-end' | 'space-between' | 'space-around';
   alignItems?: 'flex-start' | 'center' | 'flex-end' | 'stretch';
   classes?: string[];
-  
+
   // HTML import properties
   htmlTag?: string; // Original HTML tag name for imported elements
-  
+
   // Component-specific properties
   componentId?: string;
   instanceData?: Record<string, any>;
-  
+
   // Text-specific properties
   textDisplay?: 'block' | 'inline';
-  
+
   // Heading-specific properties
   headingLevel?: 1 | 2 | 3 | 4 | 5 | 6;
-  
+
   // List-specific properties
   listType?: 'ordered' | 'unordered';
   listItems?: string[];
-  
+
   // Image-specific properties
   imageUrl?: string;
   imageBase64?: string; // For uploaded images stored locally
@@ -52,29 +52,29 @@ export interface CanvasElement {
   imageJustifySelf?: 'flex-start' | 'center' | 'flex-end';
   widthUnit?: 'px' | 'rem' | '%' | 'vw' | 'auto';
   heightUnit?: 'px' | 'rem' | '%' | 'vh' | 'auto';
-  
+
   // Button-specific properties
   buttonText?: string;
   buttonDesignId?: string; // Links to component design
   currentButtonState?: 'default' | 'hover' | 'active' | 'focus' | 'disabled';
-  
+
   // Component instance properties (spec-compliant)
   componentRef?: {
     componentId: string;
     version: number; // Track component version for updates
     overrides?: Record<string, any>; // Future: per-instance prop overrides
   };
-  
+
   // Component child markers (for expanded template children)
   isComponentChild?: boolean;
   componentRootId?: string;
-  
+
   // Ghost root marker (for component template boundaries)
   isGhostRoot?: boolean;
-  
+
   // Component root marker (for expanded instances)
   isComponentRoot?: boolean;
-  
+
   // Positioning flag - true when element has been explicitly dragged/positioned
   isExplicitlyPositioned?: boolean;
 }
@@ -143,7 +143,7 @@ export interface Project {
   currentBreakpoint: string;
 }
 
-export type Tool = 'select' | 'hand' | 'rectangle' | 'text' | 'heading' | 'list' | 'image' | 'container' | 'button' | 
+export type Tool = 'pointer' | 'hand' | 'rectangle' | 'text' | 'heading' | 'list' | 'image' | 'container' | 'button' |
   // Form elements
   'input' | 'textarea' | 'checkbox' | 'radio' | 'select' |
   // Structural elements  

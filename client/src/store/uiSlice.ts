@@ -42,7 +42,7 @@ interface UIState {
 }
 
 const initialState: UIState = {
-  selectedTool: 'select',
+  selectedTool: 'pointer',
   isExportModalOpen: false,
   isCodeModalOpen: false,
   isCSSOptimizationModalOpen: false,
@@ -84,23 +84,23 @@ const uiSlice = createSlice({
     setSelectedTool: (state, action: PayloadAction<Tool>) => {
       state.selectedTool = action.payload;
     },
-    
+
     setExportModalOpen: (state, action: PayloadAction<boolean>) => {
       state.isExportModalOpen = action.payload;
     },
-    
+
     setCodeModalOpen: (state, action: PayloadAction<boolean>) => {
       state.isCodeModalOpen = action.payload;
     },
     setCSSOptimizationModalOpen: (state, action: PayloadAction<boolean>) => {
       state.isCSSOptimizationModalOpen = action.payload;
     },
-    
+
     setGridVisible: (state, action: PayloadAction<boolean>) => {
       state.isGridVisible = action.payload;
       // Note: Auto-save should be handled by middleware or effects, not in reducers
     },
-    
+
     toggleComponentPanel: (state) => {
       state.isComponentPanelVisible = !state.isComponentPanelVisible;
       // Auto-save UI settings when panel visibility changes
@@ -108,7 +108,7 @@ const uiSlice = createSlice({
         persistenceManager.saveCurrentProject();
       });
     },
-    
+
     toggleDOMTreePanel: (state) => {
       state.isDOMTreePanelVisible = !state.isDOMTreePanelVisible;
       // Auto-save UI settings when panel visibility changes
@@ -116,7 +116,7 @@ const uiSlice = createSlice({
         persistenceManager.saveCurrentProject();
       });
     },
-    
+
     togglePropertiesPanel: (state) => {
       state.isPropertiesPanelVisible = !state.isPropertiesPanelVisible;
       // Auto-save UI settings when panel visibility changes
@@ -124,11 +124,11 @@ const uiSlice = createSlice({
         persistenceManager.saveCurrentProject();
       });
     },
-    
+
     setComponentEditorOpen: (state, action: PayloadAction<boolean>) => {
       state.isComponentEditorOpen = action.payload;
     },
-    
+
     setEditingComponent: (state, action: PayloadAction<string | null>) => {
       state.editingComponentId = action.payload;
     },
@@ -136,62 +136,62 @@ const uiSlice = createSlice({
     setButtonDesignerOpen: (state, action: PayloadAction<boolean>) => {
       state.isButtonDesignerOpen = action.payload;
     },
-    
+
     setClassEditorOpen: (state, action: PayloadAction<boolean>) => {
       state.isClassEditorOpen = action.payload;
     },
-    
+
     setSettingsMenuOpen: (state, action: PayloadAction<boolean>) => {
       state.isSettingsMenuOpen = action.payload;
     },
-    
+
     updateSettings: (state, action: PayloadAction<Partial<UIState['settings']>>) => {
       state.settings = { ...state.settings, ...action.payload };
     },
-    
+
     setZoomLevel: (state, action: PayloadAction<number>) => {
       state.zoomLevel = Math.max(0.25, Math.min(4, action.payload));
       // Note: Auto-save should be handled by middleware or effects, not in reducers
     },
-    
+
     zoomIn: (state) => {
       state.zoomLevel = Math.max(0.25, Math.min(4, state.zoomLevel * 1.2));
     },
-    
+
     zoomOut: (state) => {
       state.zoomLevel = Math.max(0.25, Math.min(4, state.zoomLevel / 1.2));
     },
-    
+
     fitToScreen: (state) => {
       state.zoomLevel = 1;
       state.canvasOffset = { x: 0, y: 0 };
     },
-    
+
     setCanvasOffset: (state, action: PayloadAction<{ x: number; y: number }>) => {
       state.canvasOffset = action.payload;
       // Auto-save UI settings when canvas offset changes (debounced via auto-save)
     },
-    
+
     setDragging: (state, action: PayloadAction<boolean>) => {
       state.isDragging = action.payload;
     },
-    
+
     setDragStart: (state, action: PayloadAction<{ x: number; y: number } | undefined>) => {
       state.dragStart = action.payload;
     },
-    
+
     setResizing: (state, action: PayloadAction<boolean>) => {
       state.isResizing = action.payload;
     },
-    
+
     setResizeHandle: (state, action: PayloadAction<string | undefined>) => {
       state.resizeHandle = action.payload;
     },
-    
+
     setAdvancedMode: (state, action: PayloadAction<boolean>) => {
       state.showAdvancedMode = action.payload;
     },
-    
+
     resetUI: (state) => {
       state.isDragging = false;
       state.isResizing = false;
@@ -217,7 +217,7 @@ const uiSlice = createSlice({
     setDraggingForReorder: (state, action: PayloadAction<boolean>) => {
       state.isDraggingForReorder = action.payload;
     },
-    
+
     setHoveredElement: (state, action: PayloadAction<{ elementId: string | null; zone: 'before' | 'after' | 'inside' | null }>) => {
       state.hoveredElementId = action.payload.elementId;
       state.hoveredZone = action.payload.zone;
@@ -253,7 +253,7 @@ const uiSlice = createSlice({
       }
       state.autoExpandTimer = action.payload;
     },
-    
+
     loadUISettings: (state, action: PayloadAction<Partial<UIState>>) => {
       // Load persisted UI settings while preserving non-persistent states
       const persistentSettings = action.payload;

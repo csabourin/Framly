@@ -148,13 +148,13 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     }
 
     // Handle selection for select and hand tools
-    if (['select', 'hand'].includes(selectedTool)) {
+    if (['pointer', 'hand'].includes(selectedTool)) {
       e.stopPropagation();
       dispatch(selectElement(element.id));
     } else if (isNonContainer && ['rectangle', 'text', 'image', 'container', 'heading', 'list', 'button', 'input', 'textarea', 'checkbox', 'radio', 'select', 'section', 'nav', 'header', 'footer', 'article', 'video', 'audio', 'link', 'code', 'divider'].includes(selectedTool)) {
       // For non-container elements clicked with creation tools, auto-switch to selection
       e.stopPropagation();
-      dispatch(setSelectedTool('select'));
+      dispatch(setSelectedTool('pointer'));
       dispatch(selectElement(element.id));
     } else {
       // Creation tool on container or empty space - let Canvas drawing system handle it

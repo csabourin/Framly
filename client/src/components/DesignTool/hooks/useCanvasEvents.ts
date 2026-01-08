@@ -19,16 +19,16 @@ export const useCanvasEvents = (expandedElements?: Record<string, any>, zoomLeve
 
   const handleCanvasMouseDown = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target !== e.currentTarget) return;
-    
+
     e.preventDefault();
     setInputModality('mouse');
-    
+
     lastMousePos.current = { x: e.clientX, y: e.clientY };
-    
+
     // Clear any existing drag states
     dispatch(resetUI());
-    
-    if (toolHandler.selectedTool === 'select') {
+
+    if (toolHandler.selectedTool === 'pointer') {
       // Click on empty canvas area - select root
       elementSelection.handleCanvasBackgroundClick();
     }
@@ -44,7 +44,7 @@ export const useCanvasEvents = (expandedElements?: Record<string, any>, zoomLeve
   const handleCanvasDoubleClick = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    
+
     // Double-click on canvas creates new text element
     // This could be moved to a tool-specific handler later
   }, []);

@@ -22,7 +22,7 @@ const StatusBar: React.FC = () => {
 
   const getToolDisplay = () => {
     switch (selectedTool) {
-      case 'select':
+      case 'pointer':
         return t('statusBar.selectionTool');
       case 'hand':
         return t('statusBar.handTool');
@@ -44,7 +44,7 @@ const StatusBar: React.FC = () => {
   };
 
   return (
-    <footer 
+    <footer
       className="h-8 bg-background border-t border-border flex items-center px-4 text-xs text-muted-foreground gap-4 flex-shrink-0"
       data-testid="status-bar"
     >
@@ -53,7 +53,7 @@ const StatusBar: React.FC = () => {
         <MousePointer className="w-3 h-3" />
         <span>{getToolDisplay()}</span>
       </div>
-      
+
       {/* Canvas Dimensions */}
       <div className="flex items-center gap-1" data-testid="status-dimensions">
         <Smartphone className="w-3 h-3" />
@@ -61,26 +61,26 @@ const StatusBar: React.FC = () => {
           {rootElement?.width || 0}px × {rootElement?.height || 0}px
         </span>
       </div>
-      
+
       {/* Element Count */}
       <div className="flex items-center gap-1" data-testid="status-elements">
         <Layers className="w-3 h-3" />
         <span>{t('statusBar.elementCount', { count: elementCount })}</span>
       </div>
-      
+
       {/* Current Breakpoint */}
       <div className="flex items-center gap-1" data-testid="status-breakpoint">
         <span>
           {project.currentBreakpoint ? (
             project.currentBreakpoint.charAt(0).toUpperCase() + project.currentBreakpoint.slice(1)
-          ) : t('statusBar.mobile')} 
+          ) : t('statusBar.mobile')}
           ({currentBreakpoint?.width || 0}px)
         </span>
       </div>
-      
+
       {/* Service Worker Status */}
       <ServiceWorkerStatus />
-      
+
       {/* Persistence Status */}
       <div className="ml-auto" data-testid="status-persistence">
         <PersistenceStatus />

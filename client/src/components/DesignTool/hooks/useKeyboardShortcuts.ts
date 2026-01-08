@@ -27,7 +27,7 @@ export const useKeyboardShortcuts = () => {
     if (!e.ctrlKey && !e.metaKey && !e.altKey) {
       switch (e.key.toLowerCase()) {
         case 'v':
-          handleShortcut(() => dispatch(setSelectedTool('select')));
+          handleShortcut(() => dispatch(setSelectedTool('pointer')));
           break;
         case 'h':
           handleShortcut(() => dispatch(setSelectedTool('hand')));

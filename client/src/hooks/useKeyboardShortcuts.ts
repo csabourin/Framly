@@ -1,9 +1,9 @@
 import { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store';
-import { 
-  selectElement, 
-  duplicateElement, 
+import {
+  selectElement,
+  duplicateElement,
   deleteElement,
   undo,
   redo,
@@ -44,11 +44,11 @@ export const useKeyboardShortcuts = (onShowCheatsheet?: () => void) => {
   const isInputFocused = useCallback(() => {
     const activeElement = document.activeElement;
     if (!activeElement) return false;
-    
+
     const tagName = activeElement.tagName.toLowerCase();
     const isContentEditable = activeElement.hasAttribute('contenteditable');
     const isTextInput = ['input', 'textarea', 'select'].includes(tagName);
-    
+
     return isTextInput || isContentEditable;
   }, []);
 
@@ -56,15 +56,15 @@ export const useKeyboardShortcuts = (onShowCheatsheet?: () => void) => {
   const checkModifiers = useCallback((event: KeyboardEvent, modifiers: KeyboardShortcut['modifiers']) => {
     const ctrlKey = isMac ? event.metaKey : event.ctrlKey;
     const metaKey = isMac ? event.metaKey : event.ctrlKey;
-    
+
     // For shortcuts without modifiers, ensure no modifiers are pressed
     const hasAnyModifier = Object.keys(modifiers).length > 0;
-    
+
     if (!hasAnyModifier) {
       // If no modifiers are specified, ensure none are pressed
       return !event.shiftKey && !event.altKey && !ctrlKey;
     }
-    
+
     // For shortcuts with modifiers, check exact match
     return (
       (modifiers.ctrl === undefined ? !event.ctrlKey : modifiers.ctrl === event.ctrlKey) &&
@@ -82,7 +82,7 @@ export const useKeyboardShortcuts = (onShowCheatsheet?: () => void) => {
       modifiers: {},
       description: 'Select Tool',
       category: 'Tools',
-      action: () => dispatch(setSelectedTool('select'))
+      action: () => dispatch(setSelectedTool('pointer'))
     },
     {
       key: 'h',
@@ -263,10 +263,10 @@ export const useKeyboardShortcuts = (onShowCheatsheet?: () => void) => {
       category: 'Position',
       action: () => {
         if (selectedElement && selectedElement.id !== 'root' && selectedElement.x !== undefined && selectedElement.y !== undefined) {
-          dispatch(moveElement({ 
-            id: selectedElement.id, 
-            x: selectedElement.x, 
-            y: selectedElement.y - 1 
+          dispatch(moveElement({
+            id: selectedElement.id,
+            x: selectedElement.x,
+            y: selectedElement.y - 1
           }));
         }
       }
@@ -278,10 +278,10 @@ export const useKeyboardShortcuts = (onShowCheatsheet?: () => void) => {
       category: 'Position',
       action: () => {
         if (selectedElement && selectedElement.id !== 'root' && selectedElement.x !== undefined && selectedElement.y !== undefined) {
-          dispatch(moveElement({ 
-            id: selectedElement.id, 
-            x: selectedElement.x, 
-            y: selectedElement.y + 1 
+          dispatch(moveElement({
+            id: selectedElement.id,
+            x: selectedElement.x,
+            y: selectedElement.y + 1
           }));
         }
       }
@@ -293,10 +293,10 @@ export const useKeyboardShortcuts = (onShowCheatsheet?: () => void) => {
       category: 'Position',
       action: () => {
         if (selectedElement && selectedElement.id !== 'root' && selectedElement.x !== undefined && selectedElement.y !== undefined) {
-          dispatch(moveElement({ 
-            id: selectedElement.id, 
-            x: selectedElement.x - 1, 
-            y: selectedElement.y 
+          dispatch(moveElement({
+            id: selectedElement.id,
+            x: selectedElement.x - 1,
+            y: selectedElement.y
           }));
         }
       }
@@ -308,10 +308,10 @@ export const useKeyboardShortcuts = (onShowCheatsheet?: () => void) => {
       category: 'Position',
       action: () => {
         if (selectedElement && selectedElement.id !== 'root' && selectedElement.x !== undefined && selectedElement.y !== undefined) {
-          dispatch(moveElement({ 
-            id: selectedElement.id, 
-            x: selectedElement.x + 1, 
-            y: selectedElement.y 
+          dispatch(moveElement({
+            id: selectedElement.id,
+            x: selectedElement.x + 1,
+            y: selectedElement.y
           }));
         }
       }
@@ -325,10 +325,10 @@ export const useKeyboardShortcuts = (onShowCheatsheet?: () => void) => {
       category: 'Position',
       action: () => {
         if (selectedElement && selectedElement.id !== 'root' && selectedElement.x !== undefined && selectedElement.y !== undefined) {
-          dispatch(moveElement({ 
-            id: selectedElement.id, 
-            x: selectedElement.x, 
-            y: selectedElement.y - 10 
+          dispatch(moveElement({
+            id: selectedElement.id,
+            x: selectedElement.x,
+            y: selectedElement.y - 10
           }));
         }
       }
@@ -340,10 +340,10 @@ export const useKeyboardShortcuts = (onShowCheatsheet?: () => void) => {
       category: 'Position',
       action: () => {
         if (selectedElement && selectedElement.id !== 'root' && selectedElement.x !== undefined && selectedElement.y !== undefined) {
-          dispatch(moveElement({ 
-            id: selectedElement.id, 
-            x: selectedElement.x, 
-            y: selectedElement.y + 10 
+          dispatch(moveElement({
+            id: selectedElement.id,
+            x: selectedElement.x,
+            y: selectedElement.y + 10
           }));
         }
       }
@@ -355,10 +355,10 @@ export const useKeyboardShortcuts = (onShowCheatsheet?: () => void) => {
       category: 'Position',
       action: () => {
         if (selectedElement && selectedElement.id !== 'root' && selectedElement.x !== undefined && selectedElement.y !== undefined) {
-          dispatch(moveElement({ 
-            id: selectedElement.id, 
-            x: selectedElement.x - 10, 
-            y: selectedElement.y 
+          dispatch(moveElement({
+            id: selectedElement.id,
+            x: selectedElement.x - 10,
+            y: selectedElement.y
           }));
         }
       }
@@ -370,10 +370,10 @@ export const useKeyboardShortcuts = (onShowCheatsheet?: () => void) => {
       category: 'Position',
       action: () => {
         if (selectedElement && selectedElement.id !== 'root' && selectedElement.x !== undefined && selectedElement.y !== undefined) {
-          dispatch(moveElement({ 
-            id: selectedElement.id, 
-            x: selectedElement.x + 10, 
-            y: selectedElement.y 
+          dispatch(moveElement({
+            id: selectedElement.id,
+            x: selectedElement.x + 10,
+            y: selectedElement.y
           }));
         }
       }
@@ -387,10 +387,10 @@ export const useKeyboardShortcuts = (onShowCheatsheet?: () => void) => {
       category: 'Position',
       action: () => {
         if (selectedElement && selectedElement.id !== 'root' && selectedElement.x !== undefined && selectedElement.y !== undefined) {
-          dispatch(moveElement({ 
-            id: selectedElement.id, 
-            x: selectedElement.x, 
-            y: selectedElement.y - 0.1 
+          dispatch(moveElement({
+            id: selectedElement.id,
+            x: selectedElement.x,
+            y: selectedElement.y - 0.1
           }));
         }
       }
@@ -402,10 +402,10 @@ export const useKeyboardShortcuts = (onShowCheatsheet?: () => void) => {
       category: 'Position',
       action: () => {
         if (selectedElement && selectedElement.id !== 'root' && selectedElement.x !== undefined && selectedElement.y !== undefined) {
-          dispatch(moveElement({ 
-            id: selectedElement.id, 
-            x: selectedElement.x, 
-            y: selectedElement.y + 0.1 
+          dispatch(moveElement({
+            id: selectedElement.id,
+            x: selectedElement.x,
+            y: selectedElement.y + 0.1
           }));
         }
       }
@@ -417,10 +417,10 @@ export const useKeyboardShortcuts = (onShowCheatsheet?: () => void) => {
       category: 'Position',
       action: () => {
         if (selectedElement && selectedElement.id !== 'root' && selectedElement.x !== undefined && selectedElement.y !== undefined) {
-          dispatch(moveElement({ 
-            id: selectedElement.id, 
-            x: selectedElement.x - 0.1, 
-            y: selectedElement.y 
+          dispatch(moveElement({
+            id: selectedElement.id,
+            x: selectedElement.x - 0.1,
+            y: selectedElement.y
           }));
         }
       }
@@ -432,10 +432,10 @@ export const useKeyboardShortcuts = (onShowCheatsheet?: () => void) => {
       category: 'Position',
       action: () => {
         if (selectedElement && selectedElement.id !== 'root' && selectedElement.x !== undefined && selectedElement.y !== undefined) {
-          dispatch(moveElement({ 
-            id: selectedElement.id, 
-            x: selectedElement.x + 0.1, 
-            y: selectedElement.y 
+          dispatch(moveElement({
+            id: selectedElement.id,
+            x: selectedElement.x + 0.1,
+            y: selectedElement.y
           }));
         }
       }
@@ -493,8 +493,8 @@ export const useKeyboardShortcuts = (onShowCheatsheet?: () => void) => {
 
     // Find matching shortcuts, prioritizing those with more specific modifiers
     const matchingShortcuts = shortcuts.filter(shortcut => {
-      return shortcut.key.toLowerCase() === event.key.toLowerCase() && 
-             checkModifiers(event, shortcut.modifiers);
+      return shortcut.key.toLowerCase() === event.key.toLowerCase() &&
+        checkModifiers(event, shortcut.modifiers);
     });
 
     // Sort by specificity (more modifiers = higher priority)

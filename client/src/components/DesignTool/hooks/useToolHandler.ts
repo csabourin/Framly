@@ -18,17 +18,17 @@ export const useToolHandler = (
   const selectedTool = useSelector(selectSelectedTool);
 
   const handlePointAndClickInsertion = useCallback((
-    x: number, 
-    y: number, 
-    tool: string, 
-    isShiftPressed: boolean, 
+    x: number,
+    y: number,
+    tool: string,
+    isShiftPressed: boolean,
     isAltPressed: boolean
   ) => {
     console.log('Point-and-click insertion called:', { tool, x, y });
-    
+
     // Create the new element with default positioning
     const newElement = createDefaultElement(tool as any);
-    
+
     // For now, always insert at root level to get basic functionality working
     dispatch(addElement({
       element: newElement,
@@ -38,7 +38,7 @@ export const useToolHandler = (
 
     // Select the newly created element
     dispatch(selectElement(newElement.id));
-    
+
     console.log('Element created:', newElement.id);
   }, [dispatch]);
 
@@ -47,7 +47,7 @@ export const useToolHandler = (
     y: number,
     tool: string
   ) => {
-    if (tool === 'select') {
+    if (tool === 'pointer') {
       const clickedElement = getElementAtPoint(x, y, expandedElements, zoomLevel);
       if (clickedElement) {
         dispatch(selectElement(clickedElement.id));
@@ -67,9 +67,9 @@ export const useToolHandler = (
 
   const isCreationTool = useCallback((tool: string) => {
     return ['rectangle', 'text', 'image', 'container', 'heading', 'list', 'button',
-            'input', 'textarea', 'checkbox', 'radio', 'select',
-            'section', 'nav', 'header', 'footer', 'article',
-            'video', 'audio', 'link', 'code', 'divider'].includes(tool);
+      'input', 'textarea', 'checkbox', 'radio', 'select',
+      'section', 'nav', 'header', 'footer', 'article',
+      'video', 'audio', 'link', 'code', 'divider'].includes(tool);
   }, []);
 
   const isDrawingTool = useCallback((tool: string) => {
