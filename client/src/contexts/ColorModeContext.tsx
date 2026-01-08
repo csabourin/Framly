@@ -1,4 +1,5 @@
-import * as React from 'react';
+import { createContext, useContext, useState, useEffect, useMemo, useCallback } from 'react';
+import type { ReactNode } from 'react';
 
 export type ColorMode = 'light' | 'dark' | 'auto' | 'high-contrast';
 
@@ -12,15 +13,14 @@ export interface ColorModeContextValue {
   setColorModeDesignEnabled: (enabled: boolean) => void;
 }
 
-const ColorModeContext = React.createContext<ColorModeContextValue | null>(null);
+const ColorModeContext = createContext<ColorModeContextValue | null>(null);
 
 export interface ColorModeProviderProps {
-  children: React.ReactNode;
+  children: ReactNode;
   defaultMode?: ColorMode;
 }
 
 export function ColorModeProvider({ children, defaultMode = 'auto' }: ColorModeProviderProps) {
-  const { useState, useEffect, useMemo, useCallback } = React;
   
   const [mode, setModeState] = useState<ColorMode>(() => {
     if (typeof window === 'undefined') {
@@ -145,7 +145,7 @@ export function ColorModeProvider({ children, defaultMode = 'auto' }: ColorModeP
 }
 
 export function useColorMode(): ColorModeContextValue {
-  const context = React.useContext(ColorModeContext);
+  const context = useContext(ColorModeContext);
   if (!context) {
     throw new Error('useColorMode must be used within a ColorModeProvider');
   }

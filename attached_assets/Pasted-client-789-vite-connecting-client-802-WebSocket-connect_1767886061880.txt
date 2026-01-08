@@ -1,0 +1,97 @@
+client:789 [vite] connecting...
+client:802  WebSocket connection to 'wss://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/?token=o0_f3DrsgvlY' failed: 
+createConnection @ client:802
+main.tsx:17 Unregistered Service Worker in development mode
+hook.js:608  Warning: Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:
+1. You might have mismatching versions of React and the renderer (such as React DOM)
+2. You might be breaking the Rules of Hooks
+3. You might have more than one copy of React in the same app
+See https://reactjs.org/link/invalid-hook-call for tips about how to debug and fix this problem. Error Component Stack
+    at ColorModeProvider (ColorModeContext.tsx:22:37)
+    at QueryClientProvider (QueryClientProvider.tsx:30:3)
+    at App (<anonymous>)
+    at Provider (Provider.tsx:60:11)
+overrideMethod @ hook.js:608
+hook.js:608  Warning: Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:
+1. You might have mismatching versions of React and the renderer (such as React DOM)
+2. You might be breaking the Rules of Hooks
+3. You might have more than one copy of React in the same app
+See https://reactjs.org/link/invalid-hook-call for tips about how to debug and fix this problem. Error Component Stack
+    at ColorModeProvider (ColorModeContext.tsx:22:37)
+    at QueryClientProvider (QueryClientProvider.tsx:30:3)
+    at App (<anonymous>)
+    at Provider (Provider.tsx:60:11)
+overrideMethod @ hook.js:608
+react.development.js:1622  Uncaught TypeError: Cannot read properties of null (reading 'useState')
+    at useState (react.development.js:1622:21)
+    at ColorModeProvider (ColorModeContext.tsx:25:32)
+    at renderWithHooks (react-dom.development.js:15486:18)
+    at mountIndeterminateComponent (react-dom.development.js:20103:13)
+    at beginWork (react-dom.development.js:21626:16)
+    at HTMLUnknownElement.callCallback2 (react-dom.development.js:4164:14)
+    at Object.invokeGuardedCallbackDev (react-dom.development.js:4213:16)
+    at invokeGuardedCallback (react-dom.development.js:4277:31)
+    at beginWork$1 (react-dom.development.js:27490:7)
+    at performUnitOfWork (react-dom.development.js:26596:12)
+hook.js:608  Warning: Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:
+1. You might have mismatching versions of React and the renderer (such as React DOM)
+2. You might be breaking the Rules of Hooks
+3. You might have more than one copy of React in the same app
+See https://reactjs.org/link/invalid-hook-call for tips about how to debug and fix this problem. Error Component Stack
+    at ColorModeProvider (ColorModeContext.tsx:22:37)
+    at QueryClientProvider (QueryClientProvider.tsx:30:3)
+    at App (<anonymous>)
+    at Provider (Provider.tsx:60:11)
+overrideMethod @ hook.js:608
+hook.js:608  Warning: Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:
+1. You might have mismatching versions of React and the renderer (such as React DOM)
+2. You might be breaking the Rules of Hooks
+3. You might have more than one copy of React in the same app
+See https://reactjs.org/link/invalid-hook-call for tips about how to debug and fix this problem. Error Component Stack
+    at ColorModeProvider (ColorModeContext.tsx:22:37)
+    at QueryClientProvider (QueryClientProvider.tsx:30:3)
+    at App (<anonymous>)
+    at Provider (Provider.tsx:60:11)
+overrideMethod @ hook.js:608
+react.development.js:1622  Uncaught TypeError: Cannot read properties of null (reading 'useState')
+    at useState (react.development.js:1622:21)
+    at ColorModeProvider (ColorModeContext.tsx:25:32)
+    at renderWithHooks (react-dom.development.js:15486:18)
+    at mountIndeterminateComponent (react-dom.development.js:20103:13)
+    at beginWork (react-dom.development.js:21626:16)
+    at HTMLUnknownElement.callCallback2 (react-dom.development.js:4164:14)
+    at Object.invokeGuardedCallbackDev (react-dom.development.js:4213:16)
+    at invokeGuardedCallback (react-dom.development.js:4277:31)
+    at beginWork$1 (react-dom.development.js:27490:7)
+    at performUnitOfWork (react-dom.development.js:26596:12)
+hook.js:608  The above error occurred in the <ColorModeProvider> component:
+
+    at ColorModeProvider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/src/contexts/ColorModeContext.tsx:20:37)
+    at QueryClientProvider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js?v=5e9ee55e:2805:3)
+    at App
+    at Provider (https://1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/react-redux.js?v=5e9ee55e:923:11)
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries.
+overrideMethod @ hook.js:608
+react-dom.development.js:26962  Uncaught TypeError: Cannot read properties of null (reading 'useState')
+    at useState (react.development.js:1622:21)
+    at ColorModeProvider (ColorModeContext.tsx:25:32)
+    at renderWithHooks (react-dom.development.js:15486:18)
+    at mountIndeterminateComponent (react-dom.development.js:20103:13)
+    at beginWork (react-dom.development.js:21626:16)
+    at beginWork$1 (react-dom.development.js:27465:14)
+    at performUnitOfWork (react-dom.development.js:26596:12)
+    at workLoopSync (react-dom.development.js:26505:5)
+    at renderRootSync (react-dom.development.js:26473:7)
+    at recoverFromConcurrentError (react-dom.development.js:25889:20)
+client:815  WebSocket connection to 'wss://localhost:5173/?token=o0_f3DrsgvlY' failed: 
+createConnection @ client:815
+hook.js:608  [vite] failed to connect to websocket.
+your current setup:
+  (browser) 1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev/ <--[HTTP]--> localhost:5173/ (server)
+  (browser) 1bd21cbd-0e36-4bdb-8470-1a9f0a43eb21-00-1d3p4mlyoaovq.janeway.replit.dev:/ <--[WebSocket (failing)]--> localhost:5173/ (server)
+Check out your Vite / network configuration and https://vite.dev/config/server-options.html#server-hmr .
+overrideMethod @ hook.js:608
+hook.js:608  Initialization taking longer than 3s, proceeding to render...
+overrideMethod @ hook.js:608
