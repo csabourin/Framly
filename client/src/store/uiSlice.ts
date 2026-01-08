@@ -10,7 +10,9 @@ interface UIState {
   isComponentPanelVisible: boolean;
   isDOMTreePanelVisible: boolean;
   isPropertiesPanelVisible: boolean;
+  isRightPanelVisible: boolean;
   rightPanelTab: 'properties' | 'components';
+  workspaceLayout: 'minimal' | 'designer' | 'developer' | 'custom';
   isComponentEditorOpen: boolean;
   editingComponentId: string | null;
   isButtonDesignerOpen: boolean;
@@ -60,7 +62,9 @@ const initialState: UIState = {
   isComponentPanelVisible: true,
   isDOMTreePanelVisible: true,
   isPropertiesPanelVisible: true,
+  isRightPanelVisible: true,
   rightPanelTab: 'properties',
+  workspaceLayout: 'designer',
   isComponentEditorOpen: false,
   editingComponentId: null,
   isButtonDesignerOpen: false,
@@ -125,6 +129,10 @@ const uiSlice = createSlice({
 
     toggleDOMTreePanel: (state) => {
       state.isDOMTreePanelVisible = !state.isDOMTreePanelVisible;
+      // Mark layout as custom when user manually toggles
+      if (state.workspaceLayout !== 'custom') {
+        state.workspaceLayout = 'custom';
+      }
       // Auto-save UI settings when panel visibility changes
       import('../utils/persistence').then(({ persistenceManager }) => {
         persistenceManager.saveCurrentProject();
@@ -308,6 +316,54 @@ const uiSlice = createSlice({
       state.selectionRectangle = action.payload;
     },
 
+    // Workspace layout presets
+    setWorkspaceLayout: (state, action: PayloadAction<'minimal' | 'designer' | 'developer' | 'custom'>) => {
+      const layout = action.payload;
+      state.workspaceLayout = layout;
+
+      // Apply preset configurations
+      switch (layout) {
+        case 'minimal':
+          // Minimal: Clean canvas, no panels
+          state.isDOMTreePanelVisible = false;
+          state.isRightPanelVisible = false;
+          break;
+        case 'designer':
+          // Designer: Properties panel for styling, no DOM tree
+          state.isDOMTreePanelVisible = false;
+          state.isRightPanelVisible = true;
+          state.rightPanelTab = 'properties';
+          break;
+        case 'developer':
+          // Developer: All panels visible for technical work
+          state.isDOMTreePanelVisible = true;
+          state.isRightPanelVisible = true;
+          state.rightPanelTab = 'properties';
+          break;
+        case 'custom':
+          // Custom: User has manually configured panels
+          // Don't change any panel states
+          break;
+      }
+
+      // Auto-save workspace layout preference
+      import('../utils/persistence').then(({ persistenceManager }) => {
+        persistenceManager.saveCurrentProject();
+      });
+    },
+
+    toggleRightPanel: (state) => {
+      state.isRightPanelVisible = !state.isRightPanelVisible;
+      // Mark layout as custom when user manually toggles
+      if (state.workspaceLayout !== 'custom') {
+        state.workspaceLayout = 'custom';
+      }
+      // Auto-save UI settings
+      import('../utils/persistence').then(({ persistenceManager }) => {
+        persistenceManager.saveCurrentProject();
+      });
+    },
+
     loadUISettings: (state, action: PayloadAction<Partial<UIState>>) => {
       // Load persisted UI settings while preserving non-persistent states
       const persistentSettings = action.payload;
@@ -317,8 +373,14 @@ const uiSlice = createSlice({
       if (persistentSettings.isDOMTreePanelVisible !== undefined) {
         state.isDOMTreePanelVisible = persistentSettings.isDOMTreePanelVisible;
       }
+      if (persistentSettings.isRightPanelVisible !== undefined) {
+        state.isRightPanelVisible = persistentSettings.isRightPanelVisible;
+      }
       if (persistentSettings.rightPanelTab !== undefined) {
         state.rightPanelTab = persistentSettings.rightPanelTab;
+      }
+      if (persistentSettings.workspaceLayout !== undefined) {
+        state.workspaceLayout = persistentSettings.workspaceLayout;
       }
       if (persistentSettings.zoomLevel !== undefined) {
         state.zoomLevel = persistentSettings.zoomLevel;
@@ -342,7 +404,9 @@ export const {
   toggleComponentPanel,
   toggleDOMTreePanel,
   togglePropertiesPanel,
+  toggleRightPanel,
   setRightPanelTab,
+  setWorkspaceLayout,
   setComponentEditorOpen,
   setEditingComponent,
   setButtonDesignerOpen,
