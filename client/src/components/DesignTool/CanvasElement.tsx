@@ -36,10 +36,10 @@ interface CanvasElementProps {
 
 // REMOVED: useHoverState hook - now using memoized selector
 
-const CanvasElement: React.FC<CanvasElementProps> = ({ 
-  element, 
-  isSelected, 
-  isHovered = false, 
+const CanvasElement: React.FC<CanvasElementProps> = ({
+  element,
+  isSelected,
+  isHovered = false,
   hoveredZone = null,
   hoveredElementId,
   expandedContainerId = null,
@@ -53,7 +53,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
   getDropClasses
 }) => {
   const dispatch = useDispatch();
-  
+
   // CRITICAL: All hooks must be called FIRST for consistent hook order
   const rawCurrentElements = useSelector(selectCurrentElements);
   // Use passed expanded elements if available, otherwise use raw elements
@@ -70,42 +70,42 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
   const buttonEditRef = useRef<HTMLButtonElement>(null);
   const preEditRef = useRef<HTMLPreElement>(null);
   const textareaEditRef = useRef<HTMLTextAreaElement>(null);
-  
+
   // Get hover state from Redux if not provided via props (optimized selectors)
   const actualHoveredElementId = hoveredElementId !== undefined ? hoveredElementId : reduxHoveredElementId;
   const actualHoveredZone = hoveredZone !== undefined ? hoveredZone : reduxHoveredZone;
-  
+
   // CRITICAL: Component instances are now expanded - check for component children and roots
   const isComponentChild = element.isComponentChild;
   const isComponentRoot = element.isComponentRoot || isComponentInstance(element);
   const isGhostRoot = element.isGhostRoot;
-  
+
   // Component children are non-interactive (but still render normally)
   // Component roots get special chrome but children render as normal elements
-  
+
   // Check if this element is hovered
   const isThisElementHovered = actualHoveredElementId === element.id;
   const thisElementHoveredZone = isThisElementHovered ? actualHoveredZone : null;
-  
+
   // Check if this element should have expanded padding
   const isExpandedContainer = expandedContainerId === element.id;
   const isDragActive = isDraggingForReorder || draggedElementId;
-  
+
   // Calculate sibling spacing classes based on insertion indicator
   const getSiblingSpacingClass = useCallback(() => {
     if (!isDraggingForReorder || !insertionIndicator || !draggedElementId) {
       return 'sibling-spacing-reset';
     }
-    
+
     const indicator = insertionIndicator as any;
-    
+
     // Only apply spacing for "between" position
     if (indicator.position === 'between' && indicator.referenceElementId) {
       // If this element is the reference element (the one after the insertion point)
       if (element.id === indicator.referenceElementId) {
         return 'sibling-spacing-after'; // Move this element down
       }
-      
+
       // Find the element before the reference element
       const container = currentElements[indicator.elementId];
       if (container && container.children) {
@@ -118,7 +118,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
         }
       }
     }
-    
+
     return 'sibling-spacing-reset';
   }, [isDraggingForReorder, insertionIndicator, draggedElementId, element.id, currentElements]);
 
@@ -129,15 +129,15 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
       dispatch(selectElement(element.componentRootId));
       return;
     }
-    
+
     // Define text elements that support editing
     const textElements = ['text', 'heading', 'list'];
     const isTextElement = textElements.includes(element.type);
-    
+
     // Define non-container elements that cannot have children
     const nonContainerElements = ['text', 'heading', 'list', 'image'];
     const isNonContainer = nonContainerElements.includes(element.type);
-    
+
     // Handle text element single-click: select AND start editing immediately
     if (isTextElement) {
       e.stopPropagation();
@@ -146,7 +146,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
       setTimeout(() => setIsEditing(true), 10);
       return;
     }
-    
+
     // Handle selection for select and hand tools
     if (['select', 'hand'].includes(selectedTool)) {
       e.stopPropagation();
@@ -182,17 +182,17 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
       setIsEditing(false);
     };
   }, [element.id, dispatch]);
-  
+
   const handleListContentEdit = useCallback((e: React.FormEvent<HTMLDivElement>) => {
     const htmlContent = e.currentTarget.innerHTML || '';
-    
+
     // Extract list items from the HTML
     const listContainer = e.currentTarget.querySelector('ul, ol');
     if (listContainer) {
       const listItems = Array.from(listContainer.querySelectorAll('li')).map(li => li.textContent || '');
-      dispatch(updateElement({ 
-        id: element.id, 
-        updates: { listItems } 
+      dispatch(updateElement({
+        id: element.id,
+        updates: { listItems }
       }));
     }
     setIsEditing(false);
@@ -201,14 +201,14 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
   // Enhanced HTML5 Drag and Drop event handlers
   const handleDragStart = useCallback((e: React.DragEvent<HTMLDivElement>) => {
     console.log('🚀 Enhanced DRAG START:', element.id);
-    
+
     // Don't allow dragging while editing text
     if (isEditing) {
       console.log('DRAG PREVENTED: editing');
       e.preventDefault();
       return;
     }
-    
+
     // Use enhanced drag-and-drop system if available
     if (onElementDragStart) {
       onElementDragStart(e, element.id);
@@ -245,7 +245,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
   const handleDrop = useCallback((e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    
+
     // Let the Canvas-level drop handlers process this drop
     // Don't handle drops at element level to avoid conflicts
     // The useDragAndDrop hook in Canvas will handle the drop processing
@@ -301,12 +301,12 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
   const renderContent = () => {
     if (element.type === 'text') {
       const isTextEditable = isSelected && (selectedTool === 'text' || isEditing);
-      
+
       const processedContent = element.content || 'Edit this text';
-      
+
       // If content doesn't have paragraph tags, wrap it in a paragraph
-      const htmlContent = processedContent.includes('<p>') ? 
-        processedContent : 
+      const htmlContent = processedContent.includes('<p>') ?
+        processedContent :
         `<p>${processedContent.replace(/\n/g, '<br>')}</p>`;
 
       if (isTextEditable) {
@@ -318,7 +318,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
             onBlur={handleContentEdit}
             onKeyDown={handleKeyDown}
             className="h-full outline-none cursor-text text-editing"
-            style={{ 
+            style={{
               minHeight: 'inherit',
               padding: '4px',
               width: getElementWidth(),
@@ -347,7 +347,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
         return (
           <div
             className="h-full outline-none cursor-text text-element"
-            style={{ 
+            style={{
               minHeight: 'inherit',
               padding: '4px',
               width: getElementWidth(),
@@ -359,13 +359,13 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
         );
       }
     }
-    
+
     if (element.type === 'heading') {
       const isTextEditable = isSelected && (selectedTool === 'text' || isEditing);
       const headingLevel = element.headingLevel || 1;
 
       const HeadingTag = `h${headingLevel}` as keyof JSX.IntrinsicElements;
-      
+
       const processedContent = element.content || 'Edit this heading';
 
       if (isTextEditable) {
@@ -377,7 +377,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
             onBlur={handleContentEdit}
             onKeyDown={handleKeyDown}
             className="h-full outline-none cursor-text text-editing"
-            style={{ 
+            style={{
               minHeight: 'inherit',
               padding: '4px',
               width: getElementWidth(),
@@ -406,7 +406,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
         return (
           <HeadingTag
             className="h-full outline-none cursor-text text-element"
-            style={{ 
+            style={{
               minHeight: 'inherit',
               padding: '4px',
               width: getElementWidth(),
@@ -419,13 +419,13 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
         );
       }
     }
-    
+
     if (element.type === 'list') {
       const isTextEditable = isSelected && (selectedTool === 'text' || isEditing);
       const listType = element.listType || 'unordered';
       const ListTag = listType === 'ordered' ? 'ol' : 'ul';
       const listItems = element.listItems || ['List item 1', 'List item 2', 'List item 3'];
-      
+
       const listHTML = listItems.map(item => `<li>${item}</li>`).join('');
 
       if (isTextEditable) {
@@ -437,7 +437,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
             onBlur={handleListContentEdit}
             onKeyDown={handleKeyDown}
             className="h-full outline-none cursor-text text-editing"
-            style={{ 
+            style={{
               minHeight: 'inherit',
               padding: '4px',
               width: getElementWidth(),
@@ -466,7 +466,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
         return (
           <ListTag
             className="h-full outline-none cursor-text text-element"
-            style={{ 
+            style={{
               minHeight: 'inherit',
               padding: '4px',
               width: getElementWidth(),
@@ -503,7 +503,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
           </button>
         );
       }
-      
+
       return (
         <div className="w-full h-full">
           <ButtonElement
@@ -518,7 +518,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
 
     if (element.type === 'image') {
       const imageSource = element.imageBase64 || element.imageUrl;
-      
+
       if (imageSource) {
         return (
           <img
@@ -540,9 +540,9 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
         );
       } else {
         return (
-          <div 
+          <div
             className="h-full flex items-center justify-center text-gray-500 bg-gray-100 rounded border-2 border-dashed overflow-hidden cursor-pointer hover:bg-gray-200 transition-colors"
-            style={{ 
+            style={{
               width: 'auto',
               maxWidth: '100%',
               minWidth: '120px'
@@ -574,26 +574,26 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     }
 
     // CRITICAL: This is handled in the main render return - don't return children here
-    
+
     // Handle generic HTML element type
     if (element.type === 'element') {
       const isTextEditable = isSelected && (selectedTool === 'text' || isEditing);
       const htmlTag = element.htmlTag || 'div';
       const content = element.content || '';
-      
+
       // Define void HTML elements that cannot have children
       const voidElements = new Set([
-        'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 
+        'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input',
         'link', 'meta', 'param', 'source', 'track', 'wbr'
       ]);
-      
+
       const isVoidElement = voidElements.has(htmlTag);
-      
+
       // Void elements cannot be edited and cannot have content
       if (isVoidElement) {
         return React.createElement(htmlTag, {
           className: 'outline-none',
-          style: { 
+          style: {
             minHeight: 'inherit',
             width: getElementWidth(),
             height: isVoidElement ? 'auto' : '100%',
@@ -602,7 +602,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
           }
         });
       }
-      
+
       // Use React.createElement to render the original HTML tag for non-void elements
       if (isTextEditable && content) {
         return (
@@ -613,7 +613,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
             onBlur={handleContentEdit}
             onKeyDown={handleKeyDown}
             className="h-full outline-none cursor-text text-editing"
-            style={{ 
+            style={{
               minHeight: 'inherit',
               padding: '4px',
               width: getElementWidth(),
@@ -628,7 +628,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
         // Render the original HTML element with its content
         const elementProps: any = {
           className: `h-full outline-none ${content ? 'cursor-pointer' : ''}`,
-          style: { 
+          style: {
             minHeight: 'inherit',
             width: getElementWidth(),
             height: '100%',
@@ -641,12 +641,12 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
           },
           // Removed double click handler - single click editing is handled in main click handler
         };
-        
+
         // Only add innerHTML for non-void elements with content
         if (content && !isVoidElement) {
           elementProps.dangerouslySetInnerHTML = { __html: content };
         }
-        
+
         return React.createElement(
           htmlTag,
           elementProps,
@@ -663,12 +663,12 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
         const inputType = element.type;
         const labelText = element.content || 'Option';
         const isTextEditable = isSelected && isEditing;
-        
+
         if (isTextEditable) {
           return (
             <label className="w-full h-full outline-none flex items-center gap-2" style={cssVariables}>
-              <input 
-                type={inputType} 
+              <input
+                type={inputType}
                 className="flex-shrink-0"
                 name={element.type === 'radio' ? `radio-group-${element.id}` : undefined}
               />
@@ -685,15 +685,15 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
             </label>
           );
         }
-        
+
         return (
           <label className="w-full h-full outline-none flex items-center gap-2 cursor-pointer" style={cssVariables}>
-            <input 
-              type={inputType} 
+            <input
+              type={inputType}
               className="flex-shrink-0"
               name={element.type === 'radio' ? `radio-group-${element.id}` : undefined}
             />
-            <span 
+            <span
               className="text-sm"
               onDoubleClick={(e) => {
                 e.stopPropagation();
@@ -710,7 +710,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
       if (element.type === 'link') {
         const linkText = element.content || 'Lien';
         const isTextEditable = isSelected && isEditing;
-        
+
         if (isTextEditable) {
           return (
             <span
@@ -719,14 +719,14 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
               onBlur={(e) => handleTextPropertyEdit('content')(e as any)}
               onKeyDown={handleKeyDown as any}
               className="h-full outline-none cursor-text"
-              style={{...cssVariables, width: getElementWidth()}}
+              style={{ ...cssVariables, width: getElementWidth() }}
               autoFocus
             >
               {linkText}
             </span>
           );
         }
-        
+
         return (
           <a
             onDoubleClick={(e) => {
@@ -734,7 +734,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
               setIsEditing(true);
             }}
             className="h-full outline-none cursor-pointer"
-            style={{...cssVariables, width: getElementWidth()}}
+            style={{ ...cssVariables, width: getElementWidth() }}
           >
             {linkText}
           </a>
@@ -745,7 +745,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
       if (element.type === 'code') {
         const codeContent = element.content || '// Votre code ici';
         const isTextEditable = isSelected && isEditing;
-        
+
         if (isTextEditable) {
           return (
             <pre
@@ -755,14 +755,14 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
               onBlur={(e) => handleTextPropertyEdit('content')(e as any)}
               onKeyDown={handleKeyDown as any}
               className="h-full outline-none cursor-text"
-              style={{...cssVariables, width: getElementWidth()}}
+              style={{ ...cssVariables, width: getElementWidth() }}
               autoFocus
             >
               {codeContent}
             </pre>
           );
         }
-        
+
         return (
           <pre
             onDoubleClick={(e) => {
@@ -770,21 +770,21 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
               setIsEditing(true);
             }}
             className="h-full outline-none cursor-pointer"
-            style={{...cssVariables, width: getElementWidth()}}
+            style={{ ...cssVariables, width: getElementWidth() }}
           >
             {codeContent}
           </pre>
         );
       }
-      
+
       // For other form elements and special types
       const htmlTag = element.htmlTag || 'div';
       const content = element.content || '';
-      
+
       // Check if this element type can have editable text
       const canEditText = ['input', 'textarea'].includes(element.type) && content;
       const isTextEditable = isSelected && isEditing && canEditText;
-      
+
       if (isTextEditable && element.type === 'textarea') {
         return (
           <textarea
@@ -803,16 +803,16 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
               }
             }}
             className="h-full outline-none cursor-text resize-none"
-            style={{...cssVariables, width: getElementWidth()}}
+            style={{ ...cssVariables, width: getElementWidth() }}
             autoFocus
             placeholder="Entrez votre texte..."
           />
         );
       }
-      
+
       const elementProps: any = {
         className: 'h-full outline-none',
-        style: { 
+        style: {
           minHeight: 'inherit',
           width: getElementWidth(),
           height: '100%',
@@ -857,7 +857,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
 
   // Check if this element can accept drops using centralized logic
   const canAcceptDrop = isValidDropTarget(element);
-  
+
   // Clean professional feedback - only show selection outlines
   const getOutlineStyle = () => {
     if (isSelected) return '2px solid #3b82f6';
@@ -878,26 +878,26 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
   // Generate CSS custom properties from merged styles
   const generateCSSVariables = (styles: Record<string, any>): Record<string, string> => {
     const cssVariables: Record<string, string> = {};
-    
+
     for (const [key, value] of Object.entries(styles)) {
       if (value === undefined || value === null || value === '') continue;
-      
+
       // For text elements in flex containers, only skip width if it's not explicitly set
       // Always generate CSS variables for explicit width values to prevent overflow
       if (key === 'width' && ['text', 'heading', 'list'].includes(element.type) && isInFlexContainer && parentFlexDirection !== 'row' && (value === '100%' || value === 'auto')) {
         continue;
       }
-      
+
       // Convert property to CSS variable name (--element-width, --element-color, etc.)
       const varName = `--element-${key.replace(/([A-Z])/g, '-$1').toLowerCase()}`;
-      
+
       // Handle color mode values - resolve to current mode value
       if (isColorModeValues(value)) {
         const colorModeValue = value as any;
-        const resolvedValue = colorModeValue[resolvedMode] || 
-                             colorModeValue.light || 
-                             colorModeValue.dark || 
-                             colorModeValue['high-contrast'];
+        const resolvedValue = colorModeValue[resolvedMode] ||
+          colorModeValue.light ||
+          colorModeValue.dark ||
+          colorModeValue['high-contrast'];
         if (resolvedValue) {
           cssVariables[varName] = String(resolvedValue);
         }
@@ -917,18 +917,18 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
         cssVariables[varName] = String(value);
       }
     }
-    
-    
+
+
     return cssVariables;
   };
 
   // Get current breakpoint from Redux for breakpoint-aware styling
   const currentBreakpoint = useSelector((state: RootState) => state.canvas.project.currentBreakpoint);
-  
+
   // Compute merged styles including custom classes and breakpoint-aware values
   const mergedStyles = React.useMemo(() => {
     const baseStyles = { ...element.styles };
-    
+
     // Apply custom class styles
     if (element.classes && element.classes.length > 0) {
       element.classes.forEach((className: string) => {
@@ -939,7 +939,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
         }
       });
     }
-    
+
     // Apply breakpoint-specific values for responsive properties from responsiveStyles
     if (element.responsiveStyles && element.responsiveStyles[currentBreakpoint as keyof typeof element.responsiveStyles]) {
       const breakpointStyles = element.responsiveStyles[currentBreakpoint as keyof typeof element.responsiveStyles];
@@ -952,40 +952,40 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
         });
       }
     }
-    
+
     // Resolve color mode values to actual colors based on current mode
     const resolvedStyles = { ...baseStyles };
     Object.keys(resolvedStyles).forEach(key => {
       const value = resolvedStyles[key];
       if (isColorModeValues(value)) {
         const colorModeValue = value as any;
-        const resolvedValue = colorModeValue[resolvedMode] || 
-                             colorModeValue.light || 
-                             colorModeValue.dark || 
-                             colorModeValue['high-contrast'];
+        const resolvedValue = colorModeValue[resolvedMode] ||
+          colorModeValue.light ||
+          colorModeValue.dark ||
+          colorModeValue['high-contrast'];
         // Color mode value resolved successfully
         if (resolvedValue) {
           resolvedStyles[key] = resolvedValue;
         }
       }
     });
-    
+
     return resolvedStyles;
   }, [element.styles, element.classes, customClasses, currentBreakpoint, resolvedMode]);
 
   // CRITICAL: Fixed DOM order positioning - all elements follow document flow
   // Never use absolute positioning that breaks DOM order
-  
+
   let basePosition: string;
   let baseLeft: number | undefined;
   let baseTop: number | undefined;
-  
+
   // ALL elements use relative positioning to maintain DOM order
   // Absolute positioning breaks DOM stacking order
   basePosition = 'relative';
   baseLeft = undefined;
   baseTop = undefined;
-  
+
   // For explicitly positioned elements, use transform instead of absolute positioning
   // This maintains DOM order while allowing visual positioning
   let transformStyle: string | undefined;
@@ -998,10 +998,10 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
   const parentElement = element.parent && element.parent !== 'root' ? currentElements[element.parent] : null;
   const isInFlexContainer = parentElement?.styles?.display === 'flex' || parentElement?.isContainer;
   const parentFlexDirection = parentElement?.styles?.flexDirection;
-  
+
   // Generate CSS variables for dynamic styling
   const cssVariables = generateCSSVariables(mergedStyles);
-  
+
   // Determine width based on element type and flex context
   const getElementWidth = () => {
     if (['text', 'heading', 'list'].includes(element.type)) {
@@ -1015,10 +1015,10 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     // For other elements, use specified width or 100% if width is 0
     return cssVariables['--element-width'] || (element.width === 0 ? '100%' : element.width);
   };
-  
+
   // Check if this is an imported element that needs CSS-based layout
   const isImportedElement = element.classes?.includes('_imported-element');
-  
+
   // Only use inline styles for essential behavior and positioning
   const minimalInlineStyles: React.CSSProperties = {
     // For imported elements, let CSS handle positioning; for canvas elements use explicit positioning
@@ -1034,27 +1034,27 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
       // Use transform for positioning instead of absolute left/top
       transform: transformStyle,
       // Essential width behavior - FORCE auto width for text elements in row containers
-      ...((['text', 'heading', 'list'].includes(element.type) && isInFlexContainer && parentFlexDirection === 'row') 
-          ? { width: 'auto' } // FORCE auto width for text elements in row flex containers
-          : (['text', 'heading', 'list'].includes(element.type) && isInFlexContainer) 
-            ? {} // Let CSS handle width for text elements in other flex containers
-            : { width: getElementWidth() } // Explicit width for other elements
+      ...((['text', 'heading', 'list'].includes(element.type) && isInFlexContainer && parentFlexDirection === 'row')
+        ? { width: 'auto' } // FORCE auto width for text elements in row flex containers
+        : (['text', 'heading', 'list'].includes(element.type) && isInFlexContainer)
+          ? {} // Let CSS handle width for text elements in other flex containers
+          : { width: getElementWidth() } // Explicit width for other elements
       ),
       // Essential height behavior for text elements
-      height: (['text', 'heading', 'list'].includes(element.type)) ? 'auto' : 
-             (cssVariables['--element-min-height'] ? undefined : element.height),
+      height: (['text', 'heading', 'list'].includes(element.type)) ? 'auto' :
+        (cssVariables['--element-min-height'] ? undefined : element.height),
     }),
-    
+
     // Common styles for all elements
     // Selection and interaction feedback
     outline: getOutlineStyle(),
     boxShadow: getBoxShadow(),
     zIndex: isThisElementHovered ? 1000 : (isSelected ? 100 : undefined),
     minHeight: (['text', 'heading', 'list'].includes(element.type)) ? '1.2em' : undefined,
-    
+
     // Apply merged styles from custom classes and inline styles (including imported CSS)
     ...mergedStyles,
-    
+
     // CSS Variables for dynamic styling (only for non-imported elements)
     ...(isImportedElement ? {} : cssVariables),
   };
@@ -1087,6 +1087,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
           ${isDragActive ? 'drag-transition-padding' : ''}
           ${isExpandedContainer ? 'drag-expand-padding' : ''}
           ${getDropClasses ? getDropClasses(element.id) : ''}
+          ${selectionState === 'dragging' ? 'dragging' : ''}
         `}
         data-state={selectionState}
         data-locked="false"
@@ -1116,70 +1117,70 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
           isThisElementHovered && thisElementHoveredZone ? thisElementHoveredZone : undefined
         }
       >
-      {/* Professional Selection/Drag Handle - Always visible when selected */}
-      {isSelected && (
-        <div 
-          className="selection-handle" 
-          data-testid="selection-handle"
-          onClick={(e) => {
-            e.stopPropagation();
-            dispatch(setSelectedTool('hand'));
-          }}
-          onMouseDown={(e) => {
-            e.stopPropagation();
-            // console.log('DRAG HANDLE DEBUG - Mouse down on selection handle for:', element.id);
-            
-            // Auto-switch to hand tool and initiate drag
-            dispatch(setSelectedTool('hand'));
-            
-            // Trigger drag from handle
-            const dragEvent = new CustomEvent('dragHandleMouseDown', {
-              detail: { elementId: element.id, originalEvent: e }
-            });
-            window.dispatchEvent(dragEvent);
-          }}
-        >
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
-            <path d="M2 2h2v2H2V2zm3 0h2v2H5V2zm3 0h2v2H8V2zM2 5h2v2H2V5zm3 0h2v2H5V5zm3 0h2v2H8V5zM2 8h2v2H2V8zm3 0h2v2H5V8zm3 0h2v2H8V8z"/>
-          </svg>
-        </div>
-      )}
+        {/* Professional Selection/Drag Handle - Always visible when selected */}
+        {isSelected && (
+          <div
+            className="selection-handle"
+            data-testid="selection-handle"
+            onClick={(e) => {
+              e.stopPropagation();
+              dispatch(setSelectedTool('hand'));
+            }}
+            onMouseDown={(e) => {
+              e.stopPropagation();
+              // console.log('DRAG HANDLE DEBUG - Mouse down on selection handle for:', element.id);
 
-      {renderContent()}
-      
-      {/* CRITICAL: Render container children inside the container */}
-      {((element.type === 'container' || element.type === 'rectangle' || element.isContainer || isComponentRoot) && element.children) && (
-        element.children.map(childId => {
-          const child = currentElements[childId];
-          if (!child) {
-            // console.log('Child not found in currentElements:', childId, 'available:', Object.keys(currentElements).length);
-            return null;
-          }
-          return (
-            <CanvasElement 
-              key={child.id} 
-              element={child}
-              isSelected={child.id === selectedElementId}
-              isHovered={child.id === actualHoveredElementId}
-              hoveredZone={child.id === actualHoveredElementId ? actualHoveredZone : null}
-              hoveredElementId={actualHoveredElementId}
-              expandedContainerId={expandedContainerId}
-              currentElements={currentElements}
-            />
-          );
-        })
-      )}
-      
-      {/* Professional Resize Handles for Editing Mode */}
-      {selectionState === 'editing' && (
-        <>
-          <div className="resizer tl" data-testid="resize-handle-tl" />
-          <div className="resizer tr" data-testid="resize-handle-tr" />
-          <div className="resizer bl" data-testid="resize-handle-bl" />
-          <div className="resizer br" data-testid="resize-handle-br" />
-        </>
-      )}
-    </div>
+              // Auto-switch to hand tool and initiate drag
+              dispatch(setSelectedTool('hand'));
+
+              // Trigger drag from handle
+              const dragEvent = new CustomEvent('dragHandleMouseDown', {
+                detail: { elementId: element.id, originalEvent: e }
+              });
+              window.dispatchEvent(dragEvent);
+            }}
+          >
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
+              <path d="M2 2h2v2H2V2zm3 0h2v2H5V2zm3 0h2v2H8V2zM2 5h2v2H2V5zm3 0h2v2H5V5zm3 0h2v2H8V5zM2 8h2v2H2V8zm3 0h2v2H5V8zm3 0h2v2H8V8z" />
+            </svg>
+          </div>
+        )}
+
+        {renderContent()}
+
+        {/* CRITICAL: Render container children inside the container */}
+        {((element.type === 'container' || element.type === 'rectangle' || element.isContainer || isComponentRoot) && element.children) && (
+          element.children.map(childId => {
+            const child = currentElements[childId];
+            if (!child) {
+              // console.log('Child not found in currentElements:', childId, 'available:', Object.keys(currentElements).length);
+              return null;
+            }
+            return (
+              <CanvasElement
+                key={child.id}
+                element={child}
+                isSelected={child.id === selectedElementId}
+                isHovered={child.id === actualHoveredElementId}
+                hoveredZone={child.id === actualHoveredElementId ? actualHoveredZone : null}
+                hoveredElementId={actualHoveredElementId}
+                expandedContainerId={expandedContainerId}
+                currentElements={currentElements}
+              />
+            );
+          })
+        )}
+
+        {/* Professional Resize Handles for Editing Mode */}
+        {selectionState === 'editing' && (
+          <>
+            <div className="resizer tl" data-testid="resize-handle-tl" />
+            <div className="resizer tr" data-testid="resize-handle-tr" />
+            <div className="resizer bl" data-testid="resize-handle-bl" />
+            <div className="resizer br" data-testid="resize-handle-br" />
+          </>
+        )}
+      </div>
     </ElementContextMenu>
   );
 };
