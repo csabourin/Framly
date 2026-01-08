@@ -1,8 +1,8 @@
 import React, { useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../../store';
-import { setSelectionRectangle, setSelectedIds } from '../../store/uiSlice';
-import { selectCurrentElements } from '../../store/selectors';
+import { RootState } from '../../../store';
+import { setSelectionRectangle, setSelectedIds } from '../../../store/uiSlice';
+import { selectCurrentElements } from '../../../store/selectors';
 
 /**
  * Selection Rectangle Component
