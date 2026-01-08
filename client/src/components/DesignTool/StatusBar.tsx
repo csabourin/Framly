@@ -1,14 +1,22 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { RootState } from '../../store';
 import { selectCanvasProject, selectUIState, selectCurrentElements } from '../../store/selectors';
-import { MousePointer, Layers, Smartphone } from 'lucide-react';
+import { switchBreakpoint } from '../../store/canvasSlice';
+import { MousePointer, Layers, Smartphone, Tablet, Monitor, MonitorSpeaker } from 'lucide-react';
 import PersistenceStatus from '../PersistenceStatus';
 import { ServiceWorkerStatus } from '../ServiceWorkerStatus';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 const StatusBar: React.FC = () => {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
   const project = useSelector(selectCanvasProject);
   const { selectedTool } = useSelector(selectUIState);
 
@@ -19,6 +27,39 @@ const StatusBar: React.FC = () => {
   const elementCount = Object.keys(currentElements).filter(id => id !== 'root').length;
   const rootElement = currentElements.root;
   const currentBreakpoint = project.breakpoints[project.currentBreakpoint];
+
+  // Icon mapping for breakpoints
+  const breakpointIcons: Record<string, React.ComponentType<any>> = {
+    mobile: Smartphone,
+    tablet: Tablet,
+    desktop: Monitor,
+    large: MonitorSpeaker,
+  };
+
+  // Ensure all 4 breakpoints are present with proper defaults
+  const defaultBreakpoints = {
+    mobile: { name: 'mobile', label: t('breakpoints.mobile'), width: 375 },
+    tablet: { name: 'tablet', label: t('breakpoints.tablet'), width: 768 },
+    desktop: { name: 'desktop', label: t('breakpoints.desktop'), width: 1024 },
+    large: { name: 'large', label: t('breakpoints.largeDesktop'), width: 1440 }
+  };
+
+  // Merge existing breakpoints with defaults
+  const breakpoints = Object.entries(defaultBreakpoints).map(([key, defaultBp]) => {
+    const existingBp = project.breakpoints[key];
+    return {
+      ...defaultBp,
+      ...(existingBp || {}),
+      name: key,
+      label: defaultBp.label
+    };
+  });
+
+  const handleBreakpointChange = (breakpointName: string) => {
+    dispatch(switchBreakpoint(breakpointName));
+  };
+
+  const CurrentBreakpointIcon = breakpointIcons[project.currentBreakpoint] || Smartphone;
 
   const getToolDisplay = () => {
     switch (selectedTool) {
@@ -70,15 +111,38 @@ const StatusBar: React.FC = () => {
         <span>{t('statusBar.elementCount', { count: elementCount })}</span>
       </div>
 
-      {/* Current Breakpoint */}
-      <div className="flex items-center gap-1" data-testid="status-breakpoint">
-        <span>
-          {project.currentBreakpoint ? (
-            project.currentBreakpoint.charAt(0).toUpperCase() + project.currentBreakpoint.slice(1)
-          ) : t('statusBar.mobile')}
-          ({currentBreakpoint?.width || 0}px)
-        </span>
-      </div>
+      {/* Breakpoint Selector */}
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <button
+            className="flex items-center gap-1.5 px-2 py-1 rounded hover:bg-accent hover:text-accent-foreground transition-colors cursor-pointer"
+            data-testid="status-breakpoint"
+          >
+            <CurrentBreakpointIcon className="w-3 h-3" />
+            <span className="font-medium">
+              {currentBreakpoint?.label || t('statusBar.mobile')} ({currentBreakpoint?.width || 0}px)
+            </span>
+          </button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end" className="w-48">
+          {breakpoints.map((breakpoint) => {
+            const Icon = breakpointIcons[breakpoint.name] || Monitor;
+            const isActive = project.currentBreakpoint === breakpoint.name;
+
+            return (
+              <DropdownMenuItem
+                key={breakpoint.name}
+                onClick={() => handleBreakpointChange(breakpoint.name)}
+                className={isActive ? 'bg-accent' : ''}
+              >
+                <Icon className="w-4 h-4 mr-2" />
+                <span className="flex-1">{breakpoint.label}</span>
+                <span className="text-xs text-muted-foreground ml-2">{breakpoint.width}px</span>
+              </DropdownMenuItem>
+            );
+          })}
+        </DropdownMenuContent>
+      </DropdownMenu>
 
       {/* Service Worker Status */}
       <ServiceWorkerStatus />

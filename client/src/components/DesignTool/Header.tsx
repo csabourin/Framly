@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { RootState } from '../../store';
 import { selectCanvasProject, selectExportModalState, selectUIState } from '../../store/selectors';
-import { switchBreakpoint, undo, redo, updateProjectName } from '../../store/canvasSlice';
+import { updateProjectName } from '../../store/canvasSlice';
 import {
   setExportModalOpen,
   setCodeModalOpen,
@@ -11,6 +11,7 @@ import {
   zoomIn,
   zoomOut,
   fitToScreen,
+  setZoomLevel,
   setClassEditorOpen,
   setComponentEditorOpen,
   setButtonDesignerOpen,
@@ -18,7 +19,13 @@ import {
   toggleDOMTreePanel
 } from '../../store/uiSlice';
 import { Button } from '@/components/ui/button';
-import { Eye, Undo, Redo, Download, Smartphone, Tablet, Monitor, Settings, Plus, Minus, Maximize, Zap, List, Palette, Component, MousePointer2, MonitorSpeaker } from 'lucide-react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { Eye, Undo, Redo, Download, Settings, Plus, Minus, Maximize, Zap, List, Palette, Component, MousePointer2, Wrench, MoreHorizontal } from 'lucide-react';
 import UndoRedoControls from './UndoRedoControls';
 import WebsiteImport from './WebsiteImport';
 import SettingsMenu from './SettingsMenu';
@@ -41,41 +48,12 @@ const Header: React.FC = () => {
     // Silent fallback if context not available
   }
   const project = useSelector(selectCanvasProject);
-  const { isExportModalOpen, isDOMTreePanelVisible } = useSelector((state: RootState) => ({
+  const { isExportModalOpen, isDOMTreePanelVisible, zoomLevel } = useSelector((state: RootState) => ({
     ...selectExportModalState(state),
-    isDOMTreePanelVisible: selectUIState(state).isDOMTreePanelVisible
+    isDOMTreePanelVisible: selectUIState(state).isDOMTreePanelVisible,
+    zoomLevel: selectUIState(state).zoomLevel
   }));
 
-  // Icon mapping for breakpoints with distinct icons
-  const breakpointIcons: Record<string, React.ComponentType<any>> = {
-    mobile: Smartphone,
-    tablet: Tablet,
-    desktop: Monitor,
-    large: MonitorSpeaker,  // Distinct icon for large screens
-  };
-
-  // Ensure all 4 breakpoints are present with proper defaults
-  const defaultBreakpoints = {
-    mobile: { name: 'mobile', label: t('breakpoints.mobile'), width: 375 },
-    tablet: { name: 'tablet', label: t('breakpoints.tablet'), width: 768 },
-    desktop: { name: 'desktop', label: t('breakpoints.desktop'), width: 1024 },
-    large: { name: 'large', label: t('breakpoints.largeDesktop'), width: 1440 }
-  };
-
-  // Merge existing breakpoints with defaults, ensuring all properties are present
-  const breakpoints = Object.entries(defaultBreakpoints).map(([key, defaultBp]) => {
-    const existingBp = project.breakpoints[key];
-    return {
-      ...defaultBp,
-      ...(existingBp || {}),
-      name: key,
-      label: defaultBp.label
-    };
-  });
-
-  const handleBreakpointChange = (breakpointName: string) => {
-    dispatch(switchBreakpoint(breakpointName));
-  };
 
   // Note: handleUndo and handleRedo removed - now using UndoRedoControls component
 
@@ -173,101 +151,83 @@ const Header: React.FC = () => {
 
       {/* Header Actions */}
       <div className="ml-auto flex items-center gap-2" data-testid="header-actions">
-        {/* Breakpoint Switcher */}
-        <div className="flex bg-gray-50 dark:bg-gray-800 rounded-xl p-1 shadow-inner border border-gray-200/50 dark:border-gray-700/50" data-testid="breakpoint-switcher">
-          {breakpoints.map((breakpoint) => {
-            const Icon = breakpointIcons[breakpoint.name] || Monitor;
-            const isActive = project.currentBreakpoint === breakpoint.name;
+        {/* Zoom Control */}
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors min-w-[70px]"
+              data-testid="zoom-control"
+              title="Zoom Level"
+            >
+              <span className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                {Math.round(zoomLevel * 100)}%
+              </span>
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="w-40">
+            <DropdownMenuItem onClick={handleZoomOut} data-testid="menu-zoom-out">
+              <Minus className="w-4 h-4 mr-2" />
+              <span>Zoom Out</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={handleZoomIn} data-testid="menu-zoom-in">
+              <Plus className="w-4 h-4 mr-2" />
+              <span>Zoom In</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={handleFitToScreen} data-testid="menu-fit-screen">
+              <Maximize className="w-4 h-4 mr-2" />
+              <span>Fit to Screen</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => dispatch(setZoomLevel(0.5))}>
+              <span className="ml-6">50%</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => dispatch(setZoomLevel(0.75))}>
+              <span className="ml-6">75%</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => dispatch(setZoomLevel(1))}>
+              <span className="ml-6">100%</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => dispatch(setZoomLevel(1.25))}>
+              <span className="ml-6">125%</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => dispatch(setZoomLevel(1.5))}>
+              <span className="ml-6">150%</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => dispatch(setZoomLevel(2))}>
+              <span className="ml-6">200%</span>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
 
-            return (
-              <button
-                key={breakpoint.name}
-                onClick={() => handleBreakpointChange(breakpoint.name)}
-                className={`px-3 py-2 text-xs font-semibold rounded-lg flex items-center gap-2 transition-all duration-200 ${isActive
-                    ? 'bg-white dark:bg-gray-700 shadow-md border border-gray-200/80 dark:border-gray-600/80 text-blue-600 dark:text-blue-400 scale-105'
-                    : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-white/60 dark:hover:bg-gray-700/60'
-                  }`}
-                data-testid={`button-breakpoint-${breakpoint.name}`}
-                title={`${breakpoint.label} (${breakpoint.width}px)`}
-              >
-                <Icon className="w-4 h-4" />
-                <span className="hidden lg:inline text-xs">{breakpoint.label}</span>
-              </button>
-            );
-          })}
-        </div>
-
-
-        {/* Zoom Controls */}
-        <div className="flex items-center gap-0.5 bg-gray-50 dark:bg-gray-800 rounded-xl p-1 shadow-inner border border-gray-200/50 dark:border-gray-700/50" data-testid="zoom-controls">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={handleZoomOut}
-            className="p-2 hover:bg-white dark:hover:bg-gray-700 hover:shadow-sm rounded-lg transition-all duration-200"
-            data-testid="button-zoom-out"
-            title="Zoom Out"
-          >
-            <Minus className="w-4 h-4 text-gray-600 dark:text-gray-400" />
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={handleFitToScreen}
-            className="p-2 hover:bg-white dark:hover:bg-gray-700 hover:shadow-sm rounded-lg transition-all duration-200"
-            data-testid="button-fit-screen"
-            title="Fit to Screen"
-          >
-            <Maximize className="w-4 h-4 text-gray-600 dark:text-gray-400" />
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={handleZoomIn}
-            className="p-2 hover:bg-white dark:hover:bg-gray-700 hover:shadow-sm rounded-lg transition-all duration-200"
-            data-testid="button-zoom-in"
-            title="Zoom In"
-          >
-            <Plus className="w-4 h-4 text-gray-600 dark:text-gray-400" />
-          </Button>
-        </div>
-
-        {/* Import Tools - Hidden for now */}
-        {/* <WebsiteImport /> */}
-
-        {/* Advanced Tools */}
-        <div className="flex items-center gap-0.5 bg-gray-50 dark:bg-gray-800 rounded-xl p-1 shadow-inner border border-gray-200/50 dark:border-gray-700/50" data-testid="advanced-tools">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={handleOpenClassEditor}
-            className="p-2 hover:bg-white dark:hover:bg-gray-700 hover:shadow-md rounded-lg transition-all duration-200 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100"
-            data-testid="button-open-class-editor"
-            title="Open Class Editor"
-          >
-            <Palette className="w-4 h-4" />
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={handleOpenComponentEditor}
-            className="p-2 hover:bg-white dark:hover:bg-gray-700 hover:shadow-md rounded-lg transition-all duration-200 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100"
-            data-testid="button-open-component-editor"
-            title="Open Component Editor"
-          >
-            <Component className="w-4 h-4" />
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={handleOpenButtonDesigner}
-            className="p-2 hover:bg-white dark:hover:bg-gray-700 hover:shadow-md rounded-lg transition-all duration-200 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100"
-            data-testid="button-open-button-designer"
-            title="Button Designer & States"
-          >
-            <MousePointer2 className="w-4 h-4" />
-          </Button>
-        </div>
+        {/* Advanced Tools Menu */}
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="p-2.5 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+              data-testid="advanced-tools-menu"
+              title="Advanced Tools"
+            >
+              <Wrench className="w-4 h-4 text-gray-600 dark:text-gray-400" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="w-56">
+            <DropdownMenuItem onClick={handleOpenClassEditor} data-testid="menu-class-editor">
+              <Palette className="w-4 h-4 mr-2" />
+              <span>Class Editor</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={handleOpenComponentEditor} data-testid="menu-component-editor">
+              <Component className="w-4 h-4 mr-2" />
+              <span>Component Editor</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={handleOpenButtonDesigner} data-testid="menu-button-designer">
+              <MousePointer2 className="w-4 h-4 mr-2" />
+              <span>Button Designer</span>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
 
         {/* Action Buttons */}
         <div className="flex items-center gap-3" data-testid="action-buttons">
@@ -287,19 +247,29 @@ const Header: React.FC = () => {
           {/* Undo/Redo Controls with History Management */}
           <UndoRedoControls />
 
-          {/* Color Mode Toggle with contextual menu */}
-          <ColorModeToggle />
+          {/* More Menu - Secondary Actions */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="p-2.5 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+                data-testid="more-menu"
+                title="More Options"
+              >
+                <MoreHorizontal className="w-4 h-4 text-gray-600 dark:text-gray-400" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-56">
+              <DropdownMenuItem onClick={handleCSSOptimization} data-testid="menu-css-optimization">
+                <Zap className="w-4 h-4 mr-2" />
+                <span>CSS Optimization</span>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
 
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={handleCSSOptimization}
-            className="p-2.5 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
-            data-testid="button-css-optimization"
-            title="CSS Optimization"
-          >
-            <Zap className="w-4 h-4 text-gray-600 dark:text-gray-400" />
-          </Button>
+          {/* Color Mode Toggle */}
+          <ColorModeToggle />
 
           {/* Language Switcher */}
           <LanguageSwitcher />

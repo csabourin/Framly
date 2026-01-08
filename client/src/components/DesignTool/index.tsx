@@ -13,6 +13,7 @@ import Toolbar from './Toolbar';
 import Canvas from './Canvas';
 import PropertiesPanel from './PropertiesPanel';
 import ComponentPanel from './ComponentPanel';
+import RightPanel from './RightPanel';
 import DOMTreePanel from './DOMTreePanel';
 import CreateComponentModal from './CreateComponentModal';
 import StatusBar from './StatusBar';
@@ -83,8 +84,7 @@ const DesignToolContent: React.FC = () => {
         <Toolbar onShowKeyboardShortcuts={() => setShowKeyboardShortcuts(true)} />
         {isDOMTreePanelVisible && <DOMTreePanel />}
         <Canvas />
-        {isComponentPanelVisible && <ComponentPanel />}
-        {isPropertiesPanelVisible && <PropertiesPanel />}
+        <RightPanel />
       </div>
       <div className="flex flex-col">
         <TabBar />

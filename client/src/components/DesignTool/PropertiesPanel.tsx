@@ -37,7 +37,8 @@ import {
   FileText,
   Edit3,
   Unlink,
-  Component
+  Component,
+  Search
 } from 'lucide-react';
 import ButtonStateSelector from './ButtonStateSelector';
 import FlexLayoutControls from './FlexLayoutControls';
@@ -54,6 +55,7 @@ const PropertiesPanel: React.FC = () => {
   const [newClassName, setNewClassName] = useState('');
   const [selectedClassForEditing, setSelectedClassForEditing] = useState<string | null>(null);
   const [selectedButtonState, setSelectedButtonState] = useState<string>('default');
+  const [propertySearchTerm, setPropertySearchTerm] = useState('');
 
   // Auto-select the class for editing if there's only one class
   React.useEffect(() => {
@@ -86,7 +88,7 @@ const PropertiesPanel: React.FC = () => {
 
   if (!selectedElement) {
     return (
-      <aside className="absolute right-0 top-16 bottom-0 w-80 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-l border-gray-200/60 dark:border-gray-700/60 overflow-y-auto z-40 shadow-lg">
+      <div className="h-full w-full bg-transparent" data-testid="properties-panel">
         <div className="p-8 text-center text-gray-500 dark:text-gray-400 h-full flex flex-col items-center justify-center">
           <div className="w-16 h-16 bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 rounded-xl flex items-center justify-center mb-4 shadow-sm">
             <SettingsIcon className="w-8 h-8 text-blue-500 dark:text-blue-400" />
@@ -94,14 +96,14 @@ const PropertiesPanel: React.FC = () => {
           <div className="font-semibold text-gray-700 dark:text-gray-300 mb-2">{t('properties.clickElement')}</div>
           <div className="text-sm text-gray-500 dark:text-gray-400 max-w-sm">{t('properties.selectElementToEdit')}</div>
         </div>
-      </aside>
+      </div>
     );
   }
 
   // CRITICAL: Special Properties Panel for Component Instances
   if (isComponentInstance) {
     return (
-      <aside className="absolute right-0 top-16 bottom-0 w-80 bg-white/95 backdrop-blur-md border-l border-gray-200/60 overflow-y-auto z-40 shadow-lg" data-testid="properties-panel">
+      <div className="h-full w-full bg-transparent" data-testid="properties-panel">
         <div className="p-4">
           <div className="flex items-center gap-2 mb-4">
             <Component className="w-5 h-5 text-blue-600" />
@@ -237,11 +239,49 @@ const PropertiesPanel: React.FC = () => {
             </div>
           </div>
         </div>
-      </aside>
+      </div>
     );
   }
 
   const propertyGroups = getPropertyGroups(selectedElement.type as ElementType, selectedElement);
+
+  // Filter property groups based on element type to show only relevant properties
+  const shouldShowPropertyGroup = (category: string, elementType: string): boolean => {
+    const isContainer = selectedElement.isContainer ||
+      ['container', 'rectangle', 'section', 'nav', 'header', 'footer', 'article', 'main', 'aside', 'form'].includes(elementType);
+
+    switch (category) {
+      case 'content':
+        // Always show content properties
+        return true;
+      case 'layout':
+        // Always show layout properties
+        return true;
+      case 'spacing':
+        // Always show spacing properties
+        return true;
+      case 'appearance':
+        // Always show appearance properties
+        return true;
+      case 'text':
+        // Show text properties for text elements, headings, buttons, and links
+        return ['text', 'heading', 'button', 'link', 'paragraph'].includes(elementType);
+      case 'flex':
+        // Only show flex properties for containers
+        return isContainer;
+      case 'grid':
+        // Only show grid properties for containers
+        return isContainer;
+      case 'effects':
+        // Show effects for all elements except root
+        return elementType !== 'root';
+      case 'advanced':
+        // Show advanced properties for all elements
+        return true;
+      default:
+        return true;
+    }
+  };
 
   // Batch property change handler for multiple properties at once (e.g., all border sides)
   const handleBatchPropertyChange = (propertyUpdates: Record<string, any>) => {
@@ -564,8 +604,8 @@ const PropertiesPanel: React.FC = () => {
   };
 
   return (
-    <aside
-      className="absolute right-0 top-16 bottom-0 w-80 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-l border-gray-200/60 dark:border-gray-700/60 overflow-y-auto z-40 shadow-lg"
+    <div
+      className="h-full w-full bg-transparent"
       data-testid="properties-panel"
     >
       {/* Panel Header */}
@@ -807,9 +847,44 @@ const PropertiesPanel: React.FC = () => {
         </div>
       )}
 
+      {/* Property Search */}
+      <div className="p-4 border-b border-gray-200/60 dark:border-gray-700/60 bg-gray-50/50 dark:bg-gray-800/50">
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+          <Input
+            type="text"
+            placeholder={t('propertiesPanel.searchProperties', 'Search properties...')}
+            value={propertySearchTerm}
+            onChange={(e) => setPropertySearchTerm(e.target.value)}
+            className="pl-10 h-9 text-sm bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700 rounded-lg"
+            data-testid="property-search"
+          />
+          {propertySearchTerm && (
+            <button
+              onClick={() => setPropertySearchTerm('')}
+              className="absolute right-2 top-1/2 transform -translate-y-1/2 p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded transition-colors"
+              title="Clear search"
+            >
+              <X className="w-3 h-3 text-gray-400" />
+            </button>
+          )}
+        </div>
+      </div>
+
       {/* Dynamic Property Groups */}
       <div className="flex-1">
-        {propertyGroups.map((group) => {
+        {propertyGroups
+          .filter((group) => shouldShowPropertyGroup(group.category, selectedElement.type))
+          .map((group) => ({
+            ...group,
+            properties: group.properties.filter((property) =>
+              propertySearchTerm === '' ||
+              property.label.toLowerCase().includes(propertySearchTerm.toLowerCase()) ||
+              property.key.toLowerCase().includes(propertySearchTerm.toLowerCase())
+            )
+          }))
+          .filter((group) => group.properties.length > 0)
+          .map((group) => {
           const isExpanded = expandedGroups[group.category];
           const IconComponent = getCategoryIcon(group.category);
 
@@ -886,7 +961,7 @@ const PropertiesPanel: React.FC = () => {
         {/* Removed standalone compound property sections - they now appear inline */}
 
       </div>
-    </aside>
+    </div>
   );
 };
 
