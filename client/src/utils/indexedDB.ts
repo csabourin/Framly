@@ -69,7 +69,12 @@ class IndexedDBManager {
     this.initPromise = new Promise((resolve, reject) => {
       const request = indexedDB.open(DB_NAME, DB_VERSION);
 
+      request.onblocked = () => {
+        console.warn('IndexedDB initialization is blocked by another tab/process');
+      };
+
       request.onerror = () => {
+        console.error('IndexedDB error:', request.error);
         reject(request.error);
       };
 
@@ -80,7 +85,7 @@ class IndexedDBManager {
 
       request.onupgradeneeded = (event) => {
         const db = (event.target as IDBOpenDBRequest).result;
-        
+
         // Create object stores
         if (!db.objectStoreNames.contains(PROJECTS_STORE)) {
           const projectStore = db.createObjectStore(PROJECTS_STORE, { keyPath: 'id' });
@@ -132,12 +137,12 @@ class IndexedDBManager {
     if (!this.db) {
       throw new Error('Failed to initialize IndexedDB');
     }
-    
+
     // Verify that required stores exist
     if (!this.db.objectStoreNames.contains(IMAGES_STORE)) {
       throw new Error(`Database is missing required store: ${IMAGES_STORE}. Please refresh the page to upgrade your database.`);
     }
-    
+
     return this.db;
   }
 
@@ -146,7 +151,7 @@ class IndexedDBManager {
     const db = await this.ensureDB();
     const transaction = db.transaction([PROJECTS_STORE], 'readwrite');
     const store = transaction.objectStore(PROJECTS_STORE);
-    
+
     const projectWithTimestamp = {
       ...project,
       updatedAt: new Date().toISOString()
@@ -203,7 +208,7 @@ class IndexedDBManager {
     const db = await this.ensureDB();
     const transaction = db.transaction([COMPONENTS_STORE], 'readwrite');
     const store = transaction.objectStore(COMPONENTS_STORE);
-    
+
     const componentWithTimestamp = {
       ...component,
       updatedAt: new Date().toISOString()
@@ -271,7 +276,7 @@ class IndexedDBManager {
     const db = await this.ensureDB();
     const transaction = db.transaction([CATEGORIES_STORE], 'readwrite');
     const store = transaction.objectStore(CATEGORIES_STORE);
-    
+
     const categoryWithTimestamp = {
       ...category,
       updatedAt: new Date().toISOString()
@@ -307,7 +312,7 @@ class IndexedDBManager {
     const db = await this.ensureDB();
     const transaction = db.transaction([SETTINGS_STORE], 'readwrite');
     const store = transaction.objectStore(SETTINGS_STORE);
-    
+
     const setting = {
       id: key,
       data,
@@ -341,7 +346,7 @@ class IndexedDBManager {
     const db = await this.ensureDB();
     const transaction = db.transaction([CUSTOM_CLASSES_STORE], 'readwrite');
     const store = transaction.objectStore(CUSTOM_CLASSES_STORE);
-    
+
     const classWithTimestamp = {
       ...customClass,
       updatedAt: new Date().toISOString()
@@ -389,7 +394,7 @@ class IndexedDBManager {
     const db = await this.ensureDB();
     const transaction = db.transaction([CLASS_CATEGORIES_STORE], 'readwrite');
     const store = transaction.objectStore(CLASS_CATEGORIES_STORE);
-    
+
     const categoryWithTimestamp = {
       ...category,
       updatedAt: new Date().toISOString()
@@ -427,7 +432,7 @@ class IndexedDBManager {
 
       const transaction = db.transaction([IMAGES_STORE], 'readwrite');
       const store = transaction.objectStore(IMAGES_STORE);
-      
+
       const imageWithTimestamp = {
         ...image,
         createdAt: image.createdAt || new Date().toISOString() // Use provided timestamp or create new
@@ -435,11 +440,11 @@ class IndexedDBManager {
 
       await new Promise<void>((resolve, reject) => {
         const request = store.put(imageWithTimestamp);
-        
+
         request.onsuccess = () => {
           resolve();
         };
-        
+
         request.onerror = () => {
           reject(new Error(`IndexedDB store error: ${request.error?.message || 'Unknown error'}`));
         };
@@ -495,7 +500,7 @@ class IndexedDBManager {
   async clearAll(): Promise<void> {
     const db = await this.ensureDB();
     const transaction = db.transaction([PROJECTS_STORE, COMPONENTS_STORE, CATEGORIES_STORE, SETTINGS_STORE, CUSTOM_CLASSES_STORE, CLASS_CATEGORIES_STORE, IMAGES_STORE], 'readwrite');
-    
+
     await Promise.all([
       new Promise<void>((resolve, reject) => {
         const request = transaction.objectStore(PROJECTS_STORE).clear();

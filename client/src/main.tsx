@@ -9,6 +9,17 @@ import './i18n'; // Initialize i18n
 
 // Register Service Worker for PWA functionality
 async function registerServiceWorker() {
+  if (import.meta.env.DEV) {
+    if ('serviceWorker' in navigator) {
+      const registrations = await navigator.serviceWorker.getRegistrations();
+      for (const registration of registrations) {
+        await registration.unregister();
+        console.log('Unregistered Service Worker in development mode');
+      }
+    }
+    return null;
+  }
+
   if ('serviceWorker' in navigator) {
     try {
       const registration = await navigator.serviceWorker.register('/sw.js', {
@@ -48,7 +59,6 @@ async function initializeTheme() {
 }
 
 // Initialize theme, persistence, and PWA functionality before rendering
-// Initialize theme, persistence, and PWA functionality before rendering
 // Add a race condition to prevent the app from hanging if IDB fails or is blocked
 const activeInit = Promise.all([
   initializeTheme().catch(e => console.error('Theme init failed', e)),
@@ -58,9 +68,9 @@ const activeInit = Promise.all([
 
 const timeoutFallback = new Promise<void>((resolve) => {
   setTimeout(() => {
-    console.warn('Initialization timed out, forcing render');
+    console.warn('Initialization taking longer than 3s, proceeding to render...');
     resolve();
-  }, 1500); // Force render after 1.5s
+  }, 3000); // Force render after 3s
 });
 
 Promise.race([activeInit, timeoutFallback]).finally(() => {

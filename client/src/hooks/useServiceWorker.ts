@@ -34,9 +34,10 @@ export function useServiceWorker() {
 
     // Listen for service worker controller changes
     const handleControllerChange = () => {
+      if (import.meta.env.DEV) return;
       console.log('🔄 Service Worker controller changed');
       updateState();
-      window.location.reload(); // Refresh to get the latest version
+      // window.location.reload(); // DISABLED: This can cause infinite loops in development
     };
 
     // Listen for updates

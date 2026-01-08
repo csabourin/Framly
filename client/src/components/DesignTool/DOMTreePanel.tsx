@@ -2,21 +2,23 @@ import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
 import { selectElement, reorderElement } from '../../store/canvasSlice';
-import { 
-  setTreeDragActive, 
-  setTreeDraggedElement, 
-  setTreeHoveredElement, 
-  setAutoExpandTimer 
+import {
+  setTreeDragActive,
+  setTreeDraggedElement,
+  setTreeHoveredElement,
+  setAutoExpandTimer,
+  setDraggingForReorder,
+  setDraggedElement
 } from '../../store/uiSlice';
 import { selectCurrentElements, selectSelectedElementId } from '../../store/selectors';
 import { useExpandedElements } from '../../hooks/useExpandedElements';
 import { CanvasElement } from '../../types/canvas';
 import { ChevronRight, ChevronDown, Eye, EyeOff, Square, Type, Image as ImageIcon, Box, GripVertical } from 'lucide-react';
-import { 
-  wouldCreateCircularDependency, 
-  detectDropZone, 
-  canAcceptChildren, 
-  isValidDropTarget 
+import {
+  wouldCreateCircularDependency,
+  detectDropZone,
+  canAcceptChildren,
+  isValidDropTarget
 } from '../../utils/canvas';
 import { historyManager } from '../../utils/historyManager';
 import { useTranslation } from 'react-i18next';
@@ -43,15 +45,15 @@ function getElementLabel(element: CanvasElement, t: any) {
     return t('elementTree.textElement', { content: truncated });
   }
   if (element.id === 'root') return t('elementTree.rootContainer');
-  return `${element.type.charAt(0).toUpperCase() + element.type.slice(1)} ${element.id.split('-').pop()}`;
+  return `${element.type.charAt(0).toUpperCase() + element.type.slice(1)} ${element.id.split('-').pop()} `;
 }
 
-const DOMTreeNode: React.FC<DOMTreeNodeProps> = ({ 
-  element, 
-  level, 
-  selectedElementId, 
-  allElements, 
-  isExpanded, 
+const DOMTreeNode: React.FC<DOMTreeNodeProps> = ({
+  element,
+  level,
+  selectedElementId,
+  allElements,
+  isExpanded,
   onToggleExpanded,
   treeDraggedElementId,
   treeHoveredElementId,
@@ -64,10 +66,10 @@ const DOMTreeNode: React.FC<DOMTreeNodeProps> = ({
   const nodeRef = useRef<HTMLDivElement>(null);
   const dragHandleRef = useRef<HTMLDivElement>(null);
   const [dragCounter, setDragCounter] = useState(0);
-  
+
   const hasChildren = element.children && element.children.length > 0;
   const indentLevel = level * 16;
-  
+
   const getElementIcon = (type: string) => {
     switch (type) {
       case 'container':
@@ -82,11 +84,11 @@ const DOMTreeNode: React.FC<DOMTreeNodeProps> = ({
         return <Box className="w-4 h-4 text-gray-500" />;
     }
   };
-  
+
   const handleClick = () => {
     dispatch(selectElement(element.id));
   };
-  
+
   const toggleExpanded = (e: React.MouseEvent) => {
     e.stopPropagation();
     onToggleExpanded(element.id);
@@ -107,8 +109,12 @@ const DOMTreeNode: React.FC<DOMTreeNodeProps> = ({
     }
 
     e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('application/json', JSON.stringify({
+      type: 'canvas-element',
+      elementId: element.id
+    }));
     e.dataTransfer.setData('text/plain', element.id);
-    
+
     // Create ghost image
     const ghostElement = document.createElement('div');
     ghostElement.className = 'bg-blue-100 border border-blue-300 rounded px-2 py-1 text-sm text-blue-800';
@@ -117,20 +123,28 @@ const DOMTreeNode: React.FC<DOMTreeNodeProps> = ({
     ghostElement.style.top = '-1000px';
     document.body.appendChild(ghostElement);
     e.dataTransfer.setDragImage(ghostElement, 10, 10);
-    
+
     // Clean up ghost element after drag
     setTimeout(() => {
       document.body.removeChild(ghostElement);
     }, 0);
 
+    // CRITICAL: Set both tree drag state and global reorder drag state
     dispatch(setTreeDragActive(true));
     dispatch(setTreeDraggedElement(element.id));
-  }, [element, dispatch]);
+    dispatch(setDraggingForReorder(true));
+    dispatch(setDraggedElement(element.id));
+  }, [element, dispatch, t]);
 
   const handleDragEnd = useCallback((e: React.DragEvent) => {
     dispatch(setTreeDragActive(false));
     dispatch(setTreeDraggedElement(null));
     dispatch(setTreeHoveredElement({ elementId: null, zone: null }));
+
+    // CRITICAL: Clear global reorder drag state
+    dispatch(setDraggingForReorder(false));
+    dispatch(setDraggedElement(undefined));
+
     setDragCounter(0);
   }, [dispatch]);
 
@@ -147,20 +161,20 @@ const DOMTreeNode: React.FC<DOMTreeNodeProps> = ({
       const rect = nodeRef.current.getBoundingClientRect();
       const elementCanAcceptChildren = canAcceptChildren(element);
       const zone = detectDropZone(e.clientY, rect, elementCanAcceptChildren);
-      
+
       // Validate the drop operation
       const draggedElement = allElements[treeDraggedElementId];
-      
+
       // Check for circular dependency
       if (wouldCreateCircularDependency(treeDraggedElementId, element.id, allElements)) {
         return;
       }
-      
+
       // For 'inside' drops, check if target can accept children
       if (zone === 'inside' && !elementCanAcceptChildren) {
         return;
       }
-      
+
       // Check if it's a valid drop target for inside drops
       if (zone === 'inside' && !isValidDropTarget(element, draggedElement)) {
         return;
@@ -174,16 +188,16 @@ const DOMTreeNode: React.FC<DOMTreeNodeProps> = ({
     if (!treeDraggedElementId || treeDraggedElementId === element.id) {
       return;
     }
-    
+
     e.preventDefault();
     setDragCounter(prev => prev + 1);
-    
+
     // Auto-expand after 500ms if it's a container and not already expanded
     if (hasChildren && !isExpanded && canAcceptChildren(element)) {
       const timer = setTimeout(() => {
         onToggleExpanded(element.id);
       }, 500);
-      
+
       dispatch(setAutoExpandTimer(timer));
     }
   }, [treeDraggedElementId, element, hasChildren, isExpanded, onToggleExpanded, dispatch]);
@@ -206,14 +220,14 @@ const DOMTreeNode: React.FC<DOMTreeNodeProps> = ({
   const handleDrop = useCallback((e: React.DragEvent) => {
     e.preventDefault();
     setDragCounter(0);
-    
+
     if (!treeDraggedElementId || treeDraggedElementId === element.id) {
       return;
     }
 
     const draggedElementId = treeDraggedElementId;
     const draggedElement = allElements[draggedElementId];
-    
+
     if (!draggedElement) {
       console.warn('Dragged element not found:', draggedElementId);
       return;
@@ -224,65 +238,65 @@ const DOMTreeNode: React.FC<DOMTreeNodeProps> = ({
       const rect = nodeRef.current.getBoundingClientRect();
       const elementCanAcceptChildren = canAcceptChildren(element);
       const zone = detectDropZone(e.clientY, rect, elementCanAcceptChildren);
-      
+
       // Final validation
       if (wouldCreateCircularDependency(draggedElementId, element.id, allElements)) {
         console.warn('Cannot drop: would create circular dependency');
         return;
       }
-      
+
       if (zone === 'inside') {
         if (!elementCanAcceptChildren || !isValidDropTarget(element, draggedElement)) {
           console.warn('Cannot drop inside: invalid target');
           return;
         }
-        
+
         // Drop inside the element
         dispatch(reorderElement({
           elementId: draggedElementId,
           newParentId: element.id,
           insertPosition: 'inside'
         }));
-        
-        historyManager.recordAction('reorder', `Moved ${getElementLabel(draggedElement, t)} inside ${getElementLabel(element, t)}`);
+
+        historyManager.recordAction('reorder', `Moved ${getElementLabel(draggedElement, t)} inside ${getElementLabel(element, t)} `);
       } else {
         // Drop before or after the element (sibling position)
         const parentId = element.parent || 'root';
-        
+
         dispatch(reorderElement({
           elementId: draggedElementId,
           newParentId: parentId,
           insertPosition: zone as 'before' | 'after',
           referenceElementId: element.id
         }));
-        
+
         const positionText = zone === 'before' ? 'before' : 'after';
-        historyManager.recordAction('reorder', `Moved ${getElementLabel(draggedElement, t)} ${positionText} ${getElementLabel(element, t)}`);
+        historyManager.recordAction('reorder', `Moved ${getElementLabel(draggedElement, t)} ${positionText} ${getElementLabel(element, t)} `);
       }
     }
-    
+
     // Clear drag state
     dispatch(setTreeHoveredElement({ elementId: null, zone: null }));
   }, [treeDraggedElementId, element, allElements, dispatch]);
 
   const isVisible = element.styles?.display !== 'none' && element.styles?.opacity !== 0;
-  
+
   // Visual states
   const isDragging = treeDraggedElementId === element.id;
   const isHovered = treeHoveredElementId === element.id && isTreeDragActive;
   const showDropIndicator = isHovered && treeHoveredZone;
   const canBeDragged = element.id !== 'root' && !element.isComponentChild;
-  
+
   return (
     <div className="select-none relative">
       {/* Drop indicator lines */}
       {showDropIndicator && treeHoveredZone === 'before' && (
-        <div 
+        <div
           className="absolute left-0 right-0 h-0.5 bg-blue-500 z-10"
-          style={{ top: '-1px', marginLeft: `${8 + indentLevel}px` }}
+          style={{ top: '-1px', marginLeft: `${8 + indentLevel} px` }}
         />
       )}
-      
+
       <div
         ref={nodeRef}
         draggable={canBeDragged}
@@ -293,26 +307,26 @@ const DOMTreeNode: React.FC<DOMTreeNodeProps> = ({
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
         className={`
-          flex items-center py-1 px-2 cursor-pointer rounded text-sm transition-colors relative
+          flex items - center py - 1 px - 2 cursor - pointer rounded text - sm transition - colors relative
           ${element.id === selectedElementId ? 'bg-blue-100 text-blue-800' : 'text-gray-700'}
           ${isDragging ? 'opacity-50 bg-gray-200' : ''}
           ${isHovered && treeHoveredZone === 'inside' ? 'bg-blue-50 ring-2 ring-blue-300 ring-inset' : ''}
           ${!isDragging && !isHovered ? 'hover:bg-gray-100' : ''}
           ${canBeDragged ? 'group' : ''}
-        `}
-        style={{ paddingLeft: `${8 + indentLevel}px` }}
+`}
+        style={{ paddingLeft: `${8 + indentLevel} px` }}
         onClick={handleClick}
         role="treeitem"
         aria-expanded={hasChildren ? isExpanded : undefined}
         aria-selected={element.id === selectedElementId}
-        aria-label={`${getElementLabel(element, t)}${hasChildren ? (isExpanded ? ', expanded' : ', collapsed') : ''}`}
-        data-testid={`tree-node-${element.id}`}
+        aria-label={`${getElementLabel(element, t)}${hasChildren ? (isExpanded ? ', expanded' : ', collapsed') : ''} `}
+        data-testid={`tree - node - ${element.id} `}
       >
         {hasChildren && (
           <button
             onClick={toggleExpanded}
             className="mr-1 p-0.5 hover:bg-gray-200 rounded"
-            data-testid={`toggle-${element.id}`}
+            data-testid={`toggle - ${element.id} `}
           >
             {isExpanded ? (
               <ChevronDown className="w-3 h-3" />
@@ -322,11 +336,11 @@ const DOMTreeNode: React.FC<DOMTreeNodeProps> = ({
           </button>
         )}
         {!hasChildren && <div className="w-4 mr-1" />}
-        
+
         <div className="flex items-center gap-2 flex-1 min-w-0">
           {/* Drag handle */}
           {canBeDragged && (
-            <div 
+            <div
               ref={dragHandleRef}
               className="opacity-0 group-hover:opacity-100 transition-opacity cursor-grab active:cursor-grabbing"
               aria-hidden="true"
@@ -334,15 +348,15 @@ const DOMTreeNode: React.FC<DOMTreeNodeProps> = ({
               <GripVertical className="w-3 h-3 text-gray-400" />
             </div>
           )}
-          
+
           {getElementIcon(element.type)}
-          <span className="truncate flex-1" data-testid={`element-${element.id}`}>
+          <span className="truncate flex-1" data-testid={`element - ${element.id} `}>
             {getElementLabel(element, t)}
           </span>
           {!isVisible && (
             <EyeOff className="w-3 h-3 text-gray-400 flex-shrink-0" />
           )}
-          
+
           {/* Component badge */}
           {element.componentRef && (
             <span className="text-xs bg-purple-100 text-purple-700 px-1 rounded flex-shrink-0">
@@ -351,15 +365,15 @@ const DOMTreeNode: React.FC<DOMTreeNodeProps> = ({
           )}
         </div>
       </div>
-      
+
       {/* Drop indicator lines */}
       {showDropIndicator && treeHoveredZone === 'after' && (
-        <div 
+        <div
           className="absolute left-0 right-0 h-0.5 bg-blue-500 z-10"
-          style={{ bottom: '-1px', marginLeft: `${8 + indentLevel}px` }}
+          style={{ bottom: '-1px', marginLeft: `${8 + indentLevel} px` }}
         />
       )}
-      
+
       {hasChildren && isExpanded && (
         <div role="group">
           {element.children?.map(childId => {
@@ -392,21 +406,21 @@ const DOMTreePanel: React.FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const panelRef = useRef<HTMLDivElement>(null);
-  
+
   // Use new selectors for tab-based data
   const rawElements = useSelector(selectCurrentElements);
   const selectedElementId = useSelector(selectSelectedElementId);
-  const { 
-    isTreeDragActive, 
-    treeDraggedElementId, 
-    treeHoveredElementId, 
-    treeHoveredZone 
+  const {
+    isTreeDragActive,
+    treeDraggedElementId,
+    treeHoveredElementId,
+    treeHoveredZone
   } = useSelector((state: RootState) => state.ui);
-  
+
   // CRITICAL: Use expanded elements to show component instance children in Element Tree
   const currentElements = useExpandedElements(rawElements);
   const rootElement = currentElements.root;
-  
+
   // Local state for expanded elements
   const [expandedElements, setExpandedElements] = useState<Record<string, boolean>>(() => {
     // Initialize with all elements expanded by default
@@ -418,31 +432,31 @@ const DOMTreePanel: React.FC = () => {
     });
     return initialExpanded;
   });
-  
+
   const handleToggleExpanded = useCallback((elementId: string) => {
     setExpandedElements(prev => ({
       ...prev,
       [elementId]: !prev[elementId]
     }));
   }, []);
-  
+
   // Auto-scroll when dragging near edges
   useEffect(() => {
     if (!isTreeDragActive || !panelRef.current) return;
-    
+
     let scrollInterval: NodeJS.Timeout;
-    
+
     const handleMouseMove = (e: MouseEvent) => {
       if (!panelRef.current) return;
-      
+
       const rect = panelRef.current.getBoundingClientRect();
       const scrollContainer = panelRef.current.querySelector('.overflow-y-auto');
-      
+
       if (!scrollContainer) return;
-      
+
       const threshold = 50; // pixels from edge to trigger scroll
       const scrollSpeed = 5;
-      
+
       if (e.clientY < rect.top + threshold) {
         // Scroll up
         scrollInterval = setInterval(() => {
@@ -458,21 +472,21 @@ const DOMTreePanel: React.FC = () => {
         clearInterval(scrollInterval);
       }
     };
-    
+
     const handleMouseUp = () => {
       clearInterval(scrollInterval);
     };
-    
+
     document.addEventListener('mousemove', handleMouseMove);
     document.addEventListener('mouseup', handleMouseUp);
-    
+
     return () => {
       clearInterval(scrollInterval);
       document.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseup', handleMouseUp);
     };
   }, [isTreeDragActive]);
-  
+
   // Announce drag operations to screen readers
   useEffect(() => {
     if (isTreeDragActive && treeDraggedElementId) {
@@ -486,18 +500,18 @@ const DOMTreePanel: React.FC = () => {
         announcer.className = 'sr-only';
         announcer.textContent = announcement;
         document.body.appendChild(announcer);
-        
+
         setTimeout(() => {
           document.body.removeChild(announcer);
         }, 1000);
       }
     }
   }, [isTreeDragActive, treeDraggedElementId, currentElements]);
-  
+
   return (
-    <div 
+    <div
       ref={panelRef}
-      className="absolute left-16 top-12 bottom-20 w-64 bg-white border-r border-gray-200 z-30" 
+      className="absolute left-16 top-12 bottom-20 w-64 bg-white border-r border-gray-200 z-30"
       data-testid="dom-tree-panel"
       role="tree"
       aria-label="Element hierarchy tree"
@@ -508,7 +522,7 @@ const DOMTreePanel: React.FC = () => {
           {isTreeDragActive ? t('elementTree.dropToReorder') : t('elementTree.dragToReorderClick')}
         </p>
       </div>
-      
+
       <div className="p-2 overflow-y-auto max-h-full">
         {rootElement && (
           <DOMTreeNode
@@ -527,7 +541,7 @@ const DOMTreePanel: React.FC = () => {
           />
         )}
       </div>
-      
+
       {/* Drag overlay */}
       {isTreeDragActive && (
         <div className="absolute inset-0 pointer-events-none z-10">

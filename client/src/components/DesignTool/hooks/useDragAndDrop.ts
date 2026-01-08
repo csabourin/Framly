@@ -1,12 +1,12 @@
 import { useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { 
+import {
   selectIsDraggingForReorder,
   selectDraggedElementId,
   selectCurrentElements,
   selectZoomLevel
 } from '../../../store/selectors';
-import { 
+import {
   setDraggingForReorder,
   setDraggedElement,
   setHoveredElement,
@@ -17,11 +17,11 @@ import { createDefaultElement } from '../../../utils/canvas';
 
 // Drop Zone Constants
 export const DROP_ZONES = {
-  BEFORE: 'BEFORE',
-  INSIDE: 'INSIDE', 
-  AFTER: 'AFTER',
-  CANVAS_START: 'CANVAS_START',
-  CANVAS_END: 'CANVAS_END'
+  BEFORE: 'before',
+  INSIDE: 'inside',
+  AFTER: 'after',
+  CANVAS_START: 'canvas_start',
+  CANVAS_END: 'canvas_end'
 } as const;
 
 // Thresholds for drop zones
@@ -44,22 +44,22 @@ export const useDragAndDrop = (
   const isDraggingForReorder = useSelector(selectIsDraggingForReorder);
   const draggedElementId = useSelector(selectDraggedElementId);
   const currentElements = useSelector(selectCurrentElements);
-  
+
   const [insertionIndicator, setInsertionIndicator] = useState<any>(null);
 
   // Helper to check if element is ancestor of another
   const isAncestor = useCallback((ancestorId: string, descendantId: string): boolean => {
     if (ancestorId === descendantId) return false;
-    
+
     const findDescendant = (elementId: string): boolean => {
       const element = currentElements[elementId];
       if (!element?.children) return false;
-      
+
       if (element.children.includes(descendantId)) return true;
-      
+
       return element.children.some(childId => findDescendant(childId));
     };
-    
+
     return findDescendant(ancestorId);
   }, [currentElements]);
 
@@ -69,7 +69,7 @@ export const useDragAndDrop = (
       // Special bounds for canvas start/end
       const canvasRect = canvasRef.current?.getBoundingClientRect();
       if (!canvasRect) return null;
-      
+
       return {
         x: 0,
         y: zone === DROP_ZONES.CANVAS_START ? 0 : '100%',
@@ -87,15 +87,15 @@ export const useDragAndDrop = (
     // OR we query the DOM element if it exists
     const domElement = document.getElementById(elementId);
     if (!domElement) return null;
-    
+
     const rect = domElement.getBoundingClientRect();
     const canvasRect = canvasRef.current?.getBoundingClientRect();
-    
+
     if (!canvasRect) return null;
 
     // Calculate relative coordinates
     const scale = 1; // Assuming zoom is handled by the parent
-    
+
     // Bounds relative to the element itself
     let bounds = {
       x: rect.left - canvasRect.left + canvasRef.current!.scrollLeft,
@@ -116,25 +116,39 @@ export const useDragAndDrop = (
     return bounds;
   }, [currentElements, canvasRef]);
 
-  const handleDragOver = useCallback((e: React.DragEvent<HTMLDivElement>) => {
+  const handleElementDragStart = useCallback((e: React.DragEvent, elementId: string) => {
+    dispatch(setDraggingForReorder(true));
+    dispatch(setDraggedElement(elementId));
+
+    e.dataTransfer.setData('application/json', JSON.stringify({
+      type: 'canvas-element',
+      elementId: elementId
+    }));
+    e.dataTransfer.effectAllowed = 'move';
+  }, [dispatch]);
+
+  const handleDragOver = useCallback((e: React.DragEvent<any>, providedTargetId?: string) => {
     e.preventDefault();
     e.stopPropagation();
-    
+
     // Check if this is a toolbar element or existing element
-    const isToolbarDrag = e.dataTransfer.types.includes('application/json');
-    if (isToolbarDrag) {
-      e.dataTransfer.dropEffect = 'copy';
-    } else if (isDraggingForReorder) {
+    const dragDataString = e.dataTransfer.types.includes('application/json');
+
+    // If we're dragging for reorder, always allow it
+    if (isDraggingForReorder) {
       e.dataTransfer.dropEffect = 'move';
+    } else if (dragDataString) {
+      // JSON data usually means toolbar element
+      e.dataTransfer.dropEffect = 'copy';
     } else {
       return;
     }
 
-    // Identify target
+    // Identify target - use provided ID if available (from CanvasElement), otherwise detect
     const target = e.target as HTMLElement;
     const targetElement = target.closest('[data-element-id]') as HTMLElement;
-    const targetId = targetElement?.getAttribute('data-element-id');
-    
+    const targetId = providedTargetId || targetElement?.getAttribute('data-element-id');
+
     // Canvas Padding Handling (Root Insertion)
     if (!targetId || targetId === 'root') {
       // If dropping on background/root, check position relative to canvas content
@@ -145,17 +159,17 @@ export const useDragAndDrop = (
         const relativeY = e.clientY - canvasRect.top;
         const isTop = relativeY < 100; // Drop near top padding
         const isBottom = relativeY > (canvasRect.height - 100); // Drop near bottom
-        
+
         if (isTop) {
           setInsertionIndicator({
-             type: DROP_ZONES.CANVAS_START,
-             bounds: calculateInsertionBounds('root', DROP_ZONES.CANVAS_START, true)
+            type: DROP_ZONES.CANVAS_START,
+            bounds: calculateInsertionBounds('root', DROP_ZONES.CANVAS_START, true)
           });
           return;
         } else if (isBottom) {
-           setInsertionIndicator({
-             type: DROP_ZONES.CANVAS_END,
-             bounds: calculateInsertionBounds('root', DROP_ZONES.CANVAS_END, true)
+          setInsertionIndicator({
+            type: DROP_ZONES.CANVAS_END,
+            bounds: calculateInsertionBounds('root', DROP_ZONES.CANVAS_END, true)
           });
           return;
         }
@@ -179,10 +193,10 @@ export const useDragAndDrop = (
     const rect = targetElement.getBoundingClientRect();
     const y = e.clientY - rect.top;
     const relativeY = y / rect.height;
-    
+
     const element = currentElements[targetId];
     const isContainer = element && (VALID_CONTAINERS.has(element.type) || element.isContainer);
-    
+
     let zone;
     if (relativeY < ZONE_THRESHOLDS.TOP) {
       zone = DROP_ZONES.BEFORE;
@@ -203,20 +217,20 @@ export const useDragAndDrop = (
       insertPosition: zone === DROP_ZONES.BEFORE ? 'before' : zone === DROP_ZONES.AFTER ? 'after' : 'inside',
       bounds: calculateInsertionBounds(targetId, zone)
     });
-    
+
     dispatch(setHoveredElement({ elementId: targetId, zone: zone as any }));
 
   }, [isDraggingForReorder, draggedElementId, currentElements, canvasRef, calculateInsertionBounds, isAncestor, dispatch]);
 
-  const handleDragLeave = useCallback((e: React.DragEvent) => {
+  const handleDragLeave = useCallback((e: React.DragEvent<any>) => {
     // Only clear if actually leaving the canvas area
     if (e.currentTarget.contains(e.relatedTarget as Node)) return;
-    
+
     setInsertionIndicator(null);
     dispatch(setHoveredElement({ elementId: null, zone: null }));
   }, [dispatch]);
 
-  const handleDragEnd = useCallback((e: React.DragEvent) => {
+  const handleDragEnd = useCallback((e: React.DragEvent<any>) => {
     setInsertionIndicator(null);
     dispatch(setHoveredElement({ elementId: null, zone: null }));
     dispatch(setDraggingForReorder(false));
@@ -226,76 +240,83 @@ export const useDragAndDrop = (
   const handleDrop = useCallback((e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    
+
     try {
-      // 1. Toolbar Element Drop
+      // 1. Check for Drag Data
       const dragDataString = e.dataTransfer.getData('application/json');
+      let dragData = null;
       if (dragDataString) {
-        const dragData = JSON.parse(dragDataString);
-        
-        if (dragData.type === 'toolbar-element') {
-          const newElement = createDefaultElement(dragData.elementType);
-          
-          if (insertionIndicator?.type === DROP_ZONES.CANVAS_START) {
-             dispatch(addElement({ element: newElement, parentId: 'root', insertPosition: 'canvas-start' }));
-          } else if (insertionIndicator?.type === DROP_ZONES.CANVAS_END) {
-             dispatch(addElement({ element: newElement, parentId: 'root', insertPosition: 'canvas-end' }));
-          } else if (insertionIndicator?.elementId) {
-             // Normal relative drop
-             dispatch(addElement({
-                element: newElement,
-                parentId: insertionIndicator.position === DROP_ZONES.INSIDE 
-                  ? insertionIndicator.elementId 
-                  : currentElements[insertionIndicator.elementId]?.parent || 'root',
-                insertPosition: insertionIndicator.insertPosition,
-                referenceElementId: insertionIndicator.position !== DROP_ZONES.INSIDE ? insertionIndicator.elementId : undefined
-             }));
-          } else {
-             // Fallback: Append to root
-             dispatch(addElement({ element: newElement, parentId: 'root', insertPosition: 'inside' }));
-          }
-          
-          dispatch(selectElement(newElement.id));
+        try {
+          dragData = JSON.parse(dragDataString);
+        } catch (err) {
+          console.error('Failed to parse drag data:', err);
         }
-      } 
-      // 2. Existing Element Reorder
+      }
+
+      // 2. Process Based on Drag Type
+      // CASE A: NEW ELEMENT FROM TOOLBAR
+      if (dragData?.type === 'toolbar-element') {
+        const newElement = createDefaultElement(dragData.elementType);
+
+        if (insertionIndicator?.type === DROP_ZONES.CANVAS_START) {
+          dispatch(addElement({ element: newElement, parentId: 'root', insertPosition: 'canvas-start' }));
+        } else if (insertionIndicator?.type === DROP_ZONES.CANVAS_END) {
+          dispatch(addElement({ element: newElement, parentId: 'root', insertPosition: 'canvas-end' }));
+        } else if (insertionIndicator?.elementId) {
+          // Normal relative drop
+          dispatch(addElement({
+            element: newElement,
+            parentId: insertionIndicator.position === DROP_ZONES.INSIDE
+              ? insertionIndicator.elementId
+              : currentElements[insertionIndicator.elementId]?.parent || 'root',
+            insertPosition: insertionIndicator.insertPosition,
+            referenceElementId: insertionIndicator.position !== DROP_ZONES.INSIDE ? insertionIndicator.elementId : undefined
+          }));
+        } else {
+          // Fallback: Append to root
+          dispatch(addElement({ element: newElement, parentId: 'root', insertPosition: 'inside' }));
+        }
+
+        dispatch(selectElement(newElement.id));
+      }
+      // CASE B: REORDERING EXISTING ELEMENT (FROM CANVAS OR TREE)
       else if (isDraggingForReorder && draggedElementId) {
         if (insertionIndicator?.type === DROP_ZONES.CANVAS_START) {
-           dispatch(reorderElement({
-             elementId: draggedElementId,
-             newParentId: 'root',
-             insertPosition: 'before',
-             referenceElementId: currentElements['root'].children?.[0] // Insert before first child
-           }));
+          dispatch(reorderElement({
+            elementId: draggedElementId,
+            newParentId: 'root',
+            insertPosition: 'before',
+            referenceElementId: currentElements['root'].children?.[0] // Insert before first child
+          }));
         } else if (insertionIndicator?.type === DROP_ZONES.CANVAS_END) {
-           dispatch(reorderElement({
-             elementId: draggedElementId,
-             newParentId: 'root',
-             insertPosition: 'inside' // Inside root (append by default)
-           }));
+          dispatch(reorderElement({
+            elementId: draggedElementId,
+            newParentId: 'root',
+            insertPosition: 'inside' // Inside root (append by default)
+          }));
         } else if (insertionIndicator?.elementId) {
-           let newParentId = 'root';
-           let insertPosition = insertionIndicator.insertPosition;
-           let referenceElementId = insertionIndicator.referenceElementId;
-           
-           if (insertPosition === 'before' || insertPosition === 'after') {
-             newParentId = currentElements[insertionIndicator.elementId]?.parent || 'root';
-           } else {
-             newParentId = insertionIndicator.elementId;
-           }
+          let newParentId = 'root';
+          let insertPosition = insertionIndicator.insertPosition;
+          let referenceElementId = insertionIndicator.referenceElementId;
 
-           dispatch(reorderElement({
-             elementId: draggedElementId,
-             newParentId,
-             insertPosition,
-             referenceElementId
-           }));
+          if (insertPosition === 'before' || insertPosition === 'after') {
+            newParentId = currentElements[insertionIndicator.elementId]?.parent || 'root';
+          } else {
+            newParentId = insertionIndicator.elementId;
+          }
+
+          dispatch(reorderElement({
+            elementId: draggedElementId,
+            newParentId,
+            insertPosition,
+            referenceElementId
+          }));
         }
       }
     } catch (error) {
       console.error('Error processing drop:', error);
     }
-    
+
     // Cleanup
     dispatch(setDraggingForReorder(false));
     dispatch(setDraggedElement(undefined));
@@ -310,6 +331,7 @@ export const useDragAndDrop = (
     handleDragLeave,
     handleDrop,
     handleDragEnd,
+    handleElementDragStart,
     setInsertionIndicator
   };
 };

@@ -1,6 +1,6 @@
 import React, { useRef, useCallback } from 'react';
 import { useSelector } from 'react-redux';
-import { 
+import {
   selectSelectedElementId,
   selectHoveredElementId,
   selectIsDraggingForReorder,
@@ -10,8 +10,6 @@ import {
 import CanvasElement from './CanvasElement';
 import { useColorModeCanvasSync } from '../../hooks/useColorModeCanvasSync';
 import { useDrawingCommitter } from './DrawingCommitter';
-import DragFeedback from './DragFeedback';
-import DragIndicatorOverlay from './DragIndicatorOverlay';
 import { getCanvasCoordinatesFromEvent } from './utils/coordinateTransforms';
 
 // Modular hooks
@@ -39,10 +37,10 @@ import SelectionOverlay from './components/SelectionOverlay';
  */
 const Canvas: React.FC = () => {
   const canvasRef = useRef<HTMLDivElement>(null);
-  
+
   // Sync color mode changes with canvas refresh
   useColorModeCanvasSync();
-  
+
   // Modular state management
   const canvasState = useCanvasState();
   const {
@@ -55,13 +53,13 @@ const Canvas: React.FC = () => {
     rootStyles,
     isTextEditingActive
   } = canvasState;
-  
+
   // Selection state
   const selectedElementId = useSelector(selectSelectedElementId);
   const hoveredElementId = useSelector(selectHoveredElementId);
   const isDraggingForReorder = useSelector(selectIsDraggingForReorder);
   const draggedElementId = useSelector(selectDraggedElementId);
-  
+
   // Initialize drawing committer for toolbar element insertion
   const { commitDrawnRect } = useDrawingCommitter({
     currentElements: expandedElements,
@@ -74,48 +72,48 @@ const Canvas: React.FC = () => {
   const canvasEvents = useCanvasEvents(expandedElements, zoomLevel);
   const toolHandler = useToolHandler(expandedElements, zoomLevel);
   const elementSelection = useElementSelection(zoomLevel);
-  
+
   const drawingEvents = useDrawingEvents(
     expandedElements,
     canvasRef,
     canvasWidth
   );
-  
+
   const dragAndDrop = useDragAndDrop(canvasRef);
 
-  
+
   // Orchestrate event handlers
   const handleMouseDown = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     // Skip drawing when clicking on editable text elements or when text editing is active
     const target = e.target as HTMLElement;
     const isClickingText = target.closest('.text-element') || target.closest('[contenteditable="true"]') || target.hasAttribute('contenteditable');
-    
+
     if (isClickingText || isTextEditingActive) {
       return;
     }
 
     const coords = getCanvasCoordinatesFromEvent(e, canvasRef, zoomLevel);
-    
+
     // Handle creation tools (toolbar element insertion)
     if (toolHandler.isCreationTool(toolHandler.selectedTool)) {
       e.preventDefault();
       e.stopPropagation();
-      
+
       console.log('Toolbar insertion:', toolHandler.selectedTool, 'at position:', coords.x, coords.y);
       toolHandler.handlePointAndClickInsertion(
-        coords.x, 
-        coords.y, 
-        toolHandler.selectedTool, 
-        e.shiftKey, 
+        coords.x,
+        coords.y,
+        toolHandler.selectedTool,
+        e.shiftKey,
         e.altKey || e.metaKey
       );
       return;
     }
-    
+
     // Canvas-level events for select/hand tools
     canvasEvents.handleCanvasMouseDown(e);
   }, [canvasEvents, toolHandler, isTextEditingActive, zoomLevel]);
-  
+
   const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     if (drawingEvents.isDrawing) {
       drawingEvents.handleDrawingMouseMove(e);
@@ -129,16 +127,16 @@ const Canvas: React.FC = () => {
       e.stopPropagation();
       return;
     }
-    
+
     e.preventDefault();
     e.stopPropagation();
-    
+
     const coords = getCanvasCoordinatesFromEvent(e, canvasRef, zoomLevel);
-    
+
     // Handle tool-based selection
     toolHandler.handleToolBasedSelection(coords.x, coords.y, toolHandler.selectedTool);
   }, [toolHandler, zoomLevel]);
-  
+
   const handleMouseUp = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     if (drawingEvents.isDrawing) {
       drawingEvents.handleDrawingMouseUp(e);
@@ -173,52 +171,39 @@ const Canvas: React.FC = () => {
         {(rootElement.children || []).map((childId: string) => {
           const element = expandedElements[childId];
           if (!element) return null;
-          
+
           return (
-            <CanvasElement 
-              key={element.id} 
+            <CanvasElement
+              key={element.id}
               element={element}
               isSelected={element.id === selectedElementId}
               isHovered={element.id === hoveredElementId}
               currentElements={expandedElements}
+              onElementDragStart={(e, id) => dragAndDrop.handleElementDragStart(e, id)}
+              onElementDragOver={(e, id) => dragAndDrop.handleDragOver(e, id)}
+              onElementDragLeave={(e) => dragAndDrop.handleDragLeave(e)}
+              onElementDragEnd={(e) => dragAndDrop.handleDragEnd(e)}
             />
           );
         })}
       </div>
-      
+
       {/* Visual feedback overlays */}
       <InsertionIndicator insertionIndicator={dragAndDrop.insertionIndicator} />
-      
-      <DrawingOverlay 
+
+      <DrawingOverlay
         drawingState={drawingEvents.drawingState}
         selectedTool={toolHandler.selectedTool}
         zoomLevel={zoomLevel}
       />
-      
+
       <SelectionOverlay
         selectedElementId={selectedElementId || null}
         hoveredElementId={hoveredElementId || null}
         elements={expandedElements}
         zoomLevel={zoomLevel}
       />
-      
-      {/* Drag feedback overlay */}
-      {isDraggingForReorder && draggedElementId && (
-        <DragFeedback
-          hoveredElementId={hoveredElementId}
-          hoveredZone={null}
-          draggedElementId={draggedElementId}
-        />
-      )}
-      
-      {/* Drag indicator overlay */}
-      <DragIndicatorOverlay
-        hoveredElementId={hoveredElementId}
-        hoveredZone={null}
-        currentElements={expandedElements}
-        zoomLevel={zoomLevel}
-        canvasRef={canvasRef}
-      />
+
     </CanvasContainer>
   );
 };

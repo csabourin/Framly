@@ -26,11 +26,11 @@ interface CanvasElementProps {
   zoomLevel?: number; // Added zoom level support
   canvasRef?: React.RefObject<HTMLDivElement>; // Canvas ref for positioning
   // Enhanced drag-and-drop props
-  onElementDragStart?: (e: React.DragEvent, elementId: string) => void;
-  onElementDragOver?: (e: React.DragEvent, elementId: string) => void;
-  onElementDragLeave?: (e: React.DragEvent) => void;
-  onElementDrop?: (e: React.DragEvent, elementId: string) => void;
-  onElementDragEnd?: (e: React.DragEvent) => void;
+  onElementDragStart?: (e: React.DragEvent<any>, elementId: string) => void;
+  onElementDragOver?: (e: React.DragEvent<any>, elementId: string) => void;
+  onElementDragLeave?: (e: React.DragEvent<any>) => void;
+  onElementDrop?: (e: React.DragEvent<any>, elementId: string) => void;
+  onElementDragEnd?: (e: React.DragEvent<any>) => void;
   getDropClasses?: (elementId: string) => string;
 }
 
@@ -250,6 +250,12 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     // Don't handle drops at element level to avoid conflicts
     // The useDragAndDrop hook in Canvas will handle the drop processing
   }, []);
+
+  const handleDragEnd = useCallback((e: React.DragEvent<HTMLDivElement>) => {
+    if (onElementDragEnd) {
+      onElementDragEnd(e);
+    }
+  }, [onElementDragEnd]);
 
   const handleKeyDown = useCallback((e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === 'Enter') {
@@ -1166,6 +1172,12 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
                 hoveredElementId={actualHoveredElementId}
                 expandedContainerId={expandedContainerId}
                 currentElements={currentElements}
+                onElementDragStart={onElementDragStart}
+                onElementDragOver={onElementDragOver}
+                onElementDragLeave={onElementDragLeave}
+                onElementDrop={onElementDrop}
+                onElementDragEnd={onElementDragEnd}
+                getDropClasses={getDropClasses}
               />
             );
           })
