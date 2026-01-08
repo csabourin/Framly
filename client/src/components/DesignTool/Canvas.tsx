@@ -183,7 +183,7 @@ const Canvas: React.FC = () => {
               onElementDragOver={(e, id) => dragAndDrop.handleDragOver(e, id)}
               onElementDragLeave={(e) => dragAndDrop.handleDragLeave(e)}
               onElementDragEnd={(e) => dragAndDrop.handleDragEnd(e)}
-              onElementDrop={(e, id) => dragAndDrop.handleDrop(e)}
+              onElementDrop={(e) => dragAndDrop.handleDrop(e as React.DragEvent<HTMLDivElement>)}
             />
           );
         })}
