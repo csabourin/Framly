@@ -11,7 +11,7 @@ import {
   zoomIn,
   zoomOut,
   fitToScreen,
-  setZoom,
+  setZoomLevel,
   setClassEditorOpen,
   setComponentEditorOpen,
   setButtonDesignerOpen,
@@ -179,22 +179,22 @@ const Header: React.FC = () => {
               <Maximize className="w-4 h-4 mr-2" />
               <span>Fit to Screen</span>
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => dispatch(setZoom(0.5))}>
+            <DropdownMenuItem onClick={() => dispatch(setZoomLevel(0.5))}>
               <span className="ml-6">50%</span>
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => dispatch(setZoom(0.75))}>
+            <DropdownMenuItem onClick={() => dispatch(setZoomLevel(0.75))}>
               <span className="ml-6">75%</span>
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => dispatch(setZoom(1))}>
+            <DropdownMenuItem onClick={() => dispatch(setZoomLevel(1))}>
               <span className="ml-6">100%</span>
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => dispatch(setZoom(1.25))}>
+            <DropdownMenuItem onClick={() => dispatch(setZoomLevel(1.25))}>
               <span className="ml-6">125%</span>
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => dispatch(setZoom(1.5))}>
+            <DropdownMenuItem onClick={() => dispatch(setZoomLevel(1.5))}>
               <span className="ml-6">150%</span>
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => dispatch(setZoom(2))}>
+            <DropdownMenuItem onClick={() => dispatch(setZoomLevel(2))}>
               <span className="ml-6">200%</span>
             </DropdownMenuItem>
           </DropdownMenuContent>

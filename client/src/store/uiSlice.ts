@@ -10,6 +10,7 @@ interface UIState {
   isComponentPanelVisible: boolean;
   isDOMTreePanelVisible: boolean;
   isPropertiesPanelVisible: boolean;
+  rightPanelTab: 'properties' | 'components';
   isComponentEditorOpen: boolean;
   editingComponentId: string | null;
   isButtonDesignerOpen: boolean;
@@ -59,6 +60,7 @@ const initialState: UIState = {
   isComponentPanelVisible: true,
   isDOMTreePanelVisible: true,
   isPropertiesPanelVisible: true,
+  rightPanelTab: 'properties',
   isComponentEditorOpen: false,
   editingComponentId: null,
   isButtonDesignerOpen: false,
@@ -132,6 +134,14 @@ const uiSlice = createSlice({
     togglePropertiesPanel: (state) => {
       state.isPropertiesPanelVisible = !state.isPropertiesPanelVisible;
       // Auto-save UI settings when panel visibility changes
+      import('../utils/persistence').then(({ persistenceManager }) => {
+        persistenceManager.saveCurrentProject();
+      });
+    },
+
+    setRightPanelTab: (state, action: PayloadAction<'properties' | 'components'>) => {
+      state.rightPanelTab = action.payload;
+      // Auto-save UI settings when tab changes
       import('../utils/persistence').then(({ persistenceManager }) => {
         persistenceManager.saveCurrentProject();
       });
@@ -329,6 +339,7 @@ export const {
   toggleComponentPanel,
   toggleDOMTreePanel,
   togglePropertiesPanel,
+  setRightPanelTab,
   setComponentEditorOpen,
   setEditingComponent,
   setButtonDesignerOpen,
