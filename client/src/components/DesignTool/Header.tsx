@@ -16,7 +16,8 @@ import {
   setComponentEditorOpen,
   setButtonDesignerOpen,
   setSettingsMenuOpen,
-  toggleDOMTreePanel
+  toggleDOMTreePanel,
+  setWorkspaceLayout
 } from '../../store/uiSlice';
 import { Button } from '@/components/ui/button';
 import {
@@ -25,7 +26,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Eye, Undo, Redo, Download, Settings, Plus, Minus, Maximize, Zap, List, Palette, Component, MousePointer2, Wrench, MoreHorizontal } from 'lucide-react';
+import { Eye, Undo, Redo, Download, Settings, Plus, Minus, Maximize, Zap, List, Palette, Component, MousePointer2, Wrench, MoreHorizontal, LayoutGrid, Minimize2, Code2, Layers } from 'lucide-react';
 import UndoRedoControls from './UndoRedoControls';
 import WebsiteImport from './WebsiteImport';
 import SettingsMenu from './SettingsMenu';
@@ -48,10 +49,11 @@ const Header: React.FC = () => {
     // Silent fallback if context not available
   }
   const project = useSelector(selectCanvasProject);
-  const { isExportModalOpen, isDOMTreePanelVisible, zoomLevel } = useSelector((state: RootState) => ({
+  const { isExportModalOpen, isDOMTreePanelVisible, zoomLevel, workspaceLayout } = useSelector((state: RootState) => ({
     ...selectExportModalState(state),
     isDOMTreePanelVisible: selectUIState(state).isDOMTreePanelVisible,
-    zoomLevel: selectUIState(state).zoomLevel
+    zoomLevel: selectUIState(state).zoomLevel,
+    workspaceLayout: selectUIState(state).workspaceLayout
   }));
 
 
@@ -103,23 +105,28 @@ const Header: React.FC = () => {
     dispatch(toggleDOMTreePanel());
   };
 
+  const handleWorkspaceLayoutChange = (layout: 'minimal' | 'designer' | 'developer') => {
+    dispatch(setWorkspaceLayout(layout));
+  };
+
   return (
     <header
-      className="absolute top-0 left-0 right-0 h-16 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-b border-gray-200/60 dark:border-gray-700/60 flex items-center px-6 z-50 gap-6 shadow-sm"
+      className="absolute top-0 left-0 right-0 h-12 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-b border-gray-200/60 dark:border-gray-700/60 flex items-center px-4 z-50 gap-3 shadow-sm"
       data-testid="header-main"
     >
-      {/* Logo */}
-      <div className="flex items-center gap-4" data-testid="logo-container">
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
-            <Component className="w-5 h-5 text-white" />
+      {/* Logo & Core Controls */}
+      <div className="flex items-center gap-2" data-testid="logo-container">
+        <div className="flex items-center gap-2">
+          <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center shadow-md">
+            <Component className="w-4 h-4 text-white" />
           </div>
-          <span className="font-bold text-xl text-gray-900 dark:text-gray-100 tracking-tight">Framly</span>
+          <span className="font-bold text-lg text-gray-900 dark:text-gray-100 tracking-tight">Framly</span>
         </div>
         <button
           onClick={handleOpenSettings}
           className="w-8 h-8 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 rounded-lg flex items-center justify-center transition-colors"
           data-testid="settings-button"
+          title="Settings"
         >
           <Settings className="w-4 h-4 text-gray-600 dark:text-gray-400" />
         </button>
@@ -134,18 +141,69 @@ const Header: React.FC = () => {
         >
           <List className="w-4 h-4" />
         </button>
+
+        {/* Workspace Layout Presets */}
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <button
+              className={`w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-200 ${workspaceLayout !== 'custom'
+                  ? 'bg-blue-500 text-white shadow-md'
+                  : 'bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-400'
+                }`}
+              data-testid="workspace-layout-menu"
+              title="Workspace Layout"
+            >
+              <LayoutGrid className="w-4 h-4" />
+            </button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="start" className="w-48">
+            <DropdownMenuItem
+              onClick={() => handleWorkspaceLayoutChange('minimal')}
+              className={workspaceLayout === 'minimal' ? 'bg-accent text-accent-foreground font-medium' : ''}
+              data-testid="layout-minimal"
+            >
+              <Minimize2 className="w-4 h-4 mr-2" />
+              <div className="flex flex-col">
+                <span>Minimal</span>
+                <span className="text-xs text-muted-foreground">Focus on canvas</span>
+              </div>
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => handleWorkspaceLayoutChange('designer')}
+              className={workspaceLayout === 'designer' ? 'bg-accent text-accent-foreground font-medium' : ''}
+              data-testid="layout-designer"
+            >
+              <Palette className="w-4 h-4 mr-2" />
+              <div className="flex flex-col">
+                <span>Designer</span>
+                <span className="text-xs text-muted-foreground">Properties panel</span>
+              </div>
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => handleWorkspaceLayoutChange('developer')}
+              className={workspaceLayout === 'developer' ? 'bg-accent text-accent-foreground font-medium' : ''}
+              data-testid="layout-developer"
+            >
+              <Code2 className="w-4 h-4 mr-2" />
+              <div className="flex flex-col">
+                <span>Developer</span>
+                <span className="text-xs text-muted-foreground">All panels</span>
+              </div>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
 
       {/* Project Info */}
-      <div className="flex items-center gap-3" data-testid="project-info">
-        <div className="h-6 w-px bg-gray-300 dark:bg-gray-600" />
+      <div className="flex items-center gap-2" data-testid="project-info">
+        <div className="h-4 w-px bg-gray-300/50 dark:bg-gray-600/50" />
         <input
           type="text"
           value={project.name}
           onChange={(e) => dispatch(updateProjectName(e.target.value))}
-          className="bg-transparent border-none outline-none font-semibold text-gray-700 dark:text-gray-300 text-sm hover:bg-gray-50 dark:hover:bg-gray-800 px-3 py-2 rounded-lg transition-colors focus:bg-gray-50 dark:focus:bg-gray-800 focus:ring-2 focus:ring-blue-500/20"
+          className="bg-transparent border-none outline-none font-semibold text-gray-800 dark:text-gray-200 text-sm hover:bg-gray-50 dark:hover:bg-gray-800 px-2 py-1 rounded-md transition-colors focus:bg-gray-50 dark:focus:bg-gray-800 focus:ring-2 focus:ring-blue-500/30"
           data-testid="input-project-name"
-          placeholder="Project Name"
+          placeholder="Untitled Project"
         />
       </div>
 
@@ -230,14 +288,14 @@ const Header: React.FC = () => {
         </DropdownMenu>
 
         {/* Action Buttons */}
-        <div className="flex items-center gap-3" data-testid="action-buttons">
-          <div className="h-6 w-px bg-gray-300 dark:bg-gray-600" />
+        <div className="flex items-center gap-1.5" data-testid="action-buttons">
+          <div className="h-4 w-px bg-gray-300/50 dark:bg-gray-600/50 mx-1" />
 
           <Button
             variant="ghost"
             size="sm"
             onClick={handlePreview}
-            className="p-2.5 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
             data-testid="button-preview"
             title={t('canvas.preview')}
           >
@@ -253,7 +311,7 @@ const Header: React.FC = () => {
               <Button
                 variant="ghost"
                 size="sm"
-                className="p-2.5 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+                className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
                 data-testid="more-menu"
                 title="More Options"
               >
@@ -268,23 +326,25 @@ const Header: React.FC = () => {
             </DropdownMenuContent>
           </DropdownMenu>
 
+          <div className="h-4 w-px bg-gray-300/50 dark:bg-gray-600/50 mx-0.5" />
+
           {/* Color Mode Toggle */}
           <ColorModeToggle />
 
           {/* Language Switcher */}
           <LanguageSwitcher />
 
-          <div className="h-6 w-px bg-gray-300 dark:bg-gray-600" />
+          <div className="h-4 w-px bg-gray-300/50 dark:bg-gray-600/50 mx-1" />
 
           <Button
             onClick={handleExport}
             size="sm"
-            className="bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:from-blue-600 hover:to-purple-700 shadow-lg hover:shadow-xl transition-all duration-200 px-4 py-2"
+            className="bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:from-blue-600 hover:to-purple-700 shadow-md hover:shadow-lg transition-all duration-200 px-3 py-1.5 h-8"
             data-testid="button-export"
             title={t('common.export')}
           >
-            <Download className="w-4 h-4 mr-2" />
-            <span className="font-semibold">{t('common.export')}</span>
+            <Download className="w-3.5 h-3.5 mr-1.5" />
+            <span className="font-medium text-sm">{t('common.export')}</span>
           </Button>
         </div>
       </div>

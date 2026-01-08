@@ -168,7 +168,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ onShowKeyboardShortcuts }) => {
 
   return (
     <aside
-      className="absolute left-0 top-16 w-16 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-r border-gray-200/60 dark:border-gray-700/60 flex flex-col py-4 gap-2 z-40 shadow-lg"
+      className="absolute left-0 top-12 w-16 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-r border-gray-200/60 dark:border-gray-700/60 flex flex-col py-4 gap-2 z-40 shadow-lg"
       style={{ bottom: '72px' }}
       data-testid="toolbar-main"
     >

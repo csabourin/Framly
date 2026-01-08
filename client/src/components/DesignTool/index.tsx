@@ -51,12 +51,13 @@ const DesignToolContent: React.FC = () => {
   const dispatch = useDispatch();
   const uiState = useSelector(selectUIState);
   
-  const { 
-    isComponentPanelVisible, 
+  const {
+    isComponentPanelVisible,
     isDOMTreePanelVisible,
     isPropertiesPanelVisible,
-    isClassEditorOpen, 
-    isComponentEditorOpen, 
+    isRightPanelVisible,
+    isClassEditorOpen,
+    isComponentEditorOpen,
     editingComponentId,
     isButtonDesignerOpen
   } = uiState;
@@ -84,7 +85,7 @@ const DesignToolContent: React.FC = () => {
         <Toolbar onShowKeyboardShortcuts={() => setShowKeyboardShortcuts(true)} />
         {isDOMTreePanelVisible && <DOMTreePanel />}
         <Canvas />
-        <RightPanel />
+        {isRightPanelVisible && <RightPanel />}
       </div>
       <div className="flex flex-col">
         <TabBar />

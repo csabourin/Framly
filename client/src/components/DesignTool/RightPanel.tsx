@@ -19,7 +19,7 @@ const RightPanel: React.FC = () => {
 
   return (
     <aside
-      className="absolute right-0 top-16 bottom-0 w-80 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-l border-gray-200/60 dark:border-gray-700/60 z-40 shadow-lg flex flex-col"
+      className="absolute right-0 top-12 bottom-0 w-80 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-l border-gray-200/60 dark:border-gray-700/60 z-40 shadow-lg flex flex-col"
       data-testid="right-panel"
       aria-label="Right panel"
     >
