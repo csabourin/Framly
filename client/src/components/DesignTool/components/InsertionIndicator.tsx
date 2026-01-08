@@ -64,13 +64,24 @@ const InsertionIndicator: React.FC<InsertionIndicatorProps> = ({ insertionIndica
 
     // Before/After Drop (Line)
     return (
-        <div style={{
-            ...style,
-            background: '#3B82F6',
-            height: 4,
-            borderRadius: 2,
-            boxShadow: '0 1px 3px rgba(0,0,0,0.2)'
-        }} >
+        <div
+            className="insertion-line-indicator"
+            style={{
+                ...style,
+                background: '#3B82F6',
+                height: 4,
+                borderRadius: 2,
+                boxShadow: '0 0 10px rgba(59, 130, 246, 0.8), 0 1px 3px rgba(0,0,0,0.3)',
+                animation: 'pulsate-indicator 1.5s infinite ease-in-out'
+            }}
+        >
+            <style>{`
+                @keyframes pulsate-indicator {
+                    0% { opacity: 0.6; box-shadow: 0 0 5px rgba(59, 130, 246, 0.5); }
+                    50% { opacity: 1; box-shadow: 0 0 15px rgba(59, 130, 246, 0.9); }
+                    100% { opacity: 0.6; box-shadow: 0 0 5px rgba(59, 130, 246, 0.5); }
+                }
+            `}</style>
             {/* Little circles at the ends for polish */}
             <div style={{
                 position: 'absolute',

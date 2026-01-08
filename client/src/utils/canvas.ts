@@ -672,11 +672,11 @@ export function canDropInside(elementType: string, targetElement: CanvasElement)
 
   // Container types that can accept dropped elements
   const containerTypes = [
-    'container', 'rectangle',  // Basic containers
-    'section', 'nav', 'header', 'footer', 'article'  // Structural containers
+    'container', 'rectangle', 'section', 'nav', 'header', 'footer', 'article',
+    'main', 'aside', 'form'
   ];
 
-  return containerTypes.includes(targetElement.type) || targetElement.isContainer === true;
+  return containerTypes.includes(targetElement.type) || targetElement.isContainer === true || targetElement.htmlTag === 'div';
 }
 
 // Check if a drop operation is valid
@@ -691,11 +691,11 @@ export function isValidDropTarget(targetElement: CanvasElement | null, draggedEl
 
   // Container types that can accept dropped elements
   const validDropTargets = [
-    'container', 'rectangle',  // Basic containers
-    'section', 'nav', 'header', 'footer', 'article'  // Structural containers
+    'container', 'rectangle', 'section', 'nav', 'header', 'footer', 'article',
+    'main', 'aside', 'form'
   ];
 
-  return validDropTargets.includes(targetElement.type) || targetElement.isContainer === true;
+  return validDropTargets.includes(targetElement.type) || targetElement.isContainer === true || targetElement.htmlTag === 'div';
 }
 
 // Check if moving an element would create a circular dependency
@@ -766,5 +766,6 @@ export function canAcceptChildren(element: CanvasElement): boolean {
 
   return !nonContainerTypes.includes(element.type) &&
     (element.isContainer === true ||
-      ['container', 'rectangle', 'section', 'nav', 'header', 'footer', 'article'].includes(element.type));
+      element.htmlTag === 'div' ||
+      ['container', 'rectangle', 'section', 'nav', 'header', 'footer', 'article', 'main', 'aside', 'form'].includes(element.type));
 }

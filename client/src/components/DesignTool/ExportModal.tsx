@@ -6,12 +6,12 @@ import { selectCanvasProject, selectCustomClasses, selectExportModalState, selec
 import { setExportModalOpen } from '../../store/uiSlice';
 import { CodeGenerator } from '../../utils/codeGenerator';
 import { useExpandedElements } from '../../hooks/useExpandedElements';
-import { 
-  Dialog, 
-  DialogContent, 
-  DialogDescription, 
-  DialogHeader, 
-  DialogTitle 
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -25,10 +25,10 @@ const ExportModal: React.FC = () => {
   const rawElements = useSelector(selectCurrentElements);
   const customClasses = useSelector(selectCustomClasses);
   const { isExportModalOpen } = useSelector(selectExportModalState);
-  
+
   // CRITICAL: Use expanded elements for proper component instance code generation
   const currentElements = useExpandedElements(rawElements);
-  
+
   const [exportSettings, setExportSettings] = useState({
     includeResponsive: true,
     minifyCSS: true,
@@ -49,42 +49,48 @@ const ExportModal: React.FC = () => {
     };
     const generator = new CodeGenerator(projectForGeneration, customClasses, currentElements);
     const { html, css, react } = generator.exportProject();
-    
+
     switch (selectedFormat) {
       case 'html':
+        const activeTabId = project.activeTabId;
+        const activeTab = project.tabs[activeTabId];
+        const tabName = activeTab ? activeTab.name : 'index';
+        const cssFileName = `${project.name.replace(/\s+/g, '-').toLowerCase()}.css`;
+        const htmlFileName = `${tabName.replace(/\s+/g, '-').toLowerCase()}.html`;
+
         // Create ZIP file with HTML/CSS
         const htmlBlob = new Blob([html], { type: 'text/html' });
         const cssBlob = new Blob([css], { type: 'text/css' });
-        
+
         // For demo purposes, download HTML file
         const htmlUrl = URL.createObjectURL(htmlBlob);
         const htmlLink = document.createElement('a');
         htmlLink.href = htmlUrl;
-        htmlLink.download = `${project.name.replace(/\s+/g, '-').toLowerCase()}.html`;
+        htmlLink.download = htmlFileName;
         htmlLink.click();
-        
+
         // Download CSS file with project name
         const cssUrl = URL.createObjectURL(cssBlob);
         const cssLink = document.createElement('a');
         cssLink.href = cssUrl;
-        cssLink.download = `${project.name.replace(/\s+/g, '-').toLowerCase()}.css`;
+        cssLink.download = cssFileName;
         cssLink.click();
-        
+
         URL.revokeObjectURL(htmlUrl);
         URL.revokeObjectURL(cssUrl);
         break;
-        
+
       case 'png':
         // PNG export would require html-to-image library
         console.log('PNG export not implemented yet');
         break;
-        
+
       case 'pdf':
         // PDF export would require jsPDF library
         console.log('PDF export not implemented yet');
         break;
     }
-    
+
     handleClose();
   };
 
@@ -137,31 +143,30 @@ const ExportModal: React.FC = () => {
             </Button>
           </div>
         </DialogHeader>
-        
+
         {/* Export Options */}
         <div className="space-y-4 my-8" data-testid="export-options">
           <h3 className="font-semibold text-gray-900 dark:text-gray-100 text-lg mb-4">Choose Export Format</h3>
           {exportOptions.map((option) => {
             const Icon = option.icon;
             const isSelected = selectedFormat === option.id;
-            
+
             return (
               <div
                 key={option.id}
                 onClick={() => setSelectedFormat(option.id as any)}
                 className={`
                   p-5 border rounded-2xl cursor-pointer transition-all duration-200 shadow-sm hover:shadow-md
-                  ${isSelected 
-                    ? 'border-blue-300 dark:border-blue-600 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 scale-[1.02]' 
+                  ${isSelected
+                    ? 'border-blue-300 dark:border-blue-600 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 scale-[1.02]'
                     : 'border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600'
                   }
                 `}
                 data-testid={`export-option-${option.id}`}
               >
                 <div className="flex items-center gap-4">
-                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center shadow-sm ${
-                    isSelected ? 'bg-gradient-to-br from-blue-500 to-purple-600 text-white' : option.color
-                  }`}>
+                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center shadow-sm ${isSelected ? 'bg-gradient-to-br from-blue-500 to-purple-600 text-white' : option.color
+                    }`}>
                     <Icon className="w-6 h-6" />
                   </div>
                   <div className="flex-1">
@@ -178,7 +183,7 @@ const ExportModal: React.FC = () => {
             );
           })}
         </div>
-        
+
         {/* Export Settings */}
         {selectedFormat === 'html' && (
           <div className="mb-8 p-6 bg-gradient-to-br from-gray-50 to-gray-100/50 dark:from-gray-800/50 dark:to-gray-700/50 rounded-2xl border border-gray-200/60 dark:border-gray-700/60" data-testid="export-settings">
@@ -229,7 +234,7 @@ const ExportModal: React.FC = () => {
             </div>
           </div>
         )}
-        
+
         {/* Actions */}
         <div className="flex gap-4 pt-4 border-t border-gray-200/60 dark:border-gray-700/60" data-testid="export-actions">
           <Button

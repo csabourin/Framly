@@ -31,7 +31,11 @@ const ZONE_THRESHOLDS = {
 };
 
 // Valid container elements that can accept children
-const VALID_CONTAINERS = new Set(['rectangle', 'container', 'section', 'nav', 'header', 'footer', 'article']);
+// Valid container elements that can accept children
+const VALID_CONTAINERS = new Set([
+  'rectangle', 'container', 'section', 'nav', 'header', 'footer', 'article',
+  'main', 'aside', 'form', 'div'
+]);
 
 /**
  * Hook for handling HTML5 drag and drop operations and visual feedback
@@ -117,9 +121,11 @@ export const useDragAndDrop = (
   }, [currentElements, canvasRef]);
 
   const handleElementDragStart = useCallback((e: React.DragEvent, elementId: string) => {
+    e.stopPropagation(); // Prevent parent elements from also starting a drag
     dispatch(setDraggingForReorder(true));
     dispatch(setDraggedElement(elementId));
 
+    // For reordering, we use a simpler data type to distinguish from toolbar drops
     e.dataTransfer.setData('application/json', JSON.stringify({
       type: 'canvas-element',
       elementId: elementId
@@ -144,7 +150,7 @@ export const useDragAndDrop = (
       return;
     }
 
-    // Identify target - use provided ID if available (from CanvasElement), otherwise detect
+    // Unified target identification via DOM bubbling
     const target = e.target as HTMLElement;
     const targetElement = target.closest('[data-element-id]') as HTMLElement;
     const targetId = providedTargetId || targetElement?.getAttribute('data-element-id');
@@ -205,7 +211,7 @@ export const useDragAndDrop = (
     } else if (isContainer) {
       zone = DROP_ZONES.INSIDE;
     } else {
-      // Non-container mid-section defaults to after
+      // Non-container mid-section: split precisely at midpoint
       zone = relativeY < 0.5 ? DROP_ZONES.BEFORE : DROP_ZONES.AFTER;
     }
 
@@ -224,10 +230,18 @@ export const useDragAndDrop = (
 
   const handleDragLeave = useCallback((e: React.DragEvent<any>) => {
     // Only clear if actually leaving the canvas area
-    if (e.currentTarget.contains(e.relatedTarget as Node)) return;
+    // Use a small timeout to avoid flickering when moving between elements
+    const rect = e.currentTarget.getBoundingClientRect();
+    const isOutside =
+      e.clientX < rect.left ||
+      e.clientX >= rect.right ||
+      e.clientY < rect.top ||
+      e.clientY >= rect.bottom;
 
-    setInsertionIndicator(null);
-    dispatch(setHoveredElement({ elementId: null, zone: null }));
+    if (isOutside) {
+      setInsertionIndicator(null);
+      dispatch(setHoveredElement({ elementId: null, zone: null }));
+    }
   }, [dispatch]);
 
   const handleDragEnd = useCallback((e: React.DragEvent<any>) => {

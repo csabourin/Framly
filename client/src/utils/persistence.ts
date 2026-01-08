@@ -4,9 +4,9 @@ import { loadComponents } from '../store/componentSlice';
 import { loadComponentDefinitions } from '../store/componentDefinitionsSlice';
 import { loadCustomClassesFromStorage, loadCategoriesFromStorage } from '../store/classSlice';
 import { loadUISettings } from '../store/uiSlice';
-import { 
-  initializeDB, 
-  saveProjectToIndexedDB, 
+import {
+  initializeDB,
+  saveProjectToIndexedDB,
   loadProjectFromIndexedDB,
   saveComponentToIndexedDB,
   loadComponentsFromIndexedDB,
@@ -16,11 +16,15 @@ import {
   loadClassCategoriesFromIndexedDB,
   indexedDBManager
 } from './indexedDB';
-import { 
+import {
   initializeComponentDefinitionsDB,
   loadComponentDefinitions as loadComponentDefsFromDB,
   loadComponentCategories
 } from './componentPersistence';
+import {
+  exportUnitPreferences,
+  loadUnitPreferences
+} from './unitPersistence';
 import { Project, CustomComponent, ComponentCategory } from '../types/canvas';
 
 // Constants
@@ -40,16 +44,16 @@ export class PersistenceManager {
     try {
       // Initialize IndexedDB for main data
       await initializeDB();
-      
+
       // Initialize IndexedDB for component definitions
       await initializeComponentDefinitionsDB();
-      
+
       // Load persisted data
       await this.loadPersistedData();
-      
+
       // Start auto-save
       this.startAutoSave();
-      
+
       this.isInitialized = true;
     } catch (error) {
       // Continue without persistence if IndexedDB fails
@@ -60,18 +64,21 @@ export class PersistenceManager {
     try {
       // Load current project
       await this.loadCurrentProject();
-      
+
       // Load new component definitions and categories (ONLY)
       await this.loadComponentDefinitions();
-      
+
       // Clean up orphaned component instances after loading
       await this.cleanupOrphanedInstances();
-      
+
       // Load custom classes and categories
       await this.loadCustomClasses();
-      
+
       // Load UI settings
       await this.loadUISettings();
+
+      // Load unit preferences
+      await this.loadUnitPreferences();
     } catch (error) {
       // Failed to load persisted data
     }
@@ -98,7 +105,7 @@ export class PersistenceManager {
 
     // Migrate old structure to new tab structure
     const tabId = 'main-tab';
-    
+
     const migratedProject: Project = {
       id: project.id || 'default',
       name: project.name || 'Untitled Project',
@@ -111,7 +118,8 @@ export class PersistenceManager {
             zoom: 1,
             panX: 0,
             panY: 0,
-            selectedElementId: project.selectedElementId || 'root'
+            selectedElementId: project.selectedElementId || 'root',
+            isTextEditing: false
           },
           createdAt: Date.now(),
           updatedAt: Date.now()
@@ -169,7 +177,7 @@ export class PersistenceManager {
       }));
 
       // Add components that don't have categories to a default category
-      const uncategorizedComponents = components.filter(comp => 
+      const uncategorizedComponents = components.filter(comp =>
         !categories.some(cat => cat.id === comp.category)
       );
 
@@ -185,7 +193,7 @@ export class PersistenceManager {
 
       // Load into Redux store
       store.dispatch(loadComponents(categoriesWithComponents));
-      
+
     } catch (error) {
       // Failed to load components
     }
@@ -197,18 +205,18 @@ export class PersistenceManager {
         loadComponentDefsFromDB(),
         loadComponentCategories()
       ]);
-      
+
       // Transform to the expected structure for the Redux store
       const definitionsRecord: Record<string, any> = {};
       componentDefs.forEach(def => {
         definitionsRecord[def.id] = def;
       });
-      
+
       const categoriesRecord: Record<string, any> = {};
       categories.forEach(cat => {
         categoriesRecord[cat.id] = cat;
       });
-      
+
       // Only load categories if we actually have them, otherwise keep initial state defaults
       if (categories.length > 0) {
         store.dispatch(loadComponentDefinitions({
@@ -222,7 +230,7 @@ export class PersistenceManager {
           categories: store.getState().componentDefinitions.categories
         }));
       }
-      
+
     } catch (error) {
       // Failed to load component definitions
     }
@@ -244,7 +252,7 @@ export class PersistenceManager {
       // Load into Redux store
       store.dispatch(loadCustomClassesFromStorage(customClassesObject));
       store.dispatch(loadCategoriesFromStorage(classCategories));
-      
+
     } catch (error) {
       // Failed to load custom classes
     }
@@ -256,7 +264,7 @@ export class PersistenceManager {
       if (uiSettings) {
         store.dispatch(loadUISettings(uiSettings));
       }
-      
+
       // Also load theme setting and apply it
       const theme = await indexedDBManager.loadSetting('theme');
       if (theme) {
@@ -268,11 +276,31 @@ export class PersistenceManager {
     }
   }
 
+  private async loadUnitPreferences(): Promise<void> {
+    try {
+      const unitPrefs = await indexedDBManager.loadSetting('unitPreferences');
+      if (unitPrefs) {
+        loadUnitPreferences(unitPrefs);
+      }
+    } catch (error) {
+      // Failed to load unit preferences
+    }
+  }
+
+  private async saveUnitPreferences(): Promise<void> {
+    try {
+      const unitPrefs = exportUnitPreferences();
+      await indexedDBManager.saveSetting('unitPreferences', unitPrefs);
+    } catch (error) {
+      // Failed to save unit preferences
+    }
+  }
+
   async saveCurrentProject(): Promise<void> {
     try {
       const state = store.getState();
       const project = state.canvas.project;
-      
+
       // Don't save if project hasn't changed
       const currentStateString = JSON.stringify(project);
       if (currentStateString === this.lastSavedState) {
@@ -283,13 +311,16 @@ export class PersistenceManager {
         ...project,
         id: PROJECT_ID
       });
-      
+
       // Also save custom classes when project is saved
       await this.saveCustomClasses();
-      
+
       // Also save UI settings when project is saved
       await this.saveUISettings();
-      
+
+      // Also save unit preferences when project is saved
+      await this.saveUnitPreferences();
+
       this.lastSavedState = currentStateString;
     } catch (error) {
       // Failed to save current project
@@ -366,20 +397,20 @@ export class PersistenceManager {
     try {
       const state = store.getState();
       const classState = (state as any).classes;
-      
+
       if (classState) {
         const { customClasses, categories } = classState;
-        
+
         // Save custom classes
         await Promise.all(
-          Object.values(customClasses).map((cls: any) => 
+          Object.values(customClasses).map((cls: any) =>
             indexedDBManager.saveCustomClass(cls)
           )
         );
-        
+
         // Save class categories
         await Promise.all(
-          categories.map((category: any) => 
+          categories.map((category: any) =>
             indexedDBManager.saveClassCategory(category)
           )
         );
@@ -393,7 +424,7 @@ export class PersistenceManager {
     try {
       const state = store.getState();
       const uiState = state.ui;
-      
+
       // Extract only the persistent UI settings
       const persistentUISettings = {
         isComponentPanelVisible: uiState.isComponentPanelVisible,
@@ -402,7 +433,7 @@ export class PersistenceManager {
         isGridVisible: uiState.isGridVisible,
         canvasOffset: uiState.canvasOffset
       };
-      
+
       await indexedDBManager.saveSetting('uiSettings', persistentUISettings);
     } catch (error) {
       // Failed to save UI settings
@@ -412,7 +443,7 @@ export class PersistenceManager {
   async importData(dataString: string): Promise<void> {
     try {
       const data = JSON.parse(dataString);
-      
+
       if (data.version !== '1.0') {
         throw new Error('Unsupported export version');
       }
@@ -444,7 +475,7 @@ export class PersistenceManager {
 
       // Reload data
       await this.loadPersistedData();
-      
+
     } catch (error) {
       throw error;
     }
@@ -452,16 +483,16 @@ export class PersistenceManager {
 
   async clearAllData(): Promise<void> {
     try {
-      
+
       // Clear main IndexedDB
       await indexedDBManager.clearAll();
-      
+
       // Clear component definitions database completely
       if (this.componentDb) {
         this.componentDb.close();
         this.componentDb = null;
       }
-      
+
       // Clear component definitions IndexedDB
       try {
         const deleteRequest = indexedDB.deleteDatabase('ComponentDefinitions');
@@ -472,26 +503,26 @@ export class PersistenceManager {
       } catch (error) {
         // Error deleting component definitions database
       }
-      
+
       // Clear local storage
       try {
         localStorage.clear();
       } catch (error) {
         // Error clearing local storage
       }
-      
+
       // Clear session storage
       try {
         sessionStorage.clear();
       } catch (error) {
         // Error clearing session storage
       }
-      
+
       // Force complete page reload to reset all state
       setTimeout(() => {
         window.location.href = window.location.href;
       }, 100);
-      
+
     } catch (error) {
       // Force reload even if clearing failed
       window.location.reload();
@@ -504,15 +535,15 @@ export class PersistenceManager {
       const state = store.getState();
       const currentProject = state.canvas.project;
       const componentDefinitions = state.componentDefinitions.definitions;
-      
+
       let hasOrphans = false;
       const cleanedTabs: Record<string, any> = {};
-      
+
       // Check each tab for orphaned instances
       Object.entries(currentProject.tabs).forEach(([tabId, tab]) => {
         const cleanedElements: Record<string, any> = {};
         let tabHasOrphans = false;
-        
+
         Object.entries(tab.elements).forEach(([elementId, element]: [string, any]) => {
           if (element.componentRef?.componentId && !componentDefinitions[element.componentRef.componentId]) {
             // Convert orphaned instance back to regular element
@@ -525,23 +556,23 @@ export class PersistenceManager {
             cleanedElements[elementId] = element;
           }
         });
-        
+
         if (tabHasOrphans) {
           cleanedTabs[tabId] = { ...tab, elements: cleanedElements };
         } else {
           cleanedTabs[tabId] = tab;
         }
       });
-      
+
       if (hasOrphans) {
         // Update Redux with cleaned elements
         const cleanedProject = { ...currentProject, tabs: cleanedTabs };
         store.dispatch({ type: 'canvas/setProject', payload: cleanedProject });
-        
+
         // Save cleaned project back to IndexedDB
         await this.saveCurrentProject();
       }
-      
+
     } catch (error) {
       // Error cleaning up orphaned instances
     }

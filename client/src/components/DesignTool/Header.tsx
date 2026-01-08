@@ -4,7 +4,19 @@ import { useTranslation } from 'react-i18next';
 import { RootState } from '../../store';
 import { selectCanvasProject, selectExportModalState, selectUIState } from '../../store/selectors';
 import { switchBreakpoint, undo, redo, updateProjectName } from '../../store/canvasSlice';
-import { setExportModalOpen, setCodeModalOpen, setCSSOptimizationModalOpen, zoomIn, zoomOut, fitToScreen, setClassEditorOpen, setComponentEditorOpen, setButtonDesignerOpen, setSettingsMenuOpen } from '../../store/uiSlice';
+import {
+  setExportModalOpen,
+  setCodeModalOpen,
+  setCSSOptimizationModalOpen,
+  zoomIn,
+  zoomOut,
+  fitToScreen,
+  setClassEditorOpen,
+  setComponentEditorOpen,
+  setButtonDesignerOpen,
+  setSettingsMenuOpen,
+  toggleDOMTreePanel
+} from '../../store/uiSlice';
 import { Button } from '@/components/ui/button';
 import { Eye, Undo, Redo, Download, Smartphone, Tablet, Monitor, Settings, Plus, Minus, Maximize, Zap, List, Palette, Component, MousePointer2, MonitorSpeaker } from 'lucide-react';
 import UndoRedoControls from './UndoRedoControls';
@@ -17,10 +29,10 @@ import { useColorMode } from '../../contexts/ColorModeContext';
 const Header: React.FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  
+
   // Safely use ColorMode context with fallback
   let isColorModeDesignEnabled = false;
-  let setColorModeDesignEnabled: any = () => {};
+  let setColorModeDesignEnabled: any = () => { };
   try {
     const colorModeContext = useColorMode();
     isColorModeDesignEnabled = colorModeContext.isColorModeDesignEnabled;
@@ -29,7 +41,10 @@ const Header: React.FC = () => {
     // Silent fallback if context not available
   }
   const project = useSelector(selectCanvasProject);
-  const { isExportModalOpen } = useSelector(selectExportModalState);
+  const { isExportModalOpen, isDOMTreePanelVisible } = useSelector((state: RootState) => ({
+    ...selectExportModalState(state),
+    isDOMTreePanelVisible: selectUIState(state).isDOMTreePanelVisible
+  }));
 
   // Icon mapping for breakpoints with distinct icons
   const breakpointIcons: Record<string, React.ComponentType<any>> = {
@@ -42,11 +57,11 @@ const Header: React.FC = () => {
   // Ensure all 4 breakpoints are present with proper defaults
   const defaultBreakpoints = {
     mobile: { name: 'mobile', label: t('breakpoints.mobile'), width: 375 },
-    tablet: { name: 'tablet', label: t('breakpoints.tablet'), width: 768 }, 
+    tablet: { name: 'tablet', label: t('breakpoints.tablet'), width: 768 },
     desktop: { name: 'desktop', label: t('breakpoints.desktop'), width: 1024 },
     large: { name: 'large', label: t('breakpoints.largeDesktop'), width: 1440 }
   };
-  
+
   // Merge existing breakpoints with defaults, ensuring all properties are present
   const breakpoints = Object.entries(defaultBreakpoints).map(([key, defaultBp]) => {
     const existingBp = project.breakpoints[key];
@@ -57,7 +72,7 @@ const Header: React.FC = () => {
       label: defaultBp.label
     };
   });
-  
+
   const handleBreakpointChange = (breakpointName: string) => {
     dispatch(switchBreakpoint(breakpointName));
   };
@@ -106,8 +121,12 @@ const Header: React.FC = () => {
     dispatch(setSettingsMenuOpen(true));
   };
 
+  const handleDOMTreeToggle = () => {
+    dispatch(toggleDOMTreePanel());
+  };
+
   return (
-    <header 
+    <header
       className="absolute top-0 left-0 right-0 h-16 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-b border-gray-200/60 dark:border-gray-700/60 flex items-center px-6 z-50 gap-6 shadow-sm"
       data-testid="header-main"
     >
@@ -126,8 +145,19 @@ const Header: React.FC = () => {
         >
           <Settings className="w-4 h-4 text-gray-600 dark:text-gray-400" />
         </button>
+        <button
+          onClick={handleDOMTreeToggle}
+          className={`w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-200 ${isDOMTreePanelVisible
+              ? 'bg-blue-500 text-white shadow-md'
+              : 'bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-400'
+            }`}
+          data-testid="header-toggle-dom-tree"
+          title={t('toolbar.elementTree')}
+        >
+          <List className="w-4 h-4" />
+        </button>
       </div>
-      
+
       {/* Project Info */}
       <div className="flex items-center gap-3" data-testid="project-info">
         <div className="h-6 w-px bg-gray-300 dark:bg-gray-600" />
@@ -140,7 +170,7 @@ const Header: React.FC = () => {
           placeholder="Project Name"
         />
       </div>
-      
+
       {/* Header Actions */}
       <div className="ml-auto flex items-center gap-2" data-testid="header-actions">
         {/* Breakpoint Switcher */}
@@ -148,16 +178,15 @@ const Header: React.FC = () => {
           {breakpoints.map((breakpoint) => {
             const Icon = breakpointIcons[breakpoint.name] || Monitor;
             const isActive = project.currentBreakpoint === breakpoint.name;
-            
+
             return (
               <button
                 key={breakpoint.name}
                 onClick={() => handleBreakpointChange(breakpoint.name)}
-                className={`px-3 py-2 text-xs font-semibold rounded-lg flex items-center gap-2 transition-all duration-200 ${
-                  isActive
+                className={`px-3 py-2 text-xs font-semibold rounded-lg flex items-center gap-2 transition-all duration-200 ${isActive
                     ? 'bg-white dark:bg-gray-700 shadow-md border border-gray-200/80 dark:border-gray-600/80 text-blue-600 dark:text-blue-400 scale-105'
                     : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-white/60 dark:hover:bg-gray-700/60'
-                }`}
+                  }`}
                 data-testid={`button-breakpoint-${breakpoint.name}`}
                 title={`${breakpoint.label} (${breakpoint.width}px)`}
               >
@@ -167,7 +196,7 @@ const Header: React.FC = () => {
             );
           })}
         </div>
-        
+
 
         {/* Zoom Controls */}
         <div className="flex items-center gap-0.5 bg-gray-50 dark:bg-gray-800 rounded-xl p-1 shadow-inner border border-gray-200/50 dark:border-gray-700/50" data-testid="zoom-controls">
@@ -243,7 +272,7 @@ const Header: React.FC = () => {
         {/* Action Buttons */}
         <div className="flex items-center gap-3" data-testid="action-buttons">
           <div className="h-6 w-px bg-gray-300 dark:bg-gray-600" />
-          
+
           <Button
             variant="ghost"
             size="sm"
@@ -254,13 +283,13 @@ const Header: React.FC = () => {
           >
             <Eye className="w-4 h-4 text-gray-600 dark:text-gray-400" />
           </Button>
-          
+
           {/* Undo/Redo Controls with History Management */}
           <UndoRedoControls />
-          
+
           {/* Color Mode Toggle with contextual menu */}
           <ColorModeToggle />
-          
+
           <Button
             variant="ghost"
             size="sm"
@@ -271,12 +300,12 @@ const Header: React.FC = () => {
           >
             <Zap className="w-4 h-4 text-gray-600 dark:text-gray-400" />
           </Button>
-          
+
           {/* Language Switcher */}
           <LanguageSwitcher />
-          
+
           <div className="h-6 w-px bg-gray-300 dark:bg-gray-600" />
-          
+
           <Button
             onClick={handleExport}
             size="sm"
@@ -289,7 +318,7 @@ const Header: React.FC = () => {
           </Button>
         </div>
       </div>
-      
+
       {/* Settings Menu */}
       <SettingsMenu />
     </header>

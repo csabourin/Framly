@@ -37,19 +37,39 @@ const ResponsivePropertyInput: React.FC<ResponsivePropertyInputProps> = ({
     large: Monitor,
   };
 
-  // Get responsive value for a specific breakpoint
-  const getResponsiveValue = (breakpoint: string) => {
-    if (element.responsiveStyles && element.responsiveStyles[breakpoint as keyof typeof element.responsiveStyles]) {
-      const breakpointStyles = element.responsiveStyles[breakpoint as keyof typeof element.responsiveStyles];
-      return breakpointStyles?.[config.key as keyof typeof breakpointStyles];
+  // Get responsive value for a specific breakpoint with mobile-first inheritance
+  const getResponsiveValue = (targetBreakpoint: string) => {
+    const breakpointOrder = ['mobile', 'tablet', 'desktop', 'large'];
+    const targetIndex = breakpointOrder.indexOf(targetBreakpoint);
+
+    if (targetIndex === -1) return undefined;
+
+    let resolvedValue = undefined;
+
+    // Start with base styles (mobile)
+    resolvedValue = element.styles?.[config.key as keyof typeof element.styles] || value;
+
+    // Check responsiveStyles for each breakpoint up to targetBreakpoint
+    if (element.responsiveStyles) {
+      for (let i = 0; i <= targetIndex; i++) {
+        const bp = breakpointOrder[i];
+        const bpStyles = element.responsiveStyles[bp as keyof typeof element.responsiveStyles];
+        const bpValue = bpStyles?.[config.key as keyof typeof bpStyles];
+
+        if (bpValue !== undefined && bpValue !== null) {
+          resolvedValue = bpValue;
+        }
+      }
     }
-    
-    // Fall back to base styles for mobile (mobile-first)
-    if (breakpoint === 'mobile' || !element.responsiveStyles) {
-      return element.styles?.[config.key as keyof typeof element.styles] || value;
-    }
-    
-    return undefined;
+
+    return resolvedValue;
+  };
+
+  // Helper to check if a value is explicitly set for a breakpoint
+  const isExplicitlySet = (breakpoint: string) => {
+    if (breakpoint === 'mobile') return true; // Mobile is always base
+    const bpStyles = element.responsiveStyles?.[breakpoint as keyof typeof element.responsiveStyles];
+    return bpStyles?.[config.key as keyof typeof bpStyles] !== undefined;
   };
 
   // Update responsive value
@@ -81,7 +101,7 @@ const ResponsivePropertyInput: React.FC<ResponsivePropertyInputProps> = ({
       id: element.id,
       updates
     }));
-    
+
     onChange(config.key, newValue, breakpoint);
   };
 
@@ -124,7 +144,7 @@ const ResponsivePropertyInput: React.FC<ResponsivePropertyInputProps> = ({
           className="h-6 px-2 text-xs"
           data-testid={`button-responsive-toggle-${config.key}`}
         >
-{showResponsiveControls ? t('breakpoints.hideBreakpoints') : t('breakpoints.showBreakpoints')}
+          {showResponsiveControls ? t('breakpoints.hideBreakpoints') : t('breakpoints.showBreakpoints')}
         </Button>
       </div>
 
@@ -139,22 +159,23 @@ const ResponsivePropertyInput: React.FC<ResponsivePropertyInputProps> = ({
           // Pass a modified element that preserves unit preferences by not including parsed values
           styles: config.type === 'unit' ? {} : element.styles
         }}
+        className={!isExplicitlySet(currentBreakpoint) && currentBreakpoint !== 'mobile' ? "opacity-60" : ""}
       />
 
       {/* Responsive controls */}
       {showResponsiveControls && (
         <div className="space-y-2 pt-2 border-t border-gray-200">
           <p className="text-xs text-gray-500">
-{t('breakpoints.mobileFirst')}
+            {t('breakpoints.mobileFirst')}
           </p>
-          
+
           {availableBreakpoints.map((breakpoint) => {
             const Icon = breakpointIcons[breakpoint] || Monitor;
             const breakpointConfig = project.breakpoints[breakpoint];
             const breakpointValue = getResponsiveValue(breakpoint);
-            const hasValue = breakpointValue !== undefined;
+            const isExplicit = isExplicitlySet(breakpoint);
             const isCurrentBreakpoint = breakpoint === currentBreakpoint;
-            
+
             return (
               <div key={breakpoint} className="space-y-2">
                 <div className="flex items-center justify-between">
@@ -168,8 +189,11 @@ const ResponsivePropertyInput: React.FC<ResponsivePropertyInputProps> = ({
                     <Icon className="w-3 h-3 flex-shrink-0" />
                     <span className="text-xs truncate">{breakpointConfig.label}</span>
                     <span className="text-xs text-gray-500 flex-shrink-0">({breakpointConfig.width}px)</span>
+                    {!isExplicit && breakpoint !== 'mobile' && (
+                      <span className="text-[10px] text-blue-500 ml-1 italic">{t('breakpoints.inherited')}</span>
+                    )}
                   </Button>
-                  {hasValue && breakpoint !== 'mobile' && (
+                  {isExplicit && breakpoint !== 'mobile' && (
                     <Button
                       variant="ghost"
                       size="sm"
@@ -186,7 +210,7 @@ const ResponsivePropertyInput: React.FC<ResponsivePropertyInputProps> = ({
                   <PropertyInput
                     config={{
                       ...config,
-                      placeholder: breakpoint === 'mobile' ? t('breakpoints.baseValue') : t('breakpoints.inheritFromMobile')
+                      placeholder: breakpoint === 'mobile' ? t('breakpoints.baseValue') : t('breakpoints.inherited')
                     }}
                     value={breakpointValue ?? ''}
                     onChange={(newValue) => handleResponsiveChange(breakpoint, newValue)}
@@ -196,14 +220,15 @@ const ResponsivePropertyInput: React.FC<ResponsivePropertyInputProps> = ({
                       // Pass a modified element that preserves unit preferences by not including parsed values
                       styles: config.type === 'unit' ? {} : element.styles
                     }}
+                    className={!isExplicit && breakpoint !== 'mobile' ? "opacity-60" : ""}
                   />
                 </div>
               </div>
             );
           })}
-          
+
           <div className="text-xs text-gray-500 bg-blue-50 p-2 rounded">
-            <strong>Mobile-first:</strong> Set mobile as your base design. 
+            <strong>Mobile-first:</strong> Set mobile as your base design.
             Larger screens inherit mobile values unless overridden.
           </div>
         </div>

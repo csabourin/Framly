@@ -294,27 +294,6 @@ const Toolbar: React.FC<ToolbarProps> = ({ onShowKeyboardShortcuts }) => {
       <div className="flex-1" />
       <div className="w-8 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent mx-auto my-3" data-testid="toolbar-divider-bottom" />
 
-      {/* Element Tree Toggle */}
-      <button
-        onClick={handleDOMTreeToggle}
-        className={`
-          w-12 h-12 mx-2 rounded-xl flex items-center justify-center transition-all duration-200 group relative shadow-sm
-          ${isDOMTreePanelVisible
-            ? 'bg-gradient-to-br from-blue-500 to-purple-600 text-white shadow-lg scale-105'
-            : 'hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-400 hover:shadow-md hover:scale-105'
-          }
-        `}
-        title={t('toolbar.elementTree')}
-        data-testid="button-toggle-dom-tree"
-      >
-        <List className="w-4 h-4" />
-
-        {/* Tooltip */}
-        <div className="absolute left-full ml-3 px-3 py-2 bg-gray-900/95 dark:bg-gray-800/95 backdrop-blur-sm text-white dark:text-gray-100 text-sm rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-all duration-200 pointer-events-none z-50 shadow-xl border border-gray-700/50 dark:border-gray-600/50">
-          <div className="font-medium">{t('toolbar.elementTree')}</div>
-        </div>
-      </button>
-
       {/* Component Panel Toggle */}
       <button
         onClick={handleComponentToggle}

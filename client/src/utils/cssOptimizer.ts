@@ -24,47 +24,48 @@ interface PropertyGroup {
 
 export class CSSOptimizer {
   private propertyGroups: Map<string, PropertyGroup> = new Map();
+  private responsivePropertyGroups: Map<string, Map<string, PropertyGroup>> = new Map();
   private utilityClasses: Map<string, string> = new Map();
   private componentClasses: Map<string, string> = new Map();
-  
+
   // CSS property ordering for optimal rendering performance
   private readonly propertyOrder = [
     // Display and positioning
     'display', 'position', 'top', 'right', 'bottom', 'left', 'z-index',
     'float', 'clear',
-    
+
     // Box model
     'width', 'min-width', 'max-width', 'height', 'min-height', 'max-height',
     'margin', 'margin-top', 'margin-right', 'margin-bottom', 'margin-left',
     'padding', 'padding-top', 'padding-right', 'padding-bottom', 'padding-left',
-    
+
     // Flexbox
     'flex', 'flex-direction', 'flex-wrap', 'justify-content', 'align-items',
     'align-content', 'align-self', 'order', 'flex-grow', 'flex-shrink', 'flex-basis',
-    
+
     // Grid
     'grid', 'grid-template', 'grid-template-rows', 'grid-template-columns',
     'grid-template-areas', 'grid-gap', 'grid-row', 'grid-column',
-    
+
     // Background
     'background', 'background-color', 'background-image', 'background-repeat',
     'background-position', 'background-size', 'background-attachment',
-    
+
     // Border
     'border', 'border-width', 'border-style', 'border-color', 'border-radius',
     'border-top', 'border-right', 'border-bottom', 'border-left',
-    
+
     // Typography
     'color', 'font', 'font-family', 'font-size', 'font-weight', 'font-style',
     'line-height', 'letter-spacing', 'text-align', 'text-decoration',
     'text-transform', 'text-indent', 'text-shadow',
-    
+
     // Visual effects
     'opacity', 'visibility', 'box-shadow', 'filter', 'backdrop-filter',
-    
+
     // Transitions and animations
     'transition', 'transform', 'animation',
-    
+
     // Miscellaneous
     'cursor', 'overflow', 'white-space', 'user-select'
   ];
@@ -82,7 +83,7 @@ export class CSSOptimizer {
       'inline': { display: 'inline' },
       'inline-block': { display: 'inline-block' },
       'hidden': { display: 'none' },
-      
+
       // Flexbox utilities
       'flex-col': { 'flex-direction': 'column' },
       'flex-row': { 'flex-direction': 'row' },
@@ -93,7 +94,7 @@ export class CSSOptimizer {
       'justify-between': { 'justify-content': 'space-between' },
       'justify-around': { 'justify-content': 'space-around' },
       'justify-evenly': { 'justify-content': 'space-evenly' },
-      
+
       // Text utilities
       'text-center': { 'text-align': 'center' },
       'text-left': { 'text-align': 'left' },
@@ -101,13 +102,13 @@ export class CSSOptimizer {
       'font-bold': { 'font-weight': 'bold' },
       'font-normal': { 'font-weight': 'normal' },
       'font-light': { 'font-weight': '300' },
-      
+
       // Sizing utilities
       'w-full': { width: '100%' },
       'h-full': { height: '100%' },
       'w-auto': { width: 'auto' },
       'h-auto': { height: 'auto' },
-      
+
       // Spacing utilities (common patterns)
       'p-0': { padding: '0' },
       'p-2': { padding: '8px' },
@@ -115,12 +116,12 @@ export class CSSOptimizer {
       'm-0': { margin: '0' },
       'm-2': { margin: '8px' },
       'm-4': { margin: '16px' },
-      
+
       // Border utilities
       'rounded': { 'border-radius': '4px' },
       'rounded-lg': { 'border-radius': '8px' },
       'rounded-full': { 'border-radius': '50%' },
-      
+
       // Position utilities
       'relative': { position: 'relative' },
       'absolute': { position: 'absolute' },
@@ -135,7 +136,7 @@ export class CSSOptimizer {
 
   public optimizeCSS(elements: Record<string, CanvasElement>): OptimizedCSS {
     this.analyzeElements(elements);
-    
+
     const result: OptimizedCSS = {
       utilities: [],
       components: [],
@@ -146,13 +147,18 @@ export class CSSOptimizer {
 
     // Generate utility classes for common property groups
     result.utilities = this.generateUtilityClasses();
-    
+
     // Generate component classes for complex patterns
     result.components = this.generateComponentClasses();
-    
+
     // Generate layout classes
     result.layout = this.generateLayoutClasses();
-    
+
+    // Generate responsive rules for each breakpoint
+    this.responsivePropertyGroups.forEach((groups, breakpoint) => {
+      result.responsive[breakpoint] = this.generateResponsiveRules(groups, breakpoint);
+    });
+
     // Identify critical CSS for above-the-fold content
     result.critical = this.identifyCriticalCSS(elements);
 
@@ -163,28 +169,49 @@ export class CSSOptimizer {
     this.propertyGroups.clear();
 
     Object.values(elements).forEach(element => {
+      // Analyze base styles
       if (element.styles) {
-        this.analyzeElementStyles(element);
+        this.analyzeElementStyles(element, 'mobile');
+      }
+
+      // Analyze responsive styles
+      if (element.responsiveStyles) {
+        Object.entries(element.responsiveStyles).forEach(([breakpoint, styles]) => {
+          if (styles && Object.keys(styles).length > 0) {
+            this.analyzeElementStyles(element, breakpoint, styles);
+          }
+        });
       }
     });
   }
 
-  private analyzeElementStyles(element: CanvasElement): void {
-    const styles = element.styles;
+  private analyzeElementStyles(element: CanvasElement, breakpoint: string = 'mobile', manualStyles?: CSSProperties): void {
+    const styles = manualStyles || element.styles;
     if (!styles || Object.keys(styles).length === 0) return;
 
     // Group properties by logical categories
     const groups = this.categorizeProperties(styles);
-    
-    groups.forEach((properties, category) => {
+
+    // Choose which map to use based on breakpoint
+    let targetMap: Map<string, PropertyGroup>;
+    if (breakpoint === 'mobile') {
+      targetMap = this.propertyGroups;
+    } else {
+      if (!this.responsivePropertyGroups.has(breakpoint)) {
+        this.responsivePropertyGroups.set(breakpoint, new Map());
+      }
+      targetMap = this.responsivePropertyGroups.get(breakpoint)!;
+    }
+
+    groups.forEach((properties) => {
       const hash = this.hashProperties(properties);
-      const existing = this.propertyGroups.get(hash);
-      
+      const existing = targetMap.get(hash);
+
       if (existing) {
         existing.count++;
         existing.elements.push(element.id);
       } else {
-        this.propertyGroups.set(hash, {
+        targetMap.set(hash, {
           properties,
           count: 1,
           elements: [element.id],
@@ -242,7 +269,7 @@ export class CSSOptimizer {
       .sort(([a], [b]) => a.localeCompare(b))
       .map(([k, v]) => `${k}:${v}`)
       .join(';');
-    
+
     // Simple hash function
     let hash = 0;
     for (let i = 0; i < sorted.length; i++) {
@@ -261,7 +288,7 @@ export class CSSOptimizer {
       if (group.count >= minUsage && Object.keys(group.properties).length <= 3) {
         // Check if we already have a utility class for this pattern
         const existingClass = this.utilityClasses.get(hash);
-        
+
         if (existingClass) {
           utilities.push({
             selector: `.${existingClass}`,
@@ -273,7 +300,7 @@ export class CSSOptimizer {
           // Generate a new utility class name
           const className = this.generateUtilityClassName(group.properties);
           this.utilityClasses.set(hash, className);
-          
+
           utilities.push({
             selector: `.${className}`,
             properties: group.properties,
@@ -289,11 +316,11 @@ export class CSSOptimizer {
 
   private generateUtilityClassName(properties: Record<string, string>): string {
     const keys = Object.keys(properties);
-    
+
     if (keys.length === 1) {
       const [property] = keys;
       const value = properties[property];
-      
+
       // Generate semantic class names for single properties
       switch (property) {
         case 'display':
@@ -312,7 +339,7 @@ export class CSSOptimizer {
           return `util-${this.hashProperties(properties)}`;
       }
     }
-    
+
     // For multiple properties, create a compound class name
     const category = this.getPropertyCategory(keys[0]);
     return `${category}-${this.hashProperties(properties)}`;
@@ -326,7 +353,7 @@ export class CSSOptimizer {
       if (group.count >= minUsage && Object.keys(group.properties).length > 3) {
         const className = `comp-${hash}`;
         this.componentClasses.set(hash, className);
-        
+
         components.push({
           selector: `.${className}`,
           properties: group.properties,
@@ -392,13 +419,13 @@ export class CSSOptimizer {
 
   private identifyCriticalCSS(elements: Record<string, CanvasElement>): string[] {
     const critical: string[] = [];
-    
+
     // Add reset styles as critical
     critical.push('reset');
-    
+
     // Add layout classes as critical
     critical.push('layout');
-    
+
     // Add utility classes used by visible elements as critical
     Object.values(elements).forEach(element => {
       if (element.id === 'root' || this.isAboveFold(element)) {
@@ -421,7 +448,7 @@ export class CSSOptimizer {
 
     // CSS Reset (critical)
     sections.push(this.generateResetCSS());
-    
+
     // CSS Variables
     sections.push(this.generateCSSVariables());
 
@@ -556,7 +583,7 @@ ${indent}}`;
 
   private sortProperties(properties: Record<string, string>): Record<string, string> {
     const sorted: Record<string, string> = {};
-    
+
     // Sort properties according to optimal rendering order
     this.propertyOrder.forEach(prop => {
       const kebabProp = this.camelToKebab(prop);
@@ -580,13 +607,31 @@ ${indent}}`;
     return str.replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, '$1-$2').toLowerCase();
   }
 
+  private generateResponsiveRules(groups: Map<string, PropertyGroup>, breakpoint: string): CSSRule[] {
+    const rules: CSSRule[] = [];
+
+    groups.forEach((group, hash) => {
+      // For responsive rules, we often just want element-specific rules 
+      // unless multiple elements share the exact same responsive style
+      const selector = group.count > 1 ? `.resp-${breakpoint}-${hash}` : `#${group.elements[0]}`;
+
+      rules.push({
+        selector,
+        properties: group.properties,
+        specificity: 10,
+        elementIds: group.elements
+      });
+    });
+
+    return rules;
+  }
+
   private getBreakpointWidth(breakpoint: string): number {
     const breakpoints: Record<string, number> = {
-      sm: 640,
-      md: 768,
-      lg: 1024,
-      xl: 1280,
-      '2xl': 1536
+      'mobile': 375,
+      'tablet': 768,
+      'desktop': 1024,
+      'large': 1440
     };
     return breakpoints[breakpoint] || 768;
   }

@@ -247,10 +247,10 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     e.preventDefault();
     e.stopPropagation();
 
-    // Let the Canvas-level drop handlers process this drop
-    // Don't handle drops at element level to avoid conflicts
-    // The useDragAndDrop hook in Canvas will handle the drop processing
-  }, []);
+    if (onElementDrop) {
+      onElementDrop(e, element.id);
+    }
+  }, [onElementDrop, element.id]);
 
   const handleDragEnd = useCallback((e: React.DragEvent<HTMLDivElement>) => {
     if (onElementDragEnd) {
@@ -948,15 +948,25 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     }
 
     // Apply breakpoint-specific values for responsive properties from responsiveStyles
-    if (element.responsiveStyles && element.responsiveStyles[currentBreakpoint as keyof typeof element.responsiveStyles]) {
-      const breakpointStyles = element.responsiveStyles[currentBreakpoint as keyof typeof element.responsiveStyles];
-      if (breakpointStyles) {
-        Object.keys(breakpointStyles).forEach(prop => {
-          const value = breakpointStyles[prop as keyof typeof breakpointStyles];
-          if (value !== undefined) {
-            (baseStyles as any)[prop] = value;
-          }
-        });
+    // MOBILE-FIRST CASCADE: Iteratively apply overrides from smaller to larger breakpoints
+    const breakpointOrder = ['mobile', 'tablet', 'desktop', 'large'];
+    const currentBreakpointIndex = breakpointOrder.indexOf(currentBreakpoint);
+
+    if (element.responsiveStyles && currentBreakpointIndex !== -1) {
+      // Iterate through all breakpoints up to and including the current one
+      for (let i = 0; i <= currentBreakpointIndex; i++) {
+        const bp = breakpointOrder[i];
+        const breakpointStyles = element.responsiveStyles[bp as keyof typeof element.responsiveStyles];
+
+        if (breakpointStyles) {
+          Object.keys(breakpointStyles).forEach(prop => {
+            const value = breakpointStyles[prop as keyof typeof breakpointStyles];
+            // Only apply if the value is defined (null/undefined means inherit from smaller BP)
+            if (value !== undefined && value !== null) {
+              (baseStyles as any)[prop] = value;
+            }
+          });
+        }
       }
     }
 
@@ -978,7 +988,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     });
 
     return resolvedStyles;
-  }, [element.styles, element.classes, customClasses, currentBreakpoint, resolvedMode]);
+  }, [element.styles, element.classes, element.responsiveStyles, customClasses, currentBreakpoint, resolvedMode]);
 
   // CRITICAL: Fixed DOM order positioning - all elements follow document flow
   // Never use absolute positioning that breaks DOM order
@@ -1106,8 +1116,6 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
         onDragStart={handleDragStart}
         onDragEnd={handleDragEnd}
         onDragOver={handleDragOver}
-        onDragEnter={handleDragEnter}
-        onDragLeave={handleDragLeave}
         onDrop={handleDrop}
         style={{
           ...minimalInlineStyles,
@@ -1115,6 +1123,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
           WebkitUserSelect: selectedTool !== 'text' ? 'none' : 'auto',
           cursor: (!isEditing && !isComponentChild) ? 'grab' : 'default'
         }}
+        id={element.id}
         data-element-id={element.id}
         data-container={element.isContainer ? 'true' : 'false'}
         data-accepts={element.isContainer ? 'text,image,button,rectangle,heading,container' : ''}

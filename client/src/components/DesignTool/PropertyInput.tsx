@@ -5,11 +5,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Slider } from '@/components/ui/slider';
 import { Button } from '@/components/ui/button';
 import { PropertyConfig, formatValueWithUnit, parseValueAndUnit } from '../../utils/propertyConfig';
-import { 
-  getActiveUnit, 
-  setElementUnitPreference, 
-  parseValueAndUnit as parseUnit, 
-  formatValueWithUnit as formatUnit 
+import {
+  getActiveUnit,
+  setElementUnitPreference,
+  parseValueAndUnit as parseUnit,
+  formatValueWithUnit as formatUnit
 } from '../../utils/unitPersistence';
 import { Info } from 'lucide-react';
 import { ImageUpload } from './ImageUpload';
@@ -25,13 +25,14 @@ interface PropertyInputProps {
   onChange: (value: any) => void;
   elementId?: string;
   element?: any;
+  className?: string;
 }
 
-export const PropertyInput: React.FC<PropertyInputProps> = ({ config, value, onChange, elementId, element }) => {
+export const PropertyInput: React.FC<PropertyInputProps> = ({ config, value, onChange, elementId, element, className }) => {
   const { t } = useTranslation();
   // Get custom classes from Redux store
   const customClasses = useSelector((state: RootState) => (state as any).classes?.customClasses || {});
-  
+
   // Get the active unit for this property using persistent unit system
   const activeUnit = getActiveUnit(
     config.key,
@@ -40,10 +41,10 @@ export const PropertyInput: React.FC<PropertyInputProps> = ({ config, value, onC
     customClasses,
     config.units
   );
-  
+
   // Local state for selected unit (persisted via unitPersistence)
   const [selectedUnit, setSelectedUnit] = useState(activeUnit);
-  
+
   // Update selectedUnit when element or property changes
   useEffect(() => {
     const newActiveUnit = getActiveUnit(
@@ -87,7 +88,7 @@ export const PropertyInput: React.FC<PropertyInputProps> = ({ config, value, onC
       case 'unit':
         const parsed = parseUnit(value);
         const numValue = parsed.value !== undefined && parsed.value !== null ? parseFloat(parsed.value) : 0;
-        
+
         return (
           <div className="flex gap-2">
             <Input
@@ -137,7 +138,7 @@ export const PropertyInput: React.FC<PropertyInputProps> = ({ config, value, onC
 
       case 'select':
         return (
-          <Select 
+          <Select
             value={value || config.options?.[0]?.value || ''}
             onValueChange={onChange}
           >
@@ -266,13 +267,13 @@ export const PropertyInput: React.FC<PropertyInputProps> = ({ config, value, onC
   };
 
   return (
-    <div className="space-y-2" data-testid={`property-${config.key}`}>
+    <div className={`space-y-2 ${className || ''}`} data-testid={`property-${config.key}`}>
       <div className="flex items-center justify-between">
         <Label className="text-sm font-medium text-gray-700 flex-1">
           {config.label}
         </Label>
         {config.description && (
-          <div 
+          <div
             className="ml-2 text-gray-400 hover:text-gray-600 cursor-help"
             title={config.description}
           >
