@@ -1,0 +1,216 @@
+2026-01-08 10:35:44.05
+5931229d
+User
+goroutine 8 [chan receive
+2026-01-08 10:35:44.05
+5931229d
+User
+github.com/evanw/esbuild/internal/bundler.(*scanner).scanAllDependencies
+2026-01-08 10:35:44.05
+5931229d
+User
+github.com/evanw/esbuild/cmd/esbuild/service.go:192 +
+2026-01-08 10:35:44.05
+5931229d
+User
+{0x0,
+2026-01-08 10:35:44.05
+5931229d
+User
+github.com/evanw/esbuild/internal/bundler/bundler.go:1495 +0xbdc
+2026-01-08 10:35:44.05
+5931229d
+User
+0x0, 0x0}, {0x0
+2026-01-08 10:35:44.05
+5931229d
+User
+github.com/evanw/esbuild/cmd/esbuild/service.go:98 +
+2026-01-08 10:35:44.05
+5931229d
+User
+github.com/evanw/esbuild/cmd/esbuild/service.go:122
+2026-01-08 10:35:44.05
+5931229d
+User
+0x1, 0x1},
+2026-01-08 10:35:44.05
+5931229d
+User
+0xc00015c390, {
+2026-01-08 10:35:44.05
+5931229d
+User
+)
+2026-01-08 10:35:44.05
+5931229d
+User
+goroutine 10 [chan receive
+2026-01-08 10:35:44.05
+5931229d
+User
+})
+2026-01-08 10:35:44.05
+5931229d
+User
+(0xc000182908)
+2026-01-08 10:35:44.05
+5931229d
+User
+in goroutine 1
+2026-01-08 10:35:44.05
+5931229d
+User
+}, ...
+2026-01-08 10:35:44.05
+5931229d
+User
+:125 +0x3e
+2026-01-08 10:35:44.05
+5931229d
+User
+}, {
+2026-01-08 10:35:44.05
+5931229d
+User
+0x45
+2026-01-08 10:35:44.05
+5931229d
+User
+}, ...
+2026-01-08 10:35:44.05
+5931229d
+User
+github.com/evanw/esbuild/cmd/esbuild/service.go:114 +0x51
+2026-01-08 10:35:44.05
+5931229d
+User
+github.com/evanw/esbuild/pkg/api/api_impl.go
+2026-01-08 10:35:44.05
+5931229d
+User
+github.com/evanw/esbuild/internal/helpers/waitgroup.go:36
+2026-01-08 10:35:44.05
+5931229d
+User
+goroutine 1 [chan receive]:
+2026-01-08 10:35:44.05
+5931229d
+User
+0x9973a0, 0xc000e80000
+2026-01-08 10:35:44.05
+5931229d
+User
+github.com/evanw/esbuild/internal/bundler/bundler.go:
+2026-01-08 10:35:44.05
+5931229d
+User
+:1493 +0x2e5
+2026-01-08 10:35:44.05
+5931229d
+User
+github.com/evanw/esbuild/internal/bundler.ScanBundle
+2026-01-08 10:35:44.05
+5931229d
+User
+main.runService(0x1)
+2026-01-08 10:35:44.05
+5931229d
+User
+github.com/evanw/esbuild/cmd/esbuild/service.go
+2026-01-08 10:35:44.05
+5931229d
+User
+, 0x1, 0x0, ...
+2026-01-08 10:35:44.05
+5931229d
+User
+github.com/evanw/esbuild/internal/helpers.(*ThreadSafeWaitGroup).Wait(...)
+2026-01-08 10:35:44.05
+5931229d
+User
+]:
+2026-01-08 10:35:44.05
+5931229d
+User
+created by main.runService
+2026-01-08 10:35:44.05
+5931229d
+User
+created by main.runService in goroutine 1
+2026-01-08 10:35:44.05
+5931229d
+User
++0x30e
+2026-01-08 10:35:44.05
+5931229d
+User
+_, _
+2026-01-08 10:35:44.05
+5931229d
+User
+main.runService.func3
+2026-01-08 10:35:44.05
+5931229d
+User
+github.com/evanw/esbuild/cmd/esbuild/service.go:160 +0x50c
+2026-01-08 10:35:44.05
+5931229d
+User
+_, _}
+2026-01-08 10:35:44.05
+5931229d
+User
+0x12b
+2026-01-08 10:35:44.05
+5931229d
+User
+()
+2026-01-08 10:35:44.05
+5931229d
+User
+goroutine 7 [chan receive]:
+2026-01-08 10:35:44.05
+5931229d
+User
+:97 +0x1db
+2026-01-08 10:35:44.05
+5931229d
+User
+]:
+2026-01-08 10:35:44.05
+5931229d
+User
+main.main()
+2026-01-08 10:35:44.05
+5931229d
+User
+, 0xc00007c480, ...)
+2026-01-08 10:35:44.05
+5931229d
+User
+main.runService.func1()
+2026-01-08 10:35:44.05
+5931229d
+User
+github.com/evanw/esbuild/cmd/esbuild/service.go
+2026-01-08 10:35:44.05
+5931229d
+User
+2172 +0x258
+2026-01-08 10:35:44.05
+5931229d
+User
+_)
+2026-01-08 10:35:44.05
+5931229d
+User
+github.com/evanw/esbuild/pkg/api/api_impl.go:1007 +0x29c
+2026-01-08 10:35:44.05
+5931229d
+User
+_)
+2026-01-08 10:35:44.05
+5931229d
+User
+github.com/evanw/esbuild/pkg/api/api_impl.go:1007 +0x29c
