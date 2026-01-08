@@ -37,7 +37,8 @@ import {
   FileText,
   Edit3,
   Unlink,
-  Component
+  Component,
+  Search
 } from 'lucide-react';
 import ButtonStateSelector from './ButtonStateSelector';
 import FlexLayoutControls from './FlexLayoutControls';
@@ -54,6 +55,7 @@ const PropertiesPanel: React.FC = () => {
   const [newClassName, setNewClassName] = useState('');
   const [selectedClassForEditing, setSelectedClassForEditing] = useState<string | null>(null);
   const [selectedButtonState, setSelectedButtonState] = useState<string>('default');
+  const [propertySearchTerm, setPropertySearchTerm] = useState('');
 
   // Auto-select the class for editing if there's only one class
   React.useEffect(() => {
@@ -807,9 +809,43 @@ const PropertiesPanel: React.FC = () => {
         </div>
       )}
 
+      {/* Property Search */}
+      <div className="p-4 border-b border-gray-200/60 dark:border-gray-700/60 bg-gray-50/50 dark:bg-gray-800/50">
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+          <Input
+            type="text"
+            placeholder={t('propertiesPanel.searchProperties', 'Search properties...')}
+            value={propertySearchTerm}
+            onChange={(e) => setPropertySearchTerm(e.target.value)}
+            className="pl-10 h-9 text-sm bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700 rounded-lg"
+            data-testid="property-search"
+          />
+          {propertySearchTerm && (
+            <button
+              onClick={() => setPropertySearchTerm('')}
+              className="absolute right-2 top-1/2 transform -translate-y-1/2 p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded transition-colors"
+              title="Clear search"
+            >
+              <X className="w-3 h-3 text-gray-400" />
+            </button>
+          )}
+        </div>
+      </div>
+
       {/* Dynamic Property Groups */}
       <div className="flex-1">
-        {propertyGroups.map((group) => {
+        {propertyGroups
+          .map((group) => ({
+            ...group,
+            properties: group.properties.filter((property) =>
+              propertySearchTerm === '' ||
+              property.label.toLowerCase().includes(propertySearchTerm.toLowerCase()) ||
+              property.key.toLowerCase().includes(propertySearchTerm.toLowerCase())
+            )
+          }))
+          .filter((group) => group.properties.length > 0)
+          .map((group) => {
           const isExpanded = expandedGroups[group.category];
           const IconComponent = getCategoryIcon(group.category);
 

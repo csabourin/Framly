@@ -49,6 +49,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ onShowKeyboardShortcuts }) => {
   const dispatch = useDispatch();
   const { selectedTool, isComponentPanelVisible, isDOMTreePanelVisible, isPropertiesPanelVisible } = useSelector(selectUIState);
   const [expandedCategory, setExpandedCategory] = React.useState<string | null>(null);
+  const [isToolbarHovered, setIsToolbarHovered] = React.useState(false);
 
   // Essential tools shown by default
   const essentialTools: Array<{
@@ -168,8 +169,12 @@ const Toolbar: React.FC<ToolbarProps> = ({ onShowKeyboardShortcuts }) => {
 
   return (
     <aside
-      className="absolute left-0 top-16 bottom-0 w-16 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-r border-gray-200/60 dark:border-gray-700/60 flex flex-col py-4 gap-2 z-40 shadow-lg"
+      className={`absolute left-0 top-16 bottom-0 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-r border-gray-200/60 dark:border-gray-700/60 flex flex-col py-4 gap-2 z-40 shadow-lg transition-all duration-300 ${
+        isToolbarHovered ? 'w-16' : 'w-12'
+      }`}
       data-testid="toolbar-main"
+      onMouseEnter={() => setIsToolbarHovered(true)}
+      onMouseLeave={() => setIsToolbarHovered(false)}
     >
       {/* Essential Tools */}
       {essentialTools.map((tool) => {
@@ -184,7 +189,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ onShowKeyboardShortcuts }) => {
             onClick={() => handleToolSelect(tool.id)}
             onDragStart={(e) => isCreationTool && handleToolDragStart(e, tool.id)}
             className={`
-              w-12 h-12 mx-2 rounded-xl flex items-center justify-center transition-all duration-200 group relative shadow-sm
+              ${isToolbarHovered ? 'w-12 h-12' : 'w-8 h-8'} mx-auto rounded-xl flex items-center justify-center transition-all duration-200 group relative shadow-sm
               ${isActive
                 ? 'bg-gradient-to-br from-blue-500 to-purple-600 text-white shadow-lg scale-105'
                 : 'hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-400 hover:shadow-md hover:scale-105'
@@ -225,7 +230,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ onShowKeyboardShortcuts }) => {
             <button
               onClick={() => toggleCategory(category.id)}
               className={`
-                w-12 h-12 mx-2 rounded-xl flex items-center justify-center transition-all duration-200 group relative shadow-sm
+                ${isToolbarHovered ? 'w-12 h-12' : 'w-8 h-8'} mx-auto rounded-xl flex items-center justify-center transition-all duration-200 group relative shadow-sm
                 ${isExpanded
                   ? 'bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-900/30 dark:to-purple-900/30 text-blue-600 dark:text-blue-400 shadow-md scale-105 border border-blue-200 dark:border-blue-700'
                   : 'hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-400 hover:shadow-md hover:scale-105'
@@ -298,7 +303,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ onShowKeyboardShortcuts }) => {
       <button
         onClick={handleComponentToggle}
         className={`
-          w-12 h-12 mx-2 rounded-xl flex items-center justify-center transition-all duration-200 group relative shadow-sm
+          ${isToolbarHovered ? 'w-12 h-12' : 'w-8 h-8'} mx-auto rounded-xl flex items-center justify-center transition-all duration-200 group relative shadow-sm
           ${isComponentPanelVisible
             ? 'bg-gradient-to-br from-blue-500 to-purple-600 text-white shadow-lg scale-105'
             : 'hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-400 hover:shadow-md hover:scale-105'
@@ -320,7 +325,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ onShowKeyboardShortcuts }) => {
       <button
         onClick={handlePropertiesToggle}
         className={`
-          w-12 h-12 mx-2 rounded-xl flex items-center justify-center transition-all duration-200 group relative shadow-sm
+          ${isToolbarHovered ? 'w-12 h-12' : 'w-8 h-8'} mx-auto rounded-xl flex items-center justify-center transition-all duration-200 group relative shadow-sm
           ${isPropertiesPanelVisible
             ? 'bg-gradient-to-br from-blue-500 to-purple-600 text-white shadow-lg scale-105'
             : 'hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-400 hover:shadow-md hover:scale-105'
@@ -341,7 +346,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ onShowKeyboardShortcuts }) => {
       {/* Keyboard Shortcuts Help */}
       <button
         onClick={onShowKeyboardShortcuts}
-        className="w-12 h-12 mx-2 rounded-xl flex items-center justify-center transition-all duration-200 group relative hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-400 hover:shadow-md hover:scale-105 shadow-sm"
+        className={`${isToolbarHovered ? 'w-12 h-12' : 'w-8 h-8'} mx-auto rounded-xl flex items-center justify-center transition-all duration-200 group relative hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-400 hover:shadow-md hover:scale-105 shadow-sm`}
         title="Keyboard Shortcuts (?)"
         data-testid="button-keyboard-shortcuts"
       >
