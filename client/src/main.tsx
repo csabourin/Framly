@@ -14,7 +14,7 @@ async function registerServiceWorker() {
       const registration = await navigator.serviceWorker.register('/sw.js', {
         scope: '/'
       });
-      
+
       // Listen for updates
       registration.addEventListener('updatefound', () => {
         const newWorker = registration.installing;
@@ -26,7 +26,7 @@ async function registerServiceWorker() {
           });
         }
       });
-      
+
       return registration;
     } catch (error) {
       // Service Worker registration failed
@@ -48,18 +48,22 @@ async function initializeTheme() {
 }
 
 // Initialize theme, persistence, and PWA functionality before rendering
-Promise.all([
-  initializeTheme(),
-  initializePersistence(),
-  registerServiceWorker()
-]).then(() => {
-  createRoot(document.getElementById("root")!).render(
-    <Provider store={store}>
-      <App />
-    </Provider>
-  );
-}).catch(error => {
-  // Still render the app even if initialization fails
+// Initialize theme, persistence, and PWA functionality before rendering
+// Add a race condition to prevent the app from hanging if IDB fails or is blocked
+const activeInit = Promise.all([
+  initializeTheme().catch(e => console.error('Theme init failed', e)),
+  initializePersistence().catch(e => console.error('Persistence init failed', e)),
+  registerServiceWorker().catch(e => console.error('SW register failed', e))
+]);
+
+const timeoutFallback = new Promise<void>((resolve) => {
+  setTimeout(() => {
+    console.warn('Initialization timed out, forcing render');
+    resolve();
+  }, 1500); // Force render after 1.5s
+});
+
+Promise.race([activeInit, timeoutFallback]).finally(() => {
   createRoot(document.getElementById("root")!).render(
     <Provider store={store}>
       <App />
