@@ -317,6 +317,9 @@ const uiSlice = createSlice({
       if (persistentSettings.isDOMTreePanelVisible !== undefined) {
         state.isDOMTreePanelVisible = persistentSettings.isDOMTreePanelVisible;
       }
+      if (persistentSettings.rightPanelTab !== undefined) {
+        state.rightPanelTab = persistentSettings.rightPanelTab;
+      }
       if (persistentSettings.zoomLevel !== undefined) {
         state.zoomLevel = persistentSettings.zoomLevel;
       }
