@@ -88,7 +88,7 @@ const PropertiesPanel: React.FC = () => {
 
   if (!selectedElement) {
     return (
-      <aside className="absolute right-0 top-16 bottom-0 w-80 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-l border-gray-200/60 dark:border-gray-700/60 overflow-y-auto z-40 shadow-lg">
+      <div className="h-full w-full bg-transparent" data-testid="properties-panel">
         <div className="p-8 text-center text-gray-500 dark:text-gray-400 h-full flex flex-col items-center justify-center">
           <div className="w-16 h-16 bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 rounded-xl flex items-center justify-center mb-4 shadow-sm">
             <SettingsIcon className="w-8 h-8 text-blue-500 dark:text-blue-400" />
@@ -96,14 +96,14 @@ const PropertiesPanel: React.FC = () => {
           <div className="font-semibold text-gray-700 dark:text-gray-300 mb-2">{t('properties.clickElement')}</div>
           <div className="text-sm text-gray-500 dark:text-gray-400 max-w-sm">{t('properties.selectElementToEdit')}</div>
         </div>
-      </aside>
+      </div>
     );
   }
 
   // CRITICAL: Special Properties Panel for Component Instances
   if (isComponentInstance) {
     return (
-      <aside className="absolute right-0 top-16 bottom-0 w-80 bg-white/95 backdrop-blur-md border-l border-gray-200/60 overflow-y-auto z-40 shadow-lg" data-testid="properties-panel">
+      <div className="h-full w-full bg-transparent" data-testid="properties-panel">
         <div className="p-4">
           <div className="flex items-center gap-2 mb-4">
             <Component className="w-5 h-5 text-blue-600" />
@@ -239,11 +239,49 @@ const PropertiesPanel: React.FC = () => {
             </div>
           </div>
         </div>
-      </aside>
+      </div>
     );
   }
 
   const propertyGroups = getPropertyGroups(selectedElement.type as ElementType, selectedElement);
+
+  // Filter property groups based on element type to show only relevant properties
+  const shouldShowPropertyGroup = (category: string, elementType: string): boolean => {
+    const isContainer = selectedElement.isContainer ||
+      ['container', 'rectangle', 'section', 'nav', 'header', 'footer', 'article', 'main', 'aside', 'form'].includes(elementType);
+
+    switch (category) {
+      case 'content':
+        // Always show content properties
+        return true;
+      case 'layout':
+        // Always show layout properties
+        return true;
+      case 'spacing':
+        // Always show spacing properties
+        return true;
+      case 'appearance':
+        // Always show appearance properties
+        return true;
+      case 'text':
+        // Show text properties for text elements, headings, buttons, and links
+        return ['text', 'heading', 'button', 'link', 'paragraph'].includes(elementType);
+      case 'flex':
+        // Only show flex properties for containers
+        return isContainer;
+      case 'grid':
+        // Only show grid properties for containers
+        return isContainer;
+      case 'effects':
+        // Show effects for all elements except root
+        return elementType !== 'root';
+      case 'advanced':
+        // Show advanced properties for all elements
+        return true;
+      default:
+        return true;
+    }
+  };
 
   // Batch property change handler for multiple properties at once (e.g., all border sides)
   const handleBatchPropertyChange = (propertyUpdates: Record<string, any>) => {
@@ -566,8 +604,8 @@ const PropertiesPanel: React.FC = () => {
   };
 
   return (
-    <aside
-      className="absolute right-0 top-16 bottom-0 w-80 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-l border-gray-200/60 dark:border-gray-700/60 overflow-y-auto z-40 shadow-lg"
+    <div
+      className="h-full w-full bg-transparent"
       data-testid="properties-panel"
     >
       {/* Panel Header */}
@@ -836,6 +874,7 @@ const PropertiesPanel: React.FC = () => {
       {/* Dynamic Property Groups */}
       <div className="flex-1">
         {propertyGroups
+          .filter((group) => shouldShowPropertyGroup(group.category, selectedElement.type))
           .map((group) => ({
             ...group,
             properties: group.properties.filter((property) =>
@@ -922,7 +961,7 @@ const PropertiesPanel: React.FC = () => {
         {/* Removed standalone compound property sections - they now appear inline */}
 
       </div>
-    </aside>
+    </div>
   );
 };
 

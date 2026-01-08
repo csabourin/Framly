@@ -182,7 +182,7 @@ const ComponentPanel: React.FC = () => {
   };
 
   return (
-    <aside className="absolute right-80 top-12 bottom-8 w-64 bg-white border-l border-gray-200 flex flex-col"
+    <div className="h-full w-full bg-transparent flex flex-col"
       data-testid="component-panel-main"
     >
       {/* Header */}
@@ -337,7 +337,7 @@ const ComponentPanel: React.FC = () => {
           </div>
         </div>
       )}
-    </aside>
+    </div>
   );
 };
 

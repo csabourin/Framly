@@ -9,7 +9,7 @@ import {
   redo,
   moveElement
 } from '../store/canvasSlice';
-import { setSelectedTool, setZoomLevel } from '../store/uiSlice';
+import { setSelectedTool, setZoomLevel, setRightPanelTab } from '../store/uiSlice';
 import { Tool } from '../types/canvas';
 
 // Detect platform
@@ -469,6 +469,26 @@ export const useKeyboardShortcuts = (onShowCheatsheet?: () => void) => {
       category: 'View',
       action: () => {
         dispatch(setZoomLevel(1));
+      }
+    },
+
+    // Panel shortcuts
+    {
+      key: 'p',
+      modifiers: {},
+      description: 'Show Properties Tab',
+      category: 'Panels',
+      action: () => {
+        dispatch(setRightPanelTab('properties'));
+      }
+    },
+    {
+      key: 'c',
+      modifiers: {},
+      description: 'Show Components Tab',
+      category: 'Panels',
+      action: () => {
+        dispatch(setRightPanelTab('components'));
       }
     },
 
