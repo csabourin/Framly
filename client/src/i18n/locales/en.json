@@ -52,7 +52,6 @@
     "warning": "Warning",
     "info": "Information"
   },
-
   "header": {
     "title": "Visual Web Design Tool",
     "newProject": "New Project",
@@ -64,37 +63,34 @@
     "help": "Help",
     "account": "Account"
   },
-
   "sidebar": {
     "layers": "Layers",
     "components": "Components",
     "assets": "Assets",
     "history": "History"
   },
-
   "toolbar": {
-    "select": "Select",
+    "pointer": "Selection",
     "hand": "Hand",
     "shapes": "Shapes",
     "text": "Text",
     "media": "Media",
     "layout": "Layout"
   },
-
   "tools": {
-    "select": "Select Tool",
+    "pointer": "Selection Tool",
     "hand": "Hand Tool",
     "rectangle": "Rectangle",
     "text": "Text",
-    "heading": "Heading", 
+    "heading": "Heading",
     "button": "Button",
     "image": "Image",
     "formElements": "Form Elements",
     "inputField": "Input Field",
     "textArea": "Text Area",
     "checkbox": "Checkbox",
-    "radioButton": "Radio Button", 
-    "selectDropdown": "Select Dropdown",
+    "radioButton": "Radio Button",
+    "selectDropdown": "Dropdown Menu",
     "structure": "Structure",
     "section": "Section",
     "navigation": "Navigation",
@@ -110,9 +106,8 @@
     "video": "Video",
     "audio": "Audio"
   },
-
   "tooltips": {
-    "select": "Select and move elements (V)",
+    "pointer": "Selection tool (V)",
     "hand": "Hand tool for panning (H)",
     "rectangle": "Add rectangle container (R)",
     "text": "Add text element (T)",
@@ -123,11 +118,11 @@
     "textArea": "Add text area",
     "checkbox": "Add checkbox",
     "radioButton": "Add radio button",
-    "selectDropdown": "Add select dropdown",
+    "selectDropdown": "Add dropdown menu",
     "section": "Add section container",
     "navigation": "Add navigation",
     "header": "Add header",
-    "footer": "Add footer", 
+    "footer": "Add footer",
     "article": "Add article container",
     "list": "Add list",
     "codeBlock": "Add code block",
@@ -138,16 +133,14 @@
     "undo": "Undo last action (Ctrl+Z)",
     "redo": "Redo last action (Ctrl+Y)"
   },
-
   "panels": {
     "properties": "Properties",
-    "layers": "Layers", 
+    "layers": "Layers",
     "elementTree": "Element Tree",
     "components": "Components"
   },
-
   "elements": {
-    "select": "Select",
+    "pointer": "Selection",
     "hand": "Hand",
     "rectangle": "Rectangle",
     "text": "Text",
@@ -159,7 +152,7 @@
     "textArea": "Text Area",
     "checkbox": "Checkbox",
     "radioButton": "Radio Button",
-    "selectDropdown": "Select Dropdown",
+    "selectDropdown": "Dropdown Menu",
     "structure": "Structure",
     "section": "Section",
     "navigation": "Navigation",
@@ -175,7 +168,6 @@
     "video": "Video",
     "audio": "Audio"
   },
-
   "propertiesPanel": {
     "properties": "Properties",
     "classEditing": "Class Editing",
@@ -195,12 +187,10 @@
     "savedAsDefault": "✓ Saved as default!",
     "newButtonsUseDefault": "New buttons will use the current default style"
   },
-
   "properties": {
     "clickElement": "Click an element",
     "selectElementToEdit": "Select an element on the canvas to edit its properties"
   },
-
   "components": {
     "createComponent": "Create Component",
     "editComponent": "Edit Component",
@@ -225,7 +215,6 @@
     "descriptionOptional": "Description (Optional)",
     "describeComponent": "Describe what this component does..."
   },
-
   "customClasses": {
     "customClasses": "Custom Classes",
     "createClass": "Create Class",
@@ -235,7 +224,6 @@
     "classStyles": "Class Styles",
     "noClasses": "No custom classes yet. Create your first CSS class."
   },
-
   "export": {
     "exportOptions": "Export Options",
     "exportAsHTML": "Export as HTML",
@@ -256,7 +244,6 @@
     "minifyCSS": "Minify CSS",
     "includeComments": "Include source comments"
   },
-
   "import": {
     "importWebsite": "Import Website",
     "websiteUrl": "Website URL",
@@ -265,7 +252,6 @@
     "importSuccess": "Website imported successfully!",
     "importError": "Failed to import website. Please check the URL and try again."
   },
-
   "contextMenu": {
     "cut": "Cut",
     "copy": "Copy",
@@ -279,7 +265,6 @@
     "lock": "Lock",
     "unlock": "Unlock"
   },
-
   "propertyGroups": {
     "content": "Content",
     "layoutPosition": "Layout & Position",
@@ -291,7 +276,6 @@
     "effects": "Effects",
     "advanced": "Advanced"
   },
-
   "statusBar": {
     "selectionTool": "Selection Tool",
     "handTool": "Hand Tool",
@@ -305,7 +289,6 @@
     "elementCount": "{{count}} Elements",
     "mobile": "Mobile"
   },
-
   "settings": {
     "settings": "Settings",
     "handToolBehavior": "Hand Tool Behavior",
@@ -316,7 +299,6 @@
     "interface": "Interface",
     "moreSettingsComingSoon": "More interface settings coming soon..."
   },
-  
   "validation": {
     "required": "This field is required",
     "invalidEmail": "Please enter a valid email address",
@@ -327,10 +309,9 @@
     "minValue": "Value must be at least {{min}}",
     "maxValue": "Value must be no more than {{max}}"
   },
-  
   "messages": {
     "projectSaved": "Project saved successfully",
-    "projectLoaded": "Project loaded successfully", 
+    "projectLoaded": "Project loaded successfully",
     "elementDeleted": "Element deleted",
     "elementDuplicated": "Element duplicated",
     "componentCreated": "Component created successfully",
@@ -344,11 +325,10 @@
     "importSuccess": "Import completed successfully",
     "operationFailed": "Operation failed. Please try again."
   },
-  
   "shortcuts": {
     "undo": "Ctrl+Z",
     "redo": "Ctrl+Y",
-    "copy": "Ctrl+C", 
+    "copy": "Ctrl+C",
     "paste": "Ctrl+V",
     "cut": "Ctrl+X",
     "selectAll": "Ctrl+A",
@@ -358,10 +338,9 @@
     "newProject": "Ctrl+N",
     "openProject": "Ctrl+O"
   },
-  
   "breakpoints": {
     "mobile": "Mobile",
-    "tablet": "Tablet", 
+    "tablet": "Tablet",
     "desktop": "Desktop",
     "large": "Large",
     "largeDesktop": "Large Desktop",
@@ -372,7 +351,6 @@
     "showBreakpoints": "Show breakpoints",
     "enterValue": "Enter value"
   },
-
   "classEditor": {
     "classEditor": "Class Editor",
     "elementClasses": "Element Classes",
@@ -400,16 +378,14 @@
     "renameClass": "Rename Class",
     "deleteClass": "Delete Class"
   },
-
   "elementTree": {
-    "elementTree": "Element Tree", 
+    "elementTree": "Element Tree",
     "dropToReorder": "Drop to reorder elements",
     "dragToReorderClick": "Drag to reorder • Click to select",
     "rootContainer": "Root Container",
     "textElement": "Text: \"{{content}}\"",
     "loadingTree": "Loading element tree..."
   },
-
   "componentPanel": {
     "componentPanel": "Components",
     "dragComponentsHint": "💡 Drag components to canvas or click the + button to add them",
@@ -422,7 +398,6 @@
     "selectElementsToSave": "Select elements on canvas and save them as a reusable component",
     "uncategorized": "Uncategorized"
   },
-
   "units": {
     "px": "Pixels",
     "rem": "Root Em",

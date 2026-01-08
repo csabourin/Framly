@@ -57,7 +57,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ onShowKeyboardShortcuts }) => {
     label: string;
     shortcut?: string;
   }> = [
-      { id: 'pointer', icon: MousePointer, label: t('elements.select'), shortcut: 'V' },
+      { id: 'pointer', icon: MousePointer, label: t('elements.pointer'), shortcut: 'V' },
       { id: 'hand', icon: Hand, label: t('elements.hand'), shortcut: 'H' },
       { id: 'rectangle', icon: Square, label: t('elements.rectangle'), shortcut: 'R' },
       { id: 'text', icon: Type, label: t('elements.text'), shortcut: 'T' },
@@ -86,7 +86,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ onShowKeyboardShortcuts }) => {
           { id: 'textarea', icon: TextCursorInput, label: t('elements.textArea') },
           { id: 'checkbox', icon: CheckSquare, label: t('elements.checkbox') },
           { id: 'radio', icon: Circle, label: t('elements.radioButton') },
-          { id: 'select', icon: ChevronDown, label: t('elements.selectDropdown') },
+          { id: 'select-dropdown', icon: ChevronDown, label: t('elements.selectDropdown') },
         ]
       },
       {
@@ -173,15 +173,16 @@ const Toolbar: React.FC<ToolbarProps> = ({ onShowKeyboardShortcuts }) => {
     >
       {/* Essential Tools */}
       {essentialTools.map((tool) => {
+        const isCreationTool = !['pointer', 'hand'].includes(tool.id);
         const Icon = tool.icon;
         const isActive = selectedTool === tool.id;
 
         return (
           <button
             key={tool.id}
-            draggable
+            draggable={isCreationTool}
             onClick={() => handleToolSelect(tool.id)}
-            onDragStart={(e) => handleToolDragStart(e, tool.id)}
+            onDragStart={(e) => isCreationTool && handleToolDragStart(e, tool.id)}
             className={`
               w-12 h-12 mx-2 rounded-xl flex items-center justify-center transition-all duration-200 group relative shadow-sm
               ${isActive
@@ -198,7 +199,13 @@ const Toolbar: React.FC<ToolbarProps> = ({ onShowKeyboardShortcuts }) => {
             <div className="absolute left-full ml-3 px-3 py-2 bg-gray-900/95 dark:bg-gray-800/95 backdrop-blur-sm text-white dark:text-gray-100 text-sm rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-all duration-200 pointer-events-none z-[100] shadow-xl border border-gray-700/50 dark:border-gray-600/50">
               <div className="font-medium">{tool.label}</div>
               {tool.shortcut && <div className="text-xs text-gray-300 dark:text-gray-400 mt-0.5">Press {tool.shortcut}</div>}
-              <div className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">Drag to canvas</div>
+              {isCreationTool ? (
+                <div className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">Click to select or drag to canvas</div>
+              ) : (
+                <div className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">
+                  {tool.id === 'pointer' ? 'Select and move elements' : 'Pan around the canvas'}
+                </div>
+              )}
             </div>
           </button>
         );
@@ -259,17 +266,20 @@ const Toolbar: React.FC<ToolbarProps> = ({ onShowKeyboardShortcuts }) => {
                           setExpandedCategory(null);
                         }}
                         className={`
-                          w-full h-10 rounded-lg flex items-center gap-3 px-3 transition-all duration-200
+                          w-full h-10 rounded-lg flex items-center gap-3 px-3 transition-all duration-200 group/btn
                           ${isActive
                             ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-md'
                             : 'hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 hover:shadow-sm'
                           }
                         `}
-                        title={`${tool.label} - Click to select or drag to canvas`}
+                        title={tool.label}
                         data-testid={`button-tool-${tool.id}`}
                       >
                         <ToolIcon className="w-4 h-4" />
-                        <span className="text-sm font-medium">{tool.label}</span>
+                        <div className="flex flex-col">
+                          <span className="text-sm font-medium leading-none">{tool.label}</span>
+                          <span className="text-[10px] text-white/60 mt-0.5 opacity-0 group-hover/btn:opacity-100 transition-opacity">Click to select or drag to canvas</span>
+                        </div>
                       </button>
                     );
                   })}

@@ -2,7 +2,7 @@ export interface CanvasElement {
   id: string;
   type: 'rectangle' | 'text' | 'image' | 'container' | 'heading' | 'list' | 'component' | 'button' | 'element' |
   // Form elements
-  'input' | 'textarea' | 'checkbox' | 'radio' | 'select' |
+  'input' | 'textarea' | 'checkbox' | 'radio' | 'dropdown' |
   // Structural elements
   'section' | 'nav' | 'header' | 'footer' | 'article' |
   // Media elements
@@ -145,7 +145,7 @@ export interface Project {
 
 export type Tool = 'pointer' | 'hand' | 'rectangle' | 'text' | 'heading' | 'list' | 'image' | 'container' | 'button' |
   // Form elements
-  'input' | 'textarea' | 'checkbox' | 'radio' | 'select' |
+  'input' | 'textarea' | 'checkbox' | 'radio' | 'select-dropdown' |
   // Structural elements  
   'section' | 'nav' | 'header' | 'footer' | 'article' |
   // Media elements

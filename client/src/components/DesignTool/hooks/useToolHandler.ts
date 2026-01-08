@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectElement, addElement } from '../../../store/canvasSlice';
 import { setSelectedTool } from '../../../store/uiSlice';
@@ -17,6 +17,15 @@ export const useToolHandler = (
   const dispatch = useDispatch();
   const selectedTool = useSelector(selectSelectedTool);
 
+  // Auto-migrate legacy 'select' tool to 'pointer'
+  // This is critical because 'select' now refers to the dropdown element tool
+  useEffect(() => {
+    if (selectedTool === 'select' as any) {
+      console.log('🔄 Migrating legacy "select" tool to "pointer"');
+      dispatch(setSelectedTool('pointer'));
+    }
+  }, [selectedTool, dispatch]);
+
   const handlePointAndClickInsertion = useCallback((
     x: number,
     y: number,
@@ -27,7 +36,8 @@ export const useToolHandler = (
     console.log('Point-and-click insertion called:', { tool, x, y });
 
     // Create the new element with default positioning
-    const newElement = createDefaultElement(tool as any);
+    const type = tool === 'select-dropdown' ? 'dropdown' : tool as any;
+    const newElement = createDefaultElement(type);
 
     // For now, always insert at root level to get basic functionality working
     dispatch(addElement({
@@ -40,7 +50,7 @@ export const useToolHandler = (
     dispatch(selectElement(newElement.id));
 
     console.log('Element created:', newElement.id);
-  }, [dispatch]);
+  }, [dispatch, selectedTool]);
 
   const handleToolBasedSelection = useCallback((
     x: number,
@@ -67,7 +77,7 @@ export const useToolHandler = (
 
   const isCreationTool = useCallback((tool: string) => {
     return ['rectangle', 'text', 'image', 'container', 'heading', 'list', 'button',
-      'input', 'textarea', 'checkbox', 'radio', 'select',
+      'input', 'textarea', 'checkbox', 'radio', 'select-dropdown',
       'section', 'nav', 'header', 'footer', 'article',
       'video', 'audio', 'link', 'code', 'divider'].includes(tool);
   }, []);

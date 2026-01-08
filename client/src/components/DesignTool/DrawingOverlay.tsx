@@ -27,10 +27,10 @@ interface DrawingOverlayProps {
   onCommit: (rect: CommitRect, tool: Tool, modifiers: { shift: boolean; alt: boolean }) => void;
 }
 
-const DrawingOverlay: React.FC<DrawingOverlayProps> = ({ 
-  currentElements, 
-  zoomLevel, 
-  onCommit 
+const DrawingOverlay: React.FC<DrawingOverlayProps> = ({
+  currentElements,
+  zoomLevel,
+  onCommit
 }) => {
   const dispatch = useDispatch();
   const { selectedTool } = useSelector(selectUIState);
@@ -75,15 +75,15 @@ const DrawingOverlay: React.FC<DrawingOverlayProps> = ({
 
   const onPointerDown = useCallback((e: React.PointerEvent) => {
     console.log('🎨 DrawingOverlay: pointerDown received', { selectedTool, x: e.clientX, y: e.clientY });
-    
+
     e.preventDefault();
     e.stopPropagation();
-    
+
     // Only handle creation tools, not select/hand
     if (!['rectangle', 'text', 'image', 'container', 'heading', 'list', 'button',
-         'input', 'textarea', 'checkbox', 'radio', 'select',
-         'section', 'nav', 'header', 'footer', 'article',
-         'video', 'audio', 'link', 'code', 'divider'].includes(selectedTool)) {
+      'input', 'textarea', 'checkbox', 'radio', 'select-dropdown',
+      'section', 'nav', 'header', 'footer', 'article',
+      'video', 'audio', 'link', 'code', 'divider'].includes(selectedTool)) {
       console.log('🎨 DrawingOverlay: ignoring tool', selectedTool);
       return;
     }
@@ -91,7 +91,7 @@ const DrawingOverlay: React.FC<DrawingOverlayProps> = ({
     console.log('🎨 DrawingOverlay: starting draw for tool', selectedTool);
     e.currentTarget.setPointerCapture(e.pointerId);
     const point = { x: e.clientX, y: e.clientY };
-    
+
     setDrawingState({
       start: point,
       current: point,
@@ -102,7 +102,7 @@ const DrawingOverlay: React.FC<DrawingOverlayProps> = ({
 
   const onPointerMove = useCallback((e: React.PointerEvent) => {
     if (!drawingState) return;
-    
+
     setDrawingState(prev => prev ? {
       ...prev,
       current: { x: e.clientX, y: e.clientY },
@@ -127,7 +127,7 @@ const DrawingOverlay: React.FC<DrawingOverlayProps> = ({
 
   // Calculate rectangle bounds with modifier support
   const calculateRect = useCallback((
-    start: { x: number; y: number }, 
+    start: { x: number; y: number },
     current: { x: number; y: number },
     modifiers: { shift: boolean; alt: boolean }
   ) => {
@@ -141,7 +141,7 @@ const DrawingOverlay: React.FC<DrawingOverlayProps> = ({
       const size = Math.min(width, height);
       width = size;
       height = size;
-      
+
       // Adjust position to maintain drawing direction
       if (current.x < start.x) left = start.x - width;
       if (current.y < start.y) top = start.y - height;
@@ -163,7 +163,7 @@ const DrawingOverlay: React.FC<DrawingOverlayProps> = ({
   // Calculate visual bounds for the ghost rectangle
   const getGhostBounds = useCallback(() => {
     if (!drawingState) return null;
-    
+
     return calculateRect(drawingState.start, drawingState.current, {
       shift: drawingState.isShiftPressed || modifiers.shift,
       alt: drawingState.isAltPressed || modifiers.alt
@@ -171,7 +171,7 @@ const DrawingOverlay: React.FC<DrawingOverlayProps> = ({
   }, [drawingState, modifiers, calculateRect]);
 
   // Only show overlay for creation tools
-  if (!['rectangle', 'text', 'image', 'container', 'heading', 'button', 'input', 'textarea'].includes(selectedTool)) {
+  if (!['rectangle', 'text', 'image', 'container', 'heading', 'button', 'input', 'textarea', 'select-dropdown'].includes(selectedTool)) {
     return null;
   }
 
@@ -181,7 +181,7 @@ const DrawingOverlay: React.FC<DrawingOverlayProps> = ({
     <div
       ref={overlayRef}
       className="absolute inset-0 z-[1000] cursor-crosshair select-none"
-      style={{ 
+      style={{
         pointerEvents: 'auto',
         position: 'absolute',
         top: 0,

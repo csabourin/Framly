@@ -147,12 +147,13 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
       return;
     }
 
-    // Handle selection for select and hand tools
+    // Handle selection for pointer and hand tools
     if (['pointer', 'hand'].includes(selectedTool)) {
       e.stopPropagation();
       dispatch(selectElement(element.id));
-    } else if (isNonContainer && ['rectangle', 'text', 'image', 'container', 'heading', 'list', 'button', 'input', 'textarea', 'checkbox', 'radio', 'select', 'section', 'nav', 'header', 'footer', 'article', 'video', 'audio', 'link', 'code', 'divider'].includes(selectedTool)) {
-      // For non-container elements clicked with creation tools, auto-switch to selection
+    } else if (['rectangle', 'text', 'image', 'container', 'heading', 'list', 'button', 'input', 'textarea', 'checkbox', 'radio', 'select-dropdown', 'section', 'nav', 'header', 'footer', 'article', 'video', 'audio', 'link', 'code', 'divider'].includes(selectedTool)) {
+      // For any element clicked with a creation tool, auto-switch to selection
+      // This prevents unintentional spawns on top of existing elements
       e.stopPropagation();
       dispatch(setSelectedTool('pointer'));
       dispatch(selectElement(element.id));

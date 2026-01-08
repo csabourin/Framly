@@ -38,6 +38,8 @@ const StatusBar: React.FC = () => {
         return t('statusBar.splitVertical');
       case 'merge':
         return t('statusBar.mergeTool');
+      case 'select-dropdown':
+        return t('elements.selectDropdown');
       default:
         return t('statusBar.unknownTool');
     }

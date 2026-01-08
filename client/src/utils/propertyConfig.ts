@@ -1,7 +1,7 @@
 // Property configuration for dynamic properties panel
 export type ElementType = 'container' | 'rectangle' | 'text' | 'heading' | 'list' | 'image' | 'button' |
   // Form elements
-  'input' | 'textarea' | 'checkbox' | 'radio' | 'select' |
+  'input' | 'textarea' | 'checkbox' | 'radio' | 'dropdown' |
   // Structural elements
   'section' | 'nav' | 'header' | 'footer' | 'article' |
   // Media elements
@@ -680,7 +680,7 @@ export const elementPropertyMap: Record<ElementType, PropertyConfig[]> = {
     ...gridProperties,
     ...advancedProperties.filter(p => !['overflow'].includes(p.key))
   ],
-  
+
   // Form Elements
   input: [
     // Input-specific properties first
@@ -730,7 +730,7 @@ export const elementPropertyMap: Record<ElementType, PropertyConfig[]> = {
     ...appearanceProperties,
     ...advancedProperties.filter(p => !['overflow'].includes(p.key))
   ],
-  
+
   textarea: [
     // Textarea-specific properties first
     {
@@ -793,7 +793,7 @@ export const elementPropertyMap: Record<ElementType, PropertyConfig[]> = {
     ...appearanceProperties,
     ...advancedProperties.filter(p => !['overflow'].includes(p.key))
   ],
-  
+
   checkbox: [
     // Checkbox-specific properties
     {
@@ -850,7 +850,7 @@ export const elementPropertyMap: Record<ElementType, PropertyConfig[]> = {
     ...appearanceProperties,
     ...advancedProperties.filter(p => !['overflow'].includes(p.key))
   ],
-  
+
   radio: [
     // Radio-specific properties
     {
@@ -907,8 +907,8 @@ export const elementPropertyMap: Record<ElementType, PropertyConfig[]> = {
     ...appearanceProperties,
     ...advancedProperties.filter(p => !['overflow'].includes(p.key))
   ],
-  
-  select: [
+
+  dropdown: [
     // Select-specific properties
     {
       key: 'selectOptions',
@@ -958,7 +958,7 @@ export const elementPropertyMap: Record<ElementType, PropertyConfig[]> = {
     ...appearanceProperties,
     ...advancedProperties.filter(p => !['overflow'].includes(p.key))
   ],
-  
+
   // Structural Elements (Container-like)
   section: [
     ...layoutProperties,
@@ -968,7 +968,7 @@ export const elementPropertyMap: Record<ElementType, PropertyConfig[]> = {
     ...gridProperties,
     ...advancedProperties
   ],
-  
+
   nav: [
     ...layoutProperties,
     ...spacingProperties,
@@ -977,7 +977,7 @@ export const elementPropertyMap: Record<ElementType, PropertyConfig[]> = {
     ...gridProperties,
     ...advancedProperties
   ],
-  
+
   header: [
     ...layoutProperties,
     ...spacingProperties,
@@ -986,7 +986,7 @@ export const elementPropertyMap: Record<ElementType, PropertyConfig[]> = {
     ...gridProperties,
     ...advancedProperties
   ],
-  
+
   footer: [
     ...layoutProperties,
     ...spacingProperties,
@@ -995,7 +995,7 @@ export const elementPropertyMap: Record<ElementType, PropertyConfig[]> = {
     ...gridProperties,
     ...advancedProperties
   ],
-  
+
   article: [
     ...layoutProperties,
     ...spacingProperties,
@@ -1004,7 +1004,7 @@ export const elementPropertyMap: Record<ElementType, PropertyConfig[]> = {
     ...gridProperties,
     ...advancedProperties
   ],
-  
+
   // Media Elements
   video: [
     // Video-specific properties
@@ -1061,7 +1061,7 @@ export const elementPropertyMap: Record<ElementType, PropertyConfig[]> = {
     ...appearanceProperties,
     ...advancedProperties.filter(p => !['overflow'].includes(p.key))
   ],
-  
+
   audio: [
     // Audio-specific properties
     {
@@ -1109,7 +1109,7 @@ export const elementPropertyMap: Record<ElementType, PropertyConfig[]> = {
     ...appearanceProperties,
     ...advancedProperties.filter(p => !['overflow'].includes(p.key))
   ],
-  
+
   // Content Elements
   link: [
     // Link-specific properties
@@ -1157,7 +1157,7 @@ export const elementPropertyMap: Record<ElementType, PropertyConfig[]> = {
     ...appearanceProperties,
     ...advancedProperties.filter(p => !['overflow'].includes(p.key))
   ],
-  
+
   code: [
     // Code-specific properties
     {
@@ -1192,7 +1192,7 @@ export const elementPropertyMap: Record<ElementType, PropertyConfig[]> = {
     ...appearanceProperties,
     ...advancedProperties
   ],
-  
+
   divider: [
     // Divider-specific properties
     {
@@ -1232,25 +1232,25 @@ export const elementPropertyMap: Record<ElementType, PropertyConfig[]> = {
 export function getPropertyGroups(elementType: ElementType, element?: any): PropertyGroup[] {
   const properties = elementPropertyMap[elementType] || [];
   const groups: Record<string, PropertyConfig[]> = {};
-  
+
   // Filter properties based on conditions and group by category
   properties.forEach(prop => {
     // Check if property should be shown based on condition
     if (prop.condition && element && !prop.condition(element)) {
       return;
     }
-    
+
     if (!groups[prop.category]) {
       groups[prop.category] = [];
     }
     groups[prop.category].push(prop);
   });
-  
+
   // Sort properties within each group by priority
   Object.keys(groups).forEach(category => {
     groups[category].sort((a, b) => a.priority - b.priority);
   });
-  
+
   // Define category metadata
   const categoryInfo: Record<string, { label: string; icon: string; order: number }> = {
     content: { label: 'Content', icon: '📄', order: 1 },
@@ -1263,7 +1263,7 @@ export function getPropertyGroups(elementType: ElementType, element?: any): Prop
     effects: { label: 'Effects', icon: '✨', order: 8 },
     advanced: { label: 'Advanced', icon: '⚙️', order: 9 }
   };
-  
+
   // Convert to ordered array
   return Object.entries(groups)
     .map(([category, properties]) => ({
@@ -1294,7 +1294,7 @@ export function getCSSPropertyKey(key: string): string {
     'zIndex': 'z-index',
     'objectFit': 'object-fit'
   };
-  
+
   return cssKeyMap[key] || key;
 }
 
@@ -1302,20 +1302,20 @@ export function getCSSPropertyKey(key: string): string {
 export function formatValueWithUnit(value: string | number, unit?: string): string {
   if (!value && value !== 0) return '';
   if (!unit) return String(value);
-  
+
   // Don't add unit if value already has one
   const strValue = String(value);
   if (strValue.match(/\d+(px|%|em|rem|vh|vw|pt|auto)$/)) {
     return strValue;
   }
-  
+
   return `${value}${unit}`;
 }
 
 // Helper function to parse value and unit from a CSS value (DEPRECATED - use unitPersistence.ts)
 export function parseValueAndUnit(cssValue: string): { value: string; unit: string } {
   if (!cssValue) return { value: '', unit: 'px' };
-  
+
   const match = String(cssValue).match(/^([+-]?\d*\.?\d*)(.*)/);
   if (match) {
     const [, value, unit] = match;
@@ -1324,6 +1324,6 @@ export function parseValueAndUnit(cssValue: string): { value: string; unit: stri
       unit: unit || 'px'
     };
   }
-  
+
   return { value: String(cssValue), unit: '' };
 }

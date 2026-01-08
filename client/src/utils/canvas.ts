@@ -7,8 +7,8 @@ export const POINT_AND_CLICK_TOOLS: Tool[] = [
 
 // Tools that require drawing for proper sizing
 export const DRAWING_TOOLS: Tool[] = [
-  'rectangle', 'container', 'image', 'video', 'audio', 'input', 'textarea', 
-  'checkbox', 'radio', 'select', 'section', 'nav', 'header', 'footer', 'article', 'divider'
+  'rectangle', 'container', 'image', 'video', 'audio', 'input', 'textarea',
+  'checkbox', 'radio', 'select-dropdown', 'section', 'nav', 'header', 'footer', 'article', 'divider'
 ];
 
 /**
@@ -31,7 +31,7 @@ export function generateUniqueId(type: string): string {
 
 export function createDefaultElement(type: CanvasElement['type'], x?: number, y?: number): CanvasElement {
   const id = generateUniqueId(type);
-  
+
   const baseElement: CanvasElement = {
     id,
     type,
@@ -43,7 +43,7 @@ export function createDefaultElement(type: CanvasElement['type'], x?: number, y?
     styles: {},
     classes: [],
   };
-  
+
   switch (type) {
     case 'rectangle':
       return {
@@ -68,7 +68,7 @@ export function createDefaultElement(type: CanvasElement['type'], x?: number, y?
         },
         classes: [`rectangle-${Date.now()}`],
       };
-      
+
     case 'text':
       return {
         ...baseElement,
@@ -86,7 +86,7 @@ export function createDefaultElement(type: CanvasElement['type'], x?: number, y?
         },
         classes: [`text-${Date.now()}`],
       };
-      
+
     case 'heading':
       return {
         ...baseElement,
@@ -106,7 +106,7 @@ export function createDefaultElement(type: CanvasElement['type'], x?: number, y?
         },
         classes: [`heading-${Date.now()}`],
       };
-      
+
     case 'list':
       return {
         ...baseElement,
@@ -125,7 +125,7 @@ export function createDefaultElement(type: CanvasElement['type'], x?: number, y?
         },
         classes: [`list-${Date.now()}`],
       };
-      
+
     case 'image':
       return {
         ...baseElement,
@@ -143,7 +143,7 @@ export function createDefaultElement(type: CanvasElement['type'], x?: number, y?
         },
         classes: [`image-${Date.now()}`],
       };
-      
+
     case 'container':
       return {
         ...baseElement,
@@ -183,7 +183,7 @@ export function createDefaultElement(type: CanvasElement['type'], x?: number, y?
               // Use default styles if parsing fails
             }
           }
-          
+
           // Default professional button styles
           return {
             backgroundColor: '#3b82f6',
@@ -277,7 +277,7 @@ export function createDefaultElement(type: CanvasElement['type'], x?: number, y?
         classes: [`radio-${Date.now()}`],
       };
 
-    case 'select':
+    case 'dropdown':
       return {
         ...baseElement,
         width: 0,
@@ -292,7 +292,7 @@ export function createDefaultElement(type: CanvasElement['type'], x?: number, y?
           backgroundColor: '#ffffff',
         },
         htmlTag: 'select',
-        classes: [`select-${Date.now()}`],
+        classes: [`dropdown-${Date.now()}`],
       };
 
     // Structural elements
@@ -506,7 +506,7 @@ export function createDefaultElement(type: CanvasElement['type'], x?: number, y?
         htmlTag: 'hr',
         classes: [`divider-${Date.now()}`],
       };
-      
+
     default:
       return baseElement;
   }
@@ -515,26 +515,26 @@ export function createDefaultElement(type: CanvasElement['type'], x?: number, y?
 export function isPointInElement(x: number, y: number, element: CanvasElement, tolerance: number = 3): boolean {
   const elementX = element.x || 0;
   const elementY = element.y || 0;
-  return x >= elementX - tolerance && 
-         x <= elementX + element.width + tolerance && 
-         y >= elementY - tolerance && 
-         y <= elementY + element.height + tolerance;
+  return x >= elementX - tolerance &&
+    x <= elementX + element.width + tolerance &&
+    y >= elementY - tolerance &&
+    y <= elementY + element.height + tolerance;
 }
 
 export function getElementAtPoint(x: number, y: number, elements: Record<string, CanvasElement>, zoomLevel: number = 1, draggedElementId?: string): CanvasElement | null {
   // Use DOM-based detection for flexbox layouts
   const canvasElement = document.querySelector('[data-testid="canvas-container"]');
   if (!canvasElement) return null;
-  
+
   const canvasRect = canvasElement.getBoundingClientRect();
   // Convert canvas coordinates to page coordinates accounting for zoom
   const pageX = canvasRect.left + (x * zoomLevel);
   const pageY = canvasRect.top + (y * zoomLevel);
-  
+
   // Temporarily hide the dragged element to improve detection
   let draggedElement: HTMLElement | null = null;
   let originalDisplay = '';
-  
+
   if (draggedElementId) {
     draggedElement = document.querySelector(`[data-element-id="${draggedElementId}"]`) as HTMLElement;
     if (draggedElement) {
@@ -542,17 +542,17 @@ export function getElementAtPoint(x: number, y: number, elements: Record<string,
       draggedElement.style.display = 'none';
     }
   }
-  
+
   try {
     // Get the element at this point using DOM
     const elementAtPoint = document.elementFromPoint(pageX, pageY);
     if (!elementAtPoint) return null;
-    
+
     // First try DOM-based detection for more accurate flexbox positioning
     let foundElements: { element: CanvasElement; depth: number }[] = [];
     let current: Element | null = elementAtPoint;
     let depth = 0;
-    
+
     while (current && current !== canvasElement) {
       // Skip insertion indicators and dragged elements
       if (current.hasAttribute('data-testid') && current.getAttribute('data-testid') === 'insertion-indicator') {
@@ -560,35 +560,35 @@ export function getElementAtPoint(x: number, y: number, elements: Record<string,
         depth++;
         continue;
       }
-      
+
       const elementId = current.getAttribute('data-element-id');
       if (elementId && elements[elementId] && elementId !== 'root' && elementId !== draggedElementId) {
         foundElements.push({ element: elements[elementId], depth });
       }
-      
+
       current = current.parentElement;
       depth++;
     }
-    
+
     // Return the element with the smallest depth (deepest in DOM)
     if (foundElements.length > 0) {
       foundElements.sort((a, b) => a.depth - b.depth);
       // console.log('DOM detection found:', foundElements[0].element.id);
       return foundElements[0].element;
     }
-    
+
     // Fallback to bounds-based detection if DOM detection fails
     if (!elements) {
       return null;
     }
     const nonRootElements = Object.values(elements).filter(el => el.id !== 'root' && el.id !== draggedElementId);
-    
+
     for (const element of nonRootElements) {
       if (isPointInElement(x, y, element, 4)) {
         return element;
       }
     }
-    
+
     // Return root as final fallback
     return elements.root || null;
   } finally {
@@ -610,12 +610,12 @@ export function getBoundingRect(elements: CanvasElement[]): { x: number; y: numb
   if (elements.length === 0) {
     return { x: 0, y: 0, width: 0, height: 0 };
   }
-  
+
   let minX = Infinity;
   let minY = Infinity;
   let maxX = -Infinity;
   let maxY = -Infinity;
-  
+
   elements.forEach(element => {
     const elementX = element.x || 0;
     const elementY = element.y || 0;
@@ -624,7 +624,7 @@ export function getBoundingRect(elements: CanvasElement[]): { x: number; y: numb
     maxX = Math.max(maxX, elementX + element.width);
     maxY = Math.max(maxY, elementY + element.height);
   });
-  
+
   return {
     x: minX,
     y: minY,
@@ -641,7 +641,7 @@ export function validateCSSClassName(className: string): boolean {
 
 export function generateCSSClassSuggestions(type: CanvasElement['type']): string[] {
   const baseSuggestions = ['container', 'wrapper', 'section', 'content'];
-  
+
   switch (type) {
     case 'text':
       return ['heading', 'title', 'subtitle', 'paragraph', 'caption', 'label'];
@@ -661,76 +661,76 @@ export function canDropInside(elementType: string, targetElement: CanvasElement)
   // Elements that cannot contain other elements
   const nonContainerTypes = [
     'text', 'heading', 'list', 'image', 'button',  // Content elements
-    'input', 'textarea', 'checkbox', 'radio', 'select',  // Form elements
+    'input', 'textarea', 'checkbox', 'radio', 'dropdown',  // Form elements
     'video', 'audio',  // Media elements
     'link', 'code', 'divider'  // Inline/self-contained elements
   ];
-  
+
   if (nonContainerTypes.includes(targetElement.type)) {
     return false;
   }
-  
+
   // Container types that can accept dropped elements
   const containerTypes = [
     'container', 'rectangle',  // Basic containers
     'section', 'nav', 'header', 'footer', 'article'  // Structural containers
   ];
-  
+
   return containerTypes.includes(targetElement.type) || targetElement.isContainer === true;
 }
 
 // Check if a drop operation is valid
 export function isValidDropTarget(targetElement: CanvasElement | null, draggedElement?: CanvasElement | null): boolean {
   if (!targetElement) return false;
-  
+
   // CRITICAL: Prevent component instances from being dropped into other component instances
   if (targetElement.componentRef && draggedElement?.componentRef) {
     console.log('VALIDATION: Rejecting component instance drop into another component instance');
     return false;
   }
-  
+
   // Container types that can accept dropped elements
   const validDropTargets = [
     'container', 'rectangle',  // Basic containers
     'section', 'nav', 'header', 'footer', 'article'  // Structural containers
   ];
-  
+
   return validDropTargets.includes(targetElement.type) || targetElement.isContainer === true;
 }
 
 // Check if moving an element would create a circular dependency
 export function wouldCreateCircularDependency(
-  draggedElementId: string, 
-  targetElementId: string, 
+  draggedElementId: string,
+  targetElementId: string,
   elements: Record<string, CanvasElement>
 ): boolean {
   if (draggedElementId === targetElementId) return true;
-  
+
   // Check if target is a descendant of dragged element
   const isDescendant = (parentId: string, childId: string): boolean => {
     const parent = elements[parentId];
     if (!parent || !parent.children) return false;
-    
+
     if (parent.children.includes(childId)) return true;
-    
+
     return parent.children.some(childElementId => isDescendant(childElementId, childId));
   };
-  
+
   return isDescendant(draggedElementId, targetElementId);
 }
 
 // Detect drop zone based on mouse position within element
 export function detectDropZone(
-  mouseY: number, 
-  elementRect: DOMRect, 
+  mouseY: number,
+  elementRect: DOMRect,
   canAcceptChildren: boolean = true
 ): 'before' | 'after' | 'inside' | null {
   const relativeY = mouseY - elementRect.top;
   const height = elementRect.height;
-  
+
   const beforeThreshold = height * 0.3; // Top 30%
   const afterThreshold = height * 0.7;  // Bottom 30%
-  
+
   if (relativeY <= beforeThreshold) {
     return 'before';
   } else if (relativeY >= afterThreshold) {
@@ -751,7 +751,7 @@ export function detectInvalidRecipientPlacement(
   const relativeY = mouseY - elementRect.top;
   const height = elementRect.height;
   const midpoint = height / 2;
-  
+
   // Simple midpoint-based detection: upper half = before, lower half = after
   return relativeY < midpoint ? 'before' : 'after';
 }
@@ -760,11 +760,11 @@ export function detectInvalidRecipientPlacement(
 export function canAcceptChildren(element: CanvasElement): boolean {
   const nonContainerTypes = [
     'text', 'heading', 'list', 'image', 'button',
-    'input', 'textarea', 'checkbox', 'radio', 'select',
+    'input', 'textarea', 'checkbox', 'radio', 'dropdown',
     'video', 'audio', 'link', 'code', 'divider'
   ];
-  
-  return !nonContainerTypes.includes(element.type) && 
-         (element.isContainer === true || 
-          ['container', 'rectangle', 'section', 'nav', 'header', 'footer', 'article'].includes(element.type));
+
+  return !nonContainerTypes.includes(element.type) &&
+    (element.isContainer === true ||
+      ['container', 'rectangle', 'section', 'nav', 'header', 'footer', 'article'].includes(element.type));
 }
