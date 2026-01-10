@@ -240,6 +240,21 @@ interface InsertionIndicatorProps {
 
 ## Progress Log
 
+### 2026-01-10 - Fix Drawing Tools Click-Drag Behavior
+
+**Problem**: Drawing tools (rectangle, text, image) were incorrectly routed to point-and-click insertion, creating elements immediately on click instead of allowing drag-to-draw.
+
+**Solution**:
+1. Updated `Canvas.tsx` to check `isDrawingTool()` before `isCreationTool()` and route accordingly
+2. Removed restrictive `e.target !== e.currentTarget` check in `handleDrawingMouseDown`
+3. Added global event listeners for `mousemove` and `mouseup` during drawing to track mouse outside canvas
+4. Added coordinate clamping in `handleDrawingMouseUp` to respect canvas bounds
+5. Updated `DrawingOverlay` to clamp visual rectangle when drawing starts outside canvas
+
+**Result**: Users can now click and drag to draw rectangles of any size, starting from anywhere (even outside canvas).
+
+---
+
 ### 2026-01-10 - Implementation Complete (Phases 1-4)
 
 #### Files Created
