@@ -1,4 +1,4 @@
-import React, { useRef, useCallback } from 'react';
+import React, { useRef, useCallback, useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import {
   selectSelectedElementId,
@@ -19,6 +19,7 @@ import { useDragAndDrop } from './hooks/useDragAndDrop';
 import { useToolHandler } from './hooks/useToolHandler';
 import { useElementSelection } from './hooks/useElementSelection';
 import { useCanvasState } from './hooks/useCanvasState';
+import { useDrawingInsertionPreview } from './hooks/useDrawingInsertionPreview';
 
 // Modular components
 import CanvasContainer from './components/CanvasContainer';
@@ -71,17 +72,79 @@ const Canvas: React.FC = () => {
 
   // Initialize modular hooks
   const canvasEvents = useCanvasEvents(expandedElements, zoomLevel);
-  const toolHandler = useToolHandler(expandedElements, zoomLevel);
+  const toolHandler = useToolHandler(expandedElements, zoomLevel, canvasRef);
   const elementSelection = useElementSelection(zoomLevel);
-
-  const drawingEvents = useDrawingEvents(
-    expandedElements,
-    canvasRef,
-    canvasWidth
-  );
 
   const dragAndDrop = useDragAndDrop(canvasRef);
 
+  // Drawing insertion preview - shows where element will be placed DURING drawing
+  // This is created before drawingEvents so we can pass the preview to the committer
+  const [drawingState, setDrawingState] = useState<any>(null);
+
+  const drawingPreview = useDrawingInsertionPreview(
+    drawingState,
+    expandedElements,
+    canvasRef,
+    zoomLevel,
+    drawingState !== null
+  );
+
+  // Pass the cached insertion point to drawing events so it can use it when committing
+  const drawingEvents = useDrawingEvents(
+    expandedElements,
+    canvasRef,
+    canvasWidth,
+    drawingPreview.insertionPoint ? {
+      insertionPoint: drawingPreview.insertionPoint,
+      indicatorBounds: drawingPreview.insertionPreview?.bounds
+    } : null
+  );
+
+  // Sync drawing state from drawingEvents to the preview
+  useEffect(() => {
+    setDrawingState(drawingEvents.drawingState);
+  }, [drawingEvents.drawingState]);
+
+  // Global event listeners for drawing - allows tracking mouse outside canvas
+  useEffect(() => {
+    if (!drawingEvents.isDrawing) return;
+
+    const handleGlobalMouseMove = (e: MouseEvent) => {
+      // Create a synthetic React event from the native event
+      const syntheticEvent = {
+        clientX: e.clientX,
+        clientY: e.clientY,
+        shiftKey: e.shiftKey,
+        altKey: e.altKey,
+        preventDefault: () => e.preventDefault(),
+        stopPropagation: () => e.stopPropagation(),
+      } as React.MouseEvent<HTMLDivElement>;
+
+      drawingEvents.handleDrawingMouseMove(syntheticEvent);
+    };
+
+    const handleGlobalMouseUp = (e: MouseEvent) => {
+      const syntheticEvent = {
+        clientX: e.clientX,
+        clientY: e.clientY,
+        shiftKey: e.shiftKey,
+        altKey: e.altKey,
+        preventDefault: () => e.preventDefault(),
+        stopPropagation: () => e.stopPropagation(),
+      } as React.MouseEvent<HTMLDivElement>;
+
+      drawingEvents.handleDrawingMouseUp(syntheticEvent);
+    };
+
+    // Use capture phase to ensure we get events first
+    document.addEventListener('mousemove', handleGlobalMouseMove, true);
+    document.addEventListener('mouseup', handleGlobalMouseUp, true);
+
+    return () => {
+      document.removeEventListener('mousemove', handleGlobalMouseMove, true);
+      document.removeEventListener('mouseup', handleGlobalMouseUp, true);
+    };
+  }, [drawingEvents.isDrawing, drawingEvents.handleDrawingMouseMove, drawingEvents.handleDrawingMouseUp]);
 
   // Orchestrate event handlers
   const handleMouseDown = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
@@ -93,14 +156,24 @@ const Canvas: React.FC = () => {
       return;
     }
 
+    // Drawing tools (rectangle, text, image) should use the drawing system
+    // to allow click-drag to define size
+    if (toolHandler.isDrawingTool(toolHandler.selectedTool)) {
+      e.preventDefault();
+      e.stopPropagation();
+      drawingEvents.handleDrawingMouseDown(e);
+      return;
+    }
+
     const coords = getCanvasCoordinatesFromEvent(e, canvasRef, zoomLevel);
 
-    // Handle creation tools (toolbar element insertion)
+    // Handle point-and-click creation tools (heading, button, container, etc.)
+    // These create elements immediately with default sizes
     if (toolHandler.isCreationTool(toolHandler.selectedTool)) {
       e.preventDefault();
       e.stopPropagation();
 
-      console.log('Toolbar insertion:', toolHandler.selectedTool, 'at position:', coords.x, coords.y);
+      console.log('Point-and-click insertion:', toolHandler.selectedTool, 'at position:', coords.x, coords.y);
       toolHandler.handlePointAndClickInsertion(
         coords.x,
         coords.y,
@@ -113,7 +186,7 @@ const Canvas: React.FC = () => {
 
     // Canvas-level events for select/hand tools
     canvasEvents.handleCanvasMouseDown(e);
-  }, [canvasEvents, toolHandler, isTextEditingActive, zoomLevel]);
+  }, [canvasEvents, toolHandler, drawingEvents, isTextEditingActive, zoomLevel]);
 
   const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     if (drawingEvents.isDrawing) {
@@ -191,7 +264,13 @@ const Canvas: React.FC = () => {
       </div>
 
       {/* Visual feedback overlays */}
-      <InsertionIndicator insertionIndicator={dragAndDrop.insertionIndicator} />
+      {/* Show drawing preview when drawing, otherwise show drag-and-drop indicator */}
+      <InsertionIndicator
+        insertionIndicator={drawingEvents.isDrawing ? drawingPreview.insertionPreview : dragAndDrop.insertionIndicator}
+        isDrawingMode={drawingEvents.isDrawing}
+        drawingRect={drawingPreview.drawingBounds}
+        zoomLevel={zoomLevel}
+      />
 
       <DrawingOverlay
         drawingState={drawingEvents.drawingState}

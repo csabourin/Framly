@@ -4,6 +4,7 @@ import { addElement, selectElement, updateElement } from '../../store/canvasSlic
 import { createDefaultElement } from '../../utils/canvas';
 import { Tool, CanvasElement } from '../../types/canvas';
 import { setElementUnitPreference } from '../../utils/unitPersistence';
+import type { InsertionPoint } from './utils/insertionLogic';
 
 interface CommitRect {
   left: number;
@@ -12,30 +13,43 @@ interface CommitRect {
   height: number;
 }
 
+interface CachedInsertionPoint {
+  insertionPoint: InsertionPoint | null;
+  indicatorBounds?: {
+    x: number;
+    y: number | string;
+    width: number | string;
+    height: number | string;
+  } | null;
+}
+
 interface DrawingCommitterProps {
   currentElements: Record<string, CanvasElement>;
   zoomLevel: number;
   canvasRef: React.RefObject<HTMLDivElement>;
   currentBreakpointWidth: number;
+  cachedInsertionPoint?: CachedInsertionPoint | null;
 }
 
-export const useDrawingCommitter = ({ 
-  currentElements, 
-  zoomLevel, 
+export const useDrawingCommitter = ({
+  currentElements,
+  zoomLevel,
   canvasRef,
-  currentBreakpointWidth
+  currentBreakpointWidth,
+  cachedInsertionPoint
 }: DrawingCommitterProps) => {
   const dispatch = useDispatch();
 
   const commitDrawnRect = useCallback(async (
-    screenRect: CommitRect, 
-    tool: Tool, 
-    modifiers: { shift: boolean; alt: boolean }
+    screenRect: CommitRect,
+    tool: Tool,
+    modifiers: { shift: boolean; alt: boolean },
+    overrideCachedInsertionPoint?: CachedInsertionPoint | null
   ) => {
     if (!canvasRef.current) return;
 
     const canvasRect = canvasRef.current.getBoundingClientRect();
-    
+
     // Convert screen coordinates to canvas-relative coordinates
     const localRect = {
       left: (screenRect.left - canvasRect.left) / zoomLevel,
@@ -44,19 +58,41 @@ export const useDrawingCommitter = ({
       height: screenRect.height / zoomLevel
     };
 
-    // Hit-test to find the best container
-    const target = chooseTargetContainer(screenRect, currentElements);
-    const placement = computePlacement(target, localRect, currentElements);
+    // Use cached insertion point if available, otherwise fall back to hit-testing
+    const cached = overrideCachedInsertionPoint || cachedInsertionPoint;
+    let placement: {
+      parentId: string;
+      insertPosition: 'inside' | 'before' | 'after';
+      referenceElementId?: string;
+      localPosition?: { x: number; y: number };
+    };
+
+    if (cached?.insertionPoint) {
+      // Use the cached insertion point from the preview system
+      placement = {
+        parentId: cached.insertionPoint.targetContainerId,
+        insertPosition: cached.insertionPoint.insertPosition === 'canvas-start' ? 'before' :
+                        cached.insertionPoint.insertPosition === 'canvas-end' ? 'after' :
+                        cached.insertionPoint.insertPosition as 'inside' | 'before' | 'after',
+        referenceElementId: cached.insertionPoint.referenceElementId,
+        localPosition: undefined // Flow positioning, no absolute coords
+      };
+    } else {
+      // Fall back to hit-testing (original behavior)
+      const target = chooseTargetContainer(screenRect, currentElements);
+      placement = computePlacement(target, localRect, currentElements);
+    }
 
     // Create the element with appropriate properties
     const elementDef = createElementForTool(tool, localRect, placement, modifiers, currentBreakpointWidth);
 
     // Animate the morphing effect from overlay to final position
+    // Pass indicator bounds if available for smoother animation target
     await animateMorphFromOverlayToFinal(
-      screenRect, 
-      target, 
-      placement, 
-      elementDef
+      screenRect,
+      cached?.indicatorBounds,
+      zoomLevel,
+      canvasRect
     );
 
     // Insert the real element
@@ -76,7 +112,7 @@ export const useDrawingCommitter = ({
     updateCanvasDimensions(localRect, currentElements, dispatch, currentBreakpointWidth);
 
     dispatch(selectElement(elementDef.id));
-  }, [currentElements, zoomLevel, canvasRef, dispatch]);
+  }, [currentElements, zoomLevel, canvasRef, dispatch, cachedInsertionPoint, currentBreakpointWidth]);
 
   return { commitDrawnRect };
 };
@@ -354,34 +390,61 @@ function createElementForTool(
 // Animation system for morphing from overlay to final position
 async function animateMorphFromOverlayToFinal(
   screenRect: CommitRect,
-  target: CanvasElement,
-  placement: any,
-  elementDef: CanvasElement
+  indicatorBounds: CachedInsertionPoint['indicatorBounds'],
+  zoomLevel: number,
+  canvasRect: DOMRect
 ): Promise<void> {
   return new Promise((resolve) => {
     // Position animation ghost using viewport coordinates
     const ghost = document.createElement('div');
-    ghost.className = 'fixed border-2 border-blue-500 bg-blue-500/20 pointer-events-none z-[1001]';
+    ghost.className = 'fixed border-2 border-emerald-500 bg-emerald-500/20 pointer-events-none z-[1001]';
     ghost.style.left = `${screenRect.left}px`;
     ghost.style.top = `${screenRect.top}px`;
     ghost.style.width = `${screenRect.width}px`;
     ghost.style.height = `${screenRect.height}px`;
-    ghost.style.transition = 'all 250ms cubic-bezier(0.4, 0, 0.2, 1)';
-    
+    ghost.style.transition = 'all 200ms cubic-bezier(0.4, 0, 0.2, 1)';
+    ghost.style.borderRadius = '4px';
+
     // Append to body with fixed positioning
     document.body.appendChild(ghost);
 
-    // Animate the morphing effect
+    // Animate toward the insertion point if we have indicator bounds
     requestAnimationFrame(() => {
-      ghost.style.opacity = '0';
-      ghost.style.transform = 'scale(0.95)';
-      
-      setTimeout(() => {
-        if (ghost.parentNode) {
-          ghost.parentNode.removeChild(ghost);
-        }
-        resolve();
-      }, 250);
+      if (indicatorBounds && typeof indicatorBounds.y === 'number') {
+        // Calculate target position based on indicator bounds
+        const targetY = canvasRect.top + (indicatorBounds.y * zoomLevel);
+        const targetX = canvasRect.left + ((typeof indicatorBounds.x === 'number' ? indicatorBounds.x : 0) * zoomLevel);
+
+        // Animate toward the insertion indicator position
+        ghost.style.left = `${targetX}px`;
+        ghost.style.top = `${targetY}px`;
+        ghost.style.height = '4px';
+        ghost.style.opacity = '0.8';
+        ghost.style.transform = 'scaleY(0.1)';
+
+        setTimeout(() => {
+          ghost.style.opacity = '0';
+          ghost.style.transform = 'scaleY(0)';
+
+          setTimeout(() => {
+            if (ghost.parentNode) {
+              ghost.parentNode.removeChild(ghost);
+            }
+            resolve();
+          }, 100);
+        }, 150);
+      } else {
+        // Fallback: simple fade out
+        ghost.style.opacity = '0';
+        ghost.style.transform = 'scale(0.95)';
+
+        setTimeout(() => {
+          if (ghost.parentNode) {
+            ghost.parentNode.removeChild(ghost);
+          }
+          resolve();
+        }, 200);
+      }
     });
   });
 }
