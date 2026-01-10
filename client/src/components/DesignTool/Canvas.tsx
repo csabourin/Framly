@@ -14,7 +14,7 @@ import { getCanvasCoordinatesFromEvent } from './utils/coordinateTransforms';
 
 // Modular hooks
 import { useCanvasEvents } from './hooks/useCanvasEvents';
-import { useDrawingEvents } from './hooks/useDrawingEvents';
+import { useDrawingEvents, type DrawingState } from './hooks/useDrawingEvents';
 import { useDragAndDrop } from './hooks/useDragAndDrop';
 import { useToolHandler } from './hooks/useToolHandler';
 import { useElementSelection } from './hooks/useElementSelection';
@@ -79,7 +79,7 @@ const Canvas: React.FC = () => {
 
   // Drawing insertion preview - shows where element will be placed DURING drawing
   // This is created before drawingEvents so we can pass the preview to the committer
-  const [drawingState, setDrawingState] = useState<any>(null);
+  const [drawingState, setDrawingState] = useState<DrawingState | null>(null);
 
   const drawingPreview = useDrawingInsertionPreview(
     drawingState,
@@ -173,7 +173,6 @@ const Canvas: React.FC = () => {
       e.preventDefault();
       e.stopPropagation();
 
-      console.log('Point-and-click insertion:', toolHandler.selectedTool, 'at position:', coords.x, coords.y);
       toolHandler.handlePointAndClickInsertion(
         coords.x,
         coords.y,
@@ -186,7 +185,7 @@ const Canvas: React.FC = () => {
 
     // Canvas-level events for select/hand tools
     canvasEvents.handleCanvasMouseDown(e);
-  }, [canvasEvents, toolHandler, drawingEvents, isTextEditingActive, zoomLevel]);
+  }, [canvasEvents, toolHandler, drawingEvents, isTextEditingActive, zoomLevel, canvasRef]);
 
   const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     if (drawingEvents.isDrawing) {
