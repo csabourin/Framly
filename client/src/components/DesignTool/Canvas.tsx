@@ -1,4 +1,4 @@
-import React, { useRef, useCallback } from 'react';
+import React, { useRef, useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 import {
   selectSelectedElementId,
@@ -19,6 +19,7 @@ import { useDragAndDrop } from './hooks/useDragAndDrop';
 import { useToolHandler } from './hooks/useToolHandler';
 import { useElementSelection } from './hooks/useElementSelection';
 import { useCanvasState } from './hooks/useCanvasState';
+import { useDrawingInsertionPreview } from './hooks/useDrawingInsertionPreview';
 
 // Modular components
 import CanvasContainer from './components/CanvasContainer';
@@ -71,17 +72,38 @@ const Canvas: React.FC = () => {
 
   // Initialize modular hooks
   const canvasEvents = useCanvasEvents(expandedElements, zoomLevel);
-  const toolHandler = useToolHandler(expandedElements, zoomLevel);
+  const toolHandler = useToolHandler(expandedElements, zoomLevel, canvasRef);
   const elementSelection = useElementSelection(zoomLevel);
-
-  const drawingEvents = useDrawingEvents(
-    expandedElements,
-    canvasRef,
-    canvasWidth
-  );
 
   const dragAndDrop = useDragAndDrop(canvasRef);
 
+  // Drawing insertion preview - shows where element will be placed DURING drawing
+  // This is created before drawingEvents so we can pass the preview to the committer
+  const [drawingState, setDrawingState] = useState<any>(null);
+
+  const drawingPreview = useDrawingInsertionPreview(
+    drawingState,
+    expandedElements,
+    canvasRef,
+    zoomLevel,
+    drawingState !== null
+  );
+
+  // Pass the cached insertion point to drawing events so it can use it when committing
+  const drawingEvents = useDrawingEvents(
+    expandedElements,
+    canvasRef,
+    canvasWidth,
+    drawingPreview.insertionPoint ? {
+      insertionPoint: drawingPreview.insertionPoint,
+      indicatorBounds: drawingPreview.insertionPreview?.bounds
+    } : null
+  );
+
+  // Sync drawing state from drawingEvents to the preview
+  React.useEffect(() => {
+    setDrawingState(drawingEvents.drawingState);
+  }, [drawingEvents.drawingState]);
 
   // Orchestrate event handlers
   const handleMouseDown = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
@@ -191,7 +213,13 @@ const Canvas: React.FC = () => {
       </div>
 
       {/* Visual feedback overlays */}
-      <InsertionIndicator insertionIndicator={dragAndDrop.insertionIndicator} />
+      {/* Show drawing preview when drawing, otherwise show drag-and-drop indicator */}
+      <InsertionIndicator
+        insertionIndicator={drawingEvents.isDrawing ? drawingPreview.insertionPreview : dragAndDrop.insertionIndicator}
+        isDrawingMode={drawingEvents.isDrawing}
+        drawingRect={drawingPreview.drawingBounds}
+        zoomLevel={zoomLevel}
+      />
 
       <DrawingOverlay
         drawingState={drawingEvents.drawingState}

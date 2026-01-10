@@ -14,28 +14,19 @@ import {
 } from '../../../store/uiSlice';
 import { reorderElement, addElement, selectElement } from '../../../store/canvasSlice';
 import { createDefaultElement } from '../../../utils/canvas';
+import {
+  DROP_ZONES,
+  ZONE_THRESHOLDS,
+  VALID_CONTAINERS,
+  isAncestor,
+  isValidContainer,
+  calculateZone,
+  calculateInsertionBounds,
+  type InsertionIndicatorState
+} from '../utils/insertionLogic';
 
-// Drop Zone Constants
-export const DROP_ZONES = {
-  BEFORE: 'before',
-  INSIDE: 'inside',
-  AFTER: 'after',
-  CANVAS_START: 'canvas_start',
-  CANVAS_END: 'canvas_end'
-} as const;
-
-// Thresholds for drop zones
-const ZONE_THRESHOLDS = {
-  TOP: 0.35,    // Top 35% = before
-  BOTTOM: 0.65  // Bottom 35% = after
-};
-
-// Valid container elements that can accept children
-// Valid container elements that can accept children
-const VALID_CONTAINERS = new Set([
-  'rectangle', 'container', 'section', 'nav', 'header', 'footer', 'article',
-  'main', 'aside', 'form', 'div'
-]);
+// Re-export for backward compatibility
+export { DROP_ZONES };
 
 /**
  * Hook for handling HTML5 drag and drop operations and visual feedback
@@ -49,75 +40,16 @@ export const useDragAndDrop = (
   const draggedElementId = useSelector(selectDraggedElementId);
   const currentElements = useSelector(selectCurrentElements);
 
-  const [insertionIndicator, setInsertionIndicator] = useState<any>(null);
+  const [insertionIndicator, setInsertionIndicator] = useState<InsertionIndicatorState | null>(null);
 
-  // Helper to check if element is ancestor of another
-  const isAncestor = useCallback((ancestorId: string, descendantId: string): boolean => {
-    if (ancestorId === descendantId) return false;
-
-    const findDescendant = (elementId: string): boolean => {
-      const element = currentElements[elementId];
-      if (!element?.children) return false;
-
-      if (element.children.includes(descendantId)) return true;
-
-      return element.children.some(childId => findDescendant(childId));
-    };
-
-    return findDescendant(ancestorId);
+  // Helper to check if element is ancestor of another (using shared logic)
+  const checkIsAncestor = useCallback((ancestorId: string, descendantId: string): boolean => {
+    return isAncestor(ancestorId, descendantId, currentElements);
   }, [currentElements]);
 
-  // Calculate insertion bounds for visual indicator
-  const calculateInsertionBounds = useCallback((elementId: string, zone: string, isCanvasDrop: boolean = false) => {
-    if (isCanvasDrop) {
-      // Special bounds for canvas start/end
-      const canvasRect = canvasRef.current?.getBoundingClientRect();
-      if (!canvasRect) return null;
-
-      return {
-        x: 0,
-        y: zone === DROP_ZONES.CANVAS_START ? 0 : '100%',
-        width: '100%',
-        height: 4,
-        isFixed: true // Indicator should be fixed relative to canvas content
-      };
-    }
-
-    const element = currentElements[elementId];
-    if (!element) return null;
-
-    // We can't easily get DOM rects here without querying the DOM
-    // So we rely on the component rendering the indicator to use the element's layout properties
-    // OR we query the DOM element if it exists
-    const domElement = document.getElementById(elementId);
-    if (!domElement) return null;
-
-    const rect = domElement.getBoundingClientRect();
-    const canvasRect = canvasRef.current?.getBoundingClientRect();
-
-    if (!canvasRect) return null;
-
-    // Calculate relative coordinates
-    const scale = 1; // Assuming zoom is handled by the parent
-
-    // Bounds relative to the element itself
-    let bounds = {
-      x: rect.left - canvasRect.left + canvasRef.current!.scrollLeft,
-      y: rect.top - canvasRect.top + canvasRef.current!.scrollTop,
-      width: rect.width,
-      height: rect.height
-    };
-
-    if (zone === DROP_ZONES.BEFORE) {
-      bounds.y -= 2;
-      bounds.height = 4;
-    } else if (zone === DROP_ZONES.AFTER) {
-      bounds.y += rect.height - 2;
-      bounds.height = 4;
-    }
-    // Inside keeps full bounds
-
-    return bounds;
+  // Calculate insertion bounds for visual indicator (using shared logic)
+  const calcInsertionBounds = useCallback((elementId: string, zone: string, isCanvasDrop: boolean = false) => {
+    return calculateInsertionBounds(elementId, zone as any, currentElements, canvasRef, isCanvasDrop);
   }, [currentElements, canvasRef]);
 
   const handleElementDragStart = useCallback((e: React.DragEvent, elementId: string) => {
@@ -169,13 +101,17 @@ export const useDragAndDrop = (
         if (isTop) {
           setInsertionIndicator({
             type: DROP_ZONES.CANVAS_START,
-            bounds: calculateInsertionBounds('root', DROP_ZONES.CANVAS_START, true)
+            position: DROP_ZONES.CANVAS_START,
+            insertPosition: 'before',
+            bounds: calcInsertionBounds('root', DROP_ZONES.CANVAS_START, true)
           });
           return;
         } else if (isBottom) {
           setInsertionIndicator({
             type: DROP_ZONES.CANVAS_END,
-            bounds: calculateInsertionBounds('root', DROP_ZONES.CANVAS_END, true)
+            position: DROP_ZONES.CANVAS_END,
+            insertPosition: 'after',
+            bounds: calcInsertionBounds('root', DROP_ZONES.CANVAS_END, true)
           });
           return;
         }
@@ -189,31 +125,22 @@ export const useDragAndDrop = (
 
     // Prevent dropping on self or children
     if (draggedElementId) {
-      if (targetId === draggedElementId || isAncestor(draggedElementId, targetId)) {
+      if (targetId === draggedElementId || checkIsAncestor(draggedElementId, targetId)) {
         setInsertionIndicator(null);
         return;
       }
     }
 
-    // Zone Calculation
+    // Zone Calculation using shared logic
     const rect = targetElement.getBoundingClientRect();
     const y = e.clientY - rect.top;
     const relativeY = y / rect.height;
 
     const element = currentElements[targetId];
-    const isContainer = element && (VALID_CONTAINERS.has(element.type) || element.isContainer);
+    const isContainer = isValidContainer(element);
 
-    let zone;
-    if (relativeY < ZONE_THRESHOLDS.TOP) {
-      zone = DROP_ZONES.BEFORE;
-    } else if (relativeY > ZONE_THRESHOLDS.BOTTOM) {
-      zone = DROP_ZONES.AFTER;
-    } else if (isContainer) {
-      zone = DROP_ZONES.INSIDE;
-    } else {
-      // Non-container mid-section: split precisely at midpoint
-      zone = relativeY < 0.5 ? DROP_ZONES.BEFORE : DROP_ZONES.AFTER;
-    }
+    // Use shared zone calculation
+    const zone = calculateZone(relativeY, isContainer);
 
     // Visual Updates
     setInsertionIndicator({
@@ -221,12 +148,12 @@ export const useDragAndDrop = (
       position: zone,
       referenceElementId: targetId,
       insertPosition: zone === DROP_ZONES.BEFORE ? 'before' : zone === DROP_ZONES.AFTER ? 'after' : 'inside',
-      bounds: calculateInsertionBounds(targetId, zone)
+      bounds: calcInsertionBounds(targetId, zone)
     });
 
     dispatch(setHoveredElement({ elementId: targetId, zone: zone as any }));
 
-  }, [isDraggingForReorder, draggedElementId, currentElements, canvasRef, calculateInsertionBounds, isAncestor, dispatch]);
+  }, [isDraggingForReorder, draggedElementId, currentElements, canvasRef, calcInsertionBounds, checkIsAncestor, dispatch]);
 
   const handleDragLeave = useCallback((e: React.DragEvent<any>) => {
     // Only clear if actually leaving the canvas area

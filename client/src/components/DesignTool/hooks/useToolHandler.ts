@@ -1,10 +1,11 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectElement, addElement } from '../../../store/canvasSlice';
 import { setSelectedTool } from '../../../store/uiSlice';
 import { selectSelectedTool } from '../../../store/selectors';
 import { createDefaultElement, getElementAtPoint, isPointAndClickTool } from '../../../utils/canvas';
 import { CanvasElement } from '../../../types/canvas';
+import { calculateInsertionPoint } from '../utils/insertionLogic';
 
 /**
  * Hook for handling tool-specific operations and mode switching
@@ -12,7 +13,8 @@ import { CanvasElement } from '../../../types/canvas';
  */
 export const useToolHandler = (
   expandedElements: Record<string, CanvasElement>,
-  zoomLevel: number
+  zoomLevel: number,
+  canvasRef?: React.RefObject<HTMLDivElement>
 ) => {
   const dispatch = useDispatch();
   const selectedTool = useSelector(selectSelectedTool);
@@ -39,18 +41,44 @@ export const useToolHandler = (
     const type = tool === 'select-dropdown' ? 'dropdown' : tool as any;
     const newElement = createDefaultElement(type);
 
-    // For now, always insert at root level to get basic functionality working
+    // Use shared insertion logic to determine placement based on click position
+    let parentId = 'root';
+    let insertPosition: 'inside' | 'before' | 'after' = 'inside';
+    let referenceElementId: string | undefined;
+
+    if (canvasRef) {
+      const insertionPoint = calculateInsertionPoint(
+        x,
+        y,
+        expandedElements,
+        canvasRef,
+        zoomLevel
+      );
+
+      if (insertionPoint) {
+        parentId = insertionPoint.targetContainerId;
+        insertPosition = insertionPoint.insertPosition === 'canvas-start' ? 'before' :
+                        insertionPoint.insertPosition === 'canvas-end' ? 'after' :
+                        insertionPoint.insertPosition as 'inside' | 'before' | 'after';
+        referenceElementId = insertionPoint.referenceElementId;
+
+        console.log('Insertion point calculated:', insertionPoint);
+      }
+    }
+
+    // Insert at the calculated position
     dispatch(addElement({
       element: newElement,
-      parentId: 'root',
-      insertPosition: 'inside'
+      parentId,
+      insertPosition,
+      referenceElementId
     }));
 
     // Select the newly created element
     dispatch(selectElement(newElement.id));
 
-    console.log('Element created:', newElement.id);
-  }, [dispatch, selectedTool]);
+    console.log('Element created:', newElement.id, 'in', parentId);
+  }, [dispatch, expandedElements, zoomLevel, canvasRef]);
 
   const handleToolBasedSelection = useCallback((
     x: number,
