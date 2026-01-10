@@ -1,4 +1,4 @@
-import React, { useRef, useCallback, useState } from 'react';
+import React, { useRef, useCallback, useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import {
   selectSelectedElementId,
@@ -101,9 +101,50 @@ const Canvas: React.FC = () => {
   );
 
   // Sync drawing state from drawingEvents to the preview
-  React.useEffect(() => {
+  useEffect(() => {
     setDrawingState(drawingEvents.drawingState);
   }, [drawingEvents.drawingState]);
+
+  // Global event listeners for drawing - allows tracking mouse outside canvas
+  useEffect(() => {
+    if (!drawingEvents.isDrawing) return;
+
+    const handleGlobalMouseMove = (e: MouseEvent) => {
+      // Create a synthetic React event from the native event
+      const syntheticEvent = {
+        clientX: e.clientX,
+        clientY: e.clientY,
+        shiftKey: e.shiftKey,
+        altKey: e.altKey,
+        preventDefault: () => e.preventDefault(),
+        stopPropagation: () => e.stopPropagation(),
+      } as React.MouseEvent<HTMLDivElement>;
+
+      drawingEvents.handleDrawingMouseMove(syntheticEvent);
+    };
+
+    const handleGlobalMouseUp = (e: MouseEvent) => {
+      const syntheticEvent = {
+        clientX: e.clientX,
+        clientY: e.clientY,
+        shiftKey: e.shiftKey,
+        altKey: e.altKey,
+        preventDefault: () => e.preventDefault(),
+        stopPropagation: () => e.stopPropagation(),
+      } as React.MouseEvent<HTMLDivElement>;
+
+      drawingEvents.handleDrawingMouseUp(syntheticEvent);
+    };
+
+    // Use capture phase to ensure we get events first
+    document.addEventListener('mousemove', handleGlobalMouseMove, true);
+    document.addEventListener('mouseup', handleGlobalMouseUp, true);
+
+    return () => {
+      document.removeEventListener('mousemove', handleGlobalMouseMove, true);
+      document.removeEventListener('mouseup', handleGlobalMouseUp, true);
+    };
+  }, [drawingEvents.isDrawing, drawingEvents.handleDrawingMouseMove, drawingEvents.handleDrawingMouseUp]);
 
   // Orchestrate event handlers
   const handleMouseDown = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
@@ -115,14 +156,24 @@ const Canvas: React.FC = () => {
       return;
     }
 
+    // Drawing tools (rectangle, text, image) should use the drawing system
+    // to allow click-drag to define size
+    if (toolHandler.isDrawingTool(toolHandler.selectedTool)) {
+      e.preventDefault();
+      e.stopPropagation();
+      drawingEvents.handleDrawingMouseDown(e);
+      return;
+    }
+
     const coords = getCanvasCoordinatesFromEvent(e, canvasRef, zoomLevel);
 
-    // Handle creation tools (toolbar element insertion)
+    // Handle point-and-click creation tools (heading, button, container, etc.)
+    // These create elements immediately with default sizes
     if (toolHandler.isCreationTool(toolHandler.selectedTool)) {
       e.preventDefault();
       e.stopPropagation();
 
-      console.log('Toolbar insertion:', toolHandler.selectedTool, 'at position:', coords.x, coords.y);
+      console.log('Point-and-click insertion:', toolHandler.selectedTool, 'at position:', coords.x, coords.y);
       toolHandler.handlePointAndClickInsertion(
         coords.x,
         coords.y,
@@ -135,7 +186,7 @@ const Canvas: React.FC = () => {
 
     // Canvas-level events for select/hand tools
     canvasEvents.handleCanvasMouseDown(e);
-  }, [canvasEvents, toolHandler, isTextEditingActive, zoomLevel]);
+  }, [canvasEvents, toolHandler, drawingEvents, isTextEditingActive, zoomLevel]);
 
   const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     if (drawingEvents.isDrawing) {

@@ -32,11 +32,18 @@ const DrawingOverlay: React.FC<DrawingOverlayProps> = ({
 
   const { start, current, isShiftPressed, isAltPressed } = drawingState;
 
-  // Calculate rubber band rectangle
-  const left = Math.min(start.x, current.x);
-  const top = Math.min(start.y, current.y);
-  const width = Math.abs(current.x - start.x);
-  const height = Math.abs(current.y - start.y);
+  // Calculate raw rubber band rectangle (may have negative coordinates)
+  const rawLeft = Math.min(start.x, current.x);
+  const rawTop = Math.min(start.y, current.y);
+  const rawWidth = Math.abs(current.x - start.x);
+  const rawHeight = Math.abs(current.y - start.y);
+
+  // Clamp to visible canvas area (coordinates >= 0)
+  // This ensures the overlay shows the actual area where the element will be created
+  const left = Math.max(0, rawLeft);
+  const top = Math.max(0, rawTop);
+  const width = rawWidth - (left - rawLeft);
+  const height = rawHeight - (top - rawTop);
 
   // Tool-specific styling
   const getToolStyle = () => {
