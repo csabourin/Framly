@@ -32,11 +32,9 @@ export const useToolHandler = (
     x: number,
     y: number,
     tool: string,
-    isShiftPressed: boolean,
-    isAltPressed: boolean
+    _isShiftPressed: boolean,
+    _isAltPressed: boolean
   ) => {
-    console.log('Point-and-click insertion called:', { tool, x, y });
-
     // Create the new element with default positioning
     const type = tool === 'select-dropdown' ? 'dropdown' : tool as any;
     const newElement = createDefaultElement(type);
@@ -61,8 +59,6 @@ export const useToolHandler = (
                         insertionPoint.insertPosition === 'canvas-end' ? 'after' :
                         insertionPoint.insertPosition as 'inside' | 'before' | 'after';
         referenceElementId = insertionPoint.referenceElementId;
-
-        console.log('Insertion point calculated:', insertionPoint);
       }
     }
 
@@ -76,8 +72,6 @@ export const useToolHandler = (
 
     // Select the newly created element
     dispatch(selectElement(newElement.id));
-
-    console.log('Element created:', newElement.id, 'in', parentId);
   }, [dispatch, expandedElements, zoomLevel, canvasRef]);
 
   const handleToolBasedSelection = useCallback((

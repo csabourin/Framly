@@ -116,16 +116,16 @@ export function useDrawingInsertionPreview(
       return;
     }
 
-    // Calculate drawing bounds with modifier handling
-    const bounds = calculateDrawingBounds(drawingState);
-    setDrawingBounds(bounds);
-
     // Only recalculate if enough time has passed (throttle to ~60fps)
     const now = performance.now();
     if (now - lastUpdateTime.current < 16) {
       return;
     }
     lastUpdateTime.current = now;
+
+    // Calculate drawing bounds with modifier handling
+    const bounds = calculateDrawingBounds(drawingState);
+    setDrawingBounds(bounds);
 
     // Calculate insertion point based on center of drawn rectangle
     const point = calculateInsertionPoint(

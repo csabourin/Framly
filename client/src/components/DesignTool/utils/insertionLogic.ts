@@ -172,21 +172,16 @@ export function calculateInsertionBounds(
 
 /**
  * Find the element at a given point by hit-testing DOM elements
+ * @param clientX - Client X coordinate (viewport coordinates)
+ * @param clientY - Client Y coordinate (viewport coordinates)
+ * @param excludeIds - Element IDs to exclude from hit testing
  */
 export function findElementAtPoint(
-  x: number,
-  y: number,
-  canvasRef: React.RefObject<HTMLDivElement>,
+  clientX: number,
+  clientY: number,
   excludeIds: string[] = []
 ): { elementId: string | null; domElement: HTMLElement | null } {
-  const canvas = canvasRef.current;
-  if (!canvas) return { elementId: null, domElement: null };
-
-  const canvasRect = canvas.getBoundingClientRect();
-  const clientX = canvasRect.left + x;
-  const clientY = canvasRect.top + y;
-
-  // Get all elements at this point
+  // Get all elements at this point using client coordinates
   const elementsAtPoint = document.elementsFromPoint(clientX, clientY);
 
   // Find the first canvas element (has data-element-id)
@@ -238,9 +233,9 @@ export function calculateInsertionPoint(
     };
   }
 
-  // Hit test to find element at point
+  // Hit test to find element at point using client coordinates
   const excludeIds = excludeElementId ? [excludeElementId] : [];
-  const { elementId, domElement } = findElementAtPoint(canvasX, canvasY, canvasRef, excludeIds);
+  const { elementId, domElement } = findElementAtPoint(clientX, clientY, excludeIds);
 
   if (!elementId || !domElement) {
     // No element found, append to root

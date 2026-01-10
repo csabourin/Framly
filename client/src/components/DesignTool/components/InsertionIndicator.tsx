@@ -50,14 +50,21 @@ const InsertionIndicator: React.FC<InsertionIndicatorProps> = ({
     const renderConnector = () => {
         if (!isDrawingMode || !drawingRect || position === DROP_ZONES.INSIDE) return null;
 
+        // Only draw connector if bounds are numeric (not percentage strings like '100%')
+        if (
+            typeof bounds.x !== 'number' ||
+            typeof bounds.y !== 'number' ||
+            typeof bounds.width !== 'number'
+        ) {
+            return null;
+        }
+
         // Calculate connector line from center-bottom of drawing rect to indicator
         const drawingCenterX = drawingRect.x + drawingRect.width / 2;
         const drawingBottomY = drawingRect.y + drawingRect.height;
 
-        const indicatorY = typeof bounds.y === 'number' ? bounds.y : 0;
-        const indicatorCenterX = typeof bounds.x === 'number'
-            ? bounds.x + (typeof bounds.width === 'number' ? bounds.width / 2 : 0)
-            : 0;
+        const indicatorY = bounds.y;
+        const indicatorCenterX = bounds.x + bounds.width / 2;
 
         // Calculate the line angle and length
         const deltaX = indicatorCenterX - drawingCenterX;

@@ -42,8 +42,14 @@ const DrawingOverlay: React.FC<DrawingOverlayProps> = ({
   // This ensures the overlay shows the actual area where the element will be created
   const left = Math.max(0, rawLeft);
   const top = Math.max(0, rawTop);
-  const width = rawWidth - (left - rawLeft);
-  const height = rawHeight - (top - rawTop);
+  // Ensure width/height can't go negative when drawing far outside canvas
+  const width = Math.max(0, rawWidth - (left - rawLeft));
+  const height = Math.max(0, rawHeight - (top - rawTop));
+
+  // Don't render if the clamped rectangle has no visible area
+  if (width <= 0 || height <= 0) {
+    return null;
+  }
 
   // Tool-specific styling
   const getToolStyle = () => {
