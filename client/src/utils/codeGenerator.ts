@@ -9,6 +9,62 @@ interface CustomClass {
   category?: string;
 }
 
+/** HTML elements that take no children and must not get a closing tag. */
+const VOID_ELEMENTS = new Set([
+  'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input',
+  'link', 'meta', 'param', 'source', 'track', 'wbr',
+]);
+
+/**
+ * Tag for each element type that does not carry its own `htmlTag`.
+ * Types created by `createDefaultElement` already set `htmlTag` (section, nav,
+ * header, footer, article, a, pre, hr, video, audio, input, textarea, select,
+ * label); this covers the rest.
+ */
+const TYPE_TAGS: Partial<Record<CanvasElement['type'], string>> = {
+  text: 'p',
+  button: 'button',
+  image: 'img',
+  container: 'div',
+  rectangle: 'div',
+  component: 'div',
+  element: 'div',
+  section: 'section',
+  nav: 'nav',
+  header: 'header',
+  footer: 'footer',
+  article: 'article',
+  link: 'a',
+  code: 'pre',
+  divider: 'hr',
+  video: 'video',
+  audio: 'audio',
+  input: 'input',
+  textarea: 'textarea',
+  dropdown: 'select',
+  checkbox: 'label',
+  radio: 'label',
+};
+
+/** Accessible name used when a form control carries no content of its own. */
+const CONTROL_FALLBACK_NAMES: Partial<Record<CanvasElement['type'], string>> = {
+  input: 'Text input',
+  textarea: 'Text area',
+  dropdown: 'Select an option',
+};
+
+/** Only tag names we are prepared to emit - anything else falls back to div. */
+const SAFE_TAG = /^[a-z][a-z0-9-]*$/;
+
+const escapeHtml = (value: string): string =>
+  value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+
+const escapeAttr = (value: string): string =>
+  escapeHtml(value).replace(/"/g, '&quot;');
+
 export class CodeGenerator {
   private project: any; // Use any for now to handle dynamic project structure  
   private cssOptimizer: CSSOptimizer;
@@ -52,8 +108,63 @@ ${this.generateElementHTML(rootElement, 1)}
     const classes = optimizedClasses.length > 0 ? optimizedClasses.join(' ') : '';
     const tag = this.getHTMLTag(element);
     
+    const classAttr = classes ? ` class="${escapeAttr(classes)}"` : '';
+
+    // Form controls have no visible label on the canvas, so carry their
+    // accessible name across as aria-label rather than exporting a nameless
+    // control. checkbox/radio are labels wrapping their own input instead.
+    if (element.type === 'input') {
+      return `${indent}<input${classAttr} type="text" aria-label="${escapeAttr(this.getControlName(element))}" />`;
+    }
+
+    if (element.type === 'textarea') {
+      return `${indent}<textarea${classAttr} aria-label="${escapeAttr(this.getControlName(element))}"></textarea>`;
+    }
+
+    if (element.type === 'dropdown') {
+      const options = element.content?.trim() || '<option>Option</option>';
+      return `${indent}<select${classAttr} aria-label="${escapeAttr(this.getControlName(element))}">
+${indent}    ${options}
+${indent}</select>`;
+    }
+
+    if (element.type === 'checkbox' || element.type === 'radio') {
+      // Radios in the same container form one group.
+      const groupAttr = element.type === 'radio'
+        ? ` name="${escapeAttr(element.parent || 'radio-group')}"`
+        : '';
+      return `${indent}<label${classAttr}>
+${indent}    <input type="${element.type}"${groupAttr} />
+${indent}    ${escapeHtml(this.getControlName(element))}
+${indent}</label>`;
+    }
+
+    if (element.type === 'image') {
+      const src = element.imageUrl || element.imageBase64 || 'placeholder.jpg';
+      // An empty alt marks the image decorative, which is the honest default
+      // when the designer has not described it.
+      return `${indent}<img${classAttr} src="${escapeAttr(src)}" alt="${escapeAttr(element.imageAlt || '')}" />`;
+    }
+
+    if (element.type === 'code') {
+      return `${indent}<pre${classAttr}><code>${escapeHtml(element.content || '')}</code></pre>`;
+    }
+
+    if (element.type === 'link') {
+      return `${indent}<a${classAttr} href="#">${element.content || 'Link'}</a>`;
+    }
+
+    // controls keeps media keyboard-operable; without it there is no way to play it.
+    if (element.type === 'video' || element.type === 'audio') {
+      return `${indent}<${tag}${classAttr} controls></${tag}>`;
+    }
+
+    if (VOID_ELEMENTS.has(tag)) {
+      return `${indent}<${tag}${classAttr} />`;
+    }
+
     let content = '';
-    
+
     if (element.type === 'text' && element.content) {
       content = element.content;
     } else if (element.type === 'heading' && element.content) {
@@ -63,8 +174,6 @@ ${this.generateElementHTML(rootElement, 1)}
     } else if (element.type === 'list' && element.listItems) {
       const listItems = element.listItems.map(item => `${indent}    <li>${item}</li>`).join('\n');
       content = '\n' + listItems + '\n' + indent;
-    } else if (element.type === 'image') {
-      return `${indent}<img class="${classes}" src="placeholder.jpg" alt="Image placeholder" />`;
     } else if (element.children && element.children.length > 0) {
       // CRITICAL: Use expanded elements when available for child lookup
       const elements = this.expandedElements || this.project.elements || {};
@@ -77,33 +186,41 @@ ${this.generateElementHTML(rootElement, 1)}
     }
     
     if (content) {
-      return `${indent}<${tag} class="${classes}">
+      return `${indent}<${tag}${classAttr}>
 ${content}
 ${indent}</${tag}>`;
     } else {
-      return `${indent}<${tag} class="${classes}"></${tag}>`;
+      return `${indent}<${tag}${classAttr}></${tag}>`;
     }
   }
-  
+
   private getHTMLTag(element: CanvasElement): string {
-    switch (element.type) {
-      case 'text':
-        return 'p';
-      case 'heading':
-        const headingLevel = element.headingLevel || 1;
-        return `h${headingLevel}`;
-      case 'button':
-        return 'button';
-      case 'list':
-        const listType = element.listType || 'unordered';
-        return listType === 'ordered' ? 'ol' : 'ul';
-      case 'container':
-        return 'div';
-      case 'rectangle':
-        return 'div';
-      default:
-        return 'div';
+    // Heading level and list type are properties of the element, so they win
+    // over any stored htmlTag.
+    if (element.type === 'heading') {
+      const level = Math.min(Math.max(element.headingLevel || 1, 1), 6);
+      return `h${level}`;
     }
+
+    if (element.type === 'list') {
+      return (element.listType || 'unordered') === 'ordered' ? 'ol' : 'ul';
+    }
+
+    // Imported elements and the semantic toolbar types carry their own tag.
+    const stored = element.htmlTag?.toLowerCase().trim();
+    if (stored && SAFE_TAG.test(stored)) {
+      return stored;
+    }
+
+    return TYPE_TAGS[element.type] || 'div';
+  }
+
+  /** Accessible name for a form control that has no visible label of its own. */
+  private getControlName(element: CanvasElement): string {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(element.content || '', 'text/html');
+    const content = doc.body.textContent?.trim();
+    return content || CONTROL_FALLBACK_NAMES[element.type] || 'Form control';
   }
   
   generateCSS(): string {
@@ -333,7 +450,8 @@ export default ${this.project.name.replace(/\s+/g, '')};`;
     } else if (element.type === 'button' && element.buttonText) {
       content = element.buttonText;
     } else if (element.type === 'image') {
-      return `${indent}<img className="${classes}" src="placeholder.jpg" alt="Image placeholder" />`;
+      const src = element.imageUrl || element.imageBase64 || 'placeholder.jpg';
+      return `${indent}<img className="${classes}" src={${JSON.stringify(src)}} alt={${JSON.stringify(element.imageAlt || '')}} />`;
     } else if (element.children && element.children.length > 0) {
       // CRITICAL: Use expanded elements when available for child lookup
       const elements = this.expandedElements || this.project.elements || {};
@@ -343,6 +461,10 @@ export default ${this.project.name.replace(/\s+/g, '')};`;
           return child ? this.generateReactElementJSX(child, depth + 1) : '';
         })
         .join('\n');
+    }
+
+    if (VOID_ELEMENTS.has(tag)) {
+      return `${indent}<${tag} className="${classes}" />`;
     }
     
     if (content) {

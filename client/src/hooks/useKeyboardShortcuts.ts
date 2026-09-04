@@ -5,10 +5,10 @@ import {
   selectElement,
   duplicateElement,
   deleteElement,
-  undo,
-  redo,
   moveElement
 } from '../store/canvasSlice';
+import { selectCanUndo, selectCanRedo } from '../store/historySlice';
+import { historyManager } from '../utils/historyManager';
 import { setSelectedTool, setZoomLevel, setRightPanelTab } from '../store/uiSlice';
 import { Tool } from '../types/canvas';
 
@@ -37,8 +37,9 @@ export const useKeyboardShortcuts = (onShowCheatsheet?: () => void) => {
     const selectedElementId = currentTab?.viewSettings.selectedElementId;
     return selectedElementId && currentTab?.elements[selectedElementId] ? currentTab.elements[selectedElementId] : null;
   });
-  const canUndo = useSelector((state: RootState) => state.canvas.historyIndex > 0);
-  const canRedo = useSelector((state: RootState) => state.canvas.historyIndex < state.canvas.history.length - 1);
+  // Undo/redo live in the history slice; the canvas slice has no stack of its own
+  const canUndo = useSelector(selectCanUndo);
+  const canRedo = useSelector(selectCanRedo);
 
   // Helper to check if an input field is focused
   const isInputFocused = useCallback(() => {
@@ -133,21 +134,21 @@ export const useKeyboardShortcuts = (onShowCheatsheet?: () => void) => {
       modifiers: { [isMac ? 'meta' : 'ctrl']: true },
       description: 'Undo',
       category: 'Edit',
-      action: () => canUndo && dispatch(undo())
+      action: () => { if (canUndo) historyManager.performUndo(); }
     },
     {
       key: 'z',
       modifiers: { [isMac ? 'meta' : 'ctrl']: true, shift: true },
       description: 'Redo',
       category: 'Edit',
-      action: () => canRedo && dispatch(redo())
+      action: () => { if (canRedo) historyManager.performRedo(); }
     },
     {
       key: 'y',
       modifiers: { [isMac ? 'meta' : 'ctrl']: true },
       description: 'Redo',
       category: 'Edit',
-      action: () => canRedo && dispatch(redo())
+      action: () => { if (canRedo) historyManager.performRedo(); }
     },
     {
       key: 'd',

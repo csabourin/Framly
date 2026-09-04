@@ -1095,8 +1095,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     <ElementContextMenu elementId={element.id}>
       <div
         ref={elementRef}
-        draggable={true} // FORCE HTML5 drag for testing
-        title={`DRAG TEST: Always draggable | Tool: ${selectedTool} | Editing: ${isEditing}`}
+        draggable={true} // elements are always reorderable by drag
         className={`
           selectable-block
           canvas-element

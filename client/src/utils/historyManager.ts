@@ -1,5 +1,5 @@
 import { store as reduxStore } from '../store';
-import { pushHistoryEntry, undo, redo, setUndoingFlag, setRedoingFlag } from '../store/historySlice';
+import { pushHistoryEntry, amendCurrentEntry, undo, redo, setUndoingFlag, setRedoingFlag } from '../store/historySlice';
 import { loadProject } from '../store/canvasSlice';
 import { loadCustomClassesFromStorage } from '../store/classSlice';
 
@@ -18,7 +18,71 @@ export class HistoryManager {
       await this.loadHistoryFromStorage();
     } catch (error) {
       // Failed to initialize history manager
+    } finally {
+      // Always seed a baseline, even if IndexedDB was unavailable - without one
+      // the first action of a session cannot be undone.
+      this.ensureBaseline();
     }
+  }
+
+  /**
+   * Make sure the state currently on screen is the head of the history stack.
+   *
+   * Entries are snapshots taken *after* each action, so undoing to entry n-1
+   * restores the state before action n. That only works if a snapshot of the
+   * starting state exists: without it the first action of a session has nothing
+   * to go back to, and `currentIndex > 0` keeps undo disabled forever.
+   */
+  private ensureBaseline(): void {
+    const state = reduxStore.getState();
+    const entries = state.history.entries;
+    const currentDoc = this.documentSignature(state.canvas.project);
+    const headDoc = entries.length
+      ? this.documentSignature(entries[entries.length - 1].canvasState?.project)
+      : null;
+
+    // A restored session whose head already matches the screen needs no baseline.
+    if (headDoc !== null && headDoc === currentDoc) return;
+
+    reduxStore.dispatch(pushHistoryEntry({
+      action: 'history/baseline',
+      description: 'Initial state',
+      canvasState: state.canvas,
+      classState: (state as any).classes || {},
+    }));
+  }
+
+  /**
+   * The part of a project that undo actually restores: the element trees.
+   *
+   * Deliberately excludes the project id, `updatedAt` stamps, and view state
+   * such as the current selection - reloading rewrites all of those, and
+   * comparing whole projects would see a difference every time and seed a
+   * duplicate baseline, leaving an undo step that changes nothing on screen.
+   */
+  private documentSignature(project: any): string {
+    if (!project?.tabs) return '';
+
+    const tabIds: string[] = project.tabOrder?.length
+      ? project.tabOrder
+      : Object.keys(project.tabs);
+
+    return JSON.stringify(tabIds.map((tabId) => {
+      const tab = project.tabs[tabId];
+      return tab ? { id: tabId, name: tab.name, elements: tab.elements } : null;
+    }));
+  }
+
+  /**
+   * Start a fresh stack from whatever is now on screen.
+   *
+   * Called when a whole project is loaded - restored from storage or imported.
+   * The existing entries describe a different document, and undoing into them
+   * would replace the loaded project with unrelated state.
+   */
+  resetBaseline(): void {
+    reduxStore.dispatch({ type: 'history/clearHistory' });
+    this.ensureBaseline();
   }
 
   private openDB(): Promise<IDBDatabase> {
@@ -119,6 +183,26 @@ export class HistoryManager {
     // console.log(`History recorded: ${description}`);
 
     // Save to IndexedDB (debounced)
+    this.debouncedSave();
+  }
+
+  /**
+   * Fold the current state into the entry at the head, rather than adding a
+   * new one. Used when a debounced change belongs to the gesture that the
+   * head entry already represents.
+   */
+  amendCurrentAction(): void {
+    const state = reduxStore.getState();
+
+    if (state.history.isUndoing || state.history.isRedoing) {
+      return;
+    }
+
+    reduxStore.dispatch(amendCurrentEntry({
+      canvasState: state.canvas,
+      classState: (state as any).classes || {},
+    }));
+
     this.debouncedSave();
   }
 

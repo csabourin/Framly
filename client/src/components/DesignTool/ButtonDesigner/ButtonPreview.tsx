@@ -8,8 +8,10 @@ import { Eye, Code } from 'lucide-react';
 
 const ButtonPreview: React.FC = () => {
   const dispatch = useDispatch();
-  const { designs, currentDesignId } = useSelector(selectButtonDesignerState);
-  const previewState = 'default'; // Default preview state
+  // Read the preview state from the store: the state buttons below already
+  // dispatch setPreviewState, but a hardcoded 'default' meant the preview
+  // never reflected the choice.
+  const { designs, currentDesignId, previewState } = useSelector(selectButtonDesignerState);
   const [showCode, setShowCode] = useState(false);
 
   if (!currentDesignId || !designs[currentDesignId]) {

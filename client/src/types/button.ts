@@ -75,11 +75,18 @@ export interface ButtonDesign {
   updatedAt: number;
 }
 
+/**
+ * Names of the optional style variants. Written via NonNullable because
+ * `variants` is optional - `keyof ButtonDesign['variants']` alone collapses to
+ * `never`, which made every variant lookup fail to type-check.
+ */
+export type ButtonVariantName = keyof NonNullable<ButtonDesign['variants']>;
+
 export interface ButtonDesignState {
   designs: Record<string, ButtonDesign>;
   currentDesignId: string | null;
   currentState: keyof ButtonDesign['states'];
-  currentVariant: keyof ButtonDesign['variants'] | null;
+  currentVariant: ButtonVariantName | null;
   previewState: keyof ButtonDesign['states'];
   isPreviewMode: boolean;
   isTestingMode: boolean;

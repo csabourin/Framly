@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
-import { selectCanvasProject, selectSelectedTool } from '../../store/selectors';
+import { selectCanvasProject, selectCurrentElements, selectSelectedTool } from '../../store/selectors';
 import { updateComponent, selectElement } from '../../store/canvasSlice';
 import { setComponentEditorOpen, setEditingComponent } from '../../store/uiSlice';
 import { Button } from '@/components/ui/button';
@@ -21,12 +21,17 @@ interface ComponentEditorProps {
 export const ComponentEditor: React.FC<ComponentEditorProps> = ({ isOpen, componentId, onClose }) => {
   const dispatch = useDispatch();
   const project = useSelector(selectCanvasProject);
+  const currentElements = useSelector(selectCurrentElements);
+  const savedComponents = useSelector((state: RootState) => state.components.components);
   const selectedTool = useSelector(selectSelectedTool);
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
   const [isPreviewMode, setIsPreviewMode] = useState(false);
 
   // Get the component data
-  const component = componentId ? components[componentId] : null;
+  // state.components.components is a list, not a record keyed by id
+  const component = componentId
+    ? savedComponents.find(saved => saved.id === componentId) || null
+    : null;
   
   // Create a mock project structure for the component editor
   const componentProject = component ? {
@@ -99,7 +104,8 @@ export const ComponentEditor: React.FC<ComponentEditorProps> = ({ isOpen, compon
   const findComponentInstances = () => {
     if (!componentId) return [];
     
-    return Object.values(project.elements).filter(
+    // Elements live on the active tab, not directly on the project
+    return Object.values(currentElements).filter(
       element => element.type === 'component' && element.componentId === componentId
     );
   };

@@ -242,7 +242,10 @@
     "exportSettings": "Export Settings",
     "includeResponsive": "Include responsive breakpoints",
     "minifyCSS": "Minify CSS",
-    "includeComments": "Include source comments"
+    "includeComments": "Include source comments",
+    "chooseFormat": "Choose export format",
+    "comingSoon": "Coming soon",
+    "formatUnavailable": "This format is not available yet"
   },
   "import": {
     "importWebsite": "Import Website",
@@ -441,5 +444,29 @@
     "vh": "Viewport Height",
     "vw": "Viewport Width",
     "auto": "Auto"
+  },
+  "emptyCanvas": {
+    "title": "Start your design",
+    "description": "Pick a tool from the toolbar on the left and drag on the canvas — or begin with a template.",
+    "browseTemplates": "Browse starter templates"
+  },
+  "templates": {
+    "galleryTitle": "Starter templates",
+    "galleryDescription": "Pick a starting point. Everything it adds is ordinary elements you can edit, restyle or delete.",
+    "elementCount_one": "{{count}} element",
+    "elementCount_other": "{{count}} elements",
+    "applied": "{{name}} template applied. {{total}} elements added to the canvas.",
+    "landing": {
+      "name": "Landing page",
+      "description": "Hero with a headline, supporting copy and a call to action."
+    },
+    "article": {
+      "name": "Article",
+      "description": "Title, byline, image and body copy for a blog post or news piece."
+    },
+    "features": {
+      "name": "Feature list",
+      "description": "A heading followed by three stacked cards, one per feature."
+    }
   }
 }

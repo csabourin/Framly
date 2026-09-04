@@ -6,8 +6,6 @@ import { expandComponentTemplate } from '../utils/componentTemplateExpansion';
 interface CanvasState {
   project: Project;
   components: Record<string, any>;
-  history: Project[];
-  historyIndex: number;
   clipboard?: CanvasElement;
 }
 
@@ -98,8 +96,6 @@ const initialProject: Project = {
 const initialState: CanvasState = {
   project: initialProject,
   components: {},
-  history: [initialProject],
-  historyIndex: 0,
   clipboard: undefined,
 };
 
@@ -212,7 +208,33 @@ const canvasSlice = createSlice({
 
       currentTab.viewSettings.selectedElementId = element.id;
       currentTab.updatedAt = Date.now();
-      canvasSlice.caseReducers.saveToHistory(state);
+    },
+
+    /**
+     * Insert a whole starter-template subtree in one action.
+     *
+     * Appends rather than replaces, so applying a template can never discard
+     * existing work, and so a single history entry covers the whole insert
+     * instead of one per element.
+     */
+    applyStarterTemplate: (state, action: PayloadAction<{
+      elements: Record<string, CanvasElement>;
+      rootChildIds: string[];
+    }>) => {
+      const currentTab = getCurrentTab(state);
+      if (!currentTab) return;
+
+      const { elements, rootChildIds } = action.payload;
+      const root = currentTab.elements.root;
+      if (!root) return;
+
+      Object.entries(elements).forEach(([id, element]) => {
+        currentTab.elements[id] = element;
+      });
+
+      root.children = [...(root.children || []), ...rootChildIds];
+      currentTab.viewSettings.selectedElementId = rootChildIds[0] || 'root';
+      currentTab.updatedAt = Date.now();
     },
 
     updateElement: (state, action: PayloadAction<{ id: string; updates: Partial<CanvasElement> }>) => {
@@ -293,7 +315,6 @@ const canvasSlice = createSlice({
       }
 
       currentTab.updatedAt = Date.now();
-      canvasSlice.caseReducers.saveToHistory(state);
     },
 
     duplicateElement: (state, action: PayloadAction<string>) => {
@@ -377,7 +398,6 @@ const canvasSlice = createSlice({
         // Select the new element
         currentTab.viewSettings.selectedElementId = newElementId;
         currentTab.updatedAt = Date.now();
-        canvasSlice.caseReducers.saveToHistory(state);
       }
     },
 
@@ -516,7 +536,6 @@ const canvasSlice = createSlice({
       };
 
       currentTab.updatedAt = Date.now();
-      canvasSlice.caseReducers.saveToHistory(state);
     },
 
     resizeElement: (state, action: PayloadAction<{ id: string; width: number; height: number }>) => {
@@ -555,40 +574,14 @@ const canvasSlice = createSlice({
         currentTab.updatedAt = Date.now();
       }
       // Save to history for viewport changes
-      canvasSlice.caseReducers.saveToHistory(state);
     },
 
     updateProjectName: (state, action: PayloadAction<string>) => {
       state.project.name = action.payload;
     },
 
-    saveToHistory: (state) => {
-      // Skip expensive history save during normal operations
-      // History will be saved by the persistence manager on a debounced basis
-      // This dramatically improves performance for frequent actions
-      return;
-    },
-
-    undo: (state) => {
-      if (state.historyIndex > 0) {
-        state.historyIndex -= 1;
-        // Use shallow copy for performance - history is handled by persistence manager
-        state.project = { ...state.history[state.historyIndex] };
-      }
-    },
-
-    redo: (state) => {
-      if (state.historyIndex < state.history.length - 1) {
-        state.historyIndex += 1;
-        // Use shallow copy for performance - history is handled by persistence manager
-        state.project = { ...state.history[state.historyIndex] };
-      }
-    },
-
     loadProject: (state, action: PayloadAction<Project>) => {
       state.project = action.payload;
-      state.history = [action.payload];
-      state.historyIndex = 0;
     },
 
     addCSSClass: (state, action: PayloadAction<{ elementId: string; className: string }>) => {
@@ -664,7 +657,6 @@ const canvasSlice = createSlice({
       state.project.tabOrder.push(newTab.id);
       state.project.activeTabId = newTab.id;
 
-      canvasSlice.caseReducers.saveToHistory(state);
     },
 
     duplicateTab: (state, action: PayloadAction<string>) => {
@@ -710,7 +702,6 @@ const canvasSlice = createSlice({
       state.project.tabOrder.push(newTab.id);
       state.project.activeTabId = newTab.id;
 
-      canvasSlice.caseReducers.saveToHistory(state);
     },
 
     deleteTab: (state, action: PayloadAction<string>) => {
@@ -725,7 +716,6 @@ const canvasSlice = createSlice({
         state.project.activeTabId = state.project.tabOrder[0] || Object.keys(state.project.tabs)[0];
       }
 
-      canvasSlice.caseReducers.saveToHistory(state);
     },
 
     switchTab: (state, action: PayloadAction<string>) => {
@@ -917,7 +907,6 @@ const canvasSlice = createSlice({
 
       currentTab.viewSettings.selectedElementId = newElementId;
       currentTab.updatedAt = Date.now();
-      canvasSlice.caseReducers.saveToHistory(state);
     },
 
     // Force canvas refresh to re-evaluate all elements (useful for color mode changes)
@@ -1007,7 +996,6 @@ const canvasSlice = createSlice({
       // Select the new group
       currentTab.viewSettings.selectedElementId = groupId;
 
-      canvasSlice.caseReducers.saveToHistory(state);
     },
 
     ungroupElements: (state, action: PayloadAction<string>) => {
@@ -1050,7 +1038,6 @@ const canvasSlice = createSlice({
         currentTab.viewSettings.selectedElementId = group.children[0];
       }
 
-      canvasSlice.caseReducers.saveToHistory(state);
     },
   },
 });
@@ -1058,6 +1045,7 @@ const canvasSlice = createSlice({
 export const {
   selectElement,
   addElement,
+  applyStarterTemplate,
   updateElement,
   updateElementStyles,
   deleteElement,
@@ -1067,9 +1055,6 @@ export const {
   reorderElement,
   switchBreakpoint,
   updateProjectName,
-  saveToHistory,
-  undo,
-  redo,
   loadProject,
   addCSSClass,
   removeCSSClass,

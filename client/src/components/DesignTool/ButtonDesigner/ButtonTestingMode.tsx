@@ -23,29 +23,29 @@ const ButtonTestingMode: React.FC = () => {
         }}
         onMouseEnter={(e) => {
           if (design.states.hover?.styles) {
-            Object.assign(e.target.style, design.states.hover.styles);
+            Object.assign(e.currentTarget.style, design.states.hover.styles);
           }
         }}
         onMouseLeave={(e) => {
-          Object.assign(e.target.style, design.states.default?.styles || {});
+          Object.assign(e.currentTarget.style, design.states.default?.styles || {});
         }}
         onMouseDown={(e) => {
           if (design.states.active?.styles) {
-            Object.assign(e.target.style, design.states.active.styles);
+            Object.assign(e.currentTarget.style, design.states.active.styles);
           }
         }}
         onMouseUp={(e) => {
           if (design.states.hover?.styles) {
-            Object.assign(e.target.style, design.states.hover.styles);
+            Object.assign(e.currentTarget.style, design.states.hover.styles);
           }
         }}
         onFocus={(e) => {
           if (design.states.focus?.styles) {
-            Object.assign(e.target.style, design.states.focus.styles);
+            Object.assign(e.currentTarget.style, design.states.focus.styles);
           }
         }}
         onBlur={(e) => {
-          Object.assign(e.target.style, design.states.default?.styles || {});
+          Object.assign(e.currentTarget.style, design.states.default?.styles || {});
         }}
         data-testid={`button-interactive-preview-${design.id}`}
       >

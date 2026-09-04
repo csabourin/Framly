@@ -69,6 +69,27 @@ const historySlice = createSlice({
       }
     },
 
+    /**
+     * Fold a follow-up change into the entry that is already at the head,
+     * instead of adding a second entry for one user gesture. Drawing a shape,
+     * for example, dispatches addElement and then settles its geometry with
+     * updateElement - two entries would make one Ctrl+Z look like it did
+     * nothing.
+     */
+    amendCurrentEntry: (state, action: PayloadAction<{
+      canvasState: any;
+      classState: any;
+    }>) => {
+      if (state.isUndoing || state.isRedoing) return;
+
+      const entry = state.entries[state.currentIndex];
+      if (!entry) return;
+
+      entry.canvasState = JSON.parse(JSON.stringify(action.payload.canvasState));
+      entry.classState = JSON.parse(JSON.stringify(action.payload.classState));
+      entry.timestamp = Date.now();
+    },
+
     undo: (state) => {
       if (state.currentIndex > 0) {
         state.currentIndex--;
@@ -118,6 +139,7 @@ const historySlice = createSlice({
 
 export const {
   pushHistoryEntry,
+  amendCurrentEntry,
   undo,
   redo,
   setUndoingFlag,
