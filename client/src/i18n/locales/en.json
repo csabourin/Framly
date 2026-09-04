@@ -242,7 +242,10 @@
     "exportSettings": "Export Settings",
     "includeResponsive": "Include responsive breakpoints",
     "minifyCSS": "Minify CSS",
-    "includeComments": "Include source comments"
+    "includeComments": "Include source comments",
+    "chooseFormat": "Choose export format",
+    "comingSoon": "Coming soon",
+    "formatUnavailable": "This format is not available yet"
   },
   "import": {
     "importWebsite": "Import Website",

@@ -42,6 +42,10 @@ const ExportModal: React.FC = () => {
   };
 
   const handleExport = () => {
+    // Only formats marked available in exportOptions can be selected; guard anyway
+    // so a future format can never silently close the modal without producing a file.
+    if (selectedFormat !== 'html') return;
+
     // CRITICAL: Pass expanded elements to CodeGenerator for proper component instance export
     const projectForGeneration = {
       ...project,
@@ -50,50 +54,37 @@ const ExportModal: React.FC = () => {
     const generator = new CodeGenerator(projectForGeneration, customClasses, currentElements);
     const { html, css, react } = generator.exportProject();
 
-    switch (selectedFormat) {
-      case 'html':
-        const activeTabId = project.activeTabId;
-        const activeTab = project.tabs[activeTabId];
-        const tabName = activeTab ? activeTab.name : 'index';
-        const cssFileName = `${project.name.replace(/\s+/g, '-').toLowerCase()}.css`;
-        const htmlFileName = `${tabName.replace(/\s+/g, '-').toLowerCase()}.html`;
+    const activeTabId = project.activeTabId;
+    const activeTab = project.tabs[activeTabId];
+    const tabName = activeTab ? activeTab.name : 'index';
+    const cssFileName = `${project.name.replace(/\s+/g, '-').toLowerCase()}.css`;
+    const htmlFileName = `${tabName.replace(/\s+/g, '-').toLowerCase()}.html`;
 
-        // Create ZIP file with HTML/CSS
-        const htmlBlob = new Blob([html], { type: 'text/html' });
-        const cssBlob = new Blob([css], { type: 'text/css' });
+    const htmlBlob = new Blob([html], { type: 'text/html' });
+    const cssBlob = new Blob([css], { type: 'text/css' });
 
-        // For demo purposes, download HTML file
-        const htmlUrl = URL.createObjectURL(htmlBlob);
-        const htmlLink = document.createElement('a');
-        htmlLink.href = htmlUrl;
-        htmlLink.download = htmlFileName;
-        htmlLink.click();
+    // Download HTML file named after the active tab
+    const htmlUrl = URL.createObjectURL(htmlBlob);
+    const htmlLink = document.createElement('a');
+    htmlLink.href = htmlUrl;
+    htmlLink.download = htmlFileName;
+    htmlLink.click();
 
-        // Download CSS file with project name
-        const cssUrl = URL.createObjectURL(cssBlob);
-        const cssLink = document.createElement('a');
-        cssLink.href = cssUrl;
-        cssLink.download = cssFileName;
-        cssLink.click();
+    // Download CSS file with project name
+    const cssUrl = URL.createObjectURL(cssBlob);
+    const cssLink = document.createElement('a');
+    cssLink.href = cssUrl;
+    cssLink.download = cssFileName;
+    cssLink.click();
 
-        URL.revokeObjectURL(htmlUrl);
-        URL.revokeObjectURL(cssUrl);
-        break;
-
-      case 'png':
-        // PNG export would require html-to-image library
-        console.log('PNG export not implemented yet');
-        break;
-
-      case 'pdf':
-        // PDF export would require jsPDF library
-        console.log('PDF export not implemented yet');
-        break;
-    }
+    URL.revokeObjectURL(htmlUrl);
+    URL.revokeObjectURL(cssUrl);
 
     handleClose();
   };
 
+  // `available: false` formats are shown so users know they are planned, but are
+  // not selectable — picking one previously closed the modal and produced nothing.
   const exportOptions = [
     {
       id: 'html',
@@ -101,6 +92,7 @@ const ExportModal: React.FC = () => {
       title: t('export.htmlCssPackage'),
       description: t('export.productionReady'),
       color: 'bg-blue-50 text-blue-600',
+      available: true,
     },
     {
       id: 'png',
@@ -108,6 +100,7 @@ const ExportModal: React.FC = () => {
       title: t('export.pngImage'),
       description: t('export.staticImageExport'),
       color: 'bg-green-50 text-green-600',
+      available: false,
     },
     {
       id: 'pdf',
@@ -115,6 +108,7 @@ const ExportModal: React.FC = () => {
       title: t('export.pdfDocument'),
       description: t('export.printableLayout'),
       color: 'bg-red-50 text-red-600',
+      available: false,
     },
   ];
 
@@ -145,44 +139,79 @@ const ExportModal: React.FC = () => {
         </DialogHeader>
 
         {/* Export Options */}
-        <div className="space-y-4 my-8" data-testid="export-options">
-          <h3 className="font-semibold text-gray-900 dark:text-gray-100 text-lg mb-4">Choose Export Format</h3>
+        <fieldset className="space-y-4 my-8 border-0 p-0 m-0" data-testid="export-options">
+          <legend className="font-semibold text-gray-900 dark:text-gray-100 text-lg mb-4">
+            {t('export.chooseFormat')}
+          </legend>
           {exportOptions.map((option) => {
             const Icon = option.icon;
             const isSelected = selectedFormat === option.id;
+            const inputId = `export-format-${option.id}`;
+            const noteId = `${inputId}-note`;
 
             return (
-              <div
+              <label
                 key={option.id}
-                onClick={() => setSelectedFormat(option.id as any)}
+                htmlFor={inputId}
                 className={`
-                  p-5 border rounded-2xl cursor-pointer transition-all duration-200 shadow-sm hover:shadow-md
-                  ${isSelected
-                    ? 'border-blue-300 dark:border-blue-600 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 scale-[1.02]'
-                    : 'border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600'
+                  block p-5 border rounded-2xl transition-all duration-200 motion-reduce:transition-none shadow-sm
+                  has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-blue-600
+                  ${!option.available
+                    ? 'cursor-not-allowed border-gray-200 dark:border-gray-700 bg-gray-100/70 dark:bg-gray-800/40'
+                    : isSelected
+                      ? 'cursor-pointer hover:shadow-md border-blue-300 dark:border-blue-600 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 scale-[1.02]'
+                      : 'cursor-pointer hover:shadow-md border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600'
                   }
                 `}
                 data-testid={`export-option-${option.id}`}
               >
                 <div className="flex items-center gap-4">
-                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center shadow-sm ${isSelected ? 'bg-gradient-to-br from-blue-500 to-purple-600 text-white' : option.color
-                    }`}>
-                    <Icon className="w-6 h-6" />
+                  <input
+                    type="radio"
+                    id={inputId}
+                    name="export-format"
+                    value={option.id}
+                    checked={isSelected}
+                    disabled={!option.available}
+                    onChange={() => setSelectedFormat(option.id as any)}
+                    aria-describedby={option.available ? undefined : noteId}
+                    className="sr-only"
+                    data-testid={`export-radio-${option.id}`}
+                  />
+                  <div
+                    className={`w-12 h-12 rounded-xl flex items-center justify-center shadow-sm ${!option.available
+                      ? 'bg-gray-200 text-gray-500 dark:bg-gray-700 dark:text-gray-400'
+                      : isSelected
+                        ? 'bg-gradient-to-br from-blue-500 to-purple-600 text-white'
+                        : option.color
+                      }`}
+                  >
+                    <Icon className="w-6 h-6" aria-hidden="true" />
                   </div>
                   <div className="flex-1">
-                    <h3 className="font-semibold text-gray-900 dark:text-gray-100 text-base">{option.title}</h3>
+                    <h3 className={`font-semibold text-base ${option.available ? 'text-gray-900 dark:text-gray-100' : 'text-gray-700 dark:text-gray-300'}`}>
+                      {option.title}
+                    </h3>
                     <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{option.description}</p>
+                    {!option.available && (
+                      <p
+                        id={noteId}
+                        className="inline-block mt-2 px-2 py-0.5 rounded-md text-xs font-semibold bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-200"
+                      >
+                        {t('export.comingSoon')}
+                      </p>
+                    )}
                   </div>
-                  {isSelected && (
-                    <div className="w-6 h-6 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                  {isSelected && option.available && (
+                    <div className="w-6 h-6 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center" aria-hidden="true">
                       <div className="w-2 h-2 bg-white rounded-full"></div>
                     </div>
                   )}
                 </div>
-              </div>
+              </label>
             );
           })}
-        </div>
+        </fieldset>
 
         {/* Export Settings */}
         {selectedFormat === 'html' && (

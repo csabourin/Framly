@@ -242,7 +242,10 @@
     "exportSettings": "Paramètres d'Exportation",
     "includeResponsive": "Inclure les points de rupture responsives",
     "minifyCSS": "Minifier CSS",
-    "includeComments": "Inclure les commentaires source"
+    "includeComments": "Inclure les commentaires source",
+    "chooseFormat": "Choisissez le format d'exportation",
+    "comingSoon": "Bientôt disponible",
+    "formatUnavailable": "Ce format n'est pas encore disponible"
   },
   "import": {
     "importWebsite": "Importer Site Web",
