@@ -217,7 +217,9 @@ ${indent}</${tag}>`;
 
   /** Accessible name for a form control that has no visible label of its own. */
   private getControlName(element: CanvasElement): string {
-    const content = element.content?.replace(/<[^>]*>/g, '').trim();
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(element.content || '', 'text/html');
+    const content = doc.body.textContent?.trim();
     return content || CONTROL_FALLBACK_NAMES[element.type] || 'Form control';
   }
   
