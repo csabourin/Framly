@@ -65,6 +65,30 @@ const escapeHtml = (value: string): string =>
 const escapeAttr = (value: string): string =>
   escapeHtml(value).replace(/"/g, '&quot;');
 
+/**
+ * Text of a string that may contain markup.
+ *
+ * Prefers DOMParser, which handles nesting and entities correctly. Falls back
+ * to stripping so the generator keeps working with no DOM - it is otherwise a
+ * pure transformation, and tying it to the browser would rule out running an
+ * export anywhere else.
+ */
+const extractText = (value: string): string => {
+  if (typeof DOMParser !== 'undefined') {
+    return new DOMParser().parseFromString(value, 'text/html').body.textContent?.trim() ?? '';
+  }
+
+  return value
+    .replace(/<[^>]*>/g, '')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#0?39;/g, "'")
+    .replace(/&amp;/g, '&')
+    .trim();
+};
+
 export class CodeGenerator {
   private project: any; // Use any for now to handle dynamic project structure  
   private cssOptimizer: CSSOptimizer;
@@ -217,9 +241,7 @@ ${indent}</${tag}>`;
 
   /** Accessible name for a form control that has no visible label of its own. */
   private getControlName(element: CanvasElement): string {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(element.content || '', 'text/html');
-    const content = doc.body.textContent?.trim();
+    const content = extractText(element.content || '');
     return content || CONTROL_FALLBACK_NAMES[element.type] || 'Form control';
   }
   
