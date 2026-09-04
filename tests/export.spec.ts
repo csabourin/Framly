@@ -113,10 +113,20 @@ function classesInMarkup(html: string): Set<string> {
   return found;
 }
 
+/**
+ * Colour-mode wrappers. `combineColorModeCSS` emits `.dark { … }` and
+ * `.high-contrast { … }` around copies of the ordinary rules, for a class the
+ * page's own author puts on `<html>`. They are not selectors for elements the
+ * generator writes, so they are not orphans.
+ */
+const COLOR_MODE_WRAPPERS = new Set(['dark', 'high-contrast']);
+
 /** Class names appearing in rule selectors, ignoring at-rule wrappers. */
 function classesInStylesheet(css: string): Set<string> {
   const found = new Set<string>();
-  for (const [, name] of css.matchAll(/\.([a-zA-Z_][\w-]*)\s*\{/g)) found.add(name);
+  for (const [, name] of css.matchAll(/\.([a-zA-Z_][\w-]*)\s*\{/g)) {
+    if (!COLOR_MODE_WRAPPERS.has(name)) found.add(name);
+  }
   return found;
 }
 
@@ -364,5 +374,134 @@ test.describe('the minifier', () => {
     expect(minifyCSS('.a .b { color: red; }')).toBe('.a .b{color:red}');
     expect(minifyCSS('@media (min-width: 768px) { .a { color: red; } }'))
       .toBe('@media (min-width:768px){.a{color:red}}');
+  });
+});
+
+/**
+ * A class registered in `customClasses` is shared: several elements may carry
+ * it, and one element's ad-hoc styles must not be written onto it. The
+ * templates never produce this shape — they give every element a class of its
+ * own — so it needs stating directly.
+ */
+test.describe('a shared class is not written to', () => {
+  /** Two elements on one named class, each with styles of its own. */
+  function buildSharedClassProject() {
+    const elements: Record<string, CanvasElement> = {
+      root: {
+        id: 'root', type: 'container', width: 375, height: 600,
+        styles: {}, isContainer: true, children: ['a', 'b'], classes: [],
+      },
+      a: {
+        id: 'a', type: 'text', width: 100, height: 20, parent: 'root',
+        content: 'First', classes: ['card'], styles: { color: '#111111' },
+      },
+      b: {
+        id: 'b', type: 'text', width: 100, height: 20, parent: 'root',
+        content: 'Second', classes: ['card'], styles: { color: '#222222' },
+      },
+    };
+
+    const customClasses = {
+      card: { name: 'card', styles: { padding: '16px', borderRadius: '8px' } },
+    };
+
+    const project = {
+      id: 'test', name: 'Shared Class Test', elements,
+      activeTabId: 't', tabs: { t: { id: 't', name: 'Home', elements } },
+      breakpoints: { mobile: { name: 'mobile', width: 375 }, tablet: { name: 'tablet', width: 768 } },
+      currentBreakpoint: 'mobile',
+    };
+
+    return new CodeGenerator(project, customClasses, elements).exportProject();
+  }
+
+  test('the shared rule carries only what the class defines', async () => {
+    const { css } = buildSharedClassProject();
+
+    const cardRule = css.match(/\.card \{([\s\S]*?)\}/)![1];
+
+    expect(cardRule).toContain('padding: 16px');
+    expect(cardRule).toContain('border-radius: 8px');
+    expect(cardRule, "one element's own colour must not land on the shared class")
+      .not.toContain('#111111');
+    expect(cardRule).not.toContain('#222222');
+  });
+
+  test('each element gets its own class for its own styles', async () => {
+    const { html, css } = buildSharedClassProject();
+
+    // Both elements still carry the shared class in the markup…
+    expect((html.match(/class="[^"]*\bcard\b/g) ?? []).length).toBe(2);
+
+    // …and each has a generated class of its own holding its colour.
+    expect(css).toMatch(/\.el-a \{[^}]*color: #111111/);
+    expect(css).toMatch(/\.el-b \{[^}]*color: #222222/);
+    expect(html).toContain('class="card el-a"');
+    expect(html).toContain('class="card el-b"');
+  });
+
+  test('every rule still selects something the page has', async () => {
+    const { html, css } = buildSharedClassProject();
+
+    const inMarkup = classesInMarkup(html);
+    const orphans = [...classesInStylesheet(css)].filter((name) => !inMarkup.has(name));
+
+    expect(orphans).toEqual([]);
+  });
+});
+
+/**
+ * A colour-mode value is an object, not a string. The base rules hand it to
+ * `generateColorModeCSS`, which splits it across `prefers-color-scheme` blocks;
+ * nothing does that inside a media query, so a breakpoint override has to
+ * resolve it to one value or the declaration is written as `[object Object]`
+ * and lost.
+ */
+test.describe('colour-mode values inside a breakpoint', () => {
+  function buildColorModeOverride() {
+    const elements: Record<string, CanvasElement> = {
+      root: {
+        id: 'root', type: 'container', width: 375, height: 600,
+        styles: {}, isContainer: true, children: ['a'], classes: [],
+      },
+      a: {
+        id: 'a', type: 'text', width: 100, height: 20, parent: 'root',
+        content: 'Themed', classes: ['themed'], styles: { color: '#000000' },
+        responsiveStyles: {
+          tablet: { backgroundColor: { light: '#ffffff', dark: '#111111' } as any },
+        },
+      },
+    };
+
+    const project = {
+      id: 'test', name: 'Colour Mode Test', elements,
+      activeTabId: 't', tabs: { t: { id: 't', name: 'Home', elements } },
+      breakpoints: { mobile: { name: 'mobile', width: 375 }, tablet: { name: 'tablet', width: 768 } },
+      currentBreakpoint: 'mobile',
+    };
+
+    return new CodeGenerator(project, {}, elements).exportProject();
+  }
+
+  test('resolve to a real value, not [object Object]', async () => {
+    const { css } = buildColorModeOverride();
+
+    expect(css).not.toContain('[object Object]');
+    expect(css).toMatch(/@media \(min-width: 768px\)[\s\S]*background-color: #ffffff;/);
+  });
+
+  test('and the browser keeps the declaration', async ({ page }) => {
+    const { html, css } = buildColorModeOverride();
+
+    await page.setViewportSize({ width: 900, height: 600 });
+    await page.setContent(html.replace(/<link rel="stylesheet"[^>]*>/, `<style>${css}</style>`), {
+      waitUntil: 'domcontentloaded',
+    });
+
+    const background = await page
+      .locator('.themed')
+      .evaluate((el) => getComputedStyle(el).backgroundColor);
+
+    expect(background, 'the override applies above 768px').toBe('rgb(255, 255, 255)');
   });
 });

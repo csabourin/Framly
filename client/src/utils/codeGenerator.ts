@@ -149,6 +149,15 @@ const toCssDeclarations = (styles: Record<string, any> | undefined): Record<stri
   return declarations;
 };
 
+/**
+ * The single value to write where a stylesheet cannot carry all three colour
+ * modes — light first, since that is what a page shows without asking.
+ */
+const resolveColorModeValue = (value: any): any => {
+  if (!isColorModeValues(value)) return value;
+  return value.light ?? value.dark ?? value['high-contrast'];
+};
+
 /** Punctuation that may lose the whitespace in front of it. */
 const TIGHT_BEFORE = new Set(['{', '}', ';', ',']);
 /** Punctuation that may lose the whitespace after it. A space before `:` is
@@ -445,7 +454,13 @@ ${indent}</${tag}>`;
 
     const rule = (selector: string, styles: Record<string, any>): string | null => {
       const declarations = Object.entries(toCssDeclarations(styles))
-        .map(([property, value]) => `    ${property}: ${value};`)
+        // Colour-mode values reach the base rules through `generateColorModeCSS`,
+        // which splits them across `prefers-color-scheme` blocks. Nothing does
+        // that inside a breakpoint, so take the value a page shows by default —
+        // interpolating the object itself writes `[object Object]` and loses
+        // the declaration.
+        .map(([property, value]) => `    ${property}: ${resolveColorModeValue(value)};`)
+        .filter((declaration) => !declaration.includes(': undefined;'))
         .join('\n');
       return declarations ? `  ${selector} {\n${declarations}\n  }` : null;
     };
