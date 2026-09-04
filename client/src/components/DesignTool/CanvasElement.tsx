@@ -13,7 +13,6 @@ import ComponentInstanceElement from './ComponentInstanceElement';
 import ElementContextMenu from './ElementContextMenu';
 import { useColorMode } from '../../contexts/ColorModeContext';
 import { isColorModeValues } from '../../utils/colorModeHelper';
-import PaddingHandles from './components/PaddingHandles';
 
 
 interface CanvasElementProps {
@@ -864,21 +863,9 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
   // Check if this element can accept drops using centralized logic
   const canAcceptDrop = isValidDropTarget(element);
 
-  // Clean professional feedback - only show selection outlines
-  const getOutlineStyle = () => {
-    if (isSelected) return '2px solid #3b82f6';
-    return undefined;
-  };
-
   const getBackgroundColor = (mergedBgColor?: string) => {
     // Clean hover experience - no background overlays
     return mergedBgColor || cssVariables['--element-background-color'];
-  };
-
-  const getBoxShadow = () => {
-    // Clean selection shadow only
-    if (isSelected) return '0 0 0 1px rgba(59, 130, 246, 0.3)';
-    return undefined;
   };
 
   // Generate CSS custom properties from merged styles
@@ -1063,8 +1050,6 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
 
     // Common styles for all elements
     // Selection and interaction feedback
-    outline: getOutlineStyle(),
-    boxShadow: getBoxShadow(),
     zIndex: isThisElementHovered ? 1000 : (isSelected ? 100 : undefined),
     minHeight: (['text', 'heading', 'list'].includes(element.type)) ? '1.2em' : undefined,
 

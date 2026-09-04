@@ -346,7 +346,6 @@ const Canvas: React.FC = () => {
       <SelectionOverlay
         selectedElementId={selectedElementId || null}
         hoveredElementId={hoveredElementId || null}
-        elements={expandedElements}
         zoomLevel={zoomLevel}
       />
 

@@ -1013,6 +1013,10 @@ ol ol ol {
   --ink-2: #5a605c;
   --ink-3: #8c938e;
   --ink-inv: #f7f8f6;
+  --box-margin: #d99a3c;
+  --box-border: #77879a;
+  --box-padding: #56996b;
+  --box-content: #5688d6;
   --ok: #327a49;
   --warn: #996515;
   --stop: #aa3d32;
@@ -1050,6 +1054,10 @@ ol ol ol {
   --ink-2: #a2a9a4;
   --ink-3: #737a75;
   --ink-inv: #191c1a;
+  --box-margin: #d9a555;
+  --box-border: #8c9bac;
+  --box-padding: #6bad80;
+  --box-content: #7ba3e4;
   --ok: #66a878;
   --warn: #c49443;
   --stop: #d07166;
@@ -1242,6 +1250,45 @@ body {
 .framly-artboard-label { position: absolute; top: -25px; left: 0; display: flex; gap: 7px; color: var(--ink-2); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; }
 .framly-artboard-label span { font-family: var(--font-mono); color: var(--ink-2); }
 .framly-artboard { position: relative; box-sizing: content-box; cursor: crosshair; overflow: hidden; border: 1px solid var(--rule-strong); border-radius: 0; background: #fff; color: #191c1a; box-shadow: none; }
+
+.box-model-overlay,
+.box-model-hover-outline,
+.box-model-layer,
+.box-model-selection-edge,
+.box-model-labels { position: absolute; pointer-events: none; }
+.box-model-overlay { inset: 0; z-index: 996; }
+.box-model-layer { outline: 1px solid var(--box-layer); outline-offset: -1px; }
+.box-model-band { position: absolute; background: color-mix(in srgb, var(--box-layer) 28%, transparent); }
+.box-model-content-fill { inset: 0; }
+.box-model-margin { --box-layer: var(--box-margin); }
+.box-model-border { --box-layer: var(--box-border); }
+.box-model-padding { --box-layer: var(--box-padding); }
+.box-model-content { --box-layer: var(--box-content); }
+.box-model-selection-edge { z-index: 2; border: 1.5px solid var(--ink); }
+.box-model-hover-outline { z-index: 995; border: 1px solid color-mix(in srgb, var(--ink) 45%, transparent); }
+.box-model-labels {
+  z-index: 3;
+  display: flex;
+  max-width: calc(100% - 8px);
+  flex-wrap: wrap;
+  gap: 2px 8px;
+  border: 1px solid var(--rule-strong);
+  background: color-mix(in srgb, var(--paper) 94%, transparent);
+  padding: 3px 5px;
+  color: var(--ink-2);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  line-height: 15px;
+  white-space: nowrap;
+}
+.box-model-labels span::before { display: inline-block; width: 6px; height: 6px; margin-right: 4px; content: ''; }
+.box-model-labels b { color: var(--ink); font-weight: 500; font-variant-numeric: tabular-nums; }
+.box-model-label-margin::before { background: var(--box-margin); }
+.box-model-label-border::before { background: var(--box-border); }
+.box-model-label-padding::before { background: var(--box-padding); }
+.box-model-label-content::before { background: var(--box-content); }
+.framly-artboard .selectable-block[data-state='selected']::after { opacity: 0; box-shadow: none; background: transparent; }
+.framly-artboard .selectable-block[data-state='selected'] .selection-handle { color: var(--ink); background: color-mix(in srgb, var(--paper) 88%, transparent); }
 
 .framly-right-panel [class*='bg-gradient'] { background-color: var(--paper); background-image: none !important; }
 .framly-right-panel [class*='rounded-xl'] { border-radius: 4px !important; }
