@@ -137,6 +137,7 @@ const CanvasContainer: React.FC<CanvasContainerProps> = ({
       tabIndex={0}
       onKeyDown={onKeyDown}
       onMouseDown={handlePanStart}
+      id="canvas-scroll-container"
       data-testid="canvas-scroll-container"
     >
       <div className="flex justify-center items-start min-h-full" style={{ minWidth: 'fit-content' }}>

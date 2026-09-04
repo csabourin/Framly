@@ -231,7 +231,7 @@ const Canvas: React.FC = () => {
   const focusCanvas = useCallback(() => {
     window.requestAnimationFrame(() => {
       document
-        .querySelector<HTMLElement>('[data-testid="canvas-scroll-container"]')
+        .querySelector<HTMLElement>('#canvas-scroll-container')
         ?.focus();
     });
   }, []);
@@ -251,7 +251,7 @@ const Canvas: React.FC = () => {
         trigger.focus();
       } else {
         document
-          .querySelector<HTMLElement>('[data-testid="canvas-scroll-container"]')
+          .querySelector<HTMLElement>('#canvas-scroll-container')
           ?.focus();
       }
     });
