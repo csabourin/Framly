@@ -52,6 +52,8 @@ const formatEdges = ({ top, right, bottom, left }: Edges) => {
   return values.map(formatLength).join(' ');
 };
 
+const compactEdges = (edges: Edges) => formatEdges(edges).replaceAll('px', '');
+
 const insetRect = (rect: Rect, edges: Edges): Rect => ({
   x: rect.x + edges.left,
   y: rect.y + edges.top,
@@ -228,7 +230,6 @@ const SelectionOverlay: React.FC<SelectionOverlayProps> = ({
       )}
       {metrics && (
         <div className="box-model-overlay" data-testid="box-model-overlay" role="img" aria-label={summary}>
-          <BoxLayer name="margin" outer={metrics.marginBox} inner={metrics.borderBox} />
           <BoxLayer name="border" outer={metrics.borderBox} inner={metrics.paddingBox} />
           <BoxLayer name="padding" outer={metrics.paddingBox} inner={metrics.contentBox} />
           <BoxLayer name="content" outer={metrics.contentBox} />
@@ -242,10 +243,10 @@ const SelectionOverlay: React.FC<SelectionOverlayProps> = ({
             }}
           />
           <div className="box-model-labels" aria-hidden="true" style={{ left: metrics.labelX, top: metrics.labelY }}>
-            <span className="box-model-label-margin" data-testid="box-model-label-margin">margin <b>{formatEdges(metrics.margin)}</b></span>
-            <span className="box-model-label-border" data-testid="box-model-label-border">border <b>{formatEdges(metrics.border)}</b></span>
-            <span className="box-model-label-padding" data-testid="box-model-label-padding">padding <b>{formatEdges(metrics.padding)}</b></span>
-            <span className="box-model-label-content" data-testid="box-model-label-content">content <b>{formatLength(metrics.contentBox.width)} × {formatLength(metrics.contentBox.height)}</b></span>
+            <span className="box-model-label-margin" data-testid="box-model-label-margin">margin <b>{compactEdges(metrics.margin)}</b></span>
+            <span className="box-model-label-border" data-testid="box-model-label-border">border <b>{compactEdges(metrics.border)}</b></span>
+            <span className="box-model-label-padding" data-testid="box-model-label-padding">padding <b>{compactEdges(metrics.padding)}</b></span>
+            <span className="box-model-label-content" data-testid="box-model-label-content">content <b>{rounded(metrics.contentBox.width)}×{rounded(metrics.contentBox.height)}</b></span>
           </div>
         </div>
       )}
