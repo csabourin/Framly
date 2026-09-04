@@ -4,6 +4,7 @@ import { Input } from '../ui/input';
 import { Label } from '../ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 import { ChevronDown, ChevronRight, Link, Unlink } from 'lucide-react';
+import SpacingScale, { isSpacingProperty } from './SpacingScale';
 
 interface CompoundPropertyInputProps {
   propertyType: 'border' | 'margin' | 'padding' | 'borderRadius';
@@ -253,7 +254,7 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
     shortcut.sides.forEach(sideKey => {
       const side = config.sides.find(s => s.key === sideKey);
       if (side) {
-        onChange(side.prop, value);
+        onChange(isSpacingProperty(side.key) ? side.key : side.prop, value);
       }
     });
   };
@@ -261,7 +262,7 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
   const handleSideChange = (sideKey: string, value: string) => {
     const side = config.sides.find(s => s.key === sideKey);
     if (side) {
-      onChange(side.prop, value);
+      onChange(isSpacingProperty(side.key) ? side.key : side.prop, value);
     }
   };
 
@@ -284,7 +285,7 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
     if (!side) return '';
     
     // Check if there's a specific side value first
-    const sideValue = values[side.prop];
+    const sideValue = values[side.key] ?? values[side.prop];
     if (sideValue !== undefined && sideValue !== null && sideValue !== '') {
       const stringValue = String(sideValue);
       return stringValue;
@@ -312,11 +313,12 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
   const renderSpacingInput = (sideKey: string, label: string) => {
     const value = getValue(sideKey);
     
-    return (
+    const input = (
       <div className="space-y-1">
         <Label className="text-xs text-gray-500">{label}</Label>
         <Input
           type="text"
+          aria-label={`${propertyType} ${label}`}
           placeholder="0px"
           value={value}
           onChange={(e) => {
@@ -333,6 +335,8 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
         />
       </div>
     );
+    return isSpacingProperty(sideKey) ? <SpacingScale property={sideKey} label={`${propertyType} ${label}`}
+      value={value} onChange={(next) => handleSideChange(sideKey, next)}>{input}</SpacingScale> : input;
   };
 
   return (

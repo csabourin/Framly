@@ -1,19 +1,19 @@
-import React, { useState, useSyncExternalStore } from 'react';
-import { Database, Download, Upload, Trash2, CheckCircle, AlertCircle } from 'lucide-react';
+import React, { useRef, useState, useSyncExternalStore } from 'react';
+import { Database, Download, Upload, Trash2 } from 'lucide-react';
 import { Button } from './ui/button';
 import { 
   Dialog, 
   DialogContent, 
   DialogHeader, 
   DialogTitle, 
-  DialogTrigger,
-  DialogFooter 
+  DialogTrigger
 } from './ui/dialog';
 import { persistenceManager } from '../utils/persistence';
 import { useTranslation } from 'react-i18next';
 
 const PersistenceStatus: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const importInput = useRef<HTMLInputElement>(null);
   const { t } = useTranslation();
   const saved = useSyncExternalStore(persistenceManager.subscribe, persistenceManager.getSnapshot);
   const label = t(`persistence.${saved.status}`);
@@ -141,27 +141,24 @@ const PersistenceStatus: React.FC = () => {
               <div className="flex-1">
                 <input
                   type="file"
+                  ref={importInput}
                   accept=".json"
                   onChange={handleImport}
                   className="hidden"
                   id="import-file"
                   disabled={isImporting}
                 />
-                <label htmlFor="import-file">
                   <Button 
                     variant="outline" 
                     size="sm" 
                     className="w-full gap-2"
                     disabled={isImporting}
                     data-testid="button-import-data"
-                    asChild
+                    onClick={() => importInput.current?.click()}
                   >
-                    <span>
                       <Upload size={14} />
                       {isImporting ? 'Importing...' : 'Import'}
-                    </span>
                   </Button>
-                </label>
               </div>
             </div>
             

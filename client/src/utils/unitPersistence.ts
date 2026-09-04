@@ -79,7 +79,7 @@ const DEFAULT_UNITS: GlobalUnitPreferences = {
   maxHeight: 'px',
 };
 
-// In-memory storage for unit preferences (will be enhanced with IndexedDB persistence)
+// Unit preferences are included in the durable workspace snapshot.
 let elementUnitPreferences: ElementUnitPreferences = {};
 let globalUnitPreferences: GlobalUnitPreferences = { ...DEFAULT_UNITS };
 const unitListeners = new Set<() => void>();
@@ -227,7 +227,6 @@ export function setElementUnitPreference(elementId: string, propertyName: string
   }
   elementUnitPreferences[elementId][propertyName] = unit;
   
-  // TODO: Persist to IndexedDB
   persistUnitPreferences();
 }
 
@@ -237,7 +236,6 @@ export function setElementUnitPreference(elementId: string, propertyName: string
 export function setGlobalUnitPreference(propertyName: string, unit: string): void {
   globalUnitPreferences[propertyName] = unit;
   
-  // TODO: Persist to IndexedDB
   persistUnitPreferences();
 }
 
@@ -285,7 +283,7 @@ export function exportUnitPreferences(): {
 }
 
 /**
- * Persist unit preferences to storage (placeholder for IndexedDB implementation)
+ * Notify the workspace save queue about preference changes
  */
 async function persistUnitPreferences(): Promise<void> {
   unitListeners.forEach((listener) => listener());

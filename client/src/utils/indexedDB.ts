@@ -1,6 +1,7 @@
 import { CanvasElement, Project, CustomComponent, ComponentCategory } from '../types/canvas';
 import { CustomClass, Category } from '../store/classSlice';
 import { WORKSPACE_KEY, type WorkspaceSnapshot } from './workspace';
+import type { HistoryEntry } from '../store/historySlice';
 
 export interface SavedImage {
   id: string;
@@ -61,6 +62,8 @@ interface IndexedDBSchema {
 class IndexedDBManager {
   private db: IDBDatabase | null = null;
   private initPromise: Promise<void> | null = null;
+  private savedHistory = new Map<string, HistoryEntry>();
+  private writerId = crypto.randomUUID();
 
   async init(): Promise<void> {
     if (this.initPromise) {
@@ -71,7 +74,7 @@ class IndexedDBManager {
       const request = indexedDB.open(DB_NAME, DB_VERSION);
 
       request.onblocked = () => {
-        console.warn('IndexedDB initialization is blocked by another tab/process');
+        reject(new Error('Local storage is blocked by another Framly tab. Close that tab and retry.'));
       };
 
       request.onerror = () => {
@@ -141,23 +144,73 @@ class IndexedDBManager {
     }
   }
 
-  /** One committed record owns the document, styles and undo position. */
+  /** Read the document and all referenced history from one consistent transaction. */
+  async loadWorkspace(): Promise<WorkspaceSnapshot | null> {
+    const db = await this.ensureDB();
+    const transaction = db.transaction([SETTINGS_STORE], 'readonly');
+    const result = await new Promise<WorkspaceSnapshot | null>((resolve, reject) => {
+      const settings = transaction.objectStore(SETTINGS_STORE);
+      let snapshot: WorkspaceSnapshot | null = null;
+      transaction.oncomplete = () => resolve(snapshot);
+      transaction.onerror = () => reject(transaction.error);
+      transaction.onabort = () => reject(transaction.error || new Error('Reading the workspace was aborted'));
+      const request = settings.get(WORKSPACE_KEY);
+      request.onsuccess = () => {
+        if (!request.result) return;
+        const data = request.result.data;
+        if (!data || typeof data !== 'object' || (data.historyFormat && data.historyFormat !== 'references')) {
+          transaction.abort(); return;
+        }
+        snapshot = data;
+        if (data.historyFormat !== 'references') return;
+        if (!Array.isArray(data.history?.entries)) { transaction.abort(); return; }
+        const entries: HistoryEntry[] = new Array(data.history.entries.length);
+        const { historyFormat, ...document } = data;
+        snapshot = { ...document, history: { ...data.history, entries } };
+        data.history.entries.forEach((id: string, index: number) => {
+          const entry = settings.get(`workspace-history:${id}`);
+          entry.onsuccess = () => {
+            if (!entry.result?.data) { transaction.abort(); return; }
+            entries[index] = entry.result.data;
+          };
+        });
+      };
+    });
+    this.savedHistory = new Map((result?.history?.entries || []).map((entry) => [entry.id, entry]));
+    return result;
+  }
+
+  /** Workspace and changed history entries become durable together. */
   async saveWorkspace(snapshot: WorkspaceSnapshot, preserveCurrent = false): Promise<void> {
+    // Imports retain a self-contained recovery copy, independent of entry ids.
+    const previous = preserveCurrent ? await this.loadWorkspace() : null;
     const db = await this.ensureDB();
     const transaction = db.transaction([SETTINGS_STORE], 'readwrite', { durability: 'strict' });
+    const nextHistory = new Map(snapshot.history.entries.map((entry) => [entry.id, entry]));
     await new Promise<void>((resolve, reject) => {
       transaction.oncomplete = () => resolve();
       transaction.onabort = () => reject(transaction.error || new Error('The workspace save was aborted.'));
       transaction.onerror = () => reject(transaction.error || new Error('The workspace could not be saved.'));
       const settings = transaction.objectStore(SETTINGS_STORE);
-      if (preserveCurrent) {
-        const previous = settings.get(WORKSPACE_KEY);
-        previous.onsuccess = () => {
-          if (previous.result) settings.put({ ...previous.result, id: 'workspace-before-import' });
-        };
-      }
-      settings.put({ id: WORKSPACE_KEY, data: snapshot, updatedAt: new Date().toISOString() });
+      if (previous) settings.put({ id: 'workspace-before-import', data: previous });
+      const current = settings.get(WORKSPACE_KEY);
+      current.onsuccess = () => {
+        // Another browser tab may have pruned our cached history records. In
+        // that case rewrite this document's entries before publishing its ids.
+        const sameWriter = current.result?.writerId === this.writerId;
+        for (const [id, entry] of nextHistory) {
+          if (!sameWriter || this.savedHistory.get(id) !== entry) settings.put({ id: `workspace-history:${id}`, data: entry });
+        }
+        for (const id of this.savedHistory.keys()) {
+          if (!nextHistory.has(id)) settings.delete(`workspace-history:${id}`);
+        }
+        settings.put({ id: WORKSPACE_KEY, writerId: this.writerId, data: {
+          ...snapshot, historyFormat: 'references',
+          history: { ...snapshot.history, entries: snapshot.history.entries.map((entry) => entry.id) },
+        }, updatedAt: new Date().toISOString() });
+      };
     });
+    this.savedHistory = nextHistory;
   }
 
   private async ensureDB(): Promise<IDBDatabase> {

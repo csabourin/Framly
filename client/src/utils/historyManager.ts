@@ -14,9 +14,10 @@ import {
 } from '../store/historySlice';
 import { loadProject } from '../store/canvasSlice';
 import { loadCustomClassesFromStorage } from '../store/classSlice';
+import { flushPendingHistory } from './historyIntegration';
 
 /**
- * History Manager - Handles undo/redo operations and IndexedDB persistence
+ * Undo/redo and legacy history loading. The workspace owns durable writes.
  */
 export class HistoryManager {
   private dbName = 'DesignToolHistory';
@@ -202,6 +203,7 @@ export class HistoryManager {
    * Perform undo operation
    */
   async performUndo(): Promise<boolean> {
+    flushPendingHistory();
     const state = reduxStore.getState();
     
     if (state.history.currentIndex <= 0) {
@@ -242,6 +244,7 @@ export class HistoryManager {
    * Perform redo operation
    */
   async performRedo(): Promise<boolean> {
+    flushPendingHistory();
     const state = reduxStore.getState();
     
     if (state.history.currentIndex >= state.history.entries.length - 1) {

@@ -121,8 +121,6 @@ const uiSlice = createSlice({
 
     toggleComponentPanel: (state) => {
       state.isComponentPanelVisible = !state.isComponentPanelVisible;
-      // Auto-save UI settings when panel visibility changes
-
     },
 
     toggleDOMTreePanel: (state) => {
@@ -131,20 +129,14 @@ const uiSlice = createSlice({
       if (state.workspaceLayout !== 'custom') {
         state.workspaceLayout = 'custom';
       }
-      // Auto-save UI settings when panel visibility changes
-
     },
 
     togglePropertiesPanel: (state) => {
       state.isPropertiesPanelVisible = !state.isPropertiesPanelVisible;
-      // Auto-save UI settings when panel visibility changes
-
     },
 
     setRightPanelTab: (state, action: PayloadAction<'properties' | 'components'>) => {
       state.rightPanelTab = action.payload;
-      // Auto-save UI settings when tab changes
-
     },
 
     setComponentEditorOpen: (state, action: PayloadAction<boolean>) => {
@@ -338,8 +330,6 @@ const uiSlice = createSlice({
           break;
       }
 
-      // Auto-save workspace layout preference
-
     },
 
     toggleRightPanel: (state) => {
@@ -348,8 +338,6 @@ const uiSlice = createSlice({
       if (state.workspaceLayout !== 'custom') {
         state.workspaceLayout = 'custom';
       }
-      // Auto-save UI settings
-
     },
 
     loadUISettings: (state, action: PayloadAction<Partial<UIState>>) => {

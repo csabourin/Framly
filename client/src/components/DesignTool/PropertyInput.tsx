@@ -18,6 +18,7 @@ import { ColorModePropertyInput } from '../ColorModePropertyInput';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { RootState } from '../../store';
+import SpacingScale, { isSpacingProperty } from './SpacingScale';
 
 interface PropertyInputProps {
   config: PropertyConfig;
@@ -98,13 +99,14 @@ export const PropertyInput: React.FC<PropertyInputProps> = ({ config, value, onC
         const parsed = parseUnit(value);
         const numValue = parsed.value !== undefined && parsed.value !== null ? parseFloat(parsed.value) : 0;
 
-        return (
+        const unitInput = (
           <div className="flex gap-2">
             <Input
               type="number"
               value={numValue === null || numValue === undefined || isNaN(numValue) ? '' : numValue}
               onChange={(e) => {
-                const newValue = parseFloat(e.target.value) || 0;
+                const entered = parseFloat(e.target.value) || 0;
+                const newValue = isSpacingProperty(config.key) && !config.key.startsWith('margin') ? Math.max(0, entered) : entered;
                 onChange(formatUnit(newValue, selectedUnit));
               }}
               min={config.min}
@@ -113,6 +115,7 @@ export const PropertyInput: React.FC<PropertyInputProps> = ({ config, value, onC
               className="flex-1"
               data-testid={`input-${config.key}`}
               aria-describedby={describedBy}
+              aria-label={config.label}
             />
             {config.units && config.units.length > 1 ? (
               <Select
@@ -127,7 +130,7 @@ export const PropertyInput: React.FC<PropertyInputProps> = ({ config, value, onC
                   onChange(formatUnit(numValue, unit));
                 }}
               >
-                <SelectTrigger className="w-20">
+                <SelectTrigger className="w-20" aria-label={`${config.label} unit`}>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -145,6 +148,13 @@ export const PropertyInput: React.FC<PropertyInputProps> = ({ config, value, onC
             )}
           </div>
         );
+
+        return isSpacingProperty(config.key) ? <SpacingScale key={`${elementId}:${config.key}`} property={config.key}
+          label={config.label} value={value} describedBy={describedBy} onChange={(next) => {
+            setSelectedUnit('px');
+            if (elementId) setElementUnitPreference(elementId, config.key, 'px');
+            onChange(next);
+          }}>{unitInput}</SpacingScale> : unitInput;
 
       case 'select':
         return (

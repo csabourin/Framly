@@ -42,7 +42,7 @@ import {
 } from 'lucide-react';
 import ButtonStateSelector from './ButtonStateSelector';
 import FlexLayoutControls from './FlexLayoutControls';
-import { breakpointStyleUpdate } from '../../utils/styleEditing';
+import { breakpointStyleUpdate, mergeStyleLayer } from '../../utils/styleEditing';
 
 const PropertiesPanel: React.FC = () => {
   const { t } = useTranslation();
@@ -405,6 +405,8 @@ const PropertiesPanel: React.FC = () => {
       const existingClass = customClasses[selectedClassForEditing];
       if (existingClass) {
         const updatedStyles = { ...existingClass.styles, [actualPropertyKey]: value };
+        delete updatedStyles[actualPropertyKey];
+        updatedStyles[actualPropertyKey] = value;
         dispatch(updateCustomClass({
           name: selectedClassForEditing,
           styles: updatedStyles
@@ -488,6 +490,13 @@ const PropertiesPanel: React.FC = () => {
   };
 
   const getPropertyValue = (property: PropertyConfig) => {
+    if (['padding', 'margin'].includes(property.key)) {
+      const styles = getMergedStylesForCompound();
+      const values = ['Top', 'Right', 'Bottom', 'Left'].map((side) => styles[`${property.key}${side}`]);
+      if (values.every((value) => value !== undefined && value !== '')) {
+        return values.every((value) => value === values[0]) ? values[0] : values.join(' ');
+      }
+    }
     // For button elements, consider the selected button state
     if (selectedElement.type === 'button' && selectedButtonState !== 'default') {
       // First check if we're editing a specific class with state-specific styles
@@ -585,7 +594,7 @@ const PropertiesPanel: React.FC = () => {
     if (selectedClassForEditing) {
       const customClass = customClasses[selectedClassForEditing];
       if (customClass && customClass.styles) {
-        Object.assign(baseStyles, customClass.styles);
+        mergeStyleLayer(baseStyles, customClass.styles);
       }
     }
 
@@ -594,11 +603,27 @@ const PropertiesPanel: React.FC = () => {
       selectedElement.classes.forEach((className: string) => {
         const customClass = customClasses[className];
         if (customClass && customClass.styles) {
-          Object.assign(baseStyles, customClass.styles);
+          mergeStyleLayer(baseStyles, customClass.styles);
         }
       });
     }
 
+    const order = ['mobile', 'tablet', 'desktop', 'large'];
+    for (const breakpoint of order.slice(0, order.indexOf(currentBreakpoint) + 1)) {
+      mergeStyleLayer(baseStyles, selectedElement.responsiveStyles?.[breakpoint as keyof typeof selectedElement.responsiveStyles] || {});
+    }
+    const spacing = document.createElement('div').style;
+    for (const [key, value] of Object.entries(baseStyles)) {
+      if (/^(padding|margin)(Top|Right|Bottom|Left)?$/.test(key) && value != null) {
+        spacing.setProperty(key.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`), typeof value === 'number' ? `${value}px` : String(value));
+      }
+    }
+    for (const kind of ['padding', 'margin']) {
+      for (const side of ['Top', 'Right', 'Bottom', 'Left']) {
+        const value = spacing.getPropertyValue(`${kind}-${side.toLowerCase()}`);
+        if (value) baseStyles[`${kind}${side}`] = value;
+      }
+    }
     return baseStyles;
   };
 

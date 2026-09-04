@@ -47,6 +47,7 @@ const ResponsivePropertyInput: React.FC<ResponsivePropertyInputProps> = ({
 
   // Get responsive value for a specific breakpoint with mobile-first inheritance
   const getResponsiveValue = (targetBreakpoint: string) => {
+    if (targetBreakpoint === currentBreakpoint && ['padding', 'margin'].includes(config.key)) return value;
     const targetIndex = BREAKPOINT_ORDER.indexOf(targetBreakpoint);
     if (targetIndex === -1) return undefined;
 

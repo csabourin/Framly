@@ -9,7 +9,7 @@ import { initializeComponentDefinitionsDB, loadComponentDefinitions as loadDefin
 import { exportUnitPreferences, loadUnitPreferences, subscribeUnitPreferences } from './unitPersistence';
 import { historyManager } from './historyManager';
 import { historyForPersistence } from './historyIntegration';
-import { WORKSPACE_KEY, validateWorkspace, type WorkspaceSnapshot } from './workspace';
+import { validateWorkspace, type WorkspaceSnapshot } from './workspace';
 import type { Project, CustomComponent, ComponentCategory } from '../types/canvas';
 
 export interface PersistenceState {
@@ -57,7 +57,7 @@ export class PersistenceManager {
     try {
       await indexedDBManager.init();
       await initializeComponentDefinitionsDB();
-      const saved = await indexedDBManager.loadSetting(WORKSPACE_KEY);
+      const saved = await indexedDBManager.loadWorkspace();
       if (saved !== null) {
         validateWorkspace(saved);
         this.restore(saved);
@@ -169,7 +169,12 @@ export class PersistenceManager {
   saveCurrentProject(): Promise<void> {
     if (!this.isInitialized) return Promise.reject(new Error('Local storage is not ready.'));
     if (this.saving) return this.saving;
-    this.saving = this.writePending().finally(() => { this.saving = null; });
+    this.saving = this.writePending().finally(() => {
+      this.saving = null;
+      if (this.unsubscribe && this.status.status !== 'error' && this.savedRevision < this.revision) {
+        queueMicrotask(() => { void this.saveCurrentProject().catch(() => {}); });
+      }
+    });
     return this.saving;
   }
 

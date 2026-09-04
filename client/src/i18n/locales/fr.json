@@ -502,5 +502,9 @@
     "saveError": "Les modifications n’ont pas pu être enregistrées. Gardez cet onglet ouvert et réessayez, ou exportez une sauvegarde.",
     "loadError": "Le travail enregistré n’a pas pu être ouvert. Les données ont été conservées. Réessayez pour les ouvrir.",
     "lastSaved": "Dernier enregistrement terminé : {{time}}"
+  },
+  "spacingScale": {
+    "label": "{{label}} · échelle d’espacement",
+    "custom": "Personnalisé"
   }
 }

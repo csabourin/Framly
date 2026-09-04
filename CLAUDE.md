@@ -115,11 +115,19 @@ decision changes deliberately.
 
 - **IndexedDB is the only storage** — projects, components, custom classes,
   categories, undo history, uploaded images.
-- **Autosave runs every 30 seconds** (`AUTO_SAVE_INTERVAL` in
-  `utils/persistence.ts`). A refresh within 30s of an edit loses it.
+- **Autosave starts on each persistent change**, coalescing synchronous actions
+  without a timer. `utils/persistence.ts` queues writes; the document, classes,
+  component definitions and undo position commit in one IndexedDB transaction.
+  Unchanged history entries are reused instead of copied on each keystroke.
+  The visible save indicator says "Saved" only after the transaction completes;
+  failed saves offer retry and a backup of current in-memory edits.
 - **Undo/redo persists across sessions.** After a reload, Ctrl+Z undoes the
   previous session's last action; Ctrl+Y restores it. One history system only —
-  `historySlice` plus `historyManager`. The canvas slice has no stack.
+  `historySlice` plus `historyManager`. The canvas slice has no stack. The undo
+  cursor and redo branch survive reload, including pending property edits.
+- **Storage migration preserves originals.** The authoritative workspace uses
+  the existing settings store; legacy project/class/history records are kept.
+  Unknown saved formats block editing instead of being replaced by a blank page.
 - **JSON export/import** for backup and transfer, via `PersistenceStatus`.
 - PWA: service worker registered in production, unregistered in dev.
 
@@ -136,6 +144,8 @@ Padding and margin sides can be dragged or edited with arrow keys. Handles name
 their style owner and breakpoint scope; previews are temporary, and each commit
 is one undoable action. Margin labels report CSS values, not an inferred distance
 between siblings when margins collapse or a parent distributes free space.
+The inspector offers a spacing scale (0 / 4 / 8 / 12 / 16 / 24 / 32 / 48) for
+padding, margin, individual sides and parent gap, with an explicit Custom path.
 
 Partly built — treat with care before extending:
 

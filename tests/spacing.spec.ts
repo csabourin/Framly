@@ -130,6 +130,7 @@ test('tablet spacing leaves mobile untouched and matches an independently render
 test('class-owned spacing previews every affected instance and undoes together', async ({ page }) => {
   const hero = await selectHero(page);
   await page.getByTestId('property-search').fill('Inner Spacing');
+  await page.getByTestId('spacing-custom-padding').click();
   const input = page.getByTestId('property-padding').getByTestId('input-padding');
   await input.fill('16');
   await input.press('Enter');
@@ -170,6 +171,7 @@ test('a later spacing shorthand overrides an earlier side edit on canvas and exp
   await page.getByTestId('status-breakpoint').click();
   await page.getByRole('menuitem', { name: /Tablet/i }).click();
   await page.getByTestId('property-search').fill('Inner Spacing');
+  await page.getByTestId('spacing-custom-padding').click();
   const input = page.getByTestId('property-padding').getByTestId('input-padding');
   await input.fill('40');
   await input.press('Enter');

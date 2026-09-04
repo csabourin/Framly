@@ -77,7 +77,7 @@ Recorded so they are not re-litigated. Each can be revisited — but knowingly.
 | **Local-first, no accounts** | It is a real, defensible position and the part that already works. Kept. |
 | **The 28 unused `components/ui/*` files stay** | Vendored library surface, tree-shaken out of the bundle, and several are wanted for the M2/M3 interface work. Deleting them only pays off alongside dropping the matching Radix dependencies. |
 | **`console.error` and `console.warn` stay; all `console.log` went** | The error/warn calls are the app's only diagnostics — many catch blocks are otherwise silent. The logs were debug noise. |
-| **Undo history persists across reloads** | Matches the documented design. After a refresh Ctrl+Z undoes the *previous session's* last action, and Ctrl+Y restores it. One line in `ensureBaseline` changes this if it ever feels wrong. |
+| **Undo history persists across reloads** | The workspace and history cursor now commit atomically. Reloading after undo preserves the redo branch, and a pending property edit remains undoable even before its typing debounce finishes. |
 | **M1 opens on its two small tasks** | Nothing depends on the order, and opening a milestone on an `[L]` is a wall. |
 | **The CSS optimiser is scheduled for deletion, not maintenance** | It exists to undo bloat caused by generating one class per element. M4 fixes the cause. Do not invest in it. |
 | **Abandoned backend scaffolding was removed** | Framly is local-first and had no API routes, database, sessions or authentication. The unused database/auth packages, broken `db:push` script, dead website-import service and unused React Query wrapper described an architecture that did not exist and kept vulnerable packages installed. |
@@ -92,6 +92,9 @@ Recorded so they are not re-litigated. Each can be revisited — but knowingly.
 | **The box overlay measures the browser, not the model** | `SelectionOverlay` reads computed styles and rendered bounds, then converts them back through canvas zoom. That makes it describe what the user actually sees, including class and responsive styles, rather than one incomplete source of values. Margin geometry treats negative values as zero-width bands for now; the label still reports the signed value. |
 | **Spacing previews do not mutate the document** | `SpacingHandles` applies a temporary canvas-only stylesheet, at most once per animation frame. Release removes it and commits through the existing style owner and history system; cancellation removes it without a document edit. A class-owned edit previews the other affected canvas elements too. |
 | **Spacing shorthands need a stable rendering form** | React diffs style values rather than declaration order. A base side value reused after a breakpoint shorthand could leave the old computed spacing on screen. Canvas styles now expand physical padding/margin to longhands with CSSOM; export keeps readable shorthand declarations and merges class layers in declaration order. The generator remains DOM-independent. |
+| **Saved is a transaction result** | The old status timer simulated success even when writes failed. The status now follows the real save queue. A workspace commit contains document data and references to history entries written in the same transaction; unchanged entries are reused to keep typing responsive. |
+| **Loading must finish before editing begins** | The former three-second startup race could expose an empty editor and later overwrite new edits with a delayed restore. Startup now waits for the saved document, or shows a retryable error. Legacy records and unsupported formats remain untouched. |
+| **A spacing preset is one action** | A preset may create a class and assign a style. Its history boundary includes both operations. Custom entry is explicitly revealed and opening it never rewrites mixed values. |
 
 ---
 
@@ -138,8 +141,9 @@ was checked and clean. Verify before acting on a finding.
   attribute. HTML and React output need different escaping.
 - **`DOMParser` is browser-only.** Using it unguarded in the code generator made
   a pure transformation untestable in Node. It stays DOM-optional.
-- **Autosave is 30 seconds, not 5.** The docs said 5 for a long time. A refresh
-  within 30s of an edit loses it.
+- **The autosave loss window was real.** The interval was 30 seconds, while the
+  status merely simulated saves. Both are now replaced by immediate queued
+  transactions, with browser coverage for failures and immediate reloads.
 - **A green build says nothing about types.** Vite does not typecheck.
 - **The HTML and the CSS were generated from different ideas of what a class
   is.** `getOptimizedClasses` put optimiser-invented names in the markup;

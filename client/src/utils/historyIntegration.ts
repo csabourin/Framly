@@ -6,6 +6,7 @@ import type { SavedHistory } from '../store/historySlice';
 let debounceTimeout: NodeJS.Timeout | null = null;
 let pendingAction: { type: string; description: string } | null = null;
 let pendingCoalesces = false;
+let grouping = false;
 let isMiddlewareActive = false;
 
 // When we last recorded an entry outright, used to tell whether a debounced
@@ -49,6 +50,7 @@ export const addHistoryMiddleware = () => {
  * Track history for specific actions with debouncing
  */
 const trackHistoryForAction = (action: any) => {
+  if (grouping) return;
   // Skip tracking if we're undoing/redoing
   const state = store.getState();
   if (state.history?.isUndoing || state.history?.isRedoing) {
@@ -60,6 +62,9 @@ const trackHistoryForAction = (action: any) => {
   // them would discard what was just loaded. Restores during undo/redo are
   // already excluded by the isUndoing/isRedoing check above.
   if (action.type === 'canvas/loadProject') {
+    if (debounceTimeout) clearTimeout(debounceTimeout);
+    debounceTimeout = null;
+    pendingAction = null;
     historyManager.resetBaseline();
     return;
   }
@@ -93,6 +98,7 @@ const trackHistoryForAction = (action: any) => {
     'canvas/updateElementText': 'Update text',
     'canvas/updateElementSrc': 'Update image source',
     'classes/updateCustomClass': 'Update custom class',
+    'classes/addCustomClass': 'Create custom class',
     'classes/batchUpdateCustomClass': 'Update class properties',
   };
   
@@ -178,6 +184,13 @@ export const flushPendingHistory = () => {
     pendingAction = null;
   }
 };
+
+export function withHistoryGroup(description: string, change: () => void) {
+  flushPendingHistory();
+  grouping = true;
+  try { change(); } finally { grouping = false; }
+  historyManager.recordAction('styles/spacing', description);
+}
 
 /** Persist an unfinished property edit without ending the user's undo gesture. */
 export function historyForPersistence(): SavedHistory {

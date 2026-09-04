@@ -1331,3 +1331,13 @@ body {
 }
 .spacing-controls:focus-within .spacing-help, .spacing-controls:has(.spacing-handle:hover) .spacing-help,
 .spacing-help-active { visibility: visible; }
+
+.spacing-scale { display: grid; gap: 6px; }
+.spacing-scale-options { display: flex; flex-wrap: wrap; gap: 3px; }
+.spacing-scale-options button, .spacing-custom-toggle {
+  min-width: 25px; min-height: 28px; padding: 3px 5px; border: 1px solid var(--rule-strong);
+  border-radius: 4px; background: var(--paper); color: var(--ink); font: 11px var(--font-mono);
+}
+.spacing-scale-options button[aria-pressed='true'] { background: var(--ink); color: var(--ink-inv); }
+.spacing-custom-toggle { justify-self: start; max-width: 100%; overflow-wrap: anywhere; }
+.spacing-scale button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }

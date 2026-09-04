@@ -35,10 +35,12 @@ Three promises, in priority order. When two conflict, the higher one wins:
 
 ### 👉 Start here
 
-**M2.3 — A spacing scale.** Padding and margin sides can now be dragged on the
-canvas or edited with the keyboard, with live measurements and one undo per
-gesture. Next, offer 4 / 8 / 12 / 16 / 24 / 32 / 48 as the default choices,
-with an obvious custom-value option.
+**M2.4 — Plain language, with the real term underneath.** Direct spacing and
+the spacing scale are in place. Next, apply the plain-language/CSS label pattern
+consistently throughout the Layout section.
+
+The requested persistence follow-up is also complete: the 30-second delay and
+simulated "Saved" status have been replaced with immediate, acknowledged saves.
 
 *M0 is done: CI runs on every PR, and three gates fail on a regression.*
 
@@ -82,6 +84,15 @@ Until something checks, everything below will rot at the same rate it's built.*
 
 **Milestone done when:** you can break something on purpose and CI tells you.
 **✅ Done.** Every gate here was verified by deliberately breaking it.
+
+- [x] `[M]` **Durable local saves — prioritized follow-up.** Persistent edits
+      queue immediately, including class-only changes and pending property edits.
+      The workspace and its undo position commit together; unchanged history
+      entries are reused. The header reports actual transaction status, offers
+      retry after failure, and exports current unsaved work for recovery.
+      Legacy storage is preserved, unknown formats are not overwritten, and
+      imports retain the replaced workspace. Reload, abort, queued-write,
+      migration, undo/redo and backup recovery cases have browser coverage.
 
 ---
 
@@ -208,10 +219,13 @@ above is table stakes; this is the reason Framly exists.*
       cancellation, zoom, shared styles, undo/redo and independently rendered
       exports. Restoring the old shorthand rendering made the cascade test fail
       on the exact wrong padding value. ✅
-- [ ] `[M]` **A spacing scale.** 4 / 8 / 12 / 16 / 24 / 32 / 48 as the default
-      choices, with free entry as a deliberate escape hatch.
-      *Done when:* the default path produces consistent spacing and arbitrary
-      values take one extra, obvious step.
+- [x] `[M]` **A spacing scale.** 0 / 4 / 8 / 12 / 16 / 24 / 32 / 48 are the
+      default choices for padding, margin, their individual sides and parent
+      gap. Custom reveals free entry without changing the current value.
+      Presets are keyboard-accessible, show selection in ink, follow breakpoint
+      scope and form one undo action. Mixed or custom values are preserved.
+      *Verified by:* keyboard/axe, custom-value reload, side and shorthand
+      overrides, independently rendered export and parent-gap browser checks. ✅
 - [ ] `[S]` **Plain language, with the real term underneath.** "Space inside ·
       `padding`". "Space outside · `margin`". Beginners understand it; everyone
       learns the vocabulary they'll need elsewhere.
@@ -333,8 +347,9 @@ Deliberately not doing these. Recorded so they don't get re-proposed.
 
 Things that are true and surprising. Written down so they aren't rediscovered.
 
-- **Autosave runs every 30 seconds**.
-  A refresh within 30s of an edit loses it. (Worth revisiting — probably in M0.)
+- **Saving is immediate and acknowledged.** The old 30-second timer and simulated
+  save status are gone. "Saving" means a transaction is pending; "Saved" means
+  it committed. Unacknowledged changes remain at risk if the tab is forcibly closed.
 - **Undo history persists across reloads.** After a refresh, Ctrl+Z undoes the
   *previous session's* last action. Reversible with Ctrl+Y. This is by design;
   one line in `ensureBaseline` changes it if you'd rather it didn't.

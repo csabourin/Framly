@@ -197,3 +197,70 @@ test('an unknown saved format is preserved and never replaced with a blank proje
   expect(await snapshot(page)).toEqual({ version: 999, original: 'keep me' });
   await expect(page.getByTestId('header-main')).toHaveCount(0);
 });
+
+test('immediate saving does not rewrite the entire undo stack on every edit', async ({ page }) => {
+  await page.addInitScript(() => {
+    const put = IDBObjectStore.prototype.put;
+    (window as any).historyWrites = 0;
+    IDBObjectStore.prototype.put = function(value, key) {
+      if (this.name === 'settings' && String(value.id).startsWith('workspace-history:')) (window as any).historyWrites++;
+      return key === undefined ? put.call(this, value) : put.call(this, value, key);
+    };
+  });
+  await openApp(page);
+  await applyTemplate(page, 'landing');
+  await hero(page).click();
+  for (let index = 0; index < 6; index++) {
+    await page.getByTestId('spacing-padding-top').press('ArrowUp');
+    await expect(hero(page)).toHaveCSS('padding-top', `${29 + index}px`);
+  }
+  await saved(page);
+  const count = (await snapshot(page)).history.entries.length;
+  expect(count).toBeGreaterThan(6);
+  await page.evaluate(() => { (window as any).historyWrites = 0; });
+  await page.getByTestId('spacing-padding-top').press('ArrowUp');
+  await saved(page);
+  const writes = await page.evaluate(() => (window as any).historyWrites);
+  expect(writes).toBeGreaterThan(0);
+  expect(writes).toBeLessThan(count);
+});
+
+test('a backup restores styles and keeps a recovery copy of the replaced workspace', async ({ page }) => {
+  await openApp(page);
+  await applyTemplate(page, 'landing');
+  await hero(page).click();
+  await page.getByTestId('property-search').fill('Inner Spacing');
+  await page.getByTestId('spacing-preset-padding-16').click();
+  await expect(hero(page)).toHaveCSS('padding', '16px');
+  await saved(page);
+  await page.getByTestId('button-persistence-status').click();
+  const downloading = page.waitForEvent('download');
+  await page.getByTestId('button-export-data').click();
+  const stream = await (await downloading).createReadStream();
+  const chunks: Buffer[] = [];
+  for await (const chunk of stream!) chunks.push(chunk);
+  const backup = Buffer.concat(chunks);
+  await page.keyboard.press('Escape');
+  await page.getByTestId('spacing-preset-padding-32').click();
+  await expect(hero(page)).toHaveCSS('padding', '32px');
+  await saved(page);
+  await page.getByTestId('button-persistence-status').click();
+  page.on('dialog', (dialog) => dialog.accept());
+  const chooser = page.waitForEvent('filechooser');
+  await page.getByTestId('button-import-data').focus();
+  await page.getByTestId('button-import-data').press('Enter');
+  await (await chooser).setFiles({ name: 'backup.json', mimeType: 'application/json', buffer: backup });
+  await expect(hero(page)).toHaveCSS('padding', '16px');
+  await saved(page);
+  const recovery = await page.evaluate(async () => {
+    const db = await new Promise<IDBDatabase>((resolve) => {
+      const request = indexedDB.open('DesignToolDB'); request.onsuccess = () => resolve(request.result);
+    });
+    const result = await new Promise<any>((resolve) => {
+      const request = db.transaction('settings').objectStore('settings').get('workspace-before-import');
+      request.onsuccess = () => resolve(request.result.data);
+    }); db.close(); return result;
+  });
+  expect(Object.values<any>(recovery.classes.customClasses).some((item) => item.styles.padding === '32px')).toBe(true);
+  expect(recovery.history.entries.every((entry: any) => entry.canvasState?.project)).toBe(true);
+});

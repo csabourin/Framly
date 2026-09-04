@@ -502,5 +502,9 @@
     "saveError": "Changes could not be saved. Keep this tab open and retry, or export a backup.",
     "loadError": "Saved work could not be opened. Your stored data has been preserved. Retry to open it.",
     "lastSaved": "Last completed save: {{time}}"
+  },
+  "spacingScale": {
+    "label": "{{label}} · spacing scale",
+    "custom": "Custom"
   }
 }
