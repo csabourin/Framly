@@ -7,8 +7,8 @@ import { fileURLToPath } from 'node:url';
  * Dead code ratchet.
  *
  * M0.4 removed 24 unreachable files. This keeps them from coming back: it walks
- * the real import graph from main.tsx and fails when a file under client/src is
- * reachable from nothing.
+ * the real import graph from main.tsx and fails when a .ts/.tsx/.json file under
+ * client/src is reachable from nothing.
  *
  * Vendored shadcn/ui components are exempt — they are a library surface kept on
  * purpose, and several are wanted for the M2/M3 interface work.
