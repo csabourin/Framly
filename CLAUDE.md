@@ -36,6 +36,15 @@ Preferred communication style: Simple, everyday language.
 - **Accessibility is a gate, not a goal.** Pages Framly produces must have zero
   axe violations (WCAG 2.2 AA). Framly's own violations are capped by a
   ratcheting baseline that may only shrink. Both are enforced in CI.
+- **Breakpoint edits are overrides.** Mobile is the base; an edit at any larger
+  breakpoint writes `responsiveStyles` and must never touch the base. The
+  panel's `handlePropertyChange` is the single writer and routes on the current
+  breakpoint. `tests/responsive.spec.ts` fails if a base rule picks up a
+  breakpoint value, or if a media query goes missing.
+- **The exported rule order follows the canvas cascade.** Element styles, then
+  named class, then breakpoint override. Every selector is one class, so
+  specificity is equal and order alone decides the winner — write the file in
+  any other order and the export stops matching what the canvas showed.
 - **DOM flow integrity.** Elements position exactly like real HTML elements,
   respecting DOM order unless explicitly positioned by dragging. Copy, paste and
   duplicate never apply an offset. Absolute positioning is the exception the

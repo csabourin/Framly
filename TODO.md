@@ -35,10 +35,10 @@ Three promises, in priority order. When two conflict, the higher one wins:
 
 ### 👉 Start here
 
-**M1.3 — the controls half.** The writing path is done: an edit at a breakpoint
-is now an override and only an override. What is left is making a control say
-whether its value is inherited or set here, without opening a panel to find
-out — see the task below.
+**M1.4 — CSS a human can read.** M1.3 is done. The export is mobile-first and
+the controls say where a value comes from; what is left in M1 is the shape of
+the file itself — meaningful class names, rules grouped by element, no
+duplicated declarations.
 
 *M0 is done: CI runs on every PR, and three gates fail on a regression.*
 
@@ -117,33 +117,36 @@ class names to match, and it has no real media queries.*
       a second tab's export contains none of the first tab's markup, and the
       page links the stylesheet the export writes.
       *Done when:* exporting from Tab A never contains Tab B's markup. ✅
-- [ ] `[L]` **Real media queries, mobile-first.** *In progress — the writing
-      path is done, the controls are not.*
+- [x] `[L]` **Real media queries, mobile-first.**
 
-      **Done:** an edit at a larger breakpoint is now an override and nothing
-      else. It used to be written twice: `ResponsivePropertyInput` wrote
-      `responsiveStyles[bp]` and then handed the same value to the panel, which
-      wrote it to the base as well — so setting a font size at "tablet" changed
-      the base rule too, and the exported page carried the wide-screen value at
-      every width. There is one writer now, and it routes by the current
-      breakpoint. Any style property can differ by breakpoint; `responsive` in
-      the property config now only decides whether a control offers the
-      per-breakpoint UI. The exporter's rule order was also wrong against the
-      canvas — a named class overrides an element's own styles on the canvas,
-      and the file was written the other way round, so a panel edit could be
-      shown and then not exported.
-      *Verified by:* the "done when" as three tests, plus a canvas-vs-export
-      test that renders the exported page; each fails on the matching
-      regression.
+      **The writing path.** An edit at a larger breakpoint is now an override
+      and nothing else. It used to be written twice: `ResponsivePropertyInput`
+      wrote `responsiveStyles[bp]` and then handed the same value to the panel,
+      which wrote it to the base as well — so setting a font size at "tablet"
+      changed the base rule too, and the exported page carried the wide-screen
+      value at every width. There is one writer now, and it routes by the
+      current breakpoint. Any style property can differ by breakpoint;
+      `responsive` in the property config now only decides whether a control
+      offers the per-breakpoint UI. The exporter's rule order was also wrong
+      against the canvas — a named class overrides an element's own styles on
+      the canvas, and the file was written the other way round, so a panel edit
+      could be shown and then not exported.
 
-      **Left:** the controls. A value should say whether it is inherited from a
-      smaller breakpoint or overridden here, without opening a "Show
-      breakpoints" panel to find out — and it should say it in the idiom of
-      `docs/interface.md`, where colour is reserved and does not mean "this is
-      responsive". The badge and the inherited hint are blue today.
+      **The controls.** Every responsive control now carries a line saying
+      where its value comes from: `base · applies at every width`, `set here`,
+      or `inherited from Tablet` — naming the breakpoint, not just the fact.
+      It is mono grey text tied to the input with `aria-describedby`, so it
+      reaches a screen reader and carries no colour: `docs/interface.md`
+      reserves hue for the box model and for pass/warn/fail, and the old blue
+      "Responsive" badge and blue italic *inherited* label are gone. Clearing
+      an override is offered inline, named for the breakpoint it clears
+      ("Clear Tablet") rather than a bare ×, and only when there is something
+      to clear. `breakpoints.inherited` and `breakpoints.clearValue` were
+      referenced but had never been added to either locale file, so they had
+      been rendering as raw keys.
       *Done when:* setting a colour at base applies everywhere; changing it at
-      `md` produces exactly one media query and no duplicate base rule. ✅ —
-      and you can see which is which without clicking.
+      `md` produces exactly one media query and no duplicate base rule. ✅
+
 - [ ] `[M]` **CSS a human can read.** Stable, meaningful class names instead of
       `el-4pinocqwb`; rules grouped by element; no duplicated declarations.
       *Done when:* you can open the exported CSS and find the hero's styles
@@ -319,6 +322,14 @@ Things that are true and surprising. Written down so they aren't rediscovered.
   which is the point. Treat a defined `x`/`y` as the unusual case.
 - **The canvas renders `element.htmlTag`** and always did; only the exporter
   used to ignore it.
+- **A breakpoint switch straight after typing a value can be lost.** Type in a
+  property field, then click the breakpoint switcher in the status bar: the
+  menu opens but the item is replaced under the pointer as the panel
+  re-renders, so the click does nothing and you have to repeat it. Measured,
+  not inferred — `aria-expanded` stays `false`, and a second click works.
+  Memoising the element handed to `PropertyInput` reduced the render churn but
+  did not remove the race, so it is still open. `tests/responsive.spec.ts`
+  retries the menu rather than pretending it is reliable.
 - **Style keys are camelCase everywhere**, because the canvas hands them
   straight to React. Anything writing a real stylesheet has to convert them —
   and a browser does not just skip `backgroundColor: #fff`, it abandons the

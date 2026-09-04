@@ -146,6 +146,40 @@ test.describe('Framly itself', () => {
   });
 
   /**
+   * M1.3's annotation and its clear control. The annotation is small mono text
+   * on a panel surface, so contrast is the thing worth measuring — and
+   * `docs/interface.md` forbids carrying the meaning in a hue, which leaves the
+   * words doing the work.
+   */
+  test('the breakpoint annotation and its clear control have no violations', async ({ page }) => {
+    await openApp(page);
+    await applyTemplate(page, 'landing');
+
+    await page
+      .locator('.canvas-element')
+      .filter({ hasText: 'Build something people want' })
+      .first()
+      .click();
+    await page.getByTestId('property-search').fill('Text Size');
+    await page.getByTestId('group-header-text').click();
+
+    // At a larger breakpoint, with an override, both parts are on screen.
+    await page.getByTestId('status-breakpoint').click();
+    await page.getByRole('menuitem', { name: /Tablet/i }).click();
+    const input = page.getByTestId('property-fontSize').getByTestId('input-fontSize');
+    await input.fill('48');
+    await input.press('Enter');
+    await expect(page.getByTestId('button-clear-override-fontSize')).toBeVisible();
+
+    const results = await new AxeBuilder({ page })
+      .withTags(WCAG_TAGS)
+      .include('[data-testid="origin-row-fontSize"]')
+      .analyze();
+
+    expect(results.violations.map((v) => v.id)).toEqual([]);
+  });
+
+  /**
    * Minifying strips the comments back out. Saying so is promise #3 — a
    * guardrail in plain language, at the moment of the mistake — and it has to
    * reach a screen reader, not only a sighted user.

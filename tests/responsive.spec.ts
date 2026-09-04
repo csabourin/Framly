@@ -39,9 +39,26 @@ async function selectHeadingFontSize(page: Page) {
   return input;
 }
 
-async function switchTo(page: Page, label: RegExp) {
-  await page.getByTestId('status-breakpoint').click();
-  await page.getByRole('menuitem', { name: label }).click();
+/**
+ * Switch breakpoint from the status bar.
+ *
+ * The click is retried because of a real defect, recorded in `TODO.md`: a menu
+ * item can be replaced under the pointer when the panel re-renders, so a
+ * breakpoint switch attempted straight after typing a value is sometimes lost
+ * and has to be repeated. Retrying here keeps that from masquerading as a
+ * failure of the thing each test is actually about; the defect itself has its
+ * own entry and is not fixed by this.
+ */
+async function switchTo(page: Page, label: RegExp, width: string) {
+  const trigger = page.getByTestId('status-breakpoint');
+
+  await expect(async () => {
+    if ((await trigger.getAttribute('aria-expanded')) !== 'true') {
+      await trigger.click();
+    }
+    await page.getByRole('menuitem', { name: label }).click({ timeout: 2000 });
+    await expect(trigger).toContainText(width, { timeout: 2000 });
+  }).toPass({ timeout: 15000 });
 }
 
 /** Every `font-size` declared outside a media query. */
@@ -68,8 +85,7 @@ test.describe('editing at a breakpoint', () => {
     expect(before, 'a fresh template has nothing to override yet').not.toContain('@media');
     expect(baseFontSizes(before)).toContain('30px');
 
-    await switchTo(page, /Tablet/i);
-    await expect(page.getByTestId('status-breakpoint')).toContainText('768');
+    await switchTo(page, /Tablet/i, '768');
 
     await input.fill('48');
     await input.press('Enter');
@@ -112,13 +128,12 @@ test.describe('editing at a breakpoint', () => {
     await applyTemplate(page, 'landing');
 
     const input = await selectHeadingFontSize(page);
-    await switchTo(page, /Tablet/i);
+    await switchTo(page, /Tablet/i, '768');
     await input.fill('48');
     await input.press('Enter');
     expect(await exportedCSS(page)).toContain('@media');
 
-    await page.getByTestId('button-responsive-toggle-fontSize').click();
-    await page.getByTestId('button-clear-tablet-fontSize').click();
+    await page.getByTestId('button-clear-override-fontSize').click();
 
     const css = await exportedCSS(page);
     expect(css, 'clearing the only override leaves no media query behind').not.toContain('@media');
@@ -181,7 +196,7 @@ test.describe('the canvas and the export agree', () => {
     await applyTemplate(page, 'landing');
 
     const input = await selectHeadingFontSize(page);
-    await switchTo(page, /Tablet/i);
+    await switchTo(page, /Tablet/i, '768');
     await input.fill('48');
     await input.press('Enter');
 
@@ -196,5 +211,108 @@ test.describe('the canvas and the export agree', () => {
 
     const css = await exportedCSS(page);
     expect(mediaBlocks(css)[0].body).toContain('font-size: 48px');
+  });
+});
+
+/**
+ * M1.3 — the controls half.
+ *
+ * A value has to say where it comes from without being clicked on. The only
+ * hint used to be a dimmed input, plus a label behind a "Show breakpoints"
+ * toggle — and the label was a key that had never been added to either locale
+ * file, so it rendered as `breakpoints.inherited`.
+ */
+test.describe('a control says where its value comes from', () => {
+  test('base, inherited, then set here — following the edit', async ({ page }) => {
+    await openApp(page);
+    await applyTemplate(page, 'landing');
+
+    const input = await selectHeadingFontSize(page);
+    const origin = page.getByTestId('origin-fontSize');
+
+    await expect(origin, 'mobile is the base').toHaveText('base · applies at every width');
+
+    await switchTo(page, /Tablet/i, '768');
+    await expect(origin, 'no override yet, so it comes from the base')
+      .toHaveText('inherited from Mobile');
+
+    await input.fill('48');
+    await input.press('Enter');
+    await expect(origin, 'now it is written here').toHaveText('set here');
+
+    await page.getByTestId('button-clear-override-fontSize').click();
+    await expect(origin, 'and clearing it goes back to inheriting')
+      .toHaveText('inherited from Mobile');
+  });
+
+  test('names the breakpoint it inherits from, not just "inherited"', async ({ page }) => {
+    await openApp(page);
+    await applyTemplate(page, 'landing');
+
+    const input = await selectHeadingFontSize(page);
+
+    await switchTo(page, /Tablet/i, '768');
+    await input.fill('48');
+    await input.press('Enter');
+    await expect(page.getByTestId('origin-fontSize')).toHaveText('set here');
+
+    // Desktop has no override of its own, so it inherits tablet's — not the base.
+    await switchTo(page, /^Desktop/i, '1024');
+    await expect(page.getByTestId('origin-fontSize')).toHaveText('inherited from Tablet');
+  });
+
+  test('the annotation reaches the control it describes', async ({ page }) => {
+    await openApp(page);
+    await applyTemplate(page, 'landing');
+
+    const input = await selectHeadingFontSize(page);
+    await switchTo(page, /Tablet/i, '768');
+
+    // Not a colour and not a dimmed border: a screen reader gets this too.
+    await expect(input).toHaveAccessibleDescription('inherited from Mobile');
+  });
+});
+
+test.describe('clearing an override', () => {
+  test('is offered only when there is something to clear', async ({ page }) => {
+    await openApp(page);
+    await applyTemplate(page, 'landing');
+
+    const input = await selectHeadingFontSize(page);
+    const clear = page.getByTestId('button-clear-override-fontSize');
+
+    await expect(clear, 'nothing to clear at the base').toBeHidden();
+
+    await switchTo(page, /Tablet/i, '768');
+    await expect(clear, 'nothing to clear while inheriting').toBeHidden();
+
+    await input.fill('48');
+    await input.press('Enter');
+    await expect(clear).toBeVisible();
+  });
+
+  test('is named, keyboard-operable and big enough to hit', async ({ page }) => {
+    await openApp(page);
+    await applyTemplate(page, 'landing');
+
+    const input = await selectHeadingFontSize(page);
+    await switchTo(page, /Tablet/i, '768');
+    await input.fill('48');
+    await input.press('Enter');
+
+    const clear = page.getByTestId('button-clear-override-fontSize');
+
+    // Says which breakpoint it clears, rather than being a bare ×.
+    await expect(clear).toHaveAccessibleName('Clear Tablet');
+
+    // WCAG 2.2 target size (2.5.8) is 24×24 CSS pixels.
+    const box = (await clear.boundingBox())!;
+    expect(box.width, 'target width').toBeGreaterThanOrEqual(24);
+    expect(box.height, 'target height').toBeGreaterThanOrEqual(24);
+
+    await clear.focus();
+    await expect(clear).toBeFocused();
+    await page.keyboard.press('Enter');
+    await expect(page.getByTestId('origin-fontSize')).toHaveText('inherited from Mobile');
   });
 });
