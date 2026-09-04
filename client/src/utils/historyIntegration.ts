@@ -11,9 +11,9 @@ let isMiddlewareActive = false;
 let lastImmediateRecordAt = 0;
 
 // How long after an immediate action a debounced change still counts as part of
-// it. Comfortably covers the 800ms debounce below, while staying short enough
-// that a separate deliberate edit lands on its own entry.
-const COALESCE_WINDOW_MS = 2000;
+// it. Slightly longer than the 800ms debounce below, while staying short
+// enough that a separate deliberate edit lands on its own entry.
+const COALESCE_WINDOW_MS = 1000;
 
 /**
  * Add history middleware to an existing store (avoids circular dependencies)
