@@ -47,6 +47,7 @@ const trackHistoryForAction = (action: any) => {
   // Define actions that should be recorded in history
   const immediateActions: Record<string, string> = {
     'canvas/addElement': 'Add element',
+    'canvas/applyStarterTemplate': 'Apply template',
     'canvas/deleteElement': 'Delete element',
     'canvas/moveElement': 'Move element',
     'canvas/duplicateElement': 'Duplicate element',

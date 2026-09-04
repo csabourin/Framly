@@ -215,6 +215,34 @@ const canvasSlice = createSlice({
       canvasSlice.caseReducers.saveToHistory(state);
     },
 
+    /**
+     * Insert a whole starter-template subtree in one action.
+     *
+     * Appends rather than replaces, so applying a template can never discard
+     * existing work, and so a single history entry covers the whole insert
+     * instead of one per element.
+     */
+    applyStarterTemplate: (state, action: PayloadAction<{
+      elements: Record<string, CanvasElement>;
+      rootChildIds: string[];
+    }>) => {
+      const currentTab = getCurrentTab(state);
+      if (!currentTab) return;
+
+      const { elements, rootChildIds } = action.payload;
+      const root = currentTab.elements.root;
+      if (!root) return;
+
+      Object.entries(elements).forEach(([id, element]) => {
+        currentTab.elements[id] = element;
+      });
+
+      root.children = [...(root.children || []), ...rootChildIds];
+      currentTab.viewSettings.selectedElementId = rootChildIds[0] || 'root';
+      currentTab.updatedAt = Date.now();
+      canvasSlice.caseReducers.saveToHistory(state);
+    },
+
     updateElement: (state, action: PayloadAction<{ id: string; updates: Partial<CanvasElement> }>) => {
       const currentTab = getCurrentTab(state);
       if (!currentTab) return;
@@ -1058,6 +1086,7 @@ const canvasSlice = createSlice({
 export const {
   selectElement,
   addElement,
+  applyStarterTemplate,
   updateElement,
   updateElementStyles,
   deleteElement,

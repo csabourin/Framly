@@ -1,5 +1,10 @@
 import React, { useRef, useCallback, useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { applyStarterTemplate } from '../../store/canvasSlice';
+import { buildTemplate, type StarterTemplate } from '../../utils/starterTemplates';
+import EmptyCanvasState from './EmptyCanvasState';
+import TemplateGalleryModal from './TemplateGalleryModal';
 import {
   selectSelectedElementId,
   selectHoveredElementId,
@@ -39,6 +44,13 @@ import SelectionRectangle from './components/SelectionRectangle';
  */
 const Canvas: React.FC = () => {
   const canvasRef = useRef<HTMLDivElement>(null);
+  const dispatch = useDispatch();
+  const { t } = useTranslation();
+
+  // Starter templates, offered while the design is still empty
+  const [isTemplateGalleryOpen, setIsTemplateGalleryOpen] = useState(false);
+  const [templateAnnouncement, setTemplateAnnouncement] = useState('');
+  const templateTriggerRef = useRef<HTMLElement | null>(null);
 
   // Sync color mode changes with canvas refresh
   useColorModeCanvasSync();
@@ -216,6 +228,59 @@ const Canvas: React.FC = () => {
     }
   }, [drawingEvents]);
 
+  const focusCanvas = useCallback(() => {
+    window.requestAnimationFrame(() => {
+      document
+        .querySelector<HTMLElement>('[data-testid="canvas-scroll-container"]')
+        ?.focus();
+    });
+  }, []);
+
+  const handleOpenTemplateGallery = useCallback(() => {
+    templateTriggerRef.current = document.activeElement as HTMLElement | null;
+    setIsTemplateGalleryOpen(true);
+  }, []);
+
+  // Radix does not restore focus to the trigger here, so dismissing the gallery
+  // would drop a keyboard user on <body>. Put focus back where they left it.
+  const handleCloseTemplateGallery = useCallback(() => {
+    setIsTemplateGalleryOpen(false);
+    const trigger = templateTriggerRef.current;
+    window.requestAnimationFrame(() => {
+      if (trigger && document.contains(trigger)) {
+        trigger.focus();
+      } else {
+        document
+          .querySelector<HTMLElement>('[data-testid="canvas-scroll-container"]')
+          ?.focus();
+      }
+    });
+  }, []);
+
+  const handleApplyTemplate = useCallback((template: StarterTemplate) => {
+    const { elements, rootChildIds } = buildTemplate(template);
+    dispatch(applyStarterTemplate({ elements, rootChildIds }));
+    setIsTemplateGalleryOpen(false);
+
+    // The gallery's trigger lives in the empty state, which unmounts the moment
+    // the template lands - so returning focus to it is not an option. Move focus
+    // to the canvas instead, and say what happened for anyone not watching it.
+    const elementCount = Object.keys(elements).length;
+    setTemplateAnnouncement(
+      t('templates.applied', { name: t(template.nameKey), total: elementCount })
+    );
+    focusCanvas();
+  }, [dispatch, t, focusCanvas]);
+
+  // Clear the announcement so re-applying the same template announces again
+  useEffect(() => {
+    if (!templateAnnouncement) return;
+    const timer = window.setTimeout(() => setTemplateAnnouncement(''), 5000);
+    return () => window.clearTimeout(timer);
+  }, [templateAnnouncement]);
+
+  const isCanvasEmpty = (rootElement?.children || []).length === 0;
+
   return (
     <CanvasContainer
       canvasRef={canvasRef}
@@ -286,6 +351,21 @@ const Canvas: React.FC = () => {
 
       {/* Selection Rectangle for Multi-Select */}
       <SelectionRectangle />
+
+      {/* First-run guidance, replaced by the design as soon as it has content */}
+      {isCanvasEmpty && (
+        <EmptyCanvasState onBrowseTemplates={handleOpenTemplateGallery} />
+      )}
+
+      <TemplateGalleryModal
+        isOpen={isTemplateGalleryOpen}
+        onClose={handleCloseTemplateGallery}
+        onSelect={handleApplyTemplate}
+      />
+
+      <div className="sr-only" aria-live="polite" aria-atomic="true" data-testid="template-announcer">
+        {templateAnnouncement}
+      </div>
 
     </CanvasContainer>
   );

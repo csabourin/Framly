@@ -444,5 +444,29 @@
     "vh": "Hauteur Viewport",
     "vw": "Largeur Viewport",
     "auto": "Auto"
+  },
+  "emptyCanvas": {
+    "title": "Commencez votre design",
+    "description": "Choisissez un outil dans la barre de gauche et tracez sur le canevas — ou partez d'un modèle.",
+    "browseTemplates": "Parcourir les modèles"
+  },
+  "templates": {
+    "galleryTitle": "Modèles de départ",
+    "galleryDescription": "Choisissez un point de départ. Tout ce qui est ajouté est constitué d'éléments ordinaires que vous pouvez modifier, restyler ou supprimer.",
+    "elementCount_one": "{{count}} élément",
+    "elementCount_other": "{{count}} éléments",
+    "applied": "Modèle « {{name}} » appliqué. {{total}} éléments ajoutés au canevas.",
+    "landing": {
+      "name": "Page d'accueil",
+      "description": "En-tête avec titre, texte d'accompagnement et appel à l'action."
+    },
+    "article": {
+      "name": "Article",
+      "description": "Titre, signature, image et corps de texte pour un billet ou une nouvelle."
+    },
+    "features": {
+      "name": "Liste de fonctionnalités",
+      "description": "Un titre suivi de trois cartes empilées, une par fonctionnalité."
+    }
   }
 }
