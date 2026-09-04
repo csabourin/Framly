@@ -1,14 +1,16 @@
 name: CI
 
+# Branches are covered by their pull request; running on both would double
+# every PR's runner minutes for the same commit.
 on:
   push:
-    branches: ['**']
+    branches: [main]
   pull_request:
   workflow_dispatch:
 
 # A newer push to the same branch makes the running one irrelevant.
 concurrency:
-  group: ci-${{ github.ref }}
+  group: ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
