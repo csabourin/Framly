@@ -1,90 +1,142 @@
-# Overview
+# Framly
 
-This is a WYSIWYG (What You See Is What You Get) web design tool, enabling users to visually create web designs through a drag-and-drop interface. It provides real-time previews and code generation capabilities, allowing users to design responsive layouts, manage design elements, and export their creations as HTML/CSS or React components. The application emphasizes a local-first approach with IndexedDB for persistent storage of user workspaces, components, and custom CSS classes, and is fully PWA-compliant with offline functionality.
+A web editor a beginner can open without knowing HTML, a designer can work in
+without fighting it, and whose output a programmer would approve in review.
+
+The idea it is built on: **the box model is the truth of the web.** Figma, and
+most visual builders after it, treat a page as absolutely positioned rectangles
+and then translate. Framly does not translate — elements sit where real HTML
+elements sit, and the box around them is visible, draggable and named. Learning
+Framly is learning the web.
+
+Three promises, in priority order. When two conflict, the higher one wins:
+
+1. **The output is correct.** Semantic, accessible, readable HTML and CSS.
+2. **The box model is visible.** Spacing is seen and dragged, not guessed.
+3. **You cannot easily make something broken.** Guardrails, in plain language,
+   at the moment of the mistake.
+
+**`TODO.md` is the roadmap** — sequenced, one next action at the top. Work from
+it.
+
+**Before any UI or visual work, read `docs/interface.md`.** It is the interface
+direction: the palette (and the rule that colour only ever means something), the
+type pairing, the four-surface layout, and what was deliberately removed.
+`docs/interface-proposal.html` is the rendered mockup — open it in a browser.
+Both live in the repo so neither depends on a link surviving; the same mockup is
+published at
+<https://claude.ai/code/artifact/53e406a7-bce7-4538-a8b5-384a0d99f668>.
 
 # User Preferences
 
 Preferred communication style: Simple, everyday language.
 
-## Design Tool Principles
-- **DOM Flow Integrity**: Elements must position exactly like real HTML elements, respecting DOM order unless explicitly positioned (dragged)
-- **No Artificial Offsets**: Copy/paste and duplicate operations should never apply position offsets - elements appear in their natural DOM flow position
-- **HTML-First Approach**: All positioning and layout must follow standard HTML/CSS behavior
+# Non-negotiables
 
-# System Architecture
+- **Accessibility is a gate, not a goal.** Pages Framly produces must have zero
+  axe violations (WCAG 2.2 AA). Framly's own violations are capped by a
+  ratcheting baseline that may only shrink. Both are enforced in CI.
+- **DOM flow integrity.** Elements position exactly like real HTML elements,
+  respecting DOM order unless explicitly positioned by dragging. Copy, paste and
+  duplicate never apply an offset. Absolute positioning is the exception the
+  tool exists to avoid, never the default.
+- **The code generator stays DOM-optional.** `utils/codeGenerator.ts` is a pure
+  transformation, tested in Node. Reaching for `DOMParser` or `document` without
+  a fallback breaks that and rules out ever exporting outside a browser.
+- **No dead code.** `tests/deadcode.spec.ts` walks the import graph from
+  `main.tsx` and fails on anything reachable from nothing.
 
-## Frontend Architecture
-- **Framework**: React 18 with TypeScript.
-- **State Management**: Redux Toolkit.
-- **UI Components**: Radix UI primitives with shadcn/ui components.
-- **Styling**: Tailwind CSS with custom CSS variables.
-- **Build System**: Vite.
-- **Routing**: Wouter.
+# Working on this
 
-## Modular Design System Architecture (August 28, 2025)
-- **Canvas Modularization**: Refactored 1000+ line Canvas component into modular architecture following detailed refactoring plan:
-  - **Phase 1**: Event Hooks - `useCanvasEvents`, `useDrawingEvents`, `useDragAndDrop` for separated event handling
-  - **Phase 2**: Visual Components - `InsertionIndicator`, `DrawingOverlay`, `SelectionOverlay`, `CanvasContainer` for reusable UI feedback
-  - **Phase 3**: Utility Modules - `canvasGeometry` for coordinate math and `insertionLogic` for drop-zone detection
-  - **Phase 4**: Tool Handlers - planned as `SelectionTool`, `DrawingTools`, `HandTool`, but those files were never wired up and were deleted in M0.4. Tool behaviour lives in the `useToolHandler` hook instead.
-- **Architecture Benefits**: Single responsibility modules, improved maintainability, better testability, enhanced performance, smaller focused files (150-line Canvas orchestrator vs 1000+ line monolith)
-- **Functionality Preserved**: All original Canvas functionality maintained including toolbar element insertion, drawing tools, drag-and-drop, keyboard shortcuts, and point-and-click creation tools
+```bash
+npm run dev     # dev server on :5174
+npm run check   # tsc — Vite does NOT typecheck, so this is the only type gate
+npm test        # Playwright suite, against the production build
+npm run build   # client bundle + esbuild server bundle
+```
 
-## Backend Architecture
-- **Runtime**: Node.js with Express.js.
-- **Language**: TypeScript.
-- **Database**: PostgreSQL with Drizzle ORM (currently in-memory, configured for future integration).
-- **Session Management**: Express session handling.
+`npm run check` uses an incremental cache (`node_modules/typescript/tsbuildinfo`).
+Delete it when you want a genuinely cold check.
 
-## Data Storage Solutions
-- **Primary Storage**: IndexedDB for all application data (projects, components, custom classes, categories).
-- **Auto-save System**: Automatic workspace and custom class saving every 5 seconds.
-- **Local-First Approach**: Designed to work offline.
-- **Data Export/Import**: JSON-based backup and restore.
-- **Undo/Redo**: Persistent history management with IndexedDB and smart debouncing.
+CI runs typecheck, build and tests on every PR. Three gates each fail on a
+deliberately introduced regression — that was verified, and any new gate should
+be too. A check that cannot fail is worthless.
 
-## Design Tool Features
-- **Canvas System**: Interactive design canvas with zoom, grid, element manipulation, and extended drawing area with smart canvas sizing.
-- **Element Types**: Supports rectangles, text, images, and containers with flexbox layout, including comprehensive image properties and button design system.
-- **Responsive Design**: Multiple breakpoint support.
-- **Code Generation**: Automatic HTML/CSS and React component generation.
-- **Export Options**: HTML files and component code.
-- **Styling**: Class-based styling only; inline styles disabled. Automatic generation of new classes for property changes.
-- **Text Editing**: Natural inline text editing for elements and buttons.
-- **Advanced CSS Management**: Isolated component editing, dynamic CSS class management, and CSS optimization.
-- **Component System**: Comprehensive component management with definitions, instances, tabbed editor, propagation system, and context menu operations.
-- **Tooling**: Intelligent tool persistence (creation tools stay active).
-- **Website Import**: Imports HTML structure, extracts and scopes CSS, integrates custom classes, and manages assets.
-- **Drag and Drop**: Full HTML5 drag and drop system for element reordering and placement.
-- **Keyboard Shortcuts**: Comprehensive, platform-aware keyboard shortcut system with searchable cheatsheet.
-- **Modular Architecture**: Refactored Canvas component from 1000+ lines to modular architecture with separated concerns for better maintainability and testing.
+| Gate | Behaviour |
+|---|---|
+| `tests/axe-baseline.json` | Framly's own known AA violations. Fails on a new rule or a worse count; reports when a number can come down. Lower it as you fix things. |
+| Exported-page a11y | Zero violations, no baseline. This is promise #1. |
+| `tests/deadcode.spec.ts` | Fails on any unreachable file. `components/ui/*` is exempt. |
 
-## Authentication and Authorization
-- **Current Implementation**: Basic session-based authentication.
-- **Future Ready**: Designed for OAuth or JWT integration.
+# Architecture
 
-# External Dependencies
+## Frontend
 
-## Database Services
-- **Neon Database**: Serverless PostgreSQL provider via @neondatabase/serverless.
+- **React 18 + TypeScript**, **Redux Toolkit**, **Vite**, **Wouter** (one route).
+- **Tailwind CSS** with CSS variables; **Radix UI** via **shadcn/ui**.
+- **i18n**: `react-i18next`, English and French, both kept in step.
 
-## UI and Styling Libraries
-- **Radix UI**: Accessible, unstyled UI primitives.
-- **Tailwind CSS**: Utility-first CSS framework.
-- **Lucide React**: Icon library.
-- **Class Variance Authority**: For type-safe component variants.
-- **CLSX/Tailwind Merge**: Dynamic className management.
+Canvas is split into an orchestrator plus hooks (`useCanvasEvents`,
+`useDrawingEvents`, `useDragAndDrop`, `useToolHandler`), visual components
+(`InsertionIndicator`, `DrawingOverlay`, `SelectionOverlay`, `CanvasContainer`)
+and utilities (`canvasGeometry` for coordinate math, `insertionLogic` for
+drop-zone detection). `CanvasElement.tsx` renders the tree recursively.
 
-## Development and Build Tools
-- **Vite**: Modern build tool.
-- **TypeScript**: Static type checking.
-- **ESBuild**: Fast JavaScript bundler.
+## Backend
 
-## State Management and Data Fetching
-- **TanStack Query**: Server state management.
-- **React Hook Form**: Form handling.
-- **Zod**: Schema validation library.
+**There is effectively no backend.** `server/index.ts` sets a CSP header and
+serves the built client through Express. There are no API routes, no database,
+no sessions and no authentication. Everything is client-side.
 
-## Utility Libraries
-- **Date-fns**: Date manipulation.
-- **Nanoid**: Unique ID generation.
+`package.json` still declares `drizzle-orm`, `@neondatabase/serverless`,
+`express-session`, `passport`, `zod`, `date-fns` and `jsdom` — **all unused, in
+zero files**. The `db:push` script points at a `drizzle.config.ts` that does not
+exist and cannot run. `server/import-service.ts` is imported by nothing and has
+its jsdom import commented out. Treat all of this as leftovers, not architecture.
+
+`@tanstack/react-query` is wired up in `App.tsx` but there is not a single
+`useQuery` or `useMutation`; it is scaffolding for an API that does not exist.
+
+## Storage
+
+- **IndexedDB is the only storage** — projects, components, custom classes,
+  categories, undo history, uploaded images.
+- **Autosave runs every 30 seconds** (`AUTO_SAVE_INTERVAL` in
+  `utils/persistence.ts`). A refresh within 30s of an edit loses it.
+- **Undo/redo persists across sessions.** After a reload, Ctrl+Z undoes the
+  previous session's last action; Ctrl+Y restores it. One history system only —
+  `historySlice` plus `historyManager`. The canvas slice has no stack.
+- **JSON export/import** for backup and transfer, via `PersistenceStatus`.
+- PWA: service worker registered in production, unregistered in dev.
+
+# Features, honestly
+
+Working and tested: 24 element types; four breakpoints; drawing and
+point-and-click insertion; HTML5 drag-and-drop reordering; inline text editing;
+starter templates on an empty canvas; undo/redo; semantic HTML/CSS export;
+keyboard shortcuts with a searchable cheatsheet; light/dark colour modes.
+
+Partly built — treat with care before extending:
+
+- **Component system** (definitions, instances, propagation, tabbed editor)
+  works but is thin, and is due to be rebuilt on shared classes in M4.
+- **Website import** is half-finished and parked until M4.
+- **CSS optimiser** exists to undo the bloat caused by generating one class per
+  element. M4 fixes the cause and deletes it.
+- **PNG/PDF export** is deliberately disabled and labelled "Coming soon".
+- **React export** is generated but not a maintained output format.
+
+## A known tension
+
+"Class-based styling, no inline styles" is the stated principle, but the
+implementation generates a *unique class per element* — inline styles with extra
+steps, and the reason the CSS optimiser exists. Shared, reusable classes are
+M4. Do not build more on top of per-element classes until then.
+
+# External dependencies that are actually used
+
+- **Radix UI** — accessible unstyled primitives, via shadcn/ui.
+- **Tailwind CSS**, **CLSX** / **tailwind-merge**, **Class Variance Authority**.
+- **Lucide React** — icons.
+- **Redux Toolkit**, **react-i18next**, **nanoid**.
+- **Playwright** + **axe-core** — tests and the accessibility gates.

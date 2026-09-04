@@ -1,0 +1,859 @@
+<title>Framly Interface</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;450;500;600&display=swap">
+<style>
+  /* ============================================================
+     FRAMLY — interface proposal
+     Direction: the drafting table. Colour is never decoration;
+     it always means something. The chrome is ink and paper, so
+     the only saturated things on screen are the user's design
+     and the box-model overlay that measures it.
+     ============================================================ */
+
+  :root {
+    /* Neutrals — cool-biased, the grey of drafting stock, not cream, not pure grey */
+    --paper:        #FFFFFF;   /* panel surfaces */
+    --paper-2:      #F7F8F6;   /* recessed wells, inputs */
+    --ground:       #E8EAE6;   /* canvas backdrop; the artboard reads white against it */
+    --rule:         #D9DCD7;   /* hairlines. The only separator we own */
+    --rule-strong:  #BFC4BD;
+
+    --ink:          #191C1A;   /* primary text, primary actions, selection */
+    --ink-2:        #5A605C;   /* secondary */
+    --ink-3:        #8C938E;   /* tertiary, placeholders */
+    --ink-inv:      #F7F8F6;
+
+    /* Box model — the one colour code every web person already knows,
+       desaturated to survive being laid over a real design. Reserved:
+       these four hues appear nowhere else in the interface. */
+    --box-margin:   #D99A3C;
+    --box-border:   #77879A;
+    --box-padding:  #56996B;
+    --box-content:  #5688D6;
+
+    /* Verdicts. Also reserved — never used as accent. */
+    --ok:           #3F7D53;
+    --warn:         #A9761E;
+    --stop:         #A8412F;
+
+    --shadow-pop:   0 8px 24px -6px rgb(25 28 26 / 0.18), 0 2px 6px -2px rgb(25 28 26 / 0.12);
+
+    --r-control: 4px;
+    --r-panel:   6px;
+
+    --t-fast: 120ms;
+    --t-move: 180ms;
+
+    color-scheme: light;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper:       #1C1F1D;
+      --paper-2:     #232725;
+      --ground:      #141614;
+      --rule:        #2E332F;
+      --rule-strong: #434A45;
+      --ink:         #E9EBE8;
+      --ink-2:       #A2A9A4;
+      --ink-3:       #737A75;
+      --ink-inv:     #191C1A;
+      --box-margin:  #D9A555;
+      --box-border:  #8C9BAC;
+      --box-padding: #6BAD80;
+      --box-content: #7BA3E4;
+      --ok:          #6FA982;
+      --warn:        #C99A45;
+      --stop:        #CC7060;
+      --shadow-pop:  0 8px 24px -6px rgb(0 0 0 / 0.55), 0 2px 6px -2px rgb(0 0 0 / 0.4);
+      color-scheme: dark;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --paper:       #1C1F1D;
+    --paper-2:     #232725;
+    --ground:      #141614;
+    --rule:        #2E332F;
+    --rule-strong: #434A45;
+    --ink:         #E9EBE8;
+    --ink-2:       #A2A9A4;
+    --ink-3:       #737A75;
+    --ink-inv:     #191C1A;
+    --box-margin:  #D9A555;
+    --box-border:  #8C9BAC;
+    --box-padding: #6BAD80;
+    --box-content: #7BA3E4;
+    --ok:          #6FA982;
+    --warn:        #C99A45;
+    --stop:        #CC7060;
+    --shadow-pop:  0 8px 24px -6px rgb(0 0 0 / 0.55), 0 2px 6px -2px rgb(0 0 0 / 0.4);
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 13px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .mono {
+    font-family: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Section label: mono, small caps-ish, the annotation voice of a drawing */
+  .anno {
+    font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  .page {
+    max-width: 1420px;
+    margin: 0 auto;
+    padding: 28px 20px 72px;
+  }
+
+  /* ---------------------------------------------------------- masthead */
+  .masthead {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 8px 18px;
+    margin-bottom: 20px;
+  }
+  .masthead h1 {
+    font-size: 19px;
+    font-weight: 600;
+    letter-spacing: -0.012em;
+    margin: 0;
+  }
+  .masthead p {
+    margin: 0;
+    color: var(--ink-2);
+    max-width: 62ch;
+  }
+
+  /* ============================================================
+     THE APPLICATION FRAME
+     Four surfaces, not six: top rail, left panel, canvas, inspector.
+     ============================================================ */
+  .app {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: var(--r-panel);
+    overflow: hidden;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    min-height: 620px;
+  }
+
+  /* ---------------------------------------------------------- top rail */
+  .rail {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 0 12px;
+    height: 46px;
+    border-bottom: 1px solid var(--rule);
+    background: var(--paper);
+  }
+
+  .wordmark {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    font-size: 14px;
+  }
+  /* The mark is the box model itself: three nested rectangles. */
+  .mark { display: block; }
+
+  .rail-div { width: 1px; height: 20px; background: var(--rule); }
+
+  .projname {
+    font-weight: 450;
+    color: var(--ink);
+    background: none;
+    border: 1px solid transparent;
+    border-radius: var(--r-control);
+    padding: 4px 7px;
+    font: inherit;
+    min-width: 150px;
+  }
+  .projname:hover { border-color: var(--rule); }
+  .projname:focus { border-color: var(--ink); outline: none; }
+
+  /* Breakpoints promoted out of the status bar — it is the control you
+     reach for most, and it belongs beside the canvas it changes. */
+  .bps {
+    display: flex;
+    align-items: stretch;
+    border: 1px solid var(--rule);
+    border-radius: var(--r-control);
+    overflow: hidden;
+  }
+  .bp {
+    appearance: none;
+    background: var(--paper);
+    border: 0;
+    border-right: 1px solid var(--rule);
+    color: var(--ink-2);
+    font: inherit;
+    font-size: 12px;
+    padding: 5px 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: background var(--t-fast) ease, color var(--t-fast) ease;
+  }
+  .bp:last-child { border-right: 0; }
+  .bp:hover { background: var(--paper-2); color: var(--ink); }
+  .bp[aria-pressed="true"] {
+    background: var(--ink);
+    color: var(--ink-inv);
+  }
+  .bp .w {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10px;
+    opacity: 0.65;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .rail-right { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+
+  /* Checks: the accessibility conscience, always on, never a modal */
+  .checks {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 4px 9px 4px 7px;
+    border: 1px solid var(--rule);
+    border-radius: var(--r-control);
+    background: var(--paper);
+    color: var(--ink-2);
+    font: inherit;
+    font-size: 12px;
+    cursor: pointer;
+  }
+  .checks:hover { background: var(--paper-2); }
+  .dot { width: 7px; height: 7px; border-radius: 50%; flex: none; }
+  .dot.ok { background: var(--ok); }
+  .dot.warn { background: var(--warn); }
+
+  .btn {
+    font: inherit;
+    font-size: 12px;
+    border-radius: var(--r-control);
+    padding: 6px 11px;
+    cursor: pointer;
+    border: 1px solid var(--rule);
+    background: var(--paper);
+    color: var(--ink);
+    transition: background var(--t-fast) ease;
+  }
+  .btn:hover { background: var(--paper-2); }
+  .btn-primary {
+    background: var(--ink);
+    color: var(--ink-inv);
+    border-color: var(--ink);
+  }
+  .btn-primary:hover { background: #000; }
+  :root[data-theme="dark"] .btn-primary:hover { background: #fff; }
+
+  /* ---------------------------------------------------------- 3-column body */
+  .body {
+    display: grid;
+    grid-template-columns: 218px minmax(0, 1fr) 268px;
+    min-height: 0;
+  }
+
+  .panel { background: var(--paper); display: flex; flex-direction: column; min-width: 0; }
+  .panel-l { border-right: 1px solid var(--rule); }
+  .panel-r { border-left: 1px solid var(--rule); }
+
+  .seg {
+    display: flex;
+    padding: 8px;
+    gap: 2px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .seg button {
+    flex: 1;
+    font: inherit;
+    font-size: 12px;
+    padding: 5px 0;
+    border: 0;
+    border-radius: var(--r-control);
+    background: none;
+    color: var(--ink-2);
+    cursor: pointer;
+  }
+  .seg button[aria-selected="true"] { background: var(--paper-2); color: var(--ink); font-weight: 500; }
+
+  .search {
+    margin: 8px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    border: 1px solid var(--rule);
+    border-radius: var(--r-control);
+    background: var(--paper-2);
+    padding: 5px 8px;
+    color: var(--ink-3);
+  }
+  .search input {
+    border: 0; background: none; font: inherit; font-size: 12px;
+    color: var(--ink); width: 100%; outline: none;
+  }
+
+  .grouphead { padding: 10px 12px 5px; }
+
+  /* Insert list: named, not sixteen glyphs to guess at */
+  .ins { display: flex; flex-direction: column; padding: 0 6px 8px; }
+  .ins button {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    width: 100%;
+    text-align: left;
+    font: inherit;
+    font-size: 12.5px;
+    color: var(--ink);
+    background: none;
+    border: 0;
+    border-radius: var(--r-control);
+    padding: 5px 6px;
+    cursor: grab;
+  }
+  .ins button:hover { background: var(--paper-2); }
+  .ins .tag {
+    margin-left: auto;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10.5px;
+    color: var(--ink-3);
+  }
+  .glyph { width: 15px; height: 15px; flex: none; color: var(--ink-2); }
+
+  /* ---------------------------------------------------------- canvas */
+  .canvas {
+    background: var(--ground);
+    padding: 30px 24px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  .board-wrap { position: relative; }
+
+  .board-anno {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 7px;
+  }
+
+  .board {
+    width: 448px;
+    max-width: 100%;
+    background: #fff;
+    border: 1px solid var(--rule-strong);
+    position: relative;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    /* The artboard is the user's page: it stays white in both themes,
+       because it is not part of our interface. */
+    color: #0F172A;
+  }
+
+  .hero {
+    background: #EFF4FB;
+    padding: 22px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+  }
+  .hero h2 { margin: 0; font-size: 22px; line-height: 1.18; font-weight: 600; letter-spacing: -0.02em; color: #0F172A; text-wrap: balance; }
+  .hero p  { margin: 0; font-size: 12.5px; line-height: 1.6; color: #334155; }
+
+  /* --- the selected element, wearing its box model --- */
+  .sel-wrap { position: relative; align-self: flex-start; }
+
+  .m-box { padding: 12px; position: relative; }          /* margin band */
+  .b-box { padding: 3px; }                                /* border band */
+  .p-box { padding: 11px 20px; }                          /* padding band */
+  .m-box { background: color-mix(in srgb, var(--box-margin) 38%, transparent); }
+  .b-box { background: color-mix(in srgb, var(--box-border) 45%, transparent); }
+  .p-box { background: color-mix(in srgb, var(--box-padding) 40%, transparent); }
+  .c-box {
+    background: #0F172A;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 0;
+    line-height: 20px;
+    position: relative;
+  }
+  .c-box::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: color-mix(in srgb, var(--box-content) 55%, transparent);
+  }
+  .c-label { position: relative; z-index: 1; }
+
+  /* Selection edge: ink, never a hue — it must read over any design */
+  .sel-wrap::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    outline: 1.5px solid var(--ink);
+    outline-offset: 0;
+    pointer-events: none;
+  }
+
+  /* Dimension line, drawn the way a drawing draws one */
+  .dim {
+    position: absolute;
+    left: calc(100% + 4px);
+    top: 12px;
+    bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+  }
+  .dim-label {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10px;
+    color: var(--ink-2);
+    background: var(--paper);
+    padding: 1px 4px;
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+  }
+
+  .lgnd {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 12px;
+    margin-top: 9px;
+  }
+  .lgnd span { display: flex; align-items: center; gap: 5px; font-size: 10.5px; color: var(--ink-2); }
+  .sw { width: 9px; height: 9px; border-radius: 1px; flex: none; }
+
+  .list-a { margin: 0; padding-left: 17px; font-size: 12.5px; color: #334155; line-height: 1.75; }
+  .h3-a { margin: 0; font-size: 15px; font-weight: 600; color: #0F172A; }
+
+  /* ---------------------------------------------------------- inspector */
+  .insp { overflow: hidden; display: flex; flex-direction: column; }
+  .insp-head {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .insp-head .name { font-weight: 500; }
+  .insp-head .mono { font-size: 10.5px; color: var(--ink-3); margin-left: auto; }
+
+  .sect { border-bottom: 1px solid var(--rule); padding: 11px 12px 13px; }
+  .sect > .anno { display: block; margin-bottom: 9px; }
+
+  /* Plain language leads; the CSS term follows in mono.
+     Beginners are never blocked, and they learn the real word. */
+  .field { display: flex; align-items: center; gap: 8px; margin-bottom: 7px; }
+  .field:last-child { margin-bottom: 0; }
+  .field .lbl { display: flex; flex-direction: column; line-height: 1.25; min-width: 92px; }
+  .field .lbl b { font-weight: 450; font-size: 12.5px; }
+  .field .lbl code {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10px;
+    color: var(--ink-3);
+  }
+
+  .steps { display: flex; margin-left: auto; border: 1px solid var(--rule); border-radius: var(--r-control); overflow: hidden; }
+  .steps button {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    border: 0;
+    border-right: 1px solid var(--rule);
+    background: var(--paper);
+    color: var(--ink-2);
+    padding: 3px 6px;
+    cursor: pointer;
+    min-width: 26px;
+  }
+  .steps button:last-child { border-right: 0; }
+  .steps button:hover { background: var(--paper-2); color: var(--ink); }
+  .steps button[aria-pressed="true"] { background: var(--ink); color: var(--ink-inv); }
+
+  .val {
+    margin-left: auto;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11.5px;
+    border: 1px solid var(--rule);
+    border-radius: var(--r-control);
+    background: var(--paper-2);
+    padding: 3px 7px;
+    width: 76px;
+    color: var(--ink);
+  }
+
+  .swatch-row { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+  .swatch {
+    width: 20px; height: 20px; border-radius: 3px;
+    border: 1px solid var(--rule-strong);
+    background: #0F172A;
+    flex: none;
+  }
+  .ratio {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 10.5px;
+    color: var(--ok);
+    display: flex; align-items: center; gap: 4px;
+  }
+
+  /* A check, stated where the problem is, in plain words */
+  .note {
+    display: flex;
+    gap: 8px;
+    padding: 9px 10px;
+    background: var(--paper-2);
+    border-left: 2px solid var(--warn);
+    font-size: 12px;
+    color: var(--ink-2);
+    line-height: 1.45;
+  }
+  .note b { color: var(--ink); font-weight: 500; }
+
+  /* ============================================================
+     DESIGN NOTES
+     ============================================================ */
+  .notes { margin-top: 40px; display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(258px, 1fr)); }
+  .note-card {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: var(--r-panel);
+    padding: 16px 17px 18px;
+  }
+  .note-card h3 { margin: 9px 0 7px; font-size: 14px; font-weight: 600; letter-spacing: -0.008em; }
+  .note-card p { margin: 0 0 9px; color: var(--ink-2); font-size: 12.5px; line-height: 1.6; }
+  .note-card p:last-child { margin-bottom: 0; }
+  .note-card code { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; color: var(--ink); }
+
+  .ramp { display: flex; border-radius: 3px; overflow: hidden; border: 1px solid var(--rule); margin: 4px 0 10px; }
+  .ramp i { height: 26px; flex: 1; }
+
+  .spec { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .spec th, .spec td { text-align: left; padding: 5px 0; border-bottom: 1px solid var(--rule); vertical-align: baseline; }
+  .spec th { font-weight: 500; color: var(--ink-2); font-size: 11px; }
+  .spec tr:last-child td, .spec tr:last-child th { border-bottom: 0; }
+  .spec td.mono { color: var(--ink-2); font-size: 11px; }
+
+  .kills { list-style: none; margin: 0; padding: 0; }
+  .kills li {
+    display: flex; gap: 8px; padding: 6px 0;
+    border-bottom: 1px solid var(--rule); font-size: 12.5px; color: var(--ink-2);
+  }
+  .kills li:last-child { border-bottom: 0; }
+  .kills b { color: var(--ink); font-weight: 500; }
+
+  @media (max-width: 1080px) {
+    .body { grid-template-columns: 1fr; }
+    .panel-l, .panel-r { border: 0; border-bottom: 1px solid var(--rule); }
+    .canvas { padding: 22px 14px; }
+    .dim { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+  }
+</style>
+
+<div class="page">
+
+  <div class="masthead">
+    <h1>Framly — interface proposal</h1>
+    <p>Four surfaces instead of six. Colour reserved for meaning. The box model drawn on the canvas, measured, and named in both plain English and CSS.</p>
+  </div>
+
+  <!-- ==================== THE APP ==================== -->
+  <div class="app">
+
+    <header class="rail">
+      <span class="wordmark">
+        <svg class="mark" width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">
+          <rect x="0.75" y="0.75" width="16.5" height="16.5" fill="none" stroke="var(--box-margin)" stroke-width="1.5"/>
+          <rect x="4.25" y="4.25" width="9.5" height="9.5" fill="none" stroke="var(--box-padding)" stroke-width="1.5"/>
+          <rect x="7.5" y="7.5" width="3" height="3" fill="var(--ink)"/>
+        </svg>
+        Framly
+      </span>
+
+      <span class="rail-div"></span>
+      <input class="projname" value="Northside Cycles" aria-label="Project name">
+
+      <span class="rail-div"></span>
+      <div class="bps" role="group" aria-label="Breakpoint">
+        <button class="bp" aria-pressed="false">Phone <span class="w">375</span></button>
+        <button class="bp" aria-pressed="true">Tablet <span class="w">768</span></button>
+        <button class="bp" aria-pressed="false">Laptop <span class="w">1024</span></button>
+        <button class="bp" aria-pressed="false">Desktop <span class="w">1440</span></button>
+      </div>
+
+      <div class="rail-right">
+        <button class="checks">
+          <span class="dot warn" aria-hidden="true"></span>
+          Checks <span class="mono" style="font-size:11px">1</span>
+        </button>
+        <button class="btn">Preview</button>
+        <button class="btn btn-primary">Export</button>
+      </div>
+    </header>
+
+    <div class="body">
+
+      <!-- ---------- LEFT: insert / layers ---------- -->
+      <aside class="panel panel-l">
+        <div class="seg" role="tablist" aria-label="Left panel">
+          <button role="tab" aria-selected="true">Insert</button>
+          <button role="tab" aria-selected="false">Layers</button>
+        </div>
+
+        <div class="search">
+          <svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="4.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M10.5 10.5 L14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <input placeholder="Search elements" aria-label="Search elements">
+        </div>
+
+        <span class="anno grouphead">Common</span>
+        <div class="ins">
+          <button><svg class="glyph" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 4h12M2 8h9M2 12h11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg> Text <span class="tag">p</span></button>
+          <button><svg class="glyph" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 12V4h2.5M6.5 4H4.25M4.25 4v8M9.5 12V7h4M13.5 7v5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg> Heading <span class="tag">h2</span></button>
+          <button><svg class="glyph" viewBox="0 0 16 16" aria-hidden="true"><rect x="1.5" y="4.5" width="13" height="7" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg> Button <span class="tag">button</span></button>
+          <button><svg class="glyph" viewBox="0 0 16 16" aria-hidden="true"><rect x="1.5" y="2.5" width="13" height="11" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M1.5 10.5 5 7.5l3.5 3 2-1.5 3 2.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg> Image <span class="tag">img</span></button>
+          <button><svg class="glyph" viewBox="0 0 16 16" aria-hidden="true"><rect x="1.5" y="1.5" width="13" height="13" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M1.5 5.5h13" stroke="currentColor" stroke-width="1.5"/></svg> Box <span class="tag">div</span></button>
+          <button><svg class="glyph" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 4h10M3 8h10M3 12h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="1" cy="4" r="0.9" fill="currentColor"/><circle cx="1" cy="8" r="0.9" fill="currentColor"/><circle cx="1" cy="12" r="0.9" fill="currentColor"/></svg> List <span class="tag">ul</span></button>
+        </div>
+
+        <span class="anno grouphead">Page structure</span>
+        <div class="ins">
+          <button>Header <span class="tag">header</span></button>
+          <button>Navigation <span class="tag">nav</span></button>
+          <button>Main content <span class="tag">main</span></button>
+          <button>Section <span class="tag">section</span></button>
+          <button>Footer <span class="tag">footer</span></button>
+        </div>
+      </aside>
+
+      <!-- ---------- CENTRE: the canvas ---------- -->
+      <main class="canvas">
+        <div class="board-wrap">
+          <div class="board-anno">
+            <span class="anno">Tablet · 768</span>
+            <span class="anno">100%</span>
+          </div>
+
+          <div class="board">
+            <div class="hero">
+              <h2>Bikes built for the winter commute</h2>
+              <p>Hand-assembled in Gatineau, geared for hills, and fitted with lights that survive February.</p>
+
+              <!-- selected element, wearing its four boxes -->
+              <div class="sel-wrap">
+                <div class="m-box">
+                  <div class="b-box">
+                    <div class="p-box">
+                      <div class="c-box"><span class="c-label">Book a fitting</span></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="dim" aria-hidden="true">
+                  <svg width="9" height="100%" viewBox="0 0 9 96" preserveAspectRatio="none">
+                    <path d="M4.5 0 V96" stroke="var(--rule-strong)" stroke-width="1"/>
+                    <path d="M0 0.5 H9 M0 95.5 H9" stroke="var(--rule-strong)" stroke-width="1"/>
+                  </svg>
+                  <span class="dim-label">44px</span>
+                </div>
+              </div>
+            </div>
+
+            <h3 class="h3-a">What you get</h3>
+            <ul class="list-a">
+              <li>A frame sized to you, not to a chart</li>
+              <li>Winter tyres and fenders as standard</li>
+              <li>Free first service at 200&nbsp;km</li>
+            </ul>
+          </div>
+
+          <div class="lgnd">
+            <span><i class="sw" style="background:var(--box-margin)"></i> margin 12</span>
+            <span><i class="sw" style="background:var(--box-border)"></i> border 3</span>
+            <span><i class="sw" style="background:var(--box-padding)"></i> padding 11 · 20</span>
+            <span><i class="sw" style="background:var(--box-content)"></i> content 96 × 20</span>
+          </div>
+        </div>
+      </main>
+
+      <!-- ---------- RIGHT: inspector ---------- -->
+      <aside class="panel panel-r insp">
+        <div class="insp-head">
+          <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><rect x="1.5" y="4.5" width="13" height="7" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+          <span class="name">Button</span>
+          <span class="mono">button</span>
+        </div>
+
+        <div class="sect">
+          <span class="anno">Content</span>
+          <div class="field">
+            <span class="lbl"><b>Label</b></span>
+            <input class="val" style="width:118px" value="Book a fitting">
+          </div>
+        </div>
+
+        <div class="sect">
+          <span class="anno">Box</span>
+          <div class="field">
+            <span class="lbl"><b>Space inside</b><code>padding</code></span>
+            <div class="steps" role="group" aria-label="Padding">
+              <button>4</button><button>8</button><button aria-pressed="true">12</button><button>16</button><button>24</button>
+            </div>
+          </div>
+          <div class="field">
+            <span class="lbl"><b>Space outside</b><code>margin</code></span>
+            <div class="steps" role="group" aria-label="Margin">
+              <button>0</button><button>4</button><button>8</button><button aria-pressed="true">12</button><button>16</button>
+            </div>
+          </div>
+          <div class="field">
+            <span class="lbl"><b>Edge</b><code>border</code></span>
+            <input class="val" style="width:92px" value="3px solid">
+          </div>
+          <div class="field">
+            <span class="lbl"><b>Sits in</b><code>flow</code></span>
+            <span class="mono" style="margin-left:auto;font-size:11px;color:var(--ink-2)">column ↓ of .hero</span>
+          </div>
+        </div>
+
+        <div class="sect">
+          <span class="anno">Appearance</span>
+          <div class="field">
+            <span class="lbl"><b>Background</b><code>background</code></span>
+            <span class="swatch-row">
+              <span class="swatch"></span>
+              <span class="mono" style="font-size:11px;color:var(--ink-2)">#0F172A</span>
+            </span>
+          </div>
+          <div class="field">
+            <span class="lbl"><b>Text</b><code>color</code></span>
+            <span class="swatch-row">
+              <span class="swatch" style="background:#fff"></span>
+              <span class="ratio">
+                <svg width="11" height="11" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                16.1:1 AAA
+              </span>
+            </span>
+          </div>
+        </div>
+
+        <div class="sect" style="border-bottom:0">
+          <span class="anno">Checks</span>
+          <div class="note">
+            <svg width="13" height="13" viewBox="0 0 16 16" style="flex:none;margin-top:1px;color:var(--warn)" aria-hidden="true"><path d="M8 2.5 15 14H1z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M8 6.5v3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="8" cy="11.9" r="0.85" fill="currentColor"/></svg>
+            <span>This page jumps from <b>Heading 1</b> to <b>Heading 3</b>. Screen readers use that order to navigate. <b>Make it Heading 2 →</b></span>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <!-- ==================== DESIGN NOTES ==================== -->
+  <div class="notes">
+
+    <div class="note-card">
+      <span class="anno">01 · Palette</span>
+      <h3>Colour always means something</h3>
+      <div class="ramp" aria-hidden="true">
+        <i style="background:var(--box-margin)"></i>
+        <i style="background:var(--box-border)"></i>
+        <i style="background:var(--box-padding)"></i>
+        <i style="background:var(--box-content)"></i>
+      </div>
+      <p>The four hues above are reserved for margin, border, padding and content — the code every browser's dev tools already use, which is the code your users will meet next. They appear nowhere else.</p>
+      <p>Everything else is ink on paper: <code>#191C1A</code> on <code>#FFFFFF</code>, with a cool grey <code>#E8EAE6</code> ground. Primary buttons, selection edges and focus rings are all ink. No gradient, no brand hue.</p>
+      <p>Which means the only saturated things on screen are the user's design and the measurements of it. In a design tool that is not a style choice — it's a requirement. Purple chrome makes it impossible to judge your own colours.</p>
+    </div>
+
+    <div class="note-card">
+      <span class="anno">02 · Type</span>
+      <h3>Two voices, one family</h3>
+      <table class="spec">
+        <tr><th>Plain language</th><td class="mono">IBM Plex Sans 13/1.5</td></tr>
+        <tr><th>Values &amp; CSS</th><td class="mono">IBM Plex Mono 11</td></tr>
+        <tr><th>Annotations</th><td class="mono">Mono 10, +0.09em, caps</td></tr>
+        <tr><th>Panel titles</th><td class="mono">Sans 15/500</td></tr>
+      </table>
+      <p style="margin-top:10px">Plex was drawn for an engineering company and has a mono sibling by the same hand, so the pairing is one decision rather than two.</p>
+      <p>It does real work: every control reads <b>Space inside</b> in the sans and <code>padding</code> in the mono beneath it. A beginner is never blocked by jargon, and learns the actual word by the fourth time they see it. That single pattern is the whole "beginners and designers" brief, solved typographically.</p>
+    </div>
+
+    <div class="note-card">
+      <span class="anno">03 · Layout</span>
+      <h3>Four surfaces, not six</h3>
+      <table class="spec">
+        <tr><th>Top rail</th><td>Project, breakpoints, checks, export</td></tr>
+        <tr><th>Left</th><td>Insert / Layers — one panel, toggled</td></tr>
+        <tr><th>Centre</th><td>Canvas, the largest thing on screen</td></tr>
+        <tr><th>Right</th><td>Inspector, ordered as you think</td></tr>
+      </table>
+      <p style="margin-top:10px">Breakpoints move up out of the status bar — it's the control you reach for most and it belongs beside the thing it changes. The status bar goes entirely; element counts are not information.</p>
+      <p>The inspector is ordered <b>Content → Box → Appearance → Checks</b>: what it says, then the space around it, then how it looks. Not alphabetically, and not by CSS spec order.</p>
+    </div>
+
+    <div class="note-card">
+      <span class="anno">04 · The canvas</span>
+      <h3>A measured drawing</h3>
+      <p>Selecting anything draws its four boxes in place, with a dimension line and real numbers — the way a drawing is dimensioned, not the way a panel reports. You drag the bands directly; the numbers follow.</p>
+      <p>The selection edge is ink, 1.5px, never a hue — it has to stay legible over whatever the user has designed, including a blue button.</p>
+      <p>Spacing offers a scale (4 · 8 · 12 · 16 · 24) rather than a raw number field. Beginners get consistency by default; free entry stays one deliberate click away.</p>
+    </div>
+
+    <div class="note-card">
+      <span class="anno">05 · Checks</span>
+      <h3>A conscience, not a report</h3>
+      <p>The rail carries a live count. Problems are stated where they happen, in the words of the consequence rather than the rule: <b>"Screen readers use that order to navigate"</b>, not "WCAG 1.3.1".</p>
+      <p>Every check ends in a verb — <b>Make it Heading 2</b> — so the fix is one click, not homework. Contrast is shown while you pick the colour, not audited afterwards.</p>
+    </div>
+
+    <div class="note-card">
+      <span class="anno">06 · Removed</span>
+      <h3>What goes, and why</h3>
+      <ul class="kills">
+        <li><b>Gradients</b> — they read as decoration and compete with the user's work.</li>
+        <li><b>Emoji in the UI</b> — ✅ in a panel is a placeholder that shipped.</li>
+        <li><b>Shadows on everything</b> — depth now means one thing: this floats above. Panels use hairlines.</li>
+        <li><b>16px radii</b> — 4px on controls, 6px on panels. Softness comes from spacing, not corners.</li>
+        <li><b>Icon-only rails</b> — elements are named. Nobody guesses a glyph for <code>&lt;article&gt;</code>.</li>
+        <li><b>The status bar</b> — its one useful control moved up; the rest was telemetry.</li>
+      </ul>
+    </div>
+  </div>
+</div>
