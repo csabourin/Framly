@@ -38,7 +38,8 @@ Preferred communication style: Simple, everyday language.
   ratcheting baseline that may only shrink. Both are enforced in CI.
 - **Breakpoint edits are overrides.** Mobile is the base; an edit at any larger
   breakpoint writes `responsiveStyles` and must never touch the base. The
-  panel's `handlePropertyChange` is the single writer and routes on the current
+  panel's `handlePropertyChange` and canvas spacing controls share
+  `utils/styleEditing.ts`'s `breakpointStyleUpdate` writer and route on the current
   breakpoint. `tests/responsive.spec.ts` fails if a base rule picks up a
   breakpoint value, or if a media query goes missing.
 - **The exported rule order follows the canvas cascade.** Element styles, then
@@ -83,6 +84,7 @@ be too. A check that cannot fail is worthless.
 | Export ↔ stylesheet | `tests/export.spec.ts`: no rule may select a class the markup lacks, no styled element may go unselected, no camelCase property, and the rendered page must compute to the colours it was designed in. |
 | Canvas ↔ export | `tests/roundtrip.spec.ts`: the Landing template's emitted rendered properties must match the canvas at all four breakpoint widths, including real responsive overrides. Editor drag cursors are intentionally excluded. |
 | Box-model overlay | `tests/box-model.spec.ts`: selection must expose all four labelled, distinctly coloured boxes without intercepting interaction, and must remeasure after a box or breakpoint change. |
+| Direct spacing | `tests/spacing.spec.ts`: padding/margin handles preview live, cancel cleanly, respect zoom and breakpoints, support keyboard editing and commit one undo step. Shared styles and independently rendered exports must agree. |
 | `tests/deadcode.spec.ts` | Fails on any unreachable file. `components/ui/*` is exempt. |
 
 # Architecture
@@ -130,6 +132,10 @@ stable structural export classes (`page`, `hero`, `hero-title`, etc.); keyboard
 shortcuts with a searchable cheatsheet; light/dark colour modes. Canvas/export
 fidelity is browser-tested at all four breakpoints. Selecting an element draws
 and labels its computed margin, border, padding and content boxes on the canvas.
+Padding and margin sides can be dragged or edited with arrow keys. Handles name
+their style owner and breakpoint scope; previews are temporary, and each commit
+is one undoable action. Margin labels report CSS values, not an inferred distance
+between siblings when margins collapse or a parent distributes free space.
 
 Partly built — treat with care before extending:
 

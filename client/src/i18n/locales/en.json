@@ -473,5 +473,21 @@
       "name": "Feature list",
       "description": "A heading followed by three stacked cards, one per feature."
     }
+  },
+  "spacing": {
+    "controls": "Edit spacing on the canvas",
+    "padding": "Space inside · padding · {{side}}",
+    "margin": "Space outside · margin · {{side}}",
+    "top": "top",
+    "right": "right",
+    "bottom": "bottom",
+    "left": "left",
+    "baseScope": "Base · applies at every width unless overridden",
+    "overrideScope": "{{breakpoint}} override · applies at this width and larger until overridden",
+    "elementScope": "Selected element only",
+    "classScope": "Shared style {{name}} · {{count}} elements",
+    "help": "Drag, or use arrow keys for 1px (Shift: 10px). Home resets to 0px. Escape cancels a drag.",
+    "marginNote": "Margin is the CSS value; collapsing and parent layout can change the visible space between items.",
+    "intro": "P: space inside · padding. M: space outside · margin."
   }
 }

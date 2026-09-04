@@ -35,9 +35,10 @@ Three promises, in priority order. When two conflict, the higher one wins:
 
 ### 👉 Start here
 
-**M2.2 — Drag the spacing.** Selection now draws and labels the real margin,
-border, padding and content boxes on the canvas. Next, make the padding and
-margin bands directly draggable and keep their measurements live while moving.
+**M2.3 — A spacing scale.** Padding and margin sides can now be dragged on the
+canvas or edited with the keyboard, with live measurements and one undo per
+gesture. Next, offer 4 / 8 / 12 / 16 / 24 / 32 / 48 as the default choices,
+with an obvious custom-value option.
 
 *M0 is done: CI runs on every PR, and three gates fail on a regression.*
 
@@ -195,10 +196,18 @@ above is table stakes; this is the reason Framly exists.*
       *Verified by:* two browser tests cover the complete labelled overlay,
       distinct colours, interaction safety and live remeasurement. Deleting
       the margin layer made the gate fail on that exact missing box. ✅
-- [ ] `[L]` **Drag the spacing.** Grab a padding or margin edge on the canvas and
-      pull. Numbers update live; the overlay shows what's changing.
-      Build the interaction on the measured overlay and support both axes.
-      *Done when:* you can set padding without touching the right-hand panel.
+- [x] `[L]` **Drag the spacing.** All four padding and margin sides have labelled
+      handles on the measured overlay. Dragging previews real CSS at canvas zoom;
+      release commits one undoable edit. Escape, pointer cancellation and leaving
+      the editing context discard the preview. Arrow keys change 1px, Shift 10px,
+      and Home sets 0px; padding stays nonnegative, while margins may be negative.
+      Help names the CSS side, rule value, measurement, style owner and breakpoint
+      scope. A class-owned base edit previews its affected instances together;
+      larger-breakpoint edits use the panel's shared override writer.
+      *Verified by:* eight browser regressions cover slow drags, keyboard and axe,
+      cancellation, zoom, shared styles, undo/redo and independently rendered
+      exports. Restoring the old shorthand rendering made the cascade test fail
+      on the exact wrong padding value. ✅
 - [ ] `[M]` **A spacing scale.** 4 / 8 / 12 / 16 / 24 / 32 / 48 as the default
       choices, with free entry as a deliberate escape hatch.
       *Done when:* the default path produces consistent spacing and arbitrary
@@ -303,6 +312,7 @@ belong in a milestone and does not need thinking about.
 | Container queries, fluid type | After M5. |
 | Advanced CSS functions (`clamp`, `calc`) | After M5. |
 | Multi-page projects | Tabs work; don't extend them until M2 ships. |
+| Parent gap handles and measured inter-item distances | After M2's spacing scale; distinguish CSS gap, collapsed margins and distributed free space before offering drag controls. |
 | Accounts, sharing, collaboration | Only if local-first stops being the answer. |
 
 ---
@@ -323,7 +333,7 @@ Deliberately not doing these. Recorded so they don't get re-proposed.
 
 Things that are true and surprising. Written down so they aren't rediscovered.
 
-- **Autosave runs every 30 seconds**, not the 5 seconds `CLAUDE.md` claims.
+- **Autosave runs every 30 seconds**.
   A refresh within 30s of an edit loses it. (Worth revisiting — probably in M0.)
 - **Undo history persists across reloads.** After a refresh, Ctrl+Z undoes the
   *previous session's* last action. Reversible with Ctrl+Y. This is by design;

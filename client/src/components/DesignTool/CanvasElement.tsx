@@ -13,6 +13,7 @@ import ComponentInstanceElement from './ComponentInstanceElement';
 import ElementContextMenu from './ElementContextMenu';
 import { useColorMode } from '../../contexts/ColorModeContext';
 import { isColorModeValues } from '../../utils/colorModeHelper';
+import { mergeStyleLayer } from '../../utils/styleEditing';
 
 
 interface CanvasElementProps {
@@ -928,7 +929,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
         const customClass = customClasses[className];
         if (customClass && customClass.styles) {
           // Merge custom class styles with base styles
-          Object.assign(baseStyles, customClass.styles);
+          mergeStyleLayer(baseStyles, customClass.styles);
         }
       });
     }
@@ -949,11 +950,34 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
             const value = breakpointStyles[prop as keyof typeof breakpointStyles];
             // Only apply if the value is defined (null/undefined means inherit from smaller BP)
             if (value !== undefined && value !== null) {
+              delete baseStyles[prop];
               (baseStyles as any)[prop] = value;
             }
           });
         }
       }
+    }
+
+    // React diffs style values, not CSS declaration order. Use physical spacing
+    // longhands so changing a shorthand also reapplies its unchanged sides.
+    const spacing = document.createElement('div').style;
+    for (const [key, value] of Object.entries(baseStyles)) {
+      if (/^(padding|margin)(Top|Right|Bottom|Left)?$/.test(key) && value != null) {
+        spacing.setProperty(key.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`),
+          typeof value === 'number' ? `${value}px` : String(value));
+      }
+    }
+    for (const kind of ['padding', 'margin']) {
+      if (typeof baseStyles[kind] === 'string' && baseStyles[kind].includes('var(')) continue;
+      const sides = ['Top', 'Right', 'Bottom', 'Left'];
+      const values = sides.map((side) => spacing.getPropertyValue(`${kind}-${side.toLowerCase()}`));
+      // Unresolved variable shorthands cannot be expanded by CSSOM; keep them.
+      if (!values.some(Boolean)) continue;
+      delete baseStyles[kind];
+      sides.forEach((side, index) => {
+        delete baseStyles[`${kind}${side}`];
+        if (values[index]) baseStyles[`${kind}${side}`] = values[index];
+      });
     }
 
     // Resolve color mode values to actual colors based on current mode

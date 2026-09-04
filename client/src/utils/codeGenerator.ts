@@ -1,4 +1,5 @@
 import { CanvasElement, Project } from '../types/canvas';
+import { mergeStyleLayer } from './styleEditing';
 import { generateColorModeCSS, combineColorModeCSS, isColorModeValues, ColorModeCSS } from './colorModeHelper';
 
 interface CustomClass {
@@ -782,7 +783,7 @@ ${indent}</${tag}>`;
     for (const className of element.classes || []) {
       const customClass = this.customClasses[className];
       if (customClass?.category === 'auto-generated') {
-        Object.assign(effectiveStyles, customClass.styles);
+        mergeStyleLayer(effectiveStyles, customClass.styles);
       }
     }
 

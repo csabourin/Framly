@@ -5,6 +5,7 @@ import { store, RootState } from '../../store';
 import { setClassEditorOpen, setComponentEditorOpen, setEditingComponent, setButtonDesignerOpen } from '../../store/uiSlice';
 import { selectUIState, selectComponentDefinitionsState } from '../../store/selectors';
 import { historyManager } from '../../utils/historyManager';
+import { addHistoryMiddleware } from '../../utils/historyIntegration';
 import { useComponentPropagation } from '../../hooks/useComponentPropagation';
 import { useColorModeCanvasSync } from '../../hooks/useColorModeCanvasSync';
 import Header from './Header';
@@ -39,9 +40,7 @@ const DesignToolContent: React.FC = () => {
     historyManager.init();
     
     // Initialize history tracking
-    import('../../utils/historyIntegration').then(({ addHistoryMiddleware }) => {
-      addHistoryMiddleware();
-    });
+    addHistoryMiddleware();
   }, []);
   const dispatch = useDispatch();
   const uiState = useSelector(selectUIState);

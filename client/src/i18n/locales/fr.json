@@ -473,5 +473,21 @@
       "name": "Liste de fonctionnalités",
       "description": "Un titre suivi de trois cartes empilées, une par fonctionnalité."
     }
+  },
+  "spacing": {
+    "controls": "Modifier les espacements sur le canevas",
+    "padding": "Espace intérieur · padding · {{side}}",
+    "margin": "Espace extérieur · margin · {{side}}",
+    "top": "haut",
+    "right": "droite",
+    "bottom": "bas",
+    "left": "gauche",
+    "baseScope": "Base · toutes les largeurs sauf surcharge",
+    "overrideScope": "Surcharge {{breakpoint}} · cette largeur et les suivantes jusqu’à une autre surcharge",
+    "elementScope": "Élément sélectionné uniquement",
+    "classScope": "Style partagé {{name}} · {{count}} éléments",
+    "help": "Glissez ou utilisez les flèches pour 1px (Maj : 10px). Début remet à 0px. Échap annule le glissement.",
+    "marginNote": "La marge est la valeur CSS ; la fusion des marges et la disposition du parent peuvent modifier l’espace visible entre les éléments.",
+    "intro": "P : espace intérieur · padding. M : espace extérieur · margin."
   }
 }

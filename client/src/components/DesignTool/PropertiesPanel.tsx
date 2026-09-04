@@ -42,6 +42,7 @@ import {
 } from 'lucide-react';
 import ButtonStateSelector from './ButtonStateSelector';
 import FlexLayoutControls from './FlexLayoutControls';
+import { breakpointStyleUpdate } from '../../utils/styleEditing';
 
 const PropertiesPanel: React.FC = () => {
   const { t } = useTranslation();
@@ -328,20 +329,9 @@ const PropertiesPanel: React.FC = () => {
   const writeBreakpointOverride = (propertyKey: string, value: any, breakpoint: string) => {
     if (!selectedElement) return;
 
-    const existing = selectedElement.responsiveStyles || {};
-    const forBreakpoint = { ...(existing[breakpoint as keyof typeof existing] || {}) } as Record<string, any>;
-
-    if (value === undefined || value === null || value === '') {
-      delete forBreakpoint[propertyKey];
-    } else {
-      forBreakpoint[propertyKey] = value;
-    }
-
     dispatch(updateElement({
       id: selectedElement.id,
-      updates: {
-        responsiveStyles: { ...existing, [breakpoint]: forBreakpoint },
-      },
+      updates: breakpointStyleUpdate(selectedElement, propertyKey, value, breakpoint),
     }));
   };
 

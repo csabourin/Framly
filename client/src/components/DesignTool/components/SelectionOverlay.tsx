@@ -1,4 +1,7 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useCallback, useLayoutEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import type { RootState } from '../../../store';
+import SpacingHandles from './SpacingHandles';
 
 interface SelectionOverlayProps {
   selectedElementId: string | null;
@@ -20,7 +23,9 @@ interface Edges {
   left: number;
 }
 
-interface BoxMetrics {
+export interface BoxMetrics {
+  canvasWidth: number;
+  canvasHeight: number;
   marginBox: Rect;
   borderBox: Rect;
   paddingBox: Rect;
@@ -120,6 +125,8 @@ const readBoxMetrics = (element: HTMLElement, canvas: HTMLElement, zoomLevel: nu
   const labelsFitAbove = marginBox.y >= 30;
 
   return {
+    canvasWidth: canvas.clientWidth,
+    canvasHeight: canvas.clientHeight,
     marginBox,
     borderBox,
     paddingBox,
@@ -175,6 +182,9 @@ const SelectionOverlay: React.FC<SelectionOverlayProps> = ({
 }) => {
   const [metrics, setMetrics] = useState<BoxMetrics | null>(null);
   const [hoverBounds, setHoverBounds] = useState<Rect | null>(null);
+  const [measurementVersion, setMeasurementVersion] = useState(0);
+  const measureSpacing = useCallback(() => setMeasurementVersion((version) => version + 1), []);
+  const context = useSelector((state: RootState) => `${state.canvas.project.activeTabId}:${state.canvas.project.currentBreakpoint}`);
 
   useLayoutEffect(() => {
     const canvas = document.querySelector<HTMLElement>('[data-canvas="true"]');
@@ -214,7 +224,7 @@ const SelectionOverlay: React.FC<SelectionOverlayProps> = ({
       window.removeEventListener('resize', measure);
       window.removeEventListener('scroll', measure, true);
     };
-  }, [selectedElementId, hoveredElementId, zoomLevel]);
+  }, [selectedElementId, hoveredElementId, zoomLevel, context, measurementVersion]);
 
   const summary = metrics
     ? `Box model: margin ${formatEdges(metrics.margin)}; border ${formatEdges(metrics.border)}; padding ${formatEdges(metrics.padding)}; content ${formatLength(metrics.contentBox.width)} by ${formatLength(metrics.contentBox.height)}`
@@ -251,6 +261,7 @@ const SelectionOverlay: React.FC<SelectionOverlayProps> = ({
           </div>
         </div>
       )}
+      {metrics && <SpacingHandles key={`${context}:${selectedElementId}:${zoomLevel}`} metrics={metrics} zoomLevel={zoomLevel} onMeasure={measureSpacing} />}
     </>
   );
 };
