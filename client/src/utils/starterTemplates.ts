@@ -9,10 +9,9 @@ import { createDefaultElement } from './canvas';
  * considers correct for each type rather than duplicating that knowledge.
  *
  * Only element types that the code generator emits as real HTML tags are used
- * (heading, text, button, list, image, container). Semantic types such as
- * `section` and `input` still export as `<div>` (see `getHTMLTag` in
- * codeGenerator.ts), so building a form template today would produce markup
- * that is neither semantic nor accessible.
+ * here (heading, text, button, list, image, container). Semantic types such as
+ * `section` and `input` now export with their own HTML tags via `getHTMLTag`,
+ * so this remains focused on the basic building blocks used by the gallery.
  */
 
 /** A node in a template tree. `children` is expanded recursively. */

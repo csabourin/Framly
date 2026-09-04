@@ -449,7 +449,7 @@ export default ${this.project.name.replace(/\s+/g, '')};`;
       content = element.buttonText;
     } else if (element.type === 'image') {
       const src = element.imageUrl || element.imageBase64 || 'placeholder.jpg';
-      return `${indent}<img className="${classes}" src="${escapeAttr(src)}" alt="${escapeAttr(element.imageAlt || '')}" />`;
+      return `${indent}<img className="${classes}" src={${JSON.stringify(src)}} alt={${JSON.stringify(element.imageAlt || '')}} />`;
     } else if (element.children && element.children.length > 0) {
       // CRITICAL: Use expanded elements when available for child lookup
       const elements = this.expandedElements || this.project.elements || {};
