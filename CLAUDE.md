@@ -36,6 +36,15 @@ Preferred communication style: Simple, everyday language.
 - **Accessibility is a gate, not a goal.** Pages Framly produces must have zero
   axe violations (WCAG 2.2 AA). Framly's own violations are capped by a
   ratcheting baseline that may only shrink. Both are enforced in CI.
+- **Breakpoint edits are overrides.** Mobile is the base; an edit at any larger
+  breakpoint writes `responsiveStyles` and must never touch the base. The
+  panel's `handlePropertyChange` is the single writer and routes on the current
+  breakpoint. `tests/responsive.spec.ts` fails if a base rule picks up a
+  breakpoint value, or if a media query goes missing.
+- **The exported rule order follows the canvas cascade.** Element styles, then
+  named class, then breakpoint override. Every selector is one class, so
+  specificity is equal and order alone decides the winner — write the file in
+  any other order and the export stops matching what the canvas showed.
 - **DOM flow integrity.** Elements position exactly like real HTML elements,
   respecting DOM order unless explicitly positioned by dragging. Copy, paste and
   duplicate never apply an offset. Absolute positioning is the exception the
@@ -43,6 +52,11 @@ Preferred communication style: Simple, everyday language.
 - **The code generator stays DOM-optional.** `utils/codeGenerator.ts` is a pure
   transformation, tested in Node. Reaching for `DOMParser` or `document` without
   a fallback breaks that and rules out ever exporting outside a browser.
+- **The markup and the stylesheet name classes once.** `resolveStyleClasses()`
+  decides which class carries each element's styles, and both the HTML and the
+  CSS ask it. Generating class names on one side and selectors on the other is
+  how every export came to ship unstyled; `tests/export.spec.ts` fails if a rule
+  selects a class no element has, or an element's styles reach no rule.
 - **No dead code.** `tests/deadcode.spec.ts` walks the import graph from
   `main.tsx` and fails on anything reachable from nothing.
 
@@ -65,7 +79,8 @@ be too. A check that cannot fail is worthless.
 | Gate | Behaviour |
 |---|---|
 | `tests/axe-baseline.json` | Framly's own known AA violations. Fails on a new rule or a worse count; reports when a number can come down. Lower it as you fix things. |
-| Exported-page a11y | Zero violations, no baseline. This is promise #1. |
+| Exported-page a11y | Zero violations, no baseline. This is promise #1. Now a real contrast check — until the CSS export was fixed there were no colours to measure. |
+| Export ↔ stylesheet | `tests/export.spec.ts`: no rule may select a class the markup lacks, no styled element may go unselected, no camelCase property, and the rendered page must compute to the colours it was designed in. |
 | `tests/deadcode.spec.ts` | Fails on any unreachable file. `components/ui/*` is exempt. |
 
 # Architecture
@@ -122,7 +137,9 @@ Partly built — treat with care before extending:
   works but is thin, and is due to be rebuilt on shared classes in M4.
 - **Website import** is half-finished and parked until M4.
 - **CSS optimiser** exists to undo the bloat caused by generating one class per
-  element. M4 fixes the cause and deletes it.
+  element. It is no longer in the export path — it was inventing class names the
+  stylesheet never defined — but still backs `cssClassGenerator` and its own
+  modal. M4 fixes the cause and deletes it.
 - **PNG/PDF export** is deliberately disabled and labelled "Coming soon".
 - **React export** is generated but not a maintained output format.
 

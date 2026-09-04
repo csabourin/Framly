@@ -26,9 +26,15 @@ interface PropertyInputProps {
   elementId?: string;
   element?: any;
   className?: string;
+  /**
+   * Id of an element describing this control — the breakpoint annotation that
+   * says whether the value is inherited or set here. It has to land on the
+   * control itself, because that is what a screen reader reads on focus.
+   */
+  describedBy?: string;
 }
 
-export const PropertyInput: React.FC<PropertyInputProps> = ({ config, value, onChange, elementId, element, className }) => {
+export const PropertyInput: React.FC<PropertyInputProps> = ({ config, value, onChange, elementId, element, className, describedBy }) => {
   const { t } = useTranslation();
   // Get custom classes from Redux store
   const customClasses = useSelector((state: RootState) => (state as any).classes?.customClasses || {});
@@ -68,6 +74,7 @@ export const PropertyInput: React.FC<PropertyInputProps> = ({ config, value, onC
             placeholder={t('breakpoints.enterValue', { label: config.label.toLowerCase() })}
             className="w-full"
             data-testid={`input-${config.key}`}
+            aria-describedby={describedBy}
           />
         );
 
@@ -82,6 +89,7 @@ export const PropertyInput: React.FC<PropertyInputProps> = ({ config, value, onC
             step={config.step}
             className="w-full"
             data-testid={`input-${config.key}`}
+            aria-describedby={describedBy}
           />
         );
 
@@ -103,6 +111,7 @@ export const PropertyInput: React.FC<PropertyInputProps> = ({ config, value, onC
               step={config.step}
               className="flex-1"
               data-testid={`input-${config.key}`}
+              aria-describedby={describedBy}
             />
             {config.units && config.units.length > 1 ? (
               <Select
@@ -142,7 +151,7 @@ export const PropertyInput: React.FC<PropertyInputProps> = ({ config, value, onC
             value={value || config.options?.[0]?.value || ''}
             onValueChange={onChange}
           >
-            <SelectTrigger data-testid={`select-${config.key}`}>
+            <SelectTrigger aria-describedby={describedBy} data-testid={`select-${config.key}`}>
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -180,6 +189,7 @@ export const PropertyInput: React.FC<PropertyInputProps> = ({ config, value, onC
               step={config.step}
               className="w-full"
               data-testid={`slider-${config.key}`}
+              aria-describedby={describedBy}
             />
           </div>
         );
@@ -192,6 +202,7 @@ export const PropertyInput: React.FC<PropertyInputProps> = ({ config, value, onC
             onClick={() => onChange(!value)}
             className="w-full"
             data-testid={`toggle-${config.key}`}
+            aria-describedby={describedBy}
           >
             {value ? 'On' : 'Off'}
           </Button>
@@ -261,6 +272,7 @@ export const PropertyInput: React.FC<PropertyInputProps> = ({ config, value, onC
             onChange={(e) => onChange(e.target.value)}
             className="w-full"
             data-testid={`input-${config.key}`}
+            aria-describedby={describedBy}
           />
         );
     }

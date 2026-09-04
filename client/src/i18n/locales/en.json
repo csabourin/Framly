@@ -242,10 +242,11 @@
     "exportSettings": "Export Settings",
     "includeResponsive": "Include responsive breakpoints",
     "minifyCSS": "Minify CSS",
-    "includeComments": "Include source comments",
+    "includeComments": "Include comments in the CSS",
     "chooseFormat": "Choose export format",
     "comingSoon": "Coming soon",
-    "formatUnavailable": "This format is not available yet"
+    "formatUnavailable": "This format is not available yet",
+    "commentsRemovedByMinify": "Minifying removes comments, so the CSS will not have any."
   },
   "import": {
     "importWebsite": "Import Website",
@@ -349,10 +350,13 @@
     "largeDesktop": "Large Desktop",
     "mobileFirst": "Mobile-first responsive design: values inherit upward",
     "baseValue": "Base value",
-    "inheritFromMobile": "Inherit from mobile",
     "hideBreakpoints": "Hide breakpoints",
     "showBreakpoints": "Show breakpoints",
-    "enterValue": "Enter value"
+    "enterValue": "Enter value",
+    "appliesEverywhere": "base · applies at every width",
+    "setHere": "set here",
+    "inheritedFrom": "inherited from {{breakpoint}}",
+    "clearOverride": "Clear {{breakpoint}}"
   },
   "classEditor": {
     "classEditor": "Class Editor",

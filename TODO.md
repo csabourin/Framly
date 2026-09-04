@@ -35,10 +35,10 @@ Three promises, in priority order. When two conflict, the higher one wins:
 
 ### 👉 Start here
 
-**M1.1 — Make the export settings actually apply.** One sitting. The three
-checkboxes in the export dialog are collected and thrown away, so it is a small,
-self-contained win to open M1 with — and it is independent of the media-query
-work below.
+**M1.4 — CSS a human can read.** M1.3 is done. The export is mobile-first and
+the controls say where a value comes from; what is left in M1 is the shape of
+the file itself — meaningful class names, rules grouped by element, no
+duplicated declarations.
 
 *M0 is done: CI runs on every PR, and three gates fail on a regression.*
 
@@ -88,19 +88,65 @@ Until something checks, everything below will rot at the same rate it's built.*
 ## M1 — Output a programmer would sign off
 
 *Why second: this is promise #1, and it is the only promise that is currently
-half-kept. Semantic tags now export correctly; the CSS around them does not.*
+half-kept. Semantic tags now export correctly; so, since the first three tasks
+below, does the CSS around them — but it is one rule per element, with the
+class names to match, and it has no real media queries.*
 
-- [ ] `[S]` **Apply the export settings.** `includeResponsive`, `minifyCSS` and
-      `includeComments` are collected and thrown away.
-      *Done when:* unchecking "minify" visibly changes the downloaded CSS.
-- [ ] `[S]` **Export the active tab only**, with the CSS file named after the
-      project.
-      *Done when:* exporting from Tab A never contains Tab B's markup.
-- [ ] `[L]` **Real media queries, mobile-first.** Editing at a breakpoint writes
-      base rules plus `@media (min-width: …)` overrides, not four parallel
-      copies. Controls show whether a value is inherited or overridden here.
+- [x] `[S]` **The exported CSS now reaches the exported HTML.** Found while
+      wiring up the settings below: **every export was arriving unstyled.** The
+      markup carried classes invented by the CSS optimiser, the stylesheet
+      selected `[data-element-id="…"]` — an attribute the generator never
+      writes — and the few rules that did come out named their properties
+      `backgroundColor`, which a browser drops. A landing-page export was 264
+      bytes of reset. It is now ~1.9KB and renders in its own colours. One
+      class per element is still the shape of it; that is M4's to change, not
+      this fix's. The optimiser is out of the export path, along with the
+      legacy CSS fallback and two unused methods.
+      *Verified by:* three deliberate regressions — the old selector, the old
+      property names, and dropping the settings — each caught by a named test.
+- [x] `[S]` **Apply the export settings.** `includeResponsive`, `minifyCSS` and
+      `includeComments` now reach the generator. Minifying moved to **off by
+      default**: promise #1 is code a programmer would sign off, and that is
+      the readable version. Comments label the sections; when minifying would
+      strip them straight back out, the dialog says so where a screen reader
+      reads it.
+      *Done when:* unchecking "minify" visibly changes the downloaded CSS. ✅
+- [x] `[S]` **Export the active tab only**, with the CSS file named after the
+      project. This turned out to be already true — the dialog has always
+      passed the active tab's elements — but nothing said so. Two tests now do:
+      a second tab's export contains none of the first tab's markup, and the
+      page links the stylesheet the export writes.
+      *Done when:* exporting from Tab A never contains Tab B's markup. ✅
+- [x] `[L]` **Real media queries, mobile-first.**
+
+      **The writing path.** An edit at a larger breakpoint is now an override
+      and nothing else. It used to be written twice: `ResponsivePropertyInput`
+      wrote `responsiveStyles[bp]` and then handed the same value to the panel,
+      which wrote it to the base as well — so setting a font size at "tablet"
+      changed the base rule too, and the exported page carried the wide-screen
+      value at every width. There is one writer now, and it routes by the
+      current breakpoint. Any style property can differ by breakpoint;
+      `responsive` in the property config now only decides whether a control
+      offers the per-breakpoint UI. The exporter's rule order was also wrong
+      against the canvas — a named class overrides an element's own styles on
+      the canvas, and the file was written the other way round, so a panel edit
+      could be shown and then not exported.
+
+      **The controls.** Every responsive control now carries a line saying
+      where its value comes from: `base · applies at every width`, `set here`,
+      or `inherited from Tablet` — naming the breakpoint, not just the fact.
+      It is mono grey text tied to the input with `aria-describedby`, so it
+      reaches a screen reader and carries no colour: `docs/interface.md`
+      reserves hue for the box model and for pass/warn/fail, and the old blue
+      "Responsive" badge and blue italic *inherited* label are gone. Clearing
+      an override is offered inline, named for the breakpoint it clears
+      ("Clear Tablet") rather than a bare ×, and only when there is something
+      to clear. `breakpoints.inherited` and `breakpoints.clearValue` were
+      referenced but had never been added to either locale file, so they had
+      been rendering as raw keys.
       *Done when:* setting a colour at base applies everywhere; changing it at
-      `md` produces exactly one media query and no duplicate base rule.
+      `md` produces exactly one media query and no duplicate base rule. ✅
+
 - [ ] `[M]` **CSS a human can read.** Stable, meaningful class names instead of
       `el-4pinocqwb`; rules grouped by element; no duplicated declarations.
       *Done when:* you can open the exported CSS and find the hero's styles
@@ -276,3 +322,24 @@ Things that are true and surprising. Written down so they aren't rediscovered.
   which is the point. Treat a defined `x`/`y` as the unusual case.
 - **The canvas renders `element.htmlTag`** and always did; only the exporter
   used to ignore it.
+- **A breakpoint switch straight after typing a value can be lost.** Type in a
+  property field, then click the breakpoint switcher in the status bar: the
+  menu opens but the item is replaced under the pointer as the panel
+  re-renders, so the click does nothing and you have to repeat it. Measured,
+  not inferred — `aria-expanded` stays `false`, and a second click works.
+  Memoising the element handed to `PropertyInput` reduced the render churn but
+  did not remove the race, so it is still open. `tests/responsive.spec.ts`
+  retries the menu rather than pretending it is reliable.
+- **Style keys are camelCase everywhere**, because the canvas hands them
+  straight to React. Anything writing a real stylesheet has to convert them —
+  and a browser does not just skip `backgroundColor: #fff`, it abandons the
+  rest of the rule.
+- **A gate can pass because the thing it checks is empty.** The exported-page
+  axe test was green for months while the export shipped no CSS at all: with no
+  colours, contrast was measured against browser defaults. It only became a
+  real contrast check once the stylesheet worked.
+- **Default styles can contradict themselves.** Several element types set
+  `marginBottom` and then `margin`, so the shorthand wins and the margin is
+  always zero. The canvas and the export agree — React applies them in the same
+  order — so it is not an export bug, but it is a wart to clean up when the
+  spacing scale lands in M2.

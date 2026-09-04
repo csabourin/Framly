@@ -141,6 +141,36 @@ test.describe('export', () => {
     expect(levels).toEqual([1, 2]);
   });
 
+  /**
+   * A project can hold several tabs, and each is its own page. Exporting has to
+   * produce the page you are looking at, not everything you have ever made.
+   */
+  test('exports the active tab only', async ({ page }) => {
+    await openApp(page);
+    await applyTemplate(page, 'landing');
+
+    await page.getByTestId('button-create-tab').click();
+    await expect(page.getByTestId('empty-canvas-state')).toBeVisible();
+    await applyTemplate(page, 'article');
+
+    const html = await generatedHTML(page);
+
+    expect(html, 'the article template is what the second tab holds')
+      .toContain('The title of your article');
+    expect(html, "the first tab's content must not follow you into the export")
+      .not.toContain('Build something people want');
+  });
+
+  test('the stylesheet the page links to is the one the export writes', async ({ page }) => {
+    await openApp(page);
+    await applyTemplate(page, 'landing');
+
+    const html = await generatedHTML(page);
+
+    // ExportModal names the CSS file after the project; the link has to agree.
+    expect(html).toMatch(/<link rel="stylesheet" href="[a-z0-9-]+\.css">/);
+  });
+
   test('unavailable export formats cannot be chosen', async ({ page }) => {
     await openApp(page);
     await applyTemplate(page, 'landing');
