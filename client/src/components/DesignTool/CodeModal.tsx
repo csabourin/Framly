@@ -67,7 +67,6 @@ const CodeModal: React.FC = () => {
     
     navigator.clipboard.writeText(code).then(() => {
       // Could show toast notification here
-      console.log('Code copied to clipboard');
     });
   };
 

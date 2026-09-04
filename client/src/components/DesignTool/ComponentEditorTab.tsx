@@ -61,7 +61,6 @@ const ComponentEditorTab: React.FC<ComponentEditorTabProps> = ({
     setHasUnsavedChanges(false);
     setIsModified(false);
     
-    console.log('Component saved:', updatedDef.name, 'v' + updatedDef.version);
   }, [componentDef, editingTemplate, dispatch]);
 
   const handleClose = useCallback(() => {

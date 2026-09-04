@@ -25,8 +25,8 @@ Preferred communication style: Simple, everyday language.
 - **Canvas Modularization**: Refactored 1000+ line Canvas component into modular architecture following detailed refactoring plan:
   - **Phase 1**: Event Hooks - `useCanvasEvents`, `useDrawingEvents`, `useDragAndDrop` for separated event handling
   - **Phase 2**: Visual Components - `InsertionIndicator`, `DrawingOverlay`, `SelectionOverlay`, `CanvasContainer` for reusable UI feedback
-  - **Phase 3**: Utility Modules - `canvasGeometry`, `insertionZones` for coordinate math and zone detection
-  - **Phase 4**: Tool Handlers - `SelectionTool`, `DrawingTools`, `HandTool` for tool-specific behavior
+  - **Phase 3**: Utility Modules - `canvasGeometry` for coordinate math and `insertionLogic` for drop-zone detection
+  - **Phase 4**: Tool Handlers - planned as `SelectionTool`, `DrawingTools`, `HandTool`, but those files were never wired up and were deleted in M0.4. Tool behaviour lives in the `useToolHandler` hook instead.
 - **Architecture Benefits**: Single responsibility modules, improved maintainability, better testability, enhanced performance, smaller focused files (150-line Canvas orchestrator vs 1000+ line monolith)
 - **Functionality Preserved**: All original Canvas functionality maintained including toolbar element insertion, drawing tools, drag-and-drop, keyboard shortcuts, and point-and-click creation tools
 

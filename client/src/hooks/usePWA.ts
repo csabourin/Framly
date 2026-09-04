@@ -73,7 +73,6 @@ export function usePWA() {
         setDeferredPrompt(null);
         return true;
       } else {
-        console.log('User dismissed the install prompt');
         return false;
       }
     } catch (error) {

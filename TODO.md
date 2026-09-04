@@ -35,8 +35,9 @@ Three promises, in priority order. When two conflict, the higher one wins:
 
 ### 👉 Start here
 
-**M0.4 — Delete the dead code.** One sitting, and it permanently lowers how
-much you have to hold in your head. CI is now watching, so it is safe to cut.
+**M0.5 — Remove `maximum-scale=1` from the viewport meta.** Two minutes, and it
+is the last task in M0. The axe baseline already tracks it as `meta-viewport`,
+so the gate will confirm it when you do.
 
 ---
 
@@ -62,17 +63,20 @@ Until something checks, everything below will rot at the same rate it's built.*
       every element type, and each template's exported page with its CSS
       inlined, must score zero axe violations. Verified by deliberately
       removing an `aria-label` — it failed.
-- [ ] `[S]` **Delete dead code.** `ButtonPreview` and `ButtonDesignList` (imported
-      nowhere), `en_backup.json`, `en_old.json`, one of the two drag-and-drop
-      implementations, the `canvas/setProject` dispatch with no reducer, and the
-      ~80 `console.*` calls.
-      *Done when:* nothing in `src/` is unreachable from `main.tsx`.
+- [x] `[S]` **Delete dead code.** 24 files removed, found by walking the real
+      import graph from `main.tsx` rather than grepping: the four orphaned
+      ButtonDesigner components, `useDragAndDropV2`, the three `tools/` files
+      that were never wired up, both stale locale copies, and eleven more.
+      All 54 debug `console.log` calls are gone; the 14 `console.error` and 6
+      `console.warn` stay, as they are the app's only diagnostics.
+      `tests/deadcode.spec.ts` now walks that graph on every run, so an orphan
+      cannot come back. Vendored `components/ui/*` is exempt — see below.
 - [ ] `[S]` **Remove `maximum-scale=1`** from the viewport meta. It blocks
       pinch-zoom — a WCAG 1.4.4 failure, and a two-minute fix.
       *Done when:* you can pinch-zoom Framly on a phone.
 
 **Milestone done when:** you can break something on purpose and CI tells you.
-*(The two gates above were verified this way. Two tasks left below.)*
+*(All three gates were verified this way. One task left.)*
 
 ---
 
@@ -251,6 +255,15 @@ Things that are true and surprising. Written down so they aren't rediscovered.
   one line in `ensureBaseline` changes it if you'd rather it didn't.
 - **Vite does not typecheck.** `npm run build` succeeding says nothing about
   types — which is why CI runs `npm run check` separately.
+- **28 vendored `components/ui/*` files are unused** and deliberately kept: they
+  are a library surface, several are wanted for the M2/M3 interface work, and
+  they are tree-shaken out of the bundle. `tests/deadcode.spec.ts` exempts them.
+  Deleting them would only pay off alongside dropping the matching Radix
+  dependencies, which is its own decision.
+- **Dead files cost nothing at runtime.** Removing all 24 shrank the bundle by
+  ~2KB, all of it the `console.log` calls in live files; the files themselves
+  were already tree-shaken. The reason to delete them is what you have to hold
+  in your head, not bundle size.
 - **The code generator must stay DOM-optional.** It is a pure transformation and
   is tested in Node; reaching for `DOMParser` or `document` in it breaks that
   and forecloses ever running an export outside a browser.

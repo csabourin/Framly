@@ -430,10 +430,8 @@ const canvasSlice = createSlice({
       const element = currentTab.elements[elementId];
       const newParent = currentTab.elements[newParentId];
 
-      console.log('🔄 Reorder attempt:', { elementId, newParentId, insertPosition, referenceElementId });
 
       if (!element) {
-        console.log('❌ Element not found:', elementId);
         return;
       }
 
@@ -441,13 +439,11 @@ const canvasSlice = createSlice({
       // Root is always valid, and containers/rectangles are valid
       if (newParentId !== 'root') {
         if (!newParent) {
-          console.log('❌ Parent not found:', newParentId);
           return;
         }
         if (newParent.type !== 'container' &&
           newParent.type !== 'rectangle' &&
           !newParent.isContainer) {
-          console.log('❌ Reorder blocked: Invalid parent type', { newParentId, parentType: newParent.type, isContainer: newParent.isContainer });
           return;
         }
       }
@@ -501,25 +497,20 @@ const canvasSlice = createSlice({
       // Add to new parent's children at the correct position
       if (insertPosition === 'canvas_start') {
         targetChildren.unshift(elementId);
-        console.log(`✅ Inserted ${elementId} at START of ${newParentId}`);
       } else if (insertPosition === 'after' && !referenceElementId) {
         // Fallback for 'after' without ref is same as canvas_end
         targetChildren.push(elementId);
-        console.log(`✅ Appended ${elementId} to ${newParentId}`);
       } else if (insertPosition === 'canvas_end' || insertPosition === 'inside' || !referenceElementId) {
         targetChildren.push(elementId);
-        console.log(`✅ Appended ${elementId} to ${newParentId}`);
       } else {
         // Find reference element and insert relative to it
         const refIndex = targetChildren.indexOf(referenceElementId);
         if (refIndex !== -1) {
           const insertIndex = insertPosition === 'before' ? refIndex : refIndex + 1;
           targetChildren.splice(insertIndex, 0, elementId);
-          console.log(`✅ Inserted ${elementId} at position ${insertIndex} (${insertPosition} ${referenceElementId})`);
         } else {
           // If reference not found, add at the end
           targetChildren.push(elementId);
-          console.log(`⚠️ Reference element ${referenceElementId} not found, added at end`);
         }
       }
 
@@ -939,7 +930,6 @@ const canvasSlice = createSlice({
       // Find common parent
       const commonParent = elements[0].parent || 'root';
       if (!elements.every(el => (el.parent || 'root') === commonParent)) {
-        console.log('Cannot group elements with different parents');
         return;
       }
 

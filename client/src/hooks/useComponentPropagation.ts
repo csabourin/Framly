@@ -22,7 +22,6 @@ export function useComponentPropagation() {
       
       if (instances.length === 0) return;
       
-      console.log(`Propagating updates to ${instances.length} instances of:`, componentDef.name);
       
       instances.forEach(({ element, elementId }) => {
         if (element.componentRef && element.componentRef.componentId === componentDef.id) {
@@ -90,7 +89,6 @@ export function usePropagateComponentChanges() {
     // Find and update all instances
     const instances = findComponentInstances(updatedComponentDef.id, currentElements);
     
-    console.log(`Propagating changes to ${instances.length} instances of:`, updatedComponentDef.name);
     
     instances.forEach(({ element, elementId }) => {
       if (element.componentRef) {

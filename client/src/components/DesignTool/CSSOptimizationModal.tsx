@@ -135,7 +135,6 @@ const CSSOptimizationModal: React.FC = () => {
 
   const handleCopyCSS = () => {
     navigator.clipboard.writeText(optimizationData.optimizedOutput).then(() => {
-      console.log('Optimized CSS copied to clipboard');
     });
   };
 

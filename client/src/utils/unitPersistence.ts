@@ -285,10 +285,6 @@ export function exportUnitPreferences(): {
 async function persistUnitPreferences(): Promise<void> {
   // This will be implemented when we add IndexedDB persistence
   // For now, preferences are stored in memory only
-  console.log('Unit preferences updated:', {
-    elementPrefs: Object.keys(elementUnitPreferences).length,
-    globalPrefs: Object.keys(globalUnitPreferences).length
-  });
 }
 
 /**

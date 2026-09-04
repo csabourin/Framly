@@ -95,7 +95,6 @@ const ComponentPanel: React.FC = () => {
   }, [groupedComponents, searchTerm]);
 
   const handleComponentClick = (component: ComponentDef) => {
-    console.log('Component selected:', component.name);
   };
 
   const handleAddToCanvas = (component: ComponentDef) => {
@@ -154,7 +153,6 @@ const ComponentPanel: React.FC = () => {
   };
 
   const handleDragStart = (e: React.DragEvent, component: ComponentDef) => {
-    console.log('Component drag start:', component.id);
     e.dataTransfer.setData('application/json', JSON.stringify({
       type: 'component',
       componentId: component.id,
@@ -165,7 +163,6 @@ const ComponentPanel: React.FC = () => {
 
   const handleDeleteComponent = async (componentId: string) => {
     // TODO: Implement proper component definition deletion
-    console.log('Delete component:', componentId);
   };
 
   const handleCreateComponent = () => {
