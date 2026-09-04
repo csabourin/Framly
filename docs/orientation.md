@@ -80,6 +80,7 @@ Recorded so they are not re-litigated. Each can be revisited — but knowingly.
 | **Undo history persists across reloads** | Matches the documented design. After a refresh Ctrl+Z undoes the *previous session's* last action, and Ctrl+Y restores it. One line in `ensureBaseline` changes this if it ever feels wrong. |
 | **M1 opens on its two small tasks** | Nothing depends on the order, and opening a milestone on an `[L]` is a wall. |
 | **The CSS optimiser is scheduled for deletion, not maintenance** | It exists to undo bloat caused by generating one class per element. M4 fixes the cause. Do not invest in it. |
+| **Abandoned backend scaffolding was removed** | Framly is local-first and had no API routes, database, sessions or authentication. The unused database/auth packages, broken `db:push` script, dead website-import service and unused React Query wrapper described an architecture that did not exist and kept vulnerable packages installed. |
 | **"Inherited" is said in words, never in colour** | `docs/interface.md` reserves hue for the box model and for pass/warn/fail. The old blue "Responsive" badge and blue italic *inherited* label are gone; a mono grey line under the control names the source breakpoint, and `aria-describedby` ties it to the input so it is not a sighted-only cue. |
 | **Every style property can vary by breakpoint** | `responsive` in the property config now only decides whether a control shows the per-breakpoint UI. The roadmap's own "done when" names colour, which was not in the five properties the flag had been set on. |
 | **Templates avoided form elements** | They would have exported as `<div>`. **This is now unblocked** — `getHTMLTag` emits real tags, so a form or contact template is straightforward whenever it is wanted. |
@@ -162,9 +163,6 @@ was checked and clean. Verify before acting on a finding.
 ## Open, and deliberately so
 
 - **No analytics.** The largest gap. See the top of this file.
-- **`server/import-service.ts` is dead** — imported by nothing, its jsdom import
-  commented out. The dead-code guard only scans `client/src`, so it is not
-  caught. Delete it, or widen the guard.
 - **Inter still loads from Google's CDN.** Non-blocking now, so a failure is
   invisible, but self-hosting would remove the third-party dependency entirely.
 - **One class per element** is generated, which is inline styling with extra
@@ -174,7 +172,3 @@ was checked and clean. Verify before acting on a finding.
   `ButtonDesignList` were imported nowhere and were deleted; the dialog renders
   only `ButtonTestingMode`, which shows "No button designs created yet". The
   feature is a shell.
-- **`package.json` declares seven unused dependencies** (`drizzle-orm`,
-  `@neondatabase/serverless`, `express-session`, `passport`, `zod`, `date-fns`,
-  `jsdom`) and a `db:push` script pointing at a config that does not exist.
-  Harmless, but they describe an architecture that was never built.

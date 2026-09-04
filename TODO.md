@@ -51,7 +51,7 @@ Until something checks, everything below will rot at the same rate it's built.*
 
 - [x] `[S]` **CI: typecheck + build on push.** `.github/workflows/ci.yml` runs
       `npm run check` and `npm run build` on every branch and PR.
-- [x] `[M]` **Playwright + axe harness — 25 tests.** `npm test` builds the
+- [x] `[M]` **Playwright + axe harness — 62 tests.** `npm test` builds the
       production bundle, serves it through the app's own Express server, and
       covers: first run and the empty state, all three templates, undo/redo
       (including one Ctrl+Z per drawn shape), export, disabled formats, and

@@ -103,14 +103,9 @@ drop-zone detection). `CanvasElement.tsx` renders the tree recursively.
 serves the built client through Express. There are no API routes, no database,
 no sessions and no authentication. Everything is client-side.
 
-`package.json` still declares `drizzle-orm`, `@neondatabase/serverless`,
-`express-session`, `passport`, `zod`, `date-fns` and `jsdom` — **all unused, in
-zero files**. The `db:push` script points at a `drizzle.config.ts` that does not
-exist and cannot run. `server/import-service.ts` is imported by nothing and has
-its jsdom import commented out. Treat all of this as leftovers, not architecture.
-
-`@tanstack/react-query` is wired up in `App.tsx` but there is not a single
-`useQuery` or `useMutation`; it is scaffolding for an API that does not exist.
+The abandoned database, authentication, website-import and API-client
+scaffolding has been removed. Do not reintroduce it unless the local-first
+decision changes deliberately.
 
 ## Storage
 
