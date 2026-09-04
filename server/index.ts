@@ -75,9 +75,9 @@ app.use((req, res, next) => {
     serveStatic(app);
   }
 
-  // Host/port configurables ; par défaut on reste en local
+  // Bind on all interfaces so Replit's preview/deployment proxy can reach the app.
   const port = Number(process.env.PORT ?? 5174);
-  const host = process.env.HOST ?? '127.0.0.1';
+  const host = process.env.HOST ?? '0.0.0.0';
   server.listen(port, host, () => {
     log(`serving at http://${host}:${port}`);
   });
