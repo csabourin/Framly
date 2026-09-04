@@ -6,6 +6,15 @@ let debounceTimeout: NodeJS.Timeout | null = null;
 let pendingAction: { type: string; description: string } | null = null;
 let isMiddlewareActive = false;
 
+// When we last recorded an entry outright, used to tell whether a debounced
+// change is a consequence of that action rather than a new one.
+let lastImmediateRecordAt = 0;
+
+// How long after an immediate action a debounced change still counts as part of
+// it. Comfortably covers the 800ms debounce below, while staying short enough
+// that a separate deliberate edit lands on its own entry.
+const COALESCE_WINDOW_MS = 2000;
+
 /**
  * Add history middleware to an existing store (avoids circular dependencies)
  */
@@ -44,6 +53,15 @@ const trackHistoryForAction = (action: any) => {
     return;
   }
   
+  // Loading a whole project (restored from storage, or imported) replaces the
+  // document. Any existing entries belong to a different one, so undoing into
+  // them would discard what was just loaded. Restores during undo/redo are
+  // already excluded by the isUndoing/isRedoing check above.
+  if (action.type === 'canvas/loadProject') {
+    historyManager.resetBaseline();
+    return;
+  }
+
   // Define actions that should be recorded in history
   const immediateActions: Record<string, string> = {
     'canvas/addElement': 'Add element',
@@ -51,6 +69,12 @@ const trackHistoryForAction = (action: any) => {
     'canvas/deleteElement': 'Delete element',
     'canvas/moveElement': 'Move element',
     'canvas/duplicateElement': 'Duplicate element',
+    // Structural changes that were previously left out of history entirely
+    'canvas/reorderElement': 'Reorder element',
+    'canvas/pasteElement': 'Paste element',
+    'canvas/cutElement': 'Cut element',
+    'canvas/groupElements': 'Group elements',
+    'canvas/ungroupElements': 'Ungroup elements',
     'canvas/addCSSClass': 'Add CSS class',
     'canvas/removeCSSClass': 'Remove CSS class',
     'canvas/switchBreakpoint': 'Switch breakpoint',
@@ -86,6 +110,7 @@ const trackHistoryForAction = (action: any) => {
     }
     
     historyManager.recordAction(action.type, description);
+    lastImmediateRecordAt = Date.now();
   }
   
   // Handle debounced actions (property changes)
@@ -111,7 +136,20 @@ const trackHistoryForAction = (action: any) => {
     
     debounceTimeout = setTimeout(() => {
       if (pendingAction) {
-        historyManager.recordAction(pendingAction.type, pendingAction.description);
+        // A debounced change landing right after an immediate one is a
+        // consequence of it, not a separate edit: drawing a shape dispatches
+        // addElement and then resizes the root container to fit. Folding it
+        // into the entry the immediate action created avoids an undo step that
+        // looks like it does nothing. Note the follow-up often targets a
+        // different element (the root), so this cannot key off element id.
+        const isConsequenceOfLastAction =
+          Date.now() - lastImmediateRecordAt < COALESCE_WINDOW_MS;
+
+        if (isConsequenceOfLastAction) {
+          historyManager.amendCurrentAction();
+        } else {
+          historyManager.recordAction(pendingAction.type, pendingAction.description);
+        }
         pendingAction = null;
       }
       debounceTimeout = null;
