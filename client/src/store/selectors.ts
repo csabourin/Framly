@@ -192,6 +192,7 @@ export const selectButtonDesignerState = createSelector(
   [(state: RootState) => state.button],
   (button) => ({
     designs: button.designs,
-    currentDesignId: button.currentDesignId
+    currentDesignId: button.currentDesignId,
+    previewState: button.previewState
   })
 );

@@ -109,17 +109,21 @@ const ComponentPanel: React.FC = () => {
     let insertPosition: 'before' | 'after' | 'inside' = 'inside';
     
     if (selectedElement && currentSelectedElementId !== 'root') {
+      // x/y are undefined for elements in document flow, which is the norm here
+      const baseX = selectedElement.x ?? 0;
+      const baseY = selectedElement.y ?? 0;
+
       // If a container/rectangle is selected, add inside it
       if (selectedElement.type === 'container' || selectedElement.type === 'rectangle') {
         parentId = currentSelectedElementId;
-        insertX = selectedElement.x + 20;
-        insertY = selectedElement.y + 20;
+        insertX = baseX + 20;
+        insertY = baseY + 20;
         insertPosition = 'inside';
       } else {
         // For other elements, add after them in the same parent
         parentId = selectedElement.parent || 'root';
-        insertX = selectedElement.x;
-        insertY = selectedElement.y + (selectedElement.height || 40) + 10;
+        insertX = baseX;
+        insertY = baseY + (selectedElement.height || 40) + 10;
         insertPosition = 'after';
       }
     }

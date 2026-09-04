@@ -10,7 +10,7 @@ import { ImageIcon, Palette, Zap, Upload, Link, Plus, Minus, RotateCcw } from 'l
 import { useDispatch } from 'react-redux';
 import { updateElementStyles } from '@/store/canvasSlice';
 import { indexedDBManager } from '@/utils/indexedDB';
-import { ColorModePropertyInput } from '../ColorModePropertyInput';
+import { ColorModePropertyInput, type ColorModeValues } from '../ColorModePropertyInput';
 
 interface GradientStop {
   color: string;
@@ -167,7 +167,8 @@ export const BackgroundInput: React.FC<BackgroundInputProps> = ({
     }
   };
 
-  const updateBackgroundProperty = (property: string, propertyValue: string) => {
+  // A colour property can hold per-colour-mode values, not just a plain string
+  const updateBackgroundProperty = (property: string, propertyValue: string | ColorModeValues) => {
     const updates = { [property]: propertyValue };
     onChange(updates);
     

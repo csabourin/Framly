@@ -26,28 +26,28 @@ const initialState: ComponentDefinitionsState = {
       id: 'custom', 
       name: 'Custom', 
       sortIndex: 0,
-      createdAt: new Date().toISOString(),
+      createdAt: Date.now(),
       components: []
     },
     'ui': { 
       id: 'ui', 
       name: 'UI Elements', 
       sortIndex: 1,
-      createdAt: new Date().toISOString(),
+      createdAt: Date.now(),
       components: []
     },
     'layout': { 
       id: 'layout', 
       name: 'Layout', 
       sortIndex: 2,
-      createdAt: new Date().toISOString(),
+      createdAt: Date.now(),
       components: []
     },
     'forms': { 
       id: 'forms', 
       name: 'Forms', 
       sortIndex: 3,
-      createdAt: new Date().toISOString(),
+      createdAt: Date.now(),
       components: []
     }
   },

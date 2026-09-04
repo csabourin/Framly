@@ -5,7 +5,7 @@ import {
   type InsertionPoint,
   type InsertionIndicatorState
 } from '../utils/insertionLogic';
-import type { CanvasElement } from '../../../types';
+import type { CanvasElement } from '../../../types/canvas';
 
 /**
  * State representing the current drawing rectangle

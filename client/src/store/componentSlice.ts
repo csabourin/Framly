@@ -130,21 +130,29 @@ const initialState: ComponentState = {
     { 
       id: 'custom', 
       name: 'Custom', 
+      sortIndex: 0,
+      createdAt: Date.now(),
       components: sampleComponents.filter(comp => comp.category === 'custom') 
     },
     { 
       id: 'ui', 
       name: 'UI Elements', 
+      sortIndex: 1,
+      createdAt: Date.now(),
       components: sampleComponents.filter(comp => comp.category === 'ui') 
     },
     { 
       id: 'layout', 
       name: 'Layout', 
+      sortIndex: 2,
+      createdAt: Date.now(),
       components: sampleComponents.filter(comp => comp.category === 'layout') 
     },
     { 
       id: 'forms', 
       name: 'Forms', 
+      sortIndex: 3,
+      createdAt: Date.now(),
       components: sampleComponents.filter(comp => comp.category === 'forms') 
     }
   ],
@@ -229,7 +237,13 @@ const componentSlice = createSlice({
     addCategory: (state, action: PayloadAction<{ id: string; name: string }>) => {
       const { id, name } = action.payload;
       if (!state.categories.find(cat => cat.id === id)) {
-        state.categories.push({ id, name, components: [] });
+        state.categories.push({
+          id,
+          name,
+          sortIndex: state.categories.length,
+          createdAt: Date.now(),
+          components: [],
+        });
       }
     },
   },

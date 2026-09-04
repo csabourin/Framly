@@ -3,7 +3,7 @@
  * Centralizes drop zone detection, thresholds, and indicator bounds calculation.
  */
 
-import type { CanvasElement } from '../../../types';
+import type { CanvasElement } from '../../../types/canvas';
 
 // Drop Zone Constants
 export const DROP_ZONES = {

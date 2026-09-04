@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import { updateElementStyles } from '../../store/canvasSlice';
+import { updateElementStyles } from '../../../store/canvasSlice';
 
 interface PaddingHandlesProps {
     elementId: string;

@@ -426,7 +426,9 @@ class IndexedDBManager {
   }
 
   // Image operations
-  async saveImage(image: SavedImage): Promise<void> {
+  // createdAt is filled in below when the caller does not supply one, so it is
+  // optional on the way in.
+  async saveImage(image: Omit<SavedImage, 'createdAt'> & { createdAt?: string }): Promise<void> {
     try {
       const db = await this.ensureDB();
 

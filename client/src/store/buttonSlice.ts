@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ButtonDesign, ButtonDesignState, ButtonStyles, defaultButtonStates, defaultButtonStyles } from '../types/button';
+import { ButtonDesign, ButtonDesignState, ButtonStyles, ButtonVariantName, defaultButtonStates, defaultButtonStyles } from '../types/button';
 
 const initialState: ButtonDesignState = {
   designs: {},
@@ -88,7 +88,7 @@ const buttonSlice = createSlice({
 
     updateButtonVariant: (state, action: PayloadAction<{
       designId: string;
-      variantName: keyof ButtonDesign['variants'];
+      variantName: ButtonVariantName;
       styles: Partial<ButtonStyles>;
     }>) => {
       const { designId, variantName, styles } = action.payload;
@@ -106,7 +106,7 @@ const buttonSlice = createSlice({
       state.currentState = action.payload;
     },
 
-    setCurrentVariant: (state, action: PayloadAction<keyof ButtonDesign['variants'] | null>) => {
+    setCurrentVariant: (state, action: PayloadAction<ButtonVariantName | null>) => {
       state.currentVariant = action.payload;
     },
 

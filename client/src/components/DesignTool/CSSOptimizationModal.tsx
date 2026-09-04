@@ -53,7 +53,9 @@ const CSSOptimizationModal: React.FC = () => {
           criticalCSS: 0,
           utilityClassesSaved: 0,
           componentClassesSaved: 0,
-          sizeSaving: 0
+          sizeSaving: 0,
+          originalSize: 0,
+          optimizedSize: 0
         }
       };
     }
@@ -99,7 +101,9 @@ const CSSOptimizationModal: React.FC = () => {
           criticalCSS: optimizedCSS.critical.length,
           utilityClassesSaved,
           componentClassesSaved,
-          sizeSaving
+          sizeSaving,
+          originalSize: originalEstimatedSize,
+          optimizedSize: optimizedEstimatedSize
         }
       };
     } catch (error) {
@@ -117,7 +121,9 @@ const CSSOptimizationModal: React.FC = () => {
           criticalCSS: 0,
           utilityClassesSaved: 0,
           componentClassesSaved: 0,
-          sizeSaving: 0
+          sizeSaving: 0,
+          originalSize: 0,
+          optimizedSize: 0
         }
       };
     }
@@ -144,7 +150,7 @@ const CSSOptimizationModal: React.FC = () => {
   };
 
   const handleAnalyzeElement = (elementId: string) => {
-    const element = project.elements[elementId];
+    const element = currentElements[elementId];
     if (element) {
       return cssClassGenerator.analyzeElementForOptimization(element);
     }
@@ -183,7 +189,7 @@ const CSSOptimizationModal: React.FC = () => {
                   {optimizationData.metrics.sizeSaving}%
                 </div>
                 <div className="text-sm text-blue-600">
-                  {optimizationData.metrics.originalSize - optimizationData.metrics.optimizedSize} bytes saved
+                  {Math.max(0, optimizationData.metrics.originalSize - optimizationData.metrics.optimizedSize)} bytes saved
                 </div>
                 <div className="mt-2 h-2 bg-gray-200 rounded-full overflow-hidden">
                   <div 
