@@ -82,6 +82,7 @@ be too. A check that cannot fail is worthless.
 | Exported-page a11y | Zero violations, no baseline. This is promise #1. Now a real contrast check — until the CSS export was fixed there were no colours to measure. |
 | Export ↔ stylesheet | `tests/export.spec.ts`: no rule may select a class the markup lacks, no styled element may go unselected, no camelCase property, and the rendered page must compute to the colours it was designed in. |
 | Canvas ↔ export | `tests/roundtrip.spec.ts`: the Landing template's emitted rendered properties must match the canvas at all four breakpoint widths, including real responsive overrides. Editor drag cursors are intentionally excluded. |
+| Box-model overlay | `tests/box-model.spec.ts`: selection must expose all four labelled, distinctly coloured boxes without intercepting interaction, and must remeasure after a box or breakpoint change. |
 | `tests/deadcode.spec.ts` | Fails on any unreachable file. `components/ui/*` is exempt. |
 
 # Architecture
@@ -127,7 +128,8 @@ point-and-click insertion; HTML5 drag-and-drop reordering; inline text editing;
 starter templates on an empty canvas; undo/redo; semantic HTML/CSS export;
 stable structural export classes (`page`, `hero`, `hero-title`, etc.); keyboard
 shortcuts with a searchable cheatsheet; light/dark colour modes. Canvas/export
-fidelity is browser-tested at all four breakpoints.
+fidelity is browser-tested at all four breakpoints. Selecting an element draws
+and labels its computed margin, border, padding and content boxes on the canvas.
 
 Partly built — treat with care before extending:
 

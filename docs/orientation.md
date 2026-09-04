@@ -89,6 +89,7 @@ Recorded so they are not re-litigated. Each can be revisited — but knowingly.
 | **One class per element, still** | Fixing the export was not the moment to change what the editor produces. The generator now writes a rule for the class the markup actually carries, whatever that class is. Shared classes remain M4. |
 | **Generated export classes describe structure, not storage** | Timestamp classes remain internal editor handles. Export replaces them deterministically with `page`, `hero`, `hero-title`, and related structural names in DOM order. Explicit user classes are preserved; one-off auto classes from panel edits are folded into the structural rule. |
 | **Canvas/export fidelity is tested from computed styles** | The Landing template is rendered twice in Chromium — once in the editor and once from its generated files — at every breakpoint. The test compares the properties the export actually emits, while excluding the editor's deliberate grab cursor. |
+| **The box overlay measures the browser, not the model** | `SelectionOverlay` reads computed styles and rendered bounds, then converts them back through canvas zoom. That makes it describe what the user actually sees, including class and responsive styles, rather than one incomplete source of values. Margin geometry treats negative values as zero-width bands for now; the label still reports the signed value. |
 
 ---
 
@@ -164,6 +165,11 @@ was checked and clean. Verify before acting on a finding.
   with each other while the canvas showed neither value. The artboard also used
   `border-box`, making its content two pixels narrower than its labelled
   viewport. The round-trip gate now catches both kinds of drift.
+- **A selection outline already existed in three places.** Inline blue outline
+  and shadow styles, the old `selectable-block::after` chrome, and
+  `SelectionOverlay` all competed. The measured overlay now owns the visible
+  selection edge; the other selected-state decoration is suppressed so the
+  reserved box colours keep one meaning.
 
 ---
 

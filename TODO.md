@@ -35,9 +35,9 @@ Three promises, in priority order. When two conflict, the higher one wins:
 
 ### 👉 Start here
 
-**M2.1 — Box overlay on selection.** The output milestone is complete. The
-next job is making Framly's differentiator visible: selecting an element should
-show its margin, border, padding and content boxes directly on the canvas.
+**M2.2 — Drag the spacing.** Selection now draws and labels the real margin,
+border, padding and content boxes on the canvas. Next, make the padding and
+margin bands directly draggable and keep their measurements live while moving.
 
 *M0 is done: CI runs on every PR, and three gates fail on a regression.*
 
@@ -50,7 +50,7 @@ Until something checks, everything below will rot at the same rate it's built.*
 
 - [x] `[S]` **CI: typecheck + build on push.** `.github/workflows/ci.yml` runs
       `npm run check` and `npm run build` on every branch and PR.
-- [x] `[M]` **Playwright + axe harness — 68 tests.** `npm test` builds the
+- [x] `[M]` **Playwright + axe harness — 70 tests.** `npm test` builds the
       production bundle, serves it through the app's own Express server, and
       covers: first run and the empty state, all three templates, undo/redo
       (including one Ctrl+Z per drawn shape), export, disabled formats, and
@@ -185,13 +185,19 @@ both in CI and have each caught a deliberate regression.
 app — the padding handles exist as a file that nothing renders. Everything
 above is table stakes; this is the reason Framly exists.*
 
-- [ ] `[M]` **Box overlay on selection.** Margin, border, padding and content
-      drawn on the canvas, colour-coded and labelled, always visible while an
-      element is selected — not a panel you have to go find.
-      *Done when:* selecting anything shows you its four boxes without a click.
+- [x] `[M]` **Box overlay on selection.** Selection measures the browser's
+      computed margin, border and padding, draws the four nested boxes in the
+      reserved DevTools hues, and labels them with compact real dimensions.
+      An ink edge remains distinct from the semantic colours. The overlay is
+      click-through, has an accessible text equivalent, and follows layout,
+      style, zoom, scroll and breakpoint changes. The old blue selection
+      chrome and dormant `PaddingHandles` prototype are gone.
+      *Verified by:* two browser tests cover the complete labelled overlay,
+      distinct colours, interaction safety and live remeasurement. Deleting
+      the margin layer made the gate fail on that exact missing box. ✅
 - [ ] `[L]` **Drag the spacing.** Grab a padding or margin edge on the canvas and
       pull. Numbers update live; the overlay shows what's changing.
-      Revive `PaddingHandles` properly and extend it to margin.
+      Build the interaction on the measured overlay and support both axes.
       *Done when:* you can set padding without touching the right-hand panel.
 - [ ] `[M]` **A spacing scale.** 4 / 8 / 12 / 16 / 24 / 32 / 48 as the default
       choices, with free entry as a deliberate escape hatch.
