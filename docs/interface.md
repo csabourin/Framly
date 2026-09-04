@@ -1,6 +1,11 @@
 # Framly — interface direction
 
-Rendered proposal: <https://claude.ai/code/artifact/53e406a7-bce7-4538-a8b5-384a0d99f668>
+Rendered proposal: **`docs/interface-proposal.html`** — open it in a browser.
+Also published at
+<https://claude.ai/code/artifact/53e406a7-bce7-4538-a8b5-384a0d99f668>.
+
+Everything needed to build this is in this file; the mockup shows how it looks,
+it is not a dependency.
 
 ## The direction: a drafting table
 

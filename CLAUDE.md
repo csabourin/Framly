@@ -17,7 +17,15 @@ Three promises, in priority order. When two conflict, the higher one wins:
    at the moment of the mistake.
 
 **`TODO.md` is the roadmap** — sequenced, one next action at the top. Work from
-it. **`docs/interface.md`** is the interface direction.
+it.
+
+**Before any UI or visual work, read `docs/interface.md`.** It is the interface
+direction: the palette (and the rule that colour only ever means something), the
+type pairing, the four-surface layout, and what was deliberately removed.
+`docs/interface-proposal.html` is the rendered mockup — open it in a browser.
+Both live in the repo so neither depends on a link surviving; the same mockup is
+published at
+<https://claude.ai/code/artifact/53e406a7-bce7-4538-a8b5-384a0d99f668>.
 
 # User Preferences
 
