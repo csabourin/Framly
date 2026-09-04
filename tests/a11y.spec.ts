@@ -112,9 +112,61 @@ test.describe('Framly itself', () => {
     const results = await new AxeBuilder({ page })
       .withTags(WCAG_TAGS)
       .include('[data-testid="export-options"]')
+      .include('[data-testid="export-settings"]')
       .analyze();
 
     expect(results.violations).toEqual([]);
+  });
+
+  /**
+   * The settings are the only controls in the dialog that change the file you
+   * get, so they have to be operable without a mouse and have to say what they
+   * are.
+   */
+  test('the export settings are operable from the keyboard', async ({ page }) => {
+    await openApp(page);
+    await applyTemplate(page, 'landing');
+    await page.getByTestId('button-export').click();
+    await expect(page.getByTestId('export-settings')).toBeVisible();
+
+    const responsive = page.getByTestId('checkbox-responsive');
+    await expect(responsive).toHaveAttribute('aria-checked', 'true');
+
+    await responsive.focus();
+    await expect(responsive).toBeFocused();
+    await page.keyboard.press('Space');
+    await expect(responsive).toHaveAttribute('aria-checked', 'false');
+    await page.keyboard.press('Space');
+    await expect(responsive).toHaveAttribute('aria-checked', 'true');
+
+    for (const id of ['checkbox-responsive', 'checkbox-minify', 'checkbox-comments']) {
+      await expect(page.getByTestId(id), `${id} has an accessible name`)
+        .not.toHaveAccessibleName('');
+    }
+  });
+
+  /**
+   * Minifying strips the comments back out. Saying so is promise #3 — a
+   * guardrail in plain language, at the moment of the mistake — and it has to
+   * reach a screen reader, not only a sighted user.
+   */
+  test('the comments setting explains when minifying will undo it', async ({ page }) => {
+    await openApp(page);
+    await applyTemplate(page, 'landing');
+    await page.getByTestId('button-export').click();
+    await expect(page.getByTestId('export-settings')).toBeVisible();
+
+    const comments = page.getByTestId('checkbox-comments');
+    const note = page.getByTestId('note-comments-minified');
+
+    await expect(note).toBeHidden();
+
+    await comments.click();
+    await expect(note).toBeHidden(); // minifying is off by default
+
+    await page.getByTestId('checkbox-minify').click();
+    await expect(note).toBeVisible();
+    await expect(comments).toHaveAccessibleDescription(await note.innerText());
   });
 });
 

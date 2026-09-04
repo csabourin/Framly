@@ -1,5 +1,4 @@
 import { CanvasElement, Project } from '../types/canvas';
-import { CSSOptimizer } from './cssOptimizer';
 import { generateColorModeCSS, combineColorModeCSS, isColorModeValues, ColorModeCSS } from './colorModeHelper';
 
 interface CustomClass {
@@ -8,6 +7,27 @@ interface CustomClass {
   description?: string;
   category?: string;
 }
+
+/** The three choices offered in the export dialog. */
+export interface ExportOptions {
+  /** Emit the `@media (min-width: …)` blocks for the non-mobile breakpoints. */
+  includeResponsive: boolean;
+  /** Strip whitespace and comments from the stylesheet. */
+  minifyCSS: boolean;
+  /** Label each section of the stylesheet. */
+  includeComments: boolean;
+}
+
+/**
+ * Minifying is off by default: promise #1 is code a programmer would sign off,
+ * and that is the readable version. Minifying is a deliberate choice, not the
+ * thing that happens to you.
+ */
+export const DEFAULT_EXPORT_OPTIONS: ExportOptions = {
+  includeResponsive: true,
+  minifyCSS: false,
+  includeComments: false,
+};
 
 /** HTML elements that take no children and must not get a closing tag. */
 const VOID_ELEMENTS = new Set([
@@ -89,22 +109,135 @@ const extractText = (value: string): string => {
     .trim();
 };
 
+/**
+ * The base every exported page starts from. Indented two spaces to match the
+ * rules generated below it, so the stylesheet reads as one file.
+ */
+const RESET_CSS = `* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+}`;
+
+const camelToKebab = (property: string): string =>
+  property.replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, '$1-$2').toLowerCase();
+
+/**
+ * A style record turned into real CSS declarations.
+ *
+ * Style keys are camelCase because that is what React needs on the canvas;
+ * a stylesheet needs `background-color`, not `backgroundColor`, and a browser
+ * silently drops the rest of a rule after a property it cannot parse. Values
+ * that are neither a primitive nor a colour-mode object are dropped — that is
+ * how nested records such as `responsiveStyles` stay out of the base rule.
+ */
+const toCssDeclarations = (styles: Record<string, any> | undefined): Record<string, any> => {
+  const declarations: Record<string, any> = {};
+  if (!styles || typeof styles !== 'object') return declarations;
+
+  for (const [property, value] of Object.entries(styles)) {
+    if (value === undefined || value === null || value === '') continue;
+    if (typeof value === 'object' && !isColorModeValues(value)) continue;
+    declarations[camelToKebab(property)] = value;
+  }
+
+  return declarations;
+};
+
+/** Punctuation that may lose the whitespace in front of it. */
+const TIGHT_BEFORE = new Set(['{', '}', ';', ',']);
+/** Punctuation that may lose the whitespace after it. A space before `:` is
+ *  kept, because in a selector it is a descendant combinator. */
+const TIGHT_AFTER = new Set(['{', '}', ';', ',', ':']);
+
+/**
+ * Minify a stylesheet.
+ *
+ * A whitespace remover, not a rewriter: it drops comments, collapses runs of
+ * whitespace and tightens up around punctuation, and does nothing else. Quoted
+ * strings are copied through character for character, so a value containing a
+ * brace or a semicolon survives intact.
+ */
+export function minifyCSS(css: string): string {
+  let out = '';
+  let pendingSpace = false;
+
+  for (let i = 0; i < css.length; i++) {
+    const char = css[i];
+
+    if (char === '"' || char === "'") {
+      if (pendingSpace && out && !TIGHT_AFTER.has(out[out.length - 1])) out += ' ';
+      pendingSpace = false;
+      out += char;
+      for (i++; i < css.length; i++) {
+        out += css[i];
+        if (css[i] === '\\' && i + 1 < css.length) {
+          out += css[++i];
+          continue;
+        }
+        if (css[i] === char) break;
+      }
+      continue;
+    }
+
+    if (char === '/' && css[i + 1] === '*') {
+      const end = css.indexOf('*/', i + 2);
+      i = end === -1 ? css.length : end + 1;
+      continue;
+    }
+
+    if (/\s/.test(char)) {
+      pendingSpace = true;
+      continue;
+    }
+
+    if (TIGHT_BEFORE.has(char)) {
+      pendingSpace = false;
+      // The last declaration in a rule does not need its semicolon.
+      if (char === '}') while (out.endsWith(';')) out = out.slice(0, -1);
+    } else if (pendingSpace) {
+      if (out && !TIGHT_AFTER.has(out[out.length - 1])) out += ' ';
+      pendingSpace = false;
+    }
+
+    out += char;
+  }
+
+  return out.trim();
+}
+
 export class CodeGenerator {
-  private project: any; // Use any for now to handle dynamic project structure  
-  private cssOptimizer: CSSOptimizer;
+  private project: any; // Use any for now to handle dynamic project structure
   private customClasses: Record<string, CustomClass>;
   private expandedElements?: Record<string, CanvasElement>; // CRITICAL: Support expanded elements
-  
-  constructor(project: any, customClasses: Record<string, CustomClass> = {}, expandedElements?: Record<string, CanvasElement>) {
+  private options: ExportOptions;
+  private styleClasses?: Map<string, string>;
+
+  constructor(
+    project: any,
+    customClasses: Record<string, CustomClass> = {},
+    expandedElements?: Record<string, CanvasElement>,
+    options: Partial<ExportOptions> = {}
+  ) {
     this.project = project;
-    this.cssOptimizer = new CSSOptimizer();
     this.customClasses = customClasses;
     this.expandedElements = expandedElements; // Use expanded elements if provided
+    this.options = { ...DEFAULT_EXPORT_OPTIONS, ...options };
   }
-  
+
+  /** Every element in the document being exported, keyed by id. */
+  private getElements(): Record<string, CanvasElement> {
+    return this.expandedElements || this.project.elements || {};
+  }
+
   generateHTML(): string {
     // CRITICAL: Use expanded elements when available to include component instance children
-    const elements = this.expandedElements || this.project.elements || {};
+    const elements = this.getElements();
     const rootElement = elements.root;
     if (!rootElement) return '';
     
@@ -127,9 +260,7 @@ ${this.generateElementHTML(rootElement, 1)}
   private generateElementHTML(element: CanvasElement, depth: number): string {
     const indent = '    '.repeat(depth);
     
-    // Generate optimized classes for this element
-    const optimizedClasses = this.getOptimizedClasses(element);
-    const classes = optimizedClasses.length > 0 ? optimizedClasses.join(' ') : '';
+    const classes = this.getElementClasses(element).join(' ');
     const tag = this.getHTMLTag(element);
     
     const classAttr = classes ? ` class="${escapeAttr(classes)}"` : '';
@@ -200,7 +331,7 @@ ${indent}</label>`;
       content = '\n' + listItems + '\n' + indent;
     } else if (element.children && element.children.length > 0) {
       // CRITICAL: Use expanded elements when available for child lookup
-      const elements = this.expandedElements || this.project.elements || {};
+      const elements = this.getElements();
       content = element.children
         .map(childId => {
           const child = elements[childId];
@@ -247,201 +378,102 @@ ${indent}</${tag}>`;
   
   generateCSS(): string {
     const cssObjects: ColorModeCSS[] = [];
-    
-    // Reset styles
-    const resetCSS = `* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 
-body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    line-height: 1.6;
-}`;
-    
-    // Generate CSS for custom classes with color mode support
-    Object.values(this.customClasses).forEach(customClass => {
-      if (customClass.styles && Object.keys(customClass.styles).length > 0) {
-        const selector = `.${customClass.name}`;
-        const colorModeCSS = generateColorModeCSS(selector, customClass.styles);
-        cssObjects.push(colorModeCSS);
+    // Named classes the user has defined, which several elements may share.
+    Object.values(this.customClasses).forEach((customClass) => {
+      const declarations = toCssDeclarations(customClass.styles);
+      if (Object.keys(declarations).length > 0) {
+        cssObjects.push(generateColorModeCSS(`.${customClass.name}`, declarations));
       }
     });
-    
-    // Generate element-specific styles for elements without classes
-    const elementsRecord = this.expandedElements || this.project.elements || {};
-    const elements = Object.values(elementsRecord) as CanvasElement[];
-    elements.forEach((element) => {
-      // Only generate element styles if no custom classes are applied
-      if (!element.classes || element.classes.length === 0) {
-        const elementSelector = `[data-element-id="${element.id}"]`;
-        const colorModeCSS = generateColorModeCSS(elementSelector, element.styles);
-        cssObjects.push(colorModeCSS);
-      }
+
+    // Each element's own styles, on the class the markup actually carries.
+    const styleClasses = this.resolveStyleClasses();
+    Object.values(this.getElements()).forEach((element) => {
+      const styleClass = styleClasses.get(element.id);
+      if (!styleClass) return;
+
+      const declarations = toCssDeclarations(element.styles);
+      if (Object.keys(declarations).length === 0) return;
+
+      cssObjects.push(generateColorModeCSS(`.${styleClass}`, declarations));
     });
-    
-    // Generate responsive breakpoint styles
-    const responsiveCSS = this.generateResponsiveCSS();
-    
-    // Combine all CSS with color mode support
-    const colorModeOutput = combineColorModeCSS(cssObjects);
-    
-    return [resetCSS, colorModeOutput, responsiveCSS].filter(Boolean).join('\n\n');
+
+    const header = this.options.includeComments
+      ? `/* ${this.project.name} — exported from Framly */`
+      : '';
+
+    const css = [
+      header,
+      this.section('Reset', RESET_CSS),
+      this.section('Styles', combineColorModeCSS(cssObjects)),
+      this.section('Responsive overrides', this.generateResponsiveCSS()),
+    ]
+      .filter(Boolean)
+      .join('\n\n');
+
+    return this.options.minifyCSS ? minifyCSS(css) : css;
   }
 
-  generateLegacyCSS(): string {
-    const elements = Object.values(this.project.elements) as CanvasElement[];
-    const cssRules: string[] = [];
-    
-    // Reset styles
-    cssRules.push(`* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}`);
-    
-    cssRules.push(`body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    line-height: 1.6;
-}`);
-    
-    // Generate CSS for unique class names only
-    const processedClasses = new Set<string>();
-    const classToElementMap = new Map<string, CanvasElement>();
-    
-    // Map classes to their first element to avoid duplicates
-    elements.forEach((element) => {
-      if (element.classes && element.classes.length > 0) {
-        element.classes.forEach((className: string) => {
-          if (!processedClasses.has(className)) {
-            processedClasses.add(className);
-            classToElementMap.set(className, element);
-          }
-        });
-      }
-    });
-    
-    // Generate CSS for unique classes
-    classToElementMap.forEach((element, className) => {
-      const selector = `.${className}`;
-      const styles = this.generateCSSProperties(element);
-      if (styles) {
-        cssRules.push(`${selector} {
-${styles}
-}`);
-      }
-    });
-    
-    // Generate responsive breakpoint styles
-    const responsiveCSS = this.generateResponsiveCSS();
-    
-    return [cssRules.join('\n\n'), responsiveCSS].filter(Boolean).join('\n\n');
+  /**
+   * A labelled block of the stylesheet. The label is what "include comments"
+   * turns on; an empty body drops the section entirely, so an export never
+   * carries a heading over nothing.
+   */
+  private section(title: string, body: string): string {
+    if (!body.trim()) return '';
+    return this.options.includeComments ? `/* ${title} */\n${body}` : body;
   }
-  
-  private generateCustomClassCSS(styles: Record<string, any>): string {
-    // Use color mode helper to generate proper CSS with color modes
-    const colorModeCSS = generateColorModeCSS('', styles);
-    const cssProps: string[] = [];
-    
-    // Extract base CSS properties (remove selector wrapper)
-    if (colorModeCSS.baseCSS) {
-      const baseLines = colorModeCSS.baseCSS.split('\n').slice(1, -1); // Remove wrapper lines
-      cssProps.push(...baseLines);
-    }
-    
-    return cssProps.join('\n');
-  }
-  
-  private generateCSSProperties(element: CanvasElement): string {
-    const styles: string[] = [];
-    
-    if (!element.styles || typeof element.styles !== 'object') {
-      return '';
-    }
-    
-    Object.entries(element.styles).forEach(([property, value]) => {
-      if (isColorModeValues(value)) {
-        // Use light mode as default, fallback to dark or high-contrast
-        const defaultValue = value.light || value.dark || value['high-contrast'];
-        if (defaultValue) {
-          const cssProperty = this.camelToKebab(property);
-          styles.push(`    ${cssProperty}: ${defaultValue};`);
-        }
-      } else if (value !== undefined && value !== null && value !== '' && typeof value !== 'object') {
-        // Only process primitive values, skip objects that aren't ColorModeValues
-        const cssProperty = this.camelToKebab(property);
-        styles.push(`    ${cssProperty}: ${value};`);
-      }
-    });
-    
-    return styles.join('\n');
-  }
-  
-  private camelToKebab(str: string): string {
-    return str.replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, '$1-$2').toLowerCase();
-  }
-  
+
   private generateResponsiveCSS(): string {
+    if (!this.options.includeResponsive) return '';
+
     const breakpoints = Object.entries(this.project.breakpoints || {});
     const responsiveRules: string[] = [];
-    
-    // Get all elements for responsive styles
-    const elementsRecord = this.expandedElements || this.project.elements || {};
-    const elements = Object.values(elementsRecord) as CanvasElement[];
-    
-    // Generate styles for each breakpoint (mobile-first)
+    const styleClasses = this.resolveStyleClasses();
+
+    const rule = (selector: string, styles: Record<string, any>): string | null => {
+      const declarations = Object.entries(toCssDeclarations(styles))
+        .map(([property, value]) => `    ${property}: ${value};`)
+        .join('\n');
+      return declarations ? `  ${selector} {\n${declarations}\n  }` : null;
+    };
+
+    // Mobile is the base; every other breakpoint is a min-width override.
     breakpoints.forEach(([breakpointName, config]) => {
-      if (breakpointName === 'mobile') return; // Mobile is base styles
-      
+      if (breakpointName === 'mobile') return;
+
       const breakpointConfig = config as any;
       if (!breakpointConfig.width) return;
-      
+
       const breakpointStyles: string[] = [];
-      
-      // Check custom classes for responsive styles
-      Object.values(this.customClasses).forEach(customClass => {
-        const responsiveStyles = customClass.styles?.responsiveStyles as any;
-        if (responsiveStyles?.[breakpointName]) {
-          const styles = responsiveStyles[breakpointName];
-          const cssProps = Object.entries(styles)
-            .map(([prop, value]) => `    ${this.camelToKebab(prop)}: ${value};`)
-            .join('\n');
-          if (cssProps) {
-            breakpointStyles.push(`  .${customClass.name} {\n${cssProps}\n  }`);
-          }
-        }
+
+      Object.values(this.customClasses).forEach((customClass) => {
+        const styles = (customClass.styles?.responsiveStyles as any)?.[breakpointName];
+        const css = styles ? rule(`.${customClass.name}`, styles) : null;
+        if (css) breakpointStyles.push(css);
       });
-      
-      // Check elements for responsive styles
-      elements.forEach(element => {
-        const responsiveStyles = element.responsiveStyles as any;
-        if (responsiveStyles?.[breakpointName]) {
-          const styles = responsiveStyles[breakpointName];
-          const cssProps = Object.entries(styles)
-            .map(([prop, value]) => `    ${this.camelToKebab(prop)}: ${value};`)
-            .join('\n');
-          
-          if (cssProps) {
-            const selector = element.classes && element.classes.length > 0 
-              ? `.${element.classes[0]}`
-              : `[data-element-id="${element.id}"]`;
-            breakpointStyles.push(`  ${selector} {\n${cssProps}\n  }`);
-          }
-        }
+
+      Object.values(this.getElements()).forEach((element) => {
+        const styleClass = styleClasses.get(element.id);
+        const styles = (element.responsiveStyles as any)?.[breakpointName];
+        const css = styleClass && styles ? rule(`.${styleClass}`, styles) : null;
+        if (css) breakpointStyles.push(css);
       });
-      
+
       if (breakpointStyles.length > 0) {
-        responsiveRules.push(`@media (min-width: ${breakpointConfig.width}px) {\n${breakpointStyles.join('\n\n')}\n}`);
+        responsiveRules.push(
+          `@media (min-width: ${breakpointConfig.width}px) {\n${breakpointStyles.join('\n\n')}\n}`
+        );
       }
     });
-    
+
     return responsiveRules.join('\n\n');
   }
-  
+
   generateReactComponent(): string {
     // CRITICAL: Use expanded elements when available for React generation too
-    const elements = this.expandedElements || this.project.elements || {};
+    const elements = this.getElements();
     const rootElement = elements.root;
     if (!rootElement) return '';
     
@@ -459,10 +491,10 @@ export default ${this.project.name.replace(/\s+/g, '')};`;
   
   private generateReactElementJSX(element: CanvasElement, depth: number): string {
     const indent = '    '.repeat(depth);
-    
-    // Generate optimized classes for this element
-    const optimizedClasses = this.getOptimizedClasses(element);
-    const classes = optimizedClasses.length > 0 ? optimizedClasses.join(' ') : '';
+
+    const classes = this.getElementClasses(element).join(' ');
+    // An element with no classes gets no attribute rather than className="".
+    const classAttr = classes ? ` className="${classes}"` : '';
     const tag = this.getHTMLTag(element);
     
     let content = '';
@@ -473,10 +505,10 @@ export default ${this.project.name.replace(/\s+/g, '')};`;
       content = element.buttonText;
     } else if (element.type === 'image') {
       const src = element.imageUrl || element.imageBase64 || 'placeholder.jpg';
-      return `${indent}<img className="${classes}" src={${JSON.stringify(src)}} alt={${JSON.stringify(element.imageAlt || '')}} />`;
+      return `${indent}<img${classAttr} src={${JSON.stringify(src)}} alt={${JSON.stringify(element.imageAlt || '')}} />`;
     } else if (element.children && element.children.length > 0) {
       // CRITICAL: Use expanded elements when available for child lookup
-      const elements = this.expandedElements || this.project.elements || {};
+      const elements = this.getElements();
       content = element.children
         .map(childId => {
           const child = elements[childId];
@@ -486,86 +518,87 @@ export default ${this.project.name.replace(/\s+/g, '')};`;
     }
 
     if (VOID_ELEMENTS.has(tag)) {
-      return `${indent}<${tag} className="${classes}" />`;
+      return `${indent}<${tag}${classAttr} />`;
     }
-    
+
     if (content) {
-      return `${indent}<${tag} className="${classes}">
+      return `${indent}<${tag}${classAttr}>
 ${content}
 ${indent}</${tag}>`;
     } else {
-      return `${indent}<${tag} className="${classes}" />`;
+      return `${indent}<${tag}${classAttr} />`;
     }
   }
   
-  private getOptimizedClasses(element: CanvasElement): string[] {
-    const classes: string[] = [];
-    
-    // Add existing custom classes
-    if (element.classes && element.classes.length > 0) {
-      classes.push(...element.classes);
-    }
-    
-    // Check if we can use utility classes for this element's styles
-    if (element.styles && Object.keys(element.styles).length > 0) {
-      try {
-        const utilityClass = this.cssOptimizer.getUtilityClass(element.styles);
-        if (utilityClass) {
-          classes.push(utilityClass);
-        } else {
-          const componentClass = this.cssOptimizer.getComponentClass(element.styles);
-          if (componentClass) {
-            classes.push(componentClass);
-          } else {
-            // Generate a unique class for this element
-            classes.push(`el-${element.id.split('-').pop()}`);
-          }
-        }
-      } catch (error) {
-        // Fallback to element classes
-        if (element.classes && element.classes.length > 0) {
-          return element.classes;
-        } else {
-          // Generate a fallback class
-          classes.push(`el-${element.id.split('-').pop()}`);
-        }
+  /**
+   * The class that carries each element's own styles, for every element that
+   * has any.
+   *
+   * Resolved once for the whole export so the markup and the stylesheet cannot
+   * disagree. They used to, completely: the HTML emitted classes invented by
+   * the CSS optimiser while the CSS emitted `[data-element-id="…"]` selectors
+   * for an attribute that was never written, so an exported page arrived with
+   * no styling on it at all.
+   *
+   * An element reuses a class of its own when it has one and nothing else has
+   * claimed it. A class registered in `customClasses` is shared, so writing an
+   * element's ad-hoc styles onto it would leak them onto every other element
+   * using it; those elements get a generated class instead.
+   *
+   * One class per element is not the destination — shared classes are M4 — but
+   * it is what the editor produces today, and it has to export correctly.
+   */
+  private resolveStyleClasses(): Map<string, string> {
+    if (this.styleClasses) return this.styleClasses;
+
+    const resolved = new Map<string, string>();
+    const claimed = new Set<string>(Object.keys(this.customClasses));
+
+    for (const element of Object.values(this.getElements())) {
+      if (!this.needsStyleClass(element)) continue;
+
+      const own = (element.classes || []).find((name) => name && !claimed.has(name));
+      if (own) {
+        claimed.add(own);
+        resolved.set(element.id, own);
+        continue;
       }
+
+      let generated = `el-${element.id.replace(/[^a-zA-Z0-9_-]+/g, '-')}`;
+      for (let suffix = 2; claimed.has(generated); suffix++) {
+        generated = `el-${element.id.replace(/[^a-zA-Z0-9_-]+/g, '-')}-${suffix}`;
+      }
+      claimed.add(generated);
+      resolved.set(element.id, generated);
     }
-    
+
+    this.styleClasses = resolved;
+    return resolved;
+  }
+
+  /** Whether an element has anything worth writing a rule for. */
+  private needsStyleClass(element: CanvasElement): boolean {
+    if (Object.keys(toCssDeclarations(element.styles)).length > 0) return true;
+
+    const responsive = element.responsiveStyles as Record<string, any> | undefined;
+    return Object.values(responsive || {}).some(
+      (styles) => Object.keys(toCssDeclarations(styles)).length > 0
+    );
+  }
+
+  /** Every class an element carries in the exported markup. */
+  private getElementClasses(element: CanvasElement): string[] {
+    const classes = [...(element.classes || [])];
+    const styleClass = this.resolveStyleClasses().get(element.id);
+    if (styleClass && !classes.includes(styleClass)) classes.push(styleClass);
     return classes;
   }
 
-  exportProject(): { 
-    html: string; 
-    css: string; 
-    react: string; 
-    optimizedCSS?: string;
-    cssAnalysis?: any;
-  } {
-    try {
-      // CRITICAL: Use expanded elements for CSS optimization too
-      const elements = this.expandedElements || this.project.elements || {};
-      const optimizedCSS = this.cssOptimizer.optimizeCSS(elements);
-      
-      return {
-        html: this.generateHTML(),
-        css: this.generateCSS(),
-        react: this.generateReactComponent(),
-        optimizedCSS: this.cssOptimizer.generateOptimizedCSS(optimizedCSS),
-        cssAnalysis: {
-          utilityClasses: optimizedCSS.utilities.length,
-          componentClasses: optimizedCSS.components.length,
-          layoutClasses: optimizedCSS.layout.length,
-          criticalCSS: optimizedCSS.critical.length
-        }
-      };
-    } catch (error) {
-      // Fallback to legacy CSS generation
-      return {
-        html: this.generateHTML(),
-        css: this.generateLegacyCSS(),
-        react: this.generateReactComponent()
-      };
-    }
+  exportProject(): { html: string; css: string; react: string } {
+    return {
+      html: this.generateHTML(),
+      css: this.generateCSS(),
+      react: this.generateReactComponent(),
+    };
   }
 }

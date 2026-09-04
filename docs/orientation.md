@@ -81,6 +81,9 @@ Recorded so they are not re-litigated. Each can be revisited — but knowingly.
 | **M1 opens on its two small tasks** | Nothing depends on the order, and opening a milestone on an `[L]` is a wall. |
 | **The CSS optimiser is scheduled for deletion, not maintenance** | It exists to undo bloat caused by generating one class per element. M4 fixes the cause. Do not invest in it. |
 | **Templates avoided form elements** | They would have exported as `<div>`. **This is now unblocked** — `getHTMLTag` emits real tags, so a form or contact template is straightforward whenever it is wanted. |
+| **Minifying is off by default in the export dialog** | It used to be on, and it was never applied, so nobody had met the behaviour. Promise #1 is code a programmer would sign off; that is the readable version. Minifying is now something you choose. |
+| **The CSS optimiser is out of the export path** | It was the source of the classes the stylesheet did not define. It still backs `cssClassGenerator` and its own modal, so nothing was deleted — but an export no longer goes near it, which is one less thing M4 has to unpick. |
+| **One class per element, still** | Fixing the export was not the moment to change what the editor produces. The generator now writes a rule for the class the markup actually carries, whatever that class is. Shared classes remain M4. |
 
 ---
 
@@ -130,6 +133,17 @@ was checked and clean. Verify before acting on a finding.
 - **Autosave is 30 seconds, not 5.** The docs said 5 for a long time. A refresh
   within 30s of an edit loses it.
 - **A green build says nothing about types.** Vite does not typecheck.
+- **The HTML and the CSS were generated from different ideas of what a class
+  is.** `getOptimizedClasses` put optimiser-invented names in the markup;
+  `generateCSS` wrote `[data-element-id="…"]` selectors for an attribute that
+  was never emitted, and only for elements that had *no* classes — which the
+  templates always give them. The result was an export with no styling at all,
+  and it had been that way long enough to be invisible. Anything that writes
+  markup and a stylesheet has to resolve the names once, for both.
+- **An empty output passes a lot of tests.** See the note in `TODO.md`: the
+  exported-page accessibility gate was green because there were no colours to
+  fail the contrast check. When a gate has never failed, ask what it would take
+  for it to — not just whether it is running.
 
 ---
 

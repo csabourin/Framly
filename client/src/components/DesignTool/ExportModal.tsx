@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
 import { selectCanvasProject, selectCustomClasses, selectExportModalState, selectCurrentElements } from '../../store/selectors';
 import { setExportModalOpen } from '../../store/uiSlice';
-import { CodeGenerator } from '../../utils/codeGenerator';
+import { CodeGenerator, DEFAULT_EXPORT_OPTIONS } from '../../utils/codeGenerator';
 import { useExpandedElements } from '../../hooks/useExpandedElements';
 import {
   Dialog,
@@ -29,11 +29,7 @@ const ExportModal: React.FC = () => {
   // CRITICAL: Use expanded elements for proper component instance code generation
   const currentElements = useExpandedElements(rawElements);
 
-  const [exportSettings, setExportSettings] = useState({
-    includeResponsive: true,
-    minifyCSS: true,
-    includeComments: false,
-  });
+  const [exportSettings, setExportSettings] = useState(DEFAULT_EXPORT_OPTIONS);
 
   const [selectedFormat, setSelectedFormat] = useState<'html' | 'png' | 'pdf'>('html');
 
@@ -51,8 +47,13 @@ const ExportModal: React.FC = () => {
       ...project,
       elements: rawElements // Use raw elements for project structure
     };
-    const generator = new CodeGenerator(projectForGeneration, customClasses, currentElements);
-    const { html, css, react } = generator.exportProject();
+    const generator = new CodeGenerator(
+      projectForGeneration,
+      customClasses,
+      currentElements,
+      exportSettings
+    );
+    const { html, css } = generator.exportProject();
 
     const activeTabId = project.activeTabId;
     const activeTab = project.tabs[activeTabId];
@@ -246,19 +247,37 @@ const ExportModal: React.FC = () => {
                   {t('export.minifyCSS')}
                 </Label>
               </div>
-              <div className="flex items-center space-x-3 p-3 bg-white dark:bg-gray-800 rounded-xl shadow-sm">
-                <Checkbox
-                  id="includeComments"
-                  checked={exportSettings.includeComments}
-                  onCheckedChange={(checked) =>
-                    setExportSettings(prev => ({ ...prev, includeComments: !!checked }))
-                  }
-                  data-testid="checkbox-comments"
-                  className="w-5 h-5"
-                />
-                <Label htmlFor="includeComments" className="text-sm font-medium text-gray-700 dark:text-gray-300 cursor-pointer flex-1">
-                  {t('export.includeComments')}
-                </Label>
+              {/* Minifying strips comments, so saying so here beats letting the
+                  two settings quietly contradict each other in the file. */}
+              <div className="p-3 bg-white dark:bg-gray-800 rounded-xl shadow-sm">
+                <div className="flex items-center space-x-3">
+                  <Checkbox
+                    id="includeComments"
+                    checked={exportSettings.includeComments}
+                    onCheckedChange={(checked) =>
+                      setExportSettings(prev => ({ ...prev, includeComments: !!checked }))
+                    }
+                    aria-describedby={
+                      exportSettings.minifyCSS && exportSettings.includeComments
+                        ? 'includeComments-note'
+                        : undefined
+                    }
+                    data-testid="checkbox-comments"
+                    className="w-5 h-5"
+                  />
+                  <Label htmlFor="includeComments" className="text-sm font-medium text-gray-700 dark:text-gray-300 cursor-pointer flex-1">
+                    {t('export.includeComments')}
+                  </Label>
+                </div>
+                {exportSettings.minifyCSS && exportSettings.includeComments && (
+                  <p
+                    id="includeComments-note"
+                    className="mt-2 text-sm text-gray-700 dark:text-gray-300"
+                    data-testid="note-comments-minified"
+                  >
+                    {t('export.commentsRemovedByMinify')}
+                  </p>
+                )}
               </div>
             </div>
           </div>
