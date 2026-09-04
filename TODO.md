@@ -35,8 +35,8 @@ Three promises, in priority order. When two conflict, the higher one wins:
 
 ### 👉 Start here
 
-**M0.1 — Add CI that runs typecheck and build on every push.**
-Nothing else on this list stays fixed until something is watching.
+**M0.4 — Delete the dead code.** One sitting, and it permanently lowers how
+much you have to hold in your head. CI is now watching, so it is safe to cut.
 
 ---
 
@@ -45,15 +45,23 @@ Nothing else on this list stays fixed until something is watching.
 *Why first: four features silently broke and shipped before anyone noticed.
 Until something checks, everything below will rot at the same rate it's built.*
 
-- [ ] `[S]` **CI: typecheck + build on push.** A GitHub Action running
-      `npm run check` and `npm run build`.
-      *Done when:* a push with a type error fails the check.
-- [ ] `[M]` **Playwright + axe harness with three smoke tests:** the app loads;
-      a template applies and renders; export produces parseable HTML.
-      *Done when:* `npm test` runs them locally and in CI.
-- [ ] `[S]` **axe gate on Framly's own UI.** Fails the build on any *new* AA
-      violation. Existing ones are recorded as a baseline to burn down in M3.
-      *Done when:* adding an unlabelled input turns CI red.
+- [x] `[S]` **CI: typecheck + build on push.** `.github/workflows/ci.yml` runs
+      `npm run check` and `npm run build` on every branch and PR.
+- [x] `[M]` **Playwright + axe harness — 25 tests.** `npm test` builds the
+      production bundle, serves it through the app's own Express server, and
+      covers: first run and the empty state, all three templates, undo/redo
+      (including one Ctrl+Z per drawn shape), export, disabled formats, and
+      the absence of debug artifacts.
+- [x] `[S]` **axe gate on Framly's own UI.** `tests/axe-baseline.json` records
+      the known violations; the gate fails on any new rule or a worse count,
+      and tells you when a number can come down. Verified by deliberately
+      adding an unlabelled `<select>` — it failed, naming the rule and the
+      element. Everything added since the baseline (empty state, gallery,
+      export dialog) is held to zero, so the baseline can only shrink.
+- [x] `[S]` **The output promise is now a test.** A document containing one of
+      every element type, and each template's exported page with its CSS
+      inlined, must score zero axe violations. Verified by deliberately
+      removing an `aria-label` — it failed.
 - [ ] `[S]` **Delete dead code.** `ButtonPreview` and `ButtonDesignList` (imported
       nowhere), `en_backup.json`, `en_old.json`, one of the two drag-and-drop
       implementations, the `canvas/setProject` dispatch with no reducer, and the
@@ -64,6 +72,7 @@ Until something checks, everything below will rot at the same rate it's built.*
       *Done when:* you can pinch-zoom Framly on a phone.
 
 **Milestone done when:** you can break something on purpose and CI tells you.
+*(The two gates above were verified this way. Two tasks left below.)*
 
 ---
 
@@ -149,9 +158,11 @@ itself. Do them together; it's the same skill and the same context.*
 
 ### Framly itself
 
-- [ ] `[L]` **Burn down the axe baseline:** 20 unnamed comboboxes and 12
-      unlabelled inputs in the Properties panel; `DOMTreePanel`'s invalid
-      `role="tree"`; `aria-selected` on canvas elements with no role.
+- [ ] `[L]` **Burn down the axe baseline** in `tests/axe-baseline.json`: 20
+      unnamed comboboxes and 12 unlabelled inputs in the Properties panel;
+      `DOMTreePanel`'s invalid `role="tree"`; `aria-selected` on canvas
+      elements with no role. Lower each number as you fix it — the gate keeps
+      it there.
 - [ ] `[L]` **A keyboard path for reordering.** Drag is currently the only way to
       move an element — WCAG 2.5.7 and 2.1.1. Elements carry `tabIndex={0}` with
       no handlers, producing a 121-stop tab order that does nothing.
@@ -239,7 +250,10 @@ Things that are true and surprising. Written down so they aren't rediscovered.
   *previous session's* last action. Reversible with Ctrl+Y. This is by design;
   one line in `ensureBaseline` changes it if you'd rather it didn't.
 - **Vite does not typecheck.** `npm run build` succeeding says nothing about
-  types. This is why M0.1 is first.
+  types — which is why CI runs `npm run check` separately.
+- **The code generator must stay DOM-optional.** It is a pure transformation and
+  is tested in Node; reaching for `DOMParser` or `document` in it breaks that
+  and forecloses ever running an export outside a browser.
 - **Element `x`/`y` are usually `undefined`** — elements live in document flow,
   which is the point. Treat a defined `x`/`y` as the unusual case.
 - **The canvas renders `element.htmlTag`** and always did; only the exporter
