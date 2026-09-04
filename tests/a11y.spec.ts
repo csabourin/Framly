@@ -59,15 +59,16 @@ test.describe('Framly itself', () => {
    * a phone from pinch-zooming. Stated here in its own right rather than only
    * as an absent baseline entry, so the requirement survives axe renaming a rule.
    */
-  test('can be pinch-zoomed on a phone', async ({ page }) => {
+  test('configures the viewport to allow pinch-zooming on a phone', async ({ page }) => {
     await openApp(page);
 
     const viewport = await page
       .locator('meta[name="viewport"]')
       .getAttribute('content');
 
-    expect(viewport, 'viewport meta').not.toMatch(/user-scalable\s*=\s*(no|0)/i);
-    const maxScale = viewport?.match(/maximum-scale\s*=\s*([\d.]+)/i)?.[1];
+    expect(viewport, 'viewport meta').not.toBeNull();
+    expect(viewport ?? '', 'viewport meta').not.toMatch(/user-scalable\s*=\s*(no|0)/i);
+    const maxScale = (viewport ?? '').match(/maximum-scale\s*=\s*([\d.]+)/i)?.[1];
     expect(
       maxScale === undefined || Number(maxScale) >= 2,
       `maximum-scale must be absent or >= 2, got ${maxScale}`
