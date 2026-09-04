@@ -1,5 +1,6 @@
 import { CanvasElement, Project, CustomComponent, ComponentCategory } from '../types/canvas';
 import { CustomClass, Category } from '../store/classSlice';
+import { WORKSPACE_KEY, type WorkspaceSnapshot } from './workspace';
 
 export interface SavedImage {
   id: string;
@@ -80,6 +81,11 @@ class IndexedDBManager {
 
       request.onsuccess = () => {
         this.db = request.result;
+        this.db.onversionchange = () => {
+          this.db?.close();
+          this.db = null;
+          this.initPromise = null;
+        };
         resolve();
       };
 
@@ -127,7 +133,31 @@ class IndexedDBManager {
       };
     });
 
-    return this.initPromise;
+    try {
+      await this.initPromise;
+    } catch (error) {
+      this.initPromise = null;
+      throw error;
+    }
+  }
+
+  /** One committed record owns the document, styles and undo position. */
+  async saveWorkspace(snapshot: WorkspaceSnapshot, preserveCurrent = false): Promise<void> {
+    const db = await this.ensureDB();
+    const transaction = db.transaction([SETTINGS_STORE], 'readwrite', { durability: 'strict' });
+    await new Promise<void>((resolve, reject) => {
+      transaction.oncomplete = () => resolve();
+      transaction.onabort = () => reject(transaction.error || new Error('The workspace save was aborted.'));
+      transaction.onerror = () => reject(transaction.error || new Error('The workspace could not be saved.'));
+      const settings = transaction.objectStore(SETTINGS_STORE);
+      if (preserveCurrent) {
+        const previous = settings.get(WORKSPACE_KEY);
+        previous.onsuccess = () => {
+          if (previous.result) settings.put({ ...previous.result, id: 'workspace-before-import' });
+        };
+      }
+      settings.put({ id: WORKSPACE_KEY, data: snapshot, updatedAt: new Date().toISOString() });
+    });
   }
 
   private async ensureDB(): Promise<IDBDatabase> {
@@ -503,43 +533,12 @@ class IndexedDBManager {
     const db = await this.ensureDB();
     const transaction = db.transaction([PROJECTS_STORE, COMPONENTS_STORE, CATEGORIES_STORE, SETTINGS_STORE, CUSTOM_CLASSES_STORE, CLASS_CATEGORIES_STORE, IMAGES_STORE], 'readwrite');
 
-    await Promise.all([
-      new Promise<void>((resolve, reject) => {
-        const request = transaction.objectStore(PROJECTS_STORE).clear();
-        request.onsuccess = () => resolve();
-        request.onerror = () => reject(request.error);
-      }),
-      new Promise<void>((resolve, reject) => {
-        const request = transaction.objectStore(COMPONENTS_STORE).clear();
-        request.onsuccess = () => resolve();
-        request.onerror = () => reject(request.error);
-      }),
-      new Promise<void>((resolve, reject) => {
-        const request = transaction.objectStore(CATEGORIES_STORE).clear();
-        request.onsuccess = () => resolve();
-        request.onerror = () => reject(request.error);
-      }),
-      new Promise<void>((resolve, reject) => {
-        const request = transaction.objectStore(SETTINGS_STORE).clear();
-        request.onsuccess = () => resolve();
-        request.onerror = () => reject(request.error);
-      }),
-      new Promise<void>((resolve, reject) => {
-        const request = transaction.objectStore(CUSTOM_CLASSES_STORE).clear();
-        request.onsuccess = () => resolve();
-        request.onerror = () => reject(request.error);
-      }),
-      new Promise<void>((resolve, reject) => {
-        const request = transaction.objectStore(CLASS_CATEGORIES_STORE).clear();
-        request.onsuccess = () => resolve();
-        request.onerror = () => reject(request.error);
-      }),
-      new Promise<void>((resolve, reject) => {
-        const request = transaction.objectStore(IMAGES_STORE).clear();
-        request.onsuccess = () => resolve();
-        request.onerror = () => reject(request.error);
-      })
-    ]);
+    await new Promise<void>((resolve, reject) => {
+      transaction.oncomplete = () => resolve();
+      transaction.onabort = () => reject(transaction.error || new Error('Clearing local data was aborted'));
+      transaction.onerror = () => reject(transaction.error);
+      for (const name of transaction.objectStoreNames) transaction.objectStore(name).clear();
+    });
   }
 }
 

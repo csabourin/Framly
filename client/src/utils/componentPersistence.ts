@@ -16,6 +16,7 @@ let db: ComponentDefinitionDB | null = null;
  * Initialize the component definitions database
  */
 export async function initializeComponentDefinitionsDB(): Promise<void> {
+  if (db) return;
   return new Promise((resolve, reject) => {
     const request = indexedDB.open(DB_NAME, DB_VERSION);
     
@@ -43,6 +44,18 @@ export async function initializeComponentDefinitionsDB(): Promise<void> {
         categoryStore.createIndex('sortIndex', 'sortIndex', { unique: false });
       }
     };
+  });
+}
+
+export async function clearComponentDefinitionsDB(): Promise<void> {
+  if (!db) throw new Error('Database not initialized');
+  const transaction = db.transaction([COMPONENT_STORE, CATEGORY_STORE], 'readwrite');
+  await new Promise<void>((resolve, reject) => {
+    transaction.oncomplete = () => resolve();
+    transaction.onabort = () => reject(transaction.error || new Error('Clearing components was aborted'));
+    transaction.onerror = () => reject(transaction.error);
+    transaction.objectStore(COMPONENT_STORE).clear();
+    transaction.objectStore(CATEGORY_STORE).clear();
   });
 }
 

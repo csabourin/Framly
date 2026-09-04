@@ -489,5 +489,18 @@
     "help": "Glissez ou utilisez les flèches pour 1px (Maj : 10px). Début remet à 0px. Échap annule le glissement.",
     "marginNote": "La marge est la valeur CSS ; la fusion des marges et la disposition du parent peuvent modifier l’espace visible entre les éléments.",
     "intro": "P : espace intérieur · padding. M : espace extérieur · margin."
+  },
+  "persistence": {
+    "loading": "Ouverture du travail enregistré…",
+    "saving": "Enregistrement…",
+    "saved": "Enregistré",
+    "error": "Non enregistré",
+    "title": "Enregistré sur cet appareil",
+    "statusLabel": "Enregistrement local : {{status}}",
+    "retry": "Réessayer",
+    "local": "Les modifications sont enregistrées automatiquement sur cet appareil.",
+    "saveError": "Les modifications n’ont pas pu être enregistrées. Gardez cet onglet ouvert et réessayez, ou exportez une sauvegarde.",
+    "loadError": "Le travail enregistré n’a pas pu être ouvert. Les données ont été conservées. Réessayez pour les ouvrir.",
+    "lastSaved": "Dernier enregistrement terminé : {{time}}"
   }
 }

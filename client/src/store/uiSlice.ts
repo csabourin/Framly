@@ -122,9 +122,7 @@ const uiSlice = createSlice({
     toggleComponentPanel: (state) => {
       state.isComponentPanelVisible = !state.isComponentPanelVisible;
       // Auto-save UI settings when panel visibility changes
-      import('../utils/persistence').then(({ persistenceManager }) => {
-        persistenceManager.saveCurrentProject();
-      });
+
     },
 
     toggleDOMTreePanel: (state) => {
@@ -134,25 +132,19 @@ const uiSlice = createSlice({
         state.workspaceLayout = 'custom';
       }
       // Auto-save UI settings when panel visibility changes
-      import('../utils/persistence').then(({ persistenceManager }) => {
-        persistenceManager.saveCurrentProject();
-      });
+
     },
 
     togglePropertiesPanel: (state) => {
       state.isPropertiesPanelVisible = !state.isPropertiesPanelVisible;
       // Auto-save UI settings when panel visibility changes
-      import('../utils/persistence').then(({ persistenceManager }) => {
-        persistenceManager.saveCurrentProject();
-      });
+
     },
 
     setRightPanelTab: (state, action: PayloadAction<'properties' | 'components'>) => {
       state.rightPanelTab = action.payload;
       // Auto-save UI settings when tab changes
-      import('../utils/persistence').then(({ persistenceManager }) => {
-        persistenceManager.saveCurrentProject();
-      });
+
     },
 
     setComponentEditorOpen: (state, action: PayloadAction<boolean>) => {
@@ -347,9 +339,7 @@ const uiSlice = createSlice({
       }
 
       // Auto-save workspace layout preference
-      import('../utils/persistence').then(({ persistenceManager }) => {
-        persistenceManager.saveCurrentProject();
-      });
+
     },
 
     toggleRightPanel: (state) => {
@@ -359,9 +349,7 @@ const uiSlice = createSlice({
         state.workspaceLayout = 'custom';
       }
       // Auto-save UI settings
-      import('../utils/persistence').then(({ persistenceManager }) => {
-        persistenceManager.saveCurrentProject();
-      });
+
     },
 
     loadUISettings: (state, action: PayloadAction<Partial<UIState>>) => {

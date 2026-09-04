@@ -1,9 +1,11 @@
 import { store } from '../store';
 import { historyManager } from './historyManager';
+import type { SavedHistory } from '../store/historySlice';
 
 // Debouncing state for grouping rapid changes
 let debounceTimeout: NodeJS.Timeout | null = null;
 let pendingAction: { type: string; description: string } | null = null;
+let pendingCoalesces = false;
 let isMiddlewareActive = false;
 
 // When we last recorded an entry outright, used to tell whether a debounced
@@ -128,6 +130,7 @@ const trackHistoryForAction = (action: any) => {
     
     // Store the action to be recorded after debounce
     pendingAction = { type: action.type, description };
+    pendingCoalesces = Date.now() + 800 - lastImmediateRecordAt < COALESCE_WINDOW_MS;
     
     // Clear existing timeout and start a new one
     if (debounceTimeout) {
@@ -142,10 +145,7 @@ const trackHistoryForAction = (action: any) => {
         // into the entry the immediate action created avoids an undo step that
         // looks like it does nothing. Note the follow-up often targets a
         // different element (the root), so this cannot key off element id.
-        const isConsequenceOfLastAction =
-          Date.now() - lastImmediateRecordAt < COALESCE_WINDOW_MS;
-
-        if (isConsequenceOfLastAction) {
+        if (pendingCoalesces) {
           historyManager.amendCurrentAction();
         } else {
           historyManager.recordAction(pendingAction.type, pendingAction.description);
@@ -178,3 +178,21 @@ export const flushPendingHistory = () => {
     pendingAction = null;
   }
 };
+
+/** Persist an unfinished property edit without ending the user's undo gesture. */
+export function historyForPersistence(): SavedHistory {
+  const state = store.getState();
+  const { entries, currentIndex, maxEntries } = state.history;
+  if (!pendingAction || state.history.isUndoing || state.history.isRedoing) {
+    return { entries, currentIndex, maxEntries };
+  }
+  const next = entries.slice(0, currentIndex + 1);
+  const snapshot = { canvasState: state.canvas, classState: state.classes, timestamp: Date.now() };
+  if (pendingCoalesces && next.length) {
+    next[next.length - 1] = { ...next[next.length - 1], ...snapshot };
+  } else {
+    next.push({ id: 'pending-property-edit', action: pendingAction.type, description: pendingAction.description, ...snapshot });
+  }
+  const limited = next.slice(-maxEntries);
+  return { entries: limited, currentIndex: limited.length - 1, maxEntries };
+}

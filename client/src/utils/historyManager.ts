@@ -9,6 +9,8 @@ import {
   // aliased: the class below also has a clearHistory method
   clearHistory as clearHistoryAction,
   loadHistoryFromStorage,
+  restoreHistory,
+  type SavedHistory,
 } from '../store/historySlice';
 import { loadProject } from '../store/canvasSlice';
 import { loadCustomClassesFromStorage } from '../store/classSlice';
@@ -22,17 +24,17 @@ export class HistoryManager {
   private storeName = 'historyEntries';
   private db: IDBDatabase | null = null;
 
-  async init(): Promise<void> {
-    try {
+  async init(saved?: SavedHistory): Promise<void> {
+    if (saved) {
+      reduxStore.dispatch(restoreHistory(saved));
+    } else {
+      // Legacy history is read once; originals remain available for recovery.
       this.db = await this.openDB();
       await this.loadHistoryFromStorage();
-    } catch (error) {
-      // Failed to initialize history manager
-    } finally {
-      // Always seed a baseline, even if IndexedDB was unavailable - without one
-      // the first action of a session cannot be undone.
-      this.ensureBaseline();
+      this.db.close();
+      this.db = null;
     }
+    this.ensureBaseline();
   }
 
   /**
@@ -48,7 +50,7 @@ export class HistoryManager {
     const entries = state.history.entries;
     const currentDoc = this.documentSignature(state.canvas.project);
     const headDoc = entries.length
-      ? this.documentSignature(entries[entries.length - 1].canvasState?.project)
+      ? this.documentSignature(entries[state.history.currentIndex]?.canvasState?.project)
       : null;
 
     // A restored session whose head already matches the screen needs no baseline.
@@ -95,6 +97,19 @@ export class HistoryManager {
     this.ensureBaseline();
   }
 
+  async clearLegacyStorage(): Promise<void> {
+    const db = await this.openDB();
+    try {
+      const transaction = db.transaction([this.storeName], 'readwrite');
+      await new Promise<void>((resolve, reject) => {
+        transaction.oncomplete = () => resolve();
+        transaction.onabort = () => reject(transaction.error || new Error('Clearing history was aborted'));
+        transaction.onerror = () => reject(transaction.error);
+        transaction.objectStore(this.storeName).clear();
+      });
+    } finally { db.close(); }
+  }
+
   private openDB(): Promise<IDBDatabase> {
     return new Promise((resolve, reject) => {
       const request = indexedDB.open(this.dbName, this.dbVersion);
@@ -111,37 +126,6 @@ export class HistoryManager {
         }
       };
     });
-  }
-
-  async saveHistoryToStorage(): Promise<void> {
-    if (!this.db) return;
-
-    try {
-      const state = reduxStore.getState();
-      const historyEntries = state.history.entries;
-
-      const transaction = this.db.transaction([this.storeName], 'readwrite');
-      const objectStore = transaction.objectStore(this.storeName);
-
-      // Clear existing entries
-      await new Promise<void>((resolve, reject) => {
-        const clearRequest = objectStore.clear();
-        clearRequest.onsuccess = () => resolve();
-        clearRequest.onerror = () => reject(clearRequest.error);
-      });
-
-      // Add current entries
-      for (const entry of historyEntries) {
-        await new Promise<void>((resolve, reject) => {
-          const addRequest = objectStore.add(entry);
-          addRequest.onsuccess = () => resolve();
-          addRequest.onerror = () => reject(addRequest.error);
-        });
-      }
-
-    } catch (error) {
-      // Failed to save history to IndexedDB
-    }
   }
 
   async loadHistoryFromStorage(): Promise<void> {
@@ -165,7 +149,7 @@ export class HistoryManager {
       reduxStore.dispatch(loadHistoryFromStorage(entries));
       
     } catch (error) {
-      // Failed to load history from IndexedDB
+      throw error;
     }
   }
 
@@ -191,8 +175,7 @@ export class HistoryManager {
     }));
 
 
-    // Save to IndexedDB (debounced)
-    this.debouncedSave();
+    // Persistence saves this history with the document in one transaction.
   }
 
   /**
@@ -212,7 +195,7 @@ export class HistoryManager {
       classState: (state as any).classes || {},
     }));
 
-    this.debouncedSave();
+
   }
 
   /**
@@ -295,38 +278,7 @@ export class HistoryManager {
     }
   }
 
-  /**
-   * Clear all history
-   */
-  async clearHistory(): Promise<void> {
-    reduxStore.dispatch(clearHistoryAction());
-    
-    if (this.db) {
-      try {
-        const transaction = this.db.transaction([this.storeName], 'readwrite');
-        const objectStore = transaction.objectStore(this.storeName);
-        await new Promise<void>((resolve, reject) => {
-          const request = objectStore.clear();
-          request.onsuccess = () => resolve();
-          request.onerror = () => reject(request.error);
-        });
-      } catch (error) {
-        // Failed to clear history from IndexedDB
-      }
-    }
-  }
 
-  // Debounced save to avoid excessive IndexedDB writes
-  private saveTimeout: NodeJS.Timeout | null = null;
-  private debouncedSave(): void {
-    if (this.saveTimeout) {
-      clearTimeout(this.saveTimeout);
-    }
-    
-    this.saveTimeout = setTimeout(() => {
-      this.saveHistoryToStorage();
-    }, 3000); // Save 3 seconds after last action to reduce IndexedDB writes
-  }
 }
 
 // Global instance

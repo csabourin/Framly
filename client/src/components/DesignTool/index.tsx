@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { store, RootState } from '../../store';
 import { setClassEditorOpen, setComponentEditorOpen, setEditingComponent, setButtonDesignerOpen } from '../../store/uiSlice';
 import { selectUIState, selectComponentDefinitionsState } from '../../store/selectors';
-import { historyManager } from '../../utils/historyManager';
 import { addHistoryMiddleware } from '../../utils/historyIntegration';
 import { useComponentPropagation } from '../../hooks/useComponentPropagation';
 import { useColorModeCanvasSync } from '../../hooks/useColorModeCanvasSync';
@@ -37,8 +36,6 @@ const DesignToolContent: React.FC = () => {
   
   // Initialize history manager and tracking
   useEffect(() => {
-    historyManager.init();
-    
     // Initialize history tracking
     addHistoryMiddleware();
   }, []);

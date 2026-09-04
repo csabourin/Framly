@@ -5,7 +5,7 @@ import "./index.css";
 import { store } from './store';
 import { initializePersistence } from './utils/persistence';
 import { indexedDBManager } from './utils/indexedDB';
-import './i18n'; // Initialize i18n
+import i18n from './i18n';
 
 // Register Service Worker for PWA functionality
 async function registerServiceWorker() {
@@ -57,25 +57,21 @@ async function initializeTheme() {
   }
 }
 
-// Initialize theme, persistence, and PWA functionality before rendering
-// Add a race condition to prevent the app from hanging if IDB fails or is blocked
-const activeInit = Promise.all([
-  initializeTheme().catch(e => console.error('Theme init failed', e)),
-  initializePersistence().catch(e => console.error('Persistence init failed', e)),
-  registerServiceWorker().catch(e => console.error('SW register failed', e))
-]);
-
-const timeoutFallback = new Promise<void>((resolve) => {
-  setTimeout(() => {
-    console.warn('Initialization taking longer than 3s, proceeding to render...');
-    resolve();
-  }, 3000); // Force render after 3s
-});
-
-Promise.race([activeInit, timeoutFallback]).finally(() => {
-  createRoot(document.getElementById("root")!).render(
-    <Provider store={store}>
-      <App />
-    </Provider>
-  );
-});
+// Do not expose an editable blank document while a saved project is still
+// loading: a late restore would overwrite the user's new edits.
+const root = createRoot(document.getElementById('root')!);
+async function startApp() {
+  root.render(<main className="p-6" role="status">{i18n.t('persistence.loading')}</main>);
+  try {
+    await initializePersistence();
+    await initializeTheme();
+    root.render(<Provider store={store}><App /></Provider>);
+    void registerServiceWorker();
+  } catch {
+    root.render(<main className="p-6 space-y-3">
+      <p role="alert">{i18n.t('persistence.loadError')}</p>
+      <button className="underline" onClick={() => void startApp()}>{i18n.t('persistence.retry')}</button>
+    </main>);
+  }
+}
+void startApp();

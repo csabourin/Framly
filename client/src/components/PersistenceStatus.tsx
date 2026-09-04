@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useSyncExternalStore } from 'react';
 import { Database, Download, Upload, Trash2, CheckCircle, AlertCircle } from 'lucide-react';
 import { Button } from './ui/button';
 import { 
@@ -10,32 +10,16 @@ import {
   DialogFooter 
 } from './ui/dialog';
 import { persistenceManager } from '../utils/persistence';
+import { useTranslation } from 'react-i18next';
 
 const PersistenceStatus: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [lastSaved, setLastSaved] = useState<Date | null>(null);
+  const { t } = useTranslation();
+  const saved = useSyncExternalStore(persistenceManager.subscribe, persistenceManager.getSnapshot);
+  const label = t(`persistence.${saved.status}`);
   const [isExporting, setIsExporting] = useState(false);
   const [isImporting, setIsImporting] = useState(false);
   const [isClearing, setIsClearing] = useState(false);
-
-  useEffect(() => {
-    // Listen for storage events to update last saved time
-    const handleStorageUpdate = () => {
-      setLastSaved(new Date());
-    };
-
-    // Simulate auto-save detection - in a real app, you'd listen to actual save events
-    const interval = setInterval(() => {
-      setLastSaved(new Date());
-    }, 30000); // Update every 30 seconds as a fallback
-
-    window.addEventListener('storage', handleStorageUpdate);
-
-    return () => {
-      clearInterval(interval);
-      window.removeEventListener('storage', handleStorageUpdate);
-    };
-  }, []);
 
   const handleExport = async () => {
     if (isExporting) return;
@@ -109,16 +93,13 @@ const PersistenceStatus: React.FC = () => {
         <Button 
           variant="ghost" 
           size="sm" 
-          className="gap-2 text-xs"
+          className="framly-rail-control gap-2 text-xs"
+          aria-label={t('persistence.statusLabel', { status: label })}
+          data-save-state={saved.status}
           data-testid="button-persistence-status"
         >
           <Database size={14} />
-          {lastSaved ? (
-            <CheckCircle size={14} className="text-green-500" />
-          ) : (
-            <AlertCircle size={14} className="text-amber-500" />
-          )}
-          {lastSaved ? 'Saved' : 'Auto-save'}
+          <span role="status" aria-live="polite">{label}</span>
         </Button>
       </DialogTrigger>
       
@@ -126,24 +107,21 @@ const PersistenceStatus: React.FC = () => {
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <Database size={20} />
-            Local Persistence
+            {t('persistence.title')}
           </DialogTitle>
         </DialogHeader>
         
         <div className="space-y-4 py-4">
-          <div className="flex items-center gap-2 p-3 bg-green-50 border border-green-200 rounded-md">
-            <CheckCircle size={16} className="text-green-600" />
-            <div className="text-sm">
-              <div className="font-medium text-green-800">Auto-save Active</div>
-              <div className="text-green-600">
-                {lastSaved 
-                  ? `Last saved: ${lastSaved.toLocaleTimeString()}`
-                  : 'Workspace and components are automatically saved'
-                }
-              </div>
-            </div>
+          <div className="p-3 border border-[var(--rule)] text-[var(--ink)] rounded-md space-y-2">
+            <p className="text-sm font-medium">{label}</p>
+            <p className="text-sm" role={saved.status === 'error' ? 'alert' : undefined}>
+              {saved.status === 'error' ? t('persistence.saveError') : t('persistence.local')}
+            </p>
+            {saved.savedAt && <p className="text-xs">{t('persistence.lastSaved', { time: new Date(saved.savedAt).toLocaleTimeString() })}</p>}
+            {saved.status === 'error' && <Button variant="outline" size="sm" data-testid="button-retry-save"
+              onClick={() => { void persistenceManager.saveCurrentProject().catch(() => {}); }}>{t('persistence.retry')}</Button>}
           </div>
-          
+
           <div className="space-y-3">
             <div className="text-sm font-medium">Data Management</div>
             

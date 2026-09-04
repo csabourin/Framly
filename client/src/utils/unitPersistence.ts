@@ -82,6 +82,11 @@ const DEFAULT_UNITS: GlobalUnitPreferences = {
 // In-memory storage for unit preferences (will be enhanced with IndexedDB persistence)
 let elementUnitPreferences: ElementUnitPreferences = {};
 let globalUnitPreferences: GlobalUnitPreferences = { ...DEFAULT_UNITS };
+const unitListeners = new Set<() => void>();
+export function subscribeUnitPreferences(listener: () => void) {
+  unitListeners.add(listener);
+  return () => { unitListeners.delete(listener); };
+}
 
 /**
  * Parse a CSS value into its numeric value and unit
@@ -283,8 +288,7 @@ export function exportUnitPreferences(): {
  * Persist unit preferences to storage (placeholder for IndexedDB implementation)
  */
 async function persistUnitPreferences(): Promise<void> {
-  // This will be implemented when we add IndexedDB persistence
-  // For now, preferences are stored in memory only
+  unitListeners.forEach((listener) => listener());
 }
 
 /**

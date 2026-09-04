@@ -18,6 +18,8 @@ interface HistoryState {
   isRedoing: boolean;
 }
 
+export type SavedHistory = Pick<HistoryState, 'entries' | 'currentIndex' | 'maxEntries'>;
+
 const initialState: HistoryState = {
   entries: [],
   currentIndex: -1,
@@ -124,6 +126,14 @@ const historySlice = createSlice({
       state.currentIndex = state.entries.length - 1;
     },
 
+    restoreHistory: (state, action: PayloadAction<SavedHistory>) => {
+      state.entries = action.payload.entries;
+      state.currentIndex = action.payload.currentIndex;
+      state.maxEntries = action.payload.maxEntries;
+      state.isUndoing = false;
+      state.isRedoing = false;
+    },
+
     setMaxEntries: (state, action: PayloadAction<number>) => {
       state.maxEntries = action.payload;
       
@@ -146,6 +156,7 @@ export const {
   setRedoingFlag,
   clearHistory,
   loadHistoryFromStorage,
+  restoreHistory,
   setMaxEntries,
 } = historySlice.actions;
 

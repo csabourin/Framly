@@ -145,6 +145,8 @@ const Header: React.FC<HeaderProps> = ({ onShowKeyboardShortcuts }) => {
           <span className="hidden lg:inline">{t('common.preview')}</span>
         </Button>
 
+        <PersistenceStatus />
+
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" size="sm" className="framly-icon-button" data-testid="more-menu" aria-label="More tools">
@@ -163,7 +165,6 @@ const Header: React.FC<HeaderProps> = ({ onShowKeyboardShortcuts }) => {
               <ColorModeToggle />
               <LanguageSwitcher />
             </div>
-            <div className="border-t border-[var(--rule)] px-1 pt-1"><PersistenceStatus /></div>
             <div className="px-2 py-1"><ServiceWorkerStatus /></div>
           </DropdownMenuContent>
         </DropdownMenu>

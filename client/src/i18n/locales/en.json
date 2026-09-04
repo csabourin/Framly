@@ -489,5 +489,18 @@
     "help": "Drag, or use arrow keys for 1px (Shift: 10px). Home resets to 0px. Escape cancels a drag.",
     "marginNote": "Margin is the CSS value; collapsing and parent layout can change the visible space between items.",
     "intro": "P: space inside · padding. M: space outside · margin."
+  },
+  "persistence": {
+    "loading": "Opening saved work…",
+    "saving": "Saving…",
+    "saved": "Saved",
+    "error": "Not saved",
+    "title": "Saved on this device",
+    "statusLabel": "Local save: {{status}}",
+    "retry": "Retry",
+    "local": "Changes are saved automatically on this device.",
+    "saveError": "Changes could not be saved. Keep this tab open and retry, or export a backup.",
+    "loadError": "Saved work could not be opened. Your stored data has been preserved. Retry to open it.",
+    "lastSaved": "Last completed save: {{time}}"
   }
 }
