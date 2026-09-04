@@ -379,15 +379,16 @@ ${indent}</${tag}>`;
   generateCSS(): string {
     const cssObjects: ColorModeCSS[] = [];
 
-    // Named classes the user has defined, which several elements may share.
-    Object.values(this.customClasses).forEach((customClass) => {
-      const declarations = toCssDeclarations(customClass.styles);
-      if (Object.keys(declarations).length > 0) {
-        cssObjects.push(generateColorModeCSS(`.${customClass.name}`, declarations));
-      }
-    });
+    /*
+     * Order matters, and it is set by the canvas, not by taste. `CanvasElement`
+     * merges an element's own styles first and lets a named class override
+     * them, then applies the breakpoint overrides on top. Every selector here
+     * is one class, so specificity is equal and the last rule wins — which
+     * means the file has to be written in that same order or the export stops
+     * matching what you were looking at.
+     */
 
-    // Each element's own styles, on the class the markup actually carries.
+    // 1. Each element's own styles, on the class the markup actually carries.
     const styleClasses = this.resolveStyleClasses();
     Object.values(this.getElements()).forEach((element) => {
       const styleClass = styleClasses.get(element.id);
@@ -398,6 +399,16 @@ ${indent}</${tag}>`;
 
       cssObjects.push(generateColorModeCSS(`.${styleClass}`, declarations));
     });
+
+    // 2. Named classes the user has defined, which several elements may share.
+    Object.values(this.customClasses).forEach((customClass) => {
+      const declarations = toCssDeclarations(customClass.styles);
+      if (Object.keys(declarations).length > 0) {
+        cssObjects.push(generateColorModeCSS(`.${customClass.name}`, declarations));
+      }
+    });
+
+    // 3. Breakpoint overrides come last, in `generateResponsiveCSS` below.
 
     const header = this.options.includeComments
       ? `/* ${this.project.name} — exported from Framly */`

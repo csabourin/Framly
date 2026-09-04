@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { RootState } from '../../store';
-import { updateElement } from '../../store/canvasSlice';
 import { switchBreakpoint } from '../../store/canvasSlice';
 import { Button } from '@/components/ui/button';
 import { Smartphone, Monitor, Laptop, TabletSmartphone } from 'lucide-react';
@@ -72,36 +71,15 @@ const ResponsivePropertyInput: React.FC<ResponsivePropertyInputProps> = ({
     return bpStyles?.[config.key as keyof typeof bpStyles] !== undefined;
   };
 
-  // Update responsive value
+  /**
+   * Hand the edit to the panel and let it decide where the value belongs.
+   *
+   * This used to write `responsiveStyles` here *and* call `onChange`, which
+   * wrote the same value to the base as well — so setting a font size at
+   * "tablet" changed the base rule too, and the export carried the wide-screen
+   * value at every width. One writer, one place.
+   */
   const handleResponsiveChange = (breakpoint: string, newValue: any) => {
-    const currentResponsiveStyles = element.responsiveStyles || {};
-    const currentBreakpointStyles = currentResponsiveStyles[breakpoint as keyof typeof currentResponsiveStyles] || {};
-
-    const updatedResponsiveStyles = {
-      ...currentResponsiveStyles,
-      [breakpoint]: {
-        ...currentBreakpointStyles,
-        [config.key]: newValue
-      }
-    };
-
-    // If setting mobile value, also update base styles (mobile-first)
-    const updates: any = {
-      responsiveStyles: updatedResponsiveStyles
-    };
-
-    if (breakpoint === 'mobile') {
-      updates.styles = {
-        ...element.styles,
-        [config.key]: newValue
-      };
-    }
-
-    dispatch(updateElement({
-      id: element.id,
-      updates
-    }));
-
     onChange(config.key, newValue, breakpoint);
   };
 

@@ -35,10 +35,10 @@ Three promises, in priority order. When two conflict, the higher one wins:
 
 ### 👉 Start here
 
-**M1.3 — Real media queries, mobile-first.** The `[L]` at the heart of M1. The
-two small tasks that opened the milestone are done, and the export now produces
-a stylesheet that actually styles the page, so there is something real to make
-mobile-first.
+**M1.3 — the controls half.** The writing path is done: an edit at a breakpoint
+is now an override and only an override. What is left is making a control say
+whether its value is inherited or set here, without opening a panel to find
+out — see the task below.
 
 *M0 is done: CI runs on every PR, and three gates fail on a regression.*
 
@@ -117,11 +117,33 @@ class names to match, and it has no real media queries.*
       a second tab's export contains none of the first tab's markup, and the
       page links the stylesheet the export writes.
       *Done when:* exporting from Tab A never contains Tab B's markup. ✅
-- [ ] `[L]` **Real media queries, mobile-first.** Editing at a breakpoint writes
-      base rules plus `@media (min-width: …)` overrides, not four parallel
-      copies. Controls show whether a value is inherited or overridden here.
+- [ ] `[L]` **Real media queries, mobile-first.** *In progress — the writing
+      path is done, the controls are not.*
+
+      **Done:** an edit at a larger breakpoint is now an override and nothing
+      else. It used to be written twice: `ResponsivePropertyInput` wrote
+      `responsiveStyles[bp]` and then handed the same value to the panel, which
+      wrote it to the base as well — so setting a font size at "tablet" changed
+      the base rule too, and the exported page carried the wide-screen value at
+      every width. There is one writer now, and it routes by the current
+      breakpoint. Any style property can differ by breakpoint; `responsive` in
+      the property config now only decides whether a control offers the
+      per-breakpoint UI. The exporter's rule order was also wrong against the
+      canvas — a named class overrides an element's own styles on the canvas,
+      and the file was written the other way round, so a panel edit could be
+      shown and then not exported.
+      *Verified by:* the "done when" as three tests, plus a canvas-vs-export
+      test that renders the exported page; each fails on the matching
+      regression.
+
+      **Left:** the controls. A value should say whether it is inherited from a
+      smaller breakpoint or overridden here, without opening a "Show
+      breakpoints" panel to find out — and it should say it in the idiom of
+      `docs/interface.md`, where colour is reserved and does not mean "this is
+      responsive". The badge and the inherited hint are blue today.
       *Done when:* setting a colour at base applies everywhere; changing it at
-      `md` produces exactly one media query and no duplicate base rule.
+      `md` produces exactly one media query and no duplicate base rule. ✅ —
+      and you can see which is which without clicking.
 - [ ] `[M]` **CSS a human can read.** Stable, meaningful class names instead of
       `el-4pinocqwb`; rules grouped by element; no duplicated declarations.
       *Done when:* you can open the exported CSS and find the hero's styles

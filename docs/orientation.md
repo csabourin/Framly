@@ -140,6 +140,16 @@ was checked and clean. Verify before acting on a finding.
   templates always give them. The result was an export with no styling at all,
   and it had been that way long enough to be invisible. Anything that writes
   markup and a stylesheet has to resolve the names once, for both.
+- **Two components were writing the same value to different places.**
+  `ResponsivePropertyInput` wrote the breakpoint override *and* called the
+  panel's `onChange`, which knew nothing about breakpoints and wrote the base.
+  Neither was wrong on its own reading. Whenever an edit passes through two
+  hands, check what the second one does with it.
+- **The rule order in the exported CSS is not a matter of taste.** Every
+  selector the generator writes is a single class, so specificity is always
+  equal and the last rule wins. The canvas cascade — element styles, then named
+  class, then breakpoint override — is therefore a spec the file has to follow,
+  and it was being written class-first.
 - **An empty output passes a lot of tests.** See the note in `TODO.md`: the
   exported-page accessibility gate was green because there were no colours to
   fail the contrast check. When a gate has never failed, ask what it would take

@@ -49,6 +49,7 @@ const PropertiesPanel: React.FC = () => {
   const currentElements = useSelector(selectCurrentElements);
   const selectedElementId = useSelector(selectSelectedElementId);
   const selectedElement = selectedElementId ? currentElements[selectedElementId] : null;
+  const currentBreakpoint = useSelector((state: RootState) => state.canvas.project.currentBreakpoint);
 
   // Check if selected element is a component instance
   const isComponentInstance = selectedElement?.componentRef;
@@ -311,8 +312,41 @@ const PropertiesPanel: React.FC = () => {
     }
   };
 
-  const handlePropertyChange = (propertyKey: string, value: any) => {
-    // Removed debug logging to improve performance
+  /**
+   * Write one property.
+   *
+   * Mobile is the base: an edit there is the value the page has at every width.
+   * At any larger breakpoint the edit is an *override* and goes to
+   * `responsiveStyles` alone — it must not touch the base, or the base rule
+   * ends up carrying a value that was only ever meant for wide screens.
+   * `undefined` clears an override, so the breakpoint inherits again.
+   *
+   * Every style property works this way. `responsive` in the property config
+   * only decides whether the control offers the per-breakpoint UI; it does not
+   * decide whether a value can differ by breakpoint, because they all can.
+   */
+  const writeBreakpointOverride = (propertyKey: string, value: any, breakpoint: string) => {
+    if (!selectedElement) return;
+
+    const existing = selectedElement.responsiveStyles || {};
+    const forBreakpoint = { ...(existing[breakpoint as keyof typeof existing] || {}) } as Record<string, any>;
+
+    if (value === undefined || value === null || value === '') {
+      delete forBreakpoint[propertyKey];
+    } else {
+      forBreakpoint[propertyKey] = value;
+    }
+
+    dispatch(updateElement({
+      id: selectedElement.id,
+      updates: {
+        responsiveStyles: { ...existing, [breakpoint]: forBreakpoint },
+      },
+    }));
+  };
+
+  const handlePropertyChange = (propertyKey: string, value: any, breakpoint?: string) => {
+    const targetBreakpoint = breakpoint ?? currentBreakpoint;
 
     // Handle special element-specific properties (not CSS styles)
     if (['headingLevel', 'listType'].includes(propertyKey)) {
@@ -358,6 +392,14 @@ const PropertiesPanel: React.FC = () => {
           [propertyKey]: value
         }
       }));
+    }
+
+    // Above this line are element properties, not styles: a heading level or a
+    // flex direction is the same at every width. Below it is the stylesheet,
+    // and that is where a breakpoint means something.
+    if (targetBreakpoint !== 'mobile') {
+      writeBreakpointOverride(propertyKey, value, targetBreakpoint);
+      return;
     }
 
     // ALL style properties (including width/height and flex) go through classes
