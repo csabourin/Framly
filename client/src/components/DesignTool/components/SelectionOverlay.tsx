@@ -230,6 +230,7 @@ const SelectionOverlay: React.FC<SelectionOverlayProps> = ({
       )}
       {metrics && (
         <div className="box-model-overlay" data-testid="box-model-overlay" role="img" aria-label={summary}>
+          <BoxLayer name="margin" outer={metrics.marginBox} inner={metrics.borderBox} />
           <BoxLayer name="border" outer={metrics.borderBox} inner={metrics.paddingBox} />
           <BoxLayer name="padding" outer={metrics.paddingBox} inner={metrics.contentBox} />
           <BoxLayer name="content" outer={metrics.contentBox} />
