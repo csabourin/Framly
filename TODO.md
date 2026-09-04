@@ -35,9 +35,12 @@ Three promises, in priority order. When two conflict, the higher one wins:
 
 ### 👉 Start here
 
-**M0.5 — Remove `maximum-scale=1` from the viewport meta.** Two minutes, and it
-is the last task in M0. The axe baseline already tracks it as `meta-viewport`,
-so the gate will confirm it when you do.
+**M1.1 — Make the export settings actually apply.** One sitting. The three
+checkboxes in the export dialog are collected and thrown away, so it is a small,
+self-contained win to open M1 with — and it is independent of the media-query
+work below.
+
+*M0 is done: CI runs on every PR, and three gates fail on a regression.*
 
 ---
 
@@ -71,12 +74,14 @@ Until something checks, everything below will rot at the same rate it's built.*
       `console.warn` stay, as they are the app's only diagnostics.
       `tests/deadcode.spec.ts` now walks that graph on every run, so an orphan
       cannot come back. Vendored `components/ui/*` is exempt — see below.
-- [ ] `[S]` **Remove `maximum-scale=1`** from the viewport meta. It blocks
-      pinch-zoom — a WCAG 1.4.4 failure, and a two-minute fix.
-      *Done when:* you can pinch-zoom Framly on a phone.
+- [x] `[S]` **Removed `maximum-scale=1`** from the viewport meta, so a phone can
+      pinch-zoom again (WCAG 1.4.4). `meta-viewport` is out of the axe baseline,
+      which now has four entries instead of five, and a test states the
+      requirement in its own right. Both guards were verified by putting the
+      regression back.
 
 **Milestone done when:** you can break something on purpose and CI tells you.
-*(All three gates were verified this way. One task left.)*
+**✅ Done.** Every gate here was verified by deliberately breaking it.
 
 ---
 
@@ -85,17 +90,17 @@ Until something checks, everything below will rot at the same rate it's built.*
 *Why second: this is promise #1, and it is the only promise that is currently
 half-kept. Semantic tags now export correctly; the CSS around them does not.*
 
-- [ ] `[L]` **Real media queries, mobile-first.** Editing at a breakpoint writes
-      base rules plus `@media (min-width: …)` overrides, not four parallel
-      copies. Controls show whether a value is inherited or overridden here.
-      *Done when:* setting a colour at base applies everywhere; changing it at
-      `md` produces exactly one media query and no duplicate base rule.
 - [ ] `[S]` **Apply the export settings.** `includeResponsive`, `minifyCSS` and
       `includeComments` are collected and thrown away.
       *Done when:* unchecking "minify" visibly changes the downloaded CSS.
 - [ ] `[S]` **Export the active tab only**, with the CSS file named after the
       project.
       *Done when:* exporting from Tab A never contains Tab B's markup.
+- [ ] `[L]` **Real media queries, mobile-first.** Editing at a breakpoint writes
+      base rules plus `@media (min-width: …)` overrides, not four parallel
+      copies. Controls show whether a value is inherited or overridden here.
+      *Done when:* setting a colour at base applies everywhere; changing it at
+      `md` produces exactly one media query and no duplicate base rule.
 - [ ] `[M]` **CSS a human can read.** Stable, meaningful class names instead of
       `el-4pinocqwb`; rules grouped by element; no duplicated declarations.
       *Done when:* you can open the exported CSS and find the hero's styles
