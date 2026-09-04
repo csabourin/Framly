@@ -25,9 +25,8 @@ async function exportedCSS(page: Page): Promise<string> {
 /** Select the landing template's h1 and open its Text Size control. */
 async function selectHeadingFontSize(page: Page) {
   const heading = page
-    .locator('.canvas-element')
-    .filter({ hasText: 'Build something people want' })
-    .first();
+    .locator('.canvas-element[data-element-type="heading"]')
+    .filter({ hasText: 'Build something people want' });
   await heading.click();
   await expect(page.getByTestId('properties-panel')).toBeVisible();
 
@@ -173,9 +172,8 @@ test.describe('the canvas and the export agree', () => {
     await input.press('Enter');
 
     const onCanvas = await page
-      .locator('.canvas-element')
+      .locator('.canvas-element[data-element-type="heading"]')
       .filter({ hasText: 'Build something people want' })
-      .first()
       .locator('h1')
       .evaluate((el) => getComputedStyle(el).fontSize);
     expect(onCanvas, 'the canvas shows the edit').toBe('64px');
@@ -201,9 +199,8 @@ test.describe('the canvas and the export agree', () => {
     await input.press('Enter');
 
     const onCanvas = await page
-      .locator('.canvas-element')
+      .locator('.canvas-element[data-element-type="heading"]')
       .filter({ hasText: 'Build something people want' })
-      .first()
       .locator('h1')
       .evaluate((el) => getComputedStyle(el).fontSize);
 

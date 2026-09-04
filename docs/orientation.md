@@ -87,6 +87,8 @@ Recorded so they are not re-litigated. Each can be revisited — but knowingly.
 | **Minifying is off by default in the export dialog** | It used to be on, and it was never applied, so nobody had met the behaviour. Promise #1 is code a programmer would sign off; that is the readable version. Minifying is now something you choose. |
 | **The CSS optimiser is out of the export path** | It was the source of the classes the stylesheet did not define. It still backs `cssClassGenerator` and its own modal, so nothing was deleted — but an export no longer goes near it, which is one less thing M4 has to unpick. |
 | **One class per element, still** | Fixing the export was not the moment to change what the editor produces. The generator now writes a rule for the class the markup actually carries, whatever that class is. Shared classes remain M4. |
+| **Generated export classes describe structure, not storage** | Timestamp classes remain internal editor handles. Export replaces them deterministically with `page`, `hero`, `hero-title`, and related structural names in DOM order. Explicit user classes are preserved; one-off auto classes from panel edits are folded into the structural rule. |
+| **Canvas/export fidelity is tested from computed styles** | The Landing template is rendered twice in Chromium — once in the editor and once from its generated files — at every breakpoint. The test compares the properties the export actually emits, while excluding the editor's deliberate grab cursor. |
 
 ---
 
@@ -157,13 +159,18 @@ was checked and clean. Verify before acting on a finding.
   exported-page accessibility gate was green because there were no colours to
   fail the contrast check. When a gate has never failed, ask what it would take
   for it to — not just whether it is running.
+- **Editor CSS can silently falsify the canvas.** A global rule zeroed container
+  padding and gap with `!important`, so the property panel and export agreed
+  with each other while the canvas showed neither value. The artboard also used
+  `border-box`, making its content two pixels narrower than its labelled
+  viewport. The round-trip gate now catches both kinds of drift.
 
 ---
 
 ## Open, and deliberately so
 
 - **No analytics.** The largest gap. See the top of this file.
-- **Inter still loads from Google's CDN.** Non-blocking now, so a failure is
+- **IBM Plex still loads from Google's CDN.** Non-blocking now, so a failure is
   invisible, but self-hosting would remove the third-party dependency entirely.
 - **One class per element** is generated, which is inline styling with extra
   steps and the reason the CSS optimiser exists. Shared classes are M4. Do not

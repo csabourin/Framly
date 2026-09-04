@@ -122,10 +122,32 @@ const RESET_CSS = `* {
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   line-height: 1.6;
+  color: #191c1a;
 }`;
 
 const camelToKebab = (property: string): string =>
   property.replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, '$1-$2').toLowerCase();
+
+/** Longhands made unreachable when their shorthand appears later in a rule. */
+const SHORTHAND_LONGHANDS: Record<string, string[]> = {
+  margin: ['margin-top', 'margin-right', 'margin-bottom', 'margin-left'],
+  padding: ['padding-top', 'padding-right', 'padding-bottom', 'padding-left'],
+  border: [
+    'border-width', 'border-style', 'border-color',
+    'border-top', 'border-right', 'border-bottom', 'border-left',
+    'border-top-width', 'border-right-width', 'border-bottom-width', 'border-left-width',
+    'border-top-style', 'border-right-style', 'border-bottom-style', 'border-left-style',
+    'border-top-color', 'border-right-color', 'border-bottom-color', 'border-left-color',
+  ],
+  background: [
+    'background-color', 'background-image', 'background-position', 'background-size',
+    'background-repeat', 'background-origin', 'background-clip', 'background-attachment',
+  ],
+  font: ['font-family', 'font-size', 'font-style', 'font-weight', 'font-variant', 'font-stretch', 'line-height'],
+  flex: ['flex-grow', 'flex-shrink', 'flex-basis'],
+  'list-style': ['list-style-type', 'list-style-position', 'list-style-image'],
+  transition: ['transition-property', 'transition-duration', 'transition-timing-function', 'transition-delay'],
+};
 
 /**
  * A style record turned into real CSS declarations.
@@ -143,7 +165,11 @@ const toCssDeclarations = (styles: Record<string, any> | undefined): Record<stri
   for (const [property, value] of Object.entries(styles)) {
     if (value === undefined || value === null || value === '') continue;
     if (typeof value === 'object' && !isColorModeValues(value)) continue;
-    declarations[camelToKebab(property)] = value;
+    const cssProperty = camelToKebab(property);
+    for (const longhand of SHORTHAND_LONGHANDS[cssProperty] || []) {
+      delete declarations[longhand];
+    }
+    declarations[cssProperty] = value;
   }
 
   return declarations;
@@ -226,6 +252,7 @@ export class CodeGenerator {
   private expandedElements?: Record<string, CanvasElement>; // CRITICAL: Support expanded elements
   private options: ExportOptions;
   private styleClasses?: Map<string, string>;
+  private orderedElements?: CanvasElement[];
 
   constructor(
     project: any,
@@ -242,6 +269,31 @@ export class CodeGenerator {
   /** Every element in the document being exported, keyed by id. */
   private getElements(): Record<string, CanvasElement> {
     return this.expandedElements || this.project.elements || {};
+  }
+
+  /** Elements in the order a reader meets them in the exported document. */
+  private getOrderedElements(): CanvasElement[] {
+    if (this.orderedElements) return this.orderedElements;
+
+    const elements = this.getElements();
+    const ordered: CanvasElement[] = [];
+    const visited = new Set<string>();
+
+    const visit = (element: CanvasElement) => {
+      if (visited.has(element.id)) return;
+      visited.add(element.id);
+      ordered.push(element);
+      for (const childId of element.children || []) {
+        const child = elements[childId];
+        if (child) visit(child);
+      }
+    };
+
+    if (elements.root) visit(elements.root);
+    for (const element of Object.values(elements)) visit(element);
+
+    this.orderedElements = ordered;
+    return ordered;
   }
 
   generateHTML(): string {
@@ -399,18 +451,23 @@ ${indent}</${tag}>`;
 
     // 1. Each element's own styles, on the class the markup actually carries.
     const styleClasses = this.resolveStyleClasses();
-    Object.values(this.getElements()).forEach((element) => {
+    this.getOrderedElements().forEach((element) => {
       const styleClass = styleClasses.get(element.id);
       if (!styleClass) return;
 
-      const declarations = toCssDeclarations(element.styles);
+      const declarations = this.getElementDeclarations(element);
       if (Object.keys(declarations).length === 0) return;
 
-      cssObjects.push(generateColorModeCSS(`.${styleClass}`, declarations));
+      const generated = generateColorModeCSS(`.${styleClass}`, declarations);
+      if (this.options.includeComments && generated.baseCSS) {
+        generated.baseCSS = `/* ${styleClass} */\n${generated.baseCSS}`;
+      }
+      cssObjects.push(generated);
     });
 
     // 2. Named classes the user has defined, which several elements may share.
     Object.values(this.customClasses).forEach((customClass) => {
+      if (customClass.category === 'auto-generated') return;
       const declarations = toCssDeclarations(customClass.styles);
       if (Object.keys(declarations).length > 0) {
         cssObjects.push(generateColorModeCSS(`.${customClass.name}`, declarations));
@@ -475,12 +532,13 @@ ${indent}</${tag}>`;
       const breakpointStyles: string[] = [];
 
       Object.values(this.customClasses).forEach((customClass) => {
+        if (customClass.category === 'auto-generated') return;
         const styles = (customClass.styles?.responsiveStyles as any)?.[breakpointName];
         const css = styles ? rule(`.${customClass.name}`, styles) : null;
         if (css) breakpointStyles.push(css);
       });
 
-      Object.values(this.getElements()).forEach((element) => {
+      this.getOrderedElements().forEach((element) => {
         const styleClass = styleClasses.get(element.id);
         const styles = (element.responsiveStyles as any)?.[breakpointName];
         const css = styleClass && styles ? rule(`.${styleClass}`, styles) : null;
@@ -566,10 +624,10 @@ ${indent}</${tag}>`;
    * for an attribute that was never written, so an exported page arrived with
    * no styling on it at all.
    *
-   * An element reuses a class of its own when it has one and nothing else has
-   * claimed it. A class registered in `customClasses` is shared, so writing an
-   * element's ad-hoc styles onto it would leak them onto every other element
-   * using it; those elements get a generated class instead.
+   * An element reuses an explicit class of its own when it is unique and not a
+   * shared class. Timestamp classes created by the editor are implementation
+   * details, so the export replaces them with names derived from document
+   * structure: `page`, `hero`, `hero-title`, `hero-action`, and so on.
    *
    * One class per element is not the destination — shared classes are M4 — but
    * it is what the editor produces today, and it has to export correctly.
@@ -578,21 +636,36 @@ ${indent}</${tag}>`;
     if (this.styleClasses) return this.styleClasses;
 
     const resolved = new Map<string, string>();
+    const explicitCounts = new Map<string, number>();
+
+    for (const element of this.getOrderedElements()) {
+      for (const name of this.getExplicitClasses(element)) {
+        explicitCounts.set(name, (explicitCounts.get(name) || 0) + 1);
+      }
+    }
+
+    const reserved = new Set<string>([
+      ...Object.keys(this.customClasses),
+      ...explicitCounts.keys(),
+    ]);
     const claimed = new Set<string>(Object.keys(this.customClasses));
 
-    for (const element of Object.values(this.getElements())) {
+    for (const element of this.getOrderedElements()) {
       if (!this.needsStyleClass(element)) continue;
 
-      const own = (element.classes || []).find((name) => name && !claimed.has(name));
+      const own = this.getExplicitClasses(element).find(
+        (name) => !this.customClasses[name] && explicitCounts.get(name) === 1
+      );
       if (own) {
         claimed.add(own);
         resolved.set(element.id, own);
         continue;
       }
 
-      let generated = `el-${element.id.replace(/[^a-zA-Z0-9_-]+/g, '-')}`;
-      for (let suffix = 2; claimed.has(generated); suffix++) {
-        generated = `el-${element.id.replace(/[^a-zA-Z0-9_-]+/g, '-')}-${suffix}`;
+      const base = this.suggestClassName(element, resolved);
+      let generated = base;
+      for (let suffix = 2; claimed.has(generated) || reserved.has(generated); suffix++) {
+        generated = `${base}-${suffix}`;
       }
       claimed.add(generated);
       resolved.set(element.id, generated);
@@ -604,7 +677,7 @@ ${indent}</${tag}>`;
 
   /** Whether an element has anything worth writing a rule for. */
   private needsStyleClass(element: CanvasElement): boolean {
-    if (Object.keys(toCssDeclarations(element.styles)).length > 0) return true;
+    if (Object.keys(this.getElementDeclarations(element)).length > 0) return true;
 
     const responsive = element.responsiveStyles as Record<string, any> | undefined;
     return Object.values(responsive || {}).some(
@@ -612,9 +685,123 @@ ${indent}</${tag}>`;
     );
   }
 
+  /**
+   * Editor-created class names contain a timestamp. They are useful internal
+   * handles, but make an export change between identical editing sessions and
+   * tell its reader nothing about the page.
+   */
+  private isEditorClass(name: string): boolean {
+    return /^[a-z][a-z0-9-]*-\d{10,}$/i.test(name)
+      || /^[a-z][a-z0-9-]*-[a-z0-9]{8,}-[a-z0-9]+$/i.test(name);
+  }
+
+  /** Named classes worth carrying into the exported markup. */
+  private getExplicitClasses(element: CanvasElement): string[] {
+    return (element.classes || []).filter((name) => {
+      if (!name) return false;
+      const customClass = this.customClasses[name];
+      if (customClass) return customClass.category !== 'auto-generated';
+      return !this.isEditorClass(name);
+    });
+  }
+
+  /** A short, safe class-name fragment made from visible text. */
+  private slug(value: string | undefined): string {
+    const words = extractText(value || '')
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, ' ')
+      .trim()
+      .split(/\s+/)
+      .filter(Boolean)
+      .slice(0, 4);
+    const slug = words.join('-').slice(0, 40).replace(/-+$/g, '');
+    return slug && /^[a-z_]/.test(slug) ? slug : '';
+  }
+
+  /** Deterministic, structural name for an element's own style rule. */
+  private suggestClassName(element: CanvasElement, resolved: Map<string, string>): string {
+    if (element.id === 'root') return 'page';
+
+    const elements = this.getElements();
+    const parent = element.parent ? elements[element.parent] : undefined;
+    const parentName = (parent && resolved.get(parent.id)) || 'page';
+    const tag = this.getHTMLTag(element);
+
+    if (['header', 'footer', 'nav', 'main', 'aside', 'article', 'form'].includes(tag)) {
+      return parentName === 'page' ? (tag === 'nav' ? 'navigation' : `site-${tag}`) : `${parentName}-${tag}`;
+    }
+
+    if (element.type === 'container' || element.type === 'rectangle' || element.type === 'section') {
+      const children = (element.children || []).map((id) => elements[id]).filter(Boolean);
+      const heading = children.find((child) => child.type === 'heading');
+      if (parent?.id === 'root' && heading?.headingLevel === 1) return 'hero';
+      const headingName = this.slug(heading?.content);
+      if (headingName) return headingName;
+      if (element.type === 'rectangle') return `${parentName}-box`;
+      return parentName === 'page' ? 'section' : `${parentName}-group`;
+    }
+
+    if (element.type === 'heading') {
+      if ((element.headingLevel || 1) === 1 && parentName === 'page') return 'page-title';
+      return `${parentName}-title`;
+    }
+
+    const suffixes: Partial<Record<CanvasElement['type'], string>> = {
+      text: 'text',
+      button: 'action',
+      image: 'image',
+      list: 'list',
+      link: 'link',
+      code: 'code',
+      divider: 'divider',
+      video: 'video',
+      audio: 'audio',
+      input: 'input',
+      textarea: 'textarea',
+      checkbox: 'checkbox',
+      radio: 'radio',
+      dropdown: 'select',
+      component: 'component',
+      element: 'element',
+    };
+
+    return `${parentName}-${suffixes[element.type] || tag || 'element'}`;
+  }
+
+  /**
+   * Element styles that can affect the result. A later shared class wins over
+   * the element rule in both the canvas and the export; repeating any property
+   * that class defines is dead CSS and makes the cascade harder to read.
+   */
+  private getElementDeclarations(element: CanvasElement): Record<string, any> {
+    const effectiveStyles = { ...(element.styles || {}) };
+
+    // Property-panel edits currently live in an internal one-off class. It is
+    // not a reusable class and its timestamp is not useful to the recipient of
+    // an export, so fold it into the element's readable rule.
+    for (const className of element.classes || []) {
+      const customClass = this.customClasses[className];
+      if (customClass?.category === 'auto-generated') {
+        Object.assign(effectiveStyles, customClass.styles);
+      }
+    }
+
+    const declarations = toCssDeclarations(effectiveStyles);
+
+    for (const className of this.getExplicitClasses(element)) {
+      const customClass = this.customClasses[className];
+      if (!customClass) continue;
+      for (const property of Object.keys(toCssDeclarations(customClass.styles))) {
+        delete declarations[property];
+      }
+    }
+
+    return declarations;
+  }
+
   /** Every class an element carries in the exported markup. */
   private getElementClasses(element: CanvasElement): string[] {
-    const classes = [...(element.classes || [])];
+    const classes = this.getExplicitClasses(element);
     const styleClass = this.resolveStyleClasses().get(element.id);
     if (styleClass && !classes.includes(styleClass)) classes.push(styleClass);
     return classes;

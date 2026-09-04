@@ -304,6 +304,7 @@ const Canvas: React.FC = () => {
       <div
         className="relative w-full h-full"
         style={rootStyles}
+        data-testid="canvas-root"
       >
         {/* Render child elements */}
         {(rootElement.children || []).map((childId: string) => {

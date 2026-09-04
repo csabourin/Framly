@@ -156,9 +156,8 @@ test.describe('Framly itself', () => {
     await applyTemplate(page, 'landing');
 
     await page
-      .locator('.canvas-element')
+      .locator('.canvas-element[data-element-type="heading"]')
       .filter({ hasText: 'Build something people want' })
-      .first()
       .click();
     await page.getByTestId('property-search').fill('Text Size');
     await page.getByTestId('group-header-text').click();

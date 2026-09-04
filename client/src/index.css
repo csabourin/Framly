@@ -806,12 +806,6 @@ body[data-input-modality="mouse"] .selectable-block:focus-visible::after {
   transition: padding 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
-/* CRITICAL FIX: Override any existing padding/gap in flex containers */
-.canvas-element[data-container="true"] {
-  padding: 0px !important;
-  gap: 0px !important;
-}
-
 .canvas-element.selected {
   border-color: hsl(203.8863, 88.2845%, 53.1373%);
   background-color: hsla(203.8863, 88.2845%, 53.1373%, 0.1);
@@ -1247,7 +1241,7 @@ body {
 .framly-canvas-ground { position: relative; min-width: 0; flex: 1; overflow: auto; background: var(--ground); user-select: none; }
 .framly-artboard-label { position: absolute; top: -25px; left: 0; display: flex; gap: 7px; color: var(--ink-2); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; }
 .framly-artboard-label span { font-family: var(--font-mono); color: var(--ink-2); }
-.framly-artboard { position: relative; cursor: crosshair; overflow: hidden; border: 1px solid var(--rule-strong); border-radius: 0; background: #fff; color: #191c1a; box-shadow: none; }
+.framly-artboard { position: relative; box-sizing: content-box; cursor: crosshair; overflow: hidden; border: 1px solid var(--rule-strong); border-radius: 0; background: #fff; color: #191c1a; box-shadow: none; }
 
 .framly-right-panel [class*='bg-gradient'] { background-color: var(--paper); background-image: none !important; }
 .framly-right-panel [class*='rounded-xl'] { border-radius: 4px !important; }

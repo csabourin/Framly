@@ -226,7 +226,7 @@ test.describe('the stylesheet matches the markup', () => {
   });
 
   test('every styled element is selected by a rule', async () => {
-    const { css, elements } = exportLanding();
+    const { html, css, elements } = exportLanding();
 
     const styled = Object.values(elements).filter(
       (element) => Object.keys(element.styles || {}).length > 0
@@ -234,16 +234,10 @@ test.describe('the stylesheet matches the markup', () => {
     expect(styled.length, 'the landing template should style its elements').toBeGreaterThan(5);
 
     const inStylesheet = classesInStylesheet(css);
-    // Template elements carry their own class; the root has none, so the
-    // generator makes one for it.
-    const missing = styled
-      .filter((element) => {
-        const name = element.classes?.[0] ?? `el-${element.id}`;
-        return !inStylesheet.has(name);
-      })
-      .map((element) => element.id);
+    const inMarkup = classesInMarkup(html);
 
-    expect(missing, 'elements whose styles reached no CSS rule').toEqual([]);
+    expect(inStylesheet.size, 'one reachable rule for every styled element').toBe(styled.length);
+    expect([...inStylesheet].filter((name) => !inMarkup.has(name))).toEqual([]);
   });
 
   test('no selector relies on an attribute the generator never writes', async () => {
@@ -269,8 +263,8 @@ test.describe('the stylesheet matches the markup', () => {
   });
 
   test('the exported page renders with the colours it was designed in', async ({ page }) => {
-    const { html, css, hero } = exportLanding();
-    const heroClass = hero.classes![0];
+    const { html, css } = exportLanding();
+    const heroClass = 'hero';
 
     await page.setContent(html.replace(/<link rel="stylesheet"[^>]*>/, `<style>${css}</style>`), {
       waitUntil: 'domcontentloaded',
@@ -288,6 +282,78 @@ test.describe('the stylesheet matches the markup', () => {
     expect(computed!.background).toBe('rgb(239, 246, 255)');
     expect(computed!.display).toBe('flex');
     expect(computed!.radius).toBe('12px');
+  });
+});
+
+test.describe('CSS a human can navigate', () => {
+  test('names the landing page by structure, not editor ids', async () => {
+    const { html, css } = exportLanding();
+
+    for (const name of ['page', 'hero', 'hero-title', 'hero-text', 'hero-action', 'what-you-get']) {
+      expect(html, `${name} should appear in the markup`).toMatch(new RegExp(`class="[^"]*\\b${name}\\b`));
+      expect(css, `${name} should have a readable rule`).toContain(`.${name} {`);
+    }
+
+    expect(html).not.toMatch(/class="[^"]*\b(?:container|heading|text|button)-[a-z0-9]{8,}-[a-z0-9]+\b/);
+    expect(css).not.toContain('.el-');
+  });
+
+  test('uses the same class names for the same template on every export', async () => {
+    const first = classesInMarkup(exportLanding().html);
+    const second = classesInMarkup(exportLanding().html);
+
+    expect([...second]).toEqual([...first]);
+  });
+
+  test('writes element rules in document order', async () => {
+    const { css } = exportLanding();
+    const selectors = ['.page {', '.hero {', '.hero-title {', '.hero-text {', '.hero-action {'];
+    const positions = selectors.map((selector) => css.indexOf(selector));
+
+    expect(positions.every((position) => position >= 0)).toBe(true);
+    expect(positions).toEqual([...positions].sort((a, b) => a - b));
+  });
+
+  test('drops longhands made unreachable by a later shorthand', async () => {
+    const { css } = exportLanding();
+    const heroTitle = css.match(/\.hero-title \{([\s\S]*?)\}/)![1];
+    const list = css.match(/\.what-you-get-list \{([\s\S]*?)\}/)![1];
+
+    expect(heroTitle).toContain('margin: 0px');
+    expect(heroTitle, 'a later margin shorthand overrides this declaration').not.toContain('margin-bottom:');
+    expect(list, 'a later longhand intentionally refines the padding shorthand').toContain('padding-left: 20px');
+  });
+
+  test('folds property-panel auto classes into the readable element rule', async () => {
+    const elements: Record<string, CanvasElement> = {
+      root: {
+        id: 'root', type: 'container', width: 375, height: 600,
+        styles: {}, isContainer: true, children: ['title'], classes: [],
+      },
+      title: {
+        id: 'title', type: 'heading', width: 200, height: 50, parent: 'root',
+        headingLevel: 1, content: 'A useful title', styles: { fontSize: '30px' },
+        classes: ['heading-mfee1234-0'],
+      },
+    };
+    const customClasses = {
+      'heading-mfee1234-0': {
+        name: 'heading-mfee1234-0',
+        styles: { fontSize: '64px' },
+        category: 'auto-generated',
+      },
+    };
+    const project = {
+      id: 'test', name: 'Readable', elements,
+      activeTabId: 't', tabs: {}, breakpoints: {}, currentBreakpoint: 'mobile',
+    };
+
+    const { html, css } = new CodeGenerator(project, customClasses, elements).exportProject();
+
+    expect(html).toContain('class="page-title"');
+    expect(html).not.toContain('heading-mfee1234-0');
+    expect(css).toMatch(/\.page-title \{[^}]*font-size: 64px/);
+    expect(css).not.toContain('heading-mfee1234-0');
   });
 });
 
@@ -313,8 +379,8 @@ test.describe('export settings', () => {
   });
 
   test('minifying changes nothing a browser can see', async ({ page }) => {
-    const { html, hero } = exportLanding();
-    const heroClass = hero.classes![0];
+    const { html } = exportLanding();
+    const heroClass = 'hero';
 
     const render = async (css: string) => {
       await page.setContent(html.replace(/<link rel="stylesheet"[^>]*>/, `<style>${css}</style>`), {
@@ -393,7 +459,7 @@ test.describe('a shared class is not written to', () => {
       },
       a: {
         id: 'a', type: 'text', width: 100, height: 20, parent: 'root',
-        content: 'First', classes: ['card'], styles: { color: '#111111' },
+        content: 'First', classes: ['card'], styles: { color: '#111111', padding: '4px' },
       },
       b: {
         id: 'b', type: 'text', width: 100, height: 20, parent: 'root',
@@ -434,10 +500,14 @@ test.describe('a shared class is not written to', () => {
     expect((html.match(/class="[^"]*\bcard\b/g) ?? []).length).toBe(2);
 
     // …and each has a generated class of its own holding its colour.
-    expect(css).toMatch(/\.el-a \{[^}]*color: #111111/);
-    expect(css).toMatch(/\.el-b \{[^}]*color: #222222/);
-    expect(html).toContain('class="card el-a"');
-    expect(html).toContain('class="card el-b"');
+    expect(css).toMatch(/\.page-text \{[^}]*color: #111111/);
+    expect(css).toMatch(/\.page-text-2 \{[^}]*color: #222222/);
+    expect(html).toContain('class="card page-text"');
+    expect(html).toContain('class="card page-text-2"');
+
+    const firstElementRule = css.match(/\.page-text \{([\s\S]*?)\}/)![1];
+    expect(firstElementRule, 'the later shared class makes the element padding declaration dead')
+      .not.toContain('padding:');
   });
 
   test('every rule still selects something the page has', async () => {

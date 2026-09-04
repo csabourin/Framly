@@ -35,10 +35,9 @@ Three promises, in priority order. When two conflict, the higher one wins:
 
 ### 👉 Start here
 
-**M1.4 — CSS a human can read.** M1.3 is done. The export is mobile-first and
-the controls say where a value comes from; what is left in M1 is the shape of
-the file itself — meaningful class names, rules grouped by element, no
-duplicated declarations.
+**M2.1 — Box overlay on selection.** The output milestone is complete. The
+next job is making Framly's differentiator visible: selecting an element should
+show its margin, border, padding and content boxes directly on the canvas.
 
 *M0 is done: CI runs on every PR, and three gates fail on a regression.*
 
@@ -51,7 +50,7 @@ Until something checks, everything below will rot at the same rate it's built.*
 
 - [x] `[S]` **CI: typecheck + build on push.** `.github/workflows/ci.yml` runs
       `npm run check` and `npm run build` on every branch and PR.
-- [x] `[M]` **Playwright + axe harness — 62 tests.** `npm test` builds the
+- [x] `[M]` **Playwright + axe harness — 68 tests.** `npm test` builds the
       production bundle, serves it through the app's own Express server, and
       covers: first run and the empty state, all three templates, undo/redo
       (including one Ctrl+Z per drawn shape), export, disabled formats, and
@@ -147,17 +146,36 @@ class names to match, and it has no real media queries.*
       *Done when:* setting a colour at base applies everywhere; changing it at
       `md` produces exactly one media query and no duplicate base rule. ✅
 
-- [ ] `[M]` **CSS a human can read.** Stable, meaningful class names instead of
-      `el-4pinocqwb`; rules grouped by element; no duplicated declarations.
-      *Done when:* you can open the exported CSS and find the hero's styles
-      without searching.
-- [ ] `[M]` **Round-trip test.** Export a template, load the files in a browser,
-      compare against the canvas at all four breakpoints.
-      *Done when:* the test runs in CI and catches a deliberate regression.
+- [x] `[M]` **CSS a human can read.** Editor timestamps and element ids no
+      longer leak into an export. Class names now follow the document structure
+      (`page`, `hero`, `hero-title`, `hero-text`, `hero-action`,
+      `what-you-get`), remain identical across repeated exports, and their
+      rules follow DOM order. Explicit user classes keep their names. Internal
+      one-off classes created by the Properties panel are folded into the
+      element's readable rule; real shared classes remain separate and keep
+      their cascade position. Declarations made unreachable by a later
+      shorthand or shared class are omitted.
+      *Verified by:* five focused tests covering meaningful names, stability,
+      document order, shorthand cleanup and panel-created classes. The naming
+      gate was proven by deliberately changing `page`; it failed on the exact
+      missing selector. ✅
+- [x] `[M]` **Round-trip test.** The browser test applies the Landing template,
+      creates real tablet, desktop and large-desktop overrides, loads its
+      generated HTML and CSS in a second page, and compares every emitted
+      rendered CSS property against the canvas at 375, 768, 1024 and 1440px.
+      It exposed two production mismatches: container padding and gap were
+      being erased by editor CSS, and the labelled artboard width included its
+      border while an exported viewport does not. Both are fixed. Editor-only
+      drag cursors are explicitly outside the visual comparison.
+      *Verified by:* deliberately restoring the artboard sizing bug; the gate
+      failed on the exact two-pixel width difference, then passed after the
+      regression was reverted. ✅
 
 **Milestone done when:** you export the Landing template, open it in a browser,
 and it matches the canvas at every breakpoint — and you'd be happy to hand the
 CSS to someone else.
+**✅ Done.** The four-breakpoint browser comparison and readable-CSS gates are
+both in CI and have each caught a deliberate regression.
 
 ---
 

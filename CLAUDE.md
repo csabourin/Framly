@@ -81,6 +81,7 @@ be too. A check that cannot fail is worthless.
 | `tests/axe-baseline.json` | Framly's own known AA violations. Fails on a new rule or a worse count; reports when a number can come down. Lower it as you fix things. |
 | Exported-page a11y | Zero violations, no baseline. This is promise #1. Now a real contrast check — until the CSS export was fixed there were no colours to measure. |
 | Export ↔ stylesheet | `tests/export.spec.ts`: no rule may select a class the markup lacks, no styled element may go unselected, no camelCase property, and the rendered page must compute to the colours it was designed in. |
+| Canvas ↔ export | `tests/roundtrip.spec.ts`: the Landing template's emitted rendered properties must match the canvas at all four breakpoint widths, including real responsive overrides. Editor drag cursors are intentionally excluded. |
 | `tests/deadcode.spec.ts` | Fails on any unreachable file. `components/ui/*` is exempt. |
 
 # Architecture
@@ -124,13 +125,16 @@ decision changes deliberately.
 Working and tested: 24 element types; four breakpoints; drawing and
 point-and-click insertion; HTML5 drag-and-drop reordering; inline text editing;
 starter templates on an empty canvas; undo/redo; semantic HTML/CSS export;
-keyboard shortcuts with a searchable cheatsheet; light/dark colour modes.
+stable structural export classes (`page`, `hero`, `hero-title`, etc.); keyboard
+shortcuts with a searchable cheatsheet; light/dark colour modes. Canvas/export
+fidelity is browser-tested at all four breakpoints.
 
 Partly built — treat with care before extending:
 
 - **Component system** (definitions, instances, propagation, tabbed editor)
   works but is thin, and is due to be rebuilt on shared classes in M4.
-- **Website import** is half-finished and parked until M4.
+- **Website import** was removed. It stays parked until shared classes make an
+  import model coherent in M4.
 - **CSS optimiser** exists to undo the bloat caused by generating one class per
   element. It is no longer in the export path — it was inventing class names the
   stylesheet never defined — but still backs `cssClassGenerator` and its own
@@ -141,9 +145,10 @@ Partly built — treat with care before extending:
 ## A known tension
 
 "Class-based styling, no inline styles" is the stated principle, but the
-implementation generates a *unique class per element* — inline styles with extra
-steps, and the reason the CSS optimiser exists. Shared, reusable classes are
-M4. Do not build more on top of per-element classes until then.
+implementation still generates a *unique rule per element* — now under a
+readable, stable structural class rather than an id, but still inline styling
+with extra steps and the reason the CSS optimiser exists. Shared, reusable
+classes are M4. Do not build more on top of per-element classes until then.
 
 # External dependencies that are actually used
 
