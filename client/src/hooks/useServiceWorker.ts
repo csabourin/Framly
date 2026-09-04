@@ -35,7 +35,6 @@ export function useServiceWorker() {
     // Listen for service worker controller changes
     const handleControllerChange = () => {
       if (import.meta.env.DEV) return;
-      console.log('🔄 Service Worker controller changed');
       updateState();
       // window.location.reload(); // DISABLED: This can cause infinite loops in development
     };
@@ -47,7 +46,6 @@ export function useServiceWorker() {
         newWorker.addEventListener('statechange', () => {
           if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
             setState(prev => ({ ...prev, updateAvailable: true }));
-            console.log('🔄 Service Worker update available');
           }
         });
       }
@@ -92,7 +90,6 @@ export function useServiceWorker() {
       const registration = await navigator.serviceWorker.getRegistration();
       if (registration) {
         await registration.update();
-        console.log('🔍 Checked for service worker updates');
       }
     } catch (error) {
       console.error('Failed to check for updates:', error);

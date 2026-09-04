@@ -565,9 +565,12 @@ export class PersistenceManager {
       });
 
       if (hasOrphans) {
-        // Update Redux with cleaned elements
+        // `canvas/setProject` has no reducer, so this cleanup silently did
+        // nothing to Redux and then saved the uncleaned state back. loadProject
+        // is the real action; this runs once at startup, after both the project
+        // and the component definitions are loaded.
         const cleanedProject = { ...currentProject, tabs: cleanedTabs };
-        store.dispatch({ type: 'canvas/setProject', payload: cleanedProject });
+        store.dispatch(loadProject(cleanedProject));
 
         // Save cleaned project back to IndexedDB
         await this.saveCurrentProject();

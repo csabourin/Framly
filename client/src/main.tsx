@@ -14,7 +14,6 @@ async function registerServiceWorker() {
       const registrations = await navigator.serviceWorker.getRegistrations();
       for (const registration of registrations) {
         await registration.unregister();
-        console.log('Unregistered Service Worker in development mode');
       }
     }
     return null;

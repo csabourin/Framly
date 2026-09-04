@@ -23,7 +23,6 @@ export const useToolHandler = (
   // This is critical because 'select' now refers to the dropdown element tool
   useEffect(() => {
     if (selectedTool === 'select' as any) {
-      console.log('🔄 Migrating legacy "select" tool to "pointer"');
       dispatch(setSelectedTool('pointer'));
     }
   }, [selectedTool, dispatch]);

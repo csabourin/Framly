@@ -242,7 +242,6 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
   const config = getConfig();
   
   // Debug logging
-  // Removed console.log for better performance
 
   const handleShortcutChange = (shortcutKey: string, value: string) => {
     const shortcut = config.shortcuts.find(s => s.key === shortcutKey);

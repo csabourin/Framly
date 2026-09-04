@@ -202,11 +202,9 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
 
   // Enhanced HTML5 Drag and Drop event handlers
   const handleDragStart = useCallback((e: React.DragEvent<HTMLDivElement>) => {
-    console.log('🚀 Enhanced DRAG START:', element.id);
 
     // Don't allow dragging while editing text
     if (isEditing) {
-      console.log('DRAG PREVENTED: editing');
       e.preventDefault();
       return;
     }
@@ -1144,7 +1142,6 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
             }}
             onMouseDown={(e) => {
               e.stopPropagation();
-              // console.log('DRAG HANDLE DEBUG - Mouse down on selection handle for:', element.id);
 
               // Auto-switch to hand tool and initiate drag
               dispatch(setSelectedTool('hand'));
@@ -1169,7 +1166,6 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
           element.children.map(childId => {
             const child = currentElements[childId];
             if (!child) {
-              // console.log('Child not found in currentElements:', childId, 'available:', Object.keys(currentElements).length);
               return null;
             }
             return (

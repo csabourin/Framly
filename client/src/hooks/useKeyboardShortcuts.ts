@@ -204,7 +204,6 @@ export const useKeyboardShortcuts = (onShowCheatsheet?: () => void) => {
       category: 'Arrange',
       action: () => {
         // TODO: Implement grouping
-        console.log('Group shortcut - to be implemented');
       }
     },
     {
@@ -214,7 +213,6 @@ export const useKeyboardShortcuts = (onShowCheatsheet?: () => void) => {
       category: 'Arrange',
       action: () => {
         // TODO: Implement ungrouping
-        console.log('Ungroup shortcut - to be implemented');
       }
     },
 
@@ -225,7 +223,6 @@ export const useKeyboardShortcuts = (onShowCheatsheet?: () => void) => {
       description: 'Bring to Front',
       category: 'Arrange',
       action: () => {
-        console.log('Bring to front - to be implemented');
       }
     },
     {
@@ -234,7 +231,6 @@ export const useKeyboardShortcuts = (onShowCheatsheet?: () => void) => {
       description: 'Send to Back',
       category: 'Arrange',
       action: () => {
-        console.log('Send to back - to be implemented');
       }
     },
     {
@@ -243,7 +239,6 @@ export const useKeyboardShortcuts = (onShowCheatsheet?: () => void) => {
       description: 'Bring Forward',
       category: 'Arrange',
       action: () => {
-        console.log('Bring forward - to be implemented');
       }
     },
     {
@@ -252,7 +247,6 @@ export const useKeyboardShortcuts = (onShowCheatsheet?: () => void) => {
       description: 'Send Backward',
       category: 'Arrange',
       action: () => {
-        console.log('Send backward - to be implemented');
       }
     },
 

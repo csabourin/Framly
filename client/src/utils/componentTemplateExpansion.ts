@@ -111,12 +111,6 @@ export function expandComponentTemplate(
     rootInstanceElement.children = childIds;
   }
 
-  console.log('Expanded component template:', {
-    componentName: componentDef.name,
-    instanceId: instance.id,
-    totalElements: Object.keys(expandedElements).length,
-    rootChildren: rootInstanceElement.children?.length || 0
-  });
 
   return expandedElements;
 }

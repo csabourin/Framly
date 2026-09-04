@@ -14,7 +14,6 @@ export function createGhostRootWrapper(
     throw new Error(`Element ${selectedElementId} not found`);
   }
 
-  console.log('Creating ghost root wrapper for component template:', selectedElementId);
 
   // Calculate bounds for ghost root (could span multiple elements in future)
   const bounds = {
@@ -50,12 +49,6 @@ export function createGhostRootWrapper(
     // Mark as ghost root for special handling
     isGhostRoot: true
   };
-
-  console.log('Ghost root wrapper created:', {
-    ghostRootSize: `${bounds.width}x${bounds.height}`,
-    wrappedElement: selectedElementId,
-    wrappedElementType: selectedElement.type
-  });
 
   return ghostRoot;
 }

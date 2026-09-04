@@ -1,5 +1,15 @@
 import { store as reduxStore } from '../store';
-import { pushHistoryEntry, amendCurrentEntry, undo, redo, setUndoingFlag, setRedoingFlag } from '../store/historySlice';
+import {
+  pushHistoryEntry,
+  amendCurrentEntry,
+  undo,
+  redo,
+  setUndoingFlag,
+  setRedoingFlag,
+  // aliased: the class below also has a clearHistory method
+  clearHistory as clearHistoryAction,
+  loadHistoryFromStorage,
+} from '../store/historySlice';
 import { loadProject } from '../store/canvasSlice';
 import { loadCustomClassesFromStorage } from '../store/classSlice';
 
@@ -81,7 +91,7 @@ export class HistoryManager {
    * would replace the loaded project with unrelated state.
    */
   resetBaseline(): void {
-    reduxStore.dispatch({ type: 'history/clearHistory' });
+    reduxStore.dispatch(clearHistoryAction());
     this.ensureBaseline();
   }
 
@@ -152,7 +162,7 @@ export class HistoryManager {
       entries.sort((a, b) => a.timestamp - b.timestamp);
 
       // Load into Redux store
-      reduxStore.dispatch({ type: 'history/loadHistoryFromStorage', payload: entries });
+      reduxStore.dispatch(loadHistoryFromStorage(entries));
       
     } catch (error) {
       // Failed to load history from IndexedDB
@@ -180,7 +190,6 @@ export class HistoryManager {
       classState,
     }));
 
-    // console.log(`History recorded: ${description}`);
 
     // Save to IndexedDB (debounced)
     this.debouncedSave();
@@ -290,7 +299,7 @@ export class HistoryManager {
    * Clear all history
    */
   async clearHistory(): Promise<void> {
-    reduxStore.dispatch({ type: 'history/clearHistory' });
+    reduxStore.dispatch(clearHistoryAction());
     
     if (this.db) {
       try {

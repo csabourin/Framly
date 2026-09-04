@@ -39,7 +39,6 @@ const ComponentInstanceElement: React.FC<ComponentInstanceElementProps> = ({
     e.stopPropagation();
     e.preventDefault();
     
-    console.log('ComponentInstance double-click: opening component editor');
     
     if (element.componentRef?.componentId && componentDefinition) {
       // Open component editor tab
@@ -49,7 +48,6 @@ const ComponentInstanceElement: React.FC<ComponentInstanceElementProps> = ({
 
   // If no component definition found, render error state
   if (!componentDefinition) {
-    console.log('Component definition not found for instance:', element.componentRef?.componentId);
     
     return (
       <div
@@ -81,12 +79,6 @@ const ComponentInstanceElement: React.FC<ComponentInstanceElementProps> = ({
   // Get template for rendering
   const template = componentDefinition.template;
   
-  console.log('Rendering component instance as read-only clone:', {
-    componentName: componentDefinition.name,
-    templateType: template?.type,
-    instanceId: element.id,
-    hasTemplate: !!template
-  });
 
   return (
     <div
