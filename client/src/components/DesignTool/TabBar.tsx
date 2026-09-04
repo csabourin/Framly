@@ -1,320 +1,67 @@
-import React, { useState, useRef, useCallback } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../../store';
-import { 
-  switchTab, 
-  createTab, 
-  duplicateTab, 
-  deleteTab, 
-  renameTab, 
-  setTabColor, 
-  reorderTabs 
-} from '../../store/canvasSlice';
+import React, { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { ChevronDown, Copy, Layers3, Plus, Trash2 } from 'lucide-react';
+import { createTab, deleteTab, duplicateTab, switchTab } from '../../store/canvasSlice';
 import { selectCanvasProject } from '../../store/selectors';
-import { Plus, MoreHorizontal, X, Edit2, Copy, Trash2 } from 'lucide-react';
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-
-interface TabItemProps {
-  tabId: string;
-  tab: {
-    id: string;
-    name: string;
-    color?: string;
-    updatedAt: number;
-  };
-  isActive: boolean;
-  onSelect: () => void;
-  onDuplicate: () => void;
-  onDelete: () => void;
-  onRename: (name: string) => void;
-  onSetColor: (color?: string) => void;
-}
-
-const TAB_COLORS = [
-  { name: 'Blue', value: '#dbeafe', hover: '#bfdbfe' },
-  { name: 'Green', value: '#d1fae5', hover: '#a7f3d0' },
-  { name: 'Purple', value: '#e9d5ff', hover: '#ddd6fe' },
-  { name: 'Orange', value: '#fed7aa', hover: '#fdba74' },
-  { name: 'Red', value: '#fecaca', hover: '#fca5a5' },
-  { name: 'Pink', value: '#fce7f3', hover: '#fbcfe8' },
-  { name: 'Yellow', value: '#fef3c7', hover: '#fde68a' },
-  { name: 'Indigo', value: '#e0e7ff', hover: '#c7d2fe' },
-];
-
-const TabItem: React.FC<TabItemProps> = ({ 
-  tabId, 
-  tab, 
-  isActive, 
-  onSelect, 
-  onDuplicate, 
-  onDelete, 
-  onRename, 
-  onSetColor 
-}) => {
-  const [isRenaming, setIsRenaming] = useState(false);
-  const [renamingValue, setRenamingValue] = useState(tab.name);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const renameInputRef = useRef<HTMLInputElement>(null);
-
-  const handleStartRename = () => {
-    setIsRenaming(true);
-    setRenamingValue(tab.name);
-    setTimeout(() => renameInputRef.current?.focus(), 0);
-  };
-
-  const handleFinishRename = () => {
-    const trimmedValue = renamingValue.trim();
-    if (trimmedValue && trimmedValue !== tab.name) {
-      onRename(trimmedValue);
-    }
-    setIsRenaming(false);
-    setRenamingValue(tab.name); // Reset to original value
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
-      handleFinishRename();
-    } else if (e.key === 'Escape') {
-      setIsRenaming(false);
-      setRenamingValue(tab.name);
-    }
-  };
-
-  const getTabStyle = () => {
-    const colorConfig = tab.color ? TAB_COLORS.find(c => c.value === tab.color) : null;
-    
-    if (isActive && colorConfig) {
-      return {
-        backgroundColor: colorConfig.value,
-        borderTopColor: 'white',
-      };
-    } else if (!isActive && colorConfig) {
-      return {
-        backgroundColor: colorConfig.hover,
-        borderTopColor: 'transparent',
-      };
-    } else if (isActive) {
-      return {
-        backgroundColor: 'white',
-        borderTopColor: 'white',
-      };
-    } else {
-      return {
-        backgroundColor: '#f9fafb',
-        borderTopColor: 'transparent',
-      };
-    }
-  };
-
-  return (
-    <div
-      className={`
-        flex items-center gap-1 px-3 py-2 rounded-b-lg border border-t-0 cursor-pointer
-        transition-all duration-200 group relative max-w-48
-        ${isActive 
-          ? 'border-gray-300 shadow-sm z-10' 
-          : 'border-gray-200'
-        }
-        ${!isActive ? 'hover:brightness-95' : ''}
-      `}
-      onClick={onSelect}
-      style={getTabStyle()}
-    >
-      {/* Remove the color dot since we're using full background color */}
-      
-      {/* Tab name */}
-      <div className="flex-1 min-w-0">
-        {isRenaming ? (
-          <input
-            ref={renameInputRef}
-            type="text"
-            value={renamingValue}
-            onChange={(e) => setRenamingValue(e.target.value)}
-            onBlur={handleFinishRename}
-            onKeyDown={handleKeyDown}
-            className="w-full px-1 py-0 text-sm bg-transparent border-none outline-none"
-            onClick={(e) => e.stopPropagation()}
-          />
-        ) : (
-          <span 
-            className="text-sm font-medium truncate block"
-            onDoubleClick={(e) => {
-              e.stopPropagation();
-              handleStartRename();
-            }}
-          >
-            {tab.name}
-          </span>
-        )}
-      </div>
-
-      {/* Close button removed - delete function available in dropdown menu */}
-
-      {/* Actions dropdown */}
-      <DropdownMenu.Root open={dropdownOpen} onOpenChange={setDropdownOpen}>
-        <DropdownMenu.Trigger asChild>
-          <button
-            className="opacity-0 group-hover:opacity-100 p-1 hover:bg-gray-200 rounded transition-opacity"
-            onClick={(e) => e.stopPropagation()}
-            data-testid={`button-tab-actions-${tabId}`}
-          >
-            <MoreHorizontal size={12} />
-          </button>
-        </DropdownMenu.Trigger>
-
-        <DropdownMenu.Portal>
-          <DropdownMenu.Content 
-            className="bg-white rounded-lg shadow-lg border border-gray-200 p-1 z-50 min-w-48"
-            side="bottom"
-            align="end"
-          >
-            <DropdownMenu.Item
-              className="flex items-center gap-2 px-3 py-2 text-sm cursor-pointer rounded hover:bg-gray-50"
-              onClick={handleStartRename}
-              data-testid={`menu-rename-tab-${tabId}`}
-            >
-              <Edit2 size={14} />
-              Rename Tab
-            </DropdownMenu.Item>
-
-            <DropdownMenu.Item
-              className="flex items-center gap-2 px-3 py-2 text-sm cursor-pointer rounded hover:bg-gray-50"
-              onClick={onDuplicate}
-              data-testid={`menu-duplicate-tab-${tabId}`}
-            >
-              <Copy size={14} />
-              Duplicate Tab
-            </DropdownMenu.Item>
-
-            <DropdownMenu.Separator className="h-px bg-gray-200 my-1" />
-
-            <DropdownMenu.Sub>
-              <DropdownMenu.SubTrigger className="flex items-center justify-between px-3 py-2 text-sm cursor-pointer rounded hover:bg-gray-50">
-                Set Color
-                <div className="flex items-center gap-1">
-                  {tab.color && (
-                    <div
-                      className="w-3 h-3 rounded-full"
-                      style={{ backgroundColor: tab.color }}
-                    />
-                  )}
-                </div>
-              </DropdownMenu.SubTrigger>
-              <DropdownMenu.Portal>
-                <DropdownMenu.SubContent 
-                  className="bg-white rounded-lg shadow-lg border border-gray-200 p-1 z-50"
-                  sideOffset={8}
-                >
-                  <DropdownMenu.Item
-                    className="flex items-center gap-2 px-3 py-2 text-sm cursor-pointer rounded hover:bg-gray-50"
-                    onClick={() => onSetColor(undefined)}
-                  >
-                    No Color
-                  </DropdownMenu.Item>
-                  <DropdownMenu.Separator className="h-px bg-gray-200 my-1" />
-                  {TAB_COLORS.map((color) => (
-                    <DropdownMenu.Item
-                      key={color.value}
-                      className="flex items-center gap-2 px-3 py-2 text-sm cursor-pointer rounded hover:bg-gray-50"
-                      onClick={() => onSetColor(color.value)}
-                    >
-                      <div
-                        className="w-4 h-4 rounded border border-gray-200"
-                        style={{ backgroundColor: color.value }}
-                      />
-                      {color.name}
-                    </DropdownMenu.Item>
-                  ))}
-                </DropdownMenu.SubContent>
-              </DropdownMenu.Portal>
-            </DropdownMenu.Sub>
-
-            <DropdownMenu.Separator className="h-px bg-gray-200 my-1" />
-
-            <DropdownMenu.Item
-              className="flex items-center gap-2 px-3 py-2 text-sm cursor-pointer rounded hover:bg-red-50 text-red-600"
-              onClick={onDelete}
-              data-testid={`menu-delete-tab-${tabId}`}
-            >
-              <Trash2 size={14} />
-              Delete Tab
-            </DropdownMenu.Item>
-          </DropdownMenu.Content>
-        </DropdownMenu.Portal>
-      </DropdownMenu.Root>
-    </div>
-  );
-};
+import {
+  DropdownMenu, DropdownMenuContent, DropdownMenuItem,
+  DropdownMenuSeparator, DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 const TabBar: React.FC = () => {
   const dispatch = useDispatch();
   const project = useSelector(selectCanvasProject);
+  const activeTab = project.tabs?.[project.activeTabId];
 
-  const handleCreateTab = useCallback(() => {
-    dispatch(createTab({ name: 'New Tab' }));
+  const handleCreate = useCallback(() => {
+    dispatch(createTab({ name: 'New page' }));
   }, [dispatch]);
 
-  const handleSwitchTab = useCallback((tabId: string) => {
-    dispatch(switchTab(tabId));
-  }, [dispatch]);
-
-  const handleDuplicateTab = useCallback((tabId: string) => {
-    dispatch(duplicateTab(tabId));
-  }, [dispatch]);
-
-  const handleDeleteTab = useCallback((tabId: string) => {
-    if (Object.keys(project.tabs).length > 1) {
-      dispatch(deleteTab(tabId));
-    }
-  }, [dispatch, project.tabs]);
-
-  const handleRenameTab = useCallback((tabId: string, name: string) => {
-    dispatch(renameTab({ tabId, name }));
-  }, [dispatch]);
-
-  const handleSetTabColor = useCallback((tabId: string, color?: string) => {
-    dispatch(setTabColor({ tabId, color }));
-  }, [dispatch]);
-
-  // Always show at least one tab - if none exist, create one
-  if (!project.tabs || Object.keys(project.tabs).length === 0) {
-    // Create default tab if none exist
-    const defaultTabId = 'main-tab';
-    dispatch(createTab({ name: 'Main' }));
-    return null; // Will re-render after dispatch
-  }
+  if (!project.tabs || Object.keys(project.tabs).length === 0) return null;
 
   return (
-    <div className="flex items-start gap-1 bg-gray-100 px-4 pb-2 pt-0 border-t border-gray-200 min-h-[40px] relative z-20">
-      {/* Tab items */}
-      {project.tabOrder.map((tabId) => {
-        const tab = project.tabs[tabId];
-        if (!tab) return null;
-
-        return (
-          <TabItem
-            key={tabId}
-            tabId={tabId}
-            tab={tab}
-            isActive={project.activeTabId === tabId}
-            onSelect={() => handleSwitchTab(tabId)}
-            onDuplicate={() => handleDuplicateTab(tabId)}
-            onDelete={() => handleDeleteTab(tabId)}
-            onRename={(name) => handleRenameTab(tabId, name)}
-            onSetColor={(color) => handleSetTabColor(tabId, color)}
-          />
-        );
-      })}
-
-      {/* Add new tab button */}
-      <button
-        onClick={handleCreateTab}
-        className="flex items-center justify-center w-8 h-8 rounded-b-lg bg-gray-50 hover:bg-gray-100 border border-gray-200 border-t-0 transition-colors"
-        data-testid="button-create-tab"
-        title="Create New Tab"
-      >
-        <Plus size={14} />
-      </button>
+    <div className="framly-page-controls">
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <button className="framly-page-switcher" data-testid="page-switcher">
+          <Layers3 className="h-3.5 w-3.5" />
+          <span className="max-w-28 truncate">{activeTab?.name ?? 'Page'}</span>
+          <ChevronDown className="h-3 w-3" />
+        </button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="start" className="framly-menu w-56">
+        <div className="px-2 py-1.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">Pages</div>
+        {project.tabOrder.map((tabId) => {
+          const tab = project.tabs[tabId];
+          if (!tab) return null;
+          return (
+            <DropdownMenuItem
+              key={tabId}
+              onClick={() => dispatch(switchTab(tabId))}
+              className={project.activeTabId === tabId ? 'bg-accent' : ''}
+            >
+              <span className="flex-1 truncate">{tab.name}</span>
+              {project.activeTabId === tabId && <span className="text-[10px] uppercase tracking-wider text-muted-foreground">Current</span>}
+            </DropdownMenuItem>
+          );
+        })}
+        <DropdownMenuSeparator />
+        <DropdownMenuItem onClick={handleCreate} data-testid="menu-create-tab"><Plus className="mr-2 h-4 w-4" />New page</DropdownMenuItem>
+        {activeTab && (
+          <DropdownMenuItem onClick={() => dispatch(duplicateTab(activeTab.id))} data-testid={`menu-duplicate-tab-${activeTab.id}`}>
+            <Copy className="mr-2 h-4 w-4" />Duplicate page
+          </DropdownMenuItem>
+        )}
+        {activeTab && project.tabOrder.length > 1 && (
+          <DropdownMenuItem onClick={() => dispatch(deleteTab(activeTab.id))} data-testid={`menu-delete-tab-${activeTab.id}`} className="text-destructive">
+            <Trash2 className="mr-2 h-4 w-4" />Delete page
+          </DropdownMenuItem>
+        )}
+      </DropdownMenuContent>
+    </DropdownMenu>
+    <button className="framly-add-page" onClick={handleCreate} data-testid="button-create-tab" aria-label="Create new page">
+      <Plus className="h-3.5 w-3.5" />
+    </button>
     </div>
   );
 };

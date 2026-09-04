@@ -1,355 +1,183 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { RootState } from '../../store';
-import { selectCanvasProject, selectExportModalState, selectUIState } from '../../store/selectors';
-import { updateProjectName } from '../../store/canvasSlice';
 import {
-  setExportModalOpen,
-  setCodeModalOpen,
-  setCSSOptimizationModalOpen,
-  zoomIn,
-  zoomOut,
-  fitToScreen,
-  setZoomLevel,
-  setClassEditorOpen,
-  setComponentEditorOpen,
-  setButtonDesignerOpen,
-  setSettingsMenuOpen,
-  toggleDOMTreePanel,
-  setWorkspaceLayout
+  ChevronDown, Download, Eye, Keyboard, Maximize, Minus, MoreHorizontal,
+  Plus, Settings, SlidersHorizontal, Smartphone, Tablet, Monitor, MonitorUp, Zap,
+} from 'lucide-react';
+import { RootState } from '../../store';
+import { selectCanvasProject, selectUIState } from '../../store/selectors';
+import { switchBreakpoint, updateProjectName } from '../../store/canvasSlice';
+import {
+  fitToScreen, setButtonDesignerOpen, setClassEditorOpen, setCodeModalOpen,
+  setComponentEditorOpen, setCSSOptimizationModalOpen, setExportModalOpen,
+  setSettingsMenuOpen, setZoomLevel, zoomIn, zoomOut,
 } from '../../store/uiSlice';
 import { Button } from '@/components/ui/button';
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
+  DropdownMenu, DropdownMenuContent, DropdownMenuItem,
+  DropdownMenuSeparator, DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Eye, Undo, Redo, Download, Settings, Plus, Minus, Maximize, Zap, List, Palette, Component, MousePointer2, Wrench, MoreHorizontal, LayoutGrid, Minimize2, Code2, Layers } from 'lucide-react';
 import UndoRedoControls from './UndoRedoControls';
-import WebsiteImport from './WebsiteImport';
 import SettingsMenu from './SettingsMenu';
+import TabBar from './TabBar';
 import LanguageSwitcher from '@/components/ui/language-switcher';
-import { ColorModeToggle } from '../../components/ColorModeToggle';
-import { useColorMode } from '../../contexts/ColorModeContext';
+import { ColorModeToggle } from '../ColorModeToggle';
+import PersistenceStatus from '../PersistenceStatus';
+import { ServiceWorkerStatus } from '../ServiceWorkerStatus';
 
-const Header: React.FC = () => {
+interface HeaderProps {
+  onShowKeyboardShortcuts: () => void;
+}
+
+const breakpointIcons: Record<string, React.ComponentType<{ className?: string }>> = {
+  mobile: Smartphone,
+  tablet: Tablet,
+  desktop: Monitor,
+  large: MonitorUp,
+};
+
+const Header: React.FC<HeaderProps> = ({ onShowKeyboardShortcuts }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-
-  // Safely use ColorMode context with fallback
-  let isColorModeDesignEnabled = false;
-  let setColorModeDesignEnabled: any = () => { };
-  try {
-    const colorModeContext = useColorMode();
-    isColorModeDesignEnabled = colorModeContext.isColorModeDesignEnabled;
-    setColorModeDesignEnabled = colorModeContext.setColorModeDesignEnabled;
-  } catch (error) {
-    // Silent fallback if context not available
-  }
   const project = useSelector(selectCanvasProject);
-  const { isExportModalOpen, isDOMTreePanelVisible, zoomLevel, workspaceLayout } = useSelector((state: RootState) => ({
-    ...selectExportModalState(state),
-    isDOMTreePanelVisible: selectUIState(state).isDOMTreePanelVisible,
-    zoomLevel: selectUIState(state).zoomLevel,
-    workspaceLayout: selectUIState(state).workspaceLayout
+  const zoomLevel = useSelector((state: RootState) => selectUIState(state).zoomLevel);
+
+  const defaultBreakpoints = {
+    mobile: { name: 'mobile', label: t('breakpoints.mobile'), width: 375 },
+    tablet: { name: 'tablet', label: t('breakpoints.tablet'), width: 768 },
+    desktop: { name: 'desktop', label: t('breakpoints.desktop'), width: 1024 },
+    large: { name: 'large', label: t('breakpoints.largeDesktop'), width: 1440 },
+  };
+  const breakpoints = Object.entries(defaultBreakpoints).map(([name, fallback]) => ({
+    ...fallback,
+    ...project.breakpoints[name],
+    name,
+    label: fallback.label,
   }));
-
-
-  // Note: handleUndo and handleRedo removed - now using UndoRedoControls component
-
-  const handlePreview = () => {
-    dispatch(setCodeModalOpen(true));
-  };
-
-  const handleExport = () => {
-    dispatch(setExportModalOpen(true));
-  };
-
-  const handleCSSOptimization = () => {
-    dispatch(setCSSOptimizationModalOpen(true));
-  };
-
-  const handleZoomIn = () => {
-    dispatch(zoomIn());
-  };
-
-  const handleZoomOut = () => {
-    dispatch(zoomOut());
-  };
-
-  const handleFitToScreen = () => {
-    dispatch(fitToScreen());
-  };
-
-
-  const handleOpenClassEditor = () => {
-    dispatch(setClassEditorOpen(true));
-  };
-
-  const handleOpenComponentEditor = () => {
-    dispatch(setComponentEditorOpen(true));
-    // Could also set a specific component ID if editing existing component
-  };
-
-  const handleOpenButtonDesigner = () => {
-    dispatch(setButtonDesignerOpen(true));
-  };
-
-  const handleOpenSettings = () => {
-    dispatch(setSettingsMenuOpen(true));
-  };
-
-  const handleDOMTreeToggle = () => {
-    dispatch(toggleDOMTreePanel());
-  };
-
-  const handleWorkspaceLayoutChange = (layout: 'minimal' | 'designer' | 'developer') => {
-    dispatch(setWorkspaceLayout(layout));
-  };
+  const currentBreakpoint = breakpoints.find(({ name }) => name === project.currentBreakpoint) ?? breakpoints[0];
+  const BreakpointIcon = breakpointIcons[currentBreakpoint.name] ?? Monitor;
 
   return (
-    <header
-      className="absolute top-0 left-0 right-0 h-12 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-b border-gray-200/60 dark:border-gray-700/60 flex items-center px-4 z-50 gap-3 shadow-sm"
-      data-testid="header-main"
-    >
-      {/* Logo & Core Controls */}
-      <div className="flex items-center gap-2" data-testid="logo-container">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center shadow-md">
-            <Component className="w-4 h-4 text-white" />
-          </div>
-          <span className="font-bold text-lg text-gray-900 dark:text-gray-100 tracking-tight">Framly</span>
-        </div>
-        <button
-          onClick={handleOpenSettings}
-          className="w-8 h-8 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 rounded-lg flex items-center justify-center transition-colors"
-          data-testid="settings-button"
-          title="Settings"
-        >
-          <Settings className="w-4 h-4 text-gray-600 dark:text-gray-400" />
-        </button>
-        <button
-          onClick={handleDOMTreeToggle}
-          className={`w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-200 ${isDOMTreePanelVisible
-              ? 'bg-blue-500 text-white shadow-md'
-              : 'bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-400'
-            }`}
-          data-testid="header-toggle-dom-tree"
-          title={t('toolbar.elementTree')}
-        >
-          <List className="w-4 h-4" />
-        </button>
+    <header className="framly-top-rail" data-testid="header-main">
+      <div className="framly-brand" aria-label="Framly">
+        <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5">
+          <rect x="2.5" y="2.5" width="19" height="19" fill="none" stroke="currentColor" />
+          <rect x="7.5" y="7.5" width="9" height="9" fill="none" stroke="currentColor" />
+        </svg>
+        <span>Framly</span>
+      </div>
 
-        {/* Workspace Layout Presets */}
+      <div className="framly-rail-divider" />
+      <input
+        value={project.name}
+        onChange={(event) => dispatch(updateProjectName(event.target.value))}
+        className="framly-project-name"
+        data-testid="input-project-name"
+        aria-label="Project name"
+        placeholder="Untitled project"
+      />
+      <TabBar />
+
+      <div className="ml-auto flex min-w-0 items-center gap-1">
+        <UndoRedoControls />
+
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <button
-              className={`w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-200 ${workspaceLayout !== 'custom'
-                  ? 'bg-blue-500 text-white shadow-md'
-                  : 'bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-400'
-                }`}
-              data-testid="workspace-layout-menu"
-              title="Workspace Layout"
-            >
-              <LayoutGrid className="w-4 h-4" />
+            <button className="framly-rail-control" data-testid="status-breakpoint">
+              <BreakpointIcon className="h-3.5 w-3.5" />
+              <span className="hidden xl:inline">{currentBreakpoint.label}</span>
+              <span className="framly-mono text-[11px] text-[var(--ink-2)]">{currentBreakpoint.width}px</span>
+              <ChevronDown className="h-3 w-3" />
             </button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="start" className="w-48">
-            <DropdownMenuItem
-              onClick={() => handleWorkspaceLayoutChange('minimal')}
-              className={workspaceLayout === 'minimal' ? 'bg-accent text-accent-foreground font-medium' : ''}
-              data-testid="layout-minimal"
-            >
-              <Minimize2 className="w-4 h-4 mr-2" />
-              <div className="flex flex-col">
-                <span>Minimal</span>
-                <span className="text-xs text-muted-foreground">Focus on canvas</span>
-              </div>
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              onClick={() => handleWorkspaceLayoutChange('designer')}
-              className={workspaceLayout === 'designer' ? 'bg-accent text-accent-foreground font-medium' : ''}
-              data-testid="layout-designer"
-            >
-              <Palette className="w-4 h-4 mr-2" />
-              <div className="flex flex-col">
-                <span>Designer</span>
-                <span className="text-xs text-muted-foreground">Properties panel</span>
-              </div>
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              onClick={() => handleWorkspaceLayoutChange('developer')}
-              className={workspaceLayout === 'developer' ? 'bg-accent text-accent-foreground font-medium' : ''}
-              data-testid="layout-developer"
-            >
-              <Code2 className="w-4 h-4 mr-2" />
-              <div className="flex flex-col">
-                <span>Developer</span>
-                <span className="text-xs text-muted-foreground">All panels</span>
-              </div>
-            </DropdownMenuItem>
+          <DropdownMenuContent align="end" className="framly-menu w-52">
+            {breakpoints.map((breakpoint) => {
+              const Icon = breakpointIcons[breakpoint.name] ?? Monitor;
+              return (
+                <DropdownMenuItem
+                  key={breakpoint.name}
+                  onClick={() => dispatch(switchBreakpoint(breakpoint.name))}
+                  className={project.currentBreakpoint === breakpoint.name ? 'bg-accent' : ''}
+                >
+                  <Icon className="mr-2 h-4 w-4" />
+                  <span className="flex-1">{breakpoint.label}</span>
+                  <span className="framly-mono text-xs text-muted-foreground">{breakpoint.width}px</span>
+                </DropdownMenuItem>
+              );
+            })}
           </DropdownMenuContent>
         </DropdownMenu>
-      </div>
 
-      {/* Project Info */}
-      <div className="flex items-center gap-2" data-testid="project-info">
-        <div className="h-4 w-px bg-gray-300/50 dark:bg-gray-600/50" />
-        <input
-          type="text"
-          value={project.name}
-          onChange={(e) => dispatch(updateProjectName(e.target.value))}
-          className="bg-transparent border-none outline-none font-semibold text-gray-800 dark:text-gray-200 text-sm hover:bg-gray-50 dark:hover:bg-gray-800 px-2 py-1 rounded-md transition-colors focus:bg-gray-50 dark:focus:bg-gray-800 focus:ring-2 focus:ring-blue-500/30"
-          data-testid="input-project-name"
-          placeholder="Untitled Project"
-        />
-      </div>
-
-      {/* Header Actions */}
-      <div className="ml-auto flex items-center gap-2" data-testid="header-actions">
-        {/* Zoom Control */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button
-              variant="ghost"
-              size="sm"
-              className="px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors min-w-[70px]"
-              data-testid="zoom-control"
-              title="Zoom Level"
-            >
-              <span className="text-sm font-medium text-gray-600 dark:text-gray-400">
-                {Math.round(zoomLevel * 100)}%
-              </span>
-            </Button>
+            <button className="framly-rail-control framly-zoom" data-testid="zoom-control">
+              <span className="framly-mono">{Math.round(zoomLevel * 100)}%</span>
+              <ChevronDown className="h-3 w-3" />
+            </button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-40">
-            <DropdownMenuItem onClick={handleZoomOut} data-testid="menu-zoom-out">
-              <Minus className="w-4 h-4 mr-2" />
-              <span>Zoom Out</span>
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={handleZoomIn} data-testid="menu-zoom-in">
-              <Plus className="w-4 h-4 mr-2" />
-              <span>Zoom In</span>
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={handleFitToScreen} data-testid="menu-fit-screen">
-              <Maximize className="w-4 h-4 mr-2" />
-              <span>Fit to Screen</span>
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => dispatch(setZoomLevel(0.5))}>
-              <span className="ml-6">50%</span>
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => dispatch(setZoomLevel(0.75))}>
-              <span className="ml-6">75%</span>
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => dispatch(setZoomLevel(1))}>
-              <span className="ml-6">100%</span>
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => dispatch(setZoomLevel(1.25))}>
-              <span className="ml-6">125%</span>
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => dispatch(setZoomLevel(1.5))}>
-              <span className="ml-6">150%</span>
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => dispatch(setZoomLevel(2))}>
-              <span className="ml-6">200%</span>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-
-        {/* Advanced Tools Menu */}
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button
-              variant="ghost"
-              size="sm"
-              className="p-2.5 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
-              data-testid="advanced-tools-menu"
-              title="Advanced Tools"
-            >
-              <Wrench className="w-4 h-4 text-gray-600 dark:text-gray-400" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-56">
-            <DropdownMenuItem onClick={handleOpenClassEditor} data-testid="menu-class-editor">
-              <Palette className="w-4 h-4 mr-2" />
-              <span>Class Editor</span>
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={handleOpenComponentEditor} data-testid="menu-component-editor">
-              <Component className="w-4 h-4 mr-2" />
-              <span>Component Editor</span>
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={handleOpenButtonDesigner} data-testid="menu-button-designer">
-              <MousePointer2 className="w-4 h-4 mr-2" />
-              <span>Button Designer</span>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-
-        {/* Action Buttons */}
-        <div className="flex items-center gap-1.5" data-testid="action-buttons">
-          <div className="h-4 w-px bg-gray-300/50 dark:bg-gray-600/50 mx-1" />
-
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={handlePreview}
-            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
-            data-testid="button-preview"
-            title={t('canvas.preview')}
-          >
-            <Eye className="w-4 h-4 text-gray-600 dark:text-gray-400" />
-          </Button>
-
-          {/* Undo/Redo Controls with History Management */}
-          <UndoRedoControls />
-
-          {/* More Menu - Secondary Actions */}
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button
-                variant="ghost"
-                size="sm"
-                className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
-                data-testid="more-menu"
-                title="More Options"
-              >
-                <MoreHorizontal className="w-4 h-4 text-gray-600 dark:text-gray-400" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-56">
-              <DropdownMenuItem onClick={handleCSSOptimization} data-testid="menu-css-optimization">
-                <Zap className="w-4 h-4 mr-2" />
-                <span>CSS Optimization</span>
+          <DropdownMenuContent align="end" className="framly-menu w-44">
+            <DropdownMenuItem onClick={() => dispatch(zoomOut())} data-testid="menu-zoom-out"><Minus className="mr-2 h-4 w-4" />Zoom out</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => dispatch(zoomIn())} data-testid="menu-zoom-in"><Plus className="mr-2 h-4 w-4" />Zoom in</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => dispatch(fitToScreen())} data-testid="menu-fit-screen"><Maximize className="mr-2 h-4 w-4" />Fit to screen</DropdownMenuItem>
+            <DropdownMenuSeparator />
+            {[0.5, 0.75, 1, 1.25, 1.5, 2].map((level) => (
+              <DropdownMenuItem key={level} onClick={() => dispatch(setZoomLevel(level))}>
+                <span className="framly-mono ml-6">{level * 100}%</span>
               </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
 
-          <div className="h-4 w-px bg-gray-300/50 dark:bg-gray-600/50 mx-0.5" />
+        <button className="framly-rail-control hidden 2xl:flex" disabled aria-label="Checks are not available yet">
+          <span className="h-1.5 w-1.5 rounded-full bg-[var(--ink-3)]" />
+          Checks —
+        </button>
 
-          {/* Color Mode Toggle */}
-          <ColorModeToggle />
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => dispatch(setCodeModalOpen(true))}
+          className="framly-action-button"
+          data-testid="button-preview"
+        >
+          <Eye className="h-3.5 w-3.5" />
+          <span className="hidden lg:inline">{t('common.preview')}</span>
+        </Button>
 
-          {/* Language Switcher */}
-          <LanguageSwitcher />
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" size="sm" className="framly-icon-button" data-testid="more-menu" aria-label="More tools">
+              <MoreHorizontal className="h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="framly-menu w-56">
+            <DropdownMenuItem onClick={() => dispatch(setClassEditorOpen(true))} data-testid="menu-class-editor"><SlidersHorizontal className="mr-2 h-4 w-4" />Class editor</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => dispatch(setComponentEditorOpen(true))} data-testid="menu-component-editor">Component editor</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => dispatch(setButtonDesignerOpen(true))} data-testid="menu-button-designer">Button designer</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => dispatch(setCSSOptimizationModalOpen(true))} data-testid="menu-css-optimization"><Zap className="mr-2 h-4 w-4" />CSS optimization</DropdownMenuItem>
+            <DropdownMenuItem onClick={onShowKeyboardShortcuts}><Keyboard className="mr-2 h-4 w-4" />Keyboard shortcuts</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => dispatch(setSettingsMenuOpen(true))}><Settings className="mr-2 h-4 w-4" />Settings</DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <div className="flex items-center justify-between px-2 py-1">
+              <ColorModeToggle />
+              <LanguageSwitcher />
+            </div>
+            <div className="border-t border-[var(--rule)] px-1 pt-1"><PersistenceStatus /></div>
+            <div className="px-2 py-1"><ServiceWorkerStatus /></div>
+          </DropdownMenuContent>
+        </DropdownMenu>
 
-          <div className="h-4 w-px bg-gray-300/50 dark:bg-gray-600/50 mx-1" />
-
-          <Button
-            onClick={handleExport}
-            size="sm"
-            className="bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:from-blue-600 hover:to-purple-700 shadow-md hover:shadow-lg transition-all duration-200 px-3 py-1.5 h-8"
-            data-testid="button-export"
-            title={t('common.export')}
-          >
-            <Download className="w-3.5 h-3.5 mr-1.5" />
-            <span className="font-medium text-sm">{t('common.export')}</span>
-          </Button>
-        </div>
+        <Button
+          onClick={() => dispatch(setExportModalOpen(true))}
+          size="sm"
+          className="framly-export-button"
+          data-testid="button-export"
+        >
+          <Download className="h-3.5 w-3.5" />
+          {t('common.export')}
+        </Button>
       </div>
-
-      {/* Settings Menu */}
       <SettingsMenu />
     </header>
   );

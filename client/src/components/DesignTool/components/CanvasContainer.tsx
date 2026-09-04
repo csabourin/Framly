@@ -129,10 +129,10 @@ const CanvasContainer: React.FC<CanvasContainerProps> = ({
   return (
     <div 
       ref={scrollContainerRef}
-      className="flex-1 overflow-auto bg-gradient-to-br from-gray-50 to-gray-100/30 dark:from-gray-900 dark:to-gray-800/50 relative select-none"
+      className="framly-canvas-ground"
       style={{ 
         cursor: isPanning ? 'grabbing' : 'default',
-        padding: '100px'
+        padding: '48px 64px 96px'
       }}
       tabIndex={0}
       onKeyDown={onKeyDown}
@@ -141,17 +141,20 @@ const CanvasContainer: React.FC<CanvasContainerProps> = ({
       data-testid="canvas-scroll-container"
     >
       <div className="flex justify-center items-start min-h-full" style={{ minWidth: 'fit-content' }}>
-        <div 
-          ref={canvasRef}
-          className="relative bg-white dark:bg-gray-800 shadow-2xl border border-gray-200/60 dark:border-gray-700 cursor-crosshair rounded-xl overflow-hidden"
-          style={{
-            transform: `scale(${zoomLevel})`,
-            transformOrigin: 'top center',
-            width: `${canvasWidth}px`,
-            height: `${canvasHeight}px`,
-            minHeight: '600px',
-            margin: '0 100px'
-          }}
+        <div className="relative" style={{ margin: '0 64px' }}>
+          <div className="framly-artboard-label" aria-hidden="true">
+            Artboard <span>{canvasWidth}px</span>
+          </div>
+          <div
+            ref={canvasRef}
+            className="framly-artboard cursor-crosshair"
+            style={{
+              transform: `scale(${zoomLevel})`,
+              transformOrigin: 'top center',
+              width: `${canvasWidth}px`,
+              height: `${canvasHeight}px`,
+              minHeight: '600px',
+            }}
           onMouseDown={onMouseDown}
           onMouseMove={onMouseMove}
           onMouseUp={onMouseUp}
@@ -164,28 +167,29 @@ const CanvasContainer: React.FC<CanvasContainerProps> = ({
           onContextMenu={onContextMenu}
           data-canvas="true"
         >
-          {/* Grid overlay */}
-          {isGridVisible && (
-            <div 
-              className="absolute inset-0 opacity-20 pointer-events-none"
-              style={{
-                backgroundImage: `
-                  linear-gradient(to right, #ccc 1px, transparent 1px),
-                  linear-gradient(to bottom, #ccc 1px, transparent 1px)
-                `,
-                backgroundSize: '20px 20px'
-              }}
-            />
-          )}
+            {/* Grid overlay */}
+            {isGridVisible && (
+              <div
+                className="absolute inset-0 opacity-20 pointer-events-none"
+                style={{
+                  backgroundImage: `
+                    linear-gradient(to right, #ccc 1px, transparent 1px),
+                    linear-gradient(to bottom, #ccc 1px, transparent 1px)
+                  `,
+                  backgroundSize: '20px 20px'
+                }}
+              />
+            )}
 
-          {/* Canvas content */}
-          {children}
+            {/* Canvas content */}
+            {children}
+          </div>
         </div>
       </div>
       
       {/* Panning indicator */}
       {isPanning && (
-        <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50 bg-blue-600 text-white text-xs px-3 py-2 rounded-lg shadow-lg">
+        <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50 bg-[var(--ink)] text-[var(--ink-inv)] text-xs px-3 py-2 rounded-[4px] shadow-lg">
           Panning...
         </div>
       )}

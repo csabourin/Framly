@@ -966,44 +966,308 @@ ol ol ol {
 }
 
 /* Heading level styling to show visual differences */
-h1 {
-  font-size: 2rem !important; /* 32px */
-  font-weight: 700 !important;
-  line-height: 1.2 !important;
-  margin-bottom: 1rem !important;
+[data-canvas='true'] h1 {
+  font-size: 2rem; /* 32px */
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 1rem;
 }
 
-h2 {
-  font-size: 1.75rem !important; /* 28px */
-  font-weight: 700 !important;
-  line-height: 1.2 !important;
-  margin-bottom: 0.875rem !important;
+[data-canvas='true'] h2 {
+  font-size: 1.75rem; /* 28px */
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 0.875rem;
 }
 
-h3 {
-  font-size: 1.5rem !important; /* 24px */
-  font-weight: 600 !important;
-  line-height: 1.2 !important;
-  margin-bottom: 0.75rem !important;
+[data-canvas='true'] h3 {
+  font-size: 1.5rem; /* 24px */
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: 0.75rem;
 }
 
-h4 {
-  font-size: 1.25rem !important; /* 20px */
-  font-weight: 600 !important;
-  line-height: 1.2 !important;
-  margin-bottom: 0.625rem !important;
+[data-canvas='true'] h4 {
+  font-size: 1.25rem; /* 20px */
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: 0.625rem;
 }
 
-h5 {
-  font-size: 1.125rem !important; /* 18px */
-  font-weight: 600 !important;
-  line-height: 1.2 !important;
-  margin-bottom: 0.5rem !important;
+[data-canvas='true'] h5 {
+  font-size: 1.125rem; /* 18px */
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
 }
 
-h6 {
-  font-size: 1rem !important; /* 16px */
-  font-weight: 600 !important;
-  line-height: 1.2 !important;
-  margin-bottom: 0.5rem !important;
+[data-canvas='true'] h6 {
+  font-size: 1rem; /* 16px */
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+
+/* Drafting-table interface ------------------------------------------------ */
+:root {
+  --paper: #ffffff;
+  --paper-2: #f7f8f6;
+  --ground: #e8eae6;
+  --rule: #d9dcd7;
+  --rule-strong: #bfc4bd;
+  --ink: #191c1a;
+  --ink-2: #5a605c;
+  --ink-3: #8c938e;
+  --ink-inv: #f7f8f6;
+  --ok: #327a49;
+  --warn: #996515;
+  --stop: #aa3d32;
+  --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
+  --radius: 6px;
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --card: var(--paper);
+  --card-foreground: var(--ink);
+  --popover: var(--paper);
+  --popover-foreground: var(--ink);
+  --primary: var(--ink);
+  --primary-foreground: var(--ink-inv);
+  --secondary: var(--paper-2);
+  --secondary-foreground: var(--ink);
+  --muted: var(--paper-2);
+  --muted-foreground: var(--ink-2);
+  --accent: var(--paper-2);
+  --accent-foreground: var(--ink);
+  --destructive: var(--stop);
+  --destructive-foreground: #fff;
+  --border: var(--rule);
+  --input: var(--rule-strong);
+  --ring: var(--ink);
+}
+
+.dark {
+  --paper: #1c1f1d;
+  --paper-2: #232725;
+  --ground: #141614;
+  --rule: #2e332f;
+  --rule-strong: #434a45;
+  --ink: #e9ebe8;
+  --ink-2: #a2a9a4;
+  --ink-3: #737a75;
+  --ink-inv: #191c1a;
+  --ok: #66a878;
+  --warn: #c49443;
+  --stop: #d07166;
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --card: var(--paper);
+  --card-foreground: var(--ink);
+  --popover: var(--paper);
+  --popover-foreground: var(--ink);
+  --primary: var(--ink);
+  --primary-foreground: var(--ink-inv);
+  --secondary: var(--paper-2);
+  --secondary-foreground: var(--ink);
+  --muted: var(--paper-2);
+  --muted-foreground: var(--ink-2);
+  --accent: var(--paper-2);
+  --accent-foreground: var(--ink);
+  --destructive: var(--stop);
+  --destructive-foreground: #fff;
+  --border: var(--rule);
+  --input: var(--rule-strong);
+  --ring: var(--ink);
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.framly-mono { font-family: var(--font-mono); }
+
+.framly-app-shell {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--ground);
+  color: var(--ink);
+}
+
+.framly-top-rail {
+  z-index: 50;
+  display: flex;
+  height: 46px;
+  min-height: 46px;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid var(--rule-strong);
+  background: var(--paper);
+  padding: 0 10px;
+}
+
+.framly-brand {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.framly-rail-divider { height: 18px; width: 1px; background: var(--rule); }
+
+.framly-project-name {
+  width: 126px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: transparent;
+  padding: 4px 6px;
+  color: var(--ink);
+  font-weight: 500;
+  outline: none;
+}
+
+.framly-project-name:hover { border-color: var(--rule); }
+.framly-project-name:focus { border-color: var(--rule-strong); background: var(--paper-2); }
+
+.framly-page-switcher,
+.framly-rail-control {
+  display: flex;
+  height: 28px;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  background: var(--paper);
+  padding: 0 8px;
+  color: var(--ink-2);
+  font-size: 12px;
+}
+
+.framly-page-controls { display: flex; align-items: center; gap: 3px; }
+.framly-add-page { display: flex; height: 28px; width: 28px; align-items: center; justify-content: center; border: 1px solid var(--rule); border-radius: 4px; color: var(--ink-2); }
+.framly-add-page:hover { border-color: var(--rule-strong); background: var(--paper-2); color: var(--ink); }
+
+.framly-page-switcher:hover,
+.framly-rail-control:not(:disabled):hover { border-color: var(--rule-strong); background: var(--paper-2); color: var(--ink); }
+.framly-page-switcher:focus-visible,
+.framly-rail-control:focus-visible { outline: 2px solid var(--ink); outline-offset: 1px; }
+.framly-zoom { min-width: 66px; justify-content: center; }
+
+.framly-icon-button,
+.framly-action-button,
+.framly-export-button {
+  height: 28px !important;
+  min-height: 28px;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+  padding: 0 8px !important;
+  font-size: 12px !important;
+}
+
+.framly-icon-button { width: 28px; padding: 0 !important; color: var(--ink-2); }
+.framly-action-button { border: 1px solid var(--rule); background: var(--paper); color: var(--ink); }
+.framly-export-button { border: 1px solid var(--ink); background: var(--ink); color: var(--ink-inv); }
+.framly-export-button:hover { background: var(--ink-2); }
+
+.framly-menu {
+  border-color: var(--rule-strong) !important;
+  border-radius: 4px !important;
+  background: var(--paper) !important;
+  color: var(--ink) !important;
+  box-shadow: 0 6px 20px rgb(0 0 0 / 0.12) !important;
+}
+
+.framly-workspace { display: flex; min-height: 0; flex: 1; overflow: hidden; }
+
+.framly-left-panel,
+.framly-right-panel {
+  display: flex;
+  min-height: 0;
+  flex: none;
+  flex-direction: column;
+  background: var(--paper);
+}
+
+.framly-left-panel { width: 238px; border-right: 1px solid var(--rule-strong); }
+.framly-right-panel { width: 296px; border-left: 1px solid var(--rule-strong); }
+
+.framly-panel-tabs {
+  display: flex;
+  height: 38px;
+  min-height: 38px;
+  border-bottom: 1px solid var(--rule);
+  background: var(--paper);
+}
+
+.framly-panel-tabs > button {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border-bottom: 1px solid transparent;
+  color: var(--ink-2);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.framly-panel-tabs > button:hover { background: var(--paper-2); color: var(--ink); }
+.framly-panel-tabs > button.is-active { border-bottom-color: var(--ink); color: var(--ink); }
+.framly-panel-tabs > button:focus-visible { outline: 2px solid var(--ink); outline-offset: -3px; }
+
+.framly-tool-utilities { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; border-bottom: 1px solid var(--rule); background: var(--rule); }
+.framly-tool-utilities button { display: flex; align-items: center; gap: 6px; background: var(--paper); padding: 7px 9px; color: var(--ink-2); font-size: 11px; }
+.framly-tool-utilities button:hover,
+.framly-tool-utilities button.is-active { background: var(--paper-2); color: var(--ink); }
+.framly-tool-utilities kbd { margin-left: auto; font-family: var(--font-mono); color: var(--ink-3); }
+
+.framly-search-field { display: flex; align-items: center; gap: 7px; margin: 10px; border: 1px solid var(--rule); border-radius: 4px; padding: 0 8px; color: var(--ink-3); }
+.framly-search-field:focus-within { border-color: var(--rule-strong); outline: 1px solid var(--rule-strong); }
+.framly-search-field input { min-width: 0; flex: 1; background: transparent; padding: 6px 0; color: var(--ink); font-size: 12px; outline: none; }
+.framly-search-field input::placeholder { color: var(--ink-3); }
+
+.framly-insert-list { min-height: 0; flex: 1; overflow-y: auto; padding-bottom: 16px; }
+.framly-insert-list section { border-top: 1px solid var(--rule); padding: 8px 7px 4px; }
+.framly-insert-list section:first-child { border-top: 0; }
+.framly-insert-list h2 { margin: 0 5px 4px !important; color: var(--ink-2); font-size: 10px !important; font-weight: 600 !important; line-height: 20px !important; letter-spacing: 0.12em; text-transform: uppercase; }
+.framly-insert-list button { display: grid; width: 100%; grid-template-columns: 18px 1fr auto; align-items: center; gap: 7px; border: 1px solid transparent; border-radius: 4px; padding: 6px 7px; color: var(--ink-2); text-align: left; }
+.framly-insert-list button:hover { border-color: var(--rule); background: var(--paper-2); color: var(--ink); }
+.framly-insert-list button.is-active { border-color: var(--rule-strong); background: var(--paper-2); color: var(--ink); }
+.framly-insert-list code { font-family: var(--font-mono); font-size: 10px; color: var(--ink-2); }
+
+.framly-layer-tree { position: relative; display: flex; min-height: 0; flex: 1; flex-direction: column; overflow: hidden; background: var(--paper); color: var(--ink); }
+.framly-layer-tree [role='treeitem'] { color: var(--ink-2); }
+.framly-layer-tree [role='treeitem'] svg { color: currentColor !important; }
+
+.framly-canvas-ground { position: relative; min-width: 0; flex: 1; overflow: auto; background: var(--ground); user-select: none; }
+.framly-artboard-label { position: absolute; top: -25px; left: 0; display: flex; gap: 7px; color: var(--ink-2); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; }
+.framly-artboard-label span { font-family: var(--font-mono); color: var(--ink-2); }
+.framly-artboard { position: relative; cursor: crosshair; overflow: hidden; border: 1px solid var(--rule-strong); border-radius: 0; background: #fff; color: #191c1a; box-shadow: none; }
+
+.framly-right-panel [class*='bg-gradient'] { background-color: var(--paper); background-image: none !important; }
+.framly-right-panel [class*='rounded-xl'] { border-radius: 4px !important; }
+.framly-right-panel [class*='shadow'] { box-shadow: none !important; }
+.framly-right-panel [class*='text-blue-'],
+.framly-right-panel [class*='text-purple-'],
+.framly-right-panel [class*='text-orange-'] { color: var(--ink-2) !important; }
+.framly-right-panel [class*='border-blue-'],
+.framly-right-panel [class*='border-purple-'],
+.framly-right-panel [class*='border-orange-'] { border-color: var(--rule-strong) !important; }
+.framly-right-panel [class*='bg-blue-'],
+.framly-right-panel [class*='bg-purple-'],
+.framly-right-panel [class*='bg-orange-'] { background-color: var(--paper-2) !important; }
+.framly-right-panel [data-testid^='input-'],
+.framly-right-panel [role='combobox'] { height: 32px; border-radius: 4px; font-size: 12px; }
+.dark .framly-menu { background: var(--paper) !important; border-color: var(--rule-strong) !important; color: var(--ink) !important; }
+
+@media (max-width: 1180px) {
+  .framly-left-panel { width: 210px; }
+  .framly-right-panel { width: 264px; }
+  .framly-project-name { width: 104px; }
+  .framly-page-switcher { display: none; }
 }

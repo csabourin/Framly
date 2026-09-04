@@ -52,13 +52,13 @@ const SelectionOverlay: React.FC<SelectionOverlayProps> = ({
       pointerEvents: 'none' as const,
       zIndex: isSelected ? 998 : 997,
       border: isSelected 
-        ? '2px solid #3b82f6' 
-        : isHovered 
-          ? '2px solid rgba(59, 130, 246, 0.5)'
+        ? '1.5px solid var(--ink)'
+        : isHovered
+          ? '1px solid color-mix(in srgb, var(--ink) 45%, transparent)'
           : 'none',
-      borderRadius: '2px',
+      borderRadius: '0',
       backgroundColor: isHovered && !isSelected 
-        ? 'rgba(59, 130, 246, 0.05)' 
+        ? 'color-mix(in srgb, var(--ink) 3%, transparent)'
         : 'transparent',
     };
 

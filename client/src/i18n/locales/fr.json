@@ -21,6 +21,7 @@
     "sort": "Trier",
     "import": "Importer",
     "export": "Exporter",
+    "preview": "Aperçu",
     "copy": "Copier",
     "paste": "Coller",
     "cut": "Couper",

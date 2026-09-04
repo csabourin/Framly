@@ -21,6 +21,7 @@
     "sort": "Sort",
     "import": "Import",
     "export": "Export",
+    "preview": "Preview",
     "copy": "Copy",
     "paste": "Paste",
     "cut": "Cut",

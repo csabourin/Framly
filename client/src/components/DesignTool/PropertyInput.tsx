@@ -32,9 +32,10 @@ interface PropertyInputProps {
    * control itself, because that is what a screen reader reads on focus.
    */
   describedBy?: string;
+  hideLabel?: boolean;
 }
 
-export const PropertyInput: React.FC<PropertyInputProps> = ({ config, value, onChange, elementId, element, className, describedBy }) => {
+export const PropertyInput: React.FC<PropertyInputProps> = ({ config, value, onChange, elementId, element, className, describedBy, hideLabel = false }) => {
   const { t } = useTranslation();
   // Get custom classes from Redux store
   const customClasses = useSelector((state: RootState) => (state as any).classes?.customClasses || {});
@@ -280,7 +281,7 @@ export const PropertyInput: React.FC<PropertyInputProps> = ({ config, value, onC
 
   return (
     <div className={`space-y-2 ${className || ''}`} data-testid={`property-${config.key}`}>
-      <div className="flex items-center justify-between">
+      <div className={hideLabel ? 'sr-only' : 'flex items-center justify-between'}>
         <Label className="text-sm font-medium text-gray-700 flex-1">
           {config.label}
         </Label>

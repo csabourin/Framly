@@ -405,7 +405,11 @@ const DOMTreeNode: React.FC<DOMTreeNodeProps> = ({
   );
 };
 
-const DOMTreePanel: React.FC = () => {
+interface DOMTreePanelProps {
+  embedded?: boolean;
+}
+
+const DOMTreePanel: React.FC<DOMTreePanelProps> = ({ embedded = false }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const panelRef = useRef<HTMLDivElement>(null);
@@ -515,14 +519,14 @@ const DOMTreePanel: React.FC = () => {
   return (
     <div
       ref={panelRef}
-      className="absolute left-16 top-12 bottom-20 w-64 bg-white border-r border-gray-200 z-30"
+      className={embedded ? 'framly-layer-tree' : 'absolute left-0 top-0 bottom-0 w-64 bg-background border-r border-border z-30'}
       data-testid="dom-tree-panel"
       role="tree"
       aria-label="Element hierarchy tree"
     >
-      <div className="p-3 border-b border-gray-200 bg-gray-50">
-        <h3 className="font-medium text-gray-900 text-sm">{t('elementTree.elementTree')}</h3>
-        <p className="text-xs text-gray-500 mt-1">
+      <div className="p-3 border-b border-[var(--rule)] bg-[var(--paper-2)]">
+        <h3 className="font-medium text-[var(--ink)] text-sm">{t('elementTree.elementTree')}</h3>
+        <p className="text-xs text-[var(--ink-2)] mt-1">
           {isTreeDragActive ? t('elementTree.dropToReorder') : t('elementTree.dragToReorderClick')}
         </p>
       </div>

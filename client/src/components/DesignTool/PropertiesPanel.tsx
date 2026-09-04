@@ -90,9 +90,9 @@ const PropertiesPanel: React.FC = () => {
   if (!selectedElement) {
     return (
       <div className="h-full w-full bg-transparent" data-testid="properties-panel">
-        <div className="p-8 text-center text-gray-500 dark:text-gray-400 h-full flex flex-col items-center justify-center">
-          <div className="w-16 h-16 bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 rounded-xl flex items-center justify-center mb-4 shadow-sm">
-            <SettingsIcon className="w-8 h-8 text-blue-500 dark:text-blue-400" />
+        <div className="p-8 text-center text-[var(--ink-2)] h-full flex flex-col items-center justify-center">
+          <div className="w-12 h-12 border border-[var(--rule-strong)] flex items-center justify-center mb-4">
+            <SettingsIcon className="w-5 h-5 text-[var(--ink-2)]" />
           </div>
           <div className="font-semibold text-gray-700 dark:text-gray-300 mb-2">{t('properties.clickElement')}</div>
           <div className="text-sm text-gray-500 dark:text-gray-400 max-w-sm">{t('properties.selectElementToEdit')}</div>
@@ -651,15 +651,15 @@ const PropertiesPanel: React.FC = () => {
       data-testid="properties-panel"
     >
       {/* Panel Header */}
-      <div className="p-6 border-b border-gray-200/60 dark:border-gray-700/60 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20" data-testid="panel-header">
+      <div className="p-4 border-b border-[var(--rule)] bg-[var(--paper)]" data-testid="panel-header">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-md">
-              <SettingsIcon className="w-5 h-5 text-white" />
+            <div className="w-8 h-8 border border-[var(--rule-strong)] flex items-center justify-center">
+              <SettingsIcon className="w-4 h-4 text-[var(--ink-2)]" />
             </div>
             <div>
-              <h2 className="font-bold text-gray-900 dark:text-gray-100 text-lg">{t('propertiesPanel.properties')}</h2>
-              <p className="text-sm text-gray-600 dark:text-gray-400 capitalize">
+              <h2 className="font-semibold text-[var(--ink)] text-sm">{t('propertiesPanel.properties')}</h2>
+              <p className="framly-mono text-[11px] text-[var(--ink-2)] capitalize">
                 {selectedElement.type.replace(/([A-Z])/g, ' $1').trim()}
               </p>
             </div>
@@ -669,7 +669,7 @@ const PropertiesPanel: React.FC = () => {
               variant="outline"
               size="sm"
               onClick={handleDeleteElement}
-              className="text-red-600 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-900/20 border-red-200 dark:border-red-700 hover:border-red-300 dark:hover:border-red-600 rounded-xl transition-all duration-200 shadow-sm hover:shadow-md"
+              className="text-[var(--stop)] border-[var(--rule)] rounded-[4px] shadow-none"
               data-testid="delete-element-button"
             >
               <Trash2 className="h-4 w-4" />
@@ -679,7 +679,7 @@ const PropertiesPanel: React.FC = () => {
       </div>
 
       {/* Class Editing Section - Top Priority */}
-      <div className="border-b border-gray-200/60 dark:border-gray-700/60 bg-gradient-to-br from-blue-50 to-blue-100/50 dark:from-blue-900/20 dark:to-blue-800/20">
+      <div className="hidden" aria-hidden="true">
         <div className="p-6">
           <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-4 flex items-center gap-2">
             <Palette className="w-5 h-5 text-blue-600 dark:text-blue-400" />
@@ -869,13 +869,12 @@ const PropertiesPanel: React.FC = () => {
 
       {/* Auto-Layout Controls for Containers */}
       {(selectedElement.isContainer || ['container', 'rectangle', 'section', 'nav', 'header', 'footer', 'article', 'main', 'aside', 'form'].includes(selectedElement.type)) && (
-        <div className="border-b border-gray-200/60 dark:border-gray-700/60 bg-gradient-to-br from-purple-50 to-purple-100/50 dark:from-purple-900/20 dark:to-purple-800/20">
-          <div className="p-6">
-            <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-4 flex items-center gap-2">
-              <Layout className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+        <details className="border-b border-[var(--rule)] bg-[var(--paper)]">
+          <summary className="flex cursor-pointer list-none items-center gap-2 px-4 py-3 text-sm font-medium text-[var(--ink)] hover:bg-[var(--paper-2)]">
+              <Layout className="w-4 h-4 text-[var(--ink-2)]" />
               {t('layout.autoLayout')}
-            </h3>
-
+          </summary>
+          <div className="border-t border-[var(--rule)] p-4">
             <FlexLayoutControls
               element={selectedElement}
               onUpdate={(updates) => {
@@ -886,11 +885,11 @@ const PropertiesPanel: React.FC = () => {
               }}
             />
           </div>
-        </div>
+        </details>
       )}
 
       {/* Property Search */}
-      <div className="p-4 border-b border-gray-200/60 dark:border-gray-700/60 bg-gray-50/50 dark:bg-gray-800/50">
+        <div className="p-3 border-b border-[var(--rule)] bg-[var(--paper-2)]">
         <div className="relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
           <Input
@@ -898,7 +897,7 @@ const PropertiesPanel: React.FC = () => {
             placeholder={t('propertiesPanel.searchProperties', 'Search properties...')}
             value={propertySearchTerm}
             onChange={(e) => setPropertySearchTerm(e.target.value)}
-            className="pl-10 h-9 text-sm bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700 rounded-lg"
+            className="pl-9 h-8 text-xs bg-[var(--paper)] border-[var(--rule)] rounded-[4px]"
             data-testid="property-search"
           />
           {propertySearchTerm && (
@@ -931,34 +930,31 @@ const PropertiesPanel: React.FC = () => {
           const IconComponent = getCategoryIcon(group.category);
 
           return (
-            <div key={group.category} className="border-b border-gray-200/60 last:border-b-0">
+            <div key={group.category} className="border-b border-[var(--rule)] last:border-b-0">
               {/* Group Header */}
               <button
                 onClick={() => toggleGroup(group.category)}
-                className="w-full p-5 flex items-center justify-between text-left hover:bg-gradient-to-r hover:from-gray-50 hover:to-gray-100/50 transition-all duration-200"
+                className="w-full px-4 py-3 flex items-center justify-between text-left hover:bg-[var(--paper-2)] transition-colors"
                 data-testid={`group-header-${group.category}`}
               >
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-gradient-to-br from-blue-100 to-purple-100 rounded-xl flex items-center justify-center shadow-sm">
-                    <IconComponent className="w-4 h-4 text-blue-600" />
+                <div className="flex items-center gap-2.5">
+                  <div className="w-6 h-6 border border-[var(--rule)] flex items-center justify-center">
+                    <IconComponent className="w-3.5 h-3.5 text-[var(--ink-2)]" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900">{getTranslatedGroupLabel(group.category, group.label)}</h3>
-                    <span className="text-xs text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full mt-1 inline-block">
-                      {group.properties.length} properties
-                    </span>
+                    <h3 className="font-medium text-sm text-[var(--ink)]">{getTranslatedGroupLabel(group.category, group.label)}</h3>
                   </div>
                 </div>
                 {isExpanded ? (
-                  <ChevronDown className="w-5 h-5 text-blue-500 transition-transform duration-200" />
+                  <ChevronDown className="w-4 h-4 text-[var(--ink-2)]" />
                 ) : (
-                  <ChevronRight className="w-5 h-5 text-gray-400 transition-transform duration-200" />
+                  <ChevronRight className="w-4 h-4 text-[var(--ink-3)]" />
                 )}
               </button>
 
               {/* Group Properties */}
               {isExpanded && (
-                <div className="px-6 pb-6 space-y-4 bg-gradient-to-br from-gray-50/50 to-transparent" data-testid={`group-content-${group.category}`}>
+                <div className="px-4 pb-4 space-y-4 bg-[var(--paper)]" data-testid={`group-content-${group.category}`}>
                   {group.properties.map((property) => (
                     <div key={property.key}>
                       {property.responsive ? (

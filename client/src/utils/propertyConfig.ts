@@ -1254,7 +1254,7 @@ export function getPropertyGroups(elementType: ElementType, element?: any): Prop
   // Define category metadata
   const categoryInfo: Record<string, { label: string; icon: string; order: number }> = {
     content: { label: 'Content', icon: '📄', order: 1 },
-    layout: { label: 'Layout & Position', icon: '📐', order: 2 },
+    layout: { label: 'Box', icon: '📐', order: 2 },
     spacing: { label: 'Spacing', icon: '📏', order: 3 },
     appearance: { label: 'Appearance', icon: '🎨', order: 4 },
     text: { label: 'Typography', icon: '🔤', order: 5 },

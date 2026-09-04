@@ -170,6 +170,7 @@ const ResponsivePropertyInput: React.FC<ResponsivePropertyInputProps> = ({
         elementId={element.id}
         element={elementForInput}
         describedBy={originId}
+        hideLabel
       />
 
       {/*
@@ -257,6 +258,7 @@ const ResponsivePropertyInput: React.FC<ResponsivePropertyInputProps> = ({
                     elementId={element.id}
                     element={elementForInput}
                     describedBy={rowOriginId}
+                    hideLabel
                   />
                   <p
                     id={rowOriginId}
