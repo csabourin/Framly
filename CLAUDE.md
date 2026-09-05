@@ -52,6 +52,15 @@ Preferred communication style: Simple, everyday language.
   respecting DOM order unless explicitly positioned by dragging. Copy, paste and
   duplicate never apply an offset. Absolute positioning is the exception the
   tool exists to avoid, never the default.
+- **The canvas element computes to the exported box.** The overlay measures the
+  live canvas node with `getComputedStyle`, so anything the editor adds to
+  `.canvas-element` is reported to the user as if the page had it. Editor chrome
+  goes on the `.selectable-block::after` pseudo-element using `outline` and
+  `box-shadow`, which cannot move a box. Never put a border, a minimum, an
+  `overflow` or a padding on a canvas element to make it easier to click:
+  `tests/roundtrip.spec.ts` fails, and the box model stops being the truth.
+  The `--element-*` custom properties are registered `inherits: false` for the
+  same reason — they leaked a parent's value into every child that set none.
 - **The code generator stays DOM-optional.** `utils/codeGenerator.ts` is a pure
   transformation, tested in Node. Reaching for `DOMParser` or `document` without
   a fallback breaks that and rules out ever exporting outside a browser.
@@ -85,10 +94,12 @@ be too. A check that cannot fail is worthless.
 | Exported-page a11y | Zero violations, no baseline. This is promise #1. Now a real contrast check — until the CSS export was fixed there were no colours to measure. |
 | Export ↔ stylesheet | `tests/export.spec.ts`: no rule may select a class the markup lacks, no styled element may go unselected, no camelCase property, and the rendered page must compute to the colours it was designed in. |
 | Canvas ↔ export | `tests/roundtrip.spec.ts`: the Landing template's emitted rendered properties must match the canvas at all four breakpoint widths, including real responsive overrides. Editor drag cursors are intentionally excluded. |
+| Canvas box ↔ exported box | `tests/roundtrip.spec.ts`, second test: 36 layout-critical properties compared for every element at all four widths, whether or not the export declares them. The rule above reads its property list off the exported rule, so it can only catch a declaration the export gets wrong — it is blind to anything the *canvas* adds. `tests/canvas-box-baseline.json` records what still diverges and may only shrink. Only `cursor` and `position` are excluded, each because it provably cannot move a box. |
 | Box-model overlay | `tests/box-model.spec.ts`: selection must expose all four labelled, distinctly coloured boxes without intercepting interaction, and must remeasure after a box or breakpoint change. |
 | Direct spacing | `tests/spacing.spec.ts`: padding/margin handles preview live, cancel cleanly, respect zoom and breakpoints, support keyboard editing and commit one undo step. Shared styles and independently rendered exports must agree. |
 | Spacing scale | `tests/spacing-scale.spec.ts`: presets and Custom remain keyboard accessible, undo together, preserve side overrides and match exported CSS. |
 | Durable saving | `tests/persistence.spec.ts`: Saved waits for transaction completion; acknowledged edits and undo/redo survive reload; failed writes preserve the previous snapshot and offer retry and live backup. Legacy migration and import retain recovery copies. The aborted-write test was verified to fail when saving resolves before transaction completion. |
+| Layout explanations | `tests/layout-flow.spec.ts`: computed parent flow, reverse/RTL/vertical axes, hidden and boxless ancestors, keyboard navigation, real positioning and breakpoint export must agree. |
 | `tests/deadcode.spec.ts` | Fails on any unreachable file. `components/ui/*` is exempt. |
 
 # Architecture
@@ -155,6 +166,11 @@ padding, margin, individual sides and parent gap, with an explicit Custom path.
 Layout controls show a plain-language name followed by the real property in mono,
 in English and French. Search accepts those names, CSS names and legacy labels;
 inputs expose the same names to assistive technology.
+The flow explanation reads the browser's actual selected and parent styles, and
+links to the existing inspector controls. It distinguishes normal flow from
+out-of-flow positioning, handles grid and boxless ancestors, and explains flex
+direction without assuming a horizontal writing mode. Canvas positioning now
+honors explicit rules instead of forcing every element to remain relative.
 Text blocks support multiline input: Enter and Shift+Enter insert line breaks,
 Ctrl/Cmd+Enter finishes editing, and Escape restores the starting content.
 Each input is saved immediately; line breaks survive reload and HTML export.
@@ -180,6 +196,19 @@ implementation still generates a *unique rule per element* — now under a
 readable, stable structural class rather than an id, but still inline styling
 with extra steps and the reason the CSS optimiser exists. Shared, reusable
 classes are M4. Do not build more on top of per-element classes until then.
+
+## A second known tension
+
+`CanvasElement` renders a wrapper `<div class="canvas-element">` around the
+real semantic tag and puts the element's styles on the wrapper. The exported
+document has no such layer, so the canvas DOM and the export DOM are not the
+same shape, and for a button the styles apply twice — once on the wrapper and
+once on the inner `<button>`.
+
+This is the only remaining cause of canvas/export box divergence, and the six
+entries in `tests/canvas-box-baseline.json` are all of it. Removing the wrapper
+is the fix; drag-and-drop, inline editing and the overlays all target it, so it
+is a real refactor rather than a tidy-up.
 
 # External dependencies that are actually used
 

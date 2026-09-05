@@ -29,7 +29,10 @@ export default function TextBlockContent({ content, editable, width, onChange, o
     aria-label={editable ? t('textEditing.label') : undefined}
     aria-multiline={editable ? true : undefined}
     className={`outline-none cursor-text ${editable ? 'text-editing' : 'text-element'}`}
-    style={{ minHeight: '1em', padding: '4px', width, boxSizing: 'border-box' }}
+    // No padding here: the element's own padding is already on the wrapper, and
+    // a second 4px inside it made every text block measure 8px taller than the
+    // paragraph it exports.
+    style={{ minHeight: '1em', width, boxSizing: 'border-box' }}
     onFocus={() => { original.current = content; }}
     onInput={(event) => onChange(event.currentTarget.innerHTML)}
     onPaste={(event) => {

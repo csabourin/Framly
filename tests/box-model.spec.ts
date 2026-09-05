@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { applyTemplate, openApp } from './helpers';
+import { applyTemplate, openApp, selectContainer } from './helpers';
 
 test('selection draws and labels the element box model on the canvas', async ({ page }) => {
   await openApp(page);
@@ -9,7 +9,7 @@ test('selection draws and labels the element box model on the canvas', async ({ 
     .locator('.canvas-element[data-element-type="container"]')
     .filter({ hasText: 'Build something people want' })
     .first();
-  await hero.click();
+  await selectContainer(hero);
 
   const overlay = page.getByTestId('box-model-overlay');
   await expect(overlay).toBeVisible();
@@ -49,7 +49,7 @@ test('the overlay follows a selected element when its box changes', async ({ pag
     .locator('.canvas-element[data-element-type="container"]')
     .filter({ hasText: 'Build something people want' })
     .first();
-  await hero.click();
+  await selectContainer(hero);
   await expect(page.getByTestId('box-model-label-padding')).toContainText('padding 28 20');
 
   await hero.evaluate((element) => {
@@ -66,7 +66,7 @@ test('measurement labels and spacing help stay outside the editable canvas at ev
   await openApp(page);
   await applyTemplate(page, 'landing');
   const hero = page.locator('.canvas-element[data-element-type="container"]').filter({ hasText: 'Build something people want' }).first();
-  await hero.click();
+  await selectContainer(hero);
   for (const zoomOut of [false, true]) {
     if (zoomOut) {
       await page.getByTestId('status-breakpoint').click();

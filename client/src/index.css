@@ -179,32 +179,61 @@
   }
 }
 
+/*
+ * A canvas element must compute to the box its exported counterpart computes
+ * to. That is the whole product: the overlay measures this node with
+ * `getComputedStyle`, so anything the editor adds here is reported to the user
+ * as if the page had it.
+ *
+ * This rule used to set `min-height: 32px`, `min-width: 32px` and
+ * `border: 2px dashed transparent` on every element — dating from the first
+ * commit, before the box model was the point. The border participated in
+ * layout, so every element measured 4px larger than the page it exported and
+ * the overlay drew a labelled Border band around elements that had none.
+ *
+ * Hover, focus and selection are drawn by the `.selectable-block::after`
+ * overlay further down this file, using `box-shadow` and `outline` on a
+ * pseudo-element. Those cannot move a box, which is why they are the only
+ * mechanism allowed to draw editor chrome on an element.
+ */
 .canvas-element {
-  min-height: 32px;
-  min-width: 32px;
-  border: 2px dashed transparent;
-  transition: all 0.2s ease;
+  /* Never `all`: transitioning width or padding animates the box out from
+     under the overlay and the spacing drag, which both read it live. */
+  transition: outline-color 0.2s ease, box-shadow 0.2s ease;
   cursor: pointer;
 }
 
-.canvas-element:hover {
-  border-color: hsl(203.8863, 88.2845%, 53.1373%);
-  background-color: hsla(203.8863, 88.2845%, 53.1373%, 0.05);
+/*
+ * An element with nothing in it collapses to zero in the page and would be
+ * impossible to select or drop into here. This is the one deliberate
+ * departure, and it is scoped to elements that render nothing at all, so no
+ * element carrying content or children can be measured through it.
+ */
+.canvas-element:empty {
+  min-height: 32px;
+  min-width: 32px;
 }
 
 /* ============================================
    PROFESSIONAL DRAG & DROP SYSTEM
    ============================================ */
 
-/* 1. Default positioning context; explicit document positioning must win. */
+/*
+ * 1. Default positioning context; explicit document positioning must win.
+ *
+ * `position: relative` stays: it is the containing block the `::after` overlay
+ * needs, and without offsets it occupies exactly the box `static` would.
+ *
+ * `overflow: clip` used to be here to "clip overlay to element shape". It was
+ * doing the opposite of both its jobs — it clipped the drop indicators that
+ * deliberately sit 2px outside the element and the selection ring's outer
+ * glow, while hiding real overflowing content that would spill in the exported
+ * page. An editor that hides the breakage cannot warn you about it.
+ */
 .canvas-element,
 .block,
 .circle {
   position: relative;
-  overflow: clip;                          /* clip overlay to element shape */
-}
-@supports not (overflow: clip) {
-  .canvas-element, .block, .circle { overflow: hidden; }
 }
 
 /* 2. Make all DnD visuals click-through */
@@ -1253,6 +1282,22 @@ body {
 .framly-artboard-label { position: absolute; top: -25px; left: 0; display: flex; gap: 7px; color: var(--ink-2); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; }
 .framly-artboard-label span { font-family: var(--font-mono); color: var(--ink-2); }
 .framly-artboard { position: relative; box-sizing: content-box; cursor: crosshair; overflow: hidden; border: 1px solid var(--rule-strong); border-radius: 0; background: #fff; color: #191c1a; box-shadow: none; }
+
+/*
+ * The artboard is a page, not part of the app, so it starts from the same
+ * ground the exported stylesheet does — see RESET_CSS in
+ * `utils/codeGenerator.ts`, and keep the two in step.
+ *
+ * Without this the artboard inherited the editor shell's 13px/1.5, while every
+ * exported page got the browser's 16px and the reset's 1.6. Anything that did
+ * not set its own type was laid out at the wrong size on the canvas, so text
+ * wrapped in different places than it does in the page you ship.
+ */
+.framly-artboard {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+}
 
 .box-model-overlay,
 .box-model-hover-outline,

@@ -1,12 +1,12 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
-import { openApp, applyTemplate, WCAG_TAGS } from './helpers';
+import { openApp, applyTemplate, WCAG_TAGS, selectContainer } from './helpers';
 
 async function setup(page: import('@playwright/test').Page) {
   await openApp(page);
   await applyTemplate(page, 'landing');
   const hero = page.locator('.canvas-element[data-element-type="container"]').filter({ hasText: 'Build something people want' }).first();
-  await hero.click();
+  await selectContainer(hero);
   await page.getByTestId('property-search').fill('Inner Spacing');
   return hero;
 }

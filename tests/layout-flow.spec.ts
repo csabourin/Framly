@@ -17,6 +17,8 @@ test('flow explains the computed parent and reaches its real layout control by k
   const parent = page.getByTestId('flow-parent');
   await expect(parent).toContainText('column');
   await expect(parent).toContainText('Top to bottom');
+  await expect(page.getByTestId('layout-flow-info')).not.toContainText('Relative offsets');
+  await expect(page.getByTestId('layout-flow-info')).not.toContainText('A transform changes');
   await parent.focus();
   await parent.press('Enter');
   await expect(hero).toHaveAttribute('data-state', 'selected');
@@ -106,4 +108,6 @@ test('fixed and sticky positions are distinct, and ordinary block flow is descri
   await expect(page.getByTestId('flow-parent')).toContainText('block boxes stack and inline content wraps');
   await heading.evaluate((node) => { node.style.position = 'relative'; node.style.cssFloat = 'left'; });
   await expect(page.getByTestId('flow-position')).toContainText('Floated outside normal flow');
+  await page.getByTestId('flow-position').click();
+  await expect(page.getByTestId('select-float')).toBeFocused();
 });

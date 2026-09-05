@@ -1,12 +1,12 @@
 import { test, expect, type Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
-import { openApp, applyTemplate, WCAG_TAGS } from './helpers';
+import { openApp, applyTemplate, WCAG_TAGS, selectContainer } from './helpers';
 
 async function selectHero(page: Page) {
   await openApp(page);
   await applyTemplate(page, 'landing');
   const hero = page.locator('.canvas-element[data-element-type="container"]').filter({ hasText: 'Build something people want' }).first();
-  await hero.click();
+  await selectContainer(hero);
   await expect(page.getByTestId('spacing-padding-top')).toHaveAttribute('aria-valuenow', '28');
   return hero;
 }
@@ -139,7 +139,7 @@ test('class-owned spacing previews every affected instance and undoes together',
   await page.keyboard.press('Control+d');
   const heroes = page.locator('.canvas-element[data-element-type="container"]').filter({ hasText: 'Build something people want' });
   await expect(heroes).toHaveCount(2);
-  await heroes.first().click();
+  await selectContainer(heroes.first());
   const handle = page.getByTestId('spacing-padding-top');
   await handle.focus();
   await expect(handle).toHaveAccessibleDescription(/Shared style .* · 2 elements/);

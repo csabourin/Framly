@@ -150,7 +150,7 @@ const layoutProperties: PropertyConfig[] = [
     key: 'float',
     label: 'Wrap text around this box',
     type: 'select',
-    category: 'layout',
+    category: 'advanced',
     priority: 10,
     options: [{ value: 'none', label: 'No floating' }, { value: 'left', label: 'Float left' }, { value: 'right', label: 'Float right' }],
     description: 'Floats outside normal flow so text can wrap around it. Ignored for flex and grid items.'
