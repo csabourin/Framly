@@ -27,6 +27,7 @@ export function validateWorkspace(value: unknown): asserts value is WorkspaceSna
     || !Array.isArray(data.componentCategories) || !data.uiSettings || !data.unitPreferences
     || !Array.isArray(data.history?.entries) || !Number.isInteger(data.history.currentIndex)
     || !data.history.entries.every((entry) => typeof entry?.id === 'string' && entry.canvasState?.project?.tabs && entry.classState?.customClasses)
+    || new Set(data.history.entries.map((entry) => entry.id)).size !== data.history.entries.length
     || data.history.currentIndex < -1 || data.history.currentIndex >= data.history.entries.length
     || !Number.isInteger(data.history.maxEntries) || data.history.maxEntries < 1) {
     throw new Error('The saved workspace format could not be read. The original has been preserved.');

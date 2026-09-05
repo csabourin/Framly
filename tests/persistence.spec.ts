@@ -88,9 +88,17 @@ test('class-only edits are saved before the history debounce and restore with un
   expect(after.classes).not.toEqual(before.classes);
   await page.reload();
   await expect(heading).toHaveCSS('font-size', '44px');
+  await heading.click();
+  await page.getByTestId('property-search').fill('Text Size');
+  await page.getByTestId('group-header-text').click();
+  await input.fill('48');
+  await input.press('Enter');
+  await saved(page);
+  await page.reload();
+  await expect(heading).toHaveCSS('font-size', '48px');
   await expect(page.getByTestId('button-undo')).toBeEnabled();
   await page.getByTestId('button-undo').click();
-  await expect(heading).not.toHaveCSS('font-size', '44px');
+  await expect(heading).toHaveCSS('font-size', '44px');
 });
 
 test('Saved waits for transaction completion and queued edits keep the newest value', async ({ page }) => {
@@ -147,22 +155,34 @@ test('legacy projects migrate without overwriting their recoverable originals', 
   await openApp(page);
   await applyTemplate(page, 'landing');
   await saved(page);
-  await page.evaluate(async () => {
+  const legacy = await page.evaluate(async () => {
     const db = await new Promise<IDBDatabase>((resolve) => {
       const request = indexedDB.open('DesignToolDB'); request.onsuccess = () => resolve(request.result);
     });
     const transaction = db.transaction(['settings', 'projects'], 'readwrite');
     const settings = transaction.objectStore('settings');
     const request = settings.get('workspace-v1');
+    let legacyProject: any;
     request.onsuccess = () => {
       const project = request.result.data.project;
-      transaction.objectStore('projects').put({ id: 'default-project', name: 'Legacy project',
-        elements: project.tabs[project.activeTabId].elements, breakpoints: project.breakpoints });
+      legacyProject = { id: 'default-project', name: 'Legacy project',
+        elements: project.tabs[project.activeTabId].elements, breakpoints: project.breakpoints };
+      transaction.objectStore('projects').put(legacyProject);
       settings.delete('workspace-v1');
     };
     await new Promise<void>((resolve) => { transaction.oncomplete = () => resolve(); });
-    db.close();
+    db.close(); return legacyProject;
   });
+  await page.evaluate(async (project) => {
+    const db = await new Promise<IDBDatabase>((resolve) => {
+      const request = indexedDB.open('DesignToolHistory'); request.onsuccess = () => resolve(request.result);
+    });
+    const transaction = db.transaction('historyEntries', 'readwrite');
+    transaction.objectStore('historyEntries').clear();
+    transaction.objectStore('historyEntries').put({ id: 'legacy-history-entry', timestamp: 1,
+      action: 'legacy/edit', description: 'Legacy edit', canvasState: { project }, classState: {} });
+    await new Promise<void>((resolve) => { transaction.oncomplete = () => resolve(); }); db.close();
+  }, legacy);
   await page.reload();
   await expect(hero(page)).toBeVisible();
   await saved(page);
@@ -179,6 +199,9 @@ test('legacy projects migrate without overwriting their recoverable originals', 
   });
   expect(original.elements).toBeDefined();
   expect(original.tabs).toBeUndefined();
+  await page.reload();
+  await expect(hero(page)).toBeVisible();
+  await saved(page);
 });
 
 test('an unknown saved format is preserved and never replaced with a blank project', async ({ page }) => {

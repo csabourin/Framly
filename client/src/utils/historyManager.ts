@@ -15,6 +15,7 @@ import {
 import { loadProject } from '../store/canvasSlice';
 import { loadCustomClassesFromStorage } from '../store/classSlice';
 import { flushPendingHistory } from './historyIntegration';
+import type { Project } from '../types/canvas';
 
 /**
  * Undo/redo and legacy history loading. The workspace owns durable writes.
@@ -25,13 +26,13 @@ export class HistoryManager {
   private storeName = 'historyEntries';
   private db: IDBDatabase | null = null;
 
-  async init(saved?: SavedHistory): Promise<void> {
+  async init(saved?: SavedHistory, migrateProject?: (project: any) => Project): Promise<void> {
     if (saved) {
       reduxStore.dispatch(restoreHistory(saved));
     } else {
       // Legacy history is read once; originals remain available for recovery.
       this.db = await this.openDB();
-      await this.loadHistoryFromStorage();
+      await this.loadHistoryFromStorage(migrateProject);
       this.db.close();
       this.db = null;
     }
@@ -129,7 +130,7 @@ export class HistoryManager {
     });
   }
 
-  async loadHistoryFromStorage(): Promise<void> {
+  async loadHistoryFromStorage(migrateProject?: (project: any) => Project): Promise<void> {
     if (!this.db) return;
 
     try {
@@ -147,7 +148,11 @@ export class HistoryManager {
       entries.sort((a, b) => a.timestamp - b.timestamp);
 
       // Load into Redux store
-      reduxStore.dispatch(loadHistoryFromStorage(entries));
+      reduxStore.dispatch(loadHistoryFromStorage(entries.map((entry) => ({
+        ...entry,
+        canvasState: { ...entry.canvasState, project: migrateProject ? migrateProject(entry.canvasState.project) : entry.canvasState.project },
+        classState: { ...entry.classState, customClasses: entry.classState?.customClasses || {} },
+      }))));
       
     } catch (error) {
       throw error;

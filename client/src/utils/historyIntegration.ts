@@ -6,6 +6,7 @@ import type { SavedHistory } from '../store/historySlice';
 let debounceTimeout: NodeJS.Timeout | null = null;
 let pendingAction: { type: string; description: string } | null = null;
 let pendingCoalesces = false;
+let pendingId = '';
 let grouping = false;
 let isMiddlewareActive = false;
 
@@ -135,6 +136,7 @@ const trackHistoryForAction = (action: any) => {
     }
     
     // Store the action to be recorded after debounce
+    if (!pendingAction) pendingId = `pending-${crypto.randomUUID()}`;
     pendingAction = { type: action.type, description };
     pendingCoalesces = Date.now() + 800 - lastImmediateRecordAt < COALESCE_WINDOW_MS;
     
@@ -204,7 +206,7 @@ export function historyForPersistence(): SavedHistory {
   if (pendingCoalesces && next.length) {
     next[next.length - 1] = { ...next[next.length - 1], ...snapshot };
   } else {
-    next.push({ id: 'pending-property-edit', action: pendingAction.type, description: pendingAction.description, ...snapshot });
+    next.push({ id: pendingId, action: pendingAction.type, description: pendingAction.description, ...snapshot });
   }
   const limited = next.slice(-maxEntries);
   return { entries: limited, currentIndex: limited.length - 1, maxEntries };

@@ -64,7 +64,7 @@ export class PersistenceManager {
         await historyManager.init(saved.history);
       } else {
         await this.loadLegacyData();
-        await historyManager.init();
+        await historyManager.init(undefined, (project) => this.migrateProjectToTabStructure(project));
       }
       this.isInitialized = true;
       this.startAutoSave();

@@ -85,6 +85,8 @@ be too. A check that cannot fail is worthless.
 | Canvas ↔ export | `tests/roundtrip.spec.ts`: the Landing template's emitted rendered properties must match the canvas at all four breakpoint widths, including real responsive overrides. Editor drag cursors are intentionally excluded. |
 | Box-model overlay | `tests/box-model.spec.ts`: selection must expose all four labelled, distinctly coloured boxes without intercepting interaction, and must remeasure after a box or breakpoint change. |
 | Direct spacing | `tests/spacing.spec.ts`: padding/margin handles preview live, cancel cleanly, respect zoom and breakpoints, support keyboard editing and commit one undo step. Shared styles and independently rendered exports must agree. |
+| Spacing scale | `tests/spacing-scale.spec.ts`: presets and Custom remain keyboard accessible, undo together, preserve side overrides and match exported CSS. |
+| Durable saving | `tests/persistence.spec.ts`: Saved waits for transaction completion; acknowledged edits and undo/redo survive reload; failed writes preserve the previous snapshot and offer retry and live backup. Legacy migration and import retain recovery copies. The aborted-write test was verified to fail when saving resolves before transaction completion. |
 | `tests/deadcode.spec.ts` | Fails on any unreachable file. `components/ui/*` is exempt. |
 
 # Architecture

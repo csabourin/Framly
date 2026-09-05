@@ -12,9 +12,8 @@ export const WCAG_TAGS = [
 /**
  * Open the app and wait for it to be genuinely ready.
  *
- * Startup races IndexedDB init against a 3s timeout before React renders, so
- * waiting on the header alone is not enough — the canvas has to have settled
- * too, or the first interaction lands on a component that is about to re-render.
+ * Startup restores the durable workspace before mounting the editor. Also
+ * wait for the canvas so the first interaction reaches its mounted controls.
  */
 export async function openApp(page: Page) {
   await page.goto('/');
