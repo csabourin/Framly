@@ -1,3 +1,4 @@
+import LayoutFlowInfo from './LayoutFlowInfo';
 import { propertyPresentation } from '../../utils/propertyLabels';
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -693,6 +694,17 @@ const PropertiesPanel: React.FC = () => {
           )}
         </div>
       </div>
+
+      <LayoutFlowInfo key={selectedElement.id} element={selectedElement} onInspect={(id, property) => {
+        dispatch(selectElement(id));
+        setPropertySearchTerm(property);
+        setExpandedGroups((groups) => ({ ...groups, layout: true, flex: true, grid: true, spacing: true }));
+        requestAnimationFrame(() => {
+          const control = document.querySelector<HTMLElement>(`[data-testid="property-${property}"] input, [data-testid="property-${property}"] [role="combobox"]`);
+          control?.scrollIntoView({ block: 'nearest' });
+          control?.focus({ preventScroll: true });
+        });
+      }} />
 
       {/* Class Editing Section - Top Priority */}
       <div className="hidden" aria-hidden="true">

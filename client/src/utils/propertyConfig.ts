@@ -145,6 +145,15 @@ const layoutProperties: PropertyConfig[] = [
     max: 999,
     description: 'Controls which elements appear in front',
     condition: (element) => element.styles?.position && element.styles.position !== 'static'
+  },
+  {
+    key: 'float',
+    label: 'Wrap text around this box',
+    type: 'select',
+    category: 'layout',
+    priority: 10,
+    options: [{ value: 'none', label: 'No floating' }, { value: 'left', label: 'Float left' }, { value: 'right', label: 'Float right' }],
+    description: 'Floats outside normal flow so text can wrap around it. Ignored for flex and grid items.'
   }
 ];
 
