@@ -152,6 +152,9 @@ is one undoable action. Margin labels report CSS values, not an inferred distanc
 between siblings when margins collapse or a parent distributes free space.
 The inspector offers a spacing scale (0 / 4 / 8 / 12 / 16 / 24 / 32 / 48) for
 padding, margin, individual sides and parent gap, with an explicit Custom path.
+Layout controls show a plain-language name followed by the real property in mono,
+in English and French. Search accepts those names, CSS names and legacy labels;
+inputs expose the same names to assistive technology.
 Text blocks support multiline input: Enter and Shift+Enter insert line breaks,
 Ctrl/Cmd+Enter finishes editing, and Escape restores the starting content.
 Each input is saved immediately; line breaks survive reload and HTML export.

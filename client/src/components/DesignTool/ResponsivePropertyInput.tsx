@@ -6,6 +6,8 @@ import { switchBreakpoint } from '../../store/canvasSlice';
 import { Button } from '@/components/ui/button';
 import { Smartphone, Monitor, Laptop, TabletSmartphone } from 'lucide-react';
 import { PropertyConfig } from '../../utils/propertyConfig';
+import PropertyLabel from './PropertyLabel';
+import { propertyPresentation } from '../../utils/propertyLabels';
 import { PropertyInput } from './PropertyInput';
 import { CanvasElement } from '../../types/canvas';
 
@@ -26,6 +28,7 @@ const ResponsivePropertyInput: React.FC<ResponsivePropertyInputProps> = ({
   onChange
 }) => {
   const { t } = useTranslation();
+  const { label, term } = propertyPresentation(config, t);
   const dispatch = useDispatch();
   const project = useSelector((state: RootState) => state.canvas.project);
   const currentBreakpoint = project.currentBreakpoint;
@@ -148,10 +151,10 @@ const ResponsivePropertyInput: React.FC<ResponsivePropertyInputProps> = ({
 
   return (
     <div className="space-y-2">
-      <div className="flex items-center justify-between">
-        <label className="text-sm font-medium text-gray-700">
-          {config.label}
-        </label>
+      <div className="flex flex-wrap items-start justify-between gap-x-2 gap-y-1">
+        <div className="text-sm font-medium text-gray-700">
+          <PropertyLabel label={label} term={term} />
+        </div>
         <Button
           variant="ghost"
           size="sm"

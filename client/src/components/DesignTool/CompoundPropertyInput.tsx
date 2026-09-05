@@ -1,3 +1,6 @@
+import { useTranslation } from 'react-i18next';
+import PropertyLabel from './PropertyLabel';
+import { propertyPresentation } from '../../utils/propertyLabels';
 import React, { useState } from 'react';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
@@ -166,6 +169,7 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
 }) => {
   // Independent state for the "All Sides" global input
   const [globalBorderValue, setGlobalBorderValue] = React.useState('');
+  const { t } = useTranslation();
   const [isExpanded, setIsExpanded] = useState(false);
 
   // Configuration for different property types
@@ -311,14 +315,14 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
   };
 
   const renderSpacingInput = (sideKey: string, label: string) => {
+    const presentation = propertyPresentation({ key: sideKey, label, category: 'spacing' }, t);
     const value = getValue(sideKey);
     
     const input = (
       <div className="space-y-1">
-        <Label className="text-xs text-gray-500">{label}</Label>
         <Input
           type="text"
-          aria-label={`${propertyType} ${label}`}
+          aria-label={`${presentation.label} ${presentation.term}`}
           placeholder="0px"
           value={value}
           onChange={(e) => {
@@ -335,8 +339,12 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
         />
       </div>
     );
-    return isSpacingProperty(sideKey) ? <SpacingScale property={sideKey} label={`${propertyType} ${label}`}
-      value={value} onChange={(next) => handleSideChange(sideKey, next)}>{input}</SpacingScale> : input;
+    return <div className="space-y-1">
+      <PropertyLabel {...presentation} />
+      {isSpacingProperty(sideKey) ? <SpacingScale property={sideKey} label={`${presentation.label} · ${presentation.term}`}
+        value={value} onChange={(next) => handleSideChange(sideKey, next)}>{input}</SpacingScale>
+        : input}
+    </div>;
   };
 
   return (
@@ -411,7 +419,7 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
         }}
         className="w-full p-2 flex items-center justify-between text-left hover:bg-gray-100 transition-colors"
       >
-        <span className="text-sm text-gray-600">Individual sides</span>
+        <span className="text-sm text-gray-600">{t('propertyLabels.individualSides')}</span>
         {isExpanded ? (
           <ChevronDown className="w-3 h-3 text-gray-400" />
         ) : (
@@ -449,11 +457,16 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
           {/* Horizontal/Vertical Shortcuts */}
           {config.shortcuts.length > 1 && (
             <div className="space-y-2">
-              <Label className="text-xs font-medium text-gray-500">Shortcuts</Label>
+              <Label className="text-xs font-medium text-gray-500">{t('propertyLabels.shortcuts')}</Label>
               <div className="grid grid-cols-2 gap-2">
                 {config.shortcuts.slice(0, -1).map((shortcut) => (
                   <div key={shortcut.key} className="space-y-1">
-                    <Label className="text-xs text-gray-500">{shortcut.label}</Label>
+                    <Label className="text-xs text-gray-500">
+                      {['margin', 'padding'].includes(propertyType) ? <PropertyLabel
+                        label={t(`propertyLabels.${shortcut.key.endsWith('Horizontal') ? 'horizontal' : 'vertical'}`)}
+                        term={shortcut.sides.map((side) => side.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`)).join(' / ')}
+                      /> : shortcut.label}
+                    </Label>
                     {propertyType === 'border' ? (
                       <Input
                         type="text"
@@ -467,6 +480,7 @@ const CompoundPropertyInput: React.FC<CompoundPropertyInputProps> = ({
                       <Input
                         type="text"
                         placeholder="0px"
+                        aria-label={`${t(`propertyLabels.${shortcut.key.endsWith('Horizontal') ? 'horizontal' : 'vertical'}`)} ${propertyType}`}
                         onChange={(e) => handleShortcutChange(shortcut.key, e.target.value)}
                         onFocus={(e) => e.stopPropagation()}
                         onClick={(e) => e.stopPropagation()}

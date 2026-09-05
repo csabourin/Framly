@@ -97,6 +97,7 @@ Recorded so they are not re-litigated. Each can be revisited — but knowingly.
 | **A spacing preset is one action** | A preset may create a class and assign a style. Its history boundary includes both operations. Custom entry is explicitly revealed and opening it never rewrites mixed values. |
 | **Measurements must not cover the edit** | The box bands and spacing handles remain on the element. Numeric labels and contextual help render in a readout below the scrollable canvas, outside its scaled and clipped surface. Native handle tooltips are removed; keyboard descriptions still name the source and scope. |
 | **Enter belongs to the text** | Text blocks keep editing on Enter and save each input, including line breaks. The browser owns the caret and native editing undo; Redux updates only replace the DOM content when it differs. Ctrl/Cmd+Enter ends editing and Escape restores the content present on focus. |
+| **Plain names teach the real property** | Layout, spacing, flex and grid controls show a translated plain-language label above the unchanged property name. Form sizing controls retain their real HTML attribute names (`rows`, `cols`, `size`). Search matches displayed names, CSS names and previous labels. This is presentation only; style keys and write routing stay unchanged. |
 
 ---
 

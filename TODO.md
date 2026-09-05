@@ -35,9 +35,9 @@ Three promises, in priority order. When two conflict, the higher one wins:
 
 ### 👉 Start here
 
-**M2.4 — Plain language, with the real term underneath.** Direct spacing and
-the spacing scale are in place. Next, apply the plain-language/CSS label pattern
-consistently throughout the Layout section.
+**M2.5 — Show the flow.** Plain-language labels with the real property underneath
+are in place. Next, explain whether the selected element is in normal flow and
+which direction its parent places its children, using actual layout evidence.
 
 The requested persistence follow-up is also complete: the 30-second delay and
 simulated "Saved" status have been replaced with immediate, acknowledged saves.
@@ -229,10 +229,16 @@ above is table stakes; this is the reason Framly exists.*
       scope and form one undo action. Mixed or custom values are preserved.
       *Verified by:* keyboard/axe, custom-value reload, side and shorthand
       overrides, independently rendered export and parent-gap browser checks. ✅
-- [ ] `[S]` **Plain language, with the real term underneath.** "Space inside ·
+- [x] `[S]` **Plain language, with the real term underneath.** "Space inside ·
       `padding`". "Space outside · `margin`". Beginners understand it; everyone
       learns the vocabulary they'll need elsewhere.
-      *Done when:* every control in the Layout section reads this way.
+      Layout, spacing, flex and grid controls use a shared two-line label,
+      including responsive controls, individual sides and Auto Layout.
+      English and French names, CSS names and previous labels are searchable.
+      Labels are associated with inputs and preserve breakpoint descriptions.
+      *Verified by:* bilingual browser review, keyboard/accessibility checks,
+      and 34 existing responsive, spacing and export regressions. The measured
+      accessibility baseline was tightened. ✅
 - [ ] `[M]` **Show the flow.** Indicate whether an element is in normal flow, and
       which direction its parent stacks children.
       *Done when:* it is obvious why an element landed where it did.
@@ -330,6 +336,7 @@ belong in a milestone and does not need thinking about.
 | Advanced CSS functions (`clamp`, `calc`) | After M5. |
 | Multi-page projects | Tabs work; don't extend them until M2 ships. |
 | Parent gap handles and measured inter-item distances | After M2's spacing scale; distinguish CSS gap, collapsed margins and distributed free space before offering drag controls. |
+| Auto Layout shortcut scope | Before M2.5 uses these shortcuts as repair targets: `FlexLayoutControls` and `LayoutPresets` still write base styles directly. Route them through the inspector's breakpoint writer before extending their behavior. |
 | Text-block drawing undo follow-up | When next touching drawing/history: drawing a text block near an existing rectangle's bottom edge can leave both elements after the first Undo. Observed while checking the diagonal preview fix; the existing rectangle-only undo regression passes. Add coverage for this text-tool sequence before changing grouping. |
 | Accounts, sharing, collaboration | Only if local-first stops being the answer. |
 

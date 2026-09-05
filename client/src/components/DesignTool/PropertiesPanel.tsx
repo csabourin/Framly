@@ -1,3 +1,4 @@
+import { propertyPresentation } from '../../utils/propertyLabels';
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -936,6 +937,8 @@ const PropertiesPanel: React.FC = () => {
             properties: group.properties.filter((property) =>
               propertySearchTerm === '' ||
               property.label.toLowerCase().includes(propertySearchTerm.toLowerCase()) ||
+              propertyPresentation(property, t).label.toLowerCase().includes(propertySearchTerm.toLowerCase()) ||
+              (propertyPresentation(property, t).term || '').includes(propertySearchTerm.toLowerCase()) ||
               property.key.toLowerCase().includes(propertySearchTerm.toLowerCase())
             )
           }))

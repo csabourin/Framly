@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useId } from 'react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -18,6 +18,8 @@ import { ColorModePropertyInput } from '../ColorModePropertyInput';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { RootState } from '../../store';
+import PropertyLabel from './PropertyLabel';
+import { propertyPresentation } from '../../utils/propertyLabels';
 import SpacingScale, { isSpacingProperty } from './SpacingScale';
 
 interface PropertyInputProps {
@@ -38,6 +40,9 @@ interface PropertyInputProps {
 
 export const PropertyInput: React.FC<PropertyInputProps> = ({ config, value, onChange, elementId, element, className, describedBy, hideLabel = false }) => {
   const { t } = useTranslation();
+  const { label, term } = propertyPresentation(config, t);
+  const controlId = useId();
+  const labelId = `${controlId}-label`;
   // Get custom classes from Redux store
   const customClasses = useSelector((state: RootState) => (state as any).classes?.customClasses || {});
 
@@ -73,10 +78,12 @@ export const PropertyInput: React.FC<PropertyInputProps> = ({ config, value, onC
             type="text"
             value={value || ''}
             onChange={(e) => onChange(e.target.value)}
-            placeholder={t('breakpoints.enterValue', { label: config.label.toLowerCase() })}
+            placeholder={t('breakpoints.enterValue', { label: label.toLowerCase() })}
             className="w-full"
+            id={controlId}
             data-testid={`input-${config.key}`}
             aria-describedby={describedBy}
+            aria-labelledby={labelId}
           />
         );
 
@@ -90,8 +97,10 @@ export const PropertyInput: React.FC<PropertyInputProps> = ({ config, value, onC
             max={config.max}
             step={config.step}
             className="w-full"
+            id={controlId}
             data-testid={`input-${config.key}`}
             aria-describedby={describedBy}
+            aria-labelledby={labelId}
           />
         );
 
@@ -113,9 +122,10 @@ export const PropertyInput: React.FC<PropertyInputProps> = ({ config, value, onC
               max={config.max}
               step={config.step}
               className="flex-1"
+              id={controlId}
               data-testid={`input-${config.key}`}
               aria-describedby={describedBy}
-              aria-label={config.label}
+              aria-labelledby={labelId}
             />
             {config.units && config.units.length > 1 ? (
               <Select
@@ -130,7 +140,7 @@ export const PropertyInput: React.FC<PropertyInputProps> = ({ config, value, onC
                   onChange(formatUnit(numValue, unit));
                 }}
               >
-                <SelectTrigger className="w-20" aria-label={`${config.label} unit`}>
+                <SelectTrigger className="w-20" aria-label={t('propertyLabels.unit', { label })}>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -150,7 +160,7 @@ export const PropertyInput: React.FC<PropertyInputProps> = ({ config, value, onC
         );
 
         return isSpacingProperty(config.key) ? <SpacingScale key={`${elementId}:${config.key}`} property={config.key}
-          label={config.label} value={value} describedBy={describedBy} onChange={(next) => {
+          label={term ? `${label} · ${term}` : label} value={value} describedBy={describedBy} onChange={(next) => {
             setSelectedUnit('px');
             if (elementId) setElementUnitPreference(elementId, config.key, 'px');
             onChange(next);
@@ -162,7 +172,7 @@ export const PropertyInput: React.FC<PropertyInputProps> = ({ config, value, onC
             value={value || config.options?.[0]?.value || ''}
             onValueChange={onChange}
           >
-            <SelectTrigger aria-describedby={describedBy} data-testid={`select-${config.key}`}>
+            <SelectTrigger id={controlId} aria-labelledby={labelId} aria-describedby={describedBy} data-testid={`select-${config.key}`}>
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -201,6 +211,7 @@ export const PropertyInput: React.FC<PropertyInputProps> = ({ config, value, onC
               className="w-full"
               data-testid={`slider-${config.key}`}
               aria-describedby={describedBy}
+            aria-labelledby={labelId}
             />
           </div>
         );
@@ -214,6 +225,7 @@ export const PropertyInput: React.FC<PropertyInputProps> = ({ config, value, onC
             className="w-full"
             data-testid={`toggle-${config.key}`}
             aria-describedby={describedBy}
+            aria-labelledby={labelId}
           >
             {value ? 'On' : 'Off'}
           </Button>
@@ -282,8 +294,10 @@ export const PropertyInput: React.FC<PropertyInputProps> = ({ config, value, onC
             value={value || ''}
             onChange={(e) => onChange(e.target.value)}
             className="w-full"
+            id={controlId}
             data-testid={`input-${config.key}`}
             aria-describedby={describedBy}
+            aria-labelledby={labelId}
           />
         );
     }
@@ -292,8 +306,8 @@ export const PropertyInput: React.FC<PropertyInputProps> = ({ config, value, onC
   return (
     <div className={`space-y-2 ${className || ''}`} data-testid={`property-${config.key}`}>
       <div className={hideLabel ? 'sr-only' : 'flex items-center justify-between'}>
-        <Label className="text-sm font-medium text-gray-700 flex-1">
-          {config.label}
+        <Label id={labelId} htmlFor={controlId} className="text-sm font-medium text-gray-700 flex-1">
+          <PropertyLabel label={label} term={term} />
         </Label>
         {config.description && (
           <div

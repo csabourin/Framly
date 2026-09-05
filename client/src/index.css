@@ -1329,6 +1329,8 @@ body {
 }
 
 .spacing-scale { display: grid; gap: 6px; }
+.property-label { display: flex; flex-direction: column; gap: 2px; color: var(--ink); line-height: 1.35; }
+.property-term { font: 11px/1.4 var(--font-mono); color: var(--ink-2); overflow-wrap: anywhere; }
 .spacing-scale-options { display: flex; flex-wrap: wrap; gap: 3px; }
 .spacing-scale-options button, .spacing-custom-toggle {
   min-width: 25px; min-height: 28px; padding: 3px 5px; border: 1px solid var(--rule-strong);

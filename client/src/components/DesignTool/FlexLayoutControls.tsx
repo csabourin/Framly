@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useId } from 'react';
+import PropertyLabel from './PropertyLabel';
 import { useTranslation } from 'react-i18next';
 import { CanvasElement } from '../../types/canvas';
 import { ArrowRight, ArrowDown } from 'lucide-react';
@@ -19,6 +20,7 @@ type AlignItems = 'flex-start' | 'center' | 'flex-end' | 'stretch';
  */
 const FlexLayoutControls: React.FC<FlexLayoutControlsProps> = ({ element, onUpdate }) => {
     const { t } = useTranslation();
+    const labelId = useId();
 
     const direction = (element.styles?.flexDirection as FlexDirection) || element.flexDirection || 'column';
     const justifyContent = (element.styles?.justifyContent as JustifyContent) || element.justifyContent || 'flex-start';
@@ -85,10 +87,10 @@ const FlexLayoutControls: React.FC<FlexLayoutControlsProps> = ({ element, onUpda
         <div className="space-y-4">
             {/* Direction Picker */}
             <div>
-                <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 block">
-                    {t('layout.direction')}
-                </label>
-                <div className="flex gap-2">
+                <div id={`${labelId}-direction`} className="text-sm font-medium mb-2">
+                    <PropertyLabel label={t('propertyLabels.flexDirection')} term="flex-direction" />
+                </div>
+                <div className="flex gap-2" role="group" aria-labelledby={`${labelId}-direction`}>
                     <button
                         onClick={() => handleDirectionChange('row')}
                         className={`flex-1 px-4 py-3 rounded-lg border-2 transition-all flex items-center justify-center gap-2 ${direction === 'row'
@@ -116,10 +118,10 @@ const FlexLayoutControls: React.FC<FlexLayoutControlsProps> = ({ element, onUpda
 
             {/* Alignment Grid */}
             <div>
-                <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 block">
-                    {t('layout.alignment')}
-                </label>
-                <div className="grid grid-cols-3 gap-2">
+                <div id={`${labelId}-alignment`} className="text-sm font-medium mb-2">
+                    <PropertyLabel label={t('propertyLabels.alignment')} term="justify-content / align-items" />
+                </div>
+                <div className="grid grid-cols-3 gap-2" role="group" aria-labelledby={`${labelId}-alignment`}>
                     {alignmentGrid.map((option, index) => (
                         <button
                             key={index}
@@ -166,12 +168,13 @@ const FlexLayoutControls: React.FC<FlexLayoutControlsProps> = ({ element, onUpda
 
             {/* Gap Slider */}
             <div>
-                <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 block">
-                    {t('layout.gap')}
-                </label>
+                <div id={`${labelId}-gap`} className="text-sm font-medium mb-2">
+                    <PropertyLabel label={t('propertyLabels.gap')} term="gap" />
+                </div>
                 <div className="flex items-center gap-3">
                     <input
                         type="range"
+                        aria-labelledby={`${labelId}-gap`}
                         min="0"
                         max="64"
                         step="4"
@@ -181,6 +184,7 @@ const FlexLayoutControls: React.FC<FlexLayoutControlsProps> = ({ element, onUpda
                     />
                     <input
                         type="number"
+                        aria-labelledby={`${labelId}-gap`}
                         value={parseInt(gap) || 0}
                         onChange={(e) => handleGapChange(`${e.target.value}px`)}
                         className="w-16 px-2 py-1 border border-gray-300 dark:border-gray-600 rounded text-sm"
