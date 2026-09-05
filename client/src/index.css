@@ -1246,7 +1246,10 @@ body {
 .framly-layer-tree [role='treeitem'] { color: var(--ink-2); }
 .framly-layer-tree [role='treeitem'] svg { color: currentColor !important; }
 
-.framly-canvas-ground { position: relative; min-width: 0; flex: 1; overflow: auto; background: var(--ground); user-select: none; }
+.framly-canvas-workspace { display: flex; flex-direction: column; flex: 1; min-width: 0; min-height: 0; overflow: hidden; }
+.framly-canvas-ground { position: relative; min-width: 0; min-height: 0; flex: 1; overflow: auto; background: var(--ground); user-select: none; }
+.canvas-measurements { flex: none; max-height: 35%; overflow: auto; border-top: 1px solid var(--rule-strong); background: var(--paper); padding: 6px 10px; }
+.canvas-measurements:has(#canvas-measurement-labels:empty):has(#canvas-measurement-help:empty) { display: none; }
 .framly-artboard-label { position: absolute; top: -25px; left: 0; display: flex; gap: 7px; color: var(--ink-2); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; }
 .framly-artboard-label span { font-family: var(--font-mono); color: var(--ink-2); }
 .framly-artboard { position: relative; box-sizing: content-box; cursor: crosshair; overflow: hidden; border: 1px solid var(--rule-strong); border-radius: 0; background: #fff; color: #191c1a; box-shadow: none; }
@@ -1254,8 +1257,7 @@ body {
 .box-model-overlay,
 .box-model-hover-outline,
 .box-model-layer,
-.box-model-selection-edge,
-.box-model-labels { position: absolute; pointer-events: none; }
+.box-model-selection-edge { position: absolute; pointer-events: none; }
 .box-model-overlay { inset: 0; z-index: 996; }
 .box-model-layer { outline: 1px solid var(--box-layer); outline-offset: -1px; }
 .box-model-band { position: absolute; background: color-mix(in srgb, var(--box-layer) 28%, transparent); }
@@ -1269,12 +1271,9 @@ body {
 .box-model-labels {
   z-index: 3;
   display: flex;
-  max-width: calc(100% - 8px);
+  max-width: 100%;
   flex-wrap: wrap;
   gap: 2px 8px;
-  border: 1px solid var(--rule-strong);
-  background: color-mix(in srgb, var(--paper) 94%, transparent);
-  padding: 3px 5px;
   color: var(--ink-2);
   font-family: var(--font-mono);
   font-size: 9px;
@@ -1325,12 +1324,9 @@ body {
 .spacing-handle-margin { box-shadow: inset 0 -3px var(--box-margin); }
 .spacing-handle:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
 .spacing-help {
-  position: absolute; max-width: 300px; padding: 4px 6px; border: 1px solid var(--rule-strong);
+  padding-top: 4px;
   background: var(--paper); color: var(--ink); font: 11px/1.5 var(--font-mono);
-  visibility: hidden; pointer-events: none;
 }
-.spacing-controls:focus-within .spacing-help, .spacing-controls:has(.spacing-handle:hover) .spacing-help,
-.spacing-help-active { visibility: visible; }
 
 .spacing-scale { display: grid; gap: 6px; }
 .spacing-scale-options { display: flex; flex-wrap: wrap; gap: 3px; }

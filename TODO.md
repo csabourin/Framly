@@ -327,6 +327,7 @@ belong in a milestone and does not need thinking about.
 | Advanced CSS functions (`clamp`, `calc`) | After M5. |
 | Multi-page projects | Tabs work; don't extend them until M2 ships. |
 | Parent gap handles and measured inter-item distances | After M2's spacing scale; distinguish CSS gap, collapsed margins and distributed free space before offering drag controls. |
+| Text-block drawing undo follow-up | When next touching drawing/history: drawing a text block near an existing rectangle's bottom edge can leave both elements after the first Undo. Observed while checking the diagonal preview fix; the existing rectangle-only undo regression passes. Add coverage for this text-tool sequence before changing grouping. |
 | Accounts, sharing, collaboration | Only if local-first stops being the answer. |
 
 ---

@@ -6,6 +6,7 @@ import { selectElement, updateElement } from '../../store/canvasSlice';
 import { setSelectedTool, setDraggingForReorder, setDraggedElement } from '../../store/uiSlice';
 import { CanvasElement as CanvasElementType } from '../../types/canvas';
 import ButtonElement from './CanvasElements/ButtonElement';
+import TextBlockContent from './CanvasElements/TextBlockContent';
 import { isValidDropTarget } from '../../utils/canvas';
 import { selectCurrentElements } from '../../store/selectors';
 import { isComponentInstance } from '../../utils/componentInstances';
@@ -308,62 +309,18 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     if (element.type === 'text') {
       const isTextEditable = isSelected && (selectedTool === 'text' || isEditing);
 
-      const processedContent = element.content || 'Edit this text';
-
-      // If content doesn't have paragraph tags, wrap it in a paragraph
-      const htmlContent = processedContent.includes('<p>') ?
-        processedContent :
-        `<p>${processedContent.replace(/\n/g, '<br>')}</p>`;
-
-      if (isTextEditable) {
-        return (
-          <div
-            ref={textEditRef}
-            contentEditable={true}
-            suppressContentEditableWarning
-            onBlur={handleContentEdit}
-            onKeyDown={handleKeyDown}
-            className="h-full outline-none cursor-text text-editing"
-            style={{
-              minHeight: 'inherit',
-              padding: '4px',
-              width: getElementWidth(),
-              height: '100%',
-              boxSizing: 'border-box'
-            }}
-            dangerouslySetInnerHTML={{ __html: htmlContent }}
-            autoFocus
-            onFocus={(e) => {
-              // Position cursor at click location
-              const clickEvent = e.target as HTMLElement;
-              if (clickEvent && window.getSelection) {
-                const selection = window.getSelection();
-                if (selection) {
-                  selection.removeAllRanges();
-                  const range = document.createRange();
-                  range.selectNodeContents(clickEvent);
-                  range.collapse(false); // Position at end
-                  selection.addRange(range);
-                }
-              }
-            }}
-          />
-        );
-      } else {
-        return (
-          <div
-            className="h-full outline-none cursor-text text-element"
-            style={{
-              minHeight: 'inherit',
-              padding: '4px',
-              width: getElementWidth(),
-              height: '100%',
-              boxSizing: 'border-box'
-            }}
-            dangerouslySetInnerHTML={{ __html: htmlContent }}
-          />
-        );
-      }
+      return <TextBlockContent
+        content={element.content ?? 'Edit this text'}
+        editable={isTextEditable}
+        width={getElementWidth()}
+        onChange={(content) => {
+          if (content !== element.content) dispatch(updateElement({ id: element.id, updates: { content } }));
+        }}
+        onFinish={() => {
+          setIsEditing(false);
+          if (selectedTool === 'text') dispatch(setSelectedTool('pointer'));
+        }}
+      />;
     }
 
     if (element.type === 'heading') {

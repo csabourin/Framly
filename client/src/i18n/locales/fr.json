@@ -474,7 +474,11 @@
       "description": "Un titre suivi de trois cartes empilées, une par fonctionnalité."
     }
   },
+  "textEditing": {
+    "label": "Bloc de texte"
+  },
   "spacing": {
+    "measurements": "Mesures de l’élément sélectionné",
     "controls": "Modifier les espacements sur le canevas",
     "padding": "Espace intérieur · padding · {{side}}",
     "margin": "Espace extérieur · margin · {{side}}",

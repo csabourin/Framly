@@ -474,7 +474,11 @@
       "description": "A heading followed by three stacked cards, one per feature."
     }
   },
+  "textEditing": {
+    "label": "Text block"
+  },
   "spacing": {
+    "measurements": "Selected element measurements",
     "controls": "Edit spacing on the canvas",
     "padding": "Space inside · padding · {{side}}",
     "margin": "Space outside · margin · {{side}}",

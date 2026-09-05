@@ -61,3 +61,32 @@ test('the overlay follows a selected element when its box changes', async ({ pag
   await page.getByRole('menuitem', { name: /Tablet/i }).click();
   await expect(page.getByTestId('box-model-overlay')).toBeVisible();
 });
+
+test('measurement labels and spacing help stay outside the editable canvas at every zoom', async ({ page }) => {
+  await openApp(page);
+  await applyTemplate(page, 'landing');
+  const hero = page.locator('.canvas-element[data-element-type="container"]').filter({ hasText: 'Build something people want' }).first();
+  await hero.click();
+  for (const zoomOut of [false, true]) {
+    if (zoomOut) {
+      await page.getByTestId('status-breakpoint').click();
+      await page.getByRole('menuitem', { name: /Tablet/i }).click();
+      await page.getByTestId('zoom-control').click();
+      await page.getByTestId('menu-zoom-out').click();
+    }
+    const handle = page.getByTestId('spacing-margin-right');
+    await handle.focus();
+    await expect(handle).not.toHaveAttribute('title');
+    const help = page.locator('#spacing-help');
+    await expect(help).toBeVisible();
+    const canvas = (await page.getByTestId('canvas-scroll-container').boundingBox())!;
+    const info = (await help.boundingBox())!;
+    const labels = (await page.locator('.box-model-labels').boundingBox())!;
+    expect(info.y).toBeGreaterThanOrEqual(canvas.y + canvas.height);
+    expect(labels.y).toBeGreaterThanOrEqual(canvas.y + canvas.height);
+    await handle.press('ArrowUp');
+    await expect(help).toContainText('1px');
+  }
+  await page.locator('.canvas-element[data-element-type="text"]').first().click();
+  await expect(page.locator('#spacing-help')).toBeHidden();
+});

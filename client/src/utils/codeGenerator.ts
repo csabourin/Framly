@@ -383,7 +383,7 @@ ${indent}</label>`;
     let content = '';
 
     if (element.type === 'text' && element.content) {
-      content = element.content;
+      content = element.content.replace(/\n/g, '<br>');
     } else if (element.type === 'heading' && element.content) {
       content = element.content;
     } else if (element.type === 'button' && element.buttonText) {

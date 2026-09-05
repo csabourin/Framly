@@ -1,4 +1,5 @@
 import React, { useCallback, useLayoutEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useSelector } from 'react-redux';
 import type { RootState } from '../../../store';
 import SpacingHandles from './SpacingHandles';
@@ -229,6 +230,7 @@ const SelectionOverlay: React.FC<SelectionOverlayProps> = ({
   const summary = metrics
     ? `Box model: margin ${formatEdges(metrics.margin)}; border ${formatEdges(metrics.border)}; padding ${formatEdges(metrics.padding)}; content ${formatLength(metrics.contentBox.width)} by ${formatLength(metrics.contentBox.height)}`
     : undefined;
+  const labelDock = document.getElementById('canvas-measurement-labels');
 
   return (
     <>
@@ -253,12 +255,12 @@ const SelectionOverlay: React.FC<SelectionOverlayProps> = ({
               height: metrics.borderBox.height,
             }}
           />
-          <div className="box-model-labels" aria-hidden="true" style={{ left: metrics.labelX, top: metrics.labelY }}>
+          {labelDock && createPortal(<div className="box-model-labels" aria-hidden="true">
             <span className="box-model-label-margin" data-testid="box-model-label-margin">margin <b>{compactEdges(metrics.margin)}</b></span>
             <span className="box-model-label-border" data-testid="box-model-label-border">border <b>{compactEdges(metrics.border)}</b></span>
             <span className="box-model-label-padding" data-testid="box-model-label-padding">padding <b>{compactEdges(metrics.padding)}</b></span>
             <span className="box-model-label-content" data-testid="box-model-label-content">content <b>{rounded(metrics.contentBox.width)}×{rounded(metrics.contentBox.height)}</b></span>
-          </div>
+          </div>, labelDock)}
         </div>
       )}
       {metrics && <SpacingHandles key={`${context}:${selectedElementId}:${zoomLevel}`} metrics={metrics} zoomLevel={zoomLevel} onMeasure={measureSpacing} />}

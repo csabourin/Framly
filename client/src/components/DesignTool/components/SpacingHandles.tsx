@@ -1,4 +1,5 @@
 import React, { useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { store, type RootState } from '../../../store';
@@ -121,6 +122,7 @@ export default function SpacingHandles({ metrics, zoomLevel, onMeasure }: {
     return `${label} · ${source.value || '0px'} → ${metrics[kind][side]}px. ${ownership}. ${scope}. ${t('spacing.help')}${kind === 'margin' ? ` ${t('spacing.marginNote')}` : ''}`;
   };
   const inspected = controls.find((control) => control.property === (active || notice));
+  const helpDock = document.getElementById('canvas-measurement-help');
   const currentValue = (property: string, fallback: number) => {
     const node = document.querySelector<HTMLElement>(`[data-canvas="true"] [data-element-id="${CSS.escape(element.id)}"]`);
     return node ? Number.parseFloat(getComputedStyle(node).getPropertyValue(cssName(property))) || 0 : fallback;
@@ -183,9 +185,11 @@ export default function SpacingHandles({ metrics, zoomLevel, onMeasure }: {
       return <button key={property} type="button" role="spinbutton"
         className={`spacing-handle spacing-handle-${kind}`} data-testid={`spacing-${kind}-${side}`}
         aria-label={label} aria-valuenow={metrics[kind][side]} aria-valuemin={kind === 'padding' ? 0 : undefined}
-        aria-valuetext={`${metrics[kind][side]}px`} aria-describedby="spacing-help" title={help}
+        aria-valuetext={`${metrics[kind][side]}px`} aria-describedby="spacing-help"
         style={{ left: Math.max(halfHandle, Math.min(x, metrics.canvasWidth - halfHandle)), top: Math.max(halfHandle, Math.min(y, metrics.canvasHeight - halfHandle)), transform: `translate(-50%, -50%) scale(${1 / zoomLevel})`, cursor: horizontal ? 'ns-resize' : 'ew-resize' }}
         onFocus={() => setNotice(property)} onMouseEnter={() => setNotice(property)}
+        onBlur={() => setNotice('')}
+        onMouseLeave={(event) => { if (document.activeElement !== event.currentTarget) setNotice(''); }}
         onPointerDown={(event) => {
           if (event.button !== 0 || gesture.current) return;
           event.preventDefault();
@@ -225,9 +229,8 @@ export default function SpacingHandles({ metrics, zoomLevel, onMeasure }: {
         }}
       >{kind === 'padding' ? 'P' : 'M'}</button>;
     })}
-    <div id="spacing-help" className={`spacing-help${active ? ' spacing-help-active' : ''}`}
-      style={{ left: metrics.labelX, top: metrics.labelY + 26 }}>
+    {helpDock && createPortal(<div id="spacing-help" className="spacing-help" hidden={!inspected}>
       {inspected ? helpFor(inspected) : `${t('spacing.intro')} ${scope}. ${t('spacing.help')}`}
-    </div>
+    </div>, helpDock)}
   </div>;
 }

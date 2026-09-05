@@ -1,4 +1,5 @@
 import React, { useRef, useState, useCallback, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface CanvasContainerProps {
   canvasRef: React.RefObject<HTMLDivElement>;
@@ -55,6 +56,7 @@ const CanvasContainer: React.FC<CanvasContainerProps> = ({
   onContextMenu,
   onKeyDown
 }) => {
+  const { t } = useTranslation();
   const { minY, maxY, width } = contentBounds;
   const canvasHeight = Math.max(800, maxY - minY + 100);
   
@@ -127,6 +129,7 @@ const CanvasContainer: React.FC<CanvasContainerProps> = ({
   }, []);
 
   return (
+    <div className="framly-canvas-workspace">
     <div 
       ref={scrollContainerRef}
       className="framly-canvas-ground"
@@ -193,6 +196,11 @@ const CanvasContainer: React.FC<CanvasContainerProps> = ({
           Panning...
         </div>
       )}
+    </div>
+    <aside className="canvas-measurements" aria-label={t('spacing.measurements')} data-testid="canvas-measurements">
+      <div id="canvas-measurement-labels" />
+      <div id="canvas-measurement-help" />
+    </aside>
     </div>
   );
 };
