@@ -95,6 +95,8 @@ Recorded so they are not re-litigated. Each can be revisited — but knowingly.
 | **Saved is a transaction result** | The old status timer simulated success even when writes failed. The status now follows the real save queue. A workspace commit contains document data and references to history entries written in the same transaction; unchanged entries are reused to keep typing responsive. |
 | **Loading must finish before editing begins** | The former three-second startup race could expose an empty editor and later overwrite new edits with a delayed restore. Startup now waits for the saved document, or shows a retryable error. Legacy records and unsupported formats remain untouched. |
 | **A spacing preset is one action** | A preset may create a class and assign a style. Its history boundary includes both operations. Custom entry is explicitly revealed and opening it never rewrites mixed values. |
+| **Measurements must not cover the edit** | The box bands and spacing handles remain on the element. Numeric labels and contextual help render in a readout below the scrollable canvas, outside its scaled and clipped surface. Native handle tooltips are removed; keyboard descriptions still name the source and scope. |
+| **Enter belongs to the text** | Text blocks keep editing on Enter and save each input, including line breaks. The browser owns the caret and native editing undo; Redux updates only replace the DOM content when it differs. Ctrl/Cmd+Enter ends editing and Escape restores the content present on focus. |
 
 ---
 

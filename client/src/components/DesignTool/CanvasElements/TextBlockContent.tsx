@@ -32,6 +32,14 @@ export default function TextBlockContent({ content, editable, width, onChange, o
     style={{ minHeight: '1em', padding: '4px', width, boxSizing: 'border-box' }}
     onFocus={() => { original.current = content; }}
     onInput={(event) => onChange(event.currentTarget.innerHTML)}
+    onPaste={(event) => {
+      // Plain-text clipboard lines must not become nested paragraphs on export.
+      if (event.clipboardData.types.includes('text/html')) return;
+      event.preventDefault();
+      const escaped = document.createElement('div');
+      escaped.textContent = event.clipboardData.getData('text/plain');
+      document.execCommand('insertHTML', false, escaped.innerHTML.replace(/\r\n?|\n/g, '<br>'));
+    }}
     onBlur={onFinish}
     onKeyDown={(event) => {
       // Text editing keys belong to the browser, not the canvas shortcuts.

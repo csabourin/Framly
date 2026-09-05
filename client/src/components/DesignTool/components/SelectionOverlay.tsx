@@ -34,8 +34,6 @@ export interface BoxMetrics {
   margin: Edges;
   border: Edges;
   padding: Edges;
-  labelX: number;
-  labelY: number;
 }
 
 const px = (value: string) => {
@@ -123,7 +121,6 @@ const readBoxMetrics = (element: HTMLElement, canvas: HTMLElement, zoomLevel: nu
   };
   const paddingBox = insetRect(borderBox, border);
   const contentBox = insetRect(paddingBox, padding);
-  const labelsFitAbove = marginBox.y >= 30;
 
   return {
     canvasWidth: canvas.clientWidth,
@@ -135,8 +132,6 @@ const readBoxMetrics = (element: HTMLElement, canvas: HTMLElement, zoomLevel: nu
     margin,
     border,
     padding,
-    labelX: Math.max(4, marginBox.x),
-    labelY: labelsFitAbove ? marginBox.y - 26 : marginBox.y + marginBox.height + 6,
   };
 };
 

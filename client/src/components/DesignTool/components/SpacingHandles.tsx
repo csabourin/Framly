@@ -174,7 +174,6 @@ export default function SpacingHandles({ metrics, zoomLevel, onMeasure }: {
     {controls.map((control) => {
       const { kind, side, property, className } = control;
       const label = t(`spacing.${kind}`, { side: t(`spacing.${side}`) });
-      const help = helpFor(control);
       const outer = kind === 'padding' ? metrics.paddingBox : metrics.marginBox;
       const inner = kind === 'padding' ? metrics.contentBox : metrics.borderBox;
       const horizontal = side === 'top' || side === 'bottom';

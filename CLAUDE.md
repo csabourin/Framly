@@ -143,13 +143,19 @@ starter templates on an empty canvas; undo/redo; semantic HTML/CSS export;
 stable structural export classes (`page`, `hero`, `hero-title`, etc.); keyboard
 shortcuts with a searchable cheatsheet; light/dark colour modes. Canvas/export
 fidelity is browser-tested at all four breakpoints. Selecting an element draws
-and labels its computed margin, border, padding and content boxes on the canvas.
+its computed margin, border, padding and content boxes on the canvas. Dimensions
+and contextual spacing help appear in a readout below the scrollable canvas,
+so information never covers the object being edited.
 Padding and margin sides can be dragged or edited with arrow keys. Handles name
 their style owner and breakpoint scope; previews are temporary, and each commit
 is one undoable action. Margin labels report CSS values, not an inferred distance
 between siblings when margins collapse or a parent distributes free space.
 The inspector offers a spacing scale (0 / 4 / 8 / 12 / 16 / 24 / 32 / 48) for
 padding, margin, individual sides and parent gap, with an explicit Custom path.
+Text blocks support multiline input: Enter and Shift+Enter insert line breaks,
+Ctrl/Cmd+Enter finishes editing, and Escape restores the starting content.
+Each input is saved immediately; line breaks survive reload and HTML export.
+`tests/text-editing.spec.ts` covers these behaviors and plain-text multiline paste.
 
 Partly built — treat with care before extending:
 

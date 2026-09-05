@@ -1276,7 +1276,7 @@ body {
   gap: 2px 8px;
   color: var(--ink-2);
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: 11px;
   line-height: 15px;
   white-space: nowrap;
 }

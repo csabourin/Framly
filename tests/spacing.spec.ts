@@ -141,7 +141,8 @@ test('class-owned spacing previews every affected instance and undoes together',
   await expect(heroes).toHaveCount(2);
   await heroes.first().click();
   const handle = page.getByTestId('spacing-padding-top');
-  await expect(handle).toHaveAttribute('title', /Shared style .* · 2 elements/);
+  await handle.focus();
+  await expect(handle).toHaveAccessibleDescription(/Shared style .* · 2 elements/);
   const start = await dragStart(page, 'padding', 'top');
   await page.mouse.move(start.x, start.y + 8, { steps: 4 });
   for (const item of await heroes.all()) await expect(item).toHaveCSS('padding-top', '24px');

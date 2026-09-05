@@ -57,3 +57,26 @@ test('Escape restores the text from before editing, while Ctrl+Enter finishes a 
   await page.reload();
   expect(await text.innerText()).toBe('Keep this\nand this');
 });
+
+test('pasted plain text preserves line breaks and literal markup in the exported paragraph', async ({ page }) => {
+  await openApp(page);
+  await applyTemplate(page, 'landing');
+  await page.locator('.canvas-element[data-element-type="text"]').first().click();
+  const editor = page.getByRole('textbox', { name: 'Text block', exact: true });
+  await editor.fill('');
+  await editor.evaluate((node) => {
+    const clipboardData = new DataTransfer();
+    clipboardData.setData('text/plain', 'First <line>\r\nSecond & third\n\nLast');
+    node.dispatchEvent(new ClipboardEvent('paste', { clipboardData, bubbles: true, cancelable: true }));
+  });
+  expect(await editor.innerText()).toBe('First <line>\nSecond & third\n\nLast');
+  await editor.press('Control+Enter');
+  const html = await generatedHTML(page);
+  const exported = await page.context().newPage();
+  await exported.setContent(html);
+  const paragraph = exported.locator('p').filter({ hasText: 'First <line>' });
+  await expect(paragraph).toHaveCount(1);
+  expect(await paragraph.innerText()).toBe('First <line>\nSecond & third\n\nLast');
+  await expect(paragraph.locator('line')).toHaveCount(0);
+  await exported.close();
+});

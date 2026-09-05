@@ -204,6 +204,9 @@ above is table stakes; this is the reason Framly exists.*
       click-through, has an accessible text equivalent, and follows layout,
       style, zoom, scroll and breakpoint changes. The old blue selection
       chrome and dormant `PaddingHandles` prototype are gone.
+      Measurements and spacing help now occupy a readout below the canvas,
+      outside the editable surface; a browser check guards against overlap
+      at base and tablet widths with zoom.
       *Verified by:* two browser tests cover the complete labelled overlay,
       distinct colours, interaction safety and live remeasurement. Deleting
       the margin layer made the gate fail on that exact missing box. ✅
