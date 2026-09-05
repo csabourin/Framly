@@ -35,9 +35,9 @@ Three promises, in priority order. When two conflict, the higher one wins:
 
 ### 👉 Start here
 
-**M2.5 — Show the flow.** Plain-language labels with the real property underneath
-are in place. Next, explain whether the selected element is in normal flow and
-which direction its parent places its children, using actual layout evidence.
+**M3.1 — Heading structure.** Flow explanations now use computed browser styles
+and link to the selected box's setting or its layout parent's control. Next,
+offer sensible heading levels and guidance when a page skips a level.
 
 The requested persistence follow-up is also complete: the 30-second delay and
 simulated "Saved" status have been replaced with immediate, acknowledged saves.
@@ -239,12 +239,23 @@ above is table stakes; this is the reason Framly exists.*
       *Verified by:* bilingual browser review, keyboard/accessibility checks,
       and 34 existing responsive, spacing and export regressions. The measured
       accessibility baseline was tightened. ✅
-- [ ] `[M]` **Show the flow.** Indicate whether an element is in normal flow, and
+- [x] `[M]` **Show the flow.** Indicate whether an element is in normal flow, and
       which direction its parent stacks children.
-      *Done when:* it is obvious why an element landed where it did.
+      The inspector reads computed styles, distinguishes normal/absolute/fixed/
+      floating/hidden/boxless layouts, and describes parent flex, grid or block
+      flow. Flex arrows account for reverse direction, RTL and writing mode.
+      Keyboard links select the layout parent or focus the controlling setting;
+      edits continue through the existing breakpoint writer. The editor's forced
+      relative-position rule was removed so explicit positioning can take effect.
+      *Verified by:* five browser regressions cover computed CSS, parent navigation,
+      breakpoint edits, independent export, undo, hidden ancestors, boxless parents
+      and accessibility; English/French visual review also completed. ✅
 
 **Milestone done when:** someone who does not know what padding is can add it,
 see it, and tell you its name — without reading any documentation.
+
+Implementation is complete. Beginner/designer task sessions still need to validate
+the milestone's overall usability criterion.
 
 ---
 

@@ -61,9 +61,9 @@ export function readLayoutFlow(node: HTMLElement, root: HTMLElement): LayoutFlow
     writingMode: layout?.writingMode || '',
     arrow: layout ? flowDirection(layout.writingMode, layout.direction, /flex/.test(layout.display) ? layout.flexDirection : 'column') : null,
     order: own.order,
-    transformed: own.transform !== 'none',
+    transformed: own.transform !== 'none' && !new DOMMatrixReadOnly(own.transform).isIdentity,
     gridPlacement: [own.gridColumnStart, own.gridColumnEnd, own.gridRowStart, own.gridRowEnd].some((value) => value !== 'auto'),
-    offset: [own.top, own.right, own.bottom, own.left].some((value) => value !== 'auto'),
+    offset: [own.top, own.right, own.bottom, own.left].some((value) => Number.isFinite(parseFloat(value)) && parseFloat(value) !== 0),
     hiddenById,
   };
 }

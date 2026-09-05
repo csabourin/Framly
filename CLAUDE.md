@@ -89,6 +89,7 @@ be too. A check that cannot fail is worthless.
 | Direct spacing | `tests/spacing.spec.ts`: padding/margin handles preview live, cancel cleanly, respect zoom and breakpoints, support keyboard editing and commit one undo step. Shared styles and independently rendered exports must agree. |
 | Spacing scale | `tests/spacing-scale.spec.ts`: presets and Custom remain keyboard accessible, undo together, preserve side overrides and match exported CSS. |
 | Durable saving | `tests/persistence.spec.ts`: Saved waits for transaction completion; acknowledged edits and undo/redo survive reload; failed writes preserve the previous snapshot and offer retry and live backup. Legacy migration and import retain recovery copies. The aborted-write test was verified to fail when saving resolves before transaction completion. |
+| Layout explanations | `tests/layout-flow.spec.ts`: computed parent flow, reverse/RTL/vertical axes, hidden and boxless ancestors, keyboard navigation, real positioning and breakpoint export must agree. |
 | `tests/deadcode.spec.ts` | Fails on any unreachable file. `components/ui/*` is exempt. |
 
 # Architecture
@@ -155,6 +156,11 @@ padding, margin, individual sides and parent gap, with an explicit Custom path.
 Layout controls show a plain-language name followed by the real property in mono,
 in English and French. Search accepts those names, CSS names and legacy labels;
 inputs expose the same names to assistive technology.
+The flow explanation reads the browser's actual selected and parent styles, and
+links to the existing inspector controls. It distinguishes normal flow from
+out-of-flow positioning, handles grid and boxless ancestors, and explains flex
+direction without assuming a horizontal writing mode. Canvas positioning now
+honors explicit rules instead of forcing every element to remain relative.
 Text blocks support multiline input: Enter and Shift+Enter insert line breaks,
 Ctrl/Cmd+Enter finishes editing, and Escape restores the starting content.
 Each input is saved immediately; line breaks survive reload and HTML export.

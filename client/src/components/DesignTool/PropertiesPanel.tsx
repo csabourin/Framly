@@ -698,7 +698,7 @@ const PropertiesPanel: React.FC = () => {
       <LayoutFlowInfo key={selectedElement.id} element={selectedElement} onInspect={(id, property) => {
         dispatch(selectElement(id));
         setPropertySearchTerm(property);
-        setExpandedGroups((groups) => ({ ...groups, layout: true, flex: true, grid: true, spacing: true }));
+        setExpandedGroups((groups) => ({ ...groups, layout: true, flex: true, grid: true, spacing: true, advanced: true }));
         requestAnimationFrame(() => {
           const control = document.querySelector<HTMLElement>(`[data-testid="property-${property}"] input, [data-testid="property-${property}"] [role="combobox"]`);
           control?.scrollIntoView({ block: 'nearest' });
