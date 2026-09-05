@@ -209,21 +209,30 @@ export function suggestLevelForExisting(
  *
  * One entry per heading at most, because a heading with two problems only
  * needs one fix and two messages would just be noise.
+ *
+ * The offered fix is the level the outline calls for — the same suggestion the
+ * panel explains in words, so the sentence and the button can never disagree.
+ * Stepping one below the heading above would be enough to make the document
+ * *valid*, but it can be wrong: on `h1 → h2 → h1`, the third heading is a
+ * second section, and nesting it under the first as an `h3` says something the
+ * author did not mean. The one exception is a page whose first heading is not
+ * `h1`: that message names the page title, so the fix has to be `h1`.
  */
 export function headingIssues(elements: HeadingElements, rootId = 'root'): HeadingIssue[] {
   const outline = headingOutline(elements, rootId);
   const issues: HeadingIssue[] = [];
+  const fixFor = (id: string) => suggestLevelForExisting(elements, id, rootId).level;
   let previousLevel = 0;
   let seenH1 = false;
 
   for (const entry of outline) {
     const shared = { id: entry.id, level: entry.level, previousLevel };
     if (entry.level === 1 && seenH1) {
-      issues.push({ ...shared, problem: 'secondH1', suggested: Math.min(previousLevel + 1, MAX_LEVEL) });
+      issues.push({ ...shared, problem: 'secondH1', suggested: fixFor(entry.id) });
     } else if (previousLevel === 0 && entry.level > 1) {
       issues.push({ ...shared, problem: 'startsBelowH1', suggested: 1 });
     } else if (entry.level > previousLevel + 1) {
-      issues.push({ ...shared, problem: 'skipped', suggested: previousLevel + 1 });
+      issues.push({ ...shared, problem: 'skipped', suggested: fixFor(entry.id) });
     }
     if (entry.level === 1) seenH1 = true;
     previousLevel = entry.level;

@@ -310,7 +310,9 @@ itself. Do them together; it's the same skill and the same context.*
       chips, a sentence saying why the suggested one is suggested, and the
       page outline. A skipped level, a page starting below `h1` and a second
       `h1` are each named in plain language with a one-click fix that is one
-      undo step. The header's parked "Checks" pill reports heading problems
+      undo step. The fix offers the level the outline calls for, not one step
+      below the heading above: on `h1 → h2 → h1` the third heading is another
+      section, and `h3` would nest it under its own sibling. The header's parked "Checks" pill reports heading problems
       when the heading itself is not selected, and stays silent otherwise —
       alt text, contrast and labels are not checked yet, so a clean verdict
       would be a promise Framly cannot keep.

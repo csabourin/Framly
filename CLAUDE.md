@@ -100,7 +100,7 @@ be too. A check that cannot fail is worthless.
 | Spacing scale | `tests/spacing-scale.spec.ts`: presets and Custom remain keyboard accessible, undo together, preserve side overrides and match exported CSS. |
 | Durable saving | `tests/persistence.spec.ts`: Saved waits for transaction completion; acknowledged edits and undo/redo survive reload; failed writes preserve the previous snapshot and offer retry and live backup. Legacy migration and import retain recovery copies. The aborted-write test was verified to fail when saving resolves before transaction completion. |
 | Layout explanations | `tests/layout-flow.spec.ts`: computed parent flow, reverse/RTL/vertical axes, hidden and boxless ancestors, keyboard navigation, real positioning and breakpoint export must agree. |
-| Heading structure | `tests/heading-structure.spec.ts`: an inserted heading takes the level its position calls for, at three depths and in the export; a skipped level, a page below `h1` and a second `h1` are named and fixed in one undoable click; the outline works by keyboard; axe passes on the warning states; all three templates stay sound. |
+| Heading structure | `tests/heading-structure.spec.ts`: an inserted heading takes the level its position calls for, at three depths and in the export; a skipped level, a page below `h1` and a second `h1` are named and fixed in one undoable click, and the fix is the peer level the outline calls for rather than one step below the heading above; the outline works by keyboard; axe passes on the warning states; all three templates stay sound. |
 | `tests/deadcode.spec.ts` | Fails on any unreachable file. `components/ui/*` is exempt. |
 
 # Architecture

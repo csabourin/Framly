@@ -103,6 +103,30 @@ test('a skipped level is named in plain language and fixed in one click, as one 
   await expect(second.locator('h2')).toHaveCount(1);
 });
 
+test('a second h1 is fixed to a peer of the heading above it, not a subsection of it', async ({ page }) => {
+  await openApp(page);
+  await insertHeading(page, { x: 60, y: 60 });
+  await insertHeading(page, { x: 60, y: 220 });
+  await insertHeading(page, { x: 60, y: 320 });
+
+  // Make the third heading a second title. The heading above it is an H2, so
+  // stepping one below that would offer H3 — valid, but wrong: this is another
+  // top-level section, not a subsection of the one before it.
+  const third = headings(page).nth(2);
+  await third.click();
+  await page.getByTestId('heading-level-1').click();
+  await expect(page.getByTestId('heading-problem')).toContainText('already has an H1');
+  await expect(page.getByTestId('heading-fix')).toHaveText('Use H2');
+
+  await page.getByTestId('heading-fix').click();
+  await expect(third.locator('h2')).toHaveCount(1);
+  await expect(page.getByTestId('heading-problem')).toBeHidden();
+
+  const html = await generatedHTML(page);
+  expect(html.match(/<h1[\s>]/g) ?? []).toHaveLength(1);
+  expect(html).not.toContain('<h3');
+});
+
 test('a page that would start at h3 says so, and the fix reaches the export', async ({ page }) => {
   await openApp(page);
   await insertHeading(page, { x: 60, y: 60 });
