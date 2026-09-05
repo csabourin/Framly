@@ -208,8 +208,14 @@
  * impossible to select or drop into here. This is the one deliberate
  * departure, and it is scoped to elements that render nothing at all, so no
  * element carrying content or children can be measured through it.
+ *
+ * Keyed off an attribute the component sets, not `:empty`. `:empty` matched
+ * nothing at all: the wrapper always contains the variable-carrier div, and a
+ * selected element gains a `.selection-handle` child on top of that — so the
+ * rule silently did nothing in every state, including the one it was written
+ * for. `tests/box-model.spec.ts` now fails if the floor stops applying.
  */
-.canvas-element:empty {
+.canvas-element[data-renders-nothing='true'] {
   min-height: 32px;
   min-width: 32px;
 }

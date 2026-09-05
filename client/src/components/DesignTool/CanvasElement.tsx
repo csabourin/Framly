@@ -999,17 +999,28 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
   const isImportedElement = element.classes?.includes('_imported-element');
 
   /*
-   * A text box you have not typed into yet collapses to zero height and
-   * becomes impossible to click. Every text element used to carry a 1.2em
-   * floor for that reason, which meant a short line measured taller on the
-   * canvas than in the exported page. Scope it to the elements that really do
-   * render nothing, so anything with content measures the truth.
+   * Two floors, both for elements that render nothing.
+   *
+   * A text box you have not typed into yet, or a container with no children,
+   * collapses to zero and becomes impossible to click or drop into. Every text
+   * element used to carry a 1.2em floor and every canvas element a 32px one,
+   * which meant a short line measured taller on the canvas than in the page it
+   * exports. Both are now scoped to the elements that really do render
+   * nothing, so anything with content measures the truth.
+   *
+   * This drives `data-renders-nothing`, and it has to be an attribute this
+   * component sets. The CSS started as `.canvas-element:empty`, which matched
+   * nothing in any state: the wrapper always contains at least the
+   * variable-carrier div, and a selected element gains a `.selection-handle`
+   * child on top of that.
    */
-  const rendersNothing = ['text', 'heading'].includes(element.type)
-    ? !(element.content || '').trim()
-    : element.type === 'list'
-      ? !(element.listItems || []).length
-      : false;
+  const rendersNothing = (element.children || []).length === 0 && (
+    ['text', 'heading'].includes(element.type)
+      ? !(element.content || '').trim()
+      : element.type === 'list'
+        ? !(element.listItems || []).length
+        : element.isContainer === true
+  );
 
   // Only use inline styles for essential behavior and positioning
   const minimalInlineStyles: React.CSSProperties = {
@@ -1100,6 +1111,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
         data-container={element.isContainer ? 'true' : 'false'}
         data-accepts={element.isContainer ? 'text,image,button,rectangle,heading,container' : ''}
         data-element-type={element.type}
+        data-renders-nothing={rendersNothing ? 'true' : undefined}
         data-testid={`canvas-element-${element.id}`}
         data-drop-target={
           isThisElementHovered && thisElementHoveredZone ? thisElementHoveredZone : undefined

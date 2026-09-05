@@ -90,3 +90,40 @@ test('measurement labels and spacing help stay outside the editable canvas at ev
   await page.locator('.canvas-element[data-element-type="text"]').first().click();
   await expect(page.locator('#spacing-help')).toBeHidden();
 });
+
+test('an element that renders nothing keeps a clickable floor, selected or not', async ({ page }) => {
+  await openApp(page);
+
+  // A section inserted by point-and-click has no children and no content, so
+  // it is exactly the case the floor exists for.
+  await page.getByTestId('button-tool-section').click();
+  const board = page.locator('.cursor-crosshair');
+  const box = (await board.boundingBox())!;
+  await page.mouse.click(box.x + 60, box.y + 60);
+
+  const empty = page.locator('.canvas-element[data-renders-nothing="true"]');
+  await expect(empty).toHaveCount(1);
+
+  // Back to the pointer, or the next click inserts a second section.
+  await page.getByTestId('button-tool-pointer').click();
+
+  // Selecting it adds a .selection-handle child. The floor is keyed off an
+  // attribute rather than :empty precisely so that child cannot cancel it —
+  // an earlier :empty version matched nothing in any state.
+  for (const stage of ['before selection', 'after selection']) {
+    if (stage === 'after selection') {
+      await empty.click({ position: { x: 2, y: 2 } });
+      await expect(page.getByTestId('selection-handle')).toBeVisible();
+    }
+
+    // Assert the rule *matches*, not merely that the box is big enough — a
+    // section is over 32px on its own, so measuring the box would pass even
+    // with the floor switched off. Matching is the part that broke: the rule
+    // began as `:empty`, which never matched, because the wrapper always
+    // holds the variable-carrier div and selection adds a handle beside it.
+    // min-width, not min-height: a section declares its own min-height and an
+    // element's own style rightly wins, so only min-width isolates the floor.
+    const floor = await empty.evaluate((node) => getComputedStyle(node).minWidth);
+    expect(floor, `the clickable floor applies ${stage}`).toBe('32px');
+  }
+});
