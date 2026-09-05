@@ -1185,6 +1185,9 @@ body {
   font-size: 12px;
 }
 
+.framly-rail-warning { border-color: var(--warn); color: var(--warn); }
+.framly-rail-warning:not(:disabled):hover { border-color: var(--warn); color: var(--warn); }
+
 .framly-page-controls { display: flex; align-items: center; gap: 3px; }
 .framly-add-page { display: flex; height: 28px; width: 28px; align-items: center; justify-content: center; border: 1px solid var(--rule); border-radius: 4px; color: var(--ink-2); }
 .framly-add-page:hover { border-color: var(--rule-strong); background: var(--paper-2); color: var(--ink); }
@@ -1390,6 +1393,41 @@ body {
 .flow-explanation:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
 .flow-explanation code, .flow-action, .flow-scope { color: var(--ink-2); font: 11px/1.4 var(--font-mono); overflow-wrap: anywhere; }
 .flow-action { text-decoration: underline; text-underline-offset: 2px; }
+/* Heading structure — the outline, not a text size. Amber is the "warn" hue
+   from the palette, used here for the one thing it is reserved for: a check. */
+.heading-structure { padding: 12px 16px; border-bottom: 1px solid var(--rule); color: var(--ink); font-size: 12px; }
+.heading-structure h3 { margin-bottom: 8px; font-weight: 600; }
+.heading-levels { display: flex; flex-wrap: wrap; gap: 3px; }
+.heading-levels button {
+  min-width: 32px; min-height: 28px; padding: 3px 6px; border: 1px solid var(--rule-strong);
+  border-radius: 4px; background: var(--paper); color: var(--ink); font: 11px var(--font-mono);
+}
+.heading-levels button[aria-pressed='true'] { background: var(--ink); color: var(--ink-inv); }
+.heading-levels button.is-suggested { border-color: var(--ink); border-style: dashed; }
+.heading-levels button.is-suggested[aria-pressed='true'] { border-style: solid; }
+.heading-structure button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.heading-reason { margin-top: 6px; color: var(--ink-2); }
+.heading-problem {
+  display: grid; gap: 6px; justify-items: start; margin-top: 8px; padding: 7px 8px;
+  border: 1px solid var(--warn); border-radius: 4px; background: var(--paper-2);
+}
+.heading-problem p { display: flex; gap: 6px; align-items: flex-start; color: var(--ink); }
+.heading-problem svg { flex: none; margin-top: 1px; color: var(--warn); }
+.heading-problem button { min-height: 28px; padding: 3px 8px; border: 1px solid var(--ink); border-radius: 4px; background: var(--ink); color: var(--ink-inv); }
+.heading-outline { margin-top: 8px; }
+.heading-outline summary { cursor: pointer; color: var(--ink-2); }
+.heading-outline ol { margin-top: 4px; }
+.heading-outline li { list-style: none; }
+.heading-outline li button {
+  display: flex; gap: 6px; align-items: center; width: 100%; min-height: 26px;
+  padding: 2px 4px; border: 1px solid transparent; border-radius: 4px; text-align: left;
+}
+.heading-outline li button:hover { border-color: var(--rule); background: var(--paper-2); }
+.heading-outline li button[aria-current='true'] { border-color: var(--rule-strong); background: var(--paper-2); font-weight: 600; }
+.heading-outline code { color: var(--ink-2); font: 11px/1.4 var(--font-mono); }
+.heading-outline span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.heading-outline svg { color: var(--warn); }
+
 .spacing-scale-options { display: flex; flex-wrap: wrap; gap: 3px; }
 .spacing-scale-options button, .spacing-custom-toggle {
   min-width: 25px; min-height: 28px; padding: 3px 5px; border: 1px solid var(--rule-strong);

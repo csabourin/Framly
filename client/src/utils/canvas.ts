@@ -93,7 +93,10 @@ export function createDefaultElement(type: CanvasElement['type'], x?: number, y?
         width: 0, // Auto-width based on content and container
         height: 50,
         content: 'Edit this heading',
-        headingLevel: 1,
+        // No level here on purpose: `addElement` reads the page outline and
+        // picks the level that fits where the heading is dropped. A default of
+        // 1 baked in at creation is how pages end up with five h1s.
+        headingLevel: undefined,
         styles: {
           fontSize: '32px',
           fontWeight: '700',

@@ -100,6 +100,7 @@ be too. A check that cannot fail is worthless.
 | Spacing scale | `tests/spacing-scale.spec.ts`: presets and Custom remain keyboard accessible, undo together, preserve side overrides and match exported CSS. |
 | Durable saving | `tests/persistence.spec.ts`: Saved waits for transaction completion; acknowledged edits and undo/redo survive reload; failed writes preserve the previous snapshot and offer retry and live backup. Legacy migration and import retain recovery copies. The aborted-write test was verified to fail when saving resolves before transaction completion. |
 | Layout explanations | `tests/layout-flow.spec.ts`: computed parent flow, reverse/RTL/vertical axes, hidden and boxless ancestors, keyboard navigation, real positioning and breakpoint export must agree. |
+| Heading structure | `tests/heading-structure.spec.ts`: an inserted heading takes the level its position calls for, at three depths and in the export; a skipped level, a page below `h1` and a second `h1` are named and fixed in one undoable click, and the fix is the peer level the outline calls for rather than one step below the heading above; the outline works by keyboard; axe passes on the warning states; all three templates stay sound. |
 | `tests/deadcode.spec.ts` | Fails on any unreachable file. `components/ui/*` is exempt. |
 
 # Architecture
@@ -175,6 +176,14 @@ Text blocks support multiline input: Enter and Shift+Enter insert line breaks,
 Ctrl/Cmd+Enter finishes editing, and Escape restores the starting content.
 Each input is saved immediately; line breaks survive reload and HTML export.
 `tests/text-editing.spec.ts` covers these behaviors and plain-text multiline paste.
+Heading level is treated as page structure, not text size. `utils/headingOutline.ts`
+is DOM-free like the code generator: it reads the outline from the element record,
+so the reducer that assigns a level on insert and the panel that explains one apply
+identical rules. A new heading has no level of its own — `addElement` gives it the
+one its position calls for, so no insertion path can bypass it. The inspector shows
+level chips, the reason for the suggested level, and the page outline with any
+problem heading flagged and reachable. The header's "Checks" pill reports heading
+problems only, and only when there are some.
 
 Partly built — treat with care before extending:
 

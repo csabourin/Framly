@@ -582,5 +582,30 @@
   "spacingScale": {
     "label": "{{label}} · échelle d’espacement",
     "custom": "Personnalisé"
+  },
+  "headings": {
+    "title": "Structure des titres",
+    "checks_one": "{{count}} titre à vérifier",
+    "checks_other": "{{count}} titres à vérifier",
+    "level": "Niveau de titre",
+    "levelOption": "Niveau de titre {{level}}",
+    "levelSuggestedOption": "Niveau de titre {{level}} · suggéré ici",
+    "untitled": "Titre sans texte",
+    "undoLabel": "Niveau de titre H{{level}}",
+    "outline_one": "Plan de la page · {{count}} titre",
+    "outline_other": "Plan de la page · {{count}} titres",
+    "problemShort": "Vérifier ce titre",
+    "fix": "Utiliser H{{level}}",
+    "reason": {
+      "firstHeading": "Rien ne le précède : H1 en fait le titre de la page.",
+      "peer": "Il suit « {{after}} » (H{{afterLevel}}) dans la même boîte : H{{level}} en fait une autre section de même niveau.",
+      "subsection": "Il se trouve à l’intérieur de « {{after}} » (H{{afterLevel}}) : H{{level}} en fait une sous-section.",
+      "onlyTitleTaken": "La page a déjà son titre H1 : H{{level}} en fait une section de celui-ci."
+    },
+    "problem": {
+      "skipped": "On passe de H{{previous}} à H{{level}}. Un lecteur d’écran annonce un niveau manquant, comme si une section avait été oubliée.",
+      "startsBelowH1": "Cette page commence à H{{level}}. Le premier titre est le titre de la page, et c’est un H1.",
+      "secondH1": "La page a déjà un H1. Un seul titre par page, sinon un lecteur d’écran entend deux débuts."
+    }
   }
 }
