@@ -17,7 +17,9 @@ Three promises, in priority order. When two conflict, the higher one wins:
    at the moment of the mistake.
 
 **`TODO.md` is the roadmap** — sequenced, one next action at the top. Work from
-it.
+it. **`docs/orientation.md`** is why things are the way they are: what the
+diagnosis found, which decisions are already taken and why, and the traps that
+have cost time. Read it before revisiting a decision that looks settled.
 
 **Before any UI or visual work, read `docs/interface.md`.** It is the interface
 direction: the palette (and the rule that colour only ever means something), the
