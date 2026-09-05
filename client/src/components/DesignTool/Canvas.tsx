@@ -333,8 +333,6 @@ const Canvas: React.FC = () => {
       <InsertionIndicator
         insertionIndicator={drawingEvents.isDrawing ? drawingPreview.insertionPreview : dragAndDrop.insertionIndicator}
         isDrawingMode={drawingEvents.isDrawing}
-        drawingRect={drawingPreview.drawingBounds}
-        zoomLevel={zoomLevel}
       />
 
       <DrawingOverlay

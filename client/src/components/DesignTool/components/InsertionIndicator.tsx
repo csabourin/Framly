@@ -2,32 +2,20 @@ import React from 'react';
 import { DROP_ZONES } from '../utils/insertionLogic';
 import type { InsertionIndicatorState } from '../utils/insertionLogic';
 
-interface DrawingRect {
-    x: number;
-    y: number;
-    width: number;
-    height: number;
-}
-
 interface InsertionIndicatorProps {
     insertionIndicator: InsertionIndicatorState | null;
     isDrawingMode?: boolean;
-    drawingRect?: DrawingRect | null;
-    zoomLevel?: number;
 }
 
 /**
  * Visual indicator component for showing where elements will be placed.
  * Used during both drag-and-drop and drawing operations.
  *
- * In drawing mode, provides faster transitions and can show a connection
- * line between the drawn rectangle and the insertion point.
+ * In drawing mode, provides faster transitions at the insertion point.
  */
 const InsertionIndicator: React.FC<InsertionIndicatorProps> = ({
     insertionIndicator,
-    isDrawingMode = false,
-    drawingRect = null,
-    zoomLevel = 1
+    isDrawingMode = false
 }) => {
     if (!insertionIndicator || !insertionIndicator.bounds) return null;
 
@@ -46,62 +34,11 @@ const InsertionIndicator: React.FC<InsertionIndicatorProps> = ({
         transition: isDrawingMode ? 'all 0.05s ease-out' : 'all 0.1s ease-out',
     };
 
-    // Render connector line from drawing rect to insertion indicator
-    const renderConnector = () => {
-        if (!isDrawingMode || !drawingRect || position === DROP_ZONES.INSIDE) return null;
-
-        // Only draw connector if bounds are numeric (not percentage strings like '100%')
-        if (
-            typeof bounds.x !== 'number' ||
-            typeof bounds.y !== 'number' ||
-            typeof bounds.width !== 'number'
-        ) {
-            return null;
-        }
-
-        // Calculate connector line from center-bottom of drawing rect to indicator
-        const drawingCenterX = drawingRect.x + drawingRect.width / 2;
-        const drawingBottomY = drawingRect.y + drawingRect.height;
-
-        const indicatorY = bounds.y;
-        const indicatorCenterX = bounds.x + bounds.width / 2;
-
-        // Calculate the line angle and length
-        const deltaX = indicatorCenterX - drawingCenterX;
-        const deltaY = indicatorY - drawingBottomY;
-        const length = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-        const angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI);
-
-        // Only show connector if there's meaningful distance
-        if (length < 20) return null;
-
-        return (
-            <div
-                className="insertion-connector"
-                style={{
-                    position: 'absolute',
-                    left: drawingCenterX * zoomLevel,
-                    top: drawingBottomY * zoomLevel,
-                    width: length,
-                    height: 2,
-                    background: 'linear-gradient(90deg, rgba(59, 130, 246, 0.3) 0%, rgba(59, 130, 246, 0.6) 100%)',
-                    transformOrigin: '0 50%',
-                    transform: `rotate(${angle}deg)`,
-                    pointerEvents: 'none',
-                    zIndex: 9998,
-                    opacity: 0.7,
-                    transition: 'all 0.05s ease-out'
-                }}
-            />
-        );
-    };
-
     // Specific styles based on zone type
     if (isCanvasZone) {
         // Canvas Padding Drop (Start/End)
         return (
             <>
-                {renderConnector()}
                 <div style={{
                     ...style,
                     height: 6,
@@ -140,7 +77,6 @@ const InsertionIndicator: React.FC<InsertionIndicatorProps> = ({
 
     return (
         <>
-            {renderConnector()}
             <div
                 className="insertion-line-indicator"
                 style={{
