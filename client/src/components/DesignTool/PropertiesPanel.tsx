@@ -1,4 +1,5 @@
 import LayoutFlowInfo from './LayoutFlowInfo';
+import HeadingStructure from './HeadingStructure';
 import { propertyPresentation } from '../../utils/propertyLabels';
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -694,6 +695,9 @@ const PropertiesPanel: React.FC = () => {
           )}
         </div>
       </div>
+
+      {selectedElement.type === 'heading' &&
+        <HeadingStructure key={`heading-${selectedElement.id}`} element={selectedElement} />}
 
       <LayoutFlowInfo key={selectedElement.id} element={selectedElement} onInspect={(id, property) => {
         dispatch(selectElement(id));

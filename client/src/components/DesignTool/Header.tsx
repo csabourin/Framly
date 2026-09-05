@@ -2,16 +2,17 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import {
-  ChevronDown, Download, Eye, Keyboard, Maximize, Minus, MoreHorizontal,
+  AlertTriangle, ChevronDown, Download, Eye, Keyboard, Maximize, Minus, MoreHorizontal,
   Plus, Settings, SlidersHorizontal, Smartphone, Tablet, Monitor, MonitorUp, Zap,
 } from 'lucide-react';
 import { RootState } from '../../store';
-import { selectCanvasProject, selectUIState } from '../../store/selectors';
-import { switchBreakpoint, updateProjectName } from '../../store/canvasSlice';
+import { selectCanvasProject, selectCurrentElements, selectUIState } from '../../store/selectors';
+import { selectElement, switchBreakpoint, updateProjectName } from '../../store/canvasSlice';
+import { headingIssues } from '../../utils/headingOutline';
 import {
   fitToScreen, setButtonDesignerOpen, setClassEditorOpen, setCodeModalOpen,
   setComponentEditorOpen, setCSSOptimizationModalOpen, setExportModalOpen,
-  setSettingsMenuOpen, setZoomLevel, zoomIn, zoomOut,
+  setRightPanelTab, setSettingsMenuOpen, setZoomLevel, zoomIn, zoomOut,
 } from '../../store/uiSlice';
 import { Button } from '@/components/ui/button';
 import {
@@ -42,6 +43,8 @@ const Header: React.FC<HeaderProps> = ({ onShowKeyboardShortcuts }) => {
   const dispatch = useDispatch();
   const project = useSelector(selectCanvasProject);
   const zoomLevel = useSelector((state: RootState) => selectUIState(state).zoomLevel);
+  const elements = useSelector(selectCurrentElements);
+  const outlineProblems = React.useMemo(() => headingIssues(elements), [elements]);
 
   const defaultBreakpoints = {
     mobile: { name: 'mobile', label: t('breakpoints.mobile'), width: 375 },
@@ -129,10 +132,28 @@ const Header: React.FC<HeaderProps> = ({ onShowKeyboardShortcuts }) => {
           </DropdownMenuContent>
         </DropdownMenu>
 
-        <button className="framly-rail-control hidden 2xl:flex" disabled aria-label="Checks are not available yet">
-          <span className="h-1.5 w-1.5 rounded-full bg-[var(--ink-3)]" />
-          Checks —
-        </button>
+        {/* A warning only the selected element shows is not a guardrail, so the
+            one check that exists reports from here too. It stays silent when
+            there is nothing wrong rather than claiming the page is clear —
+            alt text, contrast and labels are not checked yet. */}
+        {outlineProblems.length > 0 ? (
+          <button
+            className="framly-rail-control framly-rail-warning"
+            data-testid="checks-headings"
+            onClick={() => {
+              dispatch(selectElement(outlineProblems[0].id));
+              dispatch(setRightPanelTab('properties'));
+            }}
+          >
+            <AlertTriangle className="h-3.5 w-3.5" />
+            {t('headings.checks', { count: outlineProblems.length })}
+          </button>
+        ) : (
+          <button className="framly-rail-control hidden 2xl:flex" disabled aria-label="Checks are not available yet">
+            <span className="h-1.5 w-1.5 rounded-full bg-[var(--ink-3)]" />
+            Checks —
+          </button>
+        )}
 
         <Button
           variant="ghost"

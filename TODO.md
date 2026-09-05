@@ -35,9 +35,12 @@ Three promises, in priority order. When two conflict, the higher one wins:
 
 ### 👉 Start here
 
-**M3.1 — Heading structure.** Flow explanations now use computed browser styles
-and link to the selected box's setting or its layout parent's control. Next,
-offer sensible heading levels and guidance when a page skips a level.
+**M3.2 — Alt text at insert time.** Heading structure is done: a new heading
+gets the level its position calls for, the inspector shows the page outline
+instead of a dropdown of sizes, and a broken outline is named in a sentence
+with a one-click fix — from the header too, when the heading is not selected.
+Next, ask for alt text when an image is added, with "decorative" as an explicit
+and respected choice rather than an empty field.
 
 An audit closed a hole in the canvas/export gate first: the editor had been
 adding a border, a minimum and its own type scale to every element it measured,
@@ -298,8 +301,22 @@ itself. Do them together; it's the same skill and the same context.*
 
 ### The pages Framly makes
 
-- [ ] `[M]` **Heading structure.** Offer the correct next level by default; warn
-      on a skipped level; never let a page start at `h3` by accident.
+- [x] `[M]` **Heading structure.** A heading is created with no level, and
+      `addElement` reads the page outline to give it one: `h1` when nothing
+      precedes it, the same level as the heading above it in the same box, one
+      deeper when it lands one container in — and never a second `h1`. The
+      inspector replaces the "H1 (Largest)" dropdown, which described size
+      rather than meaning and sat inside a collapsed group, with six level
+      chips, a sentence saying why the suggested one is suggested, and the
+      page outline. A skipped level, a page starting below `h1` and a second
+      `h1` are each named in plain language with a one-click fix that is one
+      undo step. The header's parked "Checks" pill reports heading problems
+      when the heading itself is not selected, and stays silent otherwise —
+      alt text, contrast and labels are not checked yet, so a clean verdict
+      would be a promise Framly cannot keep.
+      *Done when:* `tests/heading-structure.spec.ts` — insert-time levels at
+      three depths, the warning and its fix, the export tags, the outline by
+      keyboard, axe on the warning states, and all three templates.
 - [ ] `[M]` **Alt text at insert time.** Ask when the image is added, with
       "decorative" as an explicit, respected choice — not an empty field.
 - [ ] `[M]` **Live contrast in the colour picker.** Show the ratio and the AA

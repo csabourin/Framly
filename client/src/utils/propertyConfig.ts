@@ -550,22 +550,10 @@ export const elementPropertyMap: Record<ElementType, PropertyConfig[]> = {
     ...advancedProperties.filter(p => !['overflow'].includes(p.key))
   ],
   heading: [
-    {
-      key: 'headingLevel',
-      label: 'Heading Level',
-      type: 'select',
-      category: 'text',
-      priority: 1,
-      options: [
-        { value: '1', label: 'H1 (Largest)' },
-        { value: '2', label: 'H2' },
-        { value: '3', label: 'H3' },
-        { value: '4', label: 'H4' },
-        { value: '5', label: 'H5' },
-        { value: '6', label: 'H6 (Smallest)' }
-      ],
-      description: 'HTML heading level (1-6)'
-    },
+    // No heading-level control here: a level is page structure, not a text
+    // property, so `HeadingStructure` owns it at the top of the panel where it
+    // can show the outline the level belongs to. A dropdown of sizes taught
+    // the opposite of the truth and sat inside a collapsed group.
     ...layoutProperties.filter(p => !['width', 'height'].includes(p.key)),
     ...spacingProperties.filter(p => p.key !== 'gap'),
     ...textProperties,
