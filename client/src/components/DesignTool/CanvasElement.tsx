@@ -342,7 +342,6 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
             className="h-full outline-none cursor-text text-editing"
             style={{
               minHeight: 'inherit',
-              padding: '4px',
               width: getElementWidth(),
               height: '100%',
               boxSizing: 'border-box'
@@ -371,7 +370,6 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
             className="h-full outline-none cursor-text text-element"
             style={{
               minHeight: 'inherit',
-              padding: '4px',
               width: getElementWidth(),
               height: '100%',
               boxSizing: 'border-box',
@@ -402,7 +400,6 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
             className="h-full outline-none cursor-text text-editing"
             style={{
               minHeight: 'inherit',
-              padding: '4px',
               width: getElementWidth(),
               height: '100%',
               boxSizing: 'border-box'
@@ -431,7 +428,6 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
             className="h-full outline-none cursor-text text-element"
             style={{
               minHeight: 'inherit',
-              padding: '4px',
               width: getElementWidth(),
               height: '100%',
               boxSizing: 'border-box',
@@ -578,7 +574,6 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
             className="h-full outline-none cursor-text text-editing"
             style={{
               minHeight: 'inherit',
-              padding: '4px',
               width: getElementWidth(),
               height: '100%',
               boxSizing: 'border-box'
@@ -1003,6 +998,19 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
   // Check if this is an imported element that needs CSS-based layout
   const isImportedElement = element.classes?.includes('_imported-element');
 
+  /*
+   * A text box you have not typed into yet collapses to zero height and
+   * becomes impossible to click. Every text element used to carry a 1.2em
+   * floor for that reason, which meant a short line measured taller on the
+   * canvas than in the exported page. Scope it to the elements that really do
+   * render nothing, so anything with content measures the truth.
+   */
+  const rendersNothing = ['text', 'heading'].includes(element.type)
+    ? !(element.content || '').trim()
+    : element.type === 'list'
+      ? !(element.listItems || []).length
+      : false;
+
   // Only use inline styles for essential behavior and positioning
   const minimalInlineStyles: React.CSSProperties = {
     // For imported elements, let CSS handle positioning; for canvas elements use explicit positioning
@@ -1032,7 +1040,7 @@ const CanvasElement: React.FC<CanvasElementProps> = ({
     // Common styles for all elements
     // Selection and interaction feedback
     zIndex: isThisElementHovered ? 1000 : (isSelected ? 100 : undefined),
-    minHeight: (['text', 'heading', 'list'].includes(element.type)) ? '1.2em' : undefined,
+    minHeight: rendersNothing ? '1.2em' : undefined,
 
     // Apply merged styles from custom classes and inline styles (including imported CSS)
     ...mergedStyles,

@@ -39,6 +39,13 @@ Three promises, in priority order. When two conflict, the higher one wins:
 and link to the selected box's setting or its layout parent's control. Next,
 offer sensible heading levels and guidance when a page skips a level.
 
+An audit closed a hole in the canvas/export gate first: the editor had been
+adding a border, a minimum and its own type scale to every element it measured,
+so the box model the tool exists to show was 4px wrong. 74 divergences are down
+to 6, all of them the wrapper `<div>` that `CanvasElement` still renders around
+each semantic tag — see M2's last item, which is the next box-model task
+whenever it is picked up.
+
 The requested persistence follow-up is also complete: the 30-second delay and
 simulated "Saved" status have been replaced with immediate, acknowledged saves.
 
@@ -251,11 +258,36 @@ above is table stakes; this is the reason Framly exists.*
       breakpoint edits, independent export, undo, hidden ancestors, boxless parents
       and accessibility; English/French visual review also completed. ✅
 
+- [x] `[M]` **The measured box must be the real box.** An audit compared the
+      canvas against the export across a fixed property list instead of the
+      export's own declarations, and found 74 divergences on the Landing
+      template. `.canvas-element` had carried `border: 2px dashed transparent`,
+      `min-height: 32px`, `min-width: 32px` and `overflow: clip` since the first
+      commit, the artboard inherited the shell's 13px/1.5 type instead of the
+      exported reset, text nodes added 4px of their own padding, and the
+      `--element-*` properties inherited so a child with no background took its
+      parent's. Every element measured 4px larger than the page it exported and
+      the overlay labelled a Border band on elements that had none.
+      Editor chrome now lives only on the `::after` overlay, which cannot move
+      a box. 74 divergences down to 6.
+      *Verified by:* a second gate in `tests/roundtrip.spec.ts` comparing 36
+      layout-critical properties both ways at all four widths, proven to fail by
+      restoring the 2px border. The remaining 6 are recorded in
+      `tests/canvas-box-baseline.json`, which may only shrink. ✅
+
+- [ ] `[L]` **Render the semantic tag as the canvas element.** `CanvasElement`
+      wraps every element in a `<div class="canvas-element">` and styles the
+      wrapper, so the canvas DOM has a layer the export does not and a button's
+      styles apply twice. This is the sole remaining cause of box divergence and
+      all six baseline entries.
+      *Done when:* `tests/canvas-box-baseline.json` is empty.
+
 **Milestone done when:** someone who does not know what padding is can add it,
 see it, and tell you its name — without reading any documentation.
 
-Implementation is complete. Beginner/designer task sessions still need to validate
-the milestone's overall usability criterion.
+The visible and draggable box model is complete and now provably matches the
+exported box. Two things remain: the wrapper refactor above, and
+beginner/designer task sessions to validate the milestone's usability criterion.
 
 ---
 
@@ -369,6 +401,26 @@ Deliberately not doing these. Recorded so they don't get re-proposed.
 
 Things that are true and surprising. Written down so they aren't rediscovered.
 
+- **A gate that reads its own scope from the thing it checks can only shrink to
+  nothing.** The round-trip test collected the properties to compare *from the
+  exported rule*, so it could catch a declaration the export got wrong but never
+  one the canvas invented. A 2px border, a 32px minimum, a wrong type scale and
+  an inherited background all lived inside a gate built to catch exactly them.
+  Compare a fixed list, in both directions.
+- **A test can pass on a coincidence of layout.** Eleven specs selected the
+  Landing hero by clicking its centre, which worked only because that centre
+  fell in the gap between two children. Correcting the box moved the centre onto
+  a paragraph and all eleven selected the wrong element. Clicking a container's
+  padding band selects the container regardless of what is inside it.
+- **CSS custom properties inherit, including the ones you set per element.**
+  `--element-*` are set on each canvas element and read with a fallback, so any
+  child that set none of its own silently resolved its parent's value. They are
+  registered `@property … { inherits: false }`; keep new ones that way.
+- **`!important` in a stylesheet beats a non-important inline style.**
+  `element-variables.css` sets `width: var(--element-width, auto) !important`,
+  so `getElementWidth()` and the `element.width`/`element.height` numeric fields
+  are computed and then discarded for rendering. Treat those fields as data, not
+  as what the canvas draws.
 - **Saving is immediate and acknowledged.** The old 30-second timer and simulated
   save status are gone. "Saving" means a transaction is pending; "Saved" means
   it committed. Unacknowledged changes remain at risk if the tab is forcibly closed.

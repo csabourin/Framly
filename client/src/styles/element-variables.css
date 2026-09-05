@@ -1,6 +1,62 @@
 /* CSS Variables-based Dynamic Styling System */
 /* This replaces inline styles with CSS custom properties for better class-first architecture */
 
+/*
+ * These custom properties must NOT inherit.
+ *
+ * `CanvasElement` sets `--element-*` on each element from its merged styles,
+ * and the rules below read them with a fallback. Custom properties inherit by
+ * default, so a child that set none of its own picked up its parent's: every
+ * heading and paragraph inside the Landing template's hero rendered with the
+ * hero's `#eff6ff` background, because `background-color:
+ * var(--element-background-color, transparent)` resolved against the value
+ * inherited from the container rather than the fallback.
+ *
+ * `syntax: "*"` with no initial value leaves an unset property
+ * guaranteed-invalid, which is exactly what makes each `var()` fall back.
+ */
+@property --element-align-items { syntax: "*"; inherits: false; }
+@property --element-background-color { syntax: "*"; inherits: false; }
+@property --element-border { syntax: "*"; inherits: false; }
+@property --element-border-bottom-left-radius { syntax: "*"; inherits: false; }
+@property --element-border-bottom-right-radius { syntax: "*"; inherits: false; }
+@property --element-border-radius { syntax: "*"; inherits: false; }
+@property --element-border-top-left-radius { syntax: "*"; inherits: false; }
+@property --element-border-top-right-radius { syntax: "*"; inherits: false; }
+@property --element-box-shadow { syntax: "*"; inherits: false; }
+@property --element-color { syntax: "*"; inherits: false; }
+@property --element-display { syntax: "*"; inherits: false; }
+@property --element-flex-direction { syntax: "*"; inherits: false; }
+@property --element-flex-wrap { syntax: "*"; inherits: false; }
+@property --element-font-family { syntax: "*"; inherits: false; }
+@property --element-font-size { syntax: "*"; inherits: false; }
+@property --element-font-weight { syntax: "*"; inherits: false; }
+@property --element-gap { syntax: "*"; inherits: false; }
+@property --element-grid-gap { syntax: "*"; inherits: false; }
+@property --element-grid-template-columns { syntax: "*"; inherits: false; }
+@property --element-grid-template-rows { syntax: "*"; inherits: false; }
+@property --element-height { syntax: "*"; inherits: false; }
+@property --element-hover-background-color { syntax: "*"; inherits: false; }
+@property --element-hover-color { syntax: "*"; inherits: false; }
+@property --element-justify-content { syntax: "*"; inherits: false; }
+@property --element-line-height { syntax: "*"; inherits: false; }
+@property --element-margin { syntax: "*"; inherits: false; }
+@property --element-max-height { syntax: "*"; inherits: false; }
+@property --element-max-width { syntax: "*"; inherits: false; }
+@property --element-min-height { syntax: "*"; inherits: false; }
+@property --element-min-width { syntax: "*"; inherits: false; }
+@property --element-object-fit { syntax: "*"; inherits: false; }
+@property --element-object-position { syntax: "*"; inherits: false; }
+@property --element-opacity { syntax: "*"; inherits: false; }
+@property --element-overflow { syntax: "*"; inherits: false; }
+@property --element-overflow-x { syntax: "*"; inherits: false; }
+@property --element-overflow-y { syntax: "*"; inherits: false; }
+@property --element-padding { syntax: "*"; inherits: false; }
+@property --element-text-align { syntax: "*"; inherits: false; }
+@property --element-text-decoration { syntax: "*"; inherits: false; }
+@property --element-transform { syntax: "*"; inherits: false; }
+@property --element-width { syntax: "*"; inherits: false; }
+
 /* Base Canvas Element with CSS Variables Support */
 .canvas-element {
   /* Use CSS variables for dynamic properties */
@@ -15,8 +71,8 @@
   text-align: var(--element-text-align, inherit);
   
   /* Spacing */
-  padding: var(--element-padding, 0);
-  margin: var(--element-margin, 0);
+  padding: var(--element-padding, 0px);
+  margin: var(--element-margin, 0px);
   
   /* Border */
   border: var(--element-border, none);
@@ -28,23 +84,23 @@
   /* Flexbox and Grid */
   display: var(--element-display, block);
   flex-direction: var(--element-flex-direction, row);
-  justify-content: var(--element-justify-content, flex-start);
-  align-items: var(--element-align-items, stretch);
+  justify-content: var(--element-justify-content, normal);
+  align-items: var(--element-align-items, normal);
   flex-wrap: var(--element-flex-wrap, nowrap);
-  gap: var(--element-gap, 0);
+  gap: var(--element-gap, normal);
   
   /* Grid */
   grid-template-columns: var(--element-grid-template-columns, none);
   grid-template-rows: var(--element-grid-template-rows, none);
-  grid-gap: var(--element-grid-gap, 0);
+  grid-gap: var(--element-grid-gap, normal);
   
   /* Dimensions - CSS variables with high specificity */
   width: var(--element-width, auto) !important;
   height: var(--element-height, auto) !important;
   max-width: var(--element-max-width, none);
-  min-width: var(--element-min-width, 0);
+  min-width: var(--element-min-width, auto);
   max-height: var(--element-max-height, none);
-  min-height: var(--element-min-height, 0);
+  min-height: var(--element-min-height, auto);
   
   /* Transform and effects */
   transform: var(--element-transform, none);
@@ -63,37 +119,20 @@
   flex-direction: var(--element-flex-direction, column);
 }
 
-/* Text elements should size naturally in flex containers */
-.canvas-element[data-element-type="text"],
-.canvas-element[data-element-type="heading"],
-.canvas-element[data-element-type="list"] {
-  width: auto !important; /* Let flexbox determine width */
-  flex-shrink: 0; /* Prevent shrinking below content size */
-  max-width: 100%; /* Prevent overflow */
-}
-
-/* Extra specificity for text elements in row containers */
-.canvas-element[data-container="true"] > .canvas-element[data-element-type="text"],
-.canvas-element[data-container="true"] > .canvas-element[data-element-type="heading"],
-.canvas-element[data-container="true"] > .canvas-element[data-element-type="list"] {
-  width: auto !important;
-  flex: 0 0 auto !important; /* Don't grow, don't shrink, natural size */
-}
-
-/* Ultra-specific targeting for row flex containers */
-.canvas-element[data-container="true"][style*="flex-direction: row"] > .canvas-element[data-element-type="text"],
-.canvas-element[data-container="true"][style*="flex-direction: row"] > .canvas-element[data-element-type="heading"],
-.canvas-element[data-container="true"][style*="flex-direction: row"] > .canvas-element[data-element-type="list"],
-.canvas-element[data-container="true"] > .canvas-element[data-element-type="text"][style*="width"],
-.canvas-element[data-container="true"] > .canvas-element[data-element-type="heading"][style*="width"],
-.canvas-element[data-container="true"] > .canvas-element[data-element-type="list"][style*="width"] {
-  width: auto !important;
-  max-width: max-content !important;
-  flex: 0 0 auto !important;
-  flex-shrink: 0 !important;
-  flex-grow: 0 !important;
-  flex-basis: auto !important;
-}
+/*
+ * Three blocks of text-element overrides used to sit here: `width: auto
+ * !important`, `flex: 0 0 auto !important`, `max-width: 100%` and a set of
+ * `[style*="flex-direction: row"]` selectors that matched on React's
+ * serialized inline style string.
+ *
+ * They made text on the canvas size by rules the exported page does not have,
+ * so a paragraph occupied a different box in the editor than in the file you
+ * shipped — and the substring selectors would have stopped matching the moment
+ * a shared class carried the property instead of an inline style (M4).
+ *
+ * Text now sizes the way it sizes in the page: by normal flow and by the flex
+ * rules its parent actually declares.
+ */
 
 /* Image elements should respect object-fit and sizing */
 .canvas-element[data-element-type="image"] img {

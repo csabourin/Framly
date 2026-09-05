@@ -1,4 +1,4 @@
-import { expect, type Page } from '@playwright/test';
+import { expect, type Locator, type Page } from '@playwright/test';
 
 /** WCAG levels Framly holds itself and its output to. */
 export const WCAG_TAGS = [
@@ -47,4 +47,21 @@ export async function generatedHTML(page: Page): Promise<string> {
 /** Move focus to the canvas so keyboard shortcuts are not swallowed by an input. */
 export async function focusCanvas(page: Page) {
   await page.locator('#canvas-scroll-container').focus();
+}
+
+/**
+ * Select a container by clicking inside its own padding band.
+ *
+ * `locator.click()` aims at the element's centre, which in a container is
+ * whichever child happens to sit there. These tests used to select the Landing
+ * hero that way and passed only because its centre landed in the gap between
+ * two children — a coincidence of layout, not a property of the container. The
+ * moment the canvas stopped adding a 2px border, a 32px minimum and 4px of
+ * inner text padding, the centre moved onto a child and eleven specs selected
+ * a paragraph instead.
+ *
+ * A container's padding always belongs to the container, so click that.
+ */
+export async function selectContainer(container: Locator) {
+  await container.click({ position: { x: 6, y: 6 } });
 }

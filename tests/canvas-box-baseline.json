@@ -1,0 +1,8 @@
+{
+  ".hero-action { width }": "The canvas renders a button as a wrapper div containing a real <button>, and applies the element's styles to BOTH. The export has one element with one set of styles, so the wrapper measures the padding twice.",
+  ".hero-action { height }": "Same cause as .hero-action { width }.",
+  ".what-you-get-list { height }": "The canvas renders a list as a wrapper div containing the <ul>. The inner list keeps editor sizing the exported <ul> does not have.",
+  ".hero { height }": "Accumulated: this container's height is the sum of the children above.",
+  ".what-you-get { height }": "Accumulated: this container's height is the sum of the children above.",
+  ".page { height }": "Accumulated: the root's height is the sum of every child above."
+}

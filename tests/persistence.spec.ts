@@ -1,5 +1,5 @@
 import { test, expect, type Page } from '@playwright/test';
-import { openApp, applyTemplate } from './helpers';
+import { openApp, applyTemplate, selectContainer } from './helpers';
 
 async function saved(page: Page) {
   await expect(page.getByTestId('button-persistence-status')).toHaveAttribute('data-save-state', 'saved');
@@ -50,7 +50,7 @@ async function controlWrites(page: Page) {
 test('acknowledged edits and the undo/redo position survive immediate reloads', async ({ page }) => {
   await openApp(page);
   await applyTemplate(page, 'landing');
-  await hero(page).click();
+  await selectContainer(hero(page));
   await page.getByTestId('spacing-padding-top').press('Shift+ArrowUp');
   await expect(hero(page)).toHaveCSS('padding-top', '38px');
   await saved(page);
@@ -105,7 +105,7 @@ test('Saved waits for transaction completion and queued edits keep the newest va
   await controlWrites(page);
   await openApp(page);
   await applyTemplate(page, 'landing');
-  await hero(page).click();
+  await selectContainer(hero(page));
   await saved(page);
   await page.evaluate(() => { (window as any).holdWorkspaceWrite = true; });
   const handle = page.getByTestId('spacing-padding-top');
@@ -125,7 +125,7 @@ test('an aborted save preserves the previous snapshot, exposes retry, and backs 
   await controlWrites(page);
   await openApp(page);
   await applyTemplate(page, 'landing');
-  await hero(page).click();
+  await selectContainer(hero(page));
   await saved(page);
   const before = await snapshot(page);
   await page.evaluate(() => { (window as any).abortWorkspaceWrite = true; });
@@ -232,7 +232,7 @@ test('immediate saving does not rewrite the entire undo stack on every edit', as
   });
   await openApp(page);
   await applyTemplate(page, 'landing');
-  await hero(page).click();
+  await selectContainer(hero(page));
   for (let index = 0; index < 6; index++) {
     await page.getByTestId('spacing-padding-top').press('ArrowUp');
     await expect(hero(page)).toHaveCSS('padding-top', `${29 + index}px`);
@@ -251,7 +251,7 @@ test('immediate saving does not rewrite the entire undo stack on every edit', as
 test('a backup restores styles and keeps a recovery copy of the replaced workspace', async ({ page }) => {
   await openApp(page);
   await applyTemplate(page, 'landing');
-  await hero(page).click();
+  await selectContainer(hero(page));
   await page.getByTestId('property-search').fill('Inner Spacing');
   await page.getByTestId('spacing-preset-padding-16').click();
   await expect(hero(page)).toHaveCSS('padding', '16px');
