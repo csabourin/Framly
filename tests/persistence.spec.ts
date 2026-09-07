@@ -269,10 +269,20 @@ test('a backup restores styles and keeps a recovery copy of the replaced workspa
   await saved(page);
   await page.getByTestId('button-persistence-status').click();
   page.on('dialog', (dialog) => dialog.accept());
+
+  // Import restores the workspace in memory and *then* reloads the page
+  // (PersistenceStatus.handleImport). Both assertions below are satisfied by
+  // the in-memory restore, so without waiting they can pass on the doomed
+  // context and the IndexedDB read that follows collides with the reload
+  // tearing it down. Arm the wait before the trigger: a load state cannot be
+  // waited for after the fact, and `waitForLoadState` would return at once on
+  // the page that is about to be replaced.
+  const reloaded = page.waitForEvent('load');
   const chooser = page.waitForEvent('filechooser');
   await page.getByTestId('button-import-data').focus();
   await page.getByTestId('button-import-data').press('Enter');
   await (await chooser).setFiles({ name: 'backup.json', mimeType: 'application/json', buffer: backup });
+  await reloaded;
   await expect(hero(page)).toHaveCSS('padding', '16px');
   await saved(page);
   const recovery = await page.evaluate(async () => {

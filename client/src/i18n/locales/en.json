@@ -582,5 +582,30 @@
   "spacingScale": {
     "label": "{{label}} · spacing scale",
     "custom": "Custom"
+  },
+  "headings": {
+    "title": "Heading structure",
+    "checks_one": "{{count}} heading to check",
+    "checks_other": "{{count}} headings to check",
+    "level": "Heading level",
+    "levelOption": "Heading level {{level}}",
+    "levelSuggestedOption": "Heading level {{level}} · suggested here",
+    "untitled": "Untitled heading",
+    "undoLabel": "Heading level H{{level}}",
+    "outline_one": "Page outline · {{count}} heading",
+    "outline_other": "Page outline · {{count}} headings",
+    "problemShort": "Check this heading",
+    "fix": "Use H{{level}}",
+    "reason": {
+      "firstHeading": "Nothing comes before it, so H1 makes this the page title.",
+      "peer": "It follows “{{after}}” (H{{afterLevel}}) in the same box, so H{{level}} makes it another section at the same level.",
+      "subsection": "It sits inside “{{after}}” (H{{afterLevel}}), so H{{level}} makes it a subsection of it.",
+      "onlyTitleTaken": "The page already has its H1 title, so H{{level}} makes this a section of it."
+    },
+    "problem": {
+      "skipped": "This jumps from H{{previous}} to H{{level}}. A screen reader announces a missing level, as if a section had been left out.",
+      "startsBelowH1": "This page starts at H{{level}}. The first heading is the page title, and that is H1.",
+      "secondH1": "The page already has an H1. One title per page, or a screen reader hears two beginnings."
+    }
   }
 }

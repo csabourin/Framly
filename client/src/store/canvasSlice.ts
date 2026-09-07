@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { CanvasElement, Project, CSSProperties, DesignTab, TabViewSettings, Breakpoint } from '../types/canvas';
 import { nanoid } from 'nanoid';
 import { expandComponentTemplate } from '../utils/componentTemplateExpansion';
+import { suggestHeadingLevel } from '../utils/headingOutline';
 
 interface CanvasState {
   project: Project;
@@ -179,6 +180,17 @@ const canvasSlice = createSlice({
       if (!currentTab) return;
 
       const { element, parentId = 'root', insertPosition = 'inside', referenceElementId } = action.payload;
+
+      // A new heading arrives without a level so it can be given the one that
+      // fits where it landed — the page title if it is first, a peer of the
+      // heading above it, a subsection if it went one container deeper. Doing
+      // it here rather than in each insertion path means no path can skip it.
+      if (element.type === 'heading' && element.headingLevel === undefined) {
+        element.headingLevel = suggestHeadingLevel(currentTab.elements, {
+          parentId, insertPosition, referenceElementId,
+        }).level as CanvasElement['headingLevel'];
+      }
+
       currentTab.elements[element.id] = element;
       element.parent = parentId;
 
